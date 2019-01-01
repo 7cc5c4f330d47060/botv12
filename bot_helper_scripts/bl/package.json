@@ -1,0 +1,11 @@
+{
+  "name": "botlang",
+  "version": "1.0.0",
+  "description": "Bot helper lang",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bb41a64a33fe01fb",
+  "license": "MIT"
+}
