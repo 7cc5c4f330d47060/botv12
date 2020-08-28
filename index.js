@@ -348,7 +348,7 @@ client.on('player_info', function(packet) {
 		}
 		
 		if(packet.action==1){if(packet.data[i1c]){if(p[packet.data[i1c].UUID]){
-			cwc(""+packet.data[i1c].name+" went from "+gamemodes[p[packet.data[i1c].UUID].gamemode]+" mode to "+gamemodes[packet.data[i1c].gamemode]+" mode!")
+			cwc(csl[1]+packet.data[i1c].name+csl[0]+" went from "+csl[1]+gamemodes[p[packet.data[i1c].UUID].gamemode]+csl[0]+" mode to "+csl[1]+gamemodes[packet.data[i1c].gamemode]+csl[0]+" mode!")
 			p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode;
 		}}
 		}
