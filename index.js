@@ -240,7 +240,7 @@ var a1aa=function(c,a){
 		commands[a[i1a]]=(commands[c])
 	}
 }
-a1aa("zelkam",["swing"])
+a1aa("zelkam",["swing","swingarm"])
 a1aa("1a",["1all","gmcall"])
 a1aa("0a",["0all","gmsall"])
 a1aa("2a",["2all","gmaall"])
@@ -333,12 +333,12 @@ client.on('kick_disconnect', function(packet) {
 	process.exit(0)
 })
 var p={};
+var gamemodes=["Survival","Creative","Adventure","Spectator"];
 setTimeout(function(){acceptJoins=true;},15000)
 client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
 		if(packet.action==0){
-			
 			//if(packet.data[i1c].name=!undefined){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
@@ -348,7 +348,7 @@ client.on('player_info', function(packet) {
 		}
 		
 		if(packet.action==1){if(packet.data[i1c]){if(p[packet.data[i1c].UUID]){
-			cwc(""+packet.data[i1c].UUID+" GM"+p[packet.data[i1c].UUID].gamemode+"->GM"+packet.data[i1c].gamemode)
+			cwc(""+packet.data[i1c].name+" went from "+gamemodes[p[packet.data[i1c].UUID].gamemode]+" mode to "+gamemodes[packet.data[i1c].gamemode]+" mode!")
 			p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode;
 		}}
 		}
