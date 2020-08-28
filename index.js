@@ -340,12 +340,13 @@ setTimeout(function(){acceptJoins=true;},15000)
 client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
+if(packet.data[i1c]!=undefined){
 		if(packet.action==0){
-			//if(packet.data[i1c].name=!undefined){
+			
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
 			//cwc(p[packet.data[i1c].UUID].name+" joined")
-			//} else return;
+			
 		
 		}
 		
@@ -356,7 +357,7 @@ client.on('player_info', function(packet) {
 		}
 		if(packet.action==4){
 			//cwc(p[packet.data[i1c].UUID].name+" left")
-		}
+		}} else return;
 	}
 })
 var CD=function(n,c){
