@@ -7,8 +7,8 @@ var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
-var lang = require('./bot_helper_scripts/bl');
-//var comm = require('bot_helper_scripts/cmd');
+var lang = require('bot_helper_scripts/bl');
+var comm = require('bot_helper_scripts/cmd');
 var cl;
 var bc;
 var cd;
@@ -64,8 +64,8 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }
-//var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
-//	});
+var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
+	});
 //var init
 var NoCommands = true;
 commandQueue=[];
@@ -97,7 +97,7 @@ commands = {
 		commandQueue=[];
 		chatQueue=[];
 		chatLogQueue=[];
-		//c2.write("\u0002")
+		c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
 		console.log(adminCode)
@@ -109,7 +109,7 @@ commands = {
 		command: function(c,n){
 			if(adminCode==(c.split(" ")[1])){
 				client.write("chat",{message:""+csl[1]+"Restarting..."})
-				//c2.write("\u0002");
+				c2.write("\u0002");
 				console.clear();
 				clearInterval(cl);
 				clearInterval(bc);
@@ -218,6 +218,19 @@ commands = {
 		perm: 0,
 		admin: 0,
 		h:"Make me say something."
+	},
+	info: {
+		command: function(c,n){
+			cwc(csl[0]+"This used to be a good bot with many commands.")
+			cwc(csl[1]+"But then the file got corrupted. It was overwritten with NULS.")
+			cwc(csl[0]+"There was no backup. "+csl[1]+"I looked and looked, for nothing.")
+			cwc(csl[1]+"I had to rewrite the whole thing from scratch. I now have")
+			cwc(csl[1]+"backups each time I edit the code, so that if it gets corrupted")
+			cwc(csl[1]+"again, I can just put one of the backups on.")
+		},
+		perm: 0,
+		admin: 0,
+		h:"Story of rewrite"
 	}
 }
 var a1aa=function(c,a){
@@ -287,7 +300,7 @@ var cmdQueueMove = function(){
 }
 var chatLogQueueMove = function(){
 	if(chatLogQueue[0]!=undefined){
-		//c2.write("\u0001"+chatLogQueue[0]);
+		c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
 	}
 }
