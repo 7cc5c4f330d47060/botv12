@@ -375,7 +375,9 @@ client.on('chat', function(packet) {
 		if(jsonMsg.extra[i2a]){
 			if(jsonMsg.extra[i2a].text){
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
-					name = jsonMsg.extra[i2a-1].text
+					if(jsonMsg.extra[i2a-1]){
+						name = jsonMsg.extra[i2a-1].text
+					}
 				}
 			}
 		}
