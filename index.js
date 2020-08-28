@@ -8,7 +8,6 @@ var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
 var lang = require('bot_helper_scripts/bl');
-var comm = require('bot_helper_scripts/cmd');
 var cl;
 var bc;
 var cd;
