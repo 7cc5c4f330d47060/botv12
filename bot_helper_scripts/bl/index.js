@@ -2,7 +2,7 @@ var translates=require("./en_us.json");
 const tth=function(T){
 	
 	if(T){
-				var areturn="";
+				var areturn="\x1b[1m\x1b[37m";
 				var breturn="";
 				var creturn="";
 			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70"} else
