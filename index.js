@@ -358,7 +358,7 @@ if(packet.data[i1c]){
 		if(packet.action==4){
 			//cwc(p[packet.data[i1c].UUID].name+" left")
 		}
-
+}
 })
 var CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
