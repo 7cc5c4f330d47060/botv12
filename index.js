@@ -67,7 +67,7 @@ var client2 = mc.createClient({
 var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
-var NoCommands = true;
+var NoCommands = false;
 commandQueue=[];
 chatQueue=[];
 chatLogQueue=[];
