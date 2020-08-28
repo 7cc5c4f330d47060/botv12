@@ -333,6 +333,11 @@ client.on('kick_disconnect', function(packet) {
 	console.log(packet.reason)
 	process.exit(0)
 })
+
+client.on('end', function(packet) {
+	console.log(packet.reason)
+	process.exit(0)
+})
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
 setTimeout(function(){acceptJoins=true;},15000)
