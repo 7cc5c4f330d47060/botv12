@@ -287,7 +287,9 @@ var command=function(n,d){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				//console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
-				commands[c.split(" ")[0]].command(d,n);
+				if(NoCommands || getAdmin(n)>=1){
+					commands[c.split(" ")[0]].command(d,n);
+				}
 			}
 		}
 	}
