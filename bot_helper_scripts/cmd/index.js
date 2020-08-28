@@ -1,4 +1,4 @@
-exports.commands={
+exports.nds={
 	help: {
 		command: function(c,n){
 			var Page=((+(c.split(" ")[1]))-1)
