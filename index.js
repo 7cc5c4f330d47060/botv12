@@ -339,7 +339,7 @@ setTimeout(function(){acceptJoins=true;},15000)
 client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
-	if(packet.action!=2){console.log(packet.data[i1c])}
+	//if(packet.action!=2){console.log(packet.data[i1c])}
 		if(packet.action==0){
 			
 			p[packet.data[i1c].UUID]=packet.data[i1c];
