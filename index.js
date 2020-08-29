@@ -107,6 +107,7 @@ commands = {
 		commandQueue=[];
 		chatQueue=[];
 		chatLogQueue=[];
+		confirmQueue=[];
 		c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
