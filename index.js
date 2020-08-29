@@ -283,7 +283,7 @@ var antiBotBypass = function(){
 	client.write("position_look",{x:(Math.sin(numcir)*20)-10,y:300,z:(Math.cos(numcir)*20)-10});
 	numcir+=0.1
 }
-cwc("/tp 0 300 0")
+cwc("/tp 0 300 10")
 setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
