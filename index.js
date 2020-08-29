@@ -246,12 +246,13 @@ commands = {
 	},
 	info: {
 		command: function(c,n){
-			cwc(csl[0]+"This used to be a good bot with many commands.")
+			cwc(process.memoryUsage()+"")
+			/*cwc(csl[0]+"This used to be a good bot with many commands.")
 			cwc(csl[1]+"But then the file got corrupted. It was overwritten with NULS.")
 			cwc(csl[0]+"There was no backup. "+csl[1]+"I looked and looked, for nothing.")
 			cwc(csl[1]+"I had to rewrite the whole thing from scratch. I now have")
 			cwc(csl[1]+"backups each time I edit the code, so that if it gets corrupted")
-			cwc(csl[1]+"again, I can just put one of the backups on.")
+			cwc(csl[1]+"again, I can just put one of the backups on.")*/
 		},
 		perm: 0,
 		admin: 0,
@@ -349,12 +350,7 @@ var command=function(n,d,b1a){
 		}
 	}
 }
-var cmdQueueMove = function(){
-	if(commandQueue[0]!=undefined){
-		command(commandQueue[0].n,commandQueue[0].c);
-		commandQueue.shift();
-	}
-}
+
 var chatLogQueueMove = function(){
 	if(chatLogQueue[0]!=undefined){
 		c2.write("\u0001"+chatLogQueue[0]);
