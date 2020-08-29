@@ -276,7 +276,10 @@ for(var i1b in commands){
 	cmdid.push({name:i1b,h:commands[i1b].h})
 }
 var getPerm = function(x){
+	if(perms[x]){
 	return +perms[x]
+	}
+	return 0
 }
 var getAdmin = function(c){
 	return +admins[c]
