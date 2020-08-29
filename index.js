@@ -329,6 +329,19 @@ var chatQueueMove = function(){
 	}
 }
 
+var confirmQueueMove = function(hash){
+	if(hash == adminCode){
+		confirmQueue[0].cfunc();
+		confirm.shift();
+	}
+}
+var confirmQueuePush = function(onconfirm){
+	if(hash == adminCode){
+		confirmQueue[0].cfunc();
+		confirm.shift();
+	}
+}
+
 //Commands began with | (Shift+Backslash)
 //It logged chat in color
 //It had section signs in loger
