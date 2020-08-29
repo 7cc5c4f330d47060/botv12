@@ -341,7 +341,7 @@ var command=function(n,d,b1a){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
-					commands[c.split(" ")[0]].command(d,n);
+					commands[c.split(" ")[0]].command(d,n,false);
 				} else {
 					confirmQueuePush(d,n)
 				}
