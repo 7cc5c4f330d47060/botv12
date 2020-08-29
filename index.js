@@ -269,7 +269,7 @@ cwc("/god on")
 /*cwc("/skin SkeppyCat")
 cwc("/skin SkeppyCat")
 cwc("/skin SkeppyCat")*/
-setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
+//setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
 //cwc("/etime set day *")
 /*cwc("/execute in minecraft:overworld run weather clear")
 cwc("/execute in minecraft:the_nether run weather clear")
