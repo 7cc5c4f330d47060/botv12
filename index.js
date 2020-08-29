@@ -357,13 +357,13 @@ var chatQueueMove = function(){
 
 var confirmQueueMove = function(hash){
 	if(hash == adminCode){
-		confirmQueue[0].c.command(confirmQueue[0].cmd,confirmQueue[0].perm);
+		command(confirmQueue[0].cmd,confirmQueue[0].perm,true);
 		confirmQueue.shift();
-		ch();
+		rh();
 	}
 }
-var confirmQueuePush = function(co,command,perm){
-	confirmQueue.push({c:co,cmd:command,perm:perm})
+var confirmQueuePush = function(command,perm){
+	confirmQueue.push({cmd:command,perm:perm})
 	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+command+csl[0]+"? Type "+csl[1]+"|confirm <CODE>"+csl[0]+" to confirm.")
 }
 
