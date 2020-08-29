@@ -337,7 +337,7 @@ var command=function(n,d,b1a){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
 					commands[c.split(" ")[0]].command(d,n);
 				} else {
-					confirmQueue.push(commands[c.split(" ")[0]],d,n)
+					confirmQueuePush(d,n)
 				}
 			}
 		}
