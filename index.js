@@ -287,8 +287,11 @@ fewwfea=false;
 var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
 	var zcos = (Math.cos(numcir)*10);
-	//console.log("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
-	//console.log("position",{x:xsin,y:300,z:zcos,onGround:false});
+	if(!fewwfea){
+	console.log("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
+	console.log("position",{x:xsin,y:300,z:zcos,onGround:false});
+	fewwfea=true
+	}
 	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
 	client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
 	numcir+=0.05;
