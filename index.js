@@ -71,6 +71,7 @@ var NoCommands = false;
 commandQueue=[];
 chatQueue=[];
 chatLogQueue=[];
+confirmQueue=[]; //admin cmds
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
