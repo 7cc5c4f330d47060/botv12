@@ -283,6 +283,10 @@ var getPerm = function(x){
 }
 var getAdmin = function(c){
 	return +admins[c]
+	if(admins[c]){
+	return +admins[c]
+	}
+	return 0
 }
 var command=function(n,d){
 	var c=d.toLowerCase();
