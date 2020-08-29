@@ -92,7 +92,16 @@ commands = {
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+5].name+""+csl[0]+": "+cmdid[(Page*6)+5].h)}catch(e){}
 		},
 		perm: -Infinity,
-		admin: 0
+		admin: 0,
+		confirm:0
+	},
+	confirm: {
+		command: function(c,n){
+			confirmQueueMove(c.split(" ")[1])
+		},
+		perm: -Infinity,
+		admin: 0,
+		confirm:0
 	},
 	clearcmdq: {command: function(c,n){
 		commandQueue=[];
@@ -104,7 +113,8 @@ commands = {
 		console.log(adminCode)
 	},
 		perm: 15,
-		admin: 1
+		admin: 1,
+		confirm:0
 	},
 	restart: {
 		command: function(c,n){
@@ -122,7 +132,8 @@ commands = {
 			}
 		},
 		perm: -Infinity,
-		admin: 0
+		admin: 0,
+		confirm:0
 	},
 	perms: {
 		command: function(c,n){
@@ -130,6 +141,7 @@ commands = {
 		},
 		perm: -Infinity,
 		admin: 0,
+		confirm:0,
 		h: "Checks your permission level."
 	},
 	admin: {
@@ -138,6 +150,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Checks your admin permission level."
 	},
 	"1a": {
@@ -146,6 +159,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Puts everyone in creative mode."
 	},
 	"0a": {
@@ -154,6 +168,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
+		confirm:0,
 		h: "Puts everyone in survival mode."
 	},
 	"2a": {
@@ -162,6 +177,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
+		confirm:0,
 		h: "Puts everyone in adventure mode."
 	},
 	"3a": {
@@ -170,6 +186,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
+		confirm:0,
 		h: "Puts everyone in spectator mode."
 	},
 	"1m": {
@@ -178,6 +195,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Puts you in creative mode."
 	},
 	"0m": {
@@ -186,6 +204,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Puts you in survival mode."
 	},
 	"2m": {
@@ -194,6 +213,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Puts you in adventure mode."
 	},
 	"3m": {
@@ -202,6 +222,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h: "Puts you in spectator mode."
 	},
 	zelkam: {
@@ -210,6 +231,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h:"Swing an arm."
 	},
 	say: {
@@ -218,6 +240,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h:"Make me say something."
 	},
 	info: {
@@ -231,6 +254,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
+		confirm:0,
 		h:"Story of rewrite"
 	}
 }
@@ -294,17 +318,17 @@ var getAdmin = function(c){
 	}
 	return 0
 }
-var command=function(n,d,b){
+var command=function(n,d,b1a){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
 		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				commands[c.split(" ")[0]].command(d,n);
+				if(!commands[c.split(" ")[0]].confirm || b1a){
+					commands[c.split(" ")[0]].command(d,n);
 				} else {
-					confirmQueue.push(commands[c.split(" ")[0]]
+					confirmQueue.push(commands[c.split(" ")[0]],d,n)
 				}
 			}
 		}
@@ -395,7 +419,7 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 })*/
 var CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
-	if(c=="clearcmdq"){
+	if(c=="clearcmdq"||c=="confirm"){
 		commandQueue[0]={n:n,c:c};return;
 	}
 	commandQueue.push({n:n,c:c})
