@@ -335,8 +335,9 @@ var confirmQueueMove = function(hash){
 		confirm.shift();
 	}
 }
-var confirmQueuePush = function(onconfirm){
-	confirmQueue.push({cfunc:onconfirm})
+var confirmQueuePush = function(onconfirm,command){
+	confirmQueue.push({cfunc:onconfirm,cmd:command})
+	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+command+csl[0]+"? Type the "+csl[1]+"code in console"+csl[0]+" to confirm.")
 }
 
 //Commands began with | (Shift+Backslash)
