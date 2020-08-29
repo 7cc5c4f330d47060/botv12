@@ -336,10 +336,7 @@ var confirmQueueMove = function(hash){
 	}
 }
 var confirmQueuePush = function(onconfirm){
-	if(hash == adminCode){
-		confirmQueue[0].cfunc();
-		confirm.shift();
-	}
+	confirmQueue.push({cfunc:onconfirm})
 }
 
 //Commands began with | (Shift+Backslash)
