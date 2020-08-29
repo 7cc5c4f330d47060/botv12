@@ -358,6 +358,7 @@ var confirmQueueMove = function(hash){
 	if(hash == adminCode){
 		confirmQueue[0].c.command(confirmQueue[0].cmd,confirmQueue[0].perm);
 		confirm.shift();
+		ch();
 	}
 }
 var confirmQueuePush = function(co,command,perm){
