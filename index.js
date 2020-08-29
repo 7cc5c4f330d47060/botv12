@@ -399,7 +399,7 @@ client.on('title', function(packet) {
 });
 client.on('kick_disconnect', function(packet) {
 	console.log(packet.reason)
-	setTimeout(function(){process.exit(0)},7000)//Seven Seconds wait, Kaboom added a wait timer to join.
+	setTimeout(function(){process.exit(0)},200)//Seven Seconds wait, Kaboom added a wait timer to join.
 })
 
 client.on('end', function(packet) {
