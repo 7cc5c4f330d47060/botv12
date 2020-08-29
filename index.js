@@ -301,10 +301,10 @@ var command=function(n,d){
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				//console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
-				//if(NoCommands || getAdmin(n)>=1){
-					commands[c.split(" ")[0]].command(d,n);
-				//}
+				if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
+				commands[c.split(" ")[0]].command(d,n);
+				} else {
+					confirmQueue.push(commands[c.split(" ")[0]]
 			}
 		}
 	}
@@ -331,12 +331,12 @@ var chatQueueMove = function(){
 
 var confirmQueueMove = function(hash){
 	if(hash == adminCode){
-		confirmQueue[0].cfunc();
+		confirmQueue[0].c.command(confirmQueue[0].cmd,confirmQueue[0].perm);
 		confirm.shift();
 	}
 }
-var confirmQueuePush = function(onconfirm,command){
-	confirmQueue.push({cfunc:onconfirm,cmd:command})
+var confirmQueuePush = function(co,command,perm){
+	confirmQueue.push({c:co,cmd:command,perm:perm})
 	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+command+csl[0]+"? Type "+csl[1]+"|confirm <CODE>"+csl[0]+" to confirm.")
 }
 
