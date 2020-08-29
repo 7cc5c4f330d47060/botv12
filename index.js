@@ -246,13 +246,12 @@ commands = {
 	},
 	info: {
 		command: function(c,n){
-			cwc(process.memoryUsage()+"")
-			/*cwc(csl[0]+"This used to be a good bot with many commands.")
+			cwc(csl[0]+"This used to be a good bot with many commands.")
 			cwc(csl[1]+"But then the file got corrupted. It was overwritten with NULS.")
 			cwc(csl[0]+"There was no backup. "+csl[1]+"I looked and looked, for nothing.")
 			cwc(csl[1]+"I had to rewrite the whole thing from scratch. I now have")
 			cwc(csl[1]+"backups each time I edit the code, so that if it gets corrupted")
-			cwc(csl[1]+"again, I can just put one of the backups on.")*/
+			cwc(csl[1]+"again, I can just put one of the backups on.")
 		},
 		perm: 0,
 		admin: 0,
@@ -284,14 +283,14 @@ var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
 var antiBotBypass = function(){//move in circles
-	var xsin = (Math.sin(numcir)*10);
-	var zcos = (Math.cos(numcir)*10);
+	var xsin = (Math.sin(numcir)*20)-10;
+	var zcos = (Math.cos(numcir)*20)-10;
 	client.write("position_look",{x:xsin,y:300,z:zcos,yaw:rad2deg(numcir),pitch:0,onGround:false});
 	numcir+=0.05;
 	numcir = numcir % (3.14159265358979323846264338+3.14159265358979323846264338)
 }
 cwc("/tp 0 300 10")
-setTimeout(function(){setInterval(antiBotBypass,100)},2000)
+setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
@@ -350,7 +349,12 @@ var command=function(n,d,b1a){
 		}
 	}
 }
-
+var cmdQueueMove = function(){
+	if(commandQueue[0]!=undefined){
+		command(commandQueue[0].n,commandQueue[0].c);
+		commandQueue.shift();
+	}
+}
 var chatLogQueueMove = function(){
 	if(chatLogQueue[0]!=undefined){
 		c2.write("\u0001"+chatLogQueue[0]);
@@ -367,7 +371,7 @@ var chatQueueMove = function(){
 
 var confirmQueueMove = function(hash){
 	if(hash == adminCode){
-		command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
+		command(confirmQueue[0].cmd,confirmQueue[0].perm,true);
 		confirmQueue.shift();
 		rh();
 	}
@@ -395,7 +399,7 @@ client.on('title', function(packet) {
 });
 client.on('kick_disconnect', function(packet) {
 	console.log(packet.reason)
-	setTimeout(function(){process.exit(0)},200)//Seven Seconds wait, Kaboom added a wait timer to join.
+	setTimeout(function(){process.exit(0)},7000)//Seven Seconds wait, Kaboom added a wait timer to join.
 })
 
 client.on('end', function(packet) {
@@ -466,6 +470,6 @@ client.on('chat', function(packet) {
 	if(text.indexOf("Made bb41a64a33fe01fb no longer a server operator]")==0){
 		cwc("/op bb41a64a33fe01fb")
 	}
-	//fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
-	//chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
+	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 });
