@@ -278,9 +278,13 @@ a1aa("3m",["3","gmsp"])
 }
 
 doCommands();
-cwc("/tprandom")
-setInterval(antiBotBypass,650)
-cwc("/tp ~ 300 ~")
+var numcir=0;
+var antiBotBypass = function(){
+	client.write("position_look",{x:(Math.sin(numcir)*20)-10,y:o,z:(Math.cos(numcir)*20)-10});
+	numcir+=0.1
+}
+cwc("/tp 0 300 0")
+setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
