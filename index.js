@@ -478,6 +478,6 @@ client.on('chat', function(packet) {
 	if(text.indexOf("Made bb41a64a33fe01fb no longer a server operator]")==0){
 		cwc("/op bb41a64a33fe01fb")
 	}
-	//fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
-	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
+	//chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 });
