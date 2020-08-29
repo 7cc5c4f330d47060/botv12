@@ -384,7 +384,7 @@ client.on('title', function(packet) {
 });
 client.on('kick_disconnect', function(packet) {
 	console.log(packet.reason)
-	process.exit(0)
+	setTimeout(function(){process.exit(0)},7000)//Seven Seconds wait, Kaboom added a wait timer to join.
 })
 
 client.on('end', function(packet) {
