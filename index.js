@@ -290,7 +290,7 @@ var antiBotBypass = function(){//move in circles
 	numcir = numcir % (3.14159265358979323846264338+3.14159265358979323846264338)
 }
 cwc("/tp 0 300 10")
-setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
+setTimeout(function(){setInterval(antiBotBypass,100)},2000)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
