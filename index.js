@@ -280,7 +280,7 @@ a1aa("3m",["3","gmsp"])
 doCommands();
 var numcir=0;
 var antiBotBypass = function(){
-	client.write("position_look",{x:(Math.sin(numcir)*20)-10,y:o,z:(Math.cos(numcir)*20)-10});
+	client.write("position_look",{x:(Math.sin(numcir)*20)-10,y:300,z:(Math.cos(numcir)*20)-10});
 	numcir+=0.1
 }
 cwc("/tp 0 300 0")
