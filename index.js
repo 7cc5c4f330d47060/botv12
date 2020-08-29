@@ -284,8 +284,8 @@ var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
 var antiBotBypass = function(){//move in circles
-	var xsin = (Math.sin(numcir)*20)-10;
-	var zcos = (Math.cos(numcir)*20)-10;
+	var xsin = (Math.sin(numcir)*10);
+	var zcos = (Math.cos(numcir)*10);
 	client.write("position_look",{x:xsin,y:300,z:zcos,yaw:rad2deg(numcir),pitch:0,onGround:false});
 	numcir+=0.05;
 	numcir = numcir % (3.14159265358979323846264338+3.14159265358979323846264338)
@@ -294,17 +294,17 @@ cwc("/tp 0 300 10")
 setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
-cwc("/v")
+//cwc("/v")
 cwc("/team leave @s")
 //cwc("/gamemode creative @a")
-cwc("/op @a")
+//cwc("/op @a")
 //cwc("/tprandom")
 cwc("/email clear")
 //cwc("/eweather clear")
 cwc("/prefix off")
 cwc("/nick off")
 cwc("/ci **")
-cwc("/gmsp")
+cwc("/gmc")
 cwc("/god on")
 //cwc("/skin SkeppyCat")
 /*cwc("/skin SkeppyCat")
@@ -448,9 +448,8 @@ client.on('chat', function(packet) {
 	for(var i2a in jsonMsg.extra){
 		if(jsonMsg.extra[i2a]){
 			if(jsonMsg.extra[i2a].text){
-				if(jsonMsg.extra[i2a].text.includes("maniaplay")){ return; }
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
-					if(jsonMsg.extra[i2a-1]){
+					if(jsonMsg.extra[i2a-1]){if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
 						name = jsonMsg.extra[i2a-1].text
 					}
 				}
