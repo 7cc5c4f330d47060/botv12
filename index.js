@@ -277,6 +277,7 @@ a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
 }
 doCommands();
+cwc("/tp ~ 300 ~")
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
