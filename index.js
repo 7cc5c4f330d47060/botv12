@@ -244,20 +244,21 @@ commands = {
 		confirm:0,
 		h:"Make me say something."
 	},
-	info: {
+info: {
 		command: function(c,n){
-			cwc(csl[0]+"This used to be a good bot with many commands.")
+			cwc(JSON.stringify(process.memoryUsage()));
+			/*cwc(csl[0]+"This used to be a good bot with many commands.")
 			cwc(csl[1]+"But then the file got corrupted. It was overwritten with NULS.")
 			cwc(csl[0]+"There was no backup. "+csl[1]+"I looked and looked, for nothing.")
 			cwc(csl[1]+"I had to rewrite the whole thing from scratch. I now have")
 			cwc(csl[1]+"backups each time I edit the code, so that if it gets corrupted")
-			cwc(csl[1]+"again, I can just put one of the backups on.")
+			cwc(csl[1]+"again, I can just put one of the backups on.")*/
 		},
 		perm: 0,
 		admin: 0,
 		confirm:0,
 		h:"Story of rewrite"
-	}
+	}}
 }
 var a1aa=function(c,a){
 	commands[c].name=c;
