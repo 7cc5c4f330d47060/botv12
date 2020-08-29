@@ -295,7 +295,7 @@ var antiBotBypass = function(){//move in circles
 	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
 	client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
 	numcir+=0.05;
-	numcir = numcir % (3.14159265358979323846264338*2)
+	numcir = numcir //% (3.14159265358979323846264338*2)
 }
 cwc("/tp 0 300 10")
 setTimeout(function(){setInterval(function(){antiBotBypass();},100)},950)
