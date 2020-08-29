@@ -276,9 +276,11 @@ a1aa("0m",["0","gms"])
 a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
 }
+
 doCommands();
+cwc("/tprandom")
+setInterval(antiBotBypass,650)
 cwc("/tp ~ 300 ~")
-setInterval(antiBotBypass,300)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
