@@ -340,7 +340,7 @@ client.on('end', function(packet) {
 })
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
-setTimeout(function(){acceptJoins=true;},15000)
+//setTimeout(function(){acceptJoins=true;},15000)
 /*client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
