@@ -294,7 +294,7 @@ var getAdmin = function(c){
 	}
 	return 0
 }
-var command=function(n,d){
+var command=function(n,d,b){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
 		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
@@ -305,6 +305,7 @@ var command=function(n,d){
 				commands[c.split(" ")[0]].command(d,n);
 				} else {
 					confirmQueue.push(commands[c.split(" ")[0]]
+				}
 			}
 		}
 	}
