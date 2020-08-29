@@ -251,7 +251,8 @@ a1aa("3m",["3","gmsp"])
 }
 doCommands();
 cwc("/cspy on")
-cwc("/v")
+cwc("/skin SkeppyCat")
+//cwc("/v")
 cwc("/team leave @s")
 //cwc("/gamemode creative @a")
 cwc("/op @a")
@@ -263,6 +264,14 @@ cwc("/nick off")
 cwc("/ci **")
 cwc("/gmsp")
 cwc("/god on")
+
+cwc("/skin SkeppyCat")
+
+cwc("/skin SkeppyCat")
+
+cwc("/skin SkeppyCat")
+
+cwc("/skin SkeppyCat")
 
 //cwc("/etime set day *")
 /*cwc("/execute in minecraft:overworld run weather clear")
@@ -291,11 +300,11 @@ var getAdmin = function(c){
 var command=function(n,d){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
-		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
+		console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
+			console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				//console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
+				console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
 				//if(NoCommands || getAdmin(n)>=1){
 					commands[c.split(" ")[0]].command(d,n);
 				//}
