@@ -279,9 +279,15 @@ a1aa("3m",["3","gmsp"])
 
 doCommands();
 var numcir=0;
-var antiBotBypass = function(){
-	client.write("position_look",{x:(Math.sin(numcir)*20)-10,y:300,z:(Math.cos(numcir)*20)-10});
-	numcir+=0.05
+var rad2deg = function(radians){
+	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
+}
+var antiBotBypass = function(){//move in circles
+	var xsin = (Math.sin(numcir)*20)-10;
+	var zcos = (Math.cos(numcir)*20)-10;
+	client.write("position_look",{x:xsin,y:300,z:zcos,yaw:rad2deg(numcir),pitch:0,onGround:false});
+	numcir+=0.05;
+	numcir = numcir % (3.14159265358979323846264338+3.14159265358979323846264338)
 }
 cwc("/tp 0 300 10")
 setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
