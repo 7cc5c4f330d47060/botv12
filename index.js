@@ -285,7 +285,7 @@ var rad2deg = function(radians){
 var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
 	var zcos = (Math.cos(numcir)*10);
-	console.log("position_look",{x:xsin,y:300,z:zcos,yaw:rad2deg(numcir),pitch:0,onGround:false});
+	client.write("position_look",{x:xsin,y:300,z:zcos,yaw:rad2deg(numcir),pitch:0,onGround:false});
 	numcir+=0.05;
 	numcir = numcir % (3.14159265358979323846264338+3.14159265358979323846264338)
 }
