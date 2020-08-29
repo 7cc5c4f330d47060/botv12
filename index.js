@@ -264,15 +264,11 @@ cwc("/nick off")
 cwc("/ci **")
 cwc("/gmsp")
 cwc("/god on")
-
 cwc("/skin SkeppyCat")
-
 cwc("/skin SkeppyCat")
-
 cwc("/skin SkeppyCat")
-
 cwc("/skin SkeppyCat")
-
+setTimeout(function(){client.write("settings",{})
 //cwc("/etime set day *")
 /*cwc("/execute in minecraft:overworld run weather clear")
 cwc("/execute in minecraft:the_nether run weather clear")
