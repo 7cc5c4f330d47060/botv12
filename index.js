@@ -259,7 +259,7 @@ info: {
 		confirm:0,
 		h:"Story of rewrite"
 	}}
-}
+
 var a1aa=function(c,a){
 	commands[c].name=c;
 	
