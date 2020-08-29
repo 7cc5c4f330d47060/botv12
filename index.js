@@ -285,14 +285,14 @@ var rad2deg = function(radians){
 }
 var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
-	var zcos = (Math.cos(numcir)*10);"packet_look"//x:xsin,y:300,z:zcos,
+	var zcos = (Math.cos(numcir)*10);
 	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
 	client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
 	numcir+=0.05;
 	numcir = numcir % (3.14159265358979323846264338*2)
 }
 cwc("/tp 0 300 10")
-setTimeout(function(){setInterval(antiBotBypass,100)},954.72)
+setTimeout(function(){setInterval(function(){antiBotBypass},100)},954.72)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 //cwc("/v")
