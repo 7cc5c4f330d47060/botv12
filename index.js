@@ -287,7 +287,6 @@ var getPerm = function(x){
 	return 0
 }
 var getAdmin = function(c){
-	return +admins[c]
 	if(admins[c]){
 	return +admins[c]
 	}
@@ -296,11 +295,11 @@ var getAdmin = function(c){
 var command=function(n,d){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
-		console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
+		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-			console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
+			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
+				//console.log("Correct admin permission ("+n+"): "+commands[c.split(" ")[0]])
 				//if(NoCommands || getAdmin(n)>=1){
 					commands[c.split(" ")[0]].command(d,n);
 				//}
