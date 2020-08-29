@@ -118,22 +118,22 @@ commands = {
 	},
 	restart: {
 		command: function(c,n){
-			if(adminCode==(c.split(" ")[1])){
-				client.write("chat",{message:""+csl[1]+"Restarting..."})
-				c2.write("\u0002");
-				console.clear();
-				clearInterval(cl);
-				clearInterval(bc);
-				clearInterval(cd);
-				setTimeout(function(){delete chatQueue;},300);
-				setTimeout(function(){delete chatLogQueue;},300);
-				setTimeout(function(){delete commandQueue;},300);
-				setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
-			}
+			//if(adminCode==(c.split(" ")[1])){
+			client.write("chat",{message:""+csl[1]+"Restarting..."})
+			c2.write("\u0002");
+			console.clear();
+			clearInterval(cl);
+			clearInterval(bc);
+			clearInterval(cd);
+			setTimeout(function(){delete chatQueue;},300);
+			setTimeout(function(){delete chatLogQueue;},300);
+			setTimeout(function(){delete commandQueue;},300);
+			setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
+			//}
 		},
 		perm: -Infinity,
 		admin: 0,
-		confirm:0
+		confirm:1
 	},
 	perms: {
 		command: function(c,n){
@@ -168,7 +168,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h: "Puts everyone in survival mode."
 	},
 	"2a": {
@@ -177,7 +177,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h: "Puts everyone in adventure mode."
 	},
 	"3a": {
@@ -186,7 +186,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h: "Puts everyone in spectator mode."
 	},
 	"1m": {
