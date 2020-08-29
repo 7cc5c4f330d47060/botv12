@@ -363,7 +363,7 @@ var confirmQueueMove = function(hash){
 	}
 }
 var confirmQueuePush = function(command,perm){
-	confirmQueue.push({cmd:command,perm:perm})
+	confirmQueue.push(command,perm})
 	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+command+csl[0]+"? Type "+csl[1]+"|confirm <CODE>"+csl[0]+" to confirm.")
 }
 
