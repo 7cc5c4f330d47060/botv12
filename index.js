@@ -283,10 +283,15 @@ var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
+fewwfea=false;
 var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
 	var zcos = (Math.cos(numcir)*10);
-	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
+	if(!fewwfea){
+	console.log("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
+	console.log("position",{x:xsin,y:300,z:zcos,onGround:false});
+	}
+		client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
 	client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
 	numcir+=0.05;
 	numcir = numcir % (3.14159265358979323846264338*2)
