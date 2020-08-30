@@ -482,5 +482,5 @@ client.on('chat', function(packet) {
 		cwc("/op maniaplay")
 	}
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
-	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+	//chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 });
