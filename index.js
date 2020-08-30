@@ -340,7 +340,7 @@ var getPerm = function(x){
 	}
 	return 0
 }
-var getAdmin = function(c){
+function getAdmin(c){
 	if(admins[c]){
 	return +admins[c]
 	}
