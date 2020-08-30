@@ -284,7 +284,7 @@ a1aa("3m",["3","gmsp"])
 }
 
 doCommands();
-/*numcir=0;
+numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
@@ -303,7 +303,7 @@ var antiBotBypass = function(){//move in circles
 	numcir = numcir //% (3.14159265358979323846264338*2)
 }
 cwc("/tp 0 300 10")
-setTimeout(function(){setInterval(function(){antiBotBypass();},100)},950)*/
+setTimeout(function(){setInterval(function(){antiBotBypass();},300)},950)
 cwc("/cspy on")
 cwc("/skin SkeppyCat")
 cwc("/v")
