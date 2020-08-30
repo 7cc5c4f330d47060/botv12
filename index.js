@@ -1,6 +1,6 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
-
+'use strict';
 var mc = require('minecraft-protocol');
 var net = require('net');
 var fs = require('fs');
