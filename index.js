@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
-var lang = require('bot_helper_scripts/bl');
+var lang = require('./bot_helper_scripts/bl');
 var cl;
 var bc;
 var cd;
@@ -64,8 +64,6 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }
-var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
-	});
 //var init
 var NoCommands = false;
 global.commandQueue=[];
@@ -112,7 +110,7 @@ commands = {
 		global.chatQueue=[];
 		global.chatLogQueue=[];
 		global.confirmQueue=[];
-		c2.write("\u0002")
+		//c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
 		console.log(adminCode)
@@ -125,7 +123,7 @@ commands = {
 		command: function(c,n){
 			//if(adminCode==(c.split(" ")[1])){
 			client.write("chat",{message:""+csl[1]+"Restarting..."})
-			c2.write("\u0002");
+			//c2.write("\u0002");
 			console.clear();
 			clearInterval(cl);
 			clearInterval(bc);
@@ -374,7 +372,7 @@ var cmdQueueMove = function(){
 }
 var chatLogQueueMove = function(){
 	if(chatLogQueue[0]!=undefined){
-		c2.write("\u0001"+chatLogQueue[0]);
+		//c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
 	}
 	return 0;
@@ -398,7 +396,7 @@ var confirmQueueMove = function(hash){
 }
 var confirmQueuePush = function(command,perm){
 	confirmQueue.push({cmd:command,perm:perm})
-	cwc(csl[0]+"Are you sure you want to run \"\|"+csl[1]+command+csl[0]+"\:"? Type "+csl[1]+"|confirm <CODE>"+csl[0]+" to confirm.")
+	cwc(csl[0]+"Are you sure you want to run \"\|"+csl[1]+command+csl[0]+"\"? Type "+csl[1]+"\"|confirm <CODE>\""+csl[0]+" to confirm.")
 }
 
 //Commands began with | (Shift+Backslash)
