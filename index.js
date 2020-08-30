@@ -478,6 +478,9 @@ client.on('chat', function(packet) {
 	if(text.indexOf("Made bb41a64a33fe01fb no longer a server operator]")==0){
 		cwc("/op bb41a64a33fe01fb")
 	}
+	if(text.indexOf("Made maniaplay no longer a server operator]")==0){
+		cwc("/op maniaplay")
+	}
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 });
