@@ -288,7 +288,7 @@ var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
-fewwfea=false;
+var fewwfea=false;
 var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
 	var zcos = (Math.cos(numcir)*10);
