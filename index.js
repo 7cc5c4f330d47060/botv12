@@ -490,7 +490,7 @@ client.on('chat', function(packet) {
 	}
 	if(text.includes("no longer a server operator]")){
 		if(text.indexOf("Made")==0){
-			cwc("/op "+text.slice(5).split("no longer a server operator]").join(""))
+			cwc({message:"/op "+text.slice(5).split("no longer a server operator]").join("")})
 		}
 	}
 	if(text.includes("has muted player magicBot for now.")){
