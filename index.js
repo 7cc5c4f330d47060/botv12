@@ -68,10 +68,10 @@ var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
 var NoCommands = false;
-window.commandQueue=[];
-window.chatQueue=[];
-window.chatLogQueue=[];
-window.confirmQueue=[]; //admin cmds
+commandQueue=[];
+chatQueue=[];
+chatLogQueue=[];
+confirmQueue=[]; //admin cmds
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -346,7 +346,7 @@ var getAdmin = function(c){
 	}
 	return 0
 }
-var command=function(n,d,b1a){
+function command(n,d,b1a){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
 		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
@@ -470,7 +470,7 @@ client.on('chat', function(packet) {
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
 					if(jsonMsg.extra[i2a-1]){if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
 						name = jsonMsg.extra[i2a-1].text;
-						break;
+						break
 					}
 				}
 			}
@@ -495,4 +495,5 @@ client.on('chat', function(packet) {
 	}
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+	return;
 });
