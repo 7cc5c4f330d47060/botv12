@@ -475,11 +475,10 @@ client.on('chat', function(packet) {
 	if(text.charAt(0)=="|"){
 		CD(name,text.slice(1));
 	}
-	if(text.indexOf("Made bb41a64a33fe01fb no longer a server operator]")==0){
-		cwc("/op bb41a64a33fe01fb")
-	}
-	if(text.indexOf("Made maniaplay no longer a server operator]")==0){
-		cwc("/op maniaplay")
+	if(text.includes("no longer a server operator]")){
+		if(text.indexOf("Made")==0){
+			cwc("/op "+text.slice(5).split("no longer a server operator]").join(""))
+		}
 	}
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	//chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
