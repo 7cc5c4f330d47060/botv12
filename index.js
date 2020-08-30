@@ -104,10 +104,14 @@ commands = {
 		confirm:0
 	},
 	clearcmdq: {command: function(c,n){
-		commandQueue=[];
-		chatQueue=[];
-		chatLogQueue=[];
-		confirmQueue=[];
+		delete window.commandQueue;
+		delete window.chatQueue;
+		delete window.chatLogQueue;
+		delete window.confirmQueue;
+		window.commandQueue=[];
+		window.chatQueue=[];
+		window.chatLogQueue=[];
+		window.confirmQueue=[];
 		c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
@@ -126,9 +130,10 @@ commands = {
 			clearInterval(cl);
 			clearInterval(bc);
 			clearInterval(cd);
-			setTimeout(function(){delete chatQueue;},300);
-			setTimeout(function(){delete chatLogQueue;},300);
-			setTimeout(function(){delete commandQueue;},300);
+			setTimeout(function(){delete window.chatQueue;},300);
+			setTimeout(function(){delete window.chatLogQueue;},300);
+			setTimeout(function(){delete window.commandQueue;},300);
+			setTimeout(function(){delete window.confirmQueue;},300);
 			setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
 			//}
 		},
@@ -464,7 +469,8 @@ client.on('chat', function(packet) {
 			if(jsonMsg.extra[i2a].text){
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
 					if(jsonMsg.extra[i2a-1]){if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
-						name = jsonMsg.extra[i2a-1].text
+						name = jsonMsg.extra[i2a-1].text;
+						break;
 					}
 				}
 			}
