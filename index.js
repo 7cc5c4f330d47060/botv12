@@ -350,24 +350,29 @@ var command=function(n,d,b1a){
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
 					commands[c.split(" ")[0]].command(d,n,false);
+					return 0;
 				} else {
 					confirmQueuePush(d,n)
+					return 1;
 				}
 			}
 		}
 	}
+	return 3;
 }
 var cmdQueueMove = function(){
 	if(commandQueue[0]!=undefined){
 		command(commandQueue[0].n,commandQueue[0].c);
 		commandQueue.shift();
 	}
+	return 0;
 }
 var chatLogQueueMove = function(){
 	if(chatLogQueue[0]!=undefined){
 		c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
 	}
+	return 0;
 }
 var chatQueueMove = function(){
 	if(chatQueue[0]!=undefined){
@@ -375,6 +380,7 @@ var chatQueueMove = function(){
 	client.write("chat",{message: chatQueue[0]+""});
 	chatQueue.shift();
 	}
+	return 0;
 }
 
 var confirmQueueMove = function(hash){
@@ -383,6 +389,7 @@ var confirmQueueMove = function(hash){
 		confirmQueue.shift();
 		rh();
 	}
+	return 0;
 }
 var confirmQueuePush = function(command,perm){
 	confirmQueue.push({cmd:command,perm:perm})
