@@ -104,14 +104,14 @@ commands = {
 		confirm:0
 	},
 	clearcmdq: {command: function(c,n){
-		delete window.commandQueue;
-		delete window.chatQueue;
-		delete window.chatLogQueue;
-		delete window.confirmQueue;
-		window.commandQueue=[];
-		window.chatQueue=[];
-		window.chatLogQueue=[];
-		window.confirmQueue=[];
+		delete global.commandQueue;
+		delete global.chatQueue;
+		delete global.chatLogQueue;
+		delete global.confirmQueue;
+		global.commandQueue=[];
+		global.chatQueue=[];
+		global.chatLogQueue=[];
+		global.confirmQueue=[];
 		c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
@@ -130,10 +130,10 @@ commands = {
 			clearInterval(cl);
 			clearInterval(bc);
 			clearInterval(cd);
-			setTimeout(function(){delete window.chatQueue;},300);
-			setTimeout(function(){delete window.chatLogQueue;},300);
-			setTimeout(function(){delete window.commandQueue;},300);
-			setTimeout(function(){delete window.confirmQueue;},300);
+			setTimeout(function(){delete global.chatQueue;},300);
+			setTimeout(function(){delete global.chatLogQueue;},300);
+			setTimeout(function(){delete global.commandQueue;},300);
+			setTimeout(function(){delete global.confirmQueue;},300);
 			setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
 			//}
 		},
