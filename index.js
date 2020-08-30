@@ -493,6 +493,9 @@ client.on('chat', function(packet) {
 			cwc("/op "+text.slice(5).split("no longer a server operator]").join(""))
 		}
 	}
+	if(text.includes("has muted player magicBot for now.")){
+		cwc("/mute magicBot 5y Bad bot :D").join(""))
+	}
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 	return;
