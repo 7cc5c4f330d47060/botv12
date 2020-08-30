@@ -68,10 +68,10 @@ var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
 var NoCommands = false;
-commandQueue=[];
-chatQueue=[];
-chatLogQueue=[];
-confirmQueue=[]; //admin cmds
+global.commandQueue=[];
+global.chatQueue=[];
+global.chatLogQueue=[];
+global.confirmQueue=[]; //admin cmds
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
