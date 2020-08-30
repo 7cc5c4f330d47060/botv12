@@ -231,7 +231,7 @@ commands = {
 		confirm:0,
 		h: "Puts you in spectator mode."
 	},
-	zelkam: {
+	eeeeeeeeam: {
 		command: function(c,n){
 			client.write("arm_animation",{hand:+c.split(" ")[1]})
 		},
@@ -272,7 +272,7 @@ var a1aa=function(c,a){
 		commands[a[i1a]]=(commands[c])
 	}
 }
-a1aa("zelkam",["swing","swingarm"])
+a1aa("eeeeeeeeam",["swing","swingarm"])
 a1aa("1a",["1all","gmcall"])
 a1aa("0a",["0all","gmsall"])
 a1aa("2a",["2all","gmaall"])
