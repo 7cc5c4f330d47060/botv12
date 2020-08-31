@@ -1,12 +1,7 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
 'use strict';
-var mc = require('minecraft-protocol');
-var net = require('net');
-var fs = require('fs');
-var crypto = require('crypto');
-var perms = require('./admins.json');
-var admins = require('./owners.json');
+
 var conf = require('./a.json');
 var lang = require('bot_helper_scripts/bl');
 var cl;
@@ -238,12 +233,14 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
-		confirm:1,
+	
+	confirm:1,
 		h:"Swing an arm."
 	},
 	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
+			cwc(csl[0]+"Logger "+csl[1]+["disabled","enabled"][+global.loggerEnable]+csl[0]+".")
 		},
 		perm: 5,
 		admin: 1,
