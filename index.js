@@ -1,7 +1,12 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
 'use strict';
-
+var mc = require('minecraft-protocol');
+var net = require('net');
+var fs = require('fs');
+var crypto = require('crypto');
+var perms = require('./admins.json');
+var admins = require('./owners.json');
 var conf = require('./a.json');
 var lang = require('bot_helper_scripts/bl');
 var cl;
