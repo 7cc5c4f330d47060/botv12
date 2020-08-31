@@ -237,7 +237,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h:"Swing an arm."
 	},
 	say: {
@@ -246,7 +246,7 @@ commands = {
 		},
 		perm: 0,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h:"Make me say something."
 	},
 info: {
