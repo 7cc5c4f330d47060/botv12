@@ -263,7 +263,7 @@ commands = {
 		admin: -Infinity, 
 		confirm: 0,
 		h:"Set permission."
-	}
+	},
 	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
