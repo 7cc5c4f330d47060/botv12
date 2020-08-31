@@ -55,7 +55,7 @@ var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "\u0002\u0002\u0000\u0000\u00a7 ",
+  username: "\u0002\u0002\u0020\u0020\u00a7 ",
 });
 if(conf.secondserver){
 var client2 = mc.createClient({
@@ -258,7 +258,7 @@ commands = {
 		},
 		perm: 4,
 		admin: 0,
-		confirm:1,
+		confirm:0,
 		h:"Make me say something."
 	},
 info: {
