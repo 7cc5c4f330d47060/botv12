@@ -235,6 +235,7 @@ commands = {
 	},
 	zelkam: {
 		command: function(c,n){
+			if(n=="Zelkam" || n=="ZelkTheElk"){ cwc(csl[0]+"Zelkam is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
 			client.write("arm_animation",{hand:+c.split(" ")[1]})
 		},
 		perm: 0,
@@ -255,7 +256,9 @@ commands = {
 		h: "Deop everyone."
 	},
 	setperm:{
-		command: function(c,n){},
+		command: function(c,n){
+			cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
+		},
 		perm: -Infinity,
 		admin: -Infinity, 
 		confirm: 0,
