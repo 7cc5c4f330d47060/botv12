@@ -59,8 +59,8 @@ var client = mc.createClient({
 });
 if(conf.secondserver){
 var client2 = mc.createClient({
-  host: "play.kaboom.pw",   // optional
-  port: 25565,         // optional
+  host: conf.secondserverip,   // optional
+  port: conf.secondserverport,         // optional
   username: "NCB Corrupted :(",
 });
 }
