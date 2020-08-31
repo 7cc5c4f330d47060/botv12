@@ -239,7 +239,7 @@ commands = {
 		perm: 0,
 		admin: 0,
 	
-	confirm:1,
+	confirm:0,
 		h:"Swing an arm."
 	},
 	logger: {
