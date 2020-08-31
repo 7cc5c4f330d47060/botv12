@@ -244,7 +244,7 @@ commands = {
 		command: function(c,n){
 			cwc(c.slice(4))
 		},
-		perm: 0,
+		perm: 4,
 		admin: 0,
 		confirm:1,
 		h:"Make me say something."
@@ -393,7 +393,7 @@ var confirmQueueMove = function(hash){
 }
 var confirmQueuePush = function(command,perm){
 	confirmQueue.push({cmd:command,perm:perm})
-	cwc(csl[0]+"Are you sure you want to run \"\|"+csl[1]+command+csl[0]+"\"? Type "+csl[1]+"\"|confirm <CODE>\""+csl[0]+" to confirm.")
+	cwc(csl[0]+"Are you sure you want to run \"\|"+csl[1]+command.slice(0,75)+csl[0]+"\"? Type "+csl[1]+"\"|confirm <CODE>\""+csl[0]+" to confirm.")
 }
 
 //Commands began with | (Shift+Backslash)
