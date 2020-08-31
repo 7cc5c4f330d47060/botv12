@@ -327,7 +327,7 @@ cwc("/unjail 049c70c9-2b8e-31a8-86b0-8a57545d17db")
 cwc("/unban 049c70c9-2b8e-31a8-86b0-8a57545d17db")
 cwc("/unbanip 049c70c9-2b8e-31a8-86b0-8a57545d17db")*/
 for(var i1b in commands){
-	cmdid.push({name:"zelkam"/*i1b*/,h:"No."/*commands[i1b].h*/})
+	cmdid.push({name:i1b,h:"No."commands[i1b].h})
 }
 var getPerm = function(x){
 	if(perms[x]){
@@ -494,7 +494,9 @@ client.on('chat', function(packet) {
 		cwc("/mute magicBot 5y Bad bot :D")
 		
 	}
+	if(loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+	}
 	return;
 });
