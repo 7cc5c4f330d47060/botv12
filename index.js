@@ -245,7 +245,7 @@ commands = {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
 		},
-		perm: 51,
+		perm: 5,
 		admin: 1,
 		confirm:1,
 		h:"Toggle logger."
