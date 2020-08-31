@@ -72,6 +72,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
+global.loggerEnable = true;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -494,7 +495,7 @@ client.on('chat', function(packet) {
 		cwc("/mute magicBot 5y Bad bot :D")
 		
 	}
-	if(loggerEnable){
+	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 	}
