@@ -243,6 +243,24 @@ commands = {
 	confirm:0,
 		h:"Swing an arm."
 	},
+	deopall: {
+		command: function(c,n){
+			cwc("/execute as @a run deop @s[type=player]")
+			cwc("/op @s[type=player]")
+			cwc("Done")
+		},
+		perm: 6,
+		admin: 1,
+		confirm: 1,
+		h: "Deop everyone."
+	},
+	setperm:{
+		command: function(c,n){},
+		perm: -Infinity,
+		admin: -Infinity, 
+		confirm: 0,
+		h:"Set permission."
+	}
 	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
