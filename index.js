@@ -327,7 +327,7 @@ cwc("/unjail 049c70c9-2b8e-31a8-86b0-8a57545d17db")
 cwc("/unban 049c70c9-2b8e-31a8-86b0-8a57545d17db")
 cwc("/unbanip 049c70c9-2b8e-31a8-86b0-8a57545d17db")*/
 for(var i1b in commands){
-	cmdid.push({name:i1b,h:"No."commands[i1b].h})
+	cmdid.push({name:i1b,h:commands[i1b].h})
 }
 var getPerm = function(x){
 	if(perms[x]){
