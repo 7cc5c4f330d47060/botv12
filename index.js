@@ -55,12 +55,12 @@ var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "\u00a7a\u00a7\u0000      ",
+  username: "\u0002\u0002\u0020\u0020\u00a7 ",
 });
 if(conf.secondserver){
 var client2 = mc.createClient({
-  host: conf.secondserverip,   // optional
-  port: conf.secondserverport,         // optional
+  host: "play.kaboom.pw",   // optional
+  port: 25565,         // optional
   username: "NCB Corrupted :(",
 });
 }
@@ -72,7 +72,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
-global.loggerEnable = !0;
+global.loggerEnable = !true;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -235,7 +235,7 @@ commands = {
 	},
 	zelkam: {
 		command: function(c,n){
-			if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam"){ cwc(csl[0]+"Zelkam is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
+if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam"){ cwc(csl[0]+"Zelkam is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
 			client.write("arm_animation",{hand:+c.split(" ")[1]})
 		},
 		perm: 0,
@@ -263,7 +263,7 @@ commands = {
 		admin: -Infinity, 
 		confirm: 0,
 		h:"Set permission."
-	},
+	}
 	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
@@ -383,10 +383,10 @@ function command(n,d,b1a){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
-					//commands[c.split(" ")[0]].command(d,n,false);
+					commands[c.split(" ")[0]].command(d,n,false);
 					return 0;
 				} else {
-					//confirmQueuePush(d,n)
+					confirmQueuePush(d,n)
 					return 1;
 				}
 			}
