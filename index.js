@@ -492,7 +492,7 @@ var CD=function(n,c){
 
 	
 client.on('chat', function(packet) {
-return;	var jsonMsg = JSON.parse(packet.message);
+	var jsonMsg = JSON.parse(packet.message);
 	var name;
 	if(jsonMsg.extra){
 	for(var i2a in jsonMsg.extra){
