@@ -241,6 +241,15 @@ commands = {
 		confirm:1,
 		h:"Swing an arm."
 	},
+	zelkam: {
+		command: function(c,n){
+			global.loggerEnable =!global.loggerEnable
+		},
+		perm: 0,
+		admin: 0,
+		confirm:1,
+		h:"Swing an arm."
+	},
 	say: {
 		command: function(c,n){
 			cwc(c.slice(4))
