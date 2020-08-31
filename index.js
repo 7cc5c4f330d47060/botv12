@@ -241,14 +241,14 @@ commands = {
 		confirm:1,
 		h:"Swing an arm."
 	},
-	zelkam: {
+	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
 		},
-		perm: 0,
-		admin: 0,
+		perm: 51,
+		admin: 1,
 		confirm:1,
-		h:"Swing an arm."
+		h:"Toggle logger."
 	},
 	say: {
 		command: function(c,n){
