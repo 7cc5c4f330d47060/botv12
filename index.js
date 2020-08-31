@@ -235,7 +235,7 @@ commands = {
 	},
 	zelkam: {
 		command: function(c,n){
-			if(n=="Zelkam" || n=="ZelkTheElk"){ cwc(csl[0]+"Zelkam is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
+			if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam"){ cwc(csl[0]+"Zelkam is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
 			client.write("arm_animation",{hand:+c.split(" ")[1]})
 		},
 		perm: 0,
