@@ -79,12 +79,13 @@ var cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
 var commands;
-var doCommands = function(){
+function doCommands(){
 commands = {
 	help: {
 		command: function(c,n){
-			var Page=((+(c.split(" ")[1]))-1)
-			cwc(""+csl[0]+"Help - page "+csl[1]+""+(+(c.split(" ")[1])))
+			var Page=Math.floor((+(c.split(" ")[1]))-1);
+			if(Page+""=="NaN"){ Page=0 }
+			cwc(""+csl[0]+"Help - page "+csl[1]+""+Math.floor(+(c.split(" ")[1])))
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+0].name+""+csl[0]+": "+cmdid[(Page*6)+0].h)}catch(e){}
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+1].name+""+csl[0]+": "+cmdid[(Page*6)+1].h)}catch(e){}
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+2].name+""+csl[0]+": "+cmdid[(Page*6)+2].h)}catch(e){}
