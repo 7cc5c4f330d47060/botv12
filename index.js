@@ -455,7 +455,7 @@ var CD=function(n,c){
 	}
 	commandQueue.push({n:n,c:c})
 }
-client.on('chat', function(packet) {
+
 	
 client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
