@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
-var lang = require('./bot_helper_scripts/bl/index.js');
+var lang = require('bot_helper_scripts/bl');
 var cl;
 var bc;
 var cd;
@@ -35,9 +35,9 @@ var mrr = function(){
 var ran=function(){
 	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()
 }
-setTimeout(function(){cl=setInterval(chatLogQueueMove,0)},5000)
-setTimeout(function(){bc=setInterval(chatQueueMove,300)},5000)
-setTimeout(function(){cd=setInterval(cmdQueueMove,300)},1000)
+setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
+setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
+setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
 var rh=function(){
 var hash = crypto.createHash('sha256');
 var hash2 = crypto.createHash('sha256');
@@ -64,14 +64,15 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }
-var c2 = {on:()=>{},write:()=>{}}
+var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
+	});
 //var init
 var NoCommands = false;
 global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
-global.loggerEnable = true;
+global.loggerEnable = false;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
