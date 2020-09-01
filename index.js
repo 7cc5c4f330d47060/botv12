@@ -333,7 +333,7 @@ var antiBotBypass = function(){//move in circles
 }
 cwc("/tp 0 300 10")
 setTimeout(function(){setInterval(function(){antiBotBypass();},10)},950)
-cwc("/cspy on")
+cwc("/cspy off")
 cwc("/skin SkeppyCat")
 cwc("/v")
 cwc("/team leave @s")
