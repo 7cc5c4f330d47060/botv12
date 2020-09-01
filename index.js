@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
-var lang = require('bot_helper_scripts/bl');
+var lang = require('./bot_helper_scripts/bl/index.js');
 var cl;
 var bc;
 var cd;
@@ -27,7 +27,7 @@ var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
 
-
+	
 var mrr = function(){
 	var rn = +mrn(2,32,10)
 	return (mrn(2,rn,rn))
@@ -35,9 +35,9 @@ var mrr = function(){
 var ran=function(){
 	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()
 }
-setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
-setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
-setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
+setTimeout(function(){cl=setInterval(chatLogQueueMove,0)},5000)
+setTimeout(function(){bc=setInterval(chatQueueMove,300)},5000)
+setTimeout(function(){cd=setInterval(cmdQueueMove,300)},1000)
 var rh=function(){
 var hash = crypto.createHash('sha256');
 var hash2 = crypto.createHash('sha256');
@@ -53,7 +53,7 @@ console.log(adminCode = h1+h2+h3);
 rh();
 var client = mc.createClient({
   host: conf.server,   // optional
-  port: conf.port,
+  port: conf.port,    
   version: conf.version,      // optional
   username: "\u0002\u0002\u0020\u0020\u00a7 ",
 });
@@ -64,15 +64,14 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }
-var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
-	});
+var c2 = {on:()=>{},write:()=>{}}
 //var init
 var NoCommands = false;
 global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
-global.loggerEnable = trQAR bnhytxcj4315xvzbue;
+global.loggerEnable = true;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -240,7 +239,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		},
 		perm: 0,
 		admin: 0,
-
+	
 	confirm:0,
 		h:"Swing an arm."
 	},
@@ -260,7 +259,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 			cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
 		},
 		perm: -Infinity,
-		admin: -Infinity,
+		admin: -Infinity, 
 		confirm: 0,
 		h:"Set permission."
 	},
@@ -301,7 +300,7 @@ info: {
 
 var a1aa=function(c,a){
 	commands[c].name="zelkam";
-
+	
 	for(var i1a in a){
 		commands[a[i1a]]=(commands[c])
 	}
@@ -463,12 +462,12 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 	for(var i1c in packet.data){
 	//if(packet.action!=2){console.log(packet.data[i1c])}
 		if(packet.action==0){
-
+			
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
 			console.log(p[packet.data[i1c].UUID].name+" joined")
-
-
+			
+		
 		}
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
@@ -480,7 +479,7 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 			console.log(p[packet.data[i1c].UUID].name+" left")
 			p[packet.data[i1c].UUID]=undefined
 		}
-}
+}	
 })*/
 var CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
@@ -490,7 +489,7 @@ var CD=function(n,c){
 	commandQueue.push({n:n,c:c})
 }
 
-
+	
 client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
 	var name;
@@ -526,7 +525,7 @@ client.on('chat', function(packet) {
 	}
 	if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
-
+		
 	}
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
