@@ -263,7 +263,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: -Infinity, 
 		confirm: 0,
 		h:"Set permission."
-	}
+	},
 	logger: {
 		command: function(c,n){
 			global.loggerEnable =!global.loggerEnable
