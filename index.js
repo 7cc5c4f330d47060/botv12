@@ -280,7 +280,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		},
 		perm: 4,
 		admin: 0,
-		confirm:0,
+		confirm:1,
 		h:"Make me say something."
 	},
 info: {
