@@ -288,9 +288,9 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		command: function(c,n){
 		client.write("tab_complete",{transactionId:618387,text:c.slice(3)})
 		},
-		perm: 4,
+		perm: 0,
 		admin: 0,
-		confirm:1
+		confirm:0
 	},
 info: {
 		command: function(c,n){
