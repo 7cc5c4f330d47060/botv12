@@ -27,7 +27,7 @@ var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
 
-	
+
 var mrr = function(){
 	var rn = +mrn(2,32,10)
 	return (mrn(2,rn,rn))
@@ -53,7 +53,7 @@ console.log(adminCode = h1+h2+h3);
 rh();
 var client = mc.createClient({
   host: conf.server,   // optional
-  port: conf.port,    
+  port: conf.port,
   version: conf.version,      // optional
   username: "\u0002\u0002\u0020\u0020\u00a7 ",
 });
@@ -72,7 +72,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
-global.loggerEnable = true;
+global.loggerEnable = trQAR bnhytxcj4315xvzbue;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -240,7 +240,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		},
 		perm: 0,
 		admin: 0,
-	
+
 	confirm:0,
 		h:"Swing an arm."
 	},
@@ -260,7 +260,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 			cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
 		},
 		perm: -Infinity,
-		admin: -Infinity, 
+		admin: -Infinity,
 		confirm: 0,
 		h:"Set permission."
 	},
@@ -301,7 +301,7 @@ info: {
 
 var a1aa=function(c,a){
 	commands[c].name="zelkam";
-	
+
 	for(var i1a in a){
 		commands[a[i1a]]=(commands[c])
 	}
@@ -463,12 +463,12 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 	for(var i1c in packet.data){
 	//if(packet.action!=2){console.log(packet.data[i1c])}
 		if(packet.action==0){
-			
+
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
 			console.log(p[packet.data[i1c].UUID].name+" joined")
-			
-		
+
+
 		}
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
@@ -480,7 +480,7 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 			console.log(p[packet.data[i1c].UUID].name+" left")
 			p[packet.data[i1c].UUID]=undefined
 		}
-}	
+}
 })*/
 var CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
@@ -490,7 +490,7 @@ var CD=function(n,c){
 	commandQueue.push({n:n,c:c})
 }
 
-	
+
 client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
 	var name;
@@ -526,7 +526,7 @@ client.on('chat', function(packet) {
 	}
 	if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
-		
+
 	}
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
