@@ -283,6 +283,15 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		confirm:1,
 		h:"Make me say something."
 	},
+	
+	tc: {
+		client.write("tab_complete",{transactionId:618387,text:c.slice(3)})
+		},
+		perm: 4,
+		admin: 0,
+		confirm:1,
+		h:"Make me say something."
+	},
 info: {
 		command: function(c,n){
 			cwc(JSON.stringify(process.memoryUsage()));
