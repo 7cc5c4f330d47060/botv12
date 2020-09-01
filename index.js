@@ -72,7 +72,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
-global.loggerEnable = !true;
+global.loggerEnable = true;
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
