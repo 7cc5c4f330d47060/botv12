@@ -533,7 +533,7 @@ client.on('chat', function(packet) {
 	}
 	if(text.includes("no longer a server operator]")){
 		if(text.indexOf("Made")==0){
-			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("")})
+			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
 	if(ir.includes("has muted player magicBot for now.")){
