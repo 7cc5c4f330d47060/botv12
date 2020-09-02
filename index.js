@@ -465,7 +465,7 @@ client.on('tab_complete', function(packet) {
 	}
 })
 client.on('end', function(packet) {
-	process.exit(0)
+	etTimeout(function(){process.exit(0)},7000)
 })
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
