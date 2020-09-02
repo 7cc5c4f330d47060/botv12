@@ -457,7 +457,7 @@ client.on('title', function(packet) {
 });
 client.on('kick_disconnect', function(packet) {
 	console.log(tth(JSON.parse(packet.reason)))
-	setTimeout(function(){process.exit(0)},7000)//Seven Seconds wait, Kaboom added a wait timer to join.
+	setTimeout(function(){process.exit(0)},2000)//Seven Seconds wait, Kaboom added a wait timer to join.
 })
 client.on('tab_complete', function(packet) {
 	for(var i5a in packet.matches){
@@ -465,7 +465,7 @@ client.on('tab_complete', function(packet) {
 	}
 })
 client.on('end', function(packet) {
-	etTimeout(function(){process.exit(0)},7000)
+	setTimeout(function(){process.exit(0)},7000)
 })
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
