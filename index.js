@@ -298,6 +298,14 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 0,
 		confirm:0
 	},
+	chqs: {
+		command: function(c,n){
+			chatQueueR(c.split(" ")[1])
+		},
+		perm: 4,
+		admin: 1,
+		confirm:1
+	},
 info: {
 		command: function(c,n){
 			cwc(JSON.stringify(process.memoryUsage()));
