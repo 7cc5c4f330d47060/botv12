@@ -294,7 +294,8 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 	tc: {
 		command: function(c,n){
 			if(cdtc<=0){
-			client.write("tab_complete",{transactionId:618387,text:c.slice(3)})}
+			client.write("tab_complete",{transactionId:618387,text:c.slice(3)})};
+			cdtc=10;
 		else{
 			cwc(csl[0]+"Please wait "+csl[1]+cdtc+csl[0]+" seconds to use \""+csl[1]+"|"+c+csl[0]+"\".")
 		}
