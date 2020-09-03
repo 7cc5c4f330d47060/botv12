@@ -39,6 +39,7 @@ setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5
 setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
 setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
 function chatQueueR(t){
+	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
 	cwc("Chat speed set to "+t+"ms.")
 }
