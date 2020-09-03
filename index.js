@@ -38,6 +38,10 @@ var ran=function(){
 setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
 setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
 setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
+function chatQueueR(t){
+	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
+	cwc("Chat speed set to "+t+"ms.")
+}
 var rh=function(){
 var hash = crypto.createHash('sha256');
 var hash2 = crypto.createHash('sha256');
