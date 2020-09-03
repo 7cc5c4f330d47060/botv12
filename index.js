@@ -73,6 +73,8 @@ global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
 global.loggerEnable = true;
+var cdtc = 0;
+setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
 var cmdid=[];
 var cwc=function(T){
 	//console.log("Added \""+T+"\" to chat queue")
@@ -286,7 +288,11 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 	
 	tc: {
 		command: function(c,n){
-		client.write("tab_complete",{transactionId:618387,text:c.slice(3)})
+			if(cdtc<=0){
+			client.write("tab_complete",{transactionId:618387,text:c.slice(3)})}
+		else{
+			cwc(csl[0]+"Please wait "+csl[1]+cdtc+csl[0]+" seconds to use \""+csl[1]+"|"+c+csl[0]+"\".")
+		}
 		},
 		perm: 0,
 		admin: 0,
