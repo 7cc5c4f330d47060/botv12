@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
-var lang = require('./bot_helper_scripts/bl');
+var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
 const clientd = new Discord.Client();
 
