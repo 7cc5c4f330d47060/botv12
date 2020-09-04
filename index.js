@@ -14,6 +14,7 @@ const Discord = require('discord.js');
 var cl;
 var bc;
 var cd;
+var discq;
 var csl=[
 ["&0","&8"],//black and dark gr?y
 ["&1","&9"],//dark and light blue
@@ -40,6 +41,7 @@ var ran=function(){
 setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
 setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
 setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
+setTimeout(function(){discq=setInterval(dcqm,1500)},1000)
 function chatQueueR(t){
 	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
