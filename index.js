@@ -448,7 +448,7 @@ var chatQueueMove = function(){
 }
 
 var confirmQueueMove = function(hash){
-	if(hash == adminCode){
+	if(hash == global.adminCode){
 		command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
 		confirmQueue.shift();
 		rh();
@@ -568,17 +568,17 @@ client.on('chat', function(packet) {
 	}
 	return;
 });
-const clientd = new Discord.Client();
+global.clientd = new Discord.Client();
 
-clientd.on('ready', () => {
-  console.log(`Logged in as ${clientd.user.tag}!`);
+global.clientd.on('ready', () => {
+  console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
 
-clientd.on('message', msg => {
+global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
     try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
 });
 
-clientd.login('');
+global.clientd.login('');
