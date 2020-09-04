@@ -24,7 +24,7 @@ var csl=[
 ["&6","&e"],//orange and yellow
 ["&7","&f"] //light gr?y and white
 ][conf.cs]
-var adminCode;
+adminCode = 0;
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
