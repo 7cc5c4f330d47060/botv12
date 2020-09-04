@@ -548,7 +548,7 @@ client.on('chat', function(packet) {
 	var processed = lang.tth(jsonMsg)[0];
 	var fileprocessed = lang.tth(jsonMsg)[1];
 	var ir = lang.tth(jsonMsg)[2];
-	global.clientd.channels.cache.get("751619709874470952").send(""+ir)
+	discordChatQueue.push(ir)
 	var preText = ir.split(": ");
 	var pt2 = preText[0]
 	var preTextFirst = preText.shift();
