@@ -124,10 +124,12 @@ commands = {
 		delete global.chatQueue;
 		delete global.chatLogQueue;
 		delete global.confirmQueue;
+		delete global.discordChatQueue;
 		global.commandQueue=[];
 		global.chatQueue=[];
 		global.chatLogQueue=[];
 		global.confirmQueue=[];
+		global.discordChatQueue=[];
 		c2.write("\u0002")
 		console.clear();
 		cwc("&aDone")
@@ -146,10 +148,12 @@ commands = {
 			clearInterval(cl);
 			clearInterval(bc);
 			clearInterval(cd);
+			clearInterval(discq);
 			setTimeout(function(){delete global.chatQueue;},300);
 			setTimeout(function(){delete global.chatLogQueue;},300);
 			setTimeout(function(){delete global.commandQueue;},300);
 			setTimeout(function(){delete global.confirmQueue;},300);
+			setTimeout(function(){delete global.discordChatQueue;},300);
 			setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
 			//}
 		},
