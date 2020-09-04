@@ -520,7 +520,7 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 })*/
 global.CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
-	if(c=="clearcmdq"||c=="confirm"){
+	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
 	global.commandQueue.push({n:n,c:c})
