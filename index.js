@@ -22,7 +22,7 @@ clientd.on('message', msg => {
   }
 });
 
-clientd.login('token');
+clientd.login('');
 var cl;
 var bc;
 var cd;
@@ -474,7 +474,7 @@ var confirmQueuePush = function(command,perm){
 //Commands began with | (Shift+Backslash)
 //It logged chat in color
 //It had section signs in loger
-//Section Sign: §"
+//Section Sign: ï¿½"
 var getDateAndTime4L=function(){
 	var fw = new Date();
 	return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
