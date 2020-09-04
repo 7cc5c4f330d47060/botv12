@@ -85,7 +85,9 @@ var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
 var cmdid=[];
 var cwc=function(T){
-	//console.log("Added \""+T+"\" to chat queue")
+	chatQueue.push(T.split("\u00a7").join(""));
+}
+global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
 var commands;
@@ -516,14 +518,14 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 		}
 }	
 })*/
-var CD=function(n,c){
+global.CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
 	if(c=="clearcmdq"||c=="confirm"){
 		commandQueue[0]={n:n,c:c};return;
 	}
 	commandQueue.push({n:n,c:c})
 }
-
+var CD=funcion(s,h){global.CD(s,h)}
 	
 client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
