@@ -443,7 +443,7 @@ var chatLogQueueMove = function(){
 	return 0;
 }
 var dcqm = function(){
-global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("@everyone").join("`@everyone`").split("@here").join("`@here`"))
+global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("@everyone").join("`@everyone`").split("@here").join("`@here`").split("|eval").join("`|eval`").split("<@").join("`<@`"))
 	return 0;
 }
 var chatQueueMove = function(){
