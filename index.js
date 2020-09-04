@@ -65,19 +65,21 @@ var client = mc.createClient({
   version: conf.version,      // optional
   username: "\u0002\u0002\u0020\u0020\u0002  ",
 });
+
 if(conf.secondserver){
 var client2 = mc.createClient({
   host: "play.kaboom.pw",   // optional
   port: 25565,         // optional
   username: "NCB Corrupted :(",
 });
-}
+}//global.clientd.channels.cache.get("751619709874470952").send(""+ir)
 var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
 var NoCommands = false;
 global.commandQueue=[];
 global.chatQueue=[];
+global.discordChatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[]; //admin cmds
 global.loggerEnable = true;
