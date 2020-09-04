@@ -10,20 +10,7 @@ var admins = require('./owners.json');
 var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
-const clientd = new Discord.Client();
 
-clientd.on('ready', () => {
-  console.log(`Logged in as ${clientd.user.tag}!`);
-});
-
-clientd.on('message', msg => {
-  if (msg.content.startsWith("|eval ")) {
-    try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
-	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
-  }
-});
-
-clientd.login('');
 var cl;
 var bc;
 var cd;
@@ -68,7 +55,8 @@ hash3.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.n
 var h1=hash.digest('hex')
 var h2=hash2.digest('hex')
 var h3=hash3.digest('hex')
-console.log(adminCode = h1+h2+h3);
+global.adminCode = h1+h2+h3
+console.log(adminCode);
 }
 rh();
 var client = mc.createClient({
@@ -580,3 +568,17 @@ client.on('chat', function(packet) {
 	}
 	return;
 });
+const clientd = new Discord.Client();
+
+clientd.on('ready', () => {
+  console.log(`Logged in as ${clientd.user.tag}!`);
+});
+
+clientd.on('message', msg => {
+  if (msg.content.startsWith("|eval ")) {
+    try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
+	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
+  }
+});
+
+clientd.login('');
