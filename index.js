@@ -442,6 +442,10 @@ var chatLogQueueMove = function(){
 	}
 	return 0;
 }
+var dcqm = function(){
+global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("@everyone").join("`@everyone`").split("@here").join("`@here`"))
+	return 0;
+}
 var chatQueueMove = function(){
 	if(chatQueue[0]!=undefined){
 		//console.log("Saying "+chatQueue[0])
