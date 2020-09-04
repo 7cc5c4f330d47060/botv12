@@ -18,7 +18,8 @@ clientd.on('ready', () => {
 
 clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
-    msg.reply(Function(msg.content.slice(6)));
+    try{msg.reply(Function("return ("+msg.content.slice(6)+")"));}
+	catch(ErrorD1a){msg.reply(ErrorD1a)}
   }
 });
 
