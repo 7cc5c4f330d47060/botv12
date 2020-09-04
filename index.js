@@ -24,7 +24,7 @@ var csl=[
 ["&6","&e"],//orange and yellow
 ["&7","&f"] //light gr?y and white
 ][conf.cs]
-adminCode = 0;
+global.adminCode = 0;
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
@@ -56,7 +56,7 @@ var h1=hash.digest('hex')
 var h2=hash2.digest('hex')
 var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
-console.log(adminCode);
+console.log(global.adminCode);
 }
 rh();
 var client = mc.createClient({
