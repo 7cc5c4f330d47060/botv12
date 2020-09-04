@@ -525,7 +525,7 @@ global.CD=function(n,c){
 	}
 	global.commandQueue.push({n:n,c:c})
 }
-var CD=funcion(s,h){global.CD(s,h)}
+var CD=function(s,h){global.CD(s,h)}
 	
 client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
