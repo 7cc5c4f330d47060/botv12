@@ -521,9 +521,9 @@ var gamemodes=["Survival","Creative","Adventure","Spectator"];
 global.CD=function(n,c){
 	//console.log("Command detected ("+n+"): "+c)
 	if(c=="clearcmdq"||c=="confirm"){
-		commandQueue[0]={n:n,c:c};return;
+		global.commandQueue[0]={n:n,c:c};return;
 	}
-	commandQueue.push({n:n,c:c})
+	global.commandQueue.push({n:n,c:c})
 }
 var CD=funcion(s,h){global.CD(s,h)}
 	
