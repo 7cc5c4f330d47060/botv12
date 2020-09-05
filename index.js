@@ -72,7 +72,7 @@ global.adminCode = h1+h2+h3
 console.log(global.adminCode);
 global.clientd.channels.cache.get("751617663071158332").send(global.adminCode);
 }
-rh();
+setTimeout(rh,800);
 var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
