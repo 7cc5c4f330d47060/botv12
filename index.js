@@ -35,7 +35,7 @@ var mrn = function(offset,range,base){
 global.clientd.on('ready', () => {
   console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
-
+global.clientd.on('debug', console.log);
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
     try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
