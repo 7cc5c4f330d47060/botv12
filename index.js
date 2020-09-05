@@ -41,7 +41,6 @@ global.clientd.on('message', msg => {
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
 });
-
 global.clientd.login('');
 var mrr = function(){
 	var rn = +mrn(2,32,10)
@@ -71,6 +70,7 @@ var h2=hash2.digest('hex')
 var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
 console.log(global.adminCode);
+global.clientd.channels.cache.get("751617663071158332").send(global.adminCode);
 }
 rh();
 var client = mc.createClient({
