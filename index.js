@@ -30,7 +30,20 @@ var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
 
-	
+	global.clientd = new Discord.Client();
+
+global.clientd.on('ready', () => {
+  console.log(`Logged in as ${global.clientd.user.tag}!`);
+});
+
+global.clientd.on('message', msg => {
+  if (msg.content.startsWith("|eval ")) {
+    try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
+	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
+  }
+});
+
+global.clientd.login('');
 var mrr = function(){
 	var rn = +mrn(2,32,10)
 	return (mrn(2,rn,rn))
@@ -584,17 +597,3 @@ client.on('chat', function(packet) {
 	}
 	return;
 });
-global.clientd = new Discord.Client();
-
-global.clientd.on('ready', () => {
-  console.log(`Logged in as ${global.clientd.user.tag}!`);
-});
-
-global.clientd.on('message', msg => {
-  if (msg.content.startsWith("|eval ")) {
-    try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
-	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
-  }
-});
-
-global.clientd.login('');
