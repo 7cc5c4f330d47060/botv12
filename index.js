@@ -10,7 +10,7 @@ var admins = require('./owners.json');
 var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
-
+global.rq=require;
 var cl;
 var bc;
 var cd;
