@@ -77,7 +77,7 @@ var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "you locked my bot",
+  username: "you locked a bot",
 });
 
 if(conf.secondserver){
