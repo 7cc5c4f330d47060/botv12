@@ -462,9 +462,9 @@ var chatLogQueueMove = function(){
 	return 0;
 }
 var dcqm = function(){
-	global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("\u202e").join("\\u202e").split("@everyone").join("`@everyone`").split("@here").join("`@here`").split("|eval").join("`|eval`").split("<@").join("`<@`"))
+	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("\u202e").join("\\u202e").split("@everyone").join("`@everyone`").split("@here").join("`@here`").split("|eval").join("`|eval`").split("<@").join("`<@`"))
 	global.discordChatQueue=[];
-	return 0;
+	return 0;}catch(rrrr){}
 }
 var chatQueueMove = function(){
 	if(chatQueue[0]!=undefined){
