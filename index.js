@@ -578,7 +578,7 @@ client.on('chat', function(packet) {
 	var pt2 = preText[0]
 	var preTextFirst = preText.shift();
 	var text = preText.join(": ");
-	if(text.charAt(0)=="\u0414"){
+	if(text.charAt(0)=="|"){
 		CD(name,text.slice(1));
 	}
 	if(text.includes("no longer a server operator]")){
