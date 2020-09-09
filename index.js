@@ -502,8 +502,8 @@ var tad=0;
 client.on('title', function(packet) {
 	if(!tad){
 	if(packet.action==2){
-		
-		setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});tad=1;},10);setTimeout(function(){tad=0},100);return;
+		setTimeout(function(){tad=1;},1);
+		setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});},10);setTimeout(function(){tad=0},100);return;
 	}
 	}
 	if(packet.action<=3 && packet.action!=2){
