@@ -498,7 +498,7 @@ var getDateAndTime4L=function(){
 var nss=function(d){
 	return d.split("\u00a7").join("\\u00a7")
 }
-tad=0;;
+var tad=0;
 client.on('title', function(packet) {
 	if(!tad){
 	if(packet.action==2){
