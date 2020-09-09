@@ -500,7 +500,7 @@ var nss=function(d){
 }
 client.on('title', function(packet) {
 	if(packet.action==2){
-		setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});},30);return;
+		setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});},10);return;
 	}
 	if(packet.action<=3){
 		client.write("chat",{message: "/title @a clear"});
