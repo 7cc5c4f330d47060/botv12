@@ -499,6 +499,9 @@ var nss=function(d){
 	return d.split("\u00a7").join("\\u00a7")
 }
 client.on('title', function(packet) {
+	if(packet.action==2){
+		setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});},30)
+	}
 	if(packet.action<=3){
 		client.write("chat",{message: "/title @a clear"});
 	}
