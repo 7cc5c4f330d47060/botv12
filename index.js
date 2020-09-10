@@ -614,11 +614,11 @@ client.on('chat', function(packet) {
 		}
 	}
 	if(ir.includes("disabled")){
-		if(ir.startsWith("Vanish for")){
+		if(ir.indexOf("Vanish for")<=8){
 			cwc("/evanish on")
 		}
 	}
-	if(text.indexOf("Your nickname is now ")==0){
+	if(text.indexOf("Your nickname is now ")<=8){
 		cwc("/nick off")
 	}
 	if(ir.includes("has muted player magicBot for now.")){
