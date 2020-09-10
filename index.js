@@ -618,7 +618,7 @@ client.on('chat', function(packet) {
 			cwc("/evanish on")
 		}
 	}
-	if(text.indexOf("Your nickname is now ")<=8){
+	if(text.indexOf("Your nickname is now ")+1 && (text.indexOf("Your nickname is now ")+1)<=8){
 		cwc("/nick off")
 	}
 	if(ir.includes("has muted player magicBot for now.")){
