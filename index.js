@@ -4,6 +4,7 @@
 var mc = require('minecraft-protocol');
 var net = require('net');
 var fs = require('fs');
+var CommandHelp = require('./commands/CommandHelp.js')
 var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
@@ -115,7 +116,8 @@ global.cwc=function(T){
 var commands;
 function doCommands(){
 commands = {
-	help: {
+	help: CommandHelp,
+	/*help: {
 		command: function(c,n){
 			var Page=Math.floor((+(c.split(" ")[1]))-1);
 			if(Page+""=="NaN"){ Page=0 }
@@ -130,7 +132,7 @@ commands = {
 		perm: -Infinity,
 		admin: 0,
 		confirm:0
-	},
+	},*/
 	confirm: {
 		command: function(c,n){
 			confirmQueueMove(c.split(" ")[1])
