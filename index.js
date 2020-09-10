@@ -483,6 +483,7 @@ var chatLogQueueMove = function(){
 }
 var dcqm = function(){
 	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("\u202e").join("\\u202e").split("@everyone").join("`@everyone`").split("@here").join("`@here`").split("|eval").join("`|eval`").split("<@").join("`<@`"))
+	.catch(function(t){});
 	global.discordChatQueue=[];
 	return 0;}catch(rrrr){}
 }
