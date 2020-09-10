@@ -100,7 +100,7 @@ global.confirmQueue=[]; //admin cmds
 global.loggerEnable = true;
 var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
-var cmdid=[];
+global.cmdid=[];
 var cwc=function(T){
 	if(T.startsWith("/")){
 	chatQueue.push(T.split("\u00a7").join(""));
@@ -120,12 +120,12 @@ commands = {
 			var Page=Math.floor((+(c.split(" ")[1]))-1);
 			if(Page+""=="NaN"){ Page=0 }
 			cwc(""+csl[0]+"Help - page "+csl[1]+""+Math.floor(+(c.split(" ")[1])))
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+0].name+""+csl[0]+": "+cmdid[(Page*6)+0].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+1].name+""+csl[0]+": "+cmdid[(Page*6)+1].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+2].name+""+csl[0]+": "+cmdid[(Page*6)+2].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+3].name+""+csl[0]+": "+cmdid[(Page*6)+3].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+4].name+""+csl[0]+": "+cmdid[(Page*6)+4].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+5].name+""+csl[0]+": "+cmdid[(Page*6)+5].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+0].name+""+csl[0]+": "+global.cmdid[(Page*6)+0].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+1].name+""+csl[0]+": "+global.cmdid[(Page*6)+1].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+2].name+""+csl[0]+": "+global.cmdid[(Page*6)+2].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+3].name+""+csl[0]+": "+global.cmdid[(Page*6)+3].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+4].name+""+csl[0]+": "+global.cmdid[(Page*6)+4].h)}catch(e){}
+			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+5].name+""+csl[0]+": "+global.cmdid[(Page*6)+5].h)}catch(e){}
 		},
 		perm: -Infinity,
 		admin: 0,
