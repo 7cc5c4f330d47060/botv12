@@ -116,7 +116,7 @@ global.cwc=function(T){
 var commands;
 function doCommands(){
 commands = {
-	help: CommandHelp,
+	help: new CommandHelp(csl,cwc,global),
 	/*help: {
 		command: function(c,n){
 			var Page=Math.floor((+(c.split(" ")[1]))-1);
