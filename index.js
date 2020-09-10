@@ -608,8 +608,8 @@ client.on('chat', function(packet) {
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
-	if(text.includes("disabled")){
-		if(text.indexOf("Vanish for")==0){
+	if(ir.includes("disabled")){
+		if(ir.indexOf("Vanish for")==0){
 			cwc("/evanish on")
 		}
 	}
