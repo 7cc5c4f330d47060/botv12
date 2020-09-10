@@ -134,13 +134,13 @@ commands = {
 		admin: 0,
 		confirm:0
 	},
-	confirm: {
+	prefix: {
 		command: function(c,n){
-			confirmQueueMove(c.split(" ")[1])
+			global.chatPrefix=c.split(7)
 		},
 		perm: -Infinity,
 		admin: 0,
-		confirm:0
+		confirm:1
 	},
 	clearcmdq: {command: function(c,n){
 		delete global.commandQueue;
