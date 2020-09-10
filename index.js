@@ -142,7 +142,7 @@ commands = {
 	prefix: {
 		command: function(c,n){
 			if(c.slice(7)==""){global.chatPrefix="";return;}
-			global.chatPrefix=c.slice(7)+" "
+			global2.chatPrefix=c.slice(7)+" "
 		},
 		perm: -Infinity,
 		admin: 0,
