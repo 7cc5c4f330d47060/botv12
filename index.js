@@ -11,7 +11,7 @@ var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
 global.rq=require;
-gloval.chatPrefix=" "; //If muted use "/minecraft:me"
+gloval.chatPrefix=""; //If muted use "/minecraft:me"
 var cl;
 var bc;
 var cd;
