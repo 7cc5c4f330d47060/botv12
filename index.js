@@ -119,13 +119,13 @@ commands = {
 		command: function(c,n){
 			var Page=Math.floor((+(c.split(" ")[1]))-1);
 			if(Page+""=="NaN"){ Page=0 }
-			cwc(""+csl[0]+"Help - page "+csl[1]+""+Math.floor(+(c.split(" ")[1])))
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+0].name+""+csl[0]+": "+global.cmdid[(Page*6)+0].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+1].name+""+csl[0]+": "+global.cmdid[(Page*6)+1].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+2].name+""+csl[0]+": "+global.cmdid[(Page*6)+2].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+3].name+""+csl[0]+": "+global.cmdid[(Page*6)+3].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+4].name+""+csl[0]+": "+global.cmdid[(Page*6)+4].h)}catch(e){}
-			try{cwc(""+csl[1]+"|"+global.cmdid[(Page*6)+5].name+""+csl[0]+": "+global.cmdid[(Page*6)+5].h)}catch(e){}
+			this.cwc(""+this.csl[0]+"Help - page "+this.csl[1]+""+Math.floor(+(c.split(" ")[1])))
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+0].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+0].h)}catch(e){}
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+1].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+1].h)}catch(e){}
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+2].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+2].h)}catch(e){}
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+3].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+3].h)}catch(e){}
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+4].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+4].h)}catch(e){}
+			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+5].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+5].h)}catch(e){}
 		},
 		perm: -Infinity,
 		admin: 0,
