@@ -602,8 +602,14 @@ client.on('chat', function(packet) {
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
+	if(text.includes("disabled")){
+		if(text.indexOf("Vanish for")==0){
+			client.write("chat",{message:"/evanish on").join("").split("maniaplay").join("")})
+		}
+	}
 	if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
+		cwc("Rate limiting is possible.")
 		
 	}
 	if(global.loggerEnable){
