@@ -102,7 +102,12 @@ var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
 var cmdid=[];
 var cwc=function(T){
+	if(T.startsWith("/")){
 	chatQueue.push(T.split("\u00a7").join(""));
+	} else {
+		chatQueue.push(global.chatPrefix+T.split("\u00a7").join(""));
+	}
+	
 }
 global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
