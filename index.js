@@ -623,7 +623,6 @@ client.on('chat', function(packet) {
 	}
 	if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
-		cwc("Rate limiting is possible.")
 	}
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
