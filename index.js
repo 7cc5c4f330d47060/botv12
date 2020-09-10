@@ -11,7 +11,7 @@ var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
 global.rq=require;
-gloval.chatPrefix=" "; //If muted use minecraft:me
+gloval.chatPrefix=" "; //If muted use "/minecraft:me"
 var cl;
 var bc;
 var cd;
@@ -136,7 +136,7 @@ commands = {
 	},
 	prefix: {
 		command: function(c,n){
-			global.chatPrefix=c.split(7)
+			global.chatPrefix=c.split(7)+" "
 		},
 		perm: -Infinity,
 		admin: 0,
@@ -610,7 +610,6 @@ client.on('chat', function(packet) {
 	if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
 		cwc("Rate limiting is possible.")
-		
 	}
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
