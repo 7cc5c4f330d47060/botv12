@@ -141,8 +141,8 @@ commands = {
 	},
 	prefix: {
 		command: function(c,n){
-			if(c.split(7)==""){global.chatPrefix="";return;}
-			global.chatPrefix=c.split(7)+" "
+			if(c.slice(7)==""){global.chatPrefix="";return;}
+			global.chatPrefix=c.slice(7)+" "
 		},
 		perm: -Infinity,
 		admin: 0,
