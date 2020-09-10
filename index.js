@@ -610,7 +610,7 @@ client.on('chat', function(packet) {
 	}
 	if(text.includes("disabled")){
 		if(text.indexOf("Vanish for")==0){
-			client.write("chat",{message:"/evanish on").join("").split("maniaplay").join("")})
+			cwc("/evanish on")
 		}
 	}
 	if(ir.includes("has muted player magicBot for now.")){
