@@ -75,7 +75,8 @@ var h2=hash2.digest('hex')
 var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
 console.log(global.adminCode);
-setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode);},10000)
+setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode)
+.catch(function(t){});},10000)
 }
 setTimeout(rh,800);
 var client = mc.createClient({
