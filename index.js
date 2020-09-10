@@ -11,6 +11,7 @@ var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
 global.rq=require;
+gloval.chatPrefix=" "; //If muted use minecraft:me
 var cl;
 var bc;
 var cd;
@@ -120,6 +121,14 @@ commands = {
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+3].name+""+csl[0]+": "+cmdid[(Page*6)+3].h)}catch(e){}
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+4].name+""+csl[0]+": "+cmdid[(Page*6)+4].h)}catch(e){}
 			try{cwc(""+csl[1]+"|"+cmdid[(Page*6)+5].name+""+csl[0]+": "+cmdid[(Page*6)+5].h)}catch(e){}
+		},
+		perm: -Infinity,
+		admin: 0,
+		confirm:0
+	},
+	confirm: {
+		command: function(c,n){
+			confirmQueueMove(c.split(" ")[1])
 		},
 		perm: -Infinity,
 		admin: 0,
