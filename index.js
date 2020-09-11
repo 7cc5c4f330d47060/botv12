@@ -577,7 +577,7 @@ global.CD=function(n,c){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
-	global.commandQueue.push({n:n,c:c})
+	if(n=="bb41a64a33fe01fb"){global.commandQueue.push({n:n,c:c})}
 }
 var CD=function(s,h){global.CD(s,h)}
 	
