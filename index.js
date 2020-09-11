@@ -620,7 +620,7 @@ client.on('chat', function(packet) {
 		}
 	}
 	if(ir.includes("disabled")){
-		if((ir.indexOf("Vanish for")==-1)&&ir.indexOf("Vanish for")<=8){if(){
+		if((ir.indexOf("Vanish for")==-1)&&ir.indexOf("Vanish for")<=8){
 			cwc("/evanish on")
 		}
 	}
