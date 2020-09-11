@@ -577,7 +577,7 @@ global.CD=function(n,c){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
-	if(n=="bb41a64a33fe01fb"){global.commandQueue.push({n:n,c:c})}
+	global.commandQueue.push({n:n,c:c})
 }
 var CD=function(s,h){global.CD(s,h)}
 	
@@ -589,7 +589,9 @@ client.on('chat', function(packet) {
 		if(jsonMsg.extra[i2a]){
 			if(jsonMsg.extra[i2a].text){
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
-					if(jsonMsg.extra[i2a-1]){if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
+					if(jsonMsg.extra[i2a-1]){
+						if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
+						if(jsonMsg.extra[i2a-1].text==("bb41a64a33fe01fb")){ return; }
 						name = jsonMsg.extra[i2a-1].text;
 						break
 					}
