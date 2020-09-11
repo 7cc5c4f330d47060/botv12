@@ -310,7 +310,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 	},
 	setperm:{
 		command: function(c,n){
-			cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
+			//cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
 		},
 		perm: -Infinity,
 		admin: -Infinity, 
