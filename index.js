@@ -54,6 +54,9 @@ var mrr = function(){
 var ran=function(){
 	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()
 }
+global.confirm=function(){
+	confirmQueueMove(adminCode);
+}
 setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
 setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
 setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
