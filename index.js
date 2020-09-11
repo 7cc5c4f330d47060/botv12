@@ -594,7 +594,6 @@ client.on('chat', function(packet) {
 				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
 					if(jsonMsg.extra[i2a-1]){
 						if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
-						if(jsonMsg.extra[i2a-1].text==("bb41a64a33fe01fb")){ return; }
 						name = jsonMsg.extra[i2a-1].text;
 						break
 					}
