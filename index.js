@@ -138,14 +138,7 @@ var commands;
 function doCommands(){
 commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
-	confirm: {
-		command: function(c,n){
-			global.confirmQueueMove(c.split(" ")[1])
-		},
-		perm: -Infinity,
-		admin: 0,
-		confirm:0
-	},
+	confirm: new CommandConfirm(csl,cwc,{}),
 	prefix: new CommandPrefix(csl,cwc,{}),
 	clearcmdq: new CommandClearQ(csl,cwc,{}),
 	restart: new CommandRestart(csl,cwc,{c:client}),
