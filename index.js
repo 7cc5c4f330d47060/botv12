@@ -183,15 +183,6 @@ commands = {
 		confirm: 1,
 		h: "Deop everyone."
 	},
-	setperm:{
-		command: function(c,n){
-			//cwc("Set permission for "+c.split(" ")[1]+" to "+c.split(" ")[2]+".")
-		},
-		perm: -Infinity,
-		admin: -Infinity, 
-		confirm: 0,
-		h:"Set permission."
-	},
 	logger: new CommandLogger(csl,cwc,{}),
 	say: {
 		command: function(c,n){
