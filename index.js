@@ -165,7 +165,7 @@ commands = {
 		confirm:1
 	},
 	clearcmdq: new CommandClearQ(csl,cwc,{}),
-	restart: new CommandClearQ(csl,cwc,{}),
+	restart: new CommandClearQ(csl,cwc,{c:client}),
 	perms: {
 		command: function(c,n){
 			cwc(""+csl[1]+""+n+""+csl[0]+", you have perm level "+csl[1]+""+getPerm(n)+""+csl[0]+".")
