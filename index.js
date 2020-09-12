@@ -6,6 +6,7 @@ var net = require('net');
 var fs = require('fs');
 var CommandHelp = require('./commands/CommandHelp.js')
 var CommandLogger = require('./commands/CommandLogger.js')
+var CommandClearQ = require('./commands/CommandClearQ.js')
 var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
