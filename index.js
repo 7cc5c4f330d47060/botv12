@@ -170,87 +170,21 @@ commands = {
 		confirm:0,
 		h: "Checks your admin permission level."
 	},
-	"1a": {
-		command: function(c,n){
-			cwc("/gamemode creative @a")
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Puts everyone in creative mode."
-	},
-	"0a": {
-		command: function(c,n){
-			cwc("/gamemode survival @a")
-		},
-		perm: 4,
-		admin: 0,
-		confirm:1,
-		h: "Puts everyone in survival mode."
-	},
-	"2a": {
-		command: function(c,n){
-			cwc("/gamemode adventure @a")
-		},
-		perm: 4,
-		admin: 0,
-		confirm:1,
-		h: "Puts everyone in adventure mode."
-	},
-	"3a": {
-		command: function(c,n){
-			cwc("/gamemode spectator @a")
-		},
-		perm: 4,
-		admin: 0,
-		confirm:1,
-		h: "Puts everyone in spectator mode."
-	},
-	"1m": {
-		command: function(c,n){
-			cwc("/gamemode creative "+n)
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Puts you in creative mode."
-	},
-	"0m": {
-		command: function(c,n){
-			cwc("/gamemode survival "+n)
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Puts you in survival mode."
-	},
-	"2m": {
-		command: function(c,n){
-			cwc("/gamemode adventure "+n)
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Puts you in adventure mode."
-	},
-	"3m": {
-		command: function(c,n){
-			cwc("/gamemode spectator "+n)
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Puts you in spectator mode."
-	},
+	"1a": new CommandGamemode(csl,cwc,"creative",0,0,0,"@a"),
+	"0a": new CommandGamemode(csl,cwc,"survival",4,0,1,"@a"),
+	"2a": new CommandGamemode(csl,cwc,"adventure",4,0,1,"@a"),
+	"3a": new CommandGamemode(csl,cwc,"spectator",4,0,1,"@a"),
+	"1a": new CommandGamemode(csl,cwc,"creative",0,0,0),
+	"0a": new CommandGamemode(csl,cwc,"survival",0,0,0),
+	"2a": new CommandGamemode(csl,cwc,"adventure",0,0,0),
+	"3a": new CommandGamemode(csl,cwc,"spectator",0,0,0),
 	zelkam: {
 		command: function(c,n){
-if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam"){ cwc(csl[1]+n+csl[0]+" is not allowed to run "+csl[1]+"|"+c.split(" ")[0]+csl[0]+"."); return;}
 			client.write("arm_animation",{hand:+c.split(" ")[1]})
 		},
 		perm: 0,
 		admin: 0,
-	
-	confirm:0,
+		confirm:0,
 		h:"Swing an arm."
 	},
 	deopall: {
