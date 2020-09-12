@@ -7,6 +7,7 @@ var CommandClearQ = require('./commands/CommandClearQ.js')
 var CommandHelp = require('./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
 var CommandLogger = require('./commands/CommandLogger.js')
+var CommandServer = require('./commands/CommandServer.js')
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
