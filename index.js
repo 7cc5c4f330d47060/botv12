@@ -333,7 +333,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 				}
 				catch(er2a)
 				{
-					cwc("Error: "+texter)
+					cwc("Error: "+er2a)
 			}})
 		},
 		perm: 0,
