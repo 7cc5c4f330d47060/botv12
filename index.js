@@ -303,7 +303,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		confirm: 0,
 		h:"Set permission."
 	},
-	logger: new CommandLogger(csl,cwc,{})
+	logger: new CommandLogger(csl,cwc,{}),
 	say: {
 		command: function(c,n){
 			cwc(c.slice(4))
