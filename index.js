@@ -142,15 +142,7 @@ commands = {
 		admin: 0,
 		confirm:0
 	},
-	prefix: {
-		command: function(c,n){
-			if(c.slice(7)==""){global.chatPrefix="";return;}
-			global.chatPrefix=c.slice(7)+" "
-		},
-		perm: -Infinity,
-		admin: 0,
-		confirm:1
-	},
+	prefix: new CommandPrefix(csl,cwc,{}),
 	clearcmdq: new CommandClearQ(csl,cwc,{}),
 	restart: new CommandRestart(csl,cwc,{c:client}),
 	perms: {
