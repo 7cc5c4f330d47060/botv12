@@ -140,7 +140,7 @@ commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: {
 		command: function(c,n){
-			confirmQueueMove(c.split(" ")[1])
+			global.confirmQueueMove(c.split(" ")[1])
 		},
 		perm: -Infinity,
 		admin: 0,
