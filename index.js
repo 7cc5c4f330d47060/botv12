@@ -328,22 +328,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 0,
 		confirm:0
 	},
-	srvr: {
-		command: function(c,n){
-			mc.ping({host:c.split(" ")[1],port:+(c.split(" ")[2])},function(err,texter){
-				try{
-					try{cwc((lang.tth(texter.description)[1]).split("\u00a7").join("&").split("\n")[0])}catch(er1b){}
-					try{cwc((lang.tth(texter.description)[1]).split("\u00a7").join("&").split("\n")[1])}catch(er2b){}
-				}
-				catch(er2a)
-				{
-					cwc("Error: "+er2a)
-			}})
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0
-	},
+	srvr: new CommandServer(csl,cwc,,
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{})
 }
