@@ -4,9 +4,11 @@
 var mc = require('minecraft-protocol');var net = require('net');var fs = require('fs');var conf = require('./a.json');var crypto = require('crypto');
 var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
+var CommandGamemode = require('./commands/CommandGamemode.js')
 var CommandHelp = require('./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
 var CommandLogger = require('./commands/CommandLogger.js')
+var CommandRestart = require('./commands/CommandRestart.js')
 var CommandServer = require('./commands/CommandServer.js')
 var CommandTabComplete = require('./commands/CommandTabComplete.js')
 var perms = require('./admins.json');
@@ -131,22 +133,6 @@ var commands;
 function doCommands(){
 commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
-	/*help: {
-		command: function(c,n){
-			var Page=Math.floor((+(c.split(" ")[1]))-1);
-			if(Page+""=="NaN"){ Page=0 }
-			this.cwc(""+this.csl[0]+"Help - page "+this.csl[1]+""+Math.floor(+(c.split(" ")[1])))
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+0].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+0].h)}catch(e){}
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+1].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+1].h)}catch(e){}
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+2].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+2].h)}catch(e){}
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+3].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+3].h)}catch(e){}
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+4].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+4].h)}catch(e){}
-			try{this.cwc(""+this.csl[1]+"|"+global2.cmdid[(Page*6)+5].name+""+this.csl[0]+": "+global2.cmdid[(Page*6)+5].h)}catch(e){}
-		},
-		perm: -Infinity,
-		admin: 0,
-		confirm:0
-	},*/
 	confirm: {
 		command: function(c,n){
 			confirmQueueMove(c.split(" ")[1])
