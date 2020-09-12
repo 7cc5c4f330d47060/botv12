@@ -156,18 +156,10 @@ commands = {
 	"0a": new CommandGamemode(csl,cwc,"survival",0,0,0),
 	"2a": new CommandGamemode(csl,cwc,"adventure",0,0,0),
 	"3a": new CommandGamemode(csl,cwc,"spectator",0,0,0),
-	zelkam: new CommandZelkam(csl,cwc,{c:client})
+	zelkam: new CommandZelkam(csl,cwc,{c:client}),
 	deopall: new CommandDeopAll(csl,cwc,{}),
 	logger: new CommandLogger(csl,cwc,{}),
-	say: {
-		command: function(c,n){
-			cwc(c.slice(4))
-		},
-		perm: 4,
-		admin: 0,
-		confirm:1,
-		h:"Make me say something."
-	},
+	//|say,
 	tc: new CommandTabComplete(csl,cwc,{c:client}),
 	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
