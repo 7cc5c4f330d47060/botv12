@@ -215,19 +215,9 @@ cwc("/nick off")
 cwc("/ci **")
 cwc("/gmc")
 cwc("/god on")
-//cwc("/skin SkeppyCat")
-/*cwc("/skin SkeppyCat")
-cwc("/skin SkeppyCat")
-cwc("/skin SkeppyCat")*/
+
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
-//cwc("/etime set day *")
-/*cwc("/execute in minecraft:overworld run weather clear")
-cwc("/execute in minecraft:the_nether run weather clear")
-cwc("/execute in minecraft:the_end run weather clear")
-cwc("/mute 049c70c9-2b8e-31a8-86b0-8a57545d17db 0s")
-cwc("/unjail 049c70c9-2b8e-31a8-86b0-8a57545d17db")
-cwc("/unban 049c70c9-2b8e-31a8-86b0-8a57545d17db")
-cwc("/unbanip 049c70c9-2b8e-31a8-86b0-8a57545d17db")*/
+
 for(var i1b in commands){
 	cmdid.push({name:i1b,h:commands[i1b].h})
 }
