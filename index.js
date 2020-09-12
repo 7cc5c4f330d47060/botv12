@@ -481,7 +481,7 @@ client.on('title', function(packet) {
 });
 client.on('kick_disconnect', function(packet) {
 	console.log(tth(JSON.parse(packet.reason)))
-	setTimeout(function(){process.exit(0)},2000)//Seven Seconds wait, Kaboom added a wait timer to join.
+	setTimeout(function(){process.exit(0)},2000)
 })
 client.on('tab_complete', function(packet) {
 	cwc(csl[0]+"Results: "+csl[1]+packet.matches.length)
