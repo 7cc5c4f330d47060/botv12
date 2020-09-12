@@ -146,24 +146,8 @@ commands = {
 	prefix: new CommandPrefix(csl,cwc,{}),
 	clearcmdq: new CommandClearQ(csl,cwc,{}),
 	restart: new CommandRestart(csl,cwc,{c:client}),
-	perms: {
-		command: function(c,n){
-			cwc(""+csl[1]+""+n+""+csl[0]+", you have perm level "+csl[1]+""+getPerm(n)+""+csl[0]+".")
-		},
-		perm: -Infinity,
-		admin: 0,
-		confirm:0,
-		h: "Checks your permission level."
-	},
-	admin: {
-		command: function(c,n){
-			cwc(""+csl[1]+""+n+""+csl[0]+", you have admin level "+csl[1]+""+getAdmin(n)+""+csl[0]+".")
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h: "Checks your admin permission level."
-	},
+	perms: new CommandPerms(csl,cwc,{}),
+	admin: new CommandAdminPerms(csl,cwc,{}),
 	"1a": new CommandGamemode(csl,cwc,"creative",0,0,0,"@a"),
 	"0a": new CommandGamemode(csl,cwc,"survival",4,0,1,"@a"),
 	"2a": new CommandGamemode(csl,cwc,"adventure",4,0,1,"@a"),
