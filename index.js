@@ -319,7 +319,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		h:"Make me say something."
 	},
 	tc: new CommandTabComplete(csl,cwc,{c:client}),
-	ping: new CommandServer(csl,cwc,{}),
+	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{})
 }
