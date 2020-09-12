@@ -325,6 +325,14 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 0,
 		confirm:0
 	},
+	srvr: {
+		command: function(c,n){
+			mc.ping({host:c.split(" ")[1],port:c.split(" ")[1]},function(texter){return cwc(texter.split("\u00a7").join("&"))})
+		},
+		perm: 0,
+		admin: 0,
+		confirm:0
+	},
 	chqs: {
 		command: function(c,n){
 			chatQueueR(c.split(" ")[1])
