@@ -165,28 +165,7 @@ commands = {
 		confirm:1
 	},
 	clearcmdq: new CommandClearQ(csl,cwc,{}),
-	restart: {
-		command: function(c,n){
-			//if(adminCode==(c.split(" ")[1])){
-			client.write("chat",{message:""+csl[1]+"Restarting..."})
-			c2.write("\u0002");
-			console.clear();
-			clearInterval(cl);
-			clearInterval(bc);
-			clearInterval(cd);
-			clearInterval(discq);
-			setTimeout(function(){delete global.chatQueue;},300);
-			setTimeout(function(){delete global.chatLogQueue;},300);
-			setTimeout(function(){delete global.commandQueue;},300);
-			setTimeout(function(){delete global.confirmQueue;},300);
-			setTimeout(function(){delete global.discordChatQueue;},300);
-			setTimeout(function(){c2.write("\u0003");client.write("chat",{message:""+csl[1]+"Leaving"});process.exit(0)},1000);
-			//}
-		},
-		perm: -Infinity,
-		admin: 0,
-		confirm:1
-	},
+	restart: new CommandClearQ(csl,cwc,{}),
 	perms: {
 		command: function(c,n){
 			cwc(""+csl[1]+""+n+""+csl[0]+", you have perm level "+csl[1]+""+getPerm(n)+""+csl[0]+".")
