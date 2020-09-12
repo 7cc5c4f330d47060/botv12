@@ -328,7 +328,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 0,
 		confirm:0
 	},
-	srvr: new CommandServer(csl,cwc,{}),
+	ping: new CommandServer(csl,cwc,{}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{})
 }
