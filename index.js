@@ -499,24 +499,21 @@ client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
 	//if(packet.action!=2){console.log(packet.data[i1c])}
-		if(packet.action==0){
-			
+		/*if(packet.action==0){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
 			//console.log(p[packet.data[i1c].UUID].name+" joined")
-			
-		
-		}
+		}*/
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
 			console.log(csl[1]+packet.data[i1c].UUID+csl[0]+" went to "+csl[1]+gamemodes[packet.data[i1c].gamemode]+csl[0]+" Mode!")
 			p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode;
 			}
 		}
-		if(packet.action==4){
+		/*if(packet.action==4){
 			//console.log(p[packet.data[i1c].UUID].name+" left")
 			delete p[packet.data[i1c].UUID];
-		}
+		}*/
 }	
 })
 global.CD=function(n,c){
