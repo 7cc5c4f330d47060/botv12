@@ -254,13 +254,13 @@ cwc("/unbanip 049c70c9-2b8e-31a8-86b0-8a57545d17db")*/
 for(var i1b in commands){
 	cmdid.push({name:i1b,h:commands[i1b].h})
 }
-var getPerm = function(x){
+global.getPerm = function(x){
 	if(perms[x]){
 	return +perms[x]
 	}
 	return 0
 }
-function getAdmin(c){
+global.getAdmin=function(c){
 	if(admins[c]){
 	return +admins[c]
 	}
