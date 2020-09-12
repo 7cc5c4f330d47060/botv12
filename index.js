@@ -172,17 +172,7 @@ commands = {
 	"2a": new CommandGamemode(csl,cwc,"adventure",0,0,0),
 	"3a": new CommandGamemode(csl,cwc,"spectator",0,0,0),
 	zelkam: new CommandZelkam(csl,cwc,{c:client})
-	deopall: {
-		command: function(c,n){
-			cwc("/execute as @a run deop @s[type=player]")
-			cwc("/op @s[type=player]")
-			cwc("Done")
-		},
-		perm: 6,
-		admin: 1,
-		confirm: 1,
-		h: "Deop everyone."
-	},
+	deopall: new CommandDeopAll(csl,cwc,{}),
 	logger: new CommandLogger(csl,cwc,{}),
 	say: {
 		command: function(c,n){
