@@ -98,7 +98,7 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }//global.clientd.channels.cache.get("751619709874470952").send(""+ir)
-var c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
+global.c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
 var NoCommands = false;
