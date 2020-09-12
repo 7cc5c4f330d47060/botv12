@@ -1,37 +1,58 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
 'use strict';
-var mc = require('minecraft-protocol');
-var net = require('net');
-var fs = require('fs');
+var mc = require('minecraft-protocol');var net = require('net');var fs = require('fs');var conf = require('./a.json');var crypto = require('crypto');
 var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
 var CommandHelp = require('./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
 var CommandLogger = require('./commands/CommandLogger.js')
-
-var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
-var conf = require('./a.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
-global.rq=require;
 global.chatPrefix=""; //If muted use "/minecraft:me"
 var cl;
 var bc;
 var cd;
 var discq;
 var csl=[
-["&0","&8"],//black and dark gr?y
-["&1","&9"],//dark and light blue
-["&2","&a"],//dark and light green
-["&3","&b"],//dark and light aqua / cyan
-["&4","&c"],//dark and light red
-["&5","&d"],//purple and magenta
-["&6","&e"],//orange and yellow
-["&7","&f"] //light gr?y and white
+["&0","&7"],
+["&0","&8"],
+["&0","&f"],
+["&1","&3"],
+["&1","&7"],
+["&1","&9"],
+["&1","&b"],
+["&1","&f"],
+["&2","&3"],
+["&2","&7"],
+["&2","&9"],
+["&2","&a"],
+["&2","&e"],
+["&2","&f"],
+["&3","&9"],
+["&3","&b"],
+["&4","&c"],
+["&4","&f"],
+["&5","&d"],
+["&6","&7"],
+["&6","&c"],
+["&6","&e"],
+["&6","&f"],
+["&7","&f"],
+["&8","&7"],
+["&8","&f"],
+["&9","&b"],
+["&9","&f"],
+["&a","&f"],
+["&b","&f"],
+["&c","&f"],
+["&d","&f"],
+["&e","&f"],
+["&f","&f"],
 ][conf.cs]
+if(conf.reversecs){csl=csl.reverse()}
 global.adminCode = 0;
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
