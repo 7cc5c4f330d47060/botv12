@@ -8,6 +8,7 @@ var CommandHelp = require('./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
 var CommandLogger = require('./commands/CommandLogger.js')
 var CommandServer = require('./commands/CommandServer.js')
+var CommandTabComplete = require('./commands/CommandTabComplete.js')
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
@@ -317,17 +318,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		confirm:1,
 		h:"Make me say something."
 	},
-	
-	tc: {
-		command: function(c,n){
-			
-			client.write("tab_complete",{transactionId:618387,text:c.slice(3)});cdtc=10;
-			
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0
-	},
+	tc: new CommandTabComplete(csl,cwc,{c:client}),
 	ping: new CommandServer(csl,cwc,{}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{})
