@@ -159,26 +159,7 @@ commands = {
 		admin: 0,
 		confirm:1
 	},
-	clearcmdq: {command: function(c,n){
-		delete global.commandQueue;
-		delete global.chatQueue;
-		delete global.chatLogQueue;
-		delete global.confirmQueue;
-		delete global.discordChatQueue;
-		global.commandQueue=[];
-		global.chatQueue=[];
-		global.chatLogQueue=[];
-		global.confirmQueue=[];
-		global.discordChatQueue=[];
-		global.c2.write("\u0002")
-		console.clear();
-		global.cwc("&aDone")
-		console.log(global.adminCode)
-	},
-		perm: 15,
-		admin: 1,
-		confirm:0
-	},
+	clearcmdq: new CommandClearQ(csl,cwc,{}),
 	restart: {
 		command: function(c,n){
 			//if(adminCode==(c.split(" ")[1])){
