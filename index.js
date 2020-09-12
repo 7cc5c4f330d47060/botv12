@@ -219,7 +219,7 @@ cwc("/god on")
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
 
 for(var i1b in commands){
-	cmdid.push({name:i1b,h:commands[i1b].h})
+	cmdid.push({name:i1b,h:commands[i1b].constructor.toString().split(" ")[})
 }
 global.getPerm = function(x){
 	if(perms[x]){
