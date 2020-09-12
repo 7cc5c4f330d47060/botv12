@@ -4,9 +4,12 @@
 var mc = require('minecraft-protocol');
 var net = require('net');
 var fs = require('fs');
-var CommandHelp = require('./commands/CommandHelp.js')
-var CommandLogger = require('./commands/CommandLogger.js')
+var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
+var CommandHelp = require('./commands/CommandHelp.js')
+var CommandInfo = require('./commands/CommandInfo.js')
+var CommandLogger = require('./commands/CommandLogger.js')
+
 var crypto = require('crypto');
 var perms = require('./admins.json');
 var admins = require('./owners.json');
