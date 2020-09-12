@@ -178,15 +178,7 @@ commands = {
 	"0a": new CommandGamemode(csl,cwc,"survival",0,0,0),
 	"2a": new CommandGamemode(csl,cwc,"adventure",0,0,0),
 	"3a": new CommandGamemode(csl,cwc,"spectator",0,0,0),
-	zelkam: {
-		command: function(c,n){
-			client.write("arm_animation",{hand:+c.split(" ")[1]})
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h:"Swing an arm."
-	},
+	zelkam: new CommandZelkam(csl,cwc,{c:client})
 	deopall: {
 		command: function(c,n){
 			cwc("/execute as @a run deop @s[type=player]")
