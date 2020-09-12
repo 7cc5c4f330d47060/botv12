@@ -515,7 +515,7 @@ client.on('player_info', function(packet) {
 		}
 		if(packet.action==4){
 			//console.log(p[packet.data[i1c].UUID].name+" left")
-			p[packet.data[i1c].UUID]=undefined
+			delete p[packet.data[i1c].UUID];
 		}
 }	
 })
