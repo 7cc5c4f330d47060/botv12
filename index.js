@@ -169,10 +169,10 @@ commands = {
 		global.chatLogQueue=[];
 		global.confirmQueue=[];
 		global.discordChatQueue=[];
-		c2.write("\u0002")
+		global.c2.write("\u0002")
 		console.clear();
-		cwc("&aDone")
-		console.log(adminCode)
+		global.cwc("&aDone")
+		console.log(global.adminCode)
 	},
 		perm: 15,
 		admin: 1,
@@ -616,7 +616,7 @@ client.on('chat', function(packet) {
 			cwc("/evanish on")
 		}
 	}
-	if(text.indexOf("Your nickname is now ")+1 && (text.indexOf("Your nickname is now ")+1)<=8){
+	if(ir.indexOf("Your nickname is now ")+1 && (ir.indexOf("Your nickname is now ")+1)<=8){
 		cwc("/nick off")
 	}
 	if(ir.includes("has muted player magicBot for now.")){
