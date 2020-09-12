@@ -441,7 +441,6 @@ var dcqm = function(){
 }
 var chatQueueMove = function(){
 	if(chatQueue[0]!=undefined){
-		//console.log("Saying "+chatQueue[0])
 	client.write("chat",{message: chatQueue[0]+""});
 	chatQueue.shift();
 	}
@@ -461,10 +460,6 @@ var confirmQueuePush = function(command,perm){
 	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CODE>"+csl[0]+"\" to confirm.")
 }
 
-//Commands began with | (Shift+Backslash)
-//It logged chat in color
-//It had section signs in loger
-//Section Sign: �"
 var getDateAndTime4L=function(){
 	var fw = new Date();
 	return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
