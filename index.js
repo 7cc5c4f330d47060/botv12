@@ -321,16 +321,7 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		confirm: 0,
 		h:"Set permission."
 	},
-	logger: {
-		command: function(c,n){
-			global.loggerEnable =!global.loggerEnable
-			cwc(csl[0]+"Logger "+csl[1]+["disabled","enabled"][+global.loggerEnable]+csl[0]+".")
-		},
-		perm: 5,
-		admin: 1,
-		confirm:1,
-		h:"Toggle logger."
-	},
+	logger: new CommandLogger(csl,cwc,{})
 	say: {
 		command: function(c,n){
 			cwc(c.slice(4))
