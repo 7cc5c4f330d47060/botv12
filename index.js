@@ -13,10 +13,10 @@ var admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
-var cl;
-var bc;
-var cd;
-var discq;
+global.cl=0;
+global.bc=0;
+global.cd=0;
+global.discq=0;
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
