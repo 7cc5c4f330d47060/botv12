@@ -190,7 +190,7 @@ commands = {
 }
 
 var a1aa=function(c,a){
-	commands[c].name="zelkam";
+	commands[c].h=commands.c.constructor.toString().split(" ")[1];
 	
 	for(var i1a in a){
 		commands[a[i1a]]=(commands[c])
