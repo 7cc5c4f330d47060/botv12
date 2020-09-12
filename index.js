@@ -383,7 +383,6 @@ client.on('player_info', function(packet) {
 }	
 })
 global.CD=function(n,c){
-	//console.log("Command detected ("+n+"): "+c)
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
