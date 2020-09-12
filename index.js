@@ -2,6 +2,7 @@
 //console.clear();
 'use strict';
 var mc = require('minecraft-protocol');var net = require('net');var fs = require('fs');var conf = require('./a.json');var crypto = require('crypto');
+var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
 var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
 var CommandDeopAll = require('./commands/CommandDeopAll.js')
@@ -9,6 +10,8 @@ var CommandGamemode = require('./commands/CommandGamemode.js')
 var CommandHelp = require('./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
 var CommandLogger = require('./commands/CommandLogger.js')
+var CommandPerms = require('./commands/CommandPerms.js')
+var CommandPrefix = require('./commands/CommandPrefix.js')
 var CommandRestart = require('./commands/CommandRestart.js')
 var CommandServer = require('./commands/CommandServer.js')
 var CommandTabComplete = require('./commands/CommandTabComplete.js')
