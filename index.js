@@ -490,7 +490,7 @@ client.on('tab_complete', function(packet) {
 	}
 })
 client.on('end', function(packet) {
-	setTimeout(function(){process.exit(0)},7000)
+	setTimeout(function(){process.exit(0)},3000)
 })
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
