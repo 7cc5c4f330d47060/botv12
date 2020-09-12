@@ -341,15 +341,8 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 0,
 		confirm:0
 	},
-	chqs: {
-		command: function(c,n){
-			chatQueueR(c.split(" ")[1])
-		},
-		perm: 4,
-		admin: 1,
-		confirm:1
-	},
-info: new CommandInfo(csl,cwc,{})
+	chqs: new CommandChatQS(csl,cwc,{}),
+	info: new CommandInfo(csl,cwc,{})
 }
 
 var a1aa=function(c,a){
