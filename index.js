@@ -329,7 +329,8 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		command: function(c,n){
 			mc.ping({host:c.split(" ")[1],port:+(c.split(" ")[2])},function(err,texter){
 				try{
-					return cwc((lang.tth(texter.description)[1]).split("\u00a7").join("&"))
+					try{cwc((lang.tth(texter.description)[1]).split("\u00a7").join("&").split("\n")[0])}catch(er1b){}
+					try{cwc((lang.tth(texter.description)[1]).split("\u00a7").join("&").split("\n")[1])}catch(er1b){}
 				}
 				catch(er2a)
 				{
