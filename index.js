@@ -63,7 +63,7 @@ setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5
 setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
 setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
 setTimeout(function(){discq=setInterval(dcqm,1500)},4000)
-function chatQueueR(t){
+global.chatQueueR=function(t){
 	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
 	cwc("Chat speed set to "+t+"ms.")
@@ -349,21 +349,8 @@ if((n=="Zelkam" || n=="ZelkTheElk") && c.toLowerCase(0).split(" ")[0] == "zelkam
 		admin: 1,
 		confirm:1
 	},
-info: {
-		command: function(c,n){
-			cwc(JSON.stringify(process.memoryUsage()));
-			/*cwc(csl[0]+"This used to be a good bot with many commands.")
-			cwc(csl[1]+"But then the file got corrupted. It was overwritten with NULS.")
-			cwc(csl[0]+"There was no backup. "+csl[1]+"I looked and looked, for nothing.")
-			cwc(csl[1]+"I had to rewrite the whole thing from scratch. I now have")
-			cwc(csl[1]+"backups each time I edit the code, so that if it gets corrupted")
-			cwc(csl[1]+"again, I can just put one of the backups on.")*/
-		},
-		perm: 0,
-		admin: 0,
-		confirm:0,
-		h:"Story of rewrite"
-	}}
+info: new CommandInfo(csl,cwc,{})
+}
 
 var a1aa=function(c,a){
 	commands[c].name="zelkam";
