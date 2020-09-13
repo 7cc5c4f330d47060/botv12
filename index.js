@@ -285,7 +285,7 @@ var confirmQueueMove = function(hash){
 }
 var confirmQueuePush = function(command,perm){
 	confirmQueue.push({cmd:command,perm:perm})
-	cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CODE>"+csl[0]+"\" to confirm.")
+	global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CODE>"+csl[0]+"\" to confirm.")
 }
 
 var getDateAndTime4L=function(){
