@@ -5,7 +5,7 @@ var mc = require('minecraft-protocol');var net = require('net');var fs = require
 var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
 var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
-var CommandConfirm = require('./commands/CommandClearQ.js')
+var CommandConfirm = require('./commands/CommandConfirm.js')
 var CommandDeopAll = require('./commands/CommandDeopAll.js')
 var CommandGamemode = require('./commands/CommandGamemode.js')
 var CommandHelp = require('./commands/CommandHelp.js')
