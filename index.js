@@ -297,7 +297,7 @@ var nss=function(d){
 	return d.split("\u00a7").join("\\u00a7")
 }
 var tad=0;
-client.on('title', function(packet) {
+/*client.on('title', function(packet) {
 	if(!tad){
 	if(packet.action==2){
 		setTimeout(function(){tad=1;},1);
@@ -307,7 +307,7 @@ client.on('title', function(packet) {
 	if(packet.action<=3 && packet.action!=2){
 		client.write("chat",{message: "/title @a clear"});
 	}
-});
+});*/
 client.on('kick_disconnect', function(packet) {
 	console.log(tth(JSON.parse(packet.reason)))
 	setTimeout(function(){process.exit(0)},2000)
@@ -393,12 +393,12 @@ client.on('chat', function(packet) {
 			cwc("/evanish on")
 		}
 	}
-	if(ir.indexOf("Your nickname is now ")+1 && (ir.indexOf("Your nickname is now ")+1)<=8){
+	if(ir.startsWith("Your nickname is now ")){
 		cwc("/nick off")
 	}
-	if(ir.includes("has muted player magicBot for now.")){
+	/*if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
-	}
+	}*/
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
