@@ -275,7 +275,7 @@ var chatQueueMove = function(){
 	return 0;
 }
 
-var confirmQueueMove = function(hash){
+global.confirmQueueMove = function(hash){
 	if(hash == global.adminCode){
 		command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
 		confirmQueue.shift();
