@@ -21,6 +21,7 @@ var DisabledCommand = require('./commands/DisabledCommand.js') //that was the or
 var perms = require('./admins.json');
 var admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
+global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
 global.cl=0;
