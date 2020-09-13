@@ -163,7 +163,7 @@ commands = {
 	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{}),
-	ip: new CommandIP(csl,cwc,{}),
+	ip: new CommandIP(csl,cwc,{})
 }
 
 var a1aa=function(c,a){
