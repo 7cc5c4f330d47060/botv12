@@ -49,7 +49,7 @@ if(conf.reversecs){csl=csl.reverse()}
 global.adminCode = 0;
 global.destroy=function(){
 	if(!global.destroyed){
-		commands[clearcmdq].command();global.destroyed=1;
+		(new CommandClearQ(cwc,csl,{})).command();global.destroyed=1;
 	}
 }
 global.undestroy=function(){
