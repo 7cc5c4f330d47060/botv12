@@ -53,7 +53,7 @@ global.destroy=function(){
 	}
 }
 global.undestroy=function(){
-	if(global.destroyed==1){
+	if(global.destroyed){
 		global.destroyed=0;
 		cwc("Enabling disabled bot functions...");
 	}
