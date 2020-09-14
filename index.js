@@ -293,12 +293,14 @@ var chatQueueMove = function(){
 }
 
 global.confirmQueueMove = function(hash){
+	if(!global.destroyed){
 	if(hash == global.adminCode){
 		command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
 		confirmQueue.shift();
 		rh();
 	}
 	return 0;
+	}
 }
 var confirmQueuePush = function(command,perm){
 	if(!global.destroyed){
@@ -364,10 +366,12 @@ client.on('player_info', function(packet) {
 }	
 })
 global.CD=function(n,c){
+	if(!global.destroyed){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
 	global.commandQueue.push({n:n,c:c})
+	}
 }
 var CD=function(s,h){global.CD(s,h)}
 	
