@@ -50,11 +50,13 @@ global.adminCode = 0;
 global.destroy=function(){
 	if(!global.destroyed){
 		cwc("Disabling most bot functions...")
+		global.destroyed=1;
 	}
 }
 global.undestroy=function(){
 	if(global.destroyed){
-		cwc("Enabling disabled bot functions...")
+		global.destroyed=0;
+		cwc("Enabling disabled bot functions...");
 	}
 }
 var mrn = function(offset,range,base){
