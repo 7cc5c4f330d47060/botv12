@@ -69,15 +69,13 @@ global.clientd.on('ready', () => {
   console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
 global.clientd.on('debug', (arrrwe) => {
-  console.log(arrrwe);
+  if(!global.destroyed){console.log(arrrwe}
 });
 global.clientd.on('message', msg => {
-	if(!global.destroyed){
   if (msg.content.startsWith("|eval ")) {
     try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
-	}
 });
 global.clientd.login('');
 var mrr = function(){
