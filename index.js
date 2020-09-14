@@ -85,12 +85,12 @@ global.chatQueueR=function(t){
 	cwc("Chat speed set to "+t+"ms.")
 }
 var rh=function(){
-var hash = crypto.createHash('sha256');
+var hash = crypto.createHash('sha512');
 var hash2 = crypto.createHash('sha256');
-var hash3 = crypto.createHash('sha256');
+var hash3 = crypto.createHash('sha512');
 hash.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+Date.now()+"");
-hash2.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+2000)+"");
-hash3.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+4000)+"");
+hash2.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+2000)+"\u001c");
+hash3.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+4000)+"\u001d");
 var h1=hash.digest('hex')
 var h2=hash2.digest('hex')
 var h3=hash3.digest('hex')
