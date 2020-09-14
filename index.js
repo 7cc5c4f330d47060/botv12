@@ -47,6 +47,16 @@ var csl=[
 ][conf.cs]
 if(conf.reversecs){csl=csl.reverse()}
 global.adminCode = 0;
+global.destroy=function(){
+	if(!global.destroyed){
+		cwc("Disabling most bot functions...")
+	}
+}
+global.undestroy=function(){
+	if(!global.destroyed){
+		cwc("Enabling most bot functions...")
+	}
+}
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)
 }
