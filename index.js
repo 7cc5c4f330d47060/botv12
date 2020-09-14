@@ -68,7 +68,7 @@ global.clientd.on('ready', () => {
   console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
 global.clientd.on('debug', (arrrwe) => {
-  if(!global.destroyed){console.log(arrrwe}
+if(!global.destroyed){console.log(arrrwe}}
 });
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
