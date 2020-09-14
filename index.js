@@ -54,7 +54,7 @@ global.destroy=function(){
 }
 global.undestroy=function(){
 	if(global.destroyed){
-		cwc("Enabling most bot functions...")
+		cwc("Enabling disabled bot functions...")
 	}
 }
 var mrn = function(offset,range,base){
