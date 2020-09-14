@@ -29,6 +29,7 @@ global.cl=0;
 global.bc=0;
 global.cd=0;
 global.discq=0;
+global.destroyed=0;
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
@@ -59,10 +60,12 @@ global.clientd.on('debug', (arrrwe) => {
   console.log(arrrwe);
 });
 global.clientd.on('message', msg => {
+	if(!global.destroyed){
   if (msg.content.startsWith("|eval ")) {
     try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
+	}
 });
 global.clientd.login('');
 var mrr = function(){
@@ -128,10 +131,12 @@ var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
 global.cmdid=[];
 var cwc=function(T){
+	if(!global.destroyed){
 	if(T.startsWith("/")){
 	chatQueue.push(T.split("\u00a7").join(""));
 	} else {
 		chatQueue.push(global.chatPrefix+T.split("\u00a7").join(""));
+	}
 	}
 	
 }
@@ -232,6 +237,7 @@ global.getAdmin=function(c){
 	return 0
 }
 function command(n,d,b1a){
+	if(!global.destroyed){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
 		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
@@ -249,33 +255,41 @@ function command(n,d,b1a){
 		}
 	}
 	return 3;
+	}
+	return 14;
 }
 var cmdQueueMove = function(){
+	if(!global.destroyed){
 	if(commandQueue[0]!=undefined){
 		command(commandQueue[0].n,commandQueue[0].c);
 		commandQueue.shift();
-	}
+	}}
 	return 0;
 }
-var chatLogQueueMove = function(){
+var chatLogQueueMove = function(){if(!global.destroyed){
 	if(chatLogQueue[0]!=undefined){
 		c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
-	}
+}}
 	return 0;
 }
 var dcqm = function(){
+	if(!global.destroyed){
 	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("|eval").join("| eval").split("\\").join("\\\\").split("\u202e").join("\\u202e").split("@").join("\\@ ").split("@here").join("`@here`").split("<").join("\\<").split("`").join("\\`").split("|").join("\\|").split("_").join("\\_").split("*").join("\\*"))
 	.catch(function(t){});
 	global.discordChatQueue=[];
 	return 0;}catch(rrrr){}
+	}
+	return 15;
 }
 var chatQueueMove = function(){
+	if(!global.destroyed){
 	if(chatQueue[0]!=undefined){
 	client.write("chat",{message: chatQueue[0]+""});
 	chatQueue.shift();
 	}
 	return 0;
+	}
 }
 
 global.confirmQueueMove = function(hash){
@@ -287,8 +301,10 @@ global.confirmQueueMove = function(hash){
 	return 0;
 }
 var confirmQueuePush = function(command,perm){
+	if(!global.destroyed){
 	confirmQueue.push({cmd:command,perm:perm})
 	global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CODE>"+csl[0]+"\" to confirm.")
+	}
 }
 
 var getDateAndTime4L=function(){
@@ -356,6 +372,7 @@ global.CD=function(n,c){
 var CD=function(s,h){global.CD(s,h)}
 	
 client.on('chat', function(packet) {
+	if(!global.destroyed){
 	var jsonMsg = JSON.parse(packet.message);
 	var name;
 	if(jsonMsg.extra){
@@ -406,4 +423,5 @@ client.on('chat', function(packet) {
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 	}
 	return;
+	}
 });
