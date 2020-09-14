@@ -59,7 +59,7 @@ global.undestroy=function(){
 	}
 }
 var mrn = function(offset,range,base){
-	return Math.floor(Math.random()*range).toString(base)
+	return Math.floor(Math.random()*range).toString(base)			
 }
 
 	global.clientd = new Discord.Client();
