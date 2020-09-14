@@ -265,7 +265,7 @@ var chatLogQueueMove = function(){
 	return 0;
 }
 var dcqm = function(){
-	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("|eval").join("| eval").split("\\").join("\\\\").split("\u202e").join("\\u202e").split("@").join("\\@").split("@here").join("`@here`").split("<").join("\\<").split("`").join("\\`").split("|").join("\\|").split("_").join("\\_").split("*").join("\\*"))
+	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("|eval").join("| eval").split("\\").join("\\\\").split("\u202e").join("\\u202e").split("@").join("\\@ ").split("@here").join("`@here`").split("<").join("\\<").split("`").join("\\`").split("|").join("\\|").split("_").join("\\_").split("*").join("\\*"))
 	.catch(function(t){});
 	global.discordChatQueue=[];
 	return 0;}catch(rrrr){}
