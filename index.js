@@ -86,7 +86,7 @@ global.chatQueueR=function(t){
 }
 var rh=function(){
 var hash = crypto.createHash('sha512');
-var hash2 = crypto.createHash('sha256');
+var hash2 = crypto.createHash('sha512');
 var hash3 = crypto.createHash('sha512');
 hash.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+Date.now()+"");
 hash2.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+2000)+"\u001c");
