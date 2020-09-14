@@ -53,7 +53,7 @@ global.destroy=function(){
 	}
 }
 global.undestroy=function(){
-	if(!global.destroyed){
+	if(global.destroyed){
 		cwc("Enabling most bot functions...")
 	}
 }
