@@ -49,8 +49,7 @@ if(conf.reversecs){csl=csl.reverse()}
 global.adminCode = 0;
 global.destroy=function(){
 	if(!global.destroyed){
-		cwc("Disabling most bot functions...")
-		global.destroyed=1;
+		commands[clearcmdq].command();global.destroyed=1;
 	}
 }
 global.undestroy=function(){
