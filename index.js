@@ -118,7 +118,7 @@ var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "\u00a7c\u00a7l\u0003\u0002\u0001\u0000     ",
+  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7l\u000"+Math.floor(Math.random()*16).toString(16)+"\u000"+Math.floor(Math.random()*16).toString(16)+"\u000"+Math.floor(Math.random()*16).toString(16)+"\u000"+Math.floor(Math.random()*16).toString(16)+"     ",
 });
 
 if(conf.secondserver){
