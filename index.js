@@ -17,6 +17,24 @@ global.cd=0;
 global.discq=0;
 global.destroyed=0;
 global.rq=require;
+var CommandAdminPerms = require(pre+'./commands/CommandAdminPerms.js')
+var CommandChatQS = require(pre+'./commands/CommandChatQS.js')
+var CommandClearQ = require(pre+'./commands/CommandClearQ.js')
+var CommandConfirm = require(pre+'./commands/CommandConfirm.js')
+var CommandDeopAll = require(pre+'./commands/CommandDeopAll.js')
+var CommandGamemode = require(pre+'./commands/CommandGamemode.js')
+var CommandHelp = require(pre+'./commands/CommandHelp.js')
+var CommandInfo = require('./commands/CommandInfo.js')
+var CommandIP = require(pre+'./commands/CommandIP.js')
+var CommandLogger = require(pre+'./commands/CommandLogger.js')
+var CommandPerms = require(pre+'./commands/CommandPerms.js')
+var CommandPrefix = require(pre+'./commands/CommandPrefix.js')
+var CommandReload = require(pre+'./commands/CommandReload.js')
+var CommandRestart = require(pre+'./commands/CommandRestart.js')
+var CommandServer = require(pre+'./commands/CommandServer.js')
+var CommandTabComplete = require(pre+'./commands/CommandTabComplete.js')
+var CommandZelkam = require(pre+'./commands/CommandZelkam.js')
+var DisabledCommand = require(pre+'./commands/DisabledCommand.js') //that was the original command name for swing arm
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
@@ -139,24 +157,6 @@ global.cwc=function(T){
 	
 global.commands={};
 global.doCommands = function(pre){
-var CommandAdminPerms = require(pre+'./commands/CommandAdminPerms.js')
-var CommandChatQS = require(pre+'./commands/CommandChatQS.js')
-var CommandClearQ = require(pre+'./commands/CommandClearQ.js')
-var CommandConfirm = require(pre+'./commands/CommandConfirm.js')
-var CommandDeopAll = require(pre+'./commands/CommandDeopAll.js')
-var CommandGamemode = require(pre+'./commands/CommandGamemode.js')
-var CommandHelp = require(pre+'./commands/CommandHelp.js')
-var CommandInfo = require('./commands/CommandInfo.js')
-var CommandIP = require(pre+'./commands/CommandIP.js')
-var CommandLogger = require(pre+'./commands/CommandLogger.js')
-var CommandPerms = require(pre+'./commands/CommandPerms.js')
-var CommandPrefix = require(pre+'./commands/CommandPrefix.js')
-var CommandReload = require(pre+'./commands/CommandReload.js')
-var CommandRestart = require(pre+'./commands/CommandRestart.js')
-var CommandServer = require(pre+'./commands/CommandServer.js')
-var CommandTabComplete = require(pre+'./commands/CommandTabComplete.js')
-var CommandZelkam = require(pre+'./commands/CommandZelkam.js')
-var DisabledCommand = require(pre+'./commands/DisabledCommand.js') //that was the original command name for swing arm
 setTimeout(function(){
 global.commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
