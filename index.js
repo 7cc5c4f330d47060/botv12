@@ -161,7 +161,7 @@ commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
 	prefix: new CommandPrefix(csl,cwc,{}),
-	clearcmdq: new CommandClearQ(csl,cwc,{}),
+	clearcmdq: new require(pre+'./commands/CommandClearQ.js')(csl,cwc,{}),
 	restart: new CommandRestart(csl,cwc,{c:client}),
 	perms: new CommandPerms(csl,cwc,{}),
 	admin: new CommandAdminPerms(csl,cwc,{}),
