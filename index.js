@@ -140,7 +140,7 @@ global.confirmQueue=[]; //admin cmds
 global.loggerEnable = true;
 var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
-global.cmdid=[];
+
 var cwc=function(T){
 	if(!global.destroyed){
 	if(T.startsWith("/")){
@@ -200,6 +200,10 @@ a1aa("1m",["1","gmc"])
 a1aa("0m",["0","gms"])
 a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
+global.cmdid=[];
+for(var i1b in global.commands){
+	global.cmdid.push({name:i1b,h:commands[i1b].h})
+}
 },100)
 }
 
@@ -235,9 +239,6 @@ cwc("/god on")
 
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
 
-for(var i1b in global.commands){
-	global.cmdid.push({name:i1b,h:commands[i1b].h})
-}
 global.getPerm = function(x){
 	if(global.perms[x]){
 	return +global.perms[x]
