@@ -2,7 +2,6 @@
 //console.clear();
 'use strict';
 var mc = require('minecraft-protocol');
-var net = require('net');
 var fs = require('fs');
 var conf = require('./a.json');
 var crypto = require('crypto');
@@ -111,7 +110,7 @@ var client2 = mc.createClient({
   username: "NCB Corrupted :(",
 });
 }//global.clientd.channels.cache.get("751619709874470952").send(""+ir)
-global.c2 = new net.Socket().connect(41050, '127.0.0.1', function() {
+global.c2 = new require("net").Socket().connect(41050, '127.0.0.1', function() {
 	});
 //var init
 var NoCommands = false;
