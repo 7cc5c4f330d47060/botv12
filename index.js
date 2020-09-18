@@ -138,7 +138,7 @@ global.cwc=function(T){
 }
 	
 global.commands={};
-var global.doCommands = function(){
+global.doCommands = function(){
 var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
 var CommandChatQS = require('./commands/CommandChatQS.js')
 var CommandClearQ = require('./commands/CommandClearQ.js')
