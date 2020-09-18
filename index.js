@@ -157,7 +157,7 @@ global.cwc=function(T){
 	
 global.commands={};
 global.doCommands = function(){
-setTimeout(function(){
+
 global.commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
