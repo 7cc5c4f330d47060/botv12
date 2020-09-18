@@ -183,7 +183,7 @@ global.commands = {
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{}),
 	ip: new CommandIP(csl,cwc,{}),
-	reload: new CommandReload(csl,cwc,{}),
+	reload: new CommandReload(csl,cwc,{})
 }
 
 var a1aa=function(c,a){
@@ -207,7 +207,7 @@ global.cmdid=[];
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
-global.doCommands("");
+global.doCommands();
 var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
