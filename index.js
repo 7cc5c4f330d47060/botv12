@@ -1,26 +1,13 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
 'use strict';
-var mc = require('minecraft-protocol');var net = require('net');var fs = require('fs');var conf = require('./a.json');var crypto = require('crypto');
-var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
-var CommandChatQS = require('./commands/CommandChatQS.js')
-var CommandClearQ = require('./commands/CommandClearQ.js')
-var CommandConfirm = require('./commands/CommandConfirm.js')
-var CommandDeopAll = require('./commands/CommandDeopAll.js')
-var CommandGamemode = require('./commands/CommandGamemode.js')
-var CommandHelp = require('./commands/CommandHelp.js')
-var CommandInfo = require('./commands/CommandInfo.js')
-var CommandIP = require('./commands/CommandIP.js')
-var CommandLogger = require('./commands/CommandLogger.js')
-var CommandPerms = require('./commands/CommandPerms.js')
-var CommandPrefix = require('./commands/CommandPrefix.js')
-var CommandRestart = require('./commands/CommandRestart.js')
-var CommandServer = require('./commands/CommandServer.js')
-var CommandTabComplete = require('./commands/CommandTabComplete.js')
-var CommandZelkam = require('./commands/CommandZelkam.js')
-var DisabledCommand = require('./commands/DisabledCommand.js') //that was the original command name for swing arm
-var perms = require('./admins.json');
-var admins = require('./owners.json');
+var mc = require('minecraft-protocol');
+var net = require('net');
+var fs = require('fs');
+var conf = require('./a.json');
+var crypto = require('crypto');
+global.perms = require('./admins.json');
+global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 global.lang=lang;
 const Discord = require('discord.js');
@@ -88,10 +75,10 @@ var ran=function(){
 global.confirm=function(){
 	confirmQueueMove(adminCode);
 }
-setTimeout(function(){cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
-setTimeout(function(){bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
-setTimeout(function(){cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
-setTimeout(function(){discq=setInterval(dcqm,1500)},4000)
+setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
+setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
+setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
+setTimeout(function(){global.discq=setInterval(dcqm,1500)},4000)
 global.chatQueueR=function(t){
 	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
@@ -153,8 +140,26 @@ var cwc=function(T){
 global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
+	
 global.commands={};
-function doCommands(){
+var global.doCommands = function(){
+var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
+var CommandChatQS = require('./commands/CommandChatQS.js')
+var CommandClearQ = require('./commands/CommandClearQ.js')
+var CommandConfirm = require('./commands/CommandConfirm.js')
+var CommandDeopAll = require('./commands/CommandDeopAll.js')
+var CommandGamemode = require('./commands/CommandGamemode.js')
+var CommandHelp = require('./commands/CommandHelp.js')
+var CommandInfo = require('./commands/CommandInfo.js')
+var CommandIP = require('./commands/CommandIP.js')
+var CommandLogger = require('./commands/CommandLogger.js')
+var CommandPerms = require('./commands/CommandPerms.js')
+var CommandPrefix = require('./commands/CommandPrefix.js')
+var CommandRestart = require('./commands/CommandRestart.js')
+var CommandServer = require('./commands/CommandServer.js')
+var CommandTabComplete = require('./commands/CommandTabComplete.js')
+var CommandZelkam = require('./commands/CommandZelkam.js')
+var DisabledCommand = require('./commands/DisabledCommand.js') //that was the original command name for swing arm
 commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
@@ -179,7 +184,8 @@ commands = {
 	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{}),
-	ip: new CommandIP(csl,cwc,{})
+	ip: new CommandIP(csl,cwc,{}),
+	reload: new CommandReload(csl,cwc,{}),
 }
 
 var a1aa=function(c,a){
@@ -213,7 +219,6 @@ var antiBotBypass = function(){//move in circles
 	numcir = numcir //% (3.14159265358979323846264338*2)
 }
 cwc("/tp 0 300 10")
-setTimeout(function(){setInterval(function(){antiBotBypass();},100)},2950)
 cwc("/cspy off")
 cwc("/skin SkeppyCat")
 cwc("/v")
@@ -235,14 +240,14 @@ for(var i1b in commands){
 	try{cmdid.push({name:i1b,h:commands[i1b].h})}catch(e3a){cmdid.push({name:i1b,h:e3a})}
 }
 global.getPerm = function(x){
-	if(perms[x]){
-	return +perms[x]
+	if(global.perms[x]){
+	return +global.perms[x]
 	}
 	return 0
 }
 global.getAdmin=function(c){
-	if(admins[c]){
-	return +admins[c]
+	if(global.admins[c]){
+	return +global.admins[c]
 	}
 	return 0
 }
