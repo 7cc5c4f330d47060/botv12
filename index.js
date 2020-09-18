@@ -157,6 +157,7 @@ global.cwc=function(T){
 	
 global.commands={};
 global.doCommands = function(){
+setTimeout(function(){
 global.commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
@@ -199,13 +200,13 @@ a1aa("1m",["1","gmc"])
 a1aa("0m",["0","gms"])
 a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
+
+
+}
 global.cmdid=[];
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
-
-}
-
 global.doCommands("");
 var numcir=0;
 var rad2deg = function(radians){
