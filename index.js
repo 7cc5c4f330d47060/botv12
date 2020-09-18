@@ -88,16 +88,13 @@ var rh=function(){
 var hash = crypto.createHash('sha512');
 var hash2 = crypto.createHash('sha512');
 var hash3 = crypto.createHash('sha512');
-hash.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+Date.now()+"");
-hash2.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+2000)+"\u001c");
-hash3.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+(Date.now()+4000)+"\u001d");
-var h1=hash.digest('hex')
-var h2=hash2.digest('hex')
-var h3=hash3.digest('hex')
+hash.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"");
+hash2.update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c");
+hash3.update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
+var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
 console.log(global.adminCode);
-setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode)
-.catch(function(t){});},10000)
+setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},4000)
 }
 setTimeout(rh,800);
 var client = mc.createClient({
