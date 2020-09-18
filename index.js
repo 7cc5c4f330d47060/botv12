@@ -236,7 +236,7 @@ cwc("/god on")
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
 
 for(var i1b in global.commands){
-	try{console.log({name:i1b,h:commands[i1b].h});global.cmdid.push({name:i1b,h:commands[i1b].h})}catch(e3a){global.cmdid.push({name:i1b,h:e3a})}
+	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
 global.getPerm = function(x){
 	if(global.perms[x]){
