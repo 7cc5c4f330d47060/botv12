@@ -118,7 +118,7 @@ var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7l"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+"   ",
+  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7l"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0080"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0080"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0080"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0080"][Math.floor(Math.random()*8)]+"   ",
 });
 
 if(conf.secondserver){
