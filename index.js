@@ -30,6 +30,7 @@ global.bc=0;
 global.cd=0;
 global.discq=0;
 global.destroyed=0;
+global.rq=require;
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
