@@ -154,7 +154,7 @@ var cwc=function(T){
 global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
-	
+global.cmdid=[];
 global.commands={};
 global.doCommands = function(){
 
@@ -205,7 +205,7 @@ a1aa("3m",["3","gmsp"])
 }
 
 global.doCommands();
-global.cmdid=[];
+
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
