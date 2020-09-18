@@ -157,7 +157,6 @@ global.cwc=function(T){
 	
 global.commands={};
 global.doCommands = function(){
-setTimeout(function(){
 global.commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
@@ -204,7 +203,7 @@ global.cmdid=[];
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
-},100)
+
 }
 
 global.doCommands("");
