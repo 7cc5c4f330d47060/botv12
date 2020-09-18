@@ -272,7 +272,7 @@ function command(n,d,b1a){
 	}
 	return 14;
 }
-var cmdQueueMove = function(){
+global.cmdQueueMove = function(){
 	if(!global.destroyed){
 	if(commandQueue[0]!=undefined){
 		command(commandQueue[0].n,commandQueue[0].c);
@@ -280,14 +280,14 @@ var cmdQueueMove = function(){
 	}}
 	return 0;
 }
-var chatLogQueueMove = function(){if(!global.destroyed){
+global.chatLogQueueMove = function(){if(!global.destroyed){
 	if(chatLogQueue[0]!=undefined){
 		c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
 }}
 	return 0;
 }
-var dcqm = function(){
+global.dcqm = function(){
 	if(!global.destroyed){
 	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("|eval").join("| eval").split("\\").join("\\\\").split("\u202e").join("\\u202e").split("@").join("\\@ ").split("@here").join("`@here`").split("<").join("\\<").split("`").join("\\`").split("|").join("\\|").split("_").join("\\_").split("*").join("\\*"))
 	.catch(function(t){});
@@ -296,7 +296,7 @@ var dcqm = function(){
 	}
 	return 15;
 }
-var chatQueueMove = function(){
+global.chatQueueMove = function(){
 	if(!global.destroyed){
 	if(chatQueue[0]!=undefined){
 	client.write("chat",{message: chatQueue[0]+""});
