@@ -138,25 +138,25 @@ global.cwc=function(T){
 }
 	
 global.commands={};
-global.doCommands = function(){
-var CommandAdminPerms = require('./commands/CommandAdminPerms.js')
-var CommandChatQS = require('./commands/CommandChatQS.js')
-var CommandClearQ = require('./commands/CommandClearQ.js')
-var CommandConfirm = require('./commands/CommandConfirm.js')
-var CommandDeopAll = require('./commands/CommandDeopAll.js')
-var CommandGamemode = require('./commands/CommandGamemode.js')
-var CommandHelp = require('./commands/CommandHelp.js')
+global.doCommands = function(pre){
+var CommandAdminPerms = require(pre+'./commands/CommandAdminPerms.js')
+var CommandChatQS = require(pre+'./commands/CommandChatQS.js')
+var CommandClearQ = require(pre+'./commands/CommandClearQ.js')
+var CommandConfirm = require(pre+'./commands/CommandConfirm.js')
+var CommandDeopAll = require(pre+'./commands/CommandDeopAll.js')
+var CommandGamemode = require(pre+'./commands/CommandGamemode.js')
+var CommandHelp = require(pre+'./commands/CommandHelp.js')
 var CommandInfo = require('./commands/CommandInfo.js')
-var CommandIP = require('./commands/CommandIP.js')
-var CommandLogger = require('./commands/CommandLogger.js')
-var CommandPerms = require('./commands/CommandPerms.js')
-var CommandPrefix = require('./commands/CommandPrefix.js')
-var CommandReload = require('./commands/CommandReload.js')
-var CommandRestart = require('./commands/CommandRestart.js')
-var CommandServer = require('./commands/CommandServer.js')
-var CommandTabComplete = require('./commands/CommandTabComplete.js')
-var CommandZelkam = require('./commands/CommandZelkam.js')
-var DisabledCommand = require('./commands/DisabledCommand.js') //that was the original command name for swing arm
+var CommandIP = require(pre+'./commands/CommandIP.js')
+var CommandLogger = require(pre+'./commands/CommandLogger.js')
+var CommandPerms = require(pre+'./commands/CommandPerms.js')
+var CommandPrefix = require(pre+'./commands/CommandPrefix.js')
+var CommandReload = require(pre+'./commands/CommandReload.js')
+var CommandRestart = require(pre+'./commands/CommandRestart.js')
+var CommandServer = require(pre+'./commands/CommandServer.js')
+var CommandTabComplete = require(pre+'./commands/CommandTabComplete.js')
+var CommandZelkam = require(pre+'./commands/CommandZelkam.js')
+var DisabledCommand = require(pre+'./commands/DisabledCommand.js') //that was the original command name for swing arm
 commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
@@ -201,7 +201,7 @@ a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
 }
 
-doCommands();
+global.doCommands("");
 var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
