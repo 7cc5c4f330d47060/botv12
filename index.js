@@ -157,11 +157,12 @@ var CommandServer = require(pre+'./commands/CommandServer.js')
 var CommandTabComplete = require(pre+'./commands/CommandTabComplete.js')
 var CommandZelkam = require(pre+'./commands/CommandZelkam.js')
 var DisabledCommand = require(pre+'./commands/DisabledCommand.js') //that was the original command name for swing arm
-commands = {
+setTimeout(function(){
+global.commands = {
 	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
 	confirm: new CommandConfirm(csl,cwc,{}),
 	prefix: new CommandPrefix(csl,cwc,{}),
-	clearcmdq: new require(pre+'./commands/CommandClearQ.js')(csl,cwc,{}),
+	clearcmdq: new CommandClearQ(csl,cwc,{}),
 	restart: new CommandRestart(csl,cwc,{c:client}),
 	perms: new CommandPerms(csl,cwc,{}),
 	admin: new CommandAdminPerms(csl,cwc,{}),
@@ -199,6 +200,7 @@ a1aa("1m",["1","gmc"])
 a1aa("0m",["0","gms"])
 a1aa("2m",["2","gma"])
 a1aa("3m",["3","gmsp"])
+},100)
 }
 
 global.doCommands("");
