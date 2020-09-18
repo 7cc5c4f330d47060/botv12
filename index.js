@@ -3,7 +3,7 @@
 'use strict';
 var mc = require('minecraft-protocol');
 var fs = require('fs');
-var conf = require('./a.json');
+global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
 global.admins = require('./owners.json');
