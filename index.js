@@ -203,11 +203,12 @@ a1aa("3m",["3","gmsp"])
 
 
 }
+
+global.doCommands();
 global.cmdid=[];
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h})
 }
-global.doCommands();
 var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
