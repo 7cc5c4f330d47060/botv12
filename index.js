@@ -1,6 +1,7 @@
 //MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
 //console.clear();
 'use strict';
+setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
 global.conf = require('./a.json');
