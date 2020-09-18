@@ -180,7 +180,7 @@ global.commands = {
 	logger: new CommandLogger(csl,cwc,{}),
 	say: new DisabledCommand(csl,cwc,{},"|say coming soon."),
 	tc: new CommandTabComplete(csl,cwc,{c:client}),
-	"                            ": new CommandServer(csl,cwc,{m:mc}),
+	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{}),
 	ip: new CommandIP(csl,cwc,{}),
