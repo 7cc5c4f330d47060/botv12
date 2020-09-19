@@ -256,13 +256,13 @@ cwc("/god on")
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
 
 global.getPerm = function(x){
-	if(global.perms[x]){
+	if(global.perms[x]!=undefined){
 	return +global.perms[x]
 	}
 	return 0
 }
 global.getAdmin=function(c){
-	if(global.admins[c]){
+	if(global.admins[c]!=undefined){
 	return +global.admins[c]
 	}
 	return 0
