@@ -35,7 +35,12 @@ var CommandRestart = require('./commands/CommandRestart.js')
 var CommandServer = require('./commands/CommandServer.js')
 var CommandTabComplete = require('./commands/CommandTabComplete.js')
 var CommandZelkam = require('./commands/CommandZelkam.js')
-var DisabledCommand = require('./commands/DisabledCommand.js') //that was the original command name for swing arm
+var DisabledCommand = require('./commands/DisabledCommand.js') 
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
