@@ -39,7 +39,8 @@ var DisabledCommand = require('./commands/DisabledCommand.js')
 const readline = require("readline");
 const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
+	prompt: "\x1b[0m\x1b[1m\x1b[37m"
 });
 rl.on('line', (line) => {
   command("bb41a64a33fe01fb",line,true)
