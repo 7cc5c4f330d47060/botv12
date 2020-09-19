@@ -35,6 +35,7 @@ var CommandRestart = require('./commands/CommandRestart.js')
 var CommandSay = require('./commands/CommandSay.js')
 var CommandServer = require('./commands/CommandServer.js')
 var CommandTabComplete = require('./commands/CommandTabComplete.js')
+var CommandU = require('./commands/CommandU.js')
 var CommandZelkam = require('./commands/CommandZelkam.js')
 var DisabledCommand = require('./commands/DisabledCommand.js') 
 const readline = require("readline");
@@ -204,6 +205,10 @@ a1aa("3m",["3","gmsp"])
 
 
 }
+/*
+for(var ie2=0;ie2<=15;ie2++){
+global.chatQueue.push('/tellraw '+n+' "\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'0\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'1\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'2\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+3+'\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'4\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'5\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'6\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'7\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'8\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'9\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'a\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'b\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'c\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'d\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'e\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'f"')}
+*/
 var packetc=60;
   client.on('packet', function (data, meta) {
     packetc=60;
