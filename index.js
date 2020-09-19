@@ -185,7 +185,8 @@ global.commands = {
 	chqs: new CommandChatQS(csl,cwc,{}),
 	info: new CommandInfo(csl,cwc,{}),
 	ip: new CommandIP(csl,cwc,{}),
-	reload: new CommandReload(csl,cwc,{})
+	reload: new CommandReload(csl,cwc,{}),
+	u: new CommandU(csl,cwc,{}),
 }
 
 var a1aa=function(c,a){
