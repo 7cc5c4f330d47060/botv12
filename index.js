@@ -204,7 +204,14 @@ a1aa("3m",["3","gmsp"])
 
 
 }
-
+packetc=60;
+  client.on('packet', function (data, meta) {
+    packetc=60;
+  })
+  setInterval(function(){
+	  packetc--;
+	  if(packetc<=0){process.exit(0)}
+  },1000)
 global.doCommands();
 
 for(var i1b in global.commands){
