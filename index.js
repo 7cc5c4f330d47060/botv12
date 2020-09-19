@@ -176,7 +176,7 @@ global.commands = {
 	zelkam: new CommandZelkam(csl,cwc,{c:client}),
 	deopall: new CommandDeopAll(csl,cwc,{}),
 	logger: new CommandLogger(csl,cwc,{}),
-	say: new DisabledCommand(csl,cwc,{},"|say coming soon."),
+	say: new CommandSay(csl,cwc,{},),
 	tc: new CommandTabComplete(csl,cwc,{c:client}),
 	ping: new CommandServer(csl,cwc,{m:mc}),
 	chqs: new CommandChatQS(csl,cwc,{}),
