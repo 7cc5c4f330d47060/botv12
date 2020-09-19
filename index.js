@@ -41,6 +41,10 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+function 
+rl.on('line', (line) => {
+  command("bb41a64a33fe01fb",line,true)
+});
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
