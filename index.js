@@ -271,9 +271,9 @@ function command(n,d,b1a){
 	if(!global.destroyed){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
-		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
+		console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
+			console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
 					commands[c.split(" ")[0]].command(d,n,false);
