@@ -85,7 +85,7 @@ var mrn = function(offset,range,base){
 	global.clientd = new Discord.Client();
 
 global.clientd.on('ready', () => {
-  console.log(`Logged in as ${global.clientd.user.tag}!`);
+//  console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
