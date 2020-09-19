@@ -204,7 +204,7 @@ a1aa("3m",["3","gmsp"])
 
 
 }
-packetc=60;
+var packetc=60;
   client.on('packet', function (data, meta) {
     packetc=60;
   })
