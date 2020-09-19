@@ -206,7 +206,7 @@ a1aa("3m",["3","gmsp"])
 }
 var packetc=60;
   client.on('packet', function (data, meta) {
-    packetc=60;console.log(meta)
+    packetc=60;
   })
   setInterval(function(){
 	  packetc--;
