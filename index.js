@@ -210,7 +210,8 @@ var packetc=60;
   })
   setInterval(function(){
 	  packetc--;
-	  if(packetc<=0){process.exit(0)}
+	  
+	  if(packetc<=0){process.exit(0)} else if(packetc<=20){console.log(packetc)}
   },1000)
 global.doCommands();
 
