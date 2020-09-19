@@ -283,7 +283,7 @@ global.cmdQueueMove = function(){
 }
 global.chatLogQueueMove = function(){if(!global.destroyed){
 	if(chatLogQueue[0]!=undefined){
-		console.log(chatLogQueue[0]);
+		c2.write("\u0001"+chatLogQueue[0]);
 		chatLogQueue.shift();
 }}
 	return 0;
