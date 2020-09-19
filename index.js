@@ -108,14 +108,14 @@ hash2.update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Da
 hash3.update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
 var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
-setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},4000)
+setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},3000)
 }
 setTimeout(rh,800);
 var client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
-  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7l"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
+  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
 });
 
 //var init
@@ -202,17 +202,17 @@ var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
 }
 var fewwfea=false;
-var antiBotBypass = function(){//move in circles
+/*var antiBotBypass = function(){//move in circles
 	var xsin = (Math.sin(numcir)*10);
 	var zcos = (Math.cos(numcir)*10);
 	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
 	//client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
 	numcir+=0.05;
 	numcir = numcir //% (3.14159265358979323846264338*2)
-}
-cwc("/tp 0 300 10")
+}*/
+//cwc("/tp 0 300 10")
 cwc("/cspy off")
-cwc("/skin SkeppyCat")
+//cwc("/skin SkeppyCat")
 cwc("/v")
 cwc("/team leave @s")
 //cwc("/gamemode creative @a")
@@ -222,8 +222,8 @@ cwc("/email clear")
 //cwc("/eweather clear")
 cwc("/prefix off")
 cwc("/nick off")
-cwc("/ci **")
-cwc("/gmc")
+//cwc("/ci **")
+cwc("/gmsp")
 cwc("/god on")
 
 setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
