@@ -46,9 +46,8 @@ const rl = readline.createInterface({
 	prompt: "\x1b[0m\x1b[1m\x1b[37m> "
 });
 rl.on('line', (line) => {
-	rl.question("\x1b[0m\x1b[1m\x1b[37m> ", (answer) => {
-		command("bb41a64a33fe01fb",line,true)
-	});
+	command("bb41a64a33fe01fb",line,true);
+	rl.prompt(false)
 });
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
