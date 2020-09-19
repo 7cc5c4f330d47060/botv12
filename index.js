@@ -37,6 +37,8 @@ var CommandTabComplete = require('./commands/CommandTabComplete.js')
 var CommandZelkam = require('./commands/CommandZelkam.js')
 var DisabledCommand = require('./commands/DisabledCommand.js') 
 const readline = require("readline");
+global.c2 = new require("net").Socket().connect(41050, '127.0.0.1', function() {
+	});
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
