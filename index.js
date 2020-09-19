@@ -73,12 +73,9 @@ var mrn = function(offset,range,base){
 global.clientd.on('ready', () => {
   console.log(`Logged in as ${global.clientd.user.tag}!`);
 });
-global.clientd.on('debug', (arrrwe) => {
-if(!global.destroyed){console.log(arrrwe)}
-});
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
-    try{msg.reply(Function("return ("+msg.content.slice(6)+")")());}
+    try{msg.reply(Function("return (function(){"+msg.content.slice(6)+"})()")());}
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
 });
@@ -111,7 +108,6 @@ hash2.update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Da
 hash3.update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
 var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
-console.log(global.adminCode);
 setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},4000)
 }
 setTimeout(rh,800);
@@ -122,15 +118,6 @@ var client = mc.createClient({
   username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7l"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
 });
 
-if(conf.secondserver){
-var client2 = mc.createClient({
-  host: "play.kaboom.pw",   // optional
-  port: 25565,         // optional
-  username: "NCB Corrupted :(",
-});
-}//global.clientd.channels.cache.get("751619709874470952").send(""+ir)
-global.c2 = new require("net").Socket().connect(41050, '127.0.0.1', function() {
-	});
 //var init
 var NoCommands = false;
 global.commandQueue=[];
@@ -285,7 +272,7 @@ global.cmdQueueMove = function(){
 }
 global.chatLogQueueMove = function(){if(!global.destroyed){
 	if(chatLogQueue[0]!=undefined){
-		c2.write("\u0001"+chatLogQueue[0]);
+		console.log(chatLogQueue[0]);
 		chatLogQueue.shift();
 }}
 	return 0;
