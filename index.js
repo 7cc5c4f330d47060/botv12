@@ -41,7 +41,6 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-function 
 rl.on('line', (line) => {
   command("bb41a64a33fe01fb",line,true)
 });
