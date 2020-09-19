@@ -89,7 +89,7 @@ global.clientd.on('ready', () => {
 });
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
-    try{msg.reply(Function("return (function(){"+msg.content.slice(6)+"})()")());}
+    try{msg.reply(Function("return (function(){"+msg.content.slice(6)+"})()")()).catch(function(t){});}
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
 });
