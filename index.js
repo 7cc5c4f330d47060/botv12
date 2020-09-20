@@ -362,7 +362,7 @@ var tad=0;
 	}
 });*/
 client.on('kick_disconnect', function(packet) {
-	console.log(tth(JSON.parse(packet.reason)))
+	console.log(lang.tth(JSON.parse(packet.reason)))
 	setTimeout(function(){process.exit(0)},2000)
 })
 client.on('tab_complete', function(packet) {
