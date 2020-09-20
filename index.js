@@ -222,7 +222,7 @@ var packetc=60;
 global.doCommands();
 
 for(var i1b in global.commands){
-	global.cmdid.push({name:i1b,h:commands[i1b].h})
+	global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
 var numcir=0;
 var rad2deg = function(radians){
