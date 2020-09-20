@@ -296,7 +296,7 @@ function command(n,d,b1a,c){
 global.cmdQueueMove = function(){
 	if(!global.destroyed){
 	if(commandQueue[0]!=undefined){
-		command(commandQueue[0].n,commandQueue[0].c);
+		command(commandQueue[0].n,commandQueue[0].c,false,false);
 		commandQueue.shift();
 	}}
 	return 0;
