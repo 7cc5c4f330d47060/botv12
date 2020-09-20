@@ -187,6 +187,7 @@ global.commands = {
 	ip: new CommandIP(csl,cwc,{}),
 	reload: new CommandReload(csl,cwc,{}),
 	u: new CommandU(csl,cwc,{}),
+	eval: new CommandEval(csl,cwc,{}),
 }
 
 var a1aa=function(c,a){
