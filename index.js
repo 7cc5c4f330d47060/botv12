@@ -350,7 +350,7 @@ var nss=function(d){
 	return d.split("\u00a7").join("\\u00a7")
 }
 var tad=0;
-/*client.on('title', function(packet) {
+client.on('title', function(packet) {
 	if(!tad){
 	if(packet.action==2){
 		setTimeout(function(){tad=1;},1);
@@ -360,7 +360,7 @@ var tad=0;
 	if(packet.action<=3 && packet.action!=2){
 		client.write("chat",{message: "/title @a clear"});
 	}
-});*/
+});
 client.on('kick_disconnect', function(packet) {
 	console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
 	setTimeout(function(){process.exit(0)},2000)
