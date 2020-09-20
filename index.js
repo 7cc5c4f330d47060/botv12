@@ -258,12 +258,14 @@ setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,cha
 global.getPerm = function(x){
 	if(global.perms[x]!=undefined){
 	return +global.perms[x]
+	console.log(global.perms[x])
 	}
 	return 0
 }
 global.getAdmin=function(c){
 	if(global.admins[c]!=undefined){
 	return +global.admins[c]
+	console.log(global.admins[x])
 	}
 	return 0
 }
