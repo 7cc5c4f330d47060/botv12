@@ -271,7 +271,7 @@ global.getAdmin=function(c){
 	}
 	return 0
 }
-function command(n,d,b1a,c){
+function command(n,d,b1a,C){
 	if(!global.destroyed){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
@@ -280,7 +280,7 @@ function command(n,d,b1a,c){
 			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
-					commands[c.split(" ")[0]].command(d,n,!!c);
+					commands[c.split(" ")[0]].command(d,n,C);
 					return 0;
 				} else {
 					confirmQueuePush(d,n)
