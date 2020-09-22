@@ -437,13 +437,15 @@ client.on('chat', function(packet) {
 	if(!nf){
 	if(jsonMsg.translate) {
 		if(jsonMsg.translate.startsWith("chat.type.")) {
-		//console.log(jsonMsg);
-		name = jsonMsg.with[0].text+"";
-		if(jsonMsg.with[1].text){
-		text2 = jsonMsg.with[1].text+"";
-		} else {
-		text2 = jsonMsg.with[1];
-		}
+			try{
+				//console.log(jsonMsg);
+					name = jsonMsg.with[0].text+"";
+				if(jsonMsg.with[1].text){
+					text2 = jsonMsg.with[1].text+"";
+				} else {
+					text2 = jsonMsg.with[1];
+				}
+			}catch(e){};
 	}}}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
