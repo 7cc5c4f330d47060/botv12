@@ -439,7 +439,7 @@ client.on('chat', function(packet) {
 		if(jsonMsg.translate.startsWith("chat.type.")) {
 			try{
 				//console.log(jsonMsg);
-					name = jsonMsg.with[0].text+"";
+				name = jsonMsg.with[0].text+"";
 				if(jsonMsg.with[1].text){
 					text2 = jsonMsg.with[1].text+"";
 				} else {
