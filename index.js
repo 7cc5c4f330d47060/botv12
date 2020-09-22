@@ -435,7 +435,8 @@ client.on('chat', function(packet) {
 		nf=1;
 	}
 	if(!nf){
-	if(jsonMsg.translate) {console.log("translate");if(jsonMsg.translate.startsWith("chat.type.")) {console.log("translate2");
+	if(jsonMsg.translate) {
+		if(jsonMsg.translate.startsWith("chat.type.")) {
 		//console.log(jsonMsg);
 		name = jsonMsg.with[0].text+"";
 		if(jsonMsg.with[1].text){
