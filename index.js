@@ -430,11 +430,11 @@ client.on('chat', function(packet) {
 				}
 			}
 		}
-	} else if(jsonMsg.translate.startsWith("chat.type.")) {
+	} else {try{if(jsonMsg.translate.startsWith("chat.type.")) {
 		//console.log(jsonMsg);
 		name = jsonMsg.with[0].text+"";
-		text2 = jsonMsg.with[1].text+"";
-	}
+	text2 = jsonMsg.with[1].text+"";
+	}}catch(t){}}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
 	var fileprocessed = lang.tth(jsonMsg)[1];
