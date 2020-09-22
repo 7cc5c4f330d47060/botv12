@@ -51,6 +51,7 @@ rl.on('line', (line) => {
 	command("bb41a64a33fe01fb",line,true,true);
 	rl.prompt(false)
 });
+rl.prompt(false)
 var csl=[
 ["&0","&7"],["&0","&8"],["&0","&f"],
 ["&1","&3"],["&1","&7"],["&1","&9"],
