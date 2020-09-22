@@ -431,8 +431,8 @@ client.on('chat', function(packet) {
 			}
 		}
 	} else if(jsonMsg.translate.startsWith("chat.type.")) {
-		name = jsonMsg.with[0];
-		text2 = jsonMsg.with[1];
+		name = jsonMsg.with[0]+"";
+		text2 = jsonMsg.with[1]+"";
 	}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
