@@ -442,7 +442,7 @@ client.on('chat', function(packet) {
 		if(jsonMsg.with[1].text){
 		text2 = jsonMsg.with[1].text+"";
 		} else {
-		text2 = jsonMsg.with[1].text;
+		text2 = jsonMsg.with[1];
 		}
 	}}}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
