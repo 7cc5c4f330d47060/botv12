@@ -415,21 +415,24 @@ client.on('chat', function(packet) {
 	var jsonMsg = JSON.parse(packet.message);
 	var name;
 	if(jsonMsg.extra){
-	for(var i2a in jsonMsg.extra){
-		if(jsonMsg.extra[i2a]){
-			if(jsonMsg.extra[i2a].text){
-				if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
-					if(jsonMsg.extra[i2a-1]){
-						if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
-						if(jsonMsg.extra[i2a-1].text.includes("threadrippa")){ return; }
-						if(jsonMsg.extra[i2a-1].text.startsWith("@")){ return; }
-						name = jsonMsg.extra[i2a-1].text;
-						break
+		for(var i2a in jsonMsg.extra){
+			if(jsonMsg.extra[i2a]){
+				if(jsonMsg.extra[i2a].text){
+					if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
+						if(jsonMsg.extra[i2a-1]){
+							if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
+							if(jsonMsg.extra[i2a-1].text.includes("threadrippa")){ return; }
+							if(jsonMsg.extra[i2a-1].text.startsWith("@")){ return; }
+							name = jsonMsg.extra[i2a-1].text;
+							break
+						}
 					}
 				}
 			}
 		}
-	}
+	} else if(jsonMsg.translate.startsWith("chat.type.")) {
+		name = jsonMsg.extra[i2a-1].with[0];
+		text2 = jsonMsg.extra[i2a-1].with[1];
 	}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
@@ -439,12 +442,12 @@ client.on('chat', function(packet) {
 	var preText = ir.split(": ");
 	var pt2 = preText[0]
 	var preTextFirst = preText.shift();
-	var text = preText.join(": ");
-	if(text.charAt(0)=="|"){
-		CD(name,text.slice(1));
+	if(text2==undefined){ var text2 = preText.join(": ");}
+	if(text2.charAt(0)=="|"){
+		CD(name,text2.slice(1));
 	}
-	if(text.includes("no longer a server operator]")){
-		if(text.indexOf("Made")==0){
+	if(text2.includes("no longer a server operator]")){
+		if(text2.indexOf("Made")==0){
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
