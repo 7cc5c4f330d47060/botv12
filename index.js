@@ -415,6 +415,7 @@ client.on('chat', function(packet) {
 	if(!global.destroyed){
 	var jsonMsg = JSON.parse(packet.message);
 	var name;
+	var nf=0;
 	if(jsonMsg.extra){
 		for(var i2a in jsonMsg.extra){
 			if(jsonMsg.extra[i2a]){
@@ -430,12 +431,15 @@ client.on('chat', function(packet) {
 					}
 				}
 			}
-		}
-	} else if(jsonMsg.translate) {console.log("translate");if(jsonMsg.translate.startsWith("chat.type.")) {
+		};
+		nf=1;
+	}
+	if(!nf){
+	if(jsonMsg.translate) {console.log("translate");if(jsonMsg.translate.startsWith("chat.type.")) {console.log("translate2");
 		//console.log(jsonMsg);
 		name = jsonMsg.with[0].text+"";
 	text2 = jsonMsg.with[1].text+"";
-	}}
+	}}}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
 	var fileprocessed = lang.tth(jsonMsg)[1];
