@@ -438,8 +438,11 @@ client.on('chat', function(packet) {
 	if(jsonMsg.translate) {console.log("translate");if(jsonMsg.translate.startsWith("chat.type.")) {console.log("translate2");
 		//console.log(jsonMsg);
 		name = jsonMsg.with[0].text+"";
-		console.log(jsonMsg.with)
+		if(jsonMsg.with[1].text){
 		text2 = jsonMsg.with[1].text+"";
+		} else {
+		text2 = jsonMsg.with[1].text;
+		}
 	}}}
 	if(lang.tth(jsonMsg)[0]==undefined){return;}
 	var processed = lang.tth(jsonMsg)[0];
