@@ -431,7 +431,7 @@ client.on('chat', function(packet) {
 			}
 		}
 	} else if(jsonMsg.translate.startsWith("chat.type.")) {
-		console.log(jsonMsg);
+		//console.log(jsonMsg);
 		name = jsonMsg.with[0].text+"";
 		text2 = jsonMsg.with[1].text+"";
 	}
