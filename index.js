@@ -443,7 +443,7 @@ client.on('chat', function(packet) {
 				if(jsonMsg.with[1].text){
 					text2 = jsonMsg.with[1].text+"";
 				} else {
-					text2 = jsonMsg.with[1];
+					text2 = jsonMsg.with[1]+"";
 				}
 			}catch(e){};
 	}}}
