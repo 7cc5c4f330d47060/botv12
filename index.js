@@ -472,6 +472,9 @@ client.on('chat', function(packet) {
 	if(ir.startsWith("Your nickname is now ")){
 		cwc("/nick off")
 	}
+	if(ir.startsWith("Successfully disabled CommandSpy")){
+		cwc("/cspy on")
+	}
 	/*if(ir.includes("has muted player magicBot for now.")){
 		cwc("/mute magicBot 5y Bad bot :D")
 	}*/
