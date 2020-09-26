@@ -386,7 +386,7 @@ client.on('player_info', function(packet) {
 	//if(packet.action!=2){console.log(packet.data[i1c])}
 		if(packet.action==0){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
-			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.",function (err) {  if (err) throw err;  });
+			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });
 		}
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
@@ -395,7 +395,7 @@ client.on('player_info', function(packet) {
 			}
 		}
 		if(packet.action==4){
-			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.",function (err) {  if (err) throw err;  });
+			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
 		}
 }	
 })
