@@ -11,7 +11,7 @@ const srv = mc.createServer({
   port: 25565,
   keepAlive: false,
   version: version,
-  motd: "A Minecraft Server"
+  motd: "commands.deop.success"
 })
 var usernames=[];
 srv.on('login', function (client) {
