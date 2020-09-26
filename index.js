@@ -4,11 +4,15 @@
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
 const fs = require("fs")
-var amount = function(dirPath){
-  files = fs.readdirSync(dirPath)
+var amount = function(dirPath,filter){
+  files2 = fs.readdirSync(dirPath)
+  files=[];
+  files2.forEach(function(f){
+	  if(f.startsWith(filter)){files.push(f)}
+  })
   return files.length;
 }
-const rev = amount("nppBackup")+amount("commands/nppBackup")
+const rev = amount("nppBackup","index.js")+amount("commands/nppBackup")
 console.log("Revision "+rev)
 global.conf = require('./a.json');
 var crypto = require('crypto');
