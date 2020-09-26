@@ -107,7 +107,7 @@ global.adminCode = h1+h2+h3
 setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},3000)
 }
 setTimeout(rh,800);
-var client = mc.createClient({
+global.client = mc.createClient({
   host: conf.server,   // optional
   port: conf.port,    
   version: conf.version,      // optional
