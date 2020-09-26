@@ -384,21 +384,19 @@ client.on('player_info', function(packet) {
 	//console.log(packet)
 	for(var i1c in packet.data){
 	//if(packet.action!=2){console.log(packet.data[i1c])}
-		/*if(packet.action==0){
+		if(packet.action==0){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
-			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode
-			//console.log(p[packet.data[i1c].UUID].name+" joined")
-		}*/
+			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished."),function (err) {  if (err) throw err;  });
+		}
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
 			//cwc(csl[1]+packet.data[i1c].UUID+csl[0]+" went to "+csl[1]+gamemodes[packet.data[i1c].gamemode]+csl[0]+" Mode!")
 			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode;
 			}
 		}
-		/*if(packet.action==4){
-			//console.log(p[packet.data[i1c].UUID].name+" left")
-			delete p[packet.data[i1c].UUID];
-		}*/
+		if(packet.action==4){
+			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished."),function (err) {  if (err) throw err;  });
+		}
 }	
 })
 global.CD=function(n,c){
