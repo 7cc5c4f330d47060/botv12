@@ -9,7 +9,7 @@ var crypto = require('crypto');
 global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
-require('./commamds/Commands.js')();
+require('./commands/Commands.js')();
 global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
