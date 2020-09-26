@@ -4,6 +4,12 @@
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
 const fs = require("fs")
+function setTerminalTitle(title)
+{
+  process.stdout.write(
+    String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7)
+  );
+}
 var amount = function(dirPath,filter){
   var files2 = fs.readdirSync(dirPath)
   var files=[];
