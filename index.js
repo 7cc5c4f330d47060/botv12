@@ -139,56 +139,6 @@ global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
 global.cmdid=[];
-global.commands={};
-global.doCommands = function(){
-
-global.commands = {
-	help: new CommandHelp(csl,cwc,{cmdid:cmdid}),
-	confirm: new CommandConfirm(csl,cwc,{}),
-	prefix: new CommandPrefix(csl,cwc,{}),
-	clearcmdq: new CommandClearQ(csl,cwc,{}),
-	restart: new CommandRestart(csl,cwc,{c:client}),
-	perms: new CommandPerms(csl,cwc,{}),
-	admin: new CommandAdminPerms(csl,cwc,{}),
-	"1a": new CommandGamemode(csl,cwc,"creative @a",0,0,0),
-	"0a": new CommandGamemode(csl,cwc,"survival @a",4,0,1),
-	"2a": new CommandGamemode(csl,cwc,"adventure @a",4,0,1),
-	"3a": new CommandGamemode(csl,cwc,"spectator @a",4,0,1),
-	"1m": new CommandGamemode(csl,cwc,"creative",0,0,0),
-	"0m": new CommandGamemode(csl,cwc,"survival",0,0,0),
-	"2m": new CommandGamemode(csl,cwc,"adventure",0,0,0),
-	"3m": new CommandGamemode(csl,cwc,"spectator",0,0,0),
-	zelkam: new CommandZelkam(csl,cwc,{c:client}),
-	deopall: new CommandDeopAll(csl,cwc,{}),
-	logger: new CommandLogger(csl,cwc,{}),
-	say: new CommandSay(csl,cwc,{}),
-	tc: new CommandTabComplete(csl,cwc,{c:client}),
-	ping: new CommandServer(csl,cwc,{m:mc}),
-	chqs: new CommandChatQS(csl,cwc,{}),
-	info: new CommandInfo(csl,cwc,{}),
-	ip: new CommandIP(csl,cwc,{}),
-	reload: new CommandReload(csl,cwc,{}),
-	u: new CommandU(csl,cwc,{}),
-	eval: new CommandEval(csl,cwc,{}),
-}
-
-var a1aa=function(c,a){
-	for(var i1a in a){
-		commands[a[i1a]]=(commands[c])
-	}
-}
-a1aa("zelkam",["swing","swingarm"])
-a1aa("1a",["1all","gmcall"])
-a1aa("0a",["0all","gmsall"])
-a1aa("2a",["2all","gmaall"])
-a1aa("3a",["3all","gmspall"])
-a1aa("1m",["1","gmc"])
-a1aa("0m",["0","gms"])
-a1aa("2m",["2","gma"])
-a1aa("3m",["3","gmsp"])
-
-
-}
 /*
 for(var ie2=0;ie2<=15;ie2++){
 global.chatQueue.push('/tellraw '+n+' "\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'0\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'1\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'2\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+3+'\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'4\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'5\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'6\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'7\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'8\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'9\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'a\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'b\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'c\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'d\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'e\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'f"')}
