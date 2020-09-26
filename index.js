@@ -9,6 +9,7 @@ var crypto = require('crypto');
 global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
+global.commands={};
 require('./commands/Commands.js')();
 var CommandReload = require('./commands/CommandReload.js');
 global.commands.reload= new CommandReload(global.csl,global.cwc,{});
