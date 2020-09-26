@@ -6,7 +6,7 @@ var mc = require('minecraft-protocol');
 const fs = require("fs")
 var amount = function(dirPath,filter){
   var files2 = fs.readdirSync(dirPath)
-  files=[];
+  var files=[];
   files2.forEach(function(f){
 	  if(f.startsWith(filter)){files.push(f)}
   })
