@@ -19,6 +19,7 @@ var amount = function(dirPath,filter){
 }
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")
 console.log("Revision "+rev)
+setTerminalTitle("Revision "+rev)
 global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
