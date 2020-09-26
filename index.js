@@ -14,7 +14,6 @@ setInterval(function(){
 	global.gc();
   }, 5000);
 require('./commands/Commands.js')();
-global.commands.reload= new CommandReload(global.csl,global.cwc,{});
 global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
