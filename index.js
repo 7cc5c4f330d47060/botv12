@@ -3,8 +3,7 @@
 'use strict';
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
-const fs = require("fs")
-function setTerminalTitle(title)
+global.setTerminalTitle(title)
 {
   process.stdout.write(
     String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7)
