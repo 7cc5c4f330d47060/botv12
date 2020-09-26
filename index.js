@@ -12,8 +12,6 @@ var lang = require('./bot_helper_scripts/bl/index.js');
 global.commands={};
 setInterval(function(){
 	global.gc();
-    console.log('Manual gc', process.memoryUsage());
-    scheduleGc();
   }, 5000);
 require('./commands/Commands.js')();
 var CommandReload = require('./commands/CommandReload.js');
