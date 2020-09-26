@@ -12,7 +12,7 @@ var amount = function(dirPath,filter){
   })
   return files.length;
 }
-const rev = amount("nppBackup","index.js")+amount("commands/nppBackup")
+const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")
 console.log("Revision "+rev)
 global.conf = require('./a.json');
 var crypto = require('crypto');
