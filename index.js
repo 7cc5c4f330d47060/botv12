@@ -3,7 +3,12 @@
 'use strict';
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
-var fs = require('fs');
+const fs = require("fs")
+var amount = function(dirPath){
+  files = fs.readdirSync(dirPath)
+  return files.length;
+}
+const rev = amount("nppBackup")+amount("commands/nppBackup")
 global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
