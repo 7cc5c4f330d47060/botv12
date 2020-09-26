@@ -69,12 +69,7 @@ global.undestroy=function(){
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)			
 }
-
-	global.clientd = new Discord.Client();
-
-global.clientd.on('ready', () => {
-//  console.log(`Logged in as ${global.clientd.user.tag}!`);
-});
+global.clientd = new Discord.Client();
 global.clientd.on('message', msg => {
   if (msg.content.startsWith("|eval ")) {
     try{msg.reply(Function("return (function(){"+msg.content.slice(6)+"})()")()).catch(function(t){});}
@@ -114,9 +109,9 @@ setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").se
 }
 setTimeout(rh,800);
 global.client = mc.createClient({
-  host: conf.server,   // optional
+  host: conf.server,   
   port: conf.port,    
-  version: conf.version,      // optional
+  version: conf.version, 
   username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
 });
 
@@ -126,7 +121,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.discordChatQueue=[];
 global.chatLogQueue=[];
-global.confirmQueue=[]; //admin cmds
+global.confirmQueue=[];
 global.loggerEnable = true;
 var cdtc = 0;
 setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
@@ -164,30 +159,14 @@ for(var i1b in global.commands){
 		}
 var numcir=0;
 var rad2deg = function(radians){
-	return radians * (180/3.14159265358979323846264338);//3279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582
-}
+	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
-/*var antiBotBypass = function(){//move in circles
-	var xsin = (Math.sin(numcir)*10);
-	var zcos = (Math.cos(numcir)*10);
-	client.write("look",{yaw:rad2deg(numcir),pitch:0,onGround:false});
-	//client.write("position",{x:xsin,y:300,z:zcos,onGround:false});
-	numcir+=0.05;
-	numcir = numcir //% (3.14159265358979323846264338*2)
-}*/
-//cwc("/tp 0 300 10")
 cwc("/cspy on")
-//cwc("/skin SkeppyCat")
 cwc("/evanish on")
 cwc("/team leave @s")
-//cwc("/gamemode creative @a")
-//cwc("/op @a")
-//cwc("/tprandom")
 cwc("/email clear")
-//cwc("/eweather clear")
 cwc("/prefix off")
 cwc("/nick off")
-//cwc("/ci **")
 cwc("/gmsp")
 cwc("/god on")
 
@@ -211,9 +190,7 @@ function command(n,d,b1a,C){
 	if(!global.destroyed){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
-		//console.log("Valid command detected: ("+n+")"+commands[c.split(" ")[0]])
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-			//console.log("Correct permission ("+n+"): "+commands[c.split(" ")[0]])
 			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
 				if(!commands[c.split(" ")[0]].confirm || b1a){
 					commands[c.split(" ")[0]].command(d,n,C);
@@ -314,19 +291,14 @@ client.on('end', function(packet) {
 })
 var p={};
 var gamemodes=["Survival","Creative","Adventure","Spectator"];
-//(function(){acceptJoins=true;},15000)
 client.on('player_info', function(packet) {
-	//console.log(packet)
 	for(var i1c in packet.data){
-	//if(packet.action!=2){console.log(packet.data[i1c])}
 		if(packet.action==0){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });
 		}
 		if(packet.action==1){
 			if(packet.data[i1c].gamemode){
-			//cwc(csl[1]+packet.data[i1c].UUID+csl[0]+" went to "+csl[1]+gamemodes[packet.data[i1c].gamemode]+csl[0]+" Mode!")
-			//p[packet.data[i1c].UUID].gamemode=packet.data[i1c].gamemode;
 			}
 		}
 		if(packet.action==4){
@@ -371,7 +343,6 @@ client.on('chat', function(packet) {
 	if(jsonMsg.translate) {
 		if(jsonMsg.translate.startsWith("chat.type.")) {
 			try{
-				//console.log(jsonMsg);
 				name = jsonMsg.with[0].text+"";
 				if(jsonMsg.with[1].text){
 					text2 = jsonMsg.with[1].text+"";
@@ -408,9 +379,6 @@ client.on('chat', function(packet) {
 	if(ir.startsWith("Successfully disabled CommandSpy")){
 		cwc("/cspy on")
 	}
-	/*if(ir.includes("has muted player magicBot for now.")){
-		cwc("/mute magicBot 5y Bad bot :D")
-	}*/
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
