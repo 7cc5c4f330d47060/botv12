@@ -3,7 +3,7 @@
 'use strict';
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
-global.setTerminalTitle(title)
+global.setTerminalTitle = function(title)
 {
   process.stdout.write(
     String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7)
