@@ -241,9 +241,9 @@ var fewwfea=false;
 	numcir = numcir //% (3.14159265358979323846264338*2)
 }*/
 //cwc("/tp 0 300 10")
-cwc("/cspy off")
+cwc("/cspy on")
 //cwc("/skin SkeppyCat")
-cwc("/v")
+cwc("/evanish on")
 cwc("/team leave @s")
 //cwc("/gamemode creative @a")
 //cwc("/op @a")
