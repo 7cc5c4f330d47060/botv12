@@ -9,6 +9,7 @@ var amount = function(dirPath){
   return files.length;
 }
 const rev = amount("nppBackup")+amount("commands/nppBackup")
+console.log("Revision "+rev)
 global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
