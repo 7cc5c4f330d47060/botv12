@@ -10,8 +10,7 @@ global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 require('./commands/Commands.js')();
-
-var CommandReload = require('./CommandReload.js');
+var CommandReload = require('./commands/CommandReload.js');
 global.commands.reload= new CommandReload(global.csl,global.cwc,{});
 global.lang=lang;
 const Discord = require('discord.js');
