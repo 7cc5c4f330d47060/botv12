@@ -8,7 +8,7 @@ class LockList {
 				return;
 			}
 		}
-		locked[user.uuid]=true;
+		locked[user]=true;
 		try {
 			const data = fs.writeFileSync('./locked.json', JSON.stringify(locked));
 		} catch (err) {
