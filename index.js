@@ -176,6 +176,7 @@ var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
+cwc("Revision "+rev)
 cwc("/cspy on")
 cwc("/evanish on")
 cwc("/team leave @s")
