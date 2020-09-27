@@ -1,8 +1,8 @@
 var fs = require("fs");
 class LockList {
 	static add(user){
-		const data = fs.readFileSync('../locked.json', 'utf8');
-		fs.unlink("../locked.json",function(){});
+		const data = fs.readFileSync('./locked.json', 'utf8');
+		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
@@ -11,15 +11,15 @@ class LockList {
 		}
 		locked[user.uuid]=true;
 		try {
-			const data = fs.writeFileSync('../locked.json', JSON.stringify(locked));
+			const data = fs.writeFileSync('./locked.json', JSON.stringify(locked));
 		} catch (err) {
 			console.error(err)
 		}
 		return user.uuid;
 	}
 	static remove(user){
-		const data = fs.readFileSync('../locked.json', 'utf8');
-		fs.unlink("../locked.json",function(){});
+		const data = fs.readFileSync('./locked.json', 'utf8');
+		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
@@ -27,20 +27,20 @@ class LockList {
 			}
 		}
 		try {
-			const data = fs.writeFileSync('../locked.json', JSON.stringify(locked));
+			const data = fs.writeFileSync('./locked.json', JSON.stringify(locked));
 		} catch (err) {
 			console.error(err)
 		}
 		return;
 	}
 	static list(){
-		const data = fs.readFileSync('../locked.json', 'utf8');
+		const data = fs.readFileSync('./locked.json', 'utf8');
 		var locked=JSON.parse(data);
 		return locked;
 	}
 	static get(user){
-		const data = fs.readFileSync('../locked.json', 'utf8');
-		fs.unlink("../locked.json",function(){});
+		const data = fs.readFileSync('./locked.json', 'utf8');
+		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
@@ -50,9 +50,9 @@ class LockList {
 		return false;
 	}
 	static reset(user){
-		fs.unlink("../locked.json",function(){});
+		fs.unlink("./locked.json",function(){});
 		try {
-			const data = fs.writeFileSync('../locked.json', "{}");
+			const data = fs.writeFileSync('./locked.json', "{}");
 		} catch (err) {
 			console.error(err)
 		}
