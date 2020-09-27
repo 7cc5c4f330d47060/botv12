@@ -5,11 +5,11 @@ class LockList {
 		fs.unlink("../locked.json");
 		var locked=JSON.parse(data);
 		for(var i in locked){
-			if(i.uuid==user.uuid){
+			if(locked[i]==true){
 				return;
 			}
 		}
-		locked[user.name]=user.uuid;
+		locked[user.uuid]=true;
 		try {
 			const data = fs.writeFileSync('../locked.json', JSON.stringify(locked));
 		} catch (err) {
@@ -22,7 +22,7 @@ class LockList {
 		fs.unlink("../locked.json");
 		var locked=JSON.parse(data);
 		for(var i in locked){
-			if(i.uuid==user.uuid){
+			if(locked[i]==true){
 				delete locked[i];
 			}
 		}
@@ -43,7 +43,7 @@ class LockList {
 		fs.unlink("../locked.json");
 		var locked=JSON.parse(data);
 		for(var i in locked){
-			if(i.uuid==user.uuid){
+			if(locked[i]==true){
 				return true;
 			}
 		}
