@@ -136,7 +136,7 @@ function connectLockBot(uuid){
 	global.lclock=true;
 	setTimeout(function(){global.lclock=false},4500)
 	var name="LOCK"+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16);
-	setTimeout(function(){lockBots[uuid].lint=setInterval(function(){lockBots[uuid].write("chat",{yaw:Math.random()*10})},50)},500)
+	setTimeout(function(){lockBots[uuid].lint=setInterval(function(){lockBots[uuid].write("chat",{pitch:yaw:Math.random()*10,yaw:Math.random()*10})},50)},500)
 	setTimeout(function(){lockBots[uuid].write("chat",{message:'/setblock ~ 15 ~ minecraft:command_block{Command:"/v '+uuid+' off",auto:1b} destroy'})},1500);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo "+uuid+" username "+name})},2000);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2500);
