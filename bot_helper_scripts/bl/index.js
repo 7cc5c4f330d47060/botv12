@@ -1,5 +1,5 @@
 var translates=require("./en_us.json");
-const tth=function(T){
+const tth=function(T,go){
 	
 	if(T){
 				var areturn="";
@@ -71,9 +71,9 @@ const tth=function(T){
 			if(T.color=="light_purple"){coloraa="\x1b[0m\x1b[1m\x1b[35m";			colorab+="\u00a7d"} else
 			if(T.color=="yellow")		{coloraa="\x1b[0m\x1b[1m\x1b[33m";			colorab+="\u00a7e"} else
 			if(T.color=="white")		{coloraa="\x1b[0m\x1b[1m\x1b[37m";			colorab+="\u00a7f"} else
-			if(T.color=="reset")		{coloraa="\x1b[0m\x1b[1m\x1b[37m\u00a7r";	colorab+="\u00a7r"} else if(!T.color){coloraa="\x1b[0m\x1b[1m\x1b[37m";}
+			if(T.color=="reset")		{coloraa="\x1b[0m\x1b[1m\x1b[37m\u00a7r";	colorab+="\u00a7r"} else if(!T.color && !go){coloraa="\x1b[0m\x1b[1m\x1b[37m";}
 			/**/
-			var thing=exports.tth(T.with[iz])
+			var thing=exports.tth(T.with[iz],true)
 				x=x.replace("%s",coloraa+thing[0]+coloraa)
 				y=y.replace("%s",colorab+thing[1]+colorab)
 				z=z.replace("%s",thing[2])
