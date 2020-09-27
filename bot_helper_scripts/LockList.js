@@ -59,3 +59,4 @@ class LockList {
 		return true;
 	}
 }
+module.exports=LockList;
