@@ -18,7 +18,7 @@ var amount = function(dirPath,filter){
   })
   return files.length;
 }
-const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")
+const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 console.log("Revision "+rev)
 setTerminalTitle("Revision "+rev)
 global.conf = require('./a.json');
@@ -34,7 +34,7 @@ require('./commands/Commands.js')();
 global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
-global.cl=0;
+global.cl=0;h
 global.bc=0;
 global.cd=0;
 global.discq=0;
