@@ -136,7 +136,7 @@ function connectLockBot(uuid){
 	global.lclock=true;
 	setTimeout(function(){global.lclock=false},4500)
 	var name="LOCK"+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16);
-	setTimeout(function(){lockBots[uuid].lint=setInterval(function(){lockBots[uuid].write("look",{pitch:Math.random()*10,yaw:Math.random()*10})},50)},500)
+	//setTimeout(function(){lockBots[uuid].lint=setInterval(function(){lockBots[uuid].write("look",{pitch:Math.random()*10,yaw:Math.random()*10})},50)},500)
 	setTimeout(function(){lockBots[uuid].write("chat",{message:'/setblock ~ 15 ~ minecraft:command_block{Command:"/v '+uuid+' off",auto:1b} destroy'})},1500);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo "+uuid+" username "+name})},2000);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2500);
@@ -346,7 +346,7 @@ client.on('player_info', function(packet) {
 			setTimeout(function(){
 				if(LockList.get(packet.data[i1c].UUID) && !on[packet.data[i1c].UUID]){
 					lockBots[packet.data[i1c].UUID].end("Player left");
-					clearInterval(lockBots[packet.data[i1c].UUID].lint)
+					//clearInterval(lockBots[packet.data[i1c].UUID].lint)
 					setTimeout(function(){delete lockBots[packet.data[i1c].UUID];},1000)
 				}
 			},5000)
