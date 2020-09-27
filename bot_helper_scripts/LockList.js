@@ -49,7 +49,7 @@ class LockList {
 		}
 		return false;
 	}
-	static reeset(user){
+	static reset(user){
 		fs.unlink("../locked.json");
 		try {
 			const data = fs.writeFileSync('../locked.json', "{}");
