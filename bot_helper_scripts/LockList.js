@@ -20,7 +20,7 @@ class LockList {
 		const data = fs.readFileSync('./locked.json', 'utf8');
 		var locked=JSON.parse(data);
 		for(var i in locked){
-			if(locked[i]==true){
+			if(locked[i]==true && i == user){
 				delete locked[i];
 			}
 		}
@@ -44,7 +44,7 @@ class LockList {
 		const data = fs.readFileSync('./locked.json', 'utf8');
 		var locked=JSON.parse(data);
 		for(var i in locked){
-			if(locked[i]==true){
+			if(locked[i]==true && i == user){
 				return true;
 			}
 		}
