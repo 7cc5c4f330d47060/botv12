@@ -40,7 +40,6 @@ class LockList {
 	}
 	static get(user){
 		const data = fs.readFileSync('./locked.json', 'utf8');
-		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
