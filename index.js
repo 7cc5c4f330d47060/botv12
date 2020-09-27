@@ -329,16 +329,16 @@ client.on('player_info', function(packet) {
 			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });
 		}
 		if(packet.action==1){
-			on[packet.data[i1c].UUID]=true;
+			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==2){
-			on[packet.data[i1c].UUID]=true;
+			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==3){
-			on[packet.data[i1c].UUID]=true;
+			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==4){
-			on[packet.data[i1c].UUID]=false;
+			on[packet.data[i1c].UUID]=false;leave=true;setTimeout(function(){leave=false,1000}
 			setTimeout(function(){
 				if(LockList.get(packet.data[i1c].UUID) && !on[packet.data[i1c].UUID]){
 					lockBots[packet.data[i1c].UUID].end("Player left");
