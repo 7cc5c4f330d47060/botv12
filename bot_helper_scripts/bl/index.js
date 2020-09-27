@@ -5,23 +5,23 @@ const tth=function(T){
 				var areturn="";
 				var breturn="";
 				var creturn="";
-			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70"} else
-			if(T.color=="dark_blue")   {areturn+="\x1b[0m\x1b[2m\x1b[34m";			breturn+="\u00a71"} else
-			if(T.color=="dark_green")  {areturn+="\x1b[0m\x1b[2m\x1b[32m";			breturn+="\u00a72"} else
-			if(T.color=="dark_aqua")   {areturn+="\x1b[0m\x1b[2m\x1b[36m";			breturn+="\u00a73"} else
-			if(T.color=="dark_red")    {areturn+="\x1b[0m\x1b[2m\x1b[31m";			breturn+="\u00a74"} else
-			if(T.color=="dark_purple") {areturn+="\x1b[0m\x1b[2m\x1b[35m";			breturn+="\u00a75"} else
-			if(T.color=="gold")        {areturn+="\x1b[0m\x1b[2m\x1b[33m";			breturn+="\u00a76"} else
-			if(T.color=="gray")        {areturn+="\x1b[0m\x1b[2m\x1b[37m";			breturn+="\u00a77"} else
-			if(T.color=="dark_gray")	{areturn+="\x1b[0m\x1b[1m\x1b[30m";			breturn+="\u00a78"} else
-			if(T.color=="blue")		{areturn+="\x1b[0m\x1b[1m\x1b[34m";				breturn+="\u00a79"} else
-			if(T.color=="green")		{areturn+="\x1b[0m\x1b[1m\x1b[32m";			breturn+="\u00a7a"} else
-			if(T.color=="aqua")		{areturn+="\x1b[0m\x1b[1m\x1b[36m";				breturn+="\u00a7b"} else
-			if(T.color=="red")			{areturn+="\x1b[0m\x1b[1m\x1b[31m";			breturn+="\u00a7c"} else
-			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d"} else
-			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e"} else
-			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7f"} else
-			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r"}
+			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70";pc=T.color} else
+			if(T.color=="dark_blue")   {areturn+="\x1b[0m\x1b[2m\x1b[34m";			breturn+="\u00a71";pc=T.color} else
+			if(T.color=="dark_green")  {areturn+="\x1b[0m\x1b[2m\x1b[32m";			breturn+="\u00a72";pc=T.color} else
+			if(T.color=="dark_aqua")   {areturn+="\x1b[0m\x1b[2m\x1b[36m";			breturn+="\u00a73";pc=T.color} else
+			if(T.color=="dark_red")    {areturn+="\x1b[0m\x1b[2m\x1b[31m";			breturn+="\u00a74";pc=T.color} else
+			if(T.color=="dark_purple") {areturn+="\x1b[0m\x1b[2m\x1b[35m";			breturn+="\u00a75";pc=T.color} else
+			if(T.color=="gold")        {areturn+="\x1b[0m\x1b[2m\x1b[33m";			breturn+="\u00a76";pc=T.color} else
+			if(T.color=="gray")        {areturn+="\x1b[0m\x1b[2m\x1b[37m";			breturn+="\u00a77";pc=T.color} else
+			if(T.color=="dark_gray")	{areturn+="\x1b[0m\x1b[1m\x1b[30m";			breturn+="\u00a78";pc=T.color} else
+			if(T.color=="blue")		{areturn+="\x1b[0m\x1b[1m\x1b[34m";				breturn+="\u00a79";pc=T.color} else
+			if(T.color=="green")		{areturn+="\x1b[0m\x1b[1m\x1b[32m";			breturn+="\u00a7a";pc=T.color} else
+			if(T.color=="aqua")		{areturn+="\x1b[0m\x1b[1m\x1b[36m";				breturn+="\u00a7b";pc=T.color} else
+			if(T.color=="red")			{areturn+="\x1b[0m\x1b[1m\x1b[31m";			breturn+="\u00a7c";pc=T.color} else
+			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d";pc=T.color} else
+			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e";pc=T.color} else
+			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7f";pc=T.color} else
+			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color}
 			if(Boolean(T.bold)){areturn+="\u00a7l";breturn+="\u00a7l"};
 			if(Boolean(T.italic)){areturn+="\u00a7o";breturn+="\u00a7o"};
 			if(Boolean(T.underlined)){areturn+="\u00a7n";breturn+="\u00a7n"};
@@ -74,8 +74,8 @@ const tth=function(T){
 			if(T.color=="reset")		{coloraa="\x1b[0m\x1b[1m\x1b[37m";			colorab+="\u00a7r"}
 			/**/
 			var thing=exports.tth(T.with[iz])
-				x=x.replace("%s",coloraa+thing[0])
-				y=y.replace("%s",colorab+thing[1])
+				x=x.replace("%s",coloraa+thing[0]+coloraa)
+				y=y.replace("%s",colorab+thing[1]+colorab)
 				z=z.replace("%s",thing[2])
 			}
 		}
@@ -91,7 +91,23 @@ const tth=function(T){
 		breturn+= ""+T;
 		creturn+= ""+T;
 	}
-	
+			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70";pc=T.color} else
+			if(T.color=="dark_blue")   {areturn+="\x1b[0m\x1b[2m\x1b[34m";			breturn+="\u00a71";pc=T.color} else
+			if(T.color=="dark_green")  {areturn+="\x1b[0m\x1b[2m\x1b[32m";			breturn+="\u00a72";pc=T.color} else
+			if(T.color=="dark_aqua")   {areturn+="\x1b[0m\x1b[2m\x1b[36m";			breturn+="\u00a73";pc=T.color} else
+			if(T.color=="dark_red")    {areturn+="\x1b[0m\x1b[2m\x1b[31m";			breturn+="\u00a74";pc=T.color} else
+			if(T.color=="dark_purple") {areturn+="\x1b[0m\x1b[2m\x1b[35m";			breturn+="\u00a75";pc=T.color} else
+			if(T.color=="gold")        {areturn+="\x1b[0m\x1b[2m\x1b[33m";			breturn+="\u00a76";pc=T.color} else
+			if(T.color=="gray")        {areturn+="\x1b[0m\x1b[2m\x1b[37m";			breturn+="\u00a77";pc=T.color} else
+			if(T.color=="dark_gray")	{areturn+="\x1b[0m\x1b[1m\x1b[30m";			breturn+="\u00a78";pc=T.color} else
+			if(T.color=="blue")		{areturn+="\x1b[0m\x1b[1m\x1b[34m";				breturn+="\u00a79";pc=T.color} else
+			if(T.color=="green")		{areturn+="\x1b[0m\x1b[1m\x1b[32m";			breturn+="\u00a7a";pc=T.color} else
+			if(T.color=="aqua")		{areturn+="\x1b[0m\x1b[1m\x1b[36m";				breturn+="\u00a7b";pc=T.color} else
+			if(T.color=="red")			{areturn+="\x1b[0m\x1b[1m\x1b[31m";			breturn+="\u00a7c";pc=T.color} else
+			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d";pc=T.color} else
+			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e";pc=T.color} else
+			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7f";pc=T.color} else
+			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color}
 	return [(areturn+""),(breturn+""),(creturn+"")];
 	}
 }
