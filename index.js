@@ -317,7 +317,7 @@ client.on('end', function(packet) {
 	setTimeout(function(){process.exit(0)},3000)
 })
 var p={};
-
+global.leave=false;
 client.on('player_info', function(packet) {
 	for(var i1c in packet.data){
 		if(packet.action==0){
@@ -338,7 +338,7 @@ client.on('player_info', function(packet) {
 			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==4){
-			on[packet.data[i1c].UUID]=false;leave=true;setTimeout(function(){leave=false,1000}
+			on[packet.data[i1c].UUID]=false;leave=true;setTimeout(function(){leave=false},1000}
 			setTimeout(function(){
 				if(LockList.get(packet.data[i1c].UUID) && !on[packet.data[i1c].UUID]){
 					lockBots[packet.data[i1c].UUID].end("Player left");
