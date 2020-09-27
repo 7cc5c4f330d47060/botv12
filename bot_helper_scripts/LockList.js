@@ -2,7 +2,6 @@ var fs = require("fs");
 class LockList {
 	static add(user){
 		const data = fs.readFileSync('./locked.json', 'utf8');
-		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
@@ -19,7 +18,6 @@ class LockList {
 	}
 	static remove(user){
 		const data = fs.readFileSync('./locked.json', 'utf8');
-		fs.unlink("./locked.json",function(){});
 		var locked=JSON.parse(data);
 		for(var i in locked){
 			if(locked[i]==true){
