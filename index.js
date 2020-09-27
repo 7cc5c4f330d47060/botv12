@@ -4,7 +4,7 @@
 setTimeout(function(){process.exit(0)},3600000)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
-const LockList = require("../bot_helper_scripts/LockList.js");
+const LockList = require("./bot_helper_scripts/LockList.js");
 global.setTerminalTitle = function(title)
 {
   process.stdout.write(
