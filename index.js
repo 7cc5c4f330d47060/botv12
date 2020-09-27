@@ -343,6 +343,7 @@ client.on('player_info', function(packet) {
 			setTimeout(function(){
 				if(LockList.get(packet.data[i1c].UUID) && !on[packet.data[i1c].UUID]){
 					lockBots[packet.data[i1c].UUID].end("Player left");
+					clearInterval(lockBots[packet.data[i1c].UUID].lint)
 					setTimeout(function(){delete lockBots[packet.data[i1c].UUID];},1000)
 				}
 			},5000)
