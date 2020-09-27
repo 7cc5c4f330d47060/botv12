@@ -127,7 +127,7 @@ global.client = mc.createClient({
 global.lockBots = {};
 global.on={};
 function connectLockBot(uuid){
-	lockBots[uuid] = mc.createClient({
+	try{lockBots[uuid] = mc.createClient({
 		host: conf.server,   
 		port: conf.port,    
 		version: conf.version, 
@@ -141,6 +141,9 @@ function connectLockBot(uuid){
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo "+uuid+" username "+name})},2000);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2500);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/icu control "+name})},3000);
+	}catch(e){
+		console.log(e)
+	}
 }
 //var init
 var NoCommands = false;
