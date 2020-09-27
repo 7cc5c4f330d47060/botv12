@@ -34,7 +34,7 @@ require('./commands/Commands.js')();
 global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
-global.cl=0;h
+global.cl=0;
 global.bc=0;
 global.cd=0;
 global.discq=0;
