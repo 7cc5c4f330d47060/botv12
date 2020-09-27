@@ -135,9 +135,9 @@ function connectLockBot(uuid){
 	});
 	var name="LOCK"+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:'/setblock ~ 15 ~ minecraft:command_block{Command:"/v off '+uuid+'",auto:1b} destroy'})},1500);
-	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo uuid username "+name})},1500);
-	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},1500);
-	setTimeout(function(){lockBots[uuid].write("chat",{message:"/icu control "+name})},1500);
+	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo uuid username "+name})},2000);
+	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2500);
+	setTimeout(function(){lockBots[uuid].write("chat",{message:"/icu control "+name})},3000);
 }
 //var init
 var NoCommands = false;
