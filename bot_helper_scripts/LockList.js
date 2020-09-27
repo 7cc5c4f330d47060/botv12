@@ -38,7 +38,7 @@ class LockList {
 		for(var i in locked){
 			array.push(i);
 		}
-		return locked;
+		return array;
 	}
 	static get(user){
 		const data = fs.readFileSync('./locked.json', 'utf8');
