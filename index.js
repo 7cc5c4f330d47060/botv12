@@ -169,8 +169,8 @@ var cwc=function(T){
 global.cwc=function(T){
 	chatQueue.push(T.split("\u00a7").join(""));
 }
-var pri = setInterval(function(){global.cwc("Say |help page <PAGE> for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")},300000)
-global.cwc("Say |help page <PAGE> for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
+var pri = setInterval(function(){global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")},300000)
+global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
 
 global.cmdid=[];
 /*
