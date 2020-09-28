@@ -20,6 +20,7 @@ var amount = function(dirPath,filter){
   return files.length;
 }
 var pri = setInterval(function(){global.cwc("Say |help page <PAGE> for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")},300000)
+global.cwc("Say |help page <PAGE> for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 console.log("Revision "+rev)
 setTerminalTitle("Revision "+rev)
