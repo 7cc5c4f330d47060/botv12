@@ -346,7 +346,7 @@ client.on('player_info', function(packet) {
 			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==4){
-			setTimeout(function(){on[packet.data[i1c].UUID]=false;},1000)
+			setTimeout(function(){on[packet.data[i1c].UUID]=false;},100)
 			setTimeout(function(){
 				if(!on[packet.data[i1c].UUID]){fs.appendFile('Kaboom Join Leave Log [TESTING].txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  })};
 			},5000)
