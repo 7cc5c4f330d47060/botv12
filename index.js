@@ -327,12 +327,12 @@ client.on('player_info', function(packet) {
 		if(packet.action==0){
 			p[packet.data[i1c].UUID]=packet.data[i1c];
 			on[packet.data[i1c].UUID]=true;
-			if(LockList.get(packet.data[i1c].UUID) && on[packet.data[i1c].UUID]){
+			/*if(LockList.get(packet.data[i1c].UUID) && on[packet.data[i1c].UUID]){
 				connectLockBot(packet.data[i1c].UUID)
-			}
+			}*/
 			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });
 		}
-		if(packet.action==1){
+		/*if(packet.action==1){
 			if(!leave) {on[packet.data[i1c].UUID]=true;}
 		}
 		if(packet.action==2){
@@ -340,16 +340,9 @@ client.on('player_info', function(packet) {
 		}
 		if(packet.action==3){
 			if(!leave) {on[packet.data[i1c].UUID]=true;}
-		}
+		}*/
 		if(packet.action==4){
-			on[packet.data[i1c].UUID]=false;leave=true;setTimeout(function(){leave=false},1000)
-			setTimeout(function(){
-				if(LockList.get(packet.data[i1c].UUID) && !on[packet.data[i1c].UUID]){
-					lockBots[packet.data[i1c].UUID].end("Player left");
-					//clearInterval(lockBots[packet.data[i1c].UUID].lint)
-					setTimeout(function(){delete lockBots[packet.data[i1c].UUID];},1000)
-				}
-			},5000)
+			on[packet.data[i1c].UUID]=false;
 			fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
 		}
 }	
