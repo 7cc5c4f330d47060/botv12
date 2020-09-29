@@ -362,6 +362,7 @@ global.CD=function(n,c){
 client.on('chat', function(packet) {
 	if(!global.destroyed){
 	var jsonMsg = JSON.parse(packet.message);
+	console.log(jsonMsg);
 	var name;
 	var nf=0;
 	if(jsonMsg.extra){
