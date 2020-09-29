@@ -354,8 +354,8 @@ global.CD=function(n,c){
 	if(!global.destroyed){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
-		fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
 	}
+	fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
 	global.commandQueue.push({n:n,c:c})
 	}
 };var CD=function(s,h){global.CD(s,h)}
