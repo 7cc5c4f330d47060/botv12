@@ -2,6 +2,7 @@
 //console.clear();
 'use strict';
 global.consoleOnly = false;
+global.cspyMode=0;
 setTimeout(function(){process.exit(0)},10800000)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
@@ -188,7 +189,7 @@ var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
 cwc("Revision "+rev)
-cwc("/cspy on")
+global.cwc("/cspy "+["off","on"][global.cspyMode])
 cwc("/evanish on")
 cwc("/team leave @s")
 cwc("/email clear")
