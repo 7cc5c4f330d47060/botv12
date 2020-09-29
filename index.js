@@ -201,6 +201,7 @@ cwc("/team leave @s")
 cwc("/email clear")
 cwc("/prefix off")
 cwc("/nick off")
+cwc("/save-ff")
 cwc("/gmsp")
 cwc("/god on")
 
