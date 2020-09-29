@@ -410,6 +410,11 @@ client.on('chat', function(packet) {
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
+	if(text2.includes("Apmunute")){
+		if(text2.indexOf("Made")==0){
+			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
+		}
+	}
 	if(ir.endsWith("disabled")){
 		if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
 			cwc("/evanish on")
