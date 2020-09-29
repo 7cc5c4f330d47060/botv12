@@ -5,6 +5,13 @@ const tth=function(T,go){
 				var areturn="";
 				var breturn="";
 				var creturn="";
+		if (T.extra){
+			for(var iza=0; iza<=T.extra.length-1; iza++){
+				areturn+= tth(T.extra[iza],true)[0]
+				breturn+= tth(T.extra[iza],true)[1]
+				creturn+= tth(T.extra[iza],true)[2]
+			}
+		}
 			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70";pc=T.color} else
 			if(T.color=="dark_blue")   {areturn+="\x1b[0m\x1b[2m\x1b[34m";			breturn+="\u00a71";pc=T.color} else
 			if(T.color=="dark_green")  {areturn+="\x1b[0m\x1b[2m\x1b[32m";			breturn+="\u00a72";pc=T.color} else
@@ -28,14 +35,7 @@ const tth=function(T,go){
 			if(true==(T.strikethrough)){areturn+="\u00a7m";breturn+="\u00a7m"};
 			if(true==(T.obfuscated)){areturn+="\u00a7k";breturn+="\u00a7k"};
 
-		if (T.extra){
-			for(var iza=0; iza<=T.extra.length-1; iza++){
-				areturn+= tth(T.extra[iza],true)[0]
-				breturn+= tth(T.extra[iza],true)[1]
-				creturn+= tth(T.extra[iza],true)[2]
-			}
-			return [areturn,breturn,creturn];
-		}
+
 
 	if(T.selector){
 		areturn+=T.selector;
