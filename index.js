@@ -410,16 +410,16 @@ client.on('chat', function(packet) {
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
 	}
-	if(ir.includes("disabled")){
-		if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=8){
+	if(ir.endsWith("disabled")){
+		if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
 			cwc("/evanish on")
 		}
 	}
 	if(ir.startsWith("Your nickname is now ")){
 		cwc("/nick off")
 	}
-	if(ir.startsWith("Successfully disabled CommandSpy")){
-		cwc("/cspy on")
+	if(ir.startsWith("Successfully "+["enabled","disabled"][global.cspyMode]+" CommandSpy")){
+		global.cwc("/cspy "+["off","on"][global.cspyMode])
 	}
 	if(global.loggerEnable){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
