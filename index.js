@@ -216,6 +216,7 @@ global.getAdmin=function(c){
 	return 0
 }
 function command(n,d,b1a,C){
+	if(!global.consoleOnly || C){
 	if(!global.destroyed){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
@@ -234,6 +235,8 @@ function command(n,d,b1a,C){
 	return 3;
 	}
 	return 14;
+	}
+	return 79;
 }
 global.cmdQueueMove = function(){
 	if(!global.destroyed){
