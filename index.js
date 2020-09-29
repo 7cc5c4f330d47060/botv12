@@ -88,13 +88,9 @@ global.clientd.on('message', msg => {
   }
 });
 global.clientd.login('');
-var mrr = function(){
-	var rn = +mrn(2,32,10)
-	return (mrn(2,rn,rn))
+var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))}
 }
-var ran=function(){
-	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()
-}
+var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()
 global.confirm=function(){
 	confirmQueueMove(adminCode);
 }
