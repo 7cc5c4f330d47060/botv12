@@ -411,9 +411,7 @@ client.on('chat', function(packet) {
 		}
 	}
 	if(text2.includes("Apmunute")){
-		if(text2.indexOf("Made")==0){
-			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
-		}
+		return;
 	}
 	if(ir.endsWith("disabled")){
 		if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
