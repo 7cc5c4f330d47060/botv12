@@ -7,7 +7,6 @@
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
 	"cs":["&7","&f"],
-	"blockApmunute":false,
 	"commandsEnabled":true,
 	"permLevelList":[
 		"User",
