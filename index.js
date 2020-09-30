@@ -2,7 +2,7 @@
 //console.clear();
 'use strict';
 global.consoleOnly = false;
-global.cspyMode=0;
+global.cspyMode=1;
 setTimeout(function(){process.exit(0)},10800000)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
