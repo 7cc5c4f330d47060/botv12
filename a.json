@@ -10,5 +10,6 @@
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
 	"cs":25,
-	"reversecs":false
+	"reversecs":false,
+	"blockApmunute":false,
 }
