@@ -189,7 +189,7 @@ var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
 cwc("Revision "+rev)
-global.cwc("/cspy "+["off","on"][global.cspyMode])
+global.cwc("/cspy "+["off","on"][+global.cspyMode])
 cwc("/evanish on")
 cwc("/team leave @s")
 cwc("/email clear")
@@ -421,7 +421,7 @@ client.on('chat', function(packet) {
 	if(ir.startsWith("Your nickname is now ")){
 		cwc("/nick off")
 	}
-	if(ir.startsWith("Successfully "+["enabled","disabled"][global.cspyMode]+" CommandSpy")){
+	if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
 		global.cwc("/cspy "+["off","on"][global.cspyMode])
 	}
 	if(global.loggerEnable){
