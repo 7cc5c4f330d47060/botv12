@@ -35,6 +35,7 @@ global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
 const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
 rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 global.adminCode = 0;
+global.entityid=0;
 var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)}
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
@@ -256,7 +257,10 @@ global.CD=function(n,c){
 };var CD=function(s,h){global.CD(s,h)}
 
 client.on('login', function(packet) {
-	console.log(packet);
+	if(packet.entityId){global.entityid=packet.entityId}
+})
+client.on('entity_status', function(packet) {
+	if(packet.entityId==global.entityid
 })
 client.on('chat', function(packet) {
 	if(!global.destroyed){
