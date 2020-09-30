@@ -12,6 +12,7 @@
 	"cspyOn":true,
 	"commandsEnabled":true,
 	"revision":true,
+	"isNormal": false,
 	"permLevelList":[
 		"User",
 		"Old user",
