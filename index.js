@@ -19,8 +19,7 @@ global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
 global.lang=lang;
-global.chatPrefix="";
-global.cl=0;global.bc=0;global.cd=0;
+global.chatPrefix="";global.cl=0;global.bc=0;global.cd=0;
 
 global.rq=require;
 const readline = require("readline");
