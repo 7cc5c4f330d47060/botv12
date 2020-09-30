@@ -11,6 +11,7 @@ global.setTerminalTitle = function(title)			{process.stdout.write(String.fromCha
 var amount = function(dirPath,filter){var files2 = fs.readdirSync(dirPath);var files=[];files2.forEach(function(f){if(f.startsWith(filter)){files.push(f)}});return files.length;}
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 var crypto = require('crypto');
+if(conf.revision){console.log("Revision "+rev);setTerminalTitle("Revision "+rev)}
 global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
@@ -92,7 +93,7 @@ var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
-cwc("Revision "+rev)
+if(conf.revision){cwc("Revision "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 cwc("/evanish on")
 cwc("/team leave @s")
