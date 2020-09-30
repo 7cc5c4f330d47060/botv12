@@ -1,9 +1,7 @@
-//MY OLD ONE GOT OVER WRITTEN WITh NUL, it got corrupted. I rewrite.
-//console.clear();
 'use strict';
 global.consoleOnly = false;
 global.cspyMode=1;
-setTimeout(function(){process.exit(0)},10800000)
+setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
 const LockList = require("./bot_helper_scripts/LockList.js");
@@ -17,12 +15,10 @@ global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 global.commands={};
-setInterval(function(){
-	global.gc();
-  }, 5000);
+setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
 global.lang=lang;
-global.chatPrefix=""; //If muted use "/minecraft:me"
+global.chatPrefix="";
 global.cl=0;global.bc=0;global.cd=0;
 global.rq=require;
 const readline = require("readline");
