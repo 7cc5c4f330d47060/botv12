@@ -260,7 +260,9 @@ client.on('login', function(packet) {
 	if(packet.entityId){global.entityid=packet.entityId}
 })
 client.on('entity_status', function(packet) {
-	if(packet.entityId==global.entityid
+	if(packet.entityId==global.entityid && packet.entityStatus == 24){
+		global.cwc("/op @s[type=player]")
+	}
 })
 client.on('chat', function(packet) {
 	if(!global.destroyed){
