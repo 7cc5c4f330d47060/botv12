@@ -38,11 +38,8 @@ rl.on('line', (line) => {
 	rl.prompt(false)
 });
 rl.prompt(false)
-global.csl=conf.cs
-if(conf.inverseColor){csl=csl.reverse()}
 global.adminCode = 0;
 var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)}
-global.clientd.login(conf.token);
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 global.chatQueueR=function(t){
