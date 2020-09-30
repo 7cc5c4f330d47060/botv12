@@ -12,4 +12,5 @@
 	"cs":25,
 	"reversecs":false,
 	"blockApmunute":false,
+	"commandsEnabled":true,
 }
