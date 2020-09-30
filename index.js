@@ -8,7 +8,6 @@ const LockList = require("./bot_helper_scripts/LockList.js");
 global.setTerminalTitle = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
 var amount = function(dirPath,filter){var files2 = fs.readdirSync(dirPath);var files=[];files2.forEach(function(f){if(f.startsWith(filter)){files.push(f)}})return files.length;}
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
-if(conf.enableRevision){console.log("Revision "+rev);setTerminalTitle("Revision "+rev)}
 global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
@@ -22,17 +21,9 @@ global.chatPrefix="";
 global.cl=0;global.bc=0;global.cd=0;
 global.rq=require;
 const readline = require("readline");
-global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
-	});
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-	prompt: "\x1b[0m\x1b[1m\x1b[37m> "
-});
-rl.on('line', (line) => {
-	command("bb41a64a33fe01fb",line,true,true);
-	rl.prompt(false)
-});
+global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
+const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
+rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});
 rl.prompt(false)
 global.adminCode = 0;
 var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)}
