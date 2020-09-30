@@ -263,9 +263,6 @@ client.on('chat', function(packet) {
 				if(jsonMsg.extra[i2a].text){
 					if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
 						if(jsonMsg.extra[i2a-1]){
-							if(jsonMsg.extra[i2a-1].text.includes("maniaplay") && conf.blockApmunute){ return; }
-							if(jsonMsg.extra[i2a-1].text.includes("threadrippa") && conf.blockApmunute){ return; }
-							//if(jsonMsg.extra[i2a-1].text.startsWith("@")){ return; }
 							name = jsonMsg.extra[i2a-1].text;
 							break
 						}
@@ -302,9 +299,6 @@ client.on('chat', function(packet) {
 		if(text2.indexOf("Made")==0){
 			client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
 		}
-	}
-	if(text2.includes("Apmunute")){
-		return;
 	}
 	if(ir.endsWith("disabled")){
 		if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
