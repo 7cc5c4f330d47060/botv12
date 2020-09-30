@@ -8,7 +8,7 @@
 	"twoserverversion":"1.12.2",
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
-	"botChatQueueSpeed":250,
+	"botChatQueueSpeed":375,
 	"cs":25,
 	"reversecs":false
 }
