@@ -7,10 +7,10 @@ setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
 const LockList = require("./bot_helper_scripts/LockList.js");
-global.setTerminalTitle = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
+global.title = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 var crypto = require('crypto');
-if(conf.revision){console.log("Version "+rev);setTerminalTitle("NCB Version "+rev)}
+if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 global.perms = require('./admins.json');
 global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
@@ -24,7 +24,7 @@ global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
 const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
 rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 global.adminCode = 0;
-var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)}
+var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)}
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 global.chatQueueR=function(t){clearInterval(bc);setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);cwc("Chat speed set to "+t+"ms.")}
