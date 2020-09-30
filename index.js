@@ -8,7 +8,9 @@ var mc = require('minecraft-protocol');
 var fs = require('fs');
 const LockList = require("./bot_helper_scripts/LockList.js");
 global.title = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
-const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
+const type=["Debug","Normal"][+conf.isNormal]
+const rev2 = "Beta";
+const rev = rev2 + ` [${type} Mode]`;
 var crypto = require('crypto');
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 global.perms = require('./admins.json');
