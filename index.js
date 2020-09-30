@@ -254,7 +254,10 @@ global.CD=function(n,c){
 	global.commandQueue.push({n:n,c:c})
 	}
 };var CD=function(s,h){global.CD(s,h)}
-	
+
+client.on('login', function(packet) {
+	console.log(packet);
+})
 client.on('chat', function(packet) {
 	if(!global.destroyed){
 	var jsonMsg = JSON.parse(packet.message);
