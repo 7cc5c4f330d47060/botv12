@@ -323,10 +323,10 @@ client.on('chat', function(packet) {
 	if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
 		global.cwc("/cspy "+["off","on"][global.cspyMode])
 	}
-	if(global.fileLoggerEnable){
+	if(global.fileLogger){
 	fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
 	}
-	if(global.consoleLoggerEnable){
+	if(global.consoleLogger){
 	chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
 	}
 	return;
