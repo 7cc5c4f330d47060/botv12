@@ -3,6 +3,7 @@ global.conf = require('./a.json');
 global.consoleOnly = conf.consoleOnly;
 global.pll = conf.permLevelList;
 global.cspyMode=1;
+global.csl=conf.csl;
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
@@ -21,6 +22,7 @@ require('./commands/Commands.js')();
 global.lang=lang;
 global.chatPrefix="";
 global.cl=0;global.bc=0;global.cd=0;
+
 global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
