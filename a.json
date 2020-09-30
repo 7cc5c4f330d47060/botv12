@@ -12,5 +12,18 @@
 	"cs":["&7","&f"],
 	"blockApmunute":false,
 	"commandsEnabled":true,
+	"permLevelList":[
+		"User",
+		"Old user",
+		"Trusted user",
+		"Helper",
+		"Trial Mod",
+		"Mod",
+		"Senior Mod",
+		"Admin",
+		"Trusted Admin",
+		"Developer",
+		"Owner"
+	]
 	"token":""
 }
