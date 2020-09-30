@@ -10,6 +10,7 @@
 	"consoleOnly":false,
 	"cs":["&7","&f"],
 	"commandsEnabled":true,
+	"revision":true,
 	"permLevelList":[
 		"User",
 		"Old user",
