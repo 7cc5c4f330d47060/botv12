@@ -1,8 +1,7 @@
 'use strict';
 global.conf = require('./a.json');
-global.consoleOnly = conf.consoleOnly;
-global.pll = conf.permLevelList;
-global.cspyMode=1;
+global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
+global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
@@ -19,9 +18,7 @@ global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
 global.lang=lang;
-global.chatPrefix="";global.cl=0;global.bc=0;global.cd=0;
-
-global.rq=require;
+global.chatPrefix="";global.cl=0;global.bc=0;global.cd=0;global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
 const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
@@ -93,7 +90,7 @@ var numcir=0;
 var rad2deg = function(radians){
 	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
-if(conf.revision){cwc("Revision "+rev)}
+if(conf.revision){cwc("Version "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 cwc("/evanish on")
 cwc("/team leave @s")
