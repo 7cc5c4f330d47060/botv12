@@ -3,6 +3,14 @@ global.conf = require('./a.json');
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
+var amount = function(dirPath,filter){
+  var files2 = fs.readdirSync(dirPath)
+  var files=[];
+  files2.forEach(function(f){
+	  if(f.startsWith(filter)){files.push(f)}
+  })
+  return files.length;
+}
 const realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 console.log("Revision "+realRev)
 setTimeout(function(){process.exit(0)},conf.restartTimer)
