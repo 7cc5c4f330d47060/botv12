@@ -13,4 +13,5 @@
 	"reversecs":false,
 	"blockApmunute":false,
 	"commandsEnabled":true,
+	"token":""
 }
