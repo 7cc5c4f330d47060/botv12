@@ -111,13 +111,6 @@ global.getPerm = function(x){
 	}
 	return 0
 }
-global.getAdmin=function(c){
-	if(global.admins[c]!=undefined){
-	return +global.admins[c]
-	console.log(global.admins[x])
-	}
-	return 0
-}
 function command(n,d,b1a,C){
 	if(!global.consoleOnly || C){
 	if(!global.destroyed){
