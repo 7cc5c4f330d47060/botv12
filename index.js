@@ -23,7 +23,7 @@ setInterval(function(){
 require('./commands/Commands.js')();
 global.lang=lang;
 global.chatPrefix=""; //If muted use "/minecraft:me"
-global.cl=0;global.bc=0;global.cd=0;global.discq=0;
+global.cl=0;global.bc=0;global.cd=0;
 global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
@@ -39,12 +39,10 @@ rl.on('line', (line) => {
 });
 rl.prompt(false)
 global.csl=[
-["&0","&7"],["&0","&8"],["&0","&f"],["&1","&3"],["&1","&7"],["&1","&9"],
-["&1","&a"],["&1","&b"],["&1","&f"],["&2","&3"],["&2","&7"],["&2","&9"],
-["&2","&a"],["&2","&b"],["&2","&e"],["&2","&f"],["&3","&9"],["&3","&b"],
-["&4","&c"],["&4","&f"],["&5","&d"],["&6","&7"],["&6","&c"],["&6","&e"],
-["&6","&f"],["&7","&f"],["&8","&7"],["&8","&f"],["&9","&a"],["&9","&b"],
-["&9","&f"],["&a","&f"],["&a","&b"],["&b","&f"],["&c","&f"],["&d","&f"],
+["&0","&7"],["&0","&8"],["&0","&f"],["&1","&3"],["&1","&7"],["&1","&9"],["&1","&a"],["&1","&b"],["&1","&f"],
+["&2","&3"],["&2","&7"],["&2","&9"],["&2","&a"],["&2","&b"],["&2","&e"],["&2","&f"],["&3","&9"],["&3","&b"],
+["&4","&c"],["&4","&f"],["&5","&d"],["&6","&7"],["&6","&c"],["&6","&e"],["&6","&f"],["&7","&f"],["&8","&7"],
+["&8","&f"],["&9","&a"],["&9","&b"],["&9","&f"],["&a","&f"],["&a","&b"],["&b","&f"],["&c","&f"],["&d","&f"],
 ["&e","&f"],["&f","&f"],["",""]
 ][conf.cs]
 if(conf.inverseColor){csl=csl.reverse()}
@@ -198,15 +196,6 @@ global.chatLogQueueMove = function(){if(!global.destroyed){
 		chatLogQueue.shift();
 }}
 	return 0;
-}
-global.dcqm = function(){
-	if(!global.destroyed){
-	try{global.clientd.channels.cache.get("751619709874470952").send(discordChatQueue.join("\n").split("|eval").join("| eval").split("\\").join("\\\\").split("\u202e").join("\\u202e").split("@").join("\\@ ").split("@here").join("`@here`").split("<").join("\\<").split("`").join("\\`").split("|").join("\\|").split("_").join("\\_").split("*").join("\\*"))
-	.catch(function(t){});
-	global.discordChatQueue=[];
-	return 0;}catch(rrrr){}
-	}
-	return 15;
 }
 global.chatQueueMove = function(){
 	if(!global.destroyed){
