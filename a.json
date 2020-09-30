@@ -10,7 +10,7 @@
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
 	"cs":25,
-	"reversecs":false,
+	"inverseColor":false,
 	"blockApmunute":false,
 	"commandsEnabled":true,
 	"token":""
