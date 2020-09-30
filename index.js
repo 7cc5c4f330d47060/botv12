@@ -72,8 +72,8 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[];
-global.loggerEnable = false;
-
+global.fileLogger = conf.fileLoggerOn;
+global.consoleLogger = conf.consoleLoggerOn;
 var cwc=function(T){
 	if(!global.destroyed){
 	if(T.startsWith("/")){
