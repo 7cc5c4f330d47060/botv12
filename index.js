@@ -49,7 +49,6 @@ function connectLockBot(uuid){
 	global.lclock=true;
 	setTimeout(function(){global.lclock=false},4500)
 	var name="LOCK"+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16);
-	//setTimeout(function(){lockBots[uuid].lint=setInterval(function(){lockBots[uuid].write("look",{pitch:Math.random()*10,yaw:Math.random()*10})},50)},500)
 	setTimeout(function(){lockBots[uuid].write("chat",{message:'/setblock ~ 15 ~ minecraft:command_block{Command:"/v '+uuid+' off",auto:1b} destroy'})},1500);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/sudo "+uuid+" username "+name})},2000);
 	setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2500);
@@ -58,15 +57,11 @@ function connectLockBot(uuid){
 		console.log(e)
 	}
 }
-//var init
-
 global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[];
 global.loggerEnable = true;
-var cdtc = 0;
-setInterval(function(){if(cdtc>0){cdtc-=0.1}},100)
 
 var cwc=function(T){
 	if(!global.destroyed){
@@ -85,10 +80,6 @@ global.pri = setInterval(function(){global.cwc("Say |help page <PAGE> in chat fo
 global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
 
 global.cmdid=[];
-/*
-for(var ie2=0;ie2<=15;ie2++){
-global.chatQueue.push('/tellraw '+n+' "\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'0\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'1\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'2\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+3+'\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'4\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'5\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'6\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'7\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'8\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'9\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'a\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'b\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'c\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'d\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'e\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'f"')}
-*/
 var packetc=60;
 client.on('packet', function (data, meta) {packetc=60;})
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)
