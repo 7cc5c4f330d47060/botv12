@@ -6,6 +6,7 @@
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
+	"restartTimer":10800000
 	"cs":["&7","&f"],
 	"commandsEnabled":true,
 	"permLevelList":[
