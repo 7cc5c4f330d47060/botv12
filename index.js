@@ -23,23 +23,13 @@ global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
 const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
-rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});
-rl.prompt(false)
+rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 global.adminCode = 0;
 var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)}
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
-global.chatQueueR=function(t){
-	clearInterval(bc);//bc
-	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
-	cwc("Chat speed set to "+t+"ms.")
-}
-var rh=function(){
-var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');
-var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');
-var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
-global.adminCode = h1+h2+h3
-}
+global.chatQueueR=function(t){clearInterval(bc);setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);cwc("Chat speed set to "+t+"ms.")}
+var rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');global.adminCode = h1+h2+h3}
 setTimeout(rh,800);
 global.client = mc.createClient({
   host: conf.server,   
