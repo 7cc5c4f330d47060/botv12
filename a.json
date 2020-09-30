@@ -9,6 +9,7 @@
 	"restartTimer":10800000,
 	"consoleOnly":false,
 	"cs":["&7","&f"],
+	"cspyOn":true,
 	"commandsEnabled":true,
 	"revision":true,
 	"permLevelList":[
