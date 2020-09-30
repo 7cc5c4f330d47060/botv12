@@ -3,6 +3,8 @@ global.conf = require('./a.json');
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
+const realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
+console.log("Revision "+realRev)
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
