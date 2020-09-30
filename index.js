@@ -22,8 +22,7 @@ var amount = function(dirPath,filter){
   return files.length;
 }
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
-console.log("Revision "+rev)
-setTerminalTitle("Revision "+rev)
+if(conf.enableRevision){console.log("Revision "+rev);setTerminalTitle("Revision "+rev)}
 global.conf = require('./a.json');
 var crypto = require('crypto');
 global.perms = require('./admins.json');
@@ -37,11 +36,7 @@ require('./commands/Commands.js')();
 global.lang=lang;
 const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
-global.cl=0;
-global.bc=0;
-global.cd=0;
-global.discq=0;
-global.destroyed=0;
+global.cl=0;global.bc=0;global.cd=0;global.discq=0;
 global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {
@@ -349,7 +344,7 @@ client.on('player_info', function(packet) {
 })
 
 global.CD=function(n,c){
-	if(!global.destroyed && global.commandsEnabled){
+	if(!global.destroyed){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
