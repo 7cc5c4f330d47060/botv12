@@ -1,6 +1,6 @@
 'use strict';
 global.conf = require('./a.json');
-global.consoleOnly = false;
+global.consoleOnly = conf.consoleOnly;
 global.cspyMode=1;
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 var mc = require('minecraft-protocol');
