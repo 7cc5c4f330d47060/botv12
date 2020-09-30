@@ -72,7 +72,7 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[];
-global.loggerEnable = true;
+global.loggerEnable = false;
 
 var cwc=function(T){
 	if(!global.destroyed){
