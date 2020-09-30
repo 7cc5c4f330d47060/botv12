@@ -7,20 +7,8 @@ setTimeout(function(){process.exit(0)},10800000)
 var mc = require('minecraft-protocol');
 var fs = require('fs');
 const LockList = require("./bot_helper_scripts/LockList.js");
-global.setTerminalTitle = function(title)
-{
-  process.stdout.write(
-    String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7)
-  );
-}
-var amount = function(dirPath,filter){
-  var files2 = fs.readdirSync(dirPath)
-  var files=[];
-  files2.forEach(function(f){
-	  if(f.startsWith(filter)){files.push(f)}
-  })
-  return files.length;
-}
+global.setTerminalTitle = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
+var amount = function(dirPath,filter){var files2 = fs.readdirSync(dirPath);var files=[];files2.forEach(function(f){if(f.startsWith(filter)){files.push(f)}})return files.length;}
 const rev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 if(conf.enableRevision){console.log("Revision "+rev);setTerminalTitle("Revision "+rev)}
 global.conf = require('./a.json');
@@ -34,7 +22,6 @@ setInterval(function(){
   }, 5000);
 require('./commands/Commands.js')();
 global.lang=lang;
-const Discord = require('discord.js');
 global.chatPrefix=""; //If muted use "/minecraft:me"
 global.cl=0;global.bc=0;global.cd=0;global.discq=0;
 global.rq=require;
@@ -62,17 +49,6 @@ global.csl=[
 ][conf.cs]
 if(conf.reversecs){csl=csl.reverse()}
 global.adminCode = 0;
-global.destroy=function(){
-	if(!global.destroyed){
-		(new CommandClearQ(cwc,csl,{})).command();global.destroyed=1;
-	}
-}
-global.undestroy=function(){
-	if(global.destroyed){
-		global.destroyed=0;
-		cwc("Enabling disabled bot functions...");
-	}
-}
 var mrn = function(offset,range,base){
 	return Math.floor(Math.random()*range).toString(base)			
 }
@@ -92,15 +68,14 @@ global.chatQueueR=function(t){
 	cwc("Chat speed set to "+t+"ms.")
 }
 var rh=function(){
-var hash = crypto.createHash('sha512');
-var hash2 = crypto.createHash('sha512');
-var hash3 = crypto.createHash('sha512');
-hash.update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"");
-hash2.update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c");
-hash3.update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d");
-var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
+var hash = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');
+var hash2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');
+var hash3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');
+
+hash;
+hash2;
+hash3var h1=hash.digest('hex');var h2=hash2.digest('hex');var h3=hash3.digest('hex')
 global.adminCode = h1+h2+h3
-setTimeout(function(){global.clientd.channels.cache.get("751617663071158332").send(global.adminCode).catch(function(t){});},3000)
 }
 setTimeout(rh,800);
 global.client = mc.createClient({
@@ -134,7 +109,6 @@ function connectLockBot(uuid){
 var NoCommands = false;
 global.commandQueue=[];
 global.chatQueue=[];
-global.discordChatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[];
 global.loggerEnable = true;
@@ -163,14 +137,8 @@ for(var ie2=0;ie2<=15;ie2++){
 global.chatQueue.push('/tellraw '+n+' "\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'0\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'1\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'2\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+3+'\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'4\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'5\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'6\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'7\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'8\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'9\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'a\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'b\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'c\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'d\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'e\\u'+c.split(" ")[1]+''+(+ie2).toString(16)+'f"')}
 */
 var packetc=60;
-  client.on('packet', function (data, meta) {
-    packetc=60;
-  })
-  setInterval(function(){
-	  packetc--;
-	  
-	  if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}
-  },1000)
+client.on('packet', function (data, meta) {packetc=60;})
+setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)
 
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
