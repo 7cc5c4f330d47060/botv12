@@ -128,14 +128,12 @@ function command(n,d,b1a,C){
 	var c=d.toLowerCase();
 	if(commands[c.split(" ")[0]]){
 		if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-			if(getAdmin(n)>=commands[c.split(" ")[0]].admin){
-				if(!commands[c.split(" ")[0]].confirm || b1a){
-					commands[c.split(" ")[0]].command(d,n,C);
-					return 0;
-				} else {
-					confirmQueuePush(d,n)
-					return 1;
-				}
+			if(!commands[c.split(" ")[0]].confirm || b1a){
+				commands[c.split(" ")[0]].command(d,n,C);
+				return 0;
+			} else {
+				confirmQueuePush(d,n)
+				return 1;
 			}
 		}
 	}
@@ -183,7 +181,7 @@ global.confirmQueueMove = function(hash){
 var confirmQueuePush = function(command,perm){
 	if(!global.destroyed){
 	confirmQueue.push({cmd:command,perm:perm})
-	global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CODE>"+csl[0]+"\" to confirm.")
+	global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CONSOLE-CODE>"+csl[0]+"\" to confirm.")
 	}
 }
 
