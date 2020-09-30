@@ -38,16 +38,10 @@ rl.on('line', (line) => {
 	rl.prompt(false)
 });
 rl.prompt(false)
-global.csl=[
-["&0","&7"],["&0","&8"],["&0","&f"],["&1","&3"],["&1","&7"],["&1","&9"],["&1","&a"],["&1","&b"],["&1","&f"],
-["&2","&3"],["&2","&7"],["&2","&9"],["&2","&a"],["&2","&b"],["&2","&e"],["&2","&f"],["&3","&9"],["&3","&b"],
-["&4","&c"],["&4","&f"],["&5","&d"],["&6","&7"],["&6","&c"],["&6","&e"],["&6","&f"],["&7","&f"],["&8","&7"],
-["&8","&f"],["&9","&a"],["&9","&b"],["&9","&f"],["&a","&f"],["&a","&b"],["&b","&f"],["&c","&f"],["&d","&f"],
-["&e","&f"],["&f","&f"],["",""]
-][conf.cs]
+global.csl=conf.cs
 if(conf.inverseColor){csl=csl.reverse()}
 global.adminCode = 0;
-var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)			}
+var mrn = function(offset,range,base){return Math.floor(Math.random()*range).toString(base)}
 global.clientd.login(conf.token);
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
