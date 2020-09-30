@@ -59,7 +59,7 @@ function connectLockBot(uuid){
 	}
 }
 //var init
-var NoCommands = false;
+
 global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
