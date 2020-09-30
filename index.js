@@ -14,7 +14,6 @@ const rev = rev2 + ` [${type} Mode]`;
 var crypto = require('crypto');
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 global.perms = require('./admins.json');
-global.admins = require('./owners.json');
 var lang = require('./bot_helper_scripts/bl/index.js');
 global.commands={};
 setInterval(function(){global.gc();}, 5000);
