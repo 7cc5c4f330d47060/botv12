@@ -1,11 +1,8 @@
 {
-	"version":"1.14.4",
+	"version":"1.13.2",
 	"server":"play.kaboom.pw",
 	"port":25565,
-	"secondserver":false,
-	"twoserverip":"76.116.45.111",
-	"twoserverport":25699,
-	"twoserverversion":"1.12.2",
+	"secondserver":false
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
