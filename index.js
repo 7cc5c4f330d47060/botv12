@@ -83,13 +83,9 @@ global.clientd.on('message', msg => {
 	catch(ErrorD1a){msg.reply("Error: "+ErrorD1a)}
   }
 });
-global.clientd.login('');
+global.clientd.login(conf.token);
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
-global.confirm=function(){	confirmQueueMove(adminCode);}
-setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000)
-setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000)
-setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000)
-setTimeout(function(){global.discq=setInterval(dcqm,1500)},4000)
+global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);setTimeout(function(){global.discq=setInterval(dcqm,1500)},4000)
 global.chatQueueR=function(t){
 	clearInterval(bc);//bc
 	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100)
