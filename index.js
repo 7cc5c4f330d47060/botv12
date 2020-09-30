@@ -349,7 +349,7 @@ client.on('player_info', function(packet) {
 })
 
 global.CD=function(n,c){
-	if(!global.destroyed){
+	if(!global.destroyed && global.commandsEnabled){
 	if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
 		global.commandQueue[0]={n:n,c:c};return;
 	}
@@ -369,8 +369,8 @@ client.on('chat', function(packet) {
 				if(jsonMsg.extra[i2a].text){
 					if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
 						if(jsonMsg.extra[i2a-1]){
-							if(jsonMsg.extra[i2a-1].text.includes("maniaplay")){ return; }
-							if(jsonMsg.extra[i2a-1].text.includes("threadrippa")){ return; }
+							if(jsonMsg.extra[i2a-1].text.includes("maniaplay") && conf.blockApmunute){ return; }
+							if(jsonMsg.extra[i2a-1].text.includes("threadrippa") && conf.blockApmunute){ return; }
 							//if(jsonMsg.extra[i2a-1].text.startsWith("@")){ return; }
 							name = jsonMsg.extra[i2a-1].text;
 							break
