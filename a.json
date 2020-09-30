@@ -13,6 +13,8 @@
 	"commandsEnabled":true,
 	"revision":true,
 	"isNormal": false,
+	"consoleLoggerOn": false,
+	"fileLoggerOn": true,
 	"permLevelList":[
 		"User",
 		"Old user",
