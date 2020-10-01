@@ -14,8 +14,7 @@
 	"revision":true,
 	"isNormal": false,
 	"consoleLoggerOn": true,
-	"fileLoggerOn": true,"
-	"rest
+	"fileLoggerOn": true,
 	"permLevelList":[
 		"User",
 		"Old user",
