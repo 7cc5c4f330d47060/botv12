@@ -1,6 +1,6 @@
 'use strict';
-setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.conf = require('./a.json');
+setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
 global.load = function(){
