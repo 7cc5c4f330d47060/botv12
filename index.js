@@ -1,4 +1,5 @@
 'use strict';
+setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.conf = require('./a.json');
 var fs = require('fs');
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
@@ -14,7 +15,7 @@ var amount = function(dirPath,filter){
 }
 const realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 console.log("Revision "+realRev)
-setTimeout(function(){process.exit(0)},conf.restartTimer)
+
 var mc = require('minecraft-protocol');
 const LockList = require("./bot_helper_scripts/LockList.js");
 global.title = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
