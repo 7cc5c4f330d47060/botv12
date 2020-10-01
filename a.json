@@ -2,7 +2,6 @@
 	"version":"1.14.4",
 	"server":"174.57.213.3",
 	"port":25565,
-	"secondserver":false,
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
