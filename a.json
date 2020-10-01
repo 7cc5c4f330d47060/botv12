@@ -13,7 +13,7 @@
 	"commandsEnabled":true,
 	"revision":true,
 	"isNormal": false,
-	"consoleLoggerOn": false,
+	"consoleLoggerOn": true,
 	"fileLoggerOn": true,
 	"permLevelList":[
 		"User",
