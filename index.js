@@ -27,7 +27,6 @@ global.LockList = require("./bot_helper_scripts/LockList.js");
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 }
 load();
-var lang = require('./bot_helper_scripts/bl/index.js');
 global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
@@ -96,7 +95,7 @@ global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and s
 global.cmdid=[];
 var packetc=60; //One minute
 client.on('packet', function (data, meta) {packetc=60;})//Sets that to sixty every packet
-setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit.
+setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit. Decreases by 1 every second without a packet.
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
