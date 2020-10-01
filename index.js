@@ -3,7 +3,7 @@ setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.conf = require('./a.json');
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
-function load(){
+global.load = function(){
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
