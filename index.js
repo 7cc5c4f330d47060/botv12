@@ -100,8 +100,6 @@ for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
 var numcir=0;
-var rad2deg = function(radians){
-	return radians * (180/3.14159265358979323846264338);}
 var fewwfea=false;
 if(conf.revision){cwc("Version "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
