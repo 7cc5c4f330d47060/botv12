@@ -1,7 +1,9 @@
 'use strict';
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.conf = require('./a.json');
-var fs = require('fs');
+global.fs = require('fs');
+var mc = require('minecraft-protocol');
+function load(){
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
@@ -13,23 +15,23 @@ var amount = function(dirPath,filter){
   })
   return files.length;
 }
-const realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
+global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
 console.log("Revision "+realRev)
+global.type=["Debug","Normal"][+conf.isNormal]
 
-var mc = require('minecraft-protocol');
-const LockList = require("./bot_helper_scripts/LockList.js");
 global.title = function(title)			{process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
-const type=["Debug","Normal"][+conf.isNormal]
-const rev2 = "Beta";
-global.rev = rev2 + ` [${type} Mode]`;
-var crypto = require('crypto');
-if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 global.perms = require('./admins.json');
+global.rev2 = "Beta";
+global.rev = rev2 + ` [${type}]`;
+global.LockList = require("./bot_helper_scripts/LockList.js");
+if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
+}
+load();
 var lang = require('./bot_helper_scripts/bl/index.js');
 global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
-global.lang=lang;
+global.lang=require('./bot_helper_scripts/bl/index.js');
 global.chatPrefix="";global.cl=0;global.bc=0;global.cd=0;global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
@@ -37,7 +39,7 @@ const rl = readline.createInterface({input: process.stdin,output: process.stdout
 rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 global.adminCode = 0;
 global.entityid=0;
-var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)}
+var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};var crypto = require('crypto');
 var mrr = function(){	var rn = +mrn(2,32,10);	return (mrn(2,rn,rn))};var ran=function(){	return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 global.confirm=function(){	confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 global.chatQueueR=function(t){clearInterval(bc);setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);cwc("Chat speed set to "+t+"ms.")}
@@ -92,10 +94,9 @@ global.pri = setInterval(function(){global.cwc("Say |help page <PAGE> in chat fo
 global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
 
 global.cmdid=[];
-var packetc=60;
-client.on('packet', function (data, meta) {packetc=60;})
-setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)
-
+var packetc=60; //One minute
+client.on('packet', function (data, meta) {packetc=60;})//Sets that to sixty every packet
+setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit.
 for(var i1b in global.commands){
 	global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
