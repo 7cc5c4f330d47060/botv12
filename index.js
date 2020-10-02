@@ -23,7 +23,7 @@ global.init = function(){
   global.perms = require('./admins.json');
   global.rev2 = conf.rev;
   global.rev = rev2 + ` [${type}]`;
-  if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
+  if(conf.revision){console.log("Version "+global.rev);title("NCB Version "+global.rev)}
 }
 global.setup=function(){
   setTimeout(function(){process.exit(0)},conf.restartTimer)
