@@ -100,11 +100,7 @@ function connectLockBot(uuid){
 }
 
 global.cwc=function(T){
-  if(T.startsWith("/")){
-  chatQueue.push(T.split("\u00a7").join(""));
-  } else {
-    chatQueue.push(global.chatPrefix+T.split("\u00a7").join(""));
-  }
+  global.chatQueue.push(T);
 }
 global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
