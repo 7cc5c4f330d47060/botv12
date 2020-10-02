@@ -115,9 +115,9 @@ global.cwc=function(T){
 global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
 
-var packetc=conf.packetSet; //One minute
-client.on('packet', function (data, meta) {packetc=conf.packetSet;})//Sets that to sixty every packet
-setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit. Decreases by 1 every second without a packet.
+var packetc=conf.packetSet;
+client.on('packet', function (data, meta) {packetc=conf.packetSet;})
+setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){
   global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
@@ -204,9 +204,9 @@ client.on('kick_disconnect', function(packet) {
   setTimeout(function(){process.exit(0)},2000)
 })
 client.on('tab_complete', function(packet) {
-  cwc(csl[0]+"Results: "+csl[1]+packet.matches.length)
+  global.cwc(global.csl[0]+"Results: "+global.csl[1]+packet.matches.length)
   for(var i5a in packet.matches){
-    cwc(csl[1]+packet.matches[i5a].match)
+    global.cwc(global.csl[1]+packet.matches[i5a].match)
   }
 })
 client.on('end', function(packet) {
