@@ -143,7 +143,7 @@ global.getPerm = function(x){
   }
   return 0
 }
-function command(n,d,b1a,C){
+global.command=function(n,d,b1a,C){
   if(!global.consoleOnly || C){
   if(!global.destroyed){
   var c=d.toLowerCase();
