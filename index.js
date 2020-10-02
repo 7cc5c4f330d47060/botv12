@@ -73,7 +73,7 @@ global.cmdid=[];
 global.adminCode = 0;
 global.entityid=0;
 
-vars();
+
 function consolet(){
   if(conf.consoleOn){
     global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
