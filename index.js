@@ -1,9 +1,8 @@
 'use strict';
-global.conf = require('./a.json');
-setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
 global.load = function(){
+global.conf = require('./a.json');
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
@@ -27,6 +26,7 @@ global.LockList = require("./bot_helper_scripts/LockList.js");
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 }
 load();
+setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
