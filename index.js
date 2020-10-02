@@ -1,8 +1,8 @@
 'use strict';
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
+global.conf = require('./a.json');
 global.init = function(){
-  global.conf = require('./a.json');
   var amount = function(dirPath,filter){
     var files2 = fs.readdirSync(dirPath)
     var files=[];
