@@ -30,25 +30,34 @@ global.commands={};
 setInterval(function(){global.gc();}, 5000);
 require('./commands/Commands.js')();
 global.lang=require('./bot_helper_scripts/bl/index.js');
-global.chatPrefix="";global.cl=0;global.bc=0;global.cd=0;global.rq=require;
+global.rq=require;
 const readline = require("readline");
 global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
-const rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
-rl.on('line', (line) => {command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
-global.adminCode = 0;
-global.entityid=0;
-var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};var crypto = require('crypto');
-var mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};var ran=function(){  return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
-global.confirm=function(){  confirmQueueMove(adminCode);};setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
-global.chatQueueR=function(t){clearInterval(bc);setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);cwc("Chat speed set to "+t+"ms.")}
+var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
+var crypto = require('crypto');
+var mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
+var ran=function(){  return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
 var rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');global.adminCode = h1+h2+h3}
-setTimeout(rh,800);
+rh();
+setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
+global.chatQueueR=function(t){
+	clearInterval(bc);
+	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
+	cwc("Chat speed set to "+t+"ms.")
+}
+
 global.client = mc.createClient({
   host: conf.server,   
   port: conf.port,    
   version: conf.version, 
   username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
 });
+
+global.vars=function(){
+global.chatPrefix="";
+global.cl=0;
+global.bc=0;
+global.cd=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {};
 global.on={};
@@ -59,6 +68,11 @@ global.confirmQueue=[];
 global.fileLogger = conf.fileLoggerOn;
 global.consoleLogger = conf.consoleLoggerOn;
 global.cmdid=[];
+global.adminCode = 0;
+global.entityid=0;
+}
+vars();
+
 function connectLockBot(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
@@ -91,8 +105,8 @@ var cwc=function(T){
 global.cwc=function(T){
   chatQueue.push(T.split("\u00a7").join(""));
 }
-global.pri = setInterval(function(){global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")},300000)
-global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
+global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
+global.cwc(conf.chat)
 
 var packetc=60; //One minute
 client.on('packet', function (data, meta) {packetc=60;})//Sets that to sixty every packet
@@ -144,11 +158,10 @@ function command(n,d,b1a,C){
   return 79;
 }
 global.cmdQueueMove = function(){
-  if(!global.destroyed){
   if(commandQueue[0]!=undefined){
     command(commandQueue[0].n,commandQueue[0].c,false,false);
     commandQueue.shift();
-  }}
+  }
   return 0;
 }
 global.chatLogQueueMove = function(){if(!global.destroyed){
@@ -159,30 +172,24 @@ global.chatLogQueueMove = function(){if(!global.destroyed){
   return 0;
 }
 global.chatQueueMove = function(){
-  if(!global.destroyed){
   if(chatQueue[0]!=undefined){
   client.write("chat",{message: chatQueue[0]+""});
   chatQueue.shift();
   }
   return 0;
-  }
 }
 
 global.confirmQueueMove = function(hash){
-  if(!global.destroyed){
   if(hash == global.adminCode){
     command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
     confirmQueue.shift();
     rh();
   }
   return 0;
-  }
 }
 var confirmQueuePush = function(command,perm){
-  if(!global.destroyed){
   confirmQueue.push({cmd:command,perm:perm})
   global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CONSOLE-CODE>"+csl[0]+"\" to confirm.")
-  }
 }
 
 var getDateAndTime4L=function(){
@@ -207,13 +214,12 @@ global.leave=false;
 client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
 
 global.CD=function(n,c){
-  if(!global.destroyed){
   if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
     global.commandQueue[0]={n:n,c:c};return;
   }
   fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
   global.commandQueue.push({n:n,c:c})
-  }
+
 };var CD=function(s,h){global.CD(s,h)}
 
 client.on('login', function(packet) {
@@ -267,11 +273,6 @@ client.on('chat', function(packet) {
   if(text2==undefined){ var text2 = preText.join(": ");}
   if(text2.charAt(0)=="|"){
     CD(name,text2.slice(1));
-  }
-  if(text2.includes("no longer a server operator]")){
-    if(text2.indexOf("Made")==0){
-      client.write("chat",{message:"/op "+text.slice(5).split("no longer a server operator]").join("").split("maniaplay").join("")})
-    }
   }
   if(ir.endsWith("disabled")){
     if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
