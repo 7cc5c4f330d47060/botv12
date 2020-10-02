@@ -115,14 +115,12 @@ global.cwc=function(T){
 global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
 
-var packetc=60; //One minute
-client.on('packet', function (data, meta) {packetc=60;})//Sets that to sixty every packet
-setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit. Decreases by 1 every second without a packet.
+var packetc=conf.packetSet; //One minute
+client.on('packet', function (data, meta) {packetc=conf.packetSet;})//Sets that to sixty every packet
+setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit. Decreases by 1 every second without a packet.
 for(var i1b in global.commands){
   global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
-var numcir=0;
-var fewwfea=false;
 if(conf.revision){cwc("Version "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 cwc("/evanish on")
@@ -158,9 +156,7 @@ global.command=function(n,d,b1a,C){
       }
     }
   }
-  return 3;
   }
-  return 14;
   }
   return 79;
 }
