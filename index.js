@@ -73,6 +73,7 @@ global.cmdid=[];
 global.adminCode = 0;
 global.entityid=0;
 }
+vars();
 function consolet(){
   if(conf.consoleOn){
     global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
@@ -110,7 +111,7 @@ setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc
 for(var i1b in global.commands){
   global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
 }
-if(conf.revision){cwc("Version "+global.rev)}
+if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm = function(x){
@@ -275,7 +276,6 @@ client.on('packet', function (data, meta) {packetc=conf.packetSet;})
 }
 
 global.run=function(){
-  vars();
   init();
   setup();
   consolet();
