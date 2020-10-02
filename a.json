@@ -13,6 +13,7 @@
 	"revision":true,
 	"isNormal": false,
 	"consoleLoggerOn": true,
+	"consoleOn": true,
 	"fileLoggerOn": true,
 	"rev":"Beta",
 	"chat":"Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.",
