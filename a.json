@@ -1,6 +1,6 @@
 {
-	"version":"1.14.2",
-	"server":"bhabing.ml",
+	"version":"1.15.2",
+	"server":"play.kaboom.pw",
 	"port":25565,
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
