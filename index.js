@@ -116,7 +116,7 @@ for(var i1b in global.commands){
 }
 if(conf.revision){cwc("Version "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
-for(var i in conf.run){global.cwc(conf.run[i].replace("%cspy%",cspyMode)}
+for(var i in conf.run){global.cwc(conf.run[i].replace("%cspy%",cspyMode))}
 global.getPerm = function(x){
   if(global.perms[x]!=undefined){
   return +global.perms[x]
