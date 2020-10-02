@@ -1,5 +1,5 @@
 {
-	"version":"1.15.2",
+	"version":"1.14.3",
 	"server":"bhabing.ml",
 	"port":25565,
 	"commandQueueSpeed":325,
