@@ -193,7 +193,8 @@ client.on('tab_complete', function(packet) {
     global.cwc(global.csl[1]+packet.matches[i5a].match)
   }
 })
-var p={};
+global.p={};
+global.on={};
 global.leave=false;
 client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
 
