@@ -1,7 +1,7 @@
 'use strict';
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
-global.load = function(){
+global.init = function(){
 global.conf = require('./a.json');
 global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
 global.cspyMode=conf.cspyOn;
@@ -22,10 +22,9 @@ global.title = function(title)      {process.stdout.write(String.fromCharCode(27
 global.perms = require('./admins.json');
 global.rev2 = "Beta";
 global.rev = rev2 + ` [${type}]`;
-global.LockList = require("./bot_helper_scripts/LockList.js");
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 }
-load();
+init();
 setTimeout(function(){process.exit(0)},conf.restartTimer)
 global.commands={};
 setInterval(function(){global.gc();}, 5000);
@@ -50,8 +49,16 @@ global.client = mc.createClient({
   version: conf.version, 
   username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
 });
+global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {};
 global.on={};
+global.commandQueue=[];
+global.chatQueue=[];
+global.chatLogQueue=[];
+global.confirmQueue=[];
+global.fileLogger = conf.fileLoggerOn;
+global.consoleLogger = conf.consoleLoggerOn;
+global.cmdid=[];
 function connectLockBot(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
@@ -70,12 +77,7 @@ function connectLockBot(uuid){
     console.log(e)
   }
 }
-global.commandQueue=[];
-global.chatQueue=[];
-global.chatLogQueue=[];
-global.confirmQueue=[];
-global.fileLogger = conf.fileLoggerOn;
-global.consoleLogger = conf.consoleLoggerOn;
+
 var cwc=function(T){
   if(!global.destroyed){
   if(T.startsWith("/")){
@@ -92,7 +94,6 @@ global.cwc=function(T){
 global.pri = setInterval(function(){global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")},300000)
 global.cwc("Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.")
 
-global.cmdid=[];
 var packetc=60; //One minute
 client.on('packet', function (data, meta) {packetc=60;})//Sets that to sixty every packet
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=35){console.log(packetc)}},1000)//If packetc <= 35, count down. If packetc <=0, exit. Decreases by 1 every second without a packet.
@@ -188,18 +189,6 @@ var getDateAndTime4L=function(){
   var fw = new Date();
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
-var tad=0;
-client.on('title', function(packet) {
-  if(!tad){
-  if(packet.action==2){
-    setTimeout(function(){tad=1;},1);
-    setTimeout(function(){client.write("chat",{message: "/title @a actionbar \"\""});},3);setTimeout(function(){tad=0},900);return;
-  }
-  }
-  if(packet.action<=3 && packet.action!=2){
-    client.write("chat",{message: "/title @a clear"});
-  }
-});
 client.on('kick_disconnect', function(packet) {
   console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
   setTimeout(function(){process.exit(0)},2000)
@@ -215,32 +204,7 @@ client.on('end', function(packet) {
 })
 var p={};
 global.leave=false;
-client.on('player_info', function(packet) {
-  for(var i1c in packet.data){
-    if(p[packet.data[i1c].UUID]){
-    if(packet.action==0){
-      p[packet.data[i1c].UUID]=packet.data[i1c];
-      on[packet.data[i1c].UUID]=true;
-      /*if(LockList.get(packet.data[i1c].UUID) && on[packet.data[i1c].UUID]){
-        connectLockBot(packet.data[i1c].UUID)
-      }*/
-      fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });    }
-    if(packet.action==1){
-      if(!leave) {on[packet.data[i1c].UUID]=true;}
-    }
-    if(packet.action==2){
-      if(!leave) {on[packet.data[i1c].UUID]=true;}
-    }
-    if(packet.action==3){
-      if(!leave) {on[packet.data[i1c].UUID]=true;}
-    }
-    if(packet.action==4){
-      setTimeout(function(){on[packet.data[i1c].UUID]=false;},100)
-      fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
-    }
-    }
-}  
-})
+client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
 
 global.CD=function(n,c){
   if(!global.destroyed){
@@ -292,6 +256,7 @@ client.on('chat', function(packet) {
         }
       }catch(e){};
   }}}
+  var lang=require("
   if(lang.tth(jsonMsg)[0]==undefined){return;}
   var processed = lang.tth(jsonMsg)[0];
   var fileprocessed = lang.tth(jsonMsg)[1];
