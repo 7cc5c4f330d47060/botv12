@@ -1,6 +1,10 @@
 'use strict';
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
+global.commandQueue=[];
+global.chatQueue=[];
+global.chatLogQueue=[];
+global.confirmQueue=[];
 global.conf = require('./a.json');
 global.init = function(){
   var amount = function(dirPath,filter){
@@ -63,10 +67,6 @@ global.cd=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {};
 global.on={};
-global.commandQueue=[];
-global.chatQueue=[];
-global.chatLogQueue=[];
-global.confirmQueue=[];
 global.fileLogger = conf.fileLoggerOn;
 global.consoleLogger = conf.consoleLoggerOn;
 global.cmdid=[];
