@@ -244,7 +244,6 @@ client.on('chat', function(packet) {
         }
       }catch(e){};
   }}}
-  var lang=require("
   if(lang.tth(jsonMsg)[0]==undefined){return;}
   var processed = lang.tth(jsonMsg)[0];
   var fileprocessed = lang.tth(jsonMsg)[1];
