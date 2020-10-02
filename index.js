@@ -42,14 +42,14 @@ global.chatQueueR=function(t){
   setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
   cwc("Chat speed set to "+t+"ms.")
 }
-
-global.client = mc.createClient({
-  host: conf.server,   
-  port: conf.port,    
-  version: conf.version, 
-  username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
-});
-
+global.connect=function(){
+  global.client = mc.createClient({
+    host: conf.server,   
+    port: conf.port,    
+    version: conf.version, 
+    username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
+  });
+}
 global.vars=function(){
 global.consoleOnly = conf.consoleOnly;
 global.pll = conf.permLevelList;
@@ -73,13 +73,16 @@ global.adminCode = 0;
 global.entityid=0;
 }
 vars();
-if(conf.consoleOn){
-  function consolet(){
-    global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
+function consolet(){
+  if(conf.consoleOn){
+    global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
     rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
   }
-  consolet()
 }
+vars();
+init();
+consolet();
+connect();
 function connectLockBot(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
@@ -117,14 +120,7 @@ for(var i1b in global.commands){
 }
 if(conf.revision){cwc("Version "+rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
-cwc("/evanish on")
-cwc("/team leave @s")
-cwc("/email clear")
-cwc("/prefix off")
-cwc("/nick off")
-cwc("/save-off")
-cwc("/gmsp")
-cwc("/god on")
+for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm = function(x){
   if(global.perms[x]!=undefined){
   return +global.perms[x]
@@ -133,7 +129,6 @@ global.getPerm = function(x){
 }
 global.command=function(n,d,b1a,C){
   if(!global.consoleOnly || C){
-  if(!global.destroyed){
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){
     if(getPerm(n)>=commands[c.split(" ")[0]].perm){
@@ -145,7 +140,6 @@ global.command=function(n,d,b1a,C){
         return 1;
       }
     }
-  }
   }
   }
   return 79;
@@ -198,9 +192,6 @@ client.on('tab_complete', function(packet) {
   for(var i5a in packet.matches){
     global.cwc(global.csl[1]+packet.matches[i5a].match)
   }
-})
-client.on('end', function(packet) {
-  setTimeout(function(){process.exit(0)},3000)
 })
 var p={};
 global.leave=false;
