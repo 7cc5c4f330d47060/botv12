@@ -99,18 +99,12 @@ function connectLockBot(uuid){
   }
 }
 
-var cwc=function(T){
-  if(!global.destroyed){
+global.cwc=function(T){
   if(T.startsWith("/")){
   chatQueue.push(T.split("\u00a7").join(""));
   } else {
     chatQueue.push(global.chatPrefix+T.split("\u00a7").join(""));
   }
-  }
-  
-}
-global.cwc=function(T){
-  chatQueue.push(T.split("\u00a7").join(""));
 }
 global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
@@ -131,13 +125,9 @@ cwc("/nick off")
 cwc("/save-off")
 cwc("/gmsp")
 cwc("/god on")
-
-setTimeout(function(){client.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:!!1,mainHand:0,skinParts:255})},1500)
-
 global.getPerm = function(x){
   if(global.perms[x]!=undefined){
   return +global.perms[x]
-  console.log(global.perms[x])
   }
   return 0
 }
