@@ -3,9 +3,6 @@ global.fs = require('fs');
 var mc = require('minecraft-protocol');
 global.init = function(){
 global.conf = require('./a.json');
-global.consoleOnly = conf.consoleOnly;global.pll = conf.permLevelList;
-global.cspyMode=conf.cspyOn;
-global.csl=conf.cs;
 var amount = function(dirPath,filter){
   var files2 = fs.readdirSync(dirPath)
   var files=[];
@@ -20,7 +17,7 @@ global.type=["Debug","Normal"][+conf.isNormal]
 
 global.title = function(title)      {process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
 global.perms = require('./admins.json');
-global.rev2 = "Beta";
+global.rev2 = conf.rev;
 global.rev = rev2 + ` [${type}]`;
 if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 }
@@ -54,6 +51,10 @@ global.client = mc.createClient({
 });
 
 global.vars=function(){
+global.consoleOnly = conf.consoleOnly;
+global.pll = conf.permLevelList;
+global.cspyMode=conf.cspyOn;
+global.csl=conf.cs;
 global.chatPrefix="";
 global.cl=0;
 global.bc=0;
