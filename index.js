@@ -38,9 +38,9 @@ var rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10
 rh();
 setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 global.chatQueueR=function(t){
-	clearInterval(bc);
-	setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
-	cwc("Chat speed set to "+t+"ms.")
+  clearInterval(bc);
+  setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
+  cwc("Chat speed set to "+t+"ms.")
 }
 
 global.client = mc.createClient({
@@ -74,18 +74,18 @@ global.entityid=0;
 }
 vars();
 if(conf.consoleOn){
-	function consolet(){
-		global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
-		rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
-	}
-	consolet()
+  function consolet(){
+    global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[1m\x1b[37m> "});
+    rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
+  }
+  consolet()
 }
 function connectLockBot(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
     port: conf.port,    
     version: conf.version, 
-    username: "\u00a7o\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
+    username: "\u00a7o\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"   ",
   });
   global.lclock=true;
   setTimeout(function(){global.lclock=false},4500)
@@ -190,12 +190,12 @@ global.confirmQueueMove = function(hash){
   }
   return 0;
 }
-var confirmQueuePush = function(command,perm){
+global.confirmQueuePush = function(command,perm){
   confirmQueue.push({cmd:command,perm:perm})
   global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CONSOLE-CODE>"+csl[0]+"\" to confirm.")
 }
 
-var getDateAndTime4L=function(){
+global.getDateAndTime4L=function(){
   var fw = new Date();
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
