@@ -113,7 +113,6 @@ global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
 
 var packetc=conf.packetSet;
-client.on('packet', function (data, meta) {packetc=conf.packetSet;})
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){
   global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
@@ -183,6 +182,21 @@ global.getDateAndTime4L=function(){
   var fw = new Date();
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
+global.p={};
+global.on={};
+global.leave=false;
+
+
+global.CD=function(n,c){
+  if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
+    global.commandQueue[0]={n:n,c:c};return;
+  }
+  fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
+  global.commandQueue.push({n:n,c:c})
+
+};var CD=function(s,h){global.CD(s,h)}
+global.events=function(){
+client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
 client.on('kick_disconnect', function(packet) {
   console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
   setTimeout(function(){process.exit(0)},2000)
@@ -193,20 +207,6 @@ client.on('tab_complete', function(packet) {
     global.cwc(global.csl[1]+packet.matches[i5a].match)
   }
 })
-global.p={};
-global.on={};
-global.leave=false;
-client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
-
-global.CD=function(n,c){
-  if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
-    global.commandQueue[0]={n:n,c:c};return;
-  }
-  fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
-  global.commandQueue.push({n:n,c:c})
-
-};var CD=function(s,h){global.CD(s,h)}
-
 client.on('login', function(packet) {
   if(packet.entityId){global.entityid=packet.entityId}
 })
@@ -279,3 +279,5 @@ client.on('chat', function(packet) {
   return;
   }
 });
+client.on('packet', function (data, meta) {packetc=conf.packetSet;})
+}
