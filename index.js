@@ -2,45 +2,46 @@
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
 global.init = function(){
-global.conf = require('./a.json');
-var amount = function(dirPath,filter){
-  var files2 = fs.readdirSync(dirPath)
-  var files=[];
-  files2.forEach(function(f){
-    if(f.startsWith(filter)){files.push(f)}
-  })
-  return files.length;
+  global.conf = require('./a.json');
+  var amount = function(dirPath,filter){
+    var files2 = fs.readdirSync(dirPath)
+    var files=[];
+    files2.forEach(function(f){
+      if(f.startsWith(filter)){files.push(f)}
+    })
+    return files.length;
+  }
+  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
+  console.log("Revision "+realRev)
+  global.type=["Debug","Normal"][+conf.isNormal]
+  
+  global.title = function(title)      {process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
+  global.perms = require('./admins.json');
+  global.rev2 = conf.rev;
+  global.rev = rev2 + ` [${type}]`;
+  if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
 }
-global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
-console.log("Revision "+realRev)
-global.type=["Debug","Normal"][+conf.isNormal]
-
-global.title = function(title)      {process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
-global.perms = require('./admins.json');
-global.rev2 = conf.rev;
-global.rev = rev2 + ` [${type}]`;
-if(conf.revision){console.log("Version "+rev);title("NCB Version "+rev)}
-}
-init();
-setTimeout(function(){process.exit(0)},conf.restartTimer)
-global.commands={};
-setInterval(function(){global.gc();}, 5000);
-require('./commands/Commands.js')();
-global.lang=require('./bot_helper_scripts/bl/index.js');
-global.rq=require;
-const readline = require("readline");
-global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
-var mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
-var crypto = require('crypto');
-var mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
-var ran=function(){  return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
-var rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');global.adminCode = h1+h2+h3}
-rh();
-setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
-global.chatQueueR=function(t){
-  clearInterval(bc);
-  setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
-  cwc("Chat speed set to "+t+"ms.")
+global.setup=function(){
+  setTimeout(function(){process.exit(0)},conf.restartTimer)
+  global.commands={};
+  setInterval(function(){global.gc();}, 5000);
+  require('./commands/Commands.js')();
+  global.lang=require('./bot_helper_scripts/bl/index.js');
+  global.rq=require;
+  global.readline = require("readline");
+  global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
+  global.mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
+  global.crypto = require('crypto');
+  global.mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
+  global.ran=function(){  return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
+  global.rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');global.adminCode = h1+h2+h3}
+  rh();
+  setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
+  global.chatQueueR=function(t){
+    clearInterval(bc);
+    setTimeout(function(){bc=setInterval(chatQueueMove,+t)},100);
+    cwc("Chat speed set to "+t+"ms.")
+  }
 }
 global.connect=function(){
   global.client = mc.createClient({
@@ -72,17 +73,13 @@ global.cmdid=[];
 global.adminCode = 0;
 global.entityid=0;
 }
-vars();
 function consolet(){
   if(conf.consoleOn){
     global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
     rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
   }
 }
-vars();
-init();
-consolet();
-connect();
+
 function connectLockBot(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
@@ -281,3 +278,14 @@ client.on('chat', function(packet) {
 });
 client.on('packet', function (data, meta) {packetc=conf.packetSet;})
 }
+
+global.run=function(){
+  vars();
+  init();
+  setup();
+  consolet();
+  connect();
+  events();
+}
+
+run();
