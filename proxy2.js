@@ -3,7 +3,7 @@ const mc = require('minecraft-protocol')
 const states = mc.states
 
 const args = process.argv.slice(2)
-let host = "magicflowers.aternos.me"
+let host = "bhabing.ml"
 let port = 25565
 let version = "1.12.2"
 const srv = mc.createServer({
@@ -39,7 +39,7 @@ srv.on('login', function (client) {
   const targetClient = mc.createClient({
     host: host,
     port: port,
-    username: "2a10a",
+    username: "\u00a7d        ",
     keepAlive: false,
     version: client.version
   })
@@ -57,9 +57,6 @@ srv.on('login', function (client) {
 		  }
 	if (meta.name === 'boss_bar') {
 			  return;
-		  }
-		if (meta.name === 'chat') {
-			  if(data.message.indexOf("le 9gga are legion")+1){return};
 		  }
         client.write(meta.name, data)
         if (meta.name === 'set_compression') {
