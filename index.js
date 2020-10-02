@@ -193,7 +193,7 @@ global.CD=function(n,c){
 
 };var CD=function(s,h){global.CD(s,h)}
 global.events=function(){
-client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js")
+client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js"))
 client.on('kick_disconnect', function(packet) {
   console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
   setTimeout(function(){process.exit(0)},2000)
