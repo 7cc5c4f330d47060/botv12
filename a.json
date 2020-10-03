@@ -18,7 +18,6 @@
 	"packetCountdown":35,
 	"run":[
 	"/evanish on",
-	"/cspy %cspy%",
 	"/team leave @s",
 	"/gmsp",
 	"/god on"
