@@ -261,7 +261,7 @@ client.on('chat', function(packet) {
     cwc("/nick off")
   }
   if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
-    global.cwc("/cspy "+["off","on"][global.cspyMode])
+    global.cwc("/cspy "+["off","on"][+global.cspyMode])
   }
   if(global.fileLogger){
   fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
