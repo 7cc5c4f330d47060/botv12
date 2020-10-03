@@ -125,7 +125,7 @@ global.command=function(n,d,b1a,C){
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){
     if(getPerm(n)>=commands[c.split(" ")[0]].perm){
-      if(!commands[c.split(" ")[0]].confirm || b1a){
+      if(!commands[c.split(" ")[0]].confirm || b1a || C){
         commands[c.split(" ")[0]].command(d,n,C);
         return 0;
       } else {
