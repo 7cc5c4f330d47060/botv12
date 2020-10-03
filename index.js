@@ -74,14 +74,14 @@ global.adminCode = 0;
 global.entityid=0;
 
 
-function consolet(){
+global.consolet=function(){
   if(conf.consoleOn){
     global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
     rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
   }
 }
 
-function connectLockBot(uuid){
+global.connectLockBot=function(uuid){
   try{lockBots[uuid] = mc.createClient({
     host: conf.server,   
     port: conf.port,    
@@ -177,10 +177,6 @@ global.getDateAndTime4L=function(){
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
 global.p={};
-global.on={};
-global.leave=false;
-
-
 global.CD=function(n,c){
   if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
     global.commandQueue[0]={n:n,c:c};return;
@@ -188,7 +184,7 @@ global.CD=function(n,c){
   fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
   global.commandQueue.push({n:n,c:c})
 
-};var CD=function(s,h){global.CD(s,h)}
+};
 global.events=function(){
 client.on('player_info', require("./bot_helper_scripts/PlayerInfoE.js"))
 client.on('kick_disconnect', function(packet) {
