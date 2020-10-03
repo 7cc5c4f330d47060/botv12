@@ -123,7 +123,7 @@ global.getPerm = function(x){
 global.command=function(n,d,b1a,C){
   if(!global.consoleOnly || C){
   var c=d.toLowerCase();
-  if(commands[c.split(" ")[0]]){
+  if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console){cwc(`${c.split(" ")[0]} may only be run from console.`)}else{
     if(getPerm(n)>=commands[c.split(" ")[0]].perm){
       if(!commands[c.split(" ")[0]].confirm || b1a || C){
         commands[c.split(" ")[0]].command(d,n,C);
@@ -133,7 +133,7 @@ global.command=function(n,d,b1a,C){
         return 1;
       }
     }
-  }
+  }}
   }
   return 79;
 }
