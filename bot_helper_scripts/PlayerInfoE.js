@@ -1,3 +1,4 @@
+var fs=require(fs);
 module.exports = function(packet) {
   for(var i1c in packet.data){
     if(global.p[packet.data[i1c].UUID]){
