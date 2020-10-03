@@ -8,7 +8,7 @@ module.exports = function(packet) {
       /*if(LockList.get(packet.data[i1c].UUID) && on[packet.data[i1c].UUID]){
         connectLockBot(packet.data[i1c].UUID)
       }*/
-      fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });    }
+      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });    }
     if(packet.action==1){
       if(!leave) {global.on[packet.data[i1c].UUID]=true;}
     }
@@ -20,7 +20,7 @@ module.exports = function(packet) {
     }
     if(packet.action==4){
       setTimeout(function(){global.on[packet.data[i1c].UUID]=false;},100)
-      fs.appendFile('Kaboom Join Leave Log.txt',getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
+      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
     }
     }
 }  
