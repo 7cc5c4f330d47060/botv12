@@ -1,3 +1,4 @@
+console.log("Loading...")
 'use strict';
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
@@ -67,6 +68,7 @@ global.cd=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {};
 global.on={};
+
 global.fileLogger = conf.fileLoggerOn;
 global.consoleLogger = conf.consoleLoggerOn;
 global.cmdid=[];
