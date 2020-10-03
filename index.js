@@ -219,7 +219,6 @@ client.on('chat', function(packet) {
           if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
             if(jsonMsg.extra[i2a-1]){
               name = jsonMsg.extra[i2a-1].text;
-			  global.cwc(name)
               break
             }
           }
