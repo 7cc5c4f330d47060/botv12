@@ -106,7 +106,7 @@ global.cwc=function(T){
 global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
 global.cwc(conf.chat)
 
-var global.packetc=conf.packetSet;
+global.packetc=conf.packetSet;
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){
   global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
