@@ -7,7 +7,7 @@ global.chatLogQueue=[];
 global.confirmQueue=[];
 global.conf = require('./a.json');
 global.init = function(){
-  var amount = function(dirPath,filter){
+  global.amount = function(dirPath,filter){
     var files2 = fs.readdirSync(dirPath)
     var files=[];
     files2.forEach(function(f){
@@ -273,11 +273,11 @@ client.on('packet', function (data, meta) {packetc=conf.packetSet;})
 }
 
 global.run=function(){
-  init();console.log(1)
-  setup();console.log(2)
-  setup2();console.log(3)
-  connect();console.log(4)
-  events();console.log(5)
+  init();
+  setup();
+  setup2();
+  connect();
+  events();
   consolet();
 }
 
