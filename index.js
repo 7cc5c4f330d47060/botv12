@@ -37,6 +37,7 @@ global.setup=function(){
   global.mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
   global.crypto = require('crypto');
   rh();
+  rh();
   setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);setTimeout(function(){global.bc=setInterval(chatQueueMove,conf.botChatQueueSpeed)},5000);setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
   global.chatQueueR=function(t){
     clearInterval(bc);
