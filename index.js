@@ -1,4 +1,4 @@
-console.log("Loading...")
+console.log("Loading...");
 'use strict';
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
