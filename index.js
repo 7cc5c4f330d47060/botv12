@@ -276,9 +276,9 @@ global.run=function(){
   init();console.log(1)
   setup();console.log(2)
   setup2();console.log(3)
-  consolet();console.log(4)
-  connect();console.log(5)
-  events();console.log(6)
+  connect();console.log(4)
+  events();console.log(5)
+  consolet();
 }
 
 run();
