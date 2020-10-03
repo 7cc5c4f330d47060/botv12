@@ -24,7 +24,7 @@
 	],
 	"fileLoggerOn": true,
 	"rev":"Beta",
-	"chat":"Say |help page <PAGE> in chat for a list of commands on a page and say |help usage <COMMAND> for more detail on a command.",
+	"chat":"Say |help page <PAGE> in chat for a list of my commands and say #help [command] for more detail on a command.",
 	"permLevelList":[
 		"User",
 		"Old user",
