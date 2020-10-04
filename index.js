@@ -223,7 +223,7 @@ client.on('position', function(packet) {
 		global.position.yaw+=0.01;
 		global.position.onGround=false;
 		global.client.write("position",global.position)
-	},150)},800)
+	},500)},800)
 client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
