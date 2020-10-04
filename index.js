@@ -216,12 +216,12 @@ client.on('entity_status', function(packet) {
 client.on('position', function(packet) {
   global.position=packet;
 })
-	setInterval(function(){
+	setTimeout(function(){setInterval(function(){
 		global.position.y+=0.1;
 		global.position.yaw+=0.5;
 		global.position.onGround=false;
 		global.client.write("position_look",global.position)
-	},50)
+	},50)},1000)
 client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
