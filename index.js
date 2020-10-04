@@ -215,10 +215,12 @@ client.on('entity_status', function(packet) {
 })
 client.on('position', function(packet) {
   global.position=packet;
+  delete global.position.teleportId;
+  delete global.position.flags;
 })
 	setTimeout(function(){setInterval(function(){
 		global.position.y+=0.01;
-		global.position.yaw+=0.5;
+		global.position.yaw+=0.01;
 		global.position.onGround=false;
 		global.client.write("position",global.position)
 	},50)},800)
