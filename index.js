@@ -219,7 +219,7 @@ client.on('position', function(packet) {
 	setInterval(function(){
 		global.position.y+=0.1;
 		global.position.yaw+=0.5;
-		global.position.onGround: false;
+		global.position.onGround=false;
 		global.client.write("position_look",global.position)
 	},50)
 client.on('chat', function(packet) {
