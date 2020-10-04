@@ -6,7 +6,9 @@ global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
 global.confirmQueue=[];
+
 global.conf = require('./a.json');
+global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
   global.amount = function(dirPath,filter){
     var files2 = fs.readdirSync(dirPath)
@@ -158,6 +160,7 @@ global.chatQueueMove = function(){
   client.write("chat",{message: chatQueue[0]+""});
   chatQueue.shift();
   }
+  setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
 
