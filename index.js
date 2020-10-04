@@ -212,6 +212,9 @@ client.on('entity_status', function(packet) {
     global.cwc("/op @s[type=player]")
   }
 })
+client.on('position', function(packet) {
+  global.position=position;
+})
 client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
