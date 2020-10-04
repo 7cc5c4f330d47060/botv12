@@ -18,6 +18,7 @@
 	"packetCountdown":35,
 	"run":[
 	"/team leave @s",
+	"/tp ~ ~4 ~",
 	"/god on"
 	],
 	"fileLoggerOn": true,
