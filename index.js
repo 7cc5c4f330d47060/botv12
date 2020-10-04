@@ -219,13 +219,14 @@ client.on('position', function(packet) {
   delete global.position.teleportId;
   delete global.position.flags;
 })
-	setTimeout(function(){setInterval(function(){
+client.on('login', function(a){
+	setInterval(function(){
 		global.position.y+=0.01;
 		global.position.yaw+=0.1;
 		global.position.onGround=false;
-		global.client.write("flying",{onGround:false})
 		global.client.write("position_look",global.position)
-	},1000)},800)
+	},1000)
+})
 client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
