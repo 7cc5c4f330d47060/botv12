@@ -226,11 +226,7 @@ client.on('login', function(a){
 		global.position.onGround=false;
 		global.client.write("position_look",global.position)
 	},50)
-	
-		global.position.y+=0.01;
-		global.position.yaw+=0.1;
-		global.position.onGround=false;
-		global.client.write("position_look",global.position)
+
 	
 })
 client.on('chat', function(packet) {
