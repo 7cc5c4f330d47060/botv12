@@ -220,7 +220,7 @@ client.on('position', function(packet) {
 })
 	setTimeout(function(){setInterval(function(){
 		global.position.y+=0.01;
-		global.position.yaw+=0.01;
+		global.position.yaw+=0.1;
 		global.position.onGround=false;
 		global.client.write("flying",{onGround:false})
 		global.client.write("position_look",global.position)
