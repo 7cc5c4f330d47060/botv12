@@ -217,7 +217,7 @@ client.on('position', function(packet) {
   global.position=packet;
 })
 	setTimeout(function(){setInterval(function(){
-		global.position.y+=0.1;
+		global.position.y+=0.01;
 		global.position.yaw+=0.5;
 		global.position.onGround=false;
 		global.client.write("position",global.position)
