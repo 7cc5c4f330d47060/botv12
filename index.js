@@ -217,19 +217,16 @@ client.on('entity_status', function(packet) {
 client.on('position', function(packet) {
   global.position=packet;
   if(packet.teleportId<=1){
-		global.position.y+=0.01;
-		global.position.yaw+=0.1;
-		global.position.onGround=false;
-		global.client.write("position_look",global.position)
-  }
-})
-client.on('login', function(a){
 	setInterval(function(){
 		global.position.y+=0.01;
 		global.position.yaw+=0.1;
 		global.position.onGround=false;
 		global.client.write("position_look",global.position)
 	},50)
+  }
+})
+client.on('login', function(a){
+
 
 	
 })
