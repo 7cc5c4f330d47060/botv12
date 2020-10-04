@@ -223,7 +223,7 @@ client.on('position', function(packet) {
 		global.position.yaw+=0.01;
 		global.position.onGround=false;
 		global.client.write("flying",{onGround:false})
-		global.client.write("position",global.position)
+		global.client.write("position_look",global.position)
 	},1000)},800)
 client.on('chat', function(packet) {
   if(!global.destroyed){
