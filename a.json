@@ -17,9 +17,7 @@
 	"packetSet":60,
 	"packetCountdown":35,
 	"run":[
-	"/evanish on",
 	"/team leave @s",
-	"/gmsp",
 	"/god on"
 	],
 	"fileLoggerOn": true,
