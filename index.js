@@ -213,7 +213,7 @@ client.on('entity_status', function(packet) {
   }
 })
 client.on('position', function(packet) {
-  global.position=position;
+  global.position=packet;
 })
 client.on('chat', function(packet) {
   if(!global.destroyed){
