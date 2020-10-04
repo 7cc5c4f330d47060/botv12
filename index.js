@@ -220,7 +220,7 @@ client.on('position', function(packet) {
 		global.position.y+=0.1;
 		global.position.yaw+=0.5;
 		global.position.onGround=false;
-		global.client.write("position_look",global.position)
+		global.client.write("position",global.position)
 	},50)},800)
 client.on('chat', function(packet) {
   if(!global.destroyed){
