@@ -126,7 +126,7 @@ global.getPerm = function(x){
   return 0
 }
 global.command=function(n,d,b1a,C){
-  if(!global.consoleOnly || C){
+  if(!global.consoleOnly || C){console.log(34);
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !C){cwc(`/bc &r|${c.split(" ")[0]} may only be run from console.`)}else{
     if(getPerm(n)>=commands[c.split(" ")[0]].perm){console.log(3);
