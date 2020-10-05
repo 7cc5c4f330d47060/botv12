@@ -9,13 +9,10 @@ module.exports = function(packet) {
       }*/
       fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",function (err) {  if (err) throw err;  });    }
     if(packet.action==1){
-      if(!leave) {global.on[packet.data[i1c].UUID]=true;}
     }
     if(packet.action==2){
-      if(!leave) {global.on[packet.data[i1c].UUID]=true;}
     }
     if(packet.action==3){
-      if(!leave) {global.on[packet.data[i1c].UUID]=true;}
     }
     if(packet.action==4){
       setTimeout(function(){global.on[packet.data[i1c].UUID]=false;},100)
