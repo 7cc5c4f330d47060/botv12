@@ -20,6 +20,7 @@ global.init = function(){
       return;
     };
     console.log("Mineflayer found.");
+	console.log("Remove it by opening a command line and running \"npm uninstall mineflayer\".");
     process.exit(1)
   }
   mineflayerDetector();
