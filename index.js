@@ -238,7 +238,7 @@ client.on('chat', function(packet) {
   }
   if(!nf){
   if(jsonMsg.translate) {
-    if(jsonMsg.translate.startsWith("chat.type.")) {
+    if(jsonMsg.translate.startsWith("chat.type.") || jsonMsg.translate=="commands.message.display.incoming") {
       try{
         name = jsonMsg.with[0].text+"";
         if(jsonMsg.with[1].text){
