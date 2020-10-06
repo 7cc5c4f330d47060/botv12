@@ -269,7 +269,7 @@ client.on('chat', function(packet) {
   var pt2 = preText[0]
   var preTextFirst = preText.shift();
   if(text2==undefined){ var text2 = preText.join(": ");}
-  if(text2.charAt(0)=="|"){
+  if(text2.startsWith(global.prefix)){
     CD(name,text2.slice(1));
   }
   if(ir.endsWith("disabled")){
