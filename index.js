@@ -302,6 +302,7 @@ global.run=function(){
   connect();
   events();
   consolet();
+  rh();
 }
 
 run();
