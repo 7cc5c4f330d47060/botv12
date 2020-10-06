@@ -126,12 +126,12 @@ global.getPerm = function(x){
   return 0
 }
 global.command=function(n,d,b1a,C){
-  if(!global.consoleOnly || C){console.log(34);
+  if(!global.consoleOnly || C){
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !C){cwc(`/bc &r|${c.split(" ")[0]} may only be run from console.`)}else{
     if(getPerm(n)>=commands[c.split(" ")[0]].perm){
       if(!commands[c.split(" ")[0]].confirm || b1a || C){
-        commands[c.split(" ")[0]].command(d,n,C);console.log(32);
+        commands[c.split(" ")[0]].command(d,n,C);
         return 0;
       } else {
         confirmQueuePush(d,n)
