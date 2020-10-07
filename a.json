@@ -41,5 +41,6 @@
 		"Developer",
 		"Owner",
 		"Console"
-	]
+	],
+	chatInterval:300000
 }
