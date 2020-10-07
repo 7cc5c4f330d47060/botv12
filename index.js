@@ -270,7 +270,7 @@ client.on('chat', function(packet) {
   var preTextFirst = preText.shift();
   if(text2==undefined){ var text2 = preText.join(": ");}
   if(text2.startsWith(global.prefix)){
-    CD(name,text2.slice(1));
+    CD(name,text2.slice(global.prefix.length));
   }
   if(ir.endsWith("disabled")){
     if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
