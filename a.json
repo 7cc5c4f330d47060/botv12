@@ -16,6 +16,7 @@
 	"consoleOn": true,
 	"packetSet":60,
 	"packetCountdown":35,
+	"prefix":"|",
 	"run":[
 	"/evanish on",
 	"/team leave @s",
