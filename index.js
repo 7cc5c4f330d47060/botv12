@@ -122,7 +122,7 @@ global.cwc=function(T){
   global.chatQueue.push(T);
 }
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix)},conf.chatInterval)
-global.cwc(conf.chat)
+global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 
 global.packetc=conf.packetSet;
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
