@@ -121,7 +121,7 @@ global.connectLockBot=function(uuid){
 global.cwc=function(T){
   global.chatQueue.push(T);
 }
-global.pri = setInterval(function(){global.cwc(conf.chat)},300000)
+global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix)},conf.chatInterval)
 global.cwc(conf.chat)
 
 global.packetc=conf.packetSet;
