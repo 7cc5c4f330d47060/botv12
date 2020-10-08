@@ -17,7 +17,7 @@ module.exports = function(packet) {
     }
     if(packet.action==4){
       setTimeout(function(){global.on[packet.data[i1c].UUID]=false;},100)
-      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") left or vanished.\n",function (err) {  if (err) throw err;  });
+      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+(function(){try(return global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+")")catch(e){return packet.data[i1c].UUID}})()+" left or vanished.\n",function (err) {  if (err) throw err;  });
     } 
   }  
 }
