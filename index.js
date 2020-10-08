@@ -2,7 +2,7 @@ console.log("Loading...");
 'use strict';
 global.fs = require('fs');
 exit=(v) => {
-	if(v) {console.log("Running as admin/root is strongly discouraged to prevent damage to your system. If you really want to continue, comment line 5 of index.js.");process.exit(0)}
+	if(v) {console.log("Running as admin/root is strongly discouraged to prevent damage to your system. To continue with admin, comment line 5 of index.js.");process.exit(0)}
 }
 var mc = require('minecraft-protocol');
 const admin = require('is-elevated');
