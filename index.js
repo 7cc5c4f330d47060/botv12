@@ -19,20 +19,8 @@ global.confirmQueue=[];
 global.conf = require('./a.json');
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
-  var mineflayerDetector = function(){
-    try{
-      require("mineflayer")
-    }
-    catch (e)
-    {
-      console.log("Mineflayer not found!");
-      return;
-    };
-    console.log("Mineflayer found.");
-	console.log("Remove it by opening a command line and running \"npm uninstall mineflayer\".");
-    process.exit(1)
-  }
-  mineflayerDetector();
+  global.moduleDetector=global.perms = require('./bot_helper_scripts/ModuleDetector.js');
+  moduleDetector("mineflayer");
   global.amount = function(dirPath,filter){
     var files2 = fs.readdirSync(dirPath)
     var files=[];
