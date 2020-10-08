@@ -45,6 +45,8 @@ global.init = function(){
 global.setup=function(){
   setTimeout(function(){process.exit(0)},conf.restartTimer)
   global.commands={};
+  global.p={};
+  global.on={};
   setInterval(function(){global.gc();}, 5000);
   require('./commands/Commands.js')();
   global.lang=require('./bot_helper_scripts/bl/index.js');
