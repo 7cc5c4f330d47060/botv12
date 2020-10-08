@@ -2,7 +2,7 @@ console.log("Loading...");
 'use strict';
 global.fs = require('fs');
 exit=(v) => {
-	if(v) process.exit(0)
+	if(v) {console.log("Running as admin, canceling...");process.exit(0)}
 }
 var mc = require('minecraft-protocol');
 const admin = require('is-elevated');
