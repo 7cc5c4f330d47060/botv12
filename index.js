@@ -1,3 +1,4 @@
+///Anything that goes before everything else goes here
 console.log("Loading...");
 'use strict';
 global.fs = require('fs');
