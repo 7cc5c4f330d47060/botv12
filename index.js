@@ -20,7 +20,7 @@ global.conf = require('./a.json');
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
   global.moduleDetector=global.perms = require('./bot_helper_scripts/ModuleDetector.js');
-  moduleDetector("mineflayer");
+  moduleDetector("mineflayer",true);
   global.amount = function(dirPath,filter){
     var files2 = fs.readdirSync(dirPath)
     var files=[];
