@@ -1,12 +1,15 @@
 console.log("Loading...");
 'use strict';
 global.fs = require('fs');
+exit=(v) => {
+	if(v) process.exit(0)
+}
 var mc = require('minecraft-protocol');
 const admin = require('is-elevated');
-var isadmin = admin();
-if(isadmin){
-	console.log("The script detected usage as a user with elevated privileges. Using it with elevation can cause damage to the system. We have prevented you from using it as admin to protect your system.")
-}
+(async () => {
+	exit(await admin());
+	//=> false
+})();
 global.commandQueue=[];
 global.chatQueue=[];
 global.chatLogQueue=[];
