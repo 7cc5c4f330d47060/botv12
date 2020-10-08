@@ -3,7 +3,7 @@ console.log("Loading...");
 global.fs = require('fs');
 var mc = require('minecraft-protocol');
 const admin = require('is-elevated');
-var isadmin = isElevated();
+var isadmin = admin();
 if(isadmin){
 	console.log("The script detected usage as a user with elevated privileges. Using it with elevation can cause damage to the system. We have prevented you from using it as admin to protect your system.")
 }
