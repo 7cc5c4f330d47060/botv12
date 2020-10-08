@@ -1,4 +1,4 @@
-module.exports = function(mod){
+module.exports = function(mod,exit2){
     try{
       require(mod)
     }
@@ -9,5 +9,5 @@ module.exports = function(mod){
     };
     console.log(mod+" found.");
 	console.log(`Remove it by opening a command line and running \"npm uninstall ${mod}\".`);
-    process.exit(1)
+    if(exit2){process.exit(1)}
   }
