@@ -8,15 +8,16 @@ module.exports=function(packet) {
   var fileprocessed = cont[1];
   var ir = cont[2];
   var testname=0;
-  if(ir.indexOf("]")+1){
-	testname=ir.slice(ir.indexOf("]")+1).split(;
-  }
+  
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
         if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){
             if(jsonMsg.extra[i2a-1]){
+			 if(ir.indexOf("]")+1){
+				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
+             }
               var preName = jsonMsg.extra[i2a-1].text;
 			  var ses="";
 			  name="The name thing is being worked on."
@@ -38,7 +39,7 @@ module.exports=function(packet) {
 			  }
               break
             }
-          }}
+          }}}
         }
       }
     };
