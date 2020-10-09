@@ -1,27 +1,15 @@
 ///Anything that goes before everything else goes here
 console.log("Loading...");
 'use strict';
-global.fs = require('fs');
-exit=(v) => {
-	if(v) {console.log("Running as admin/root is strongly discouraged to prevent damage to your system. To continue with admin, comment line 5 of index.js.");process.exit(0)}
-}
-var mc = require('minecraft-protocol');
-const admin = require('is-elevated');
-(async () => {
-	exit(await admin());
-	//=> false
-})();
-global.commandQueue=[];
-global.chatQueue=[];
-global.chatLogQueue=[];
-global.confirmQueue=[];
-
-global.conf = require('./a.json');
+global.fs = require('fs');global.conf = require('./a.json');
+exit=(v) => {if(v) {console.log("Running as admin/root is strongly discouraged to prevent damage to your system. To continue with admin, comment line 5 of index.js.");process.exit(0)}}
+var mc = require('minecraft-protocol');const admin = require('is-elevated');
+(async () => {exit(await admin())})();
+global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
-  global.moduleDetector=global.perms = require('./bot_helper_scripts/ModuleDetector.js');
-  moduleDetector("mineflayer",true,()=>{});
-  global.amount = function(dirPath,filter){
+  global.moduleDetector=global.perms = require('./bot_helper_scripts/ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
+  global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)
     var files=[];
     files2.forEach(function(f){
@@ -32,7 +20,6 @@ global.init = function(){
   global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
   console.log("Revision "+realRev)
   global.type=["Debug","Normal"][+conf.isNormal]
-  
   global.title = function(title)      {process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
   global.perms = require('./admins.json');
   global.rev2 = conf.rev;
@@ -41,16 +28,13 @@ global.init = function(){
 }
 global.setup=function(){
   setTimeout(function(){process.exit(0)},conf.restartTimer)
-  global.commands={};
-  global.p={};
+  global.commands={};global.p={};
   setInterval(function(){global.gc();}, 5000);
   require('./commands/Commands.js')();
   global.lang=require('./bot_helper_scripts/bl/index.js');
-  global.rq=require;
-  global.readline = require("readline");
+  global.rq=require;global.readline = require("readline");global.crypto = require('crypto');
   global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
   global.mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
-  global.crypto = require('crypto');
   global.mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
   global.ran=function(){  return mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()+mrn()}
   global.rh=function(){var h1 = crypto.createHash('sha512').update(ran()+mrn(0,100,10)+ran()+mrn(0,100,10)+ran()+mrn(0,1000,10)+Date.now()+"").digest('hex');var h2 = crypto.createHash('sha512').update(ran()+mrn(0,100,11)+ran()+mrn(0,10000,20)+ran()+mrn(0,20000,10)+(Date.now()+2000)+"\u001c").digest('hex');var h3 = crypto.createHash('sha512').update(ran()+mrn(0,100,12)+ran()+mrn(0,1000000,30)+ran()+mrn(0,300000,10)+(Date.now()+4000)+"\u001d").digest('hex');global.adminCode = h1+h2+h3}
@@ -182,7 +166,6 @@ global.getDateAndTime4L=function(){
   var fw = new Date();
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
-global.p={};
 global.CD=function(n,c){
   if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
     global.commandQueue[0]={n:n,c:c};return;
