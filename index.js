@@ -205,6 +205,7 @@ global.CD=function(n,c){
 }
 global.events=function(){
 global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js")
+global.ChatE=require("./bot_helper_scripts/ChatE.js")
 client.on('player_info', global.playerInfo)
 client.on('kick_disconnect', function(packet) {
   console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
