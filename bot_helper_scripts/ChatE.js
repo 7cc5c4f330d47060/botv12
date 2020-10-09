@@ -12,19 +12,22 @@ module.exports=function(packet) {
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
-        if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){
-            if(jsonMsg.extra[i2a-1]){
-			 try{if(ir.indexOf("]")+1){
+		  console.log(0)
+        if(jsonMsg.extra[i2a].text){ console.log(0)
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){ console.log(0)
+            if(jsonMsg.extra[i2a-1]){ console.log(0)
+			 try{if(ir.indexOf("]")+1){ console.log(0)
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
 				console.log(testname)
-             }}catch(e){}
+             }}catch(e){ console.log(4)}
               var preName = jsonMsg.extra[i2a-1].text;
 			  if(testname){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
+			   console.log(0)
 			  for(var i33 in preName.split("\u00a7")){
 			    if(preName.split("\u00a7")[i33]==""){ses+="\u00a7"}else
+				 console.log(2)
 				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];}else{
 				ses+= preName.split("\u00a7")[i33].slice(1);}
 			  }
@@ -32,7 +35,7 @@ module.exports=function(packet) {
 				var gn="";
 				for(var i33 in p[i22].name.split("\u00a7")){
 			      if(p[i22].name.split("\u00a7")[i33]==""){gn+="\u00a7"}else
-				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];}else{
+				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){ console.log(8);gn+=p[i22].name.split("\u00a7")[i33];}else{
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
 				console.log(gn)
