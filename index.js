@@ -242,7 +242,7 @@ client.on('chat', function(packet) {
 			  for(var i33 in preName.split("\u00a7")){
 				if(i33==0 && !preName.startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];continue;}
 				ses+= preName.split("\u00a7")[i33].slice(1);
-			  })
+			  }
 			  for(var i22 in p){
 				if(!on[p]) continue;
 				var gn="";
