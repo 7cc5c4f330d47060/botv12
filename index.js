@@ -240,6 +240,7 @@ client.on('chat', function(packet) {
             if(jsonMsg.extra[i2a-1]){
               var preName = jsonMsg.extra[i2a-1].text;
 			  var ses="";
+			  name="[TEST] "
 			  for(var i33 in preName.split("\u00a7")){
 				if(i33==0 && !preName.startsWith("\u00a7")){gn+=preName.split("\u00a7")[i33];continue;}
 				ses+= preName.split("\u00a7")[i33].slice(1);
