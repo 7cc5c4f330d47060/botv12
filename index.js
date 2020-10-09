@@ -240,7 +240,7 @@ client.on('chat', function(packet) {
             if(jsonMsg.extra[i2a-1]){
               var preName = jsonMsg.extra[i2a-1].text;
 			  var ses="";
-			  name="[TEST] "
+			  name="This message is here to prevent the bot from crashing. The name thing is being worked on."
 			  for(var i33 in preName.split("\u00a7")){
 				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];}else{
 				ses+= preName.split("\u00a7")[i33].slice(1);}
