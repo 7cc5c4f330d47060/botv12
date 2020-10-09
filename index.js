@@ -242,13 +242,13 @@ client.on('chat', function(packet) {
 			  var ses="";
 			  name="[TEST] "
 			  for(var i33 in preName.split("\u00a7")){
-				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];continue;}
-				ses+= preName.split("\u00a7")[i33].slice(1);
+				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];}else{
+				ses+= preName.split("\u00a7")[i33].slice(1);}
 			  }
 			  for(var i22 in p){
 				var gn="";
 				for(var i33 in p[i22].name.split("\u00a7")){
-				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33].slice(1);}else{
+				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];}else{
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
 				console.log(gn)
