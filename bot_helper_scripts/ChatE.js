@@ -3,6 +3,10 @@ module.exports=function(packet) {
   var jsonMsg = JSON.parse(packet.message);
   var nf=0;
   var name;
+  var cont = lang.tth(jsonMsg)
+  var processed = cont[0];
+  var fileprocessed = cont[1];
+  var ir = cont[2];
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
@@ -49,9 +53,6 @@ module.exports=function(packet) {
       }catch(e){};
   }}}
   if(lang.tth(jsonMsg)[0]==undefined){return;}
-  var processed = lang.tth(jsonMsg)[0];
-  var fileprocessed = lang.tth(jsonMsg)[1];
-  var ir = lang.tth(jsonMsg)[2];
   var preText = ir.split(": ");
   var pt2 = preText[0]
   var preTextFirst = preText.shift();
