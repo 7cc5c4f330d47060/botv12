@@ -231,6 +231,7 @@ client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
   var nf=0;
+  var name;
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
