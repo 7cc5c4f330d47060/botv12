@@ -193,30 +193,13 @@ global.CD=function(n,c){
 };
 }
 global.events=function(){
-global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js")
-global.ChatE=require("./bot_helper_scripts/ChatE.js")
+global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
 client.on('player_info', global.playerInfo)
-client.on('kick_disconnect', function(packet) {
-  console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))))
-  setTimeout(function(){process.exit(0)},2000)
-})
-client.on('tab_complete', function(packet) {
-  global.cwc(global.csl[0]+"Results: "+global.csl[1]+packet.matches.length)
-  for(var i5a in packet.matches){
-    global.cwc(global.csl[1]+packet.matches[i5a].match)
-  }
-})
-client.on('login', function(packet) {
-  if(packet.entityId){global.entityid=packet.entityId}
-})
-client.on('entity_status', function(packet) {
-  if(packet.entityId==global.entityid && packet.entityStatus == 24){
-    global.cwc("/op @s[type=player]")
-  }
-})
-client.on('position', function(packet) {
-  global.position=packet;
-})
+client.on('kick_disconnect', function(packet){console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
+client.on('tab_complete', function(packet){global.cwc(global.csl[0]+"Results: "+global.csl[1]+packet.matches.length)for(var i5a in packet.matches){global.cwc(global.csl[1]+packet.matches[i5a].match)}})
+client.on('login', function(packet) {if(packet.entityId){global.entityid=packet.entityId}})
+client.on('entity_status', function(packet){if(packet.entityId==global.entityid && packet.entityStatus == 24){global.cwc("/op @s[type=player]")}})
+client.on('position', function(packet){global.position=packet;})
 client.on('chat', ChatE);
 client.on('packet', function (data, meta) {packetc=conf.packetSet;})
 }
