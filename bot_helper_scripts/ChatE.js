@@ -15,13 +15,13 @@ module.exports=function(packet) {
 		  console.log(0)
         if(jsonMsg.extra[i2a].text){ console.log(true)
           if(jsonMsg.extra[i2a].text.slice(0,2)==": "){console.log(false)
-            if(jsonMsg.extra[i2a-1]){ console.log(/k/)
-			 try{if(ir.indexOf("]")+1){ console.log(/l/)
+            if(jsonMsg.extra[i2a-1]){ 
+			 try{if(ir.indexOf("]")+1){ 
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
 				console.log(testname)
              }}catch(e){ console.log(4)}
               var preName = jsonMsg.extra[i2a-1].text;
-			  if(testname){preName=testname};
+			  if(testname!=0 && testname!= "" && testname != undefined){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
 			   console.log(0)
