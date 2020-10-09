@@ -19,23 +19,24 @@ module.exports=function(packet) {
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
-			  if(testname == undefined){}else if (testname == 0){}else
 			  if(testname){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
 			  for(var i33 in preName.split("\u00a7")){
+			    if(preName.split("\u00a7")[i33]==""){ses+="\u00a7"}else
 				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];}else{
 				ses+= preName.split("\u00a7")[i33].slice(1);}
 			  }
 			  for(var i22 in p){
 				var gn="";
 				for(var i33 in p[i22].name.split("\u00a7")){
+			      if(p[i22].name.split("\u00a7")[i33]==""){gn+="\u00a7"}else
 				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];}else{
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
 				console.log(gn)
 				console.log(ses)
-				if(gn==ses && p[i22].name!=undefined){name=p[i22].name;break;}
+				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
             }
