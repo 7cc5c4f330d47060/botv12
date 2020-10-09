@@ -12,22 +12,19 @@ module.exports=function(packet) {
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
-		  console.log(0)
-        if(jsonMsg.extra[i2a].text){ console.log(true)
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){console.log(false)
+        if(jsonMsg.extra[i2a].text){
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1){ 
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
 				console.log(testname)
-             }}catch(e){ console.log(4)}
+             }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
 			  if(testname!=0 && testname!= "" && testname != undefined){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
-			   console.log(0)
 			  for(var i33 in preName.split("\u00a7")){
 			    if(preName.split("\u00a7")[i33]==""){ses+="\u00a7"}else
-				 console.log(2)
 				if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")){ses+=preName.split("\u00a7")[i33];}else{
 				ses+= preName.split("\u00a7")[i33].slice(1);}
 			  }
