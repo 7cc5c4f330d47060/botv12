@@ -230,7 +230,6 @@ client.on('position', function(packet) {
 client.on('chat', function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
-  var name;
   var nf=0;
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
@@ -238,7 +237,29 @@ client.on('chat', function(packet) {
         if(jsonMsg.extra[i2a].text){
           if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
             if(jsonMsg.extra[i2a-1]){
-              name = jsonMsg.extra[i2a-1].text;
+              var preName = jsonMsg.extra[i2a-1].text;
+			  var sectionSign = "\u00a7";
+			  for(var i22 in p){
+				if(!on[p]) continue;
+				if(p[i22].includes(preName){
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="0";}
+				  if(jsonMsg.extra[i2a-1].color=="dark_blue"){sectionSign+="1";}
+				  if(jsonMsg.extra[i2a-1].color=="dark_green"){sectionSign+="2";}
+				  if(jsonMsg.extra[i2a-1].color=="dark_aqua"){sectionSign+="3";}
+				  if(jsonMsg.extra[i2a-1].color=="dark_red"){sectionSign+="4";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="5";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="6";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="7";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="8";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="9";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="a";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="b";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="c";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="d";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="e";}
+				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="f";}
+				}
+			  }
               break
             }
           }
