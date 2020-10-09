@@ -251,7 +251,7 @@ client.on('chat', function(packet) {
 				  if(i33==0 && p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33].slice(1);continue;}
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);
 				}
-				if(gn==ses){name=p[i22].name;break;}
+				if(gn.endsWith(ses)){name=p[i22].name;break;}
 			  }
               break
             }
