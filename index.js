@@ -248,8 +248,8 @@ client.on('chat', function(packet) {
 			  for(var i22 in p){
 				var gn="";
 				for(var i33 in p[i22].name.split("\u00a7")){
-				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33].slice(1);continue;}
-				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);
+				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33].slice(1);}else{
+				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
 				console.log(gn)
 				console.log(ses)
