@@ -1,4 +1,4 @@
-function(packet) {
+module.exports=function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
   var nf=0;
