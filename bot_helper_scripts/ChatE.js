@@ -13,10 +13,11 @@ module.exports=function(packet) {
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
         if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].text){if(jsonMsg.extra[i2a+1].text.startsWith(global.prefix)){
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(ir.includes(": "+global.prefix)){
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1){ 
-				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0]
+				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0];
+				
 				//console.log(testname)
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
@@ -41,7 +42,7 @@ module.exports=function(packet) {
 			  }
               break
             }
-	}}}}
+		}}
         }
       }
     };
