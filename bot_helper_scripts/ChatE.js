@@ -19,7 +19,7 @@ module.exports=function(packet) {
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
-			  if(testname){preName=testName};
+			  if(testname){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
 			  for(var i33 in preName.split("\u00a7")){
