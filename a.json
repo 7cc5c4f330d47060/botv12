@@ -1,6 +1,6 @@
 {
 	"version":"1.15.2",
-	"server":"play.kaboom.pw",
+	"server":"oleshmc.com",
 	"port":25565,
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
