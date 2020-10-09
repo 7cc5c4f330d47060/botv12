@@ -17,7 +17,7 @@ module.exports=function(packet) {
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1){ 
 				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0]
-				console.log(testname)
+				//console.log(testname)
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
 			  if(testname){preName=testname};
@@ -33,8 +33,8 @@ module.exports=function(packet) {
 				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){ gn+=p[i22].name.split("\u00a7")[i33];}else{
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
-				console.log(gn)
-				console.log(ses)
+				//console.log(gn)
+				//console.log(ses)
 				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
