@@ -20,7 +20,7 @@ global.init = function(){
   global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
   console.log("Revision "+realRev)
   global.type=["Debug","Normal"][+conf.isNormal]
-  global.title = function(title)      {process.stdout.write(String.fromCharCode(27) + "]0;" + title + String.fromCharCode(7));}
+  global.title = (title)=>{process.stdout.write(String.fromCharCode(27)+"]0;"+title+String.fromCharCode(7));}
   global.perms = require('./admins.json');
   global.rev2 = conf.rev;
   global.rev = rev2 + ` [${type}]`;
