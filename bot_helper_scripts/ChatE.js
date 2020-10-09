@@ -35,7 +35,7 @@ module.exports=function(packet) {
 				}
 				console.log(gn)
 				console.log(ses)
-				if(gn==ses){name=p[i22].name;break;}
+				if(gn==ses && p[i22].name!=undefined){name=p[i22].name;break;}
 			  }
               break
             }
