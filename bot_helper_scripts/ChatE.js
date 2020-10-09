@@ -20,8 +20,7 @@ module.exports=function(packet) {
 				console.log(testname)
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
-			  console.log(preName)
-			  if(testname!=0 && testname!= "" && testname != undefined){preName=testname};
+			  if(testname){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
 			  for(var i33 in preName.split("\u00a7")){
