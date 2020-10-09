@@ -23,7 +23,7 @@ module.exports=function(packet) {
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
 				//console.log(gn)
-				console.log(ses)
+				//console.log(ses)
 				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
