@@ -71,30 +71,21 @@ global.connect=function(){
   });
 }
 global.setup2=function(){
-global.consoleOnly = conf.consoleOnly;
-global.pll = conf.permLevelList;
-global.cspyMode=conf.cspyOn;
+global.consoleOnly = conf.consoleOnly; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn;
 global.csl=conf.cs;
 global.prefix=conf.prefix;
-global.cl=0;
-global.bc=0;
-global.cd=0;
+global.cl=0; global.bc=0; global.cd=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
-global.lockBots = {};
-global.on={};
-
+global.lockBots = {}; global.on={};
 global.fileLogger = conf.fileLoggerOn;
 global.consoleLogger = conf.consoleLoggerOn;
 global.cmdid=[];
-global.adminCode = 0;
-global.entityid=0;
+global.adminCode = 0; global.entityid=0;
 
 
 global.consolet=function(){
-  if(conf.consoleOn){
-    global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
-    rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
-  }
+  global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
+  rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 }
 
 global.connectLockBot=function(uuid){
