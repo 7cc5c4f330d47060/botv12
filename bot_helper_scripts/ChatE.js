@@ -16,7 +16,7 @@ module.exports=function(packet) {
           if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1){ 
-				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
+				testname=ir.slice(ir.indexOf("]")+1).split(": ")[0]
 				console.log(testname)
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
