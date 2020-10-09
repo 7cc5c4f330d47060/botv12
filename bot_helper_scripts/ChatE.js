@@ -13,10 +13,10 @@ module.exports=function(packet) {
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
 		  console.log(0)
-        if(jsonMsg.extra[i2a].text){ console.log(0)
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){ console.log(0)
-            if(jsonMsg.extra[i2a-1]){ console.log(0)
-			 try{if(ir.indexOf("]")+1){ console.log(0)
+        if(jsonMsg.extra[i2a].text){ console.log(true)
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(jsonMsg.extra[i2a+1]){if(jsonMsg.extra[i2a+1].startsWith(global.prefix)){ console.log(false)
+            if(jsonMsg.extra[i2a-1]){ console.log(/k/)
+			 try{if(ir.indexOf("]")+1){ console.log(/l/)
 				testname=ir.slice(ir.indexOf("]")+1).split(": "+global.prefix)[0]
 				console.log(testname)
              }}catch(e){ console.log(4)}
