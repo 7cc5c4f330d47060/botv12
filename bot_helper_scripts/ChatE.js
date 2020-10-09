@@ -20,6 +20,7 @@ module.exports=function(packet) {
 				console.log(testname)
              }}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
+			  console.log(preName)
 			  if(testname!=0 && testname!= "" && testname != undefined){preName=testname};
 			  var ses="";
 			  name="The name thing is being worked on."
@@ -35,8 +36,8 @@ module.exports=function(packet) {
 				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){ console.log(8);gn+=p[i22].name.split("\u00a7")[i33];}else{
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);}
 				}
-				console.log(gn)
-				console.log(ses)
+				//console.log(gn)
+				//console.log(ses)
 				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
