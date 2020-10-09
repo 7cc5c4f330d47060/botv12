@@ -238,33 +238,19 @@ client.on('chat', function(packet) {
           if(jsonMsg.extra[i2a].text.slice(0,2)==": "){
             if(jsonMsg.extra[i2a-1]){
               var preName = jsonMsg.extra[i2a-1].text;
-			  var sectionSign = "\u00a7";
+			  var ses="";
+			  for(var i33 in preName.split("\u00a7")){
+				if(i33==0 && !preName.startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];continue;}
+				ses+= preName.split("\u00a7")[i33].slice(1);
+			  })
 			  for(var i22 in p){
 				if(!on[p]) continue;
 				var gn="";
 				for(var i33 in p[i22].name.split("\u00a7")){
-					gn+= p[i22].name.split("\u00a7")[i33].slice(1);
+				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];continue;}
+				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);
 				})
-				if(){
-				  if(jsonMsg.extra[i2a-1].color=="black"){sectionSign+="0";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_blue"){sectionSign+="1";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_green"){sectionSign+="2";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_aqua"){sectionSign+="3";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_red"){sectionSign+="4";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_purple"){sectionSign+="5";}
-				  if(jsonMsg.extra[i2a-1].color=="gold"){sectionSign+="6";}
-				  if(jsonMsg.extra[i2a-1].color=="gray"){sectionSign+="7";}
-				  if(jsonMsg.extra[i2a-1].color=="dark_gray"){sectionSign+="8";}
-				  if(jsonMsg.extra[i2a-1].color=="blue"){sectionSign+="9";}
-				  if(jsonMsg.extra[i2a-1].color=="green"){sectionSign+="a";}
-				  if(jsonMsg.extra[i2a-1].color=="aqua"){sectionSign+="b";}
-				  if(jsonMsg.extra[i2a-1].color=="red"){sectionSign+="c";}
-				  if(jsonMsg.extra[i2a-1].color=="light_purple"){sectionSign+="d";}
-				  if(jsonMsg.extra[i2a-1].color=="yellow"){sectionSign+="e";}
-				  if(jsonMsg.extra[i2a-1].color=="white"){sectionSign+="f";}
-				  if(p[i22].name.includes(sectionSign)){
-					name=
-				}
+				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
             }
