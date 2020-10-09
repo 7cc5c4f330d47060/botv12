@@ -253,7 +253,7 @@ client.on('chat', function(packet) {
 				}
 				console.log(gn)
 				console.log(ses)
-				if(gn.endsWith(ses)){name=p[i22].name;break;}
+				if(gn.endsWith(preName){name=p[i22].name;break;}
 			  }
               break
             }
