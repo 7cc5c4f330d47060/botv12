@@ -107,9 +107,7 @@ global.connectLockBot=function(uuid){
   }
 }
 
-global.cwc=function(T){
-  global.chatQueue.push(T);
-}
+global.cwc=function(T){global.chatQueue.push(T)}
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval)
 global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 
