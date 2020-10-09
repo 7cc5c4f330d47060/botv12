@@ -249,7 +249,7 @@ client.on('chat', function(packet) {
 				for(var i33 in p[i22].name.split("\u00a7")){
 				  if(i33==0 && !p[i22].name.split("\u00a7")[i33].startsWith("\u00a7")){gn+=p[i22].name.split("\u00a7")[i33];continue;}
 				  gn+= p[i22].name.split("\u00a7")[i33].slice(1);
-				})
+				}
 				if(gn==ses){name=p[i22].name;break;}
 			  }
               break
