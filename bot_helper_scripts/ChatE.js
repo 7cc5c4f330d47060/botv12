@@ -1,7 +1,7 @@
 module.exports=function(packet) {
   if(!global.destroyed){
   var jsonMsg = JSON.parse(packet.message);
-  console.log(jsonMsg)
+  //console.log(jsonMsg)
   var nf=0;
   var name;
   var cont = lang.tth(jsonMsg)
