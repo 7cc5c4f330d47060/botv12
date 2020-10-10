@@ -21,7 +21,7 @@ const tth=function(T,go){
 			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d";pc=T.color} else
 			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e";pc=T.color} else
 			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m\u00a7f";			breturn+="\u00a7f";pc=T.color} else
-			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color} else
+			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color} else if (!T.color && !go)
 			{areturn+="\x1b[0m\x1b[1m\x1b[37m";}
 			if(true==(T.bold)){areturn+="\u00a7l";breturn+="\u00a7l"};
 			if(true==(T.italic)){areturn+="\u00a7o";breturn+="\u00a7o"};
