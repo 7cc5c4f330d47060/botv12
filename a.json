@@ -1,5 +1,5 @@
 {
-	"version":"1.16.3",
+	"version":"1.15.2",
 	"server":"play.kaboom.pw",
 	"port":25565,
 	"commandQueueSpeed":325,
