@@ -2,7 +2,7 @@ var translates=require("./en_us.json");
 const tth=function(T,go){
 	
 	if(T){
-		if(T.color && T.color+""!="undefined"){
+		if(T.color){
 				var areturn="";
 				var breturn="";
 				var creturn="";
@@ -22,7 +22,8 @@ const tth=function(T,go){
 			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d";pc=T.color} else
 			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e";pc=T.color} else
 			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m\u00a7f";			breturn+="\u00a7f";pc=T.color} else
-		if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color} else if(T.color.startsWith("#"))		{areturn+=T.color; breturn+=T.color;} }else if (!T.color && !go)
+			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color} else if(T.color.startsWith("#"))		{areturn+=T.color; breturn+=T.color;} 
+		}else if (!T.color && !go)
 			{areturn+="\x1b[0m\x1b[1m\x1b[37m";} else
 			
 			if(true==(T.bold)){areturn+="\u00a7l";breturn+="\u00a7l"};
