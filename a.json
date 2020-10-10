@@ -13,7 +13,6 @@
 	"revision":true,
 	"isNormal": false,
 	"consoleLoggerOn": true,
-	"consoleOn": true,
 	"packetSet":60,
 	"packetCountdown":35,
 	"prefix":"|",
