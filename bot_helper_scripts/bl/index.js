@@ -2,7 +2,7 @@ var translates=require("./en_us.json");
 const tth=function(T,go){
 	
 	if(T){
-		if(T.color){
+		if(T.color && T.color+""!="undefined"){
 				var areturn="";
 				var breturn="";
 				var creturn="";
