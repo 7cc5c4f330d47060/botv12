@@ -4,7 +4,7 @@ module.exports=function(packet) {
   console.log(jsonMsg)
   var nf=0;
   var name;
-  var cont = lang.tth(jsonMsg)
+  //var cont = lang.tth(jsonMsg)
   var processed = cont[0];
   var fileprocessed = cont[1];
   var ir = cont[2];
