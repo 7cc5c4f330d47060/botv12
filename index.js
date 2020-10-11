@@ -3,7 +3,7 @@ console.log("Loading...");
 global.fs = require('fs');global.conf = require('./a.json');
 exit=(v)=>{if(v){console.log("Done");process.exit(0)}}
 var mc = require('minecraft-protocol');const admin = require('is-elevated');
-(async () => {exit(await admin())})();
+(async()=>{exit(await admin())})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
@@ -66,8 +66,6 @@ global.fileLogger = conf.fileLoggerOn;
 global.consoleLogger = conf.consoleLoggerOn;
 global.cmdid=[];
 global.adminCode = 0; global.entityid=0;
-
-
 global.consolet=function(){
   global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
   rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
@@ -182,14 +180,6 @@ client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
 
-global.run=function(){
-  init();
-  setup();
-  setup2();
-  connect();
-  events();
-  consolet();
-  rh();
-}
+global.run=require("./run.js")
 
 run();
