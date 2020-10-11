@@ -84,8 +84,10 @@ client.write('login', {
   cliet.on('error', function (err) {
     endedClient = true
   })
+  var allow=0;
+  setTimeout(function(){allow=1},1000)
   cliet.on('packet', function (data, meta) {
-    if (client.state === states.PLAY && meta.state === states.PLAY) {
+    if (client.state === states.PLAY && meta.state === states.PLAY && allow) {
       if (!endedTargetClient) { client.write(meta.name, data) }
     }
   })
