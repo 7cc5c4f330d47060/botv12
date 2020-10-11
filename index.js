@@ -59,7 +59,7 @@ global.connect=function(){
   global.loginPacket = mcData.loginPacket
 const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'max-players': 2})
 srv.on('login', function (cliet) {
-client.write('login', {
+cliet.write('login', {
     entityId: client.id,
     gameMode: 0,
     dimension: 0,
@@ -68,7 +68,7 @@ client.write('login', {
     levelType: "",
     reducedDebugInfo: false
   })
-    client.write('position', {
+    cliet.write('position', {
     x: global.position.x,
     y: global.position.y,
     z: global.position.z,
