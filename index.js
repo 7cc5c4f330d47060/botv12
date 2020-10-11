@@ -1,8 +1,7 @@
-///Anything that goes before everything else goes here
 console.log("Loading...");
 'use strict';
 global.fs = require('fs');global.conf = require('./a.json');
-exit=(v) => {if(v) {console.log("Running as admin/root is strongly discouraged to prevent damage to your system. To continue with admin, comment line 5 of index.js.");process.exit(0)}}
+exit=(v)=>{if(v){console.log("Done");process.exit(0)}}
 var mc = require('minecraft-protocol');const admin = require('is-elevated');
 (async () => {exit(await admin())})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
@@ -32,7 +31,9 @@ global.setup=function(){
   setInterval(function(){global.gc();}, 5000);
   require('./commands/Commands.js')();
   global.lang=require('./bot_helper_scripts/bl/index.js');
-  global.rq=require;global.readline = require("readline");global.crypto = require('crypto');
+  global.rq=require;
+  global.readline = require("readline");
+  global.crypto = require('crypto');
   global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
   global.mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
   global.mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
