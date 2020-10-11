@@ -68,23 +68,16 @@ global.consolet=function(){
 global.connectLockBot=require("./bot_helper_scripts/lock.js")
 
 global.cwc=function(T){global.chatQueue.push(T)}
-global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval)
-global.cwc(conf.chat.split("%prefix%").join(global.prefix))
+global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 
 global.packetc=conf.packetSet;
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
-for(var i1b in global.commands){
-  global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})
-}
+for(var i1b in global.commands){global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})}
 if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
-global.getPerm = function(x){
-  if(global.perms[x]!=undefined){
-  return +global.perms[x]
-  }
-  return 0
-}
+global.getPerm = function(x){if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
+
 global.command=(n,d,b1a,C)=>{
   if(!global.consoleOnly || C || getPerm(n)==11){
   var c=d.toLowerCase();
