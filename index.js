@@ -180,6 +180,4 @@ client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
 
-global.run=require("./run.js")
-
-run();
+require("./run.js")()
