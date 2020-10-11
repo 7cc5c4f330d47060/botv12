@@ -60,12 +60,12 @@ global.connect=function(){
 const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'max-players': 2})
 srv.on('login', function (cliet) {
 cliet.write('login', {
-    entityId: client.id,
+    entityId: entityid,
     gameMode: 0,
     dimension: 0,
 	difficulty: 0,
 	maxPlayers: 9,
-    levelType: "",
+    levelType: "a",
     reducedDebugInfo: false
   })
     cliet.write('position', {
@@ -84,10 +84,8 @@ cliet.write('login', {
   cliet.on('error', function (err) {
     endedClient = true
   })
-  var allow=0;
-  setTimeout(function(){allow=1},1000)
   cliet.on('packet', function (data, meta) {
-    if (client.state === states.PLAY && meta.state === states.PLAY && allow) {
+    if (client.state === states.PLAY && meta.state === states.PLAY) {
       if (!endedTargetClient) { client.write(meta.name, data) }
     }
   })
