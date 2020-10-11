@@ -142,7 +142,7 @@ global.CD=require("./bot_helper_scripts/commandPush.js");
 global.events=function(){
 global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
 client.on('player_info', global.playerInfo)
-client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
+client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(p.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
 client.on('tab_complete', p=>{global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);for(var i5a in p.matches){global.cwc(global.csl[1]+p.matches[i5a].match)}})
 client.on('login', p=>{if(p.entityId){global.entityid=p.entityId}})
 client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus == 24){global.cwc("/op @s[type=player]")}})
