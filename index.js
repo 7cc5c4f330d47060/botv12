@@ -61,9 +61,9 @@ const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'
 srv.on('login', function (cliet) {
 cliet.write('login', {
     entityId: entityid,
-    gameMode: 0,
-    dimension: 0,
-	difficulty: 0,
+    gameMode: 1,
+    dimension: 1,
+	difficulty: 1,
 	maxPlayers: 9,
     levelType: "a",
     reducedDebugInfo: false
