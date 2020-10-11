@@ -59,7 +59,31 @@ global.connect=function(){
   const loginPacket = mcData.loginPacket
 const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'max-players': 2})
 srv.on('login', function (cliet) {
-
+client.write('login', {
+    entityId: client.id,
+    isHardcore: false,
+    gameMode: 0,
+    previousGameMode: 255,
+    worldNames: loginPacket.worldNames,
+    dimensionCodec: loginPacket.dimensionCodec,
+    dimension: loginPacket.dimension,
+    worldName: 'minecraft:overworld',
+    hashedSeed: [0, 0],
+    maxPlayers: server.maxPlayers,
+    viewDistance: 10,
+    reducedDebugInfo: false,
+    enableRespawnScreen: true,
+    isDebug: false,
+    isFlat: false
+  })
+    client.write('position', {
+    x: global.position.x,
+    y: global.position.y,
+    z: global.position.z,
+    yaw: global.position.yaw,
+    pitch: global.position.pitch,
+    flags: 0x00
+  })
   let endedClient = false
   let endedTargetClient = false
   cliet.on('end', function () {
