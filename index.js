@@ -74,7 +74,7 @@ cliet.write('login', {
     z: global.position.z,
     yaw: global.position.yaw,
     pitch: global.position.pitch,
-    flags: 0x00
+    flags: 0x01
   })
   let endedClient = false
   let endedTargetClient = false
