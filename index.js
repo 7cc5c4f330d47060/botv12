@@ -154,8 +154,8 @@ global.confirmQueueMove = function(hash){
   return 0;
 }
 global.confirmQueuePush = (command,perm)=>{
-  confirmQueue.push({cmd:command,perm:perm})
-  global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CONSOLE-CODE>"+csl[0]+"\" to confirm.")
+  global.confirmQueue.push({cmd:command,perm:perm})
+  global.cwc(global.csl[0]+"Are you sure you want to run \""+global.csl[1]+"|"+command.slice(0,75)+global.csl[0]+"\"? Type \""+global.csl[1]+"|confirm <CONSOLE-CODE>"+global.csl[0]+"\" to confirm.")
 }
 
 global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
