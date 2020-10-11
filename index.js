@@ -57,7 +57,7 @@ global.connect=function(){
   const states = mc.states
 const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'max-players': 2})
 srv.on('login', function (cliet) {
-	cliet.write("position_look",{})
+	cliet.write("position_look",{x:global.position.x,y:global.position.y,z:global.position.z,yaw:0,pitch:0,onGround:true})
   let endedClient = false
   let endedTargetClient = false
   cliet.on('end', function () {
