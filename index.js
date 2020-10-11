@@ -92,7 +92,7 @@ cliet.write('login', {
     }
   })
   client.on('packet', function (data, meta) {
-    if (meta.state === states.PLAY && cliet.state === states.PLAY) {
+    if (meta.state === states.PLAY && cliet.state === states.PLAY && allow) {
       if (!endedClient) {
         cliet.write(meta.name, data)
         if (meta.name === 'set_compression') {
