@@ -59,7 +59,7 @@ global.connect=function(){
   global.loginPacket = mcData.loginPacket
 const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'max-players': 2})
 srv.on('login', function (cliet) {
-cliet.write('login', {
+setTimeout(function(){cliet.write('login', {
     entityId: entityid,
     gameMode: 1,
     dimension: 1,
@@ -75,7 +75,7 @@ cliet.write('login', {
     yaw: 0,
     pitch: 0,
     flags: 0x00
-  })
+})},500)
   let endedClient = false
   let endedTargetClient = false
   cliet.on('end', function () {
