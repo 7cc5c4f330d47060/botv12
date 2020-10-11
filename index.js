@@ -72,9 +72,9 @@ cliet.write('login', {
     x: global.position.x,
     y: global.position.y,
     z: global.position.z,
-    yaw: global.position.yaw,
-    pitch: global.position.pitch,
-    flags: 0x01
+    yaw: 0,
+    pitch: 0,
+    flags: 0x00
   })
   let endedClient = false
   let endedTargetClient = false
