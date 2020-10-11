@@ -61,12 +61,12 @@ const srv = mc.createServer({'online-mode': false,port: 40000,keepAlive: false,'
 srv.on('login', function (cliet) {
 client.write('login', {
     entityId: client.id,
-    isHardcore: false,
     gameMode: 0,
+    dimension: 0,
+	difficulty: 0,
     previousGameMode: 255,
     worldNames: loginPacket.worldNames,
     dimensionCodec: loginPacket.dimensionCodec,
-    dimension: loginPacket.dimension,
     worldName: 'minecraft:overworld',
     hashedSeed: [0, 0],
     maxPlayers: server.maxPlayers,
