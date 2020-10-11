@@ -153,7 +153,7 @@ global.confirmQueueMove = function(hash){
   }
   return 0;
 }
-global.confirmQueuePush=require("./bot_helper_scripts/cqm.js")
+global.confirmQueuePush=require("./bot_helper_scripts/cnqm.js")
 global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
 global.CD=(n,c)=>{
   if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){global.commandQueue[0]={n:n,c:c};return;}
