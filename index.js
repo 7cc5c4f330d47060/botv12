@@ -140,7 +140,7 @@ global.confirmQueuePush=require("./bot_helper_scripts/cnqm.js")
 global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
 global.CD=(n,c)=>{
   if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){global.commandQueue[0]={n:n,c:c};return;}
-  fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
+  global.fs.appendFile('Command Log.txt',global.getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
   global.commandQueue.push({n:n,c:c})
 };
 }
