@@ -2,7 +2,7 @@ console.log("Loading...");
 'use strict';
 global.fs = require('fs');global.conf = require('./a.json');
 exit=(v)=>{if(v){console.log("Done");process.exit(0)}}
-var mc = require('minecraft-protocol');const admin = require('is-elevated');
+global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 (async()=>{exit(await admin())})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
