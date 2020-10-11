@@ -57,8 +57,7 @@ global.connect=function(){
 }
 global.setup2=function(){
 global.consoleOnly = conf.consoleOnly; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn;
-global.csl=conf.cs;
-global.prefix=conf.prefix;
+global.csl=conf.cs; global.prefix=conf.prefix;
 global.cl=0; global.bc=0; global.cd=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {}; global.on={};
@@ -128,8 +127,8 @@ global.chatQueueMove = ()=>{
   return 0;
 }
 
-global.confirmQueueMove = function(hash){
-  if(hash == global.adminCode){
+global.confirmQueueMove = function(h){
+  if(h == global.adminCode){
     command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
     confirmQueue.shift();
     rh();
