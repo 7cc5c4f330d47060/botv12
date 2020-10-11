@@ -65,16 +65,8 @@ client.write('login', {
     dimension: 0,
 	difficulty: 0,
 	maxPlayers: 9,
-    previousGameMode: 255,
-    worldNames: loginPacket.worldNames,
-    dimensionCodec: loginPacket.dimensionCodec,
-    worldName: 'minecraft:overworld',
-    hashedSeed: [0, 0],
-    viewDistance: 10,
-    reducedDebugInfo: false,
-    enableRespawnScreen: true,
-    isDebug: false,
-    isFlat: false
+    levelType: "",
+    reducedDebugInfo: false
   })
     client.write('position', {
     x: global.position.x,
