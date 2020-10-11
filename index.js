@@ -140,11 +140,8 @@ global.chatLogQueueMove = function(){if(!global.destroyed){
 }}
   return 0;
 }
-global.chatQueueMove = function(){
-  if(chatQueue[0]!=undefined){
-  client.write("chat",{message: chatQueue[0]+""});
-  chatQueue.shift();
-  }
+global.chatQueueMove = ()=>{
+  if(chatQueue[0]!=undefined){client.write("chat",{message: chatQueue[0]+""});chatQueue.shift();}
   setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
@@ -157,34 +154,31 @@ global.confirmQueueMove = function(hash){
   }
   return 0;
 }
-global.confirmQueuePush = function(command,perm){
+global.confirmQueuePush = (command,perm)=>{
   confirmQueue.push({cmd:command,perm:perm})
   global.cwc(csl[0]+"Are you sure you want to run \""+csl[1]+"|"+command.slice(0,75)+csl[0]+"\"? Type \""+csl[1]+"|confirm <CONSOLE-CODE>"+csl[0]+"\" to confirm.")
 }
 
-global.getDateAndTime4L=function(){
+global.getDateAndTime4L=()=>{
   var fw = new Date();
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
 }
-global.CD=function(n,c){
-  if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){
-    global.commandQueue[0]={n:n,c:c};return;
-  }
+global.CD=(n,c)=>{
+  if(c=="clearcmdq"||c.split(" ")[0]=="confirm"){global.commandQueue[0]={n:n,c:c};return;}
   fs.appendFile('Command Log.txt',getDateAndTime4L()+" \""+n+"\" ran command: \""+c+"\"\n",function (err) {  if (err) throw err;  });
   global.commandQueue.push({n:n,c:c})
-
 };
 }
 global.events=function(){
 global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
 client.on('player_info', global.playerInfo)
-client.on('kick_disconnect', function(packet){console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
-client.on('tab_complete', function(packet){global.cwc(global.csl[0]+"Results: "+global.csl[1]+packet.matches.length);for(var i5a in packet.matches){global.cwc(global.csl[1]+packet.matches[i5a].match)}})
-client.on('login', function(packet) {if(packet.entityId){global.entityid=packet.entityId}})
-client.on('entity_status', function(packet){if(packet.entityId==global.entityid && packet.entityStatus == 24){global.cwc("/op @s[type=player]")}})
-client.on('position', function(packet){global.position=packet;})
+client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(packet.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
+client.on('tab_complete', p=>{global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);for(var i5a in p.matches){global.cwc(global.csl[1]+p.matches[i5a].match)}})
+client.on('login', p=>{if(p.entityId){global.entityid=p.entityId}})
+client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus == 24){global.cwc("/op @s[type=player]")}})
+client.on('position', p=>{global.position=p;})
 client.on('chat', ChatE);
-client.on('packet', function (data, meta) {packetc=conf.packetSet;})
+client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
 
 global.run=function(){
