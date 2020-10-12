@@ -1,6 +1,6 @@
 {
 	"version":"1.13.2",
-	"server":"localhost",
+	"server":"play.kaboom.pw",
 	"port":25565,
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
