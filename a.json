@@ -41,5 +41,22 @@
 		"Owner",
 		"Console"
 	],
-	"chatInterval":300000
+	"chatInterval":300000,
+	"stopLag":[
+		"/de",
+		"/gamerule announceAdvancements false",
+		"/gamerule keepInventory false"
+		"fireDamage false"
+		"fallDamage false"
+		"drowningDamage false"
+		"doWeatherCycle false"
+		"doTraderSpawning false"
+		"doTileDrops false"
+		"doPatrolSpawning false"
+		"doMobSpawning false"
+		"doMobLoot false"
+		"doInsomnia false"
+		"doFireTick false"
+		"doEntityDrops false"
+		"doDaylightCycle false"
 }
