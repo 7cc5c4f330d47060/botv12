@@ -135,7 +135,7 @@ client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(p.reason.split(
 client.on('tab_complete', p=>{global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);for(var i5a in p.matches){global.cwc(global.csl[1]+p.matches[i5a].match)}})
 client.on('login', p=>{if(p.entityId){global.entityid=p.entityId}})
 client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus == 24){global.cwc("/op @s[type=player]")}})
-client.on('position', p=>{if(global.pa){global.position=p;global.pa=true;client.write("teleport_confirm",{teleportId:p.teleportId?p.teleportId?0});client.write("position_look",global.pt(position))client.write("position_look",global.pt(position))})
+client.on('position', p=>{if(global.pa){global.position=p;global.pa=true;client.write("teleport_confirm",{teleportId:(p.teleportId?p.teleportId:0)});client.write("position_look",global.pt(position))client.write("position_look",global.pt(position))})
 client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
