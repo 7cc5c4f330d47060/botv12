@@ -127,7 +127,7 @@ global.confirmQueuePush=require("./bot_helper_scripts/cnqm.js")
 global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
 global.CD=require("./bot_helper_scripts/commandPush.js");
 }
-global.pt=a=>{var b=a;delete b.flags;b.onGround=true;return b}
+global.pt=a=>{var b=a;delete b.flags;delete b.teleportId;b.onGround=true;return b}
 global.events=function(){
 global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
 client.on('player_info', global.playerInfo)
