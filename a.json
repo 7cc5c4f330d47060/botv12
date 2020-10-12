@@ -68,5 +68,5 @@
 		"/gamerule maxEntityCramming 0",
 		"/gamerule maxCommandChainLength 0",
 		"/gamerule logAdminCommands false"
-		]
+	]
 }
