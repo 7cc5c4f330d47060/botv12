@@ -17,10 +17,11 @@
 	"packetCountdown":35,
 	"prefix":"|",
 	"run":[
+	"/evanish on",
 	"/team leave @s",
 	"/nick off",
 	"/prefix off",
-	"/gmc",
+	"/gmsp",
 	"/god on"
 	],
 	"fileLoggerOn": true,
