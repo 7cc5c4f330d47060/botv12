@@ -64,9 +64,10 @@
 		"/gamerule randomTickSpeed 0",
 		"/gamerule naturalRegeneration false",
 		"/gamerule mobGriefing false",
-		"/gamerule maxEntityCramming 0",
+		"/gamerule maxEntityCramming 1",
 		"/gamerule maxCommandChainLength 0",
 		"/gamerule logAdminCommands false",
-		"/de"
+		"/de",
+		"/datapack disable vanilla"
 	]
 }
