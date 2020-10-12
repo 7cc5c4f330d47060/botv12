@@ -104,9 +104,9 @@ const tth=function(T,go){
 			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color}
 		if (T.extra){
 			for(var iza=0; iza<=T.extra.length-1; iza++){
-				areturn+= tth(T.extra[iza],true)[0]
-				breturn+= tth(T.extra[iza],true)[1]
-				creturn+= tth(T.extra[iza],true)[2]
+				areturn+= tth(T.extra[iza])[0]
+				breturn+= tth(T.extra[iza])[1]
+				creturn+= tth(T.extra[iza])[2]
 			}
 		}
 	return [(areturn+""),(breturn+""),(creturn+"")];
