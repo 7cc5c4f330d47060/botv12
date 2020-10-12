@@ -82,7 +82,7 @@ global.command=(n,d,b1a,C)=>{
   if(!global.consoleOnly || C || getPerm(n)==11){
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
-    if(getPerm(n)>=commands[c.split(" ")[0]].perm){
+    if(getPerm(n)>=commands[c.split(" ")[0]].perm || C || getPerm(n)==11){
       if(!commands[c.split(" ")[0]].confirm || b1a || C || getPerm(n)==11){
         commands[c.split(" ")[0]].command(d,n,C || getPerm(n)==11);
         return 0;
