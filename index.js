@@ -127,6 +127,7 @@ global.confirmQueuePush=require("./bot_helper_scripts/cnqm.js")
 global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
 global.CD=require("./bot_helper_scripts/commandPush.js");
 }
+global.pt=a=>{var b=a;delete b.flags;b.onGround=true;return b}
 global.events=function(){
 global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
 client.on('player_info', global.playerInfo)
@@ -134,7 +135,7 @@ client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(p.reason.split(
 client.on('tab_complete', p=>{global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);for(var i5a in p.matches){global.cwc(global.csl[1]+p.matches[i5a].match)}})
 client.on('login', p=>{if(p.entityId){global.entityid=p.entityId}})
 client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus == 24){global.cwc("/op @s[type=player]")}})
-client.on('position', p=>{global.position=p;})
+client.on('position', p=>{if(global.pa){global.position=p;global.pa=true;client.write("position_look",global.pt(position))})
 client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
