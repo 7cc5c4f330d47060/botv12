@@ -49,7 +49,7 @@
 		"/gamerule fireDamage false"
 		"/gamerule fallDamage false"
 		"/gamerule drowningDamage false"
-		"/gamerule doWeatherCsycle false"
+		"/gamerule doWeatherCycle false"
 		"/gamerule doTraderSpawning false"
 		"/gamerule doTileDrops false"
 		"/gamerule doPatrolSpawning false"
