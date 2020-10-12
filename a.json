@@ -43,7 +43,6 @@
 	],
 	"chatInterval":300000,
 	"stopLag":[
-		"/de",
 		"/gamerule announceAdvancements false",
 		"/gamerule keepInventory false",
 		"/gamerule fireDamage false",
@@ -67,6 +66,7 @@
 		"/gamerule mobGriefing false",
 		"/gamerule maxEntityCramming 0",
 		"/gamerule maxCommandChainLength 0",
-		"/gamerule logAdminCommands false"
+		"/gamerule logAdminCommands false",
+		"/de"
 	]
 }
