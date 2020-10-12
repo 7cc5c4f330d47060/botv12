@@ -45,18 +45,28 @@
 	"stopLag":[
 		"/de",
 		"/gamerule announceAdvancements false",
-		"/gamerule keepInventory false"
-		"/gamerule fireDamage false"
-		"/gamerule fallDamage false"
-		"/gamerule drowningDamage false"
-		"/gamerule doWeatherCycle false"
-		"/gamerule doTraderSpawning false"
-		"/gamerule doTileDrops false"
-		"/gamerule doPatrolSpawning false"
-		"/gamerule doMobSpawning false"
-		"/gamerule doMobLoot false"
-		"/gamerule doInsomnia false"
-		"/gamerule doFireTick false"
-		"/gamerule doEntityDrops false"
-		"/gamerule doDaylightCycle false"
+		"/gamerule keepInventory false",
+		"/gamerule fireDamage false",
+		"/gamerule fallDamage false",
+		"/gamerule drowningDamage false",
+		"/gamerule doWeatherCycle false",
+		"/gamerule doTraderSpawning false",
+		"/gamerule doTileDrops false",
+		"/gamerule doPatrolSpawning false",
+		"/gamerule doMobSpawning false",
+		"/gamerule doMobLoot false",
+		"/gamerule doInsomnia false",
+		"/gamerule doFireTick false",
+		"/gamerule doEntityDrops false",
+		"/gamerule doDaylightCycle false",
+		"/gamerule spectatorsGenerateChunks false",
+		"/gamerule showDeathMessages false",
+		"/gamerule sendCommandFeedback false",
+		"/gamerule randomTickSpeed 0",
+		"/gamerule naturalRegeneration false",
+		"/gamerule mobGriefing false",
+		"/gamerule maxEntityCramming 0",
+		"/gamerule maxCommandChainLength 0",
+		"/gamerule logAdminCommands false"
+		]
 }
