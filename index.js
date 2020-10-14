@@ -27,9 +27,9 @@ global.init = ()=>{
   if(conf.revision){console.log("Version "+global.rev);title("NCB Version "+global.rev)}
 }
 global.setup=()=>{
-  setTimeout(function(){process.exit(0)},conf.restartTimer)
+  setTimeout(()=>{process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
-  setInterval(function(){global.gc();}, 5000);
+  setInterval(()=>{global.gc();}, 5000);
   require('./commands/Commands.js')();
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
