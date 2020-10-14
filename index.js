@@ -33,7 +33,6 @@ global.setup=function(){
   global.lang=require('./bot_helper_scripts/bl/index.js');
   global.rq=require;
   global.readline = require("readline");
-  global.crypto = require('crypto');
   global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
   global.mrn = function(o,r,b){return (Math.floor(Math.random()*r)+o).toString(b)};
   global.mrr = function(){  var rn = +mrn(2,32,10);  return (mrn(2,rn,rn))};
