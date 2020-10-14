@@ -8,7 +8,7 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = function(){
-  global.moduleDetector=global.perms = require('./bot_helper_scripts/ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
+  global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
   global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)
     var files=[];
@@ -17,7 +17,7 @@ global.init = function(){
     })
     return files.length;
   }
-  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount("bot_helper_scripts/nppBackup","")
+  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount(bhs+"nppBackup","")
   console.log("Revision "+realRev)
   global.type=["Debug","Normal"][+conf.isNormal]
   global.title = (title)=>{process.stdout.write(String.fromCharCode(27)+"]0;"+title+String.fromCharCode(7));}
@@ -31,11 +31,11 @@ global.setup=function(){
   global.commands={};global.p={};
   setInterval(function(){global.gc();}, 5000);
   require('./commands/Commands.js')();
-  global.lang=require('./bot_helper_scripts/bl/index.js');
+  global.lang=require(bhs+'bl/index.js');
   global.rq=require;
   global.readline = require("readline");
   global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
-  global.rh=require('./bot_helper_scripts/Hash.js');
+  global.rh=require(bhs+'Hash.js');
   setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
   setTimeout(function(){chatQueueMove()},4000);
   setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
@@ -57,10 +57,10 @@ global.connect=function(){
 global.setup2=function(){
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
 global.cl=0; global.bc=0; global.cd=0; global.adminCode = 0; global.entityid=0;
-global.LockList = require("./bot_helper_scripts/LockList.js");
+global.LockList = require(bhs+"LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
-global.consolet=require("./bot_helper_scripts/Console.js")
-global.connectLockBot=require("./bot_helper_scripts/lock.js")
+global.consolet=require(bhs+"Console.js")
+global.connectLockBot=require(bhs+"lock.js")
 global.cwc=function(T){global.chatQueue.push(T)}
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 global.packetc=conf.packetSet;
@@ -114,13 +114,13 @@ global.confirmQueueMove = function(h){
   }
   return 0;
 }
-global.confirmQueuePush=require("./bot_helper_scripts/cnqm.js")
-global.getDateAndTime4L=require("./bot_helper_scripts/date.js")
-global.CD=require("./bot_helper_scripts/commandPush.js");
+global.confirmQueuePush=require(bhs+"cnqm.js")
+global.getDateAndTime4L=require(bhs+"date.js")
+global.CD=require(bhs+"commandPush.js");
 }
 global.pt=a=>{var b=a;delete b.flags;delete b.teleportId;b.onGround=true;return b}
 global.events=function(){
-global.playerInfo=require("./bot_helper_scripts/PlayerInfoE.js"); global.ChatE=require("./bot_helper_scripts/ChatE.js");
+global.playerInfo=require(bhs+"PlayerInfoE.js"); global.ChatE=require(bhs+"ChatE.js");
 client.on('player_info', global.playerInfo)
 client.on('kick_disconnect', p=>{console.log(lang.tth(JSON.parse(p.reason.split("\n").join("\\n"))));setTimeout(function(){process.exit(0)},2000)})
 client.on('tab_complete', p=>{global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);for(var i5a in p.matches){global.cwc(global.csl[1]+p.matches[i5a].match)}})
