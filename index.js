@@ -34,13 +34,13 @@ global.setup=()=>{
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
   global.readline = require("readline");
-  global.c2 = new require("net").Socket().connect(41050, 'localhost', function() {});
+  global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});
   global.rh=require(bhs+'Hash.js');
-  setTimeout(function(){global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
-  setTimeout(function(){chatQueueMove()},4000);
-  setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
+  setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
+  setTimeout(()=>{chatQueueMove()},4000);
+  setTimeout(()=>{global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
   rh();
-  global.chatQueueR=function(t){
+  global.chatQueueR=(t)=>{
     global.chatQueueSpeed=t
     cwc("Chat speed set to "+t+"ms.")
   }
