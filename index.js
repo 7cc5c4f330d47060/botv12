@@ -41,7 +41,6 @@ global.setup=function(){
   setTimeout(function(){global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
   rh();
   global.chatQueueR=function(t){
-    clearInterval(bc);
     global.chatQueueSpeed=t
     cwc("Chat speed set to "+t+"ms.")
   }
