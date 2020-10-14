@@ -61,10 +61,7 @@ global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; gl
 global.cl=0; global.bc=0; global.cd=0; global.adminCode = 0; global.entityid=0;
 global.LockList = require("./bot_helper_scripts/LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
-global.consolet=function(){
-  global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
-  rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
-}
+global.consolet=require("./bot_helper_scripts/Console.js")
 global.connectLockBot=require("./bot_helper_scripts/lock.js")
 global.cwc=function(T){global.chatQueue.push(T)}
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
