@@ -7,12 +7,12 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 (async()=>{exit(await admin())})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
-global.init = function(){
+global.init = ()=>{
   global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
   global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)
     var files=[];
-    files2.forEach(function(f){
+    files2.forEach((f)=>{
       if(f.startsWith(filter)){files.push(f)}
     })
     return files.length;
@@ -26,7 +26,7 @@ global.init = function(){
   global.rev = rev2 + ` [${type}]`;
   if(conf.revision){console.log("Version "+global.rev);title("NCB Version "+global.rev)}
 }
-global.setup=function(){
+global.setup=()=>{
   setTimeout(function(){process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
   setInterval(function(){global.gc();}, 5000);
@@ -45,7 +45,7 @@ global.setup=function(){
     cwc("Chat speed set to "+t+"ms.")
   }
 }
-global.connect=function(){
+global.connect=()=>{
   global.client = mc.createClient({
     host: conf.server,   
     port: conf.port,    
@@ -53,22 +53,22 @@ global.connect=function(){
     username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
   });
 }
-global.setup2=function(){
+global.setup2=()=>{
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
 global.cl=0; global.bc=0; global.cd=0; global.adminCode = 0; global.entityid=0;
 global.LockList = require(bhs+"LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
 global.consolet=require(bhs+"Console.js")
 global.connectLockBot=require(bhs+"lock.js")
-global.cwc=function(T){global.chatQueue.push(T)}
+global.cwc=T=>{global.chatQueue.push(T)}
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 global.packetc=conf.packetSet;
-setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
+setInterval(()=>{packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})}
 if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
-global.getPerm = function(x){if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
+global.getPerm=x=>{if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
 global.command=(n,d,b1a,C)=>{
   if(!global.consoleOnly || C || getPerm(n)==11){
   var c=d.toLowerCase();
@@ -86,26 +86,26 @@ global.command=(n,d,b1a,C)=>{
   }
   return 79;
 }
-global.cmdQueueMove = function(){
+global.cmdQueueMove=()=>{
   if(commandQueue[0]!=undefined){
     command(commandQueue[0].n,commandQueue[0].c,false,false);
     commandQueue.shift();
   }
   return 0;
 }
-global.chatLogQueueMove = function(){if(!global.destroyed){
+global.chatLogQueueMove=()=>{
   if(chatLogQueue[0]!=undefined){
     c2.write("\u0001"+chatLogQueue[0]);
     chatLogQueue.shift();
-}}
+  }
   return 0;
 }
-global.chatQueueMove = ()=>{
+global.chatQueueMove=()=>{
   if(chatQueue[0]!=undefined){client.write("chat",{message: chatQueue[0]+""});chatQueue.shift();}
   setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
-global.confirmQueueMove = function(h){
+global.confirmQueueMove=(h)=>{
   if(h == global.adminCode){
     command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
     confirmQueue.shift();
