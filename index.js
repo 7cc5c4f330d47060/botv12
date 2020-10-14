@@ -64,12 +64,9 @@ global.consolet=function(){
   global.rl = readline.createInterface({input: process.stdin,output: process.stdout,prompt: "\x1b[0m\x1b[2m\x1b[37m> "});
   rl.on('line', (line) => {global.command("bb41a64a33fe01fb",line,true,true);rl.prompt(false)});rl.prompt(false)
 }
-
 global.connectLockBot=require("./bot_helper_scripts/lock.js")
-
 global.cwc=function(T){global.chatQueue.push(T)}
 global.pri = setInterval(function(){global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
-
 global.packetc=conf.packetSet;
 setInterval(function(){packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})}
@@ -77,7 +74,6 @@ if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm = function(x){if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
-
 global.command=(n,d,b1a,C)=>{
   if(!global.consoleOnly || C || getPerm(n)==11){
   var c=d.toLowerCase();
@@ -114,7 +110,6 @@ global.chatQueueMove = ()=>{
   setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
-
 global.confirmQueueMove = function(h){
   if(h == global.adminCode){
     command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
@@ -139,5 +134,4 @@ client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus 
 client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
-
 require("./run.js")()
