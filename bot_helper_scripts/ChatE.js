@@ -83,6 +83,7 @@ module.exports=function(packet) {
   fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
   }
   if(global.consoleLogger){
+  if(ir.includes("Please don't tpall, ")&&ir.includes(". It's really annoying and lags the server.")){return}
   chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
   }
   return;
