@@ -79,6 +79,7 @@ module.exports=function(packet) {
   if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
     global.cwc("/cspy "+["off","on"][+global.cspyMode])
   }
+  if(jsonMsg.extra){if(jsonMsg.extra[0]&&jsonMsg.extra[1]){if(jsonMsg.extra[0].text&&jsonMsg.extra[1].text){if(jsonMsg.extra[0].color="red"&&jsonMsg.extra[1].color="aqua"){if(jsonMsg.extra[0].text.length<6){if(jsonMsg.extra[1].text.startsWith(": /tp")){return}}}}}}
   if(global.fileLogger){
   fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
   }
