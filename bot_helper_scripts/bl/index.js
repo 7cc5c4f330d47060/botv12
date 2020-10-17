@@ -109,7 +109,7 @@ const tth=function(T,go){
 				creturn+= tth(T.extra[iza])[2]
 			}
 		}
-	return [(areturn+""),(breturn+""),(creturn+"")];
+	return [(areturn+"").split("\u0007").join("\\u0007"),(breturn+"").split("\u0007").join("\\u0007"),(creturn+"").split("\u0007").join("\\u0007")];
 	}
 }
 exports.tth=tth;
