@@ -79,6 +79,7 @@ module.exports=function(packet) {
   if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
     global.cwc("/cspy "+["off","on"][+global.cspyMode])
   }
+  try{
   if(jsonMsg.extra){if(jsonMsg.extra[0]&&jsonMsg.extra[1]){
 	  if(jsonMsg.extra[0].text&&jsonMsg.extra[1].text){
 		  if(jsonMsg.extra[0].text=="\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7"&&jsonMsg.extra[1].text.startsWith(": /deop ")&&jsonMsg.extra[0].color=="aqua"&&jsonMsg.extra[1].color=="aqua"){return}
@@ -92,6 +93,7 @@ module.exports=function(packet) {
 	  }
   }
   }
+  }catch(er){}
   if(global.fileLogger){
   fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
   }
