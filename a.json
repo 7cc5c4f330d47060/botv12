@@ -41,7 +41,7 @@
 		"Owner",
 		"Console"
 	],
-	"chatInterval":300000,
+	"chatInterval":450000,
 	"stopLag":[
 	    "/effect clear @a",
 		"/team leave @a",
