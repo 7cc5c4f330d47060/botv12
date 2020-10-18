@@ -53,14 +53,19 @@ module.exports=()=>{
   delete global.confirmQueuePush;
   delete global.getDateAndTime4L;
   delete global.CD;
-  delete global.init
-  delete global.setup
-  delete global.setup2
+  delete global.init;
+  delete global.setup;
+  delete global.setup2;
+  delete global.chatQueueR;
   global.chatQueue=[];
   global.chatLogQueue=[];
   global.commandQueue=[];
   global.confirmQueue=[];
+  global.init = require(bs+"LInit.js");
+  global.setup=require(bs+"LSetup.js");
+  global.setup2=require(bs+"LSetup2.js");
   global.conf = require('./a.json');
+  global.mc = require('minecraft-protocol');
   global.init();
   global.setup();
   global.setup2();
