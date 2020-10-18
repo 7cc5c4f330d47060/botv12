@@ -8,8 +8,9 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = ()=>{
-	  global.rh=require(bhs+'Hash.js');
-   global.adminCode = 0; global.adminCode=rh();
+  global.rh=require(bhs+'Hash.js');
+  global.adminCode = 0; global.adminCode=rh();
+  console.log(global.adminCode)
   global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
   global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)
