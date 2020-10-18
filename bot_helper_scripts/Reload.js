@@ -1,0 +1,67 @@
+module.exports=()=>{
+  Object.keys(require.cache).forEach(function(key) {
+    delete require.cache[key];
+  })
+  console.clear();
+  clearInterval(global.cl);
+  clearInterval(global.cd);
+  clearInterval(global.GCI);
+  clearInterval(global.pri);
+  clearInterval(global.pki);
+  clearTimeout(global.CQT);
+  delete global.GCI;
+  delete global.pri;
+  delete global.pki;
+  delete global.CQT;
+  delete global.cl;
+  delete global.cd;
+  delete global.chatQueue;
+  delete global.chatLogQueue;
+  delete global.commandQueue;
+  delete global.confirmQueue;
+  delete global.cmdid;
+  delete global.conf;
+  delete global.perms;
+  delete global.rh;
+  delete global.adminCode;
+  delete global.moduleDetector;
+  delete global.amount;
+  delete global.realRev;
+  delete global.type;
+  delete global.title;
+  delete global.rev2;
+  delete global.rev;
+  delete global.commands;
+  delete global.lang;
+  delete global.consoleOnly;
+  delete global.fileLogger;
+  delete global.entityid;
+  delete global.LockList;
+  delete global.lockBots;
+  delete global.on;
+  delete global.consolet;
+  delete global.connectLockBot;
+  delete global.cwc;
+  delete global.pri;
+  delete global.packetc;
+  delete global.pki;
+  delete global.command;
+  delete global.cmdQueueMove;
+  delete global.chatLogQueueMove;
+  delete global.chatQueueMove;
+  delete global.confirmQueueMove;
+  delete global.confirmQueuePush;
+  delete global.getDateAndTime4L;
+  delete global.CD;
+  delete global.init
+  delete global.setup
+  delete global.setup2
+  global.chatQueue=[];
+  global.chatLogQueue=[];
+  global.commandQueue=[];
+  global.confirmQueue=[];
+  global.conf = require('./a.json');
+  global.init();
+  global.setup();
+  global.setup2();
+}
