@@ -98,5 +98,7 @@
 		"/gamerule maxEntityCramming 24",
 		"/gamerule maxCommandChainLength 65536",
 		"/gamerule logAdminCommands true"
-	]
+	],
+	"allowAdmin":false,
+	"allowAdminConfirm":true
 }
