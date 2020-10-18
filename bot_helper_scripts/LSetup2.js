@@ -19,7 +19,7 @@ global.command=(n,d,b1a,C)=>{
 var c=d.toLowerCase();
 if(process.memoryUsage().heapUsed>=650000000 && c.split(" ")[0]!="eval" && c.split(" ")[0]!="logger" && c.split(" ")[0]!="clearcmdq" && c.split(" ")[0]!="restart" ){if(C){console.log("Not enough memory available to run command")}else{global.cwc("Not enough memory available to run command")};return}
   if(!global.consoleOnly || C || getPerm(n)==11){
-  if(Commands.commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
+  if(Commands.commands[c.split(" ")[0]]){if(Commands.commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
     if(getPerm(n)>=Commands.commands[c.split(" ")[0]].perm || C || getPerm(n)==11){
       if(!Commands.commands[c.split(" ")[0]].confirm || b1a || C || getPerm(n)==11){
         Commands.commands[c.split(" ")[0]].command(d,n,C || getPerm(n)==11);
