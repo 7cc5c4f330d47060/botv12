@@ -93,7 +93,6 @@ module.exports=function(packet) {
 	  }
   }
   }
-  
   if(ir.includes("Please don't tpall, ")&&ir.includes(". It's really annoying and lags the server.")){return}
   }catch(er){}
   if(global.fileLogger){
