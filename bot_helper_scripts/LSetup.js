@@ -5,7 +5,7 @@ module.exports=()=>{
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
   global.readline = require("readline");
-  global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});
+  if(!global.c2){global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});}
 
   setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
   setTimeout(()=>{if(!chatQueueInit){chatQueueMove()}},4000);
