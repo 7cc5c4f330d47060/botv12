@@ -69,4 +69,5 @@ module.exports=()=>{
   global.init();
   global.setup();
   global.setup2();
+  global.cwc("Reload complete.")
 }
