@@ -19,7 +19,6 @@ module.exports=()=>{
   delete global.chatLogQueue;
   delete global.commandQueue;
   delete global.confirmQueue;
-  delete global.cmdid;
   delete global.conf;
   delete global.perms;
   delete global.rh;
@@ -64,7 +63,6 @@ module.exports=()=>{
   global.setup=require(bhs+"LSetup.js");
   global.setup2=require(bhs+"LSetup2.js");
   global.conf = require('../a.json');
-  global.mc = require('minecraft-protocol');
   global.init();
   global.setup();
   global.setup2();
