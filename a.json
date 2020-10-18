@@ -7,7 +7,7 @@
 	"botChatQueueSpeed":375,
 	"restartTimer":10800000,
 	"consoleOnly":false,
-	"cs":["&6","&e"],
+	"cs":["&6","&f"],
 	"cspyOn":true,
 	"commandsEnabled":true,
 	"revision":true,
