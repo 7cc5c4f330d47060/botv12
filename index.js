@@ -7,28 +7,7 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 (async()=>{exit(await admin() && conf.allowAdmin && !conf.allowAdminConfirm)})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
-global.init = ()=>{
-  global.rh=require(bhs+'Hash.js');
-  global.adminCode = 0; global.adminCode=rh();
-  console.log(global.adminCode)
-  global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
-  global.amount = (dirPath,filter)=>{
-    var files2 = fs.readdirSync(dirPath)
-    var files=[];
-    files2.forEach((f)=>{
-      if(f.startsWith(filter)){files.push(f)}
-    })
-    return files.length;
-  }
-  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount(bhs+"nppBackup","")
-  console.log("Revision "+realRev)
-  global.type=["Debug","Normal"][+conf.isNormal]
-  global.title = (title)=>{process.stdout.write(String.fromCharCode(27)+"]0;"+title+String.fromCharCode(7));}
-  global.perms = require('./admins.json');
-  global.rev2 = conf.rev;
-  global.rev = rev2 + ` [${type}]`;
-  if(conf.revision){console.log("Version "+global.rev);title("NCB Version "+global.rev)}
-}
+global.init = require(bhs+"LInit.js");
 global.setup=()=>{
   setTimeout(()=>{process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
