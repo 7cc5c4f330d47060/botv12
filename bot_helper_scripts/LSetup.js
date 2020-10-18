@@ -1,7 +1,7 @@
 module.exports=()=>{
   global.RST=setTimeout(()=>{process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
-  global.GCI=setInterval(()=>{global.gc();}, 5000);
+  global.GCI=setInterval(()=>{global.gc();if(process.memoryUsage().heapUsed>=710000000){global.cwc("Not enough memory is available to continue, restarting...");setTimeout(function(){process.exit(2)},700);return}}, 5000);
   require('../commands/Commands.js')();
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
