@@ -39,7 +39,7 @@ global.setup=()=>{
   setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
   setTimeout(()=>{chatQueueMove()},4000);
   setTimeout(()=>{global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
-  rh();
+  global.adminCode=rh();
   global.chatQueueR=(t)=>{
     global.chatQueueSpeed=t
     cwc("Chat speed set to "+t+"ms.")
