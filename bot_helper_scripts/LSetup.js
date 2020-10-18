@@ -1,7 +1,7 @@
 module.exports=()=>{
-  setTimeout(()=>{process.exit(0)},conf.restartTimer)
+  global.RST=setTimeout(()=>{process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
-  setInterval(()=>{global.gc();}, 5000);
+  global.GCI=setInterval(()=>{global.gc();}, 5000);
   require('../commands/Commands.js')();
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
