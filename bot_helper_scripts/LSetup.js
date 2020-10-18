@@ -9,7 +9,7 @@ module.exports=()=>{
   global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});
 
   setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
-  setTimeout(()=>{chatQueueMove()},4000);
+  setTimeout(()=>{if(!chatQueueInit){chatQueueMove()}},4000);
   setTimeout(()=>{global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
 
   global.chatQueueR=(t)=>{
