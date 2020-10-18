@@ -1,5 +1,5 @@
 module.exports=()=>{
-var Commands = require('../commands/Commands.js')();
+var Commands = require('../commands/Commands.js');
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
 global.cl=0; global.cd=0;global.entityid=0;
 global.LockList = require(bhs+"LockList.js");
