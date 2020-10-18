@@ -1,4 +1,5 @@
 module.exports=()=>{
+var Commands = require('../commands/Commands.js')();
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
 global.cl=0; global.cd=0;global.entityid=0;
 global.LockList = require(bhs+"LockList.js");
@@ -21,7 +22,7 @@ if(process.memoryUsage().heapUsed>=650000000 && c.split(" ")[0]!="eval" && c.spl
   if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
     if(getPerm(n)>=commands[c.split(" ")[0]].perm || C || getPerm(n)==11){
       if(!commands[c.split(" ")[0]].confirm || b1a || C || getPerm(n)==11){
-        commands[c.split(" ")[0]].command(d,n,C || getPerm(n)==11);
+        Commands.commands[c.split(" ")[0]].command(d,n,C || getPerm(n)==11);
         return 0;
       } else {
         confirmQueuePush(d,n)
