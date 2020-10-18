@@ -13,6 +13,6 @@ global.setup=require(bs+"LSetup.js");
 global.connect=require(bs+"LConnect.js");
 global.setup2=require(bs+"LSetup2.js");
 global.pt=a=>{var b=a;delete b.flags;delete b.teleportId;b.onGround=true;return b}
-global.events=require(bs+"LEvens.js");
+global.events=require(bs+"LEvents.js");
 
 require("./run.js")()
