@@ -45,7 +45,9 @@ global.chatLogQueueMove=()=>{
   }
   return 0;
 }
+global.chatQueueInit=false;
 global.chatQueueMove=()=>{
+  global.chatQueueInit=true;
   if(chatQueue[0]!=undefined){client.write("chat",{message: chatQueue[0]+""});chatQueue.shift();}
   global.CQT=setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
