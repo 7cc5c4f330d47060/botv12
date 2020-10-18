@@ -15,7 +15,7 @@ global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm=x=>{if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
 global.command=(n,d,b1a,C)=>{
-if(process.memoryUsage().heapUsed>=650000000){global.cwc("Not enough memory");return}
+if(process.memoryUsage().heapUsed>=650000000){global.cwc("Not enough memory available to run command");return}
   if(!global.consoleOnly || C || getPerm(n)==11){
   var c=d.toLowerCase();
   if(commands[c.split(" ")[0]]){if(commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
