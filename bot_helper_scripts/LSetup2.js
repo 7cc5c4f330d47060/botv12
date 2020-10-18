@@ -1,6 +1,6 @@
 module.exports=()=>{
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
-global.cl=0; global.bc=0; global.cd=0;global.entityid=0;
+global.cl=0; global.cd=0;global.entityid=0;
 global.LockList = require(bhs+"LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
 global.consolet=require(bhs+"Console.js")
@@ -47,7 +47,7 @@ global.chatLogQueueMove=()=>{
 }
 global.chatQueueMove=()=>{
   if(chatQueue[0]!=undefined){client.write("chat",{message: chatQueue[0]+""});chatQueue.shift();}
-  setTimeout(global.chatQueueMove,global.chatQueueSpeed)
+  global.CQT=setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
 global.confirmQueueMove=(h)=>{
