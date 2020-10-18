@@ -61,9 +61,9 @@ module.exports=()=>{
   global.chatLogQueue=[];
   global.commandQueue=[];
   global.confirmQueue=[];
-  global.init = require(bs+"LInit.js");
-  global.setup=require(bs+"LSetup.js");
-  global.setup2=require(bs+"LSetup2.js");
+  global.init = require(bhs+"LInit.js");
+  global.setup=require(bhs+"LSetup.js");
+  global.setup2=require(bhs+"LSetup2.js");
   global.conf = require('./a.json');
   global.mc = require('minecraft-protocol');
   global.init();
