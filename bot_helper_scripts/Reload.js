@@ -33,7 +33,6 @@ module.exports=()=>{
   delete global.lang;
   delete global.consoleOnly;
   delete global.fileLogger;
-  delete global.entityid;
   delete global.LockList;
   delete global.lockBots;
   delete global.on;
