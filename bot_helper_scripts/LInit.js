@@ -1,4 +1,4 @@
-()=>{
+module.exports=()=>{
   global.rh=require(bhs+'Hash.js');
   global.adminCode = 0; global.adminCode=rh();
   console.log(global.adminCode)
