@@ -64,7 +64,7 @@ module.exports=()=>{
   global.init = require(bhs+"LInit.js");
   global.setup=require(bhs+"LSetup.js");
   global.setup2=require(bhs+"LSetup2.js");
-  global.conf = require('./a.json');
+  global.conf = require('../a.json');
   global.mc = require('minecraft-protocol');
   global.init();
   global.setup();
