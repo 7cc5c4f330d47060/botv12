@@ -8,10 +8,10 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 (async()=>{exit(await admin() && conf.allowAdmin && !conf.allowAdminConfirm)})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
-global.init = require(bhs+"LInit.js");
-global.setup=require(bhs+"LSetup.js");
-global.connect=require(bhs+"LConnect.js");
-global.setup2=require(bhs+"LSetup2.js");
+global.init = require(bs+"LInit.js");
+global.setup=require(bs+"LSetup.js");
+global.connect=require(bs+"LConnect.js");
+global.setup2=require(bs+"LSetup2.js");
 global.pt=a=>{var b=a;delete b.flags;delete b.teleportId;b.onGround=true;return b}
 global.events=function(){
 global.playerInfo=require(bhs+"PlayerInfoE.js"); global.ChatE=require(bhs+"ChatE.js");
