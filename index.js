@@ -1,6 +1,6 @@
 console.log("Loading...");
 'use strict';
-global.bhs="./bot_helper_scripts/"
+global.bhs="./"//bot_helper_scripts/"
 global.fs = require('fs');global.conf = require('./a.json');
 exit=(v)=>{if(v){console.log("Done");process.exit(0)}}
 global.mc = require('minecraft-protocol');const admin = require('is-elevated');
