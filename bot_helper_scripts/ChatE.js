@@ -82,7 +82,7 @@ module.exports=function(packet) {
   try{
   if(jsonMsg.extra){if(jsonMsg.extra[0]&&jsonMsg.extra[1]){
 	  if(jsonMsg.extra[0].text&&jsonMsg.extra[1].text){
-		  if(jsonMsg.extra[0].text=="\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7"&&jsonMsg.extra[1].text.startsWith(": /deop ")&&jsonMsg.extra[0].color=="aqua"&&jsonMsg.extra[1].color=="aqua"){return}
+		  if((jsonMsg.extra[0].text=="\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7"||jsonMsg.extra[0].text=="Blue Bot Lock")&&jsonMsg.extra[1].text.startsWith(": /deop ")&&jsonMsg.extra[0].color=="aqua"&&jsonMsg.extra[1].color=="aqua"){return}
 		  if(jsonMsg.extra[0].color=="red"&&jsonMsg.extra[1].color=="aqua"){
 			  if(jsonMsg.extra[0].text.length<6){
 				  if(jsonMsg.extra[1].text.startsWith(": /tp")){
