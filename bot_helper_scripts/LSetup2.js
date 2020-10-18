@@ -8,7 +8,7 @@ global.connectLockBot=require(bhs+"lock.js")
 global.cwc=T=>{global.chatQueue.push(T)}
 global.pri = setInterval(()=>{global.cwc(conf.chat.split("%prefix%").join(global.prefix))},conf.chatInterval);global.cwc(conf.chat.split("%prefix%").join(global.prefix))
 global.packetc=conf.packetSet;
-setInterval(()=>{packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
+global.pki = setInterval(()=>{packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
 for(var i1b in global.commands){global.cmdid.push({name:i1b,h:commands[i1b].h,usage:commands[i1b].u})}
 if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
