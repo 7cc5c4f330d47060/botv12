@@ -58,12 +58,9 @@ module.exports=()=>{
   global.chatLogQueue=[];
   global.commandQueue=[];
   global.confirmQueue=[];
-  global.init = require(bhs+"LInit.js");
-  global.setup=require(bhs+"LSetup.js");
-  global.setup2=require(bhs+"LSetup2.js");
+  require(bhs+"LInit.js")();
+  require(bhs+"LSetup.js")();
+  require(bhs+"LSetup2.js")();
   global.conf = require('../a.json');
-  global.init();
-  global.setup();
-  global.setup2();
   global.cwc("Reload complete.")
 }
