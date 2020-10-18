@@ -8,6 +8,8 @@ global.mc = require('minecraft-protocol');const admin = require('is-elevated');
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
 global.init = ()=>{
+	  global.rh=require(bhs+'Hash.js');
+   global.adminCode = 0; global.adminCode=rh();
   global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
   global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)
@@ -35,7 +37,7 @@ global.setup=()=>{
   global.rq=require;
   global.readline = require("readline");
   global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});
-  global.rh=require(bhs+'Hash.js');
+
   setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
   setTimeout(()=>{chatQueueMove()},4000);
   setTimeout(()=>{global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
@@ -55,7 +57,7 @@ global.connect=()=>{
 }
 global.setup2=()=>{
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
-global.cl=0; global.bc=0; global.cd=0; global.adminCode = 0; global.entityid=0;
+global.cl=0; global.bc=0; global.cd=0;global.entityid=0;
 global.LockList = require(bhs+"LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
 global.consolet=require(bhs+"Console.js")
@@ -129,5 +131,5 @@ client.on('entity_status', p=>{if(p.entityId==global.entityid && p.entityStatus 
 client.on('chat', ChatE);
 client.on('packet', (data, meta)=>{packetc=conf.packetSet;})
 }
-  global.adminCode=rh();
+
 require("./run.js")()
