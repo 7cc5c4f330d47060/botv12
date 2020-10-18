@@ -54,7 +54,7 @@ module.exports=()=>{
   global.setup=null;
   global.setup2=null;
   global.chatQueueR=null;
-  global.chatQueue=null;
+  global.chatQueue=[];
   global.chatLogQueue=[];
   global.commandQueue=[];
   global.confirmQueue=[];
