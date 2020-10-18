@@ -2,7 +2,7 @@ module.exports=()=>{
   setTimeout(()=>{process.exit(0)},conf.restartTimer)
   global.commands={};global.p={};
   setInterval(()=>{global.gc();}, 5000);
-  require('./commands/Commands.js')();
+  require('../commands/Commands.js')();
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
   global.readline = require("readline");
