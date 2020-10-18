@@ -15,7 +15,7 @@ module.exports=()=>{
   console.log("Revision "+realRev)
   global.type=["Debug","Normal"][+conf.isNormal]
   global.title = (title)=>{process.stdout.write(String.fromCharCode(27)+"]0;"+title+String.fromCharCode(7));}
-  global.perms = require('./admins.json');
+  global.perms = require('../admins.json');
   global.rev2 = conf.rev;
   global.rev = rev2 + ` [${type}]`;
   if(conf.revision){console.log("Version "+global.rev);title("NCB Version "+global.rev)}
