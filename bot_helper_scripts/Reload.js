@@ -31,7 +31,6 @@ module.exports=()=>{
   delete global.title;
   delete global.rev2;
   delete global.rev;
-  delete global.commands;
   delete global.lang;
   delete global.consoleOnly;
   delete global.fileLogger;
