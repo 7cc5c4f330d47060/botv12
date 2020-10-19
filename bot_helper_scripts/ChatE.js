@@ -8,39 +8,18 @@ module.exports=function(packet) {
   var fileprocessed = cont[1];
   var ir = cont[2];
   var testname=0;
-  try{
-  if(jsonMsg.extra){if(jsonMsg.extra[0]&&jsonMsg.extra[1]){
-	  if(jsonMsg.extra[0].text&&jsonMsg.extra[1].text){
-		  if((jsonMsg.extra[0].text=="\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7"||jsonMsg.extra[0].text=="Blue Bot Lock")&&jsonMsg.extra[1].text.startsWith(": /deop ")&&jsonMsg.extra[0].color=="aqua"&&jsonMsg.extra[1].color=="aqua"){return}
-		  if(jsonMsg.extra[0].color=="red"&&jsonMsg.extra[1].color=="aqua"){
-			  if(jsonMsg.extra[0].text.length<6){
-				  if(jsonMsg.extra[1].text.startsWith(": /tp")){
-					  return
-				  }
-			  }
-		  }
-	  }
-  }
-  }
-  if(ir.includes("Please don't tpall, ")&&ir.includes(". It's really annoying and lags the server.")){return}
-  }catch(er){}
-    if(global.fileLogger){
-  fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
-  }
-  if(global.consoleLogger){
-  chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
-  }
+  
   if(jsonMsg.extra){
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
         if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(fileprocessed.includes("\u00a7r: \u00a7r"+global.prefix)){
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(ir.includes(": "+global.prefix)){
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1 && (ir.indexOf("]")!=ir.indexOf("] ["))){ 
 				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0];
 				
 				//console.log(testname)
-             } else { testname = jsonMsg.extra[i2a-1].text}}catch(e){}
+             } else { testname = jsonMsg.extra[i2a-1].text}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
 			  if(testname){preName=testname};
 			  var ses="";
@@ -80,20 +59,14 @@ module.exports=function(packet) {
           text2 = jsonMsg.with[1]+"";
         }
       }catch(e){};
-	  
   }}}
-
   if(lang.tth(jsonMsg)[0]==undefined){return;}
-  var preText = fileprocessed.split("\u00a7r: \u00a7r");
-
+  var preText = ir.split(": ");
   var pt2 = preText[0]
   var preTextFirst = preText.shift();
-  if(text2==undefined){ var text2 = preText.join("\u00a7r: \u00a7r");}
-      var text3="";	for(var i33 in text2.split("\u00a7")){  if((i33==0 && !text2.split("\u00a7")[i33].startsWith("\u00a7")) || !text2.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){ gn+=text2.split("\u00a7")[i33];}else{
-  text3+= text2.split("\u00a7")[i33].slice(1);}}
-  console.log(text3)
-  if(text3.startsWith(global.prefix)){
-    CD(name,text3.slice(global.prefix.length));
+  if(text2==undefined){ var text2 = preText.join(": ");}
+  if(text2.startsWith(global.prefix)){
+    CD(name,text2.slice(global.prefix.length));
   }
   if(ir.endsWith("disabled")){
     if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
@@ -106,8 +79,28 @@ module.exports=function(packet) {
   if(ir.startsWith("Successfully "+["enabled","disabled"][+global.cspyMode]+" CommandSpy")){
     global.cwc("/cspy "+["off","on"][+global.cspyMode])
   }
-
-
+  try{
+  if(jsonMsg.extra){if(jsonMsg.extra[0]&&jsonMsg.extra[1]){
+	  if(jsonMsg.extra[0].text&&jsonMsg.extra[1].text){
+		  if((jsonMsg.extra[0].text=="\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7\u00a7"||jsonMsg.extra[0].text=="Blue Bot Lock")&&jsonMsg.extra[1].text.startsWith(": /deop ")&&jsonMsg.extra[0].color=="aqua"&&jsonMsg.extra[1].color=="aqua"){return}
+		  if(jsonMsg.extra[0].color=="red"&&jsonMsg.extra[1].color=="aqua"){
+			  if(jsonMsg.extra[0].text.length<6){
+				  if(jsonMsg.extra[1].text.startsWith(": /tp")){
+					  return
+				  }
+			  }
+		  }
+	  }
+  }
+  }
+  if(ir.includes("Please don't tpall, ")&&ir.includes(". It's really annoying and lags the server.")){return}
+  }catch(er){}
+  if(global.fileLogger){
+  fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {  if (err) throw err;  });
+  }
+  if(global.consoleLogger){
+  chatLogQueue.push("\x1b[0m\x1b[1m\x1b[37m"+processed);
+  }
   return;
   }
 }
