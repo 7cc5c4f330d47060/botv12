@@ -91,6 +91,7 @@ module.exports=function(packet) {
   if(text2==undefined){ var text2 = preText.join("\u00a7r: \u00a7r");}
       var text3="";	for(var i33 in text2.split("\u00a7")){  if((i33==0 && !text2.split("\u00a7")[i33].startsWith("\u00a7")) || !text2.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){ gn+=text2.split("\u00a7")[i33];}else{
   text3+= text2.split("\u00a7")[i33].slice(1);}}
+  console.log(text3)
   if(text3.startsWith(global.prefix)){
     CD(name,text3.slice(global.prefix.length));
   }
