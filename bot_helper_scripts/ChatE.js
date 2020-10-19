@@ -13,7 +13,7 @@ module.exports=function(packet) {
     for(var i2a in jsonMsg.extra){
       if(jsonMsg.extra[i2a]){
         if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(ir.includes(": "+global.prefix)){
+          if(jsonMsg.extra[i2a].text.slice(0,2)==": "){if(fileprocessed.includes("\u00a7r: \u00a7r"+global.prefix)){
             if(jsonMsg.extra[i2a-1]){ 
 			 try{if(ir.indexOf("]")+1 && (ir.indexOf("]")!=ir.indexOf("] ["))){ 
 				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0];
