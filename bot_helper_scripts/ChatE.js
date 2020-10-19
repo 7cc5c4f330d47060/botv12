@@ -19,7 +19,7 @@ module.exports=function(packet) {
 				testname=ir.slice(ir.indexOf("]")+2).split(": ")[0];
 				
 				//console.log(testname)
-             }}catch(e){}
+             } else { testname = jsonMsg.extra[i2a-1].text}}catch(e){}
               var preName = jsonMsg.extra[i2a-1].text;
 			  if(testname){preName=testname};
 			  var ses="";
