@@ -82,15 +82,17 @@ module.exports=function(packet) {
       }catch(e){};
 	  
   }}}
-  var text3=""/*	for(var i33 in text2.split("\u00a7")){  if((i33==0 && !text2.split("\u00a7")[i33].startsWith("\u00a7")) || !text2.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){ gn+=text2.split("\u00a7")[i33];}else{
-  text3+= text2.split("\u00a7")[i33].slice(1);}}*/
+
   if(lang.tth(jsonMsg)[0]==undefined){return;}
   var preText = fileprocessed.split("\u00a7r: \u00a7r");
+
   var pt2 = preText[0]
   var preTextFirst = preText.shift();
   if(text2==undefined){ var text2 = preText.join("\u00a7r: \u00a7r");}
+      var text3="";	for(var i33 in text2.split("\u00a7")){  if((i33==0 && !text2.split("\u00a7")[i33].startsWith("\u00a7")) || !text2.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){ gn+=text2.split("\u00a7")[i33];}else{
+  text3+= text2.split("\u00a7")[i33].slice(1);}}
   if(text2.startsWith(global.prefix)){
-    CD(name,text2.slice(global.prefix.length));
+    CD(name,text3.slice(global.prefix.length));
   }
   if(ir.endsWith("disabled")){
     if((ir.indexOf("Vanish for")!=-1)&&ir.indexOf("Vanish for")<=3){
