@@ -7,7 +7,6 @@ const õ = new w.Server({port:41062});
 õ.on('connection', function(ò) {
   ò.on('message', function(ô) {
     var ö=ô.charCodeAt(0);
-	
   });
 });
 var realconn;
