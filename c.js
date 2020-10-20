@@ -28,7 +28,7 @@ function h(c) {
 		console.clear();
 		process.exit(0);
 	} else if (d6[0]==4){
-		
+		ó.send(d6.slice(1))
 	}
   }
   function tyy(e){
