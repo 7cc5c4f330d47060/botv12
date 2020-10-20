@@ -6,7 +6,7 @@ server.listen(41050);
 const õ = new w.Server({port:8080});
 õ.on('connection', function connection(ò) {
   ò.on('message', function incoming(ô) {
-    console.log('received: %s', ô);
+    var ö=ô.charCodeAt[0]
   });
 });
 function h(c) {    
