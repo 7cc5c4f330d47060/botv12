@@ -7,13 +7,12 @@ const õ = new w.Server({port:41062});
 õ.on('connection', function(ò) {
   ò.on('message', function(ô) {
     var ö=ô.charCodeAt(0);
+	
   });
 });
 var realconn;
-const ó = new õ('ws://localhost:41062');
-ó.on('message', function(ù) {
-  realconn.write("\u0004"+ù);
-});
+
+
 function h(c) {
   realconn = c;
   c.on('data', a);  
@@ -28,7 +27,9 @@ function h(c) {
 		console.clear();
 		process.exit(0);
 	} else if (d6[0]==4){
-		ó.send(d6.slice(1))
+		for(var i in õ.clients){
+			õ.clients[i].send(d6.slice(1))
+		}
 	}
   }
   function tyy(e){
