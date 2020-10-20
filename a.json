@@ -26,7 +26,7 @@
 	],
 	"fileLoggerOn": true,
 	"rev":"Beta",
-	"chat":"Say %prefix%help page <PAGE> in chat for a list of my commands and say %prefix%help usage <COMMAND> for more detail on a command.",
+	"chat":"My help command is %prefix%help",
 	"permLevelList":[
 		"User",
 		"Old user",
