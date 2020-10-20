@@ -9,14 +9,12 @@ function h(c) {
 	if(d6[0]==1){
 	var $$ = d6.toString('utf8').slice(1);
     console.log($$);
-	delete d6;
 	} else if (d6[0]==2){
 		console.clear();
 	} else if (d6[0]==3){
 		console.clear();
 		process.exit(0);
-	}
-
+	} 
   }
   function tyy(e){
 	  
