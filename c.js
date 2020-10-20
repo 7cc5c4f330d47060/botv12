@@ -51,10 +51,3 @@ WEBSOCKET SERVER CB:
 7. Restart
 8. Clear Console
 */
-
-/*
-NET SERVER CB:
-1. Log message
-2. Clear Console
-3. Restart Logger Console
-*/
