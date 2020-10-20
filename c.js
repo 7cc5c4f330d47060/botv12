@@ -1,4 +1,5 @@
 var net = require('net');
+const WebSocket = require('ws');
 var server = net.createServer();
 server.on('connection', h);
 server.listen(41050);
