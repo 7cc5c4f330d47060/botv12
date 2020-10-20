@@ -5,8 +5,15 @@ module.exports=()=>{
   global.lang=require(bhs+'bl/index.js');
   global.rq=require;
   global.readline = require("readline");
-  if(!global.c2){global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});}
-
+  if(!global.c2){
+	  global.c2 = new require("net").Socket().connect(41050, 'localhost',()=>{});
+	  c2.on("data",(a)=>{
+		  if(a[0]==4){
+			  global.cwc(a.slice(1))
+		  }
+	  })
+  }
+	
   setTimeout(()=>{global.cl=setInterval(chatLogQueueMove,conf.chatLogQueueSpeed)},5000);
   setTimeout(()=>{if(!chatQueueInit){chatQueueMove()}},4000);
   setTimeout(()=>{global.cd=setInterval(cmdQueueMove,conf.commandQueueSpeed)},1000);
