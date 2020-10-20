@@ -1,9 +1,14 @@
 var net = require('net');
 var w = require('ws');
 var server = net.createServer();
-var wsserver = w.createServer();
 server.on('connection', h);
 server.listen(41050);
+const õ = new w.Server({port:8080});
+õ.on('connection', function connection(ò) {
+  ò.on('message', function incoming(ô) {
+    console.log('received: %s', ô);
+  });
+});
 function h(c) {    
   c.on('data', a);  
   c.on('close', tyy);  
