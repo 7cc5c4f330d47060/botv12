@@ -1,6 +1,5 @@
 var õ = require('ws');
 const ó = new õ('ws://localhost:41062');
-module.exports=function(){
   global.rl = readline.createInterface(
     {
 	  input: process.stdin,
@@ -13,4 +12,3 @@ module.exports=function(){
     rl.prompt(false)
   });
   rl.prompt(false)
-}
