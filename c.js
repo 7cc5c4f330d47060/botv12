@@ -36,18 +36,3 @@ function h(c) {
   }
 }
 
-/*
-WEBSOCKET SERVER CB:
-0 <MESSAGE>. Say Message
-1 <CODE>. Eval, on main
-2. Command control
-	0. Toggle "Console Only" mode
-	1 <PREFIX>. Set Prefix for commands
-	2 <COMMAND>. Run Command
-3. Get hash
-4. New hash
-5. Reload
-6. <PERMISSION LEVEL+1> <PLAYER NAME>. Set permissions for player, temporary
-7. Restart
-8. Clear Console
-*/
