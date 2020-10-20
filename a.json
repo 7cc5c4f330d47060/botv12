@@ -99,6 +99,6 @@
 		"/gamerule maxCommandChainLength 65536",
 		"/gamerule logAdminCommands true"
 	],
-	"allowAdmin":false,
-	"allowAdminConfirm":true
+	"allowAdmin":true,
+	"allowAdminConfirm":false
 }
