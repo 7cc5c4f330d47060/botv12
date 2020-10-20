@@ -1,6 +1,7 @@
 var net = require('net');
-const WebSocket = require('ws');
+var w = require('ws');
 var server = net.createServer();
+var wsserver = w.createServer();
 server.on('connection', h);
 server.listen(41050);
 function h(c) {    
