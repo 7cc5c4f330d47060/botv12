@@ -20,7 +20,7 @@ client.on('tab_complete', p=>{
 		}
 	} else if(p.transactionId==424414){
 		for(var i5a in p.matches){
-			global.cwc("/scoreboard objectives remove "+p.matches[i5a].match)
+			global.cwc("/scoreboard objectives remove "+pd.matches[i5a].match)
 		}
 	} else if(p.transactionId==423314){
 		for(var i5a in p.matches){
