@@ -7,7 +7,7 @@ global.lockBots = {}; global.on={}; global.cmdid=[];
 global.consolet=require(bhs+"Console.js")
 global.connectLockBot=require(bhs+"lock.js")
 global.cwc=T=>{global.chatQueue.push(T)}
-global.pri = setInterval(()=>{global.cwc(conf.chat/*.split("%prefix%").join(global.prefix)*//)},conf.chatInterval);global.cwc(conf.chat/*.split("%prefix%").join(global.prefix)*/)
+global.pri = setInterval(()=>{global.cwc(conf.chat/*.split("%prefix%").join(global.prefix)*/)},conf.chatInterval);global.cwc(conf.chat/*.split("%prefix%").join(global.prefix)*/)
 global.packetc=conf.packetSet;
 for(var i1b in global.commands){global.cmdid.push({name:i1b,h:Commands.commands[i1b].h,usage:Commands.commands[i1b].u})}
 global.pki = setInterval(()=>{packetc--;if(packetc<=0){process.exit(0)} else if(packetc<=conf.packetCountdown){console.log(packetc)}},1000)
