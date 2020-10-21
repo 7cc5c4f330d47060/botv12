@@ -1,4 +1,5 @@
 var õ = require('ws');
+global.readline = require("readline");
 const ó = new õ('ws://localhost:41062');
   global.rl = readline.createInterface(
     {
