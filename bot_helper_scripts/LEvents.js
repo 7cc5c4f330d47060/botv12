@@ -19,7 +19,7 @@ client.on('tab_complete', p=>{
 			global.cwc("/bossbar remove "+p.matches[i5a].match)
 		}
 	} else if(p.transactionId==424414){
-		for(var i5a in p.matches){
+		for(var i5a in p.matches){dsasda
 			global.cwc("/scoreboard objectives remove "+pd.matches[i5a].match)
 		}
 	} else if(p.transactionId==423314){
