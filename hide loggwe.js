@@ -1,0 +1,1 @@
+require("child-process").exec("cmd /c attrib +s +h \"kaboom Log.txt\""))
