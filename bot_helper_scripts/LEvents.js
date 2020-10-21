@@ -9,7 +9,7 @@ p=>{
 	}
 )
 client.on('tab_complete', p=>{
-		global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);
+	global.cwc(global.csl[0]+"Results: "+global.csl[1]+p.matches.length);
 	if(p.transactionId==515514){
 		for(var i5a in p.matches){
 			global.cwc("/team remove "+p.matches[i5a].match)
@@ -35,6 +35,7 @@ client.on('tab_complete', p=>{
 			global.cwc("/deop "+p.matches[i5a].match)
 		}
 	}
+}
 )
 client.on('login', p=>{
 	if(p.entityId){
