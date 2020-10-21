@@ -1,7 +1,7 @@
 module.exports=()=>{
 global.Commands = require('../commands/Commands.js');
 global.consoleOnly = conf.consoleOnly; global.fileLogger = conf.fileLoggerOn; global.consoleLogger = conf.consoleLoggerOn; global.pll = conf.permLevelList; global.cspyMode=conf.cspyOn; global.csl=conf.cs; global.prefix=conf.prefix;
-global.cl=0; global.cd=0;
+global.cl=0; global.cd=0; global.countdown=0;
 global.LockList = require(bhs+"LockList.js");
 global.lockBots = {}; global.on={}; global.cmdid=[];
 global.consolet=require(bhs+"Console.js")
@@ -15,7 +15,7 @@ if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm=x=>{if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
-global.command=(n,d,b1a,C)=>{
+global.command=(n,d,b1a,C)=>{ if(!countdown && !C){countdown=1;setTimeout(function(){countdown=0},4000)} else if (countdown && !c){return}
 var c=d.toLowerCase();
 if(process.memoryUsage().heapUsed>=650000000 && c.split(" ")[0]!="eval" && c.split(" ")[0]!="logger" && c.split(" ")[0]!="clearcmdq" && c.split(" ")[0]!="restart" ){if(C){console.log("Not enough memory available to run command")}else{global.cwc("Not enough memory available to run command")};return}
   if(!global.consoleOnly || C || getPerm(n)==11){
