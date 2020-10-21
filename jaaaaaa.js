@@ -9,7 +9,7 @@ const ó = new õ('ws://localhost:41062');
 	}
   );
   rl.on('line', (line) => {
-    ó.send("\u0004"+line);
+    ó.send("\u0004\u0000"+line);
     rl.prompt(false)
   });
   rl.prompt(false)
