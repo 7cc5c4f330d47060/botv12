@@ -11,7 +11,7 @@ module.exports=()=>{
     })
     return files.length;
   }
-  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount(bhs+"nppBackup","")
+  global.realRev = amount("nppBackup","index.js")+amount("commands/nppBackup","Command")+amount(bs+"nppBackup","")
   console.log("Revision "+realRev)
   global.type=["Debug","Normal"][+conf.isNormal]
   global.title = (title)=>{process.stdout.write(String.fromCharCode(27)+"]0;"+title+String.fromCharCode(7));}
