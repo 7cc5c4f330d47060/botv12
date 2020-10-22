@@ -26,7 +26,7 @@
 	],
 	"fileLoggerOn": true,
 	"rev":"Beta",
-	"chat":"My help command is %prefix%help, use that for help.",
+	"chat":"Type %prefix%help for a list of my commands.",
 	"permLevelList":[
 		"User",
 		"Old user",
