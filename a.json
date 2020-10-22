@@ -70,7 +70,6 @@
 		"/gamerule maxCommandChainLength 0",
 		"/gamerule logAdminCommands false",
 		"/de",
-		"/datapack disable vanilla"
 	],
 	"startLag":[
 		"/datapack enable vanilla",
