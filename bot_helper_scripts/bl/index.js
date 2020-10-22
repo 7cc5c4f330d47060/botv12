@@ -85,23 +85,6 @@ const tth=function(T,go){
 		breturn+= ""+T;
 		creturn+= ""+T;
 	}
-			if(T.color=="black")	    {areturn+="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	breturn+="\u00a70";pc=T.color} else
-			if(T.color=="dark_blue")   {areturn+="\x1b[0m\x1b[2m\x1b[34m";			breturn+="\u00a71";pc=T.color} else
-			if(T.color=="dark_green")  {areturn+="\x1b[0m\x1b[2m\x1b[32m";			breturn+="\u00a72";pc=T.color} else
-			if(T.color=="dark_aqua")   {areturn+="\x1b[0m\x1b[2m\x1b[36m";			breturn+="\u00a73";pc=T.color} else
-			if(T.color=="dark_red")    {areturn+="\x1b[0m\x1b[2m\x1b[31m";			breturn+="\u00a74";pc=T.color} else
-			if(T.color=="dark_purple") {areturn+="\x1b[0m\x1b[2m\x1b[35m";			breturn+="\u00a75";pc=T.color} else
-			if(T.color=="gold")        {areturn+="\x1b[0m\x1b[2m\x1b[33m";			breturn+="\u00a76";pc=T.color} else
-			if(T.color=="gray")        {areturn+="\x1b[0m\x1b[2m\x1b[37m";			breturn+="\u00a77";pc=T.color} else
-			if(T.color=="dark_gray")	{areturn+="\x1b[0m\x1b[1m\x1b[30m";			breturn+="\u00a78";pc=T.color} else
-			if(T.color=="blue")		{areturn+="\x1b[0m\x1b[1m\x1b[34m";				breturn+="\u00a79";pc=T.color} else
-			if(T.color=="green")		{areturn+="\x1b[0m\x1b[1m\x1b[32m";			breturn+="\u00a7a";pc=T.color} else
-			if(T.color=="aqua")		{areturn+="\x1b[0m\x1b[1m\x1b[36m";				breturn+="\u00a7b";pc=T.color} else
-			if(T.color=="red")			{areturn+="\x1b[0m\x1b[1m\x1b[31m";			breturn+="\u00a7c";pc=T.color} else
-			if(T.color=="light_purple"){areturn+="\x1b[0m\x1b[1m\x1b[35m";			breturn+="\u00a7d";pc=T.color} else
-			if(T.color=="yellow")		{areturn+="\x1b[0m\x1b[1m\x1b[33m";			breturn+="\u00a7e";pc=T.color} else
-			if(T.color=="white")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7f";pc=T.color} else
-			if(T.color=="reset")		{areturn+="\x1b[0m\x1b[1m\x1b[37m";			breturn+="\u00a7r";pc=T.color}
 		if (T.extra){
 			for(var iza=0; iza<=T.extra.length-1; iza++){
 				areturn+= tth(T.extra[iza])[0]
