@@ -1,7 +1,7 @@
 var translates=require("./en_us.json");
 const tth=function(T,go){
 	
-	if(T){
+if(T){{}{}{}{}}{}}{)){)){}}{){})){}{))})))
 				var areturn="";
 				var breturn="";
 				var creturn="";
