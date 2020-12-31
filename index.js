@@ -4,7 +4,7 @@ global.bhs="./"
 global.bs="./bot_helper_scripts/"
 global.fs = require('fs');global.conf = require('./a.json');
 exit=(v)=>{if(v){console.log("Done");process.exit(0)}}
-global.mc = require('minecraft-protocol');const admin = require('is-elevated');
+const admin = require('is-elevated');
 (async()=>{exit(await admin() && conf.allowAdmin && !conf.allowAdminConfirm)})();
 global.commandQueue=[];global.chatQueue=[];global.chatLogQueue=[];global.confirmQueue=[];
 global.chatQueueSpeed = conf.botChatQueueSpeed;
