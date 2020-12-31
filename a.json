@@ -1,21 +1,23 @@
 {
+        "_oldip1":"152.67.42.46",
+	"_oldip2":"kaboom.pw",
 	"version":"1.15.2",
-	"server":"play.kaboom.pw",
+	"server":"kaboom.pw",
 	"port":25565,
 	"commandQueueSpeed":325,
 	"chatLogQueueSpeed":25,
 	"botChatQueueSpeed":375,
-	"restartTimer":10800000,
+	"restartTimer":14400000,
 	"consoleOnly":false,
-	"cs":["&7","&f"],
+	"cs":["",""],
 	"cspyOn":true,
 	"commandsEnabled":true,
 	"revision":true,
 	"isNormal": false,
 	"consoleLoggerOn": true,
 	"packetSet":60,
-	"packetCountdown":35,
-	"prefix":"|",
+	"packetCountdown":58,
+	"prefix":"a?",
 	"run":[
 	"/evanish on",
 	"/team leave @s",
@@ -25,23 +27,23 @@
 	"/god on"
 	],
 	"fileLoggerOn": true,
-	"rev":"Beta",
+	"rev":"1.0 BETA",
 	"chat":"Type %prefix%help for a list of my commands.",
 	"permLevelList":[
 		"User",
-		"Old user",
-		"Trusted user",
-		"Helper",
-		"Trial Mod",
-		"Mod",
-		"Senior Mod",
+		"&oUser",
+		2,
+		"&o&luser",
+		4,
+		5,
+		6,
 		"Admin",
-		"Trusted Admin",
-		"Developer",
+		8,
+		9,
 		"Owner",
 		"Console"
 	],
-	"chatInterval":450000,
+	"chatInterval":240000,
 	"stopLag":[
 	    "/effect clear @a",
 		"/team leave @a",
@@ -69,7 +71,7 @@
 		"/gamerule maxEntityCramming 1",
 		"/gamerule maxCommandChainLength 0",
 		"/gamerule logAdminCommands false",
-		"/de",
+		"/de"
 	],
 	"startLag":[
 		"/datapack enable vanilla",
@@ -98,6 +100,6 @@
 		"/gamerule maxCommandChainLength 65536",
 		"/gamerule logAdminCommands true"
 	],
-	"allowAdmin":true,
-	"allowAdminConfirm":false
+	"allowAdmin":false,
+	"allowAdminConfirm":true
 }
