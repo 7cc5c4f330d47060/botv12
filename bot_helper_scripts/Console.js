@@ -7,7 +7,7 @@ module.exports=function(){
 	}
   );
   rl.on('line', (line) => {
-    global.command("bb41a64a33fe01fb",line,true,true);
+    global.command(false,line,true,true);
     rl.prompt(false)
   });
   rl.prompt(false)

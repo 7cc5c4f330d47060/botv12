@@ -1,5 +1,6 @@
 var fs=require("fs");
 module.exports = function(packet) {
+  try{
   for(var i1c in packet.data){
     if(packet.action==0){
       global.p[packet.data[i1c].UUID]=packet.data[i1c];
@@ -20,4 +21,5 @@ module.exports = function(packet) {
       fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+(function(){try{return global.p[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+")"}catch(e){return packet.data[i1c].UUID}})()+" left or vanished.\n",function (err) {  if (err) throw err;  });
     } 
   }  
+  }catch(e){}
 }

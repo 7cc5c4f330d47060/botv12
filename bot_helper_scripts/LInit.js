@@ -1,7 +1,6 @@
 module.exports=()=>{
+  require("./MineflayerCompatability.js")()
   global.rh=require(bhs+'Hash.js');
-  global.adminCode = 0; global.adminCode=rh();
-  console.log(global.adminCode)
   global.moduleDetector=global.perms = require(bhs+'ModuleDetector.js'); moduleDetector("mineflayer",true,()=>{});
   global.amount = (dirPath,filter)=>{
     var files2 = fs.readdirSync(dirPath)

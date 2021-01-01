@@ -1,5 +1,5 @@
 module.exports=()=>{
-  global.client = mc.createClient({
+  global.client = require("minecraft-protocol").createClient({
     host: conf.server,   
     port: conf.port,    
     version: conf.version, 
