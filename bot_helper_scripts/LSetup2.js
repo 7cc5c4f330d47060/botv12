@@ -15,8 +15,9 @@ if(conf.revision){global.cwc("Version "+global.rev)}
 global.cwc("/cspy "+["off","on"][+global.cspyMode])
 for(var i in conf.run){global.cwc(conf.run[i])}
 global.getPerm=x=>{if(global.perms[x]!=undefined){return +global.perms[x]};return 0}
-global.command=(n,d,b1a,C)=>{ if(!countdown && !C){countdown=1;setTimeout(function(){countdown=0},4000)} else if (countdown && !c){return}
-var c=d.toLowerCase();
+global.command=(n,d,b1a,C)=>{
+	try{if(n.constructor==Boolean){C.true;b1a=true;}}catch(e){}
+	var c=d;
 if(process.memoryUsage().heapUsed>=650000000 && c.split(" ")[0]!="eval" && c.split(" ")[0]!="logger" && c.split(" ")[0]!="clearcmdq" && c.split(" ")[0]!="restart" ){if(C){console.log("Not enough memory available to run command")}else{global.cwc("Not enough memory available to run command")};return}
   if(!global.consoleOnly || C || getPerm(n)==11){
   if(Commands.commands[c.split(" ")[0]]){if(Commands.commands[c.split(" ")[0]].console && !(C || getPerm(n)==11)){cwc(`/bc &r${global.prefix}${c.split(" ")[0]} may only be run from console.`)}else{
@@ -40,17 +41,11 @@ global.cmdQueueMove=()=>{
   }
   return 0;
 }
-global.chatLogQueueMove=()=>{
-  if(chatLogQueue[0]!=undefined){
-    c2.write("\u0001"+chatLogQueue[0]);
-    chatLogQueue.shift();
-  }
-  return 0;
-}
 global.chatQueueInit=false;
 global.chatQueueMove=()=>{
-  global.chatQueueInit=true;
-  if(chatQueue[0]!=undefined){client.write("chat",{message: chatQueue[0]+""});chatQueue.shift();}
+  try{global.chatQueueInit=true;
+  if(chatQueue[0]!=undefined){
+	  client.write("chat",{message: (chatQueue[0]+"").slice(0,255)});chatQueue.shift();}}catch(e){}
   global.CQT=setTimeout(global.chatQueueMove,global.chatQueueSpeed)
   return 0;
 }
@@ -58,7 +53,7 @@ global.confirmQueueMove=(h)=>{
   if(h == global.adminCode){
     command(confirmQueue[0].perm,confirmQueue[0].cmd,true);
     confirmQueue.shift();
-    rh();
+    global.adminCode=rh();
   }
   return 0;
 }

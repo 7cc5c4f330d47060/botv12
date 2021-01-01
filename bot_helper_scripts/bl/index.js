@@ -1,7 +1,7 @@
 var translates=require("./en_us.json");
 const tth=function(T,go){
 	
-if(T){{}{}{}{}}{}}{)){)){}}{){})){}{))})))
+if(T){
 				var areturn="";
 				var breturn="";
 				var creturn="";
@@ -91,8 +91,28 @@ if(T){{}{}{}{}}{}}{)){)){}}{){})){}{))})))
 				breturn+= tth(T.extra[iza])[1]
 				creturn+= tth(T.extra[iza])[2]
 			}
+			var coloraa="";
+			var colorab="";
+			if(T.color=="black")	    {coloraa="\x1b[0m\x1b[2m\x1b[30m\x1b[47m";	colorab+="\u00a70"} else
+			if(T.color=="dark_blue")   {coloraa="\x1b[0m\x1b[2m\x1b[34m";			colorab+="\u00a71"} else
+			if(T.color=="dark_green")  {coloraa="\x1b[0m\x1b[2m\x1b[32m";			colorab+="\u00a72"} else
+			if(T.color=="dark_aqua")   {coloraa="\x1b[0m\x1b[2m\x1b[36m";			colorab+="\u00a73"} else
+			if(T.color=="dark_red")    {coloraa="\x1b[0m\x1b[2m\x1b[31m";			colorab+="\u00a74"} else
+			if(T.color=="dark_purple") {coloraa="\x1b[0m\x1b[2m\x1b[35m";			colorab+="\u00a75"} else
+			if(T.color=="gold")        {coloraa="\x1b[0m\x1b[2m\x1b[33m";			colorab+="\u00a76"} else
+			if(T.color=="gray")        {coloraa="\x1b[0m\x1b[2m\x1b[37m";			colorab+="\u00a77"} else
+			if(T.color=="dark_gray")	{coloraa="\x1b[0m\x1b[1m\x1b[30m";			colorab+="\u00a78"} else
+			if(T.color=="blue")		{coloraa="\x1b[0m\x1b[1m\x1b[34m";				colorab+="\u00a79"} else
+			if(T.color=="green")		{coloraa="\x1b[0m\x1b[1m\x1b[32m";			colorab+="\u00a7a"} else
+			if(T.color=="aqua")		{coloraa="\x1b[0m\x1b[1m\x1b[36m";				colorab+="\u00a7b"} else
+			if(T.color=="red")			{coloraa="\x1b[0m\x1b[1m\x1b[31m";			colorab+="\u00a7c"} else
+			if(T.color=="light_purple"){coloraa="\x1b[0m\x1b[1m\x1b[35m";			colorab+="\u00a7d"} else
+			if(T.color=="yellow")		{coloraa="\x1b[0m\x1b[1m\x1b[33m";			colorab+="\u00a7e"} else
+			if(T.color=="white")		{coloraa="\x1b[0m\x1b[1m\x1b[37m";			colorab+="\u00a7f"} else
+			if(T.color=="reset")		{coloraa="\x1b[0m\x1b[1m\x1b[37m\u00a7r";	colorab+="\u00a7r"}
+			areturn+=coloraa; breturn+=coloraa;
 		}
-	return [(areturn+"").split("\u0007").join("\\u0007"),(breturn+"").split("\u0007").join("\\u0007"),(creturn+"").split("\u0007").join("\\u0007")];
+	return [(areturn+""),(breturn+""),(creturn+"")];
 	}
 }
 exports.tth=tth;
