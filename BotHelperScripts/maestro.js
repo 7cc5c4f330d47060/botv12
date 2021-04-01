@@ -1,0 +1,143 @@
+const mc = require("minecraft-protocol");
+const chunk = require('prismarine-chunk')("1.14")
+var nbt = require('prismarine-nbt');
+global.index = 0;
+global.maestroPos=[32,5,32]
+const win=[
+  "1.0",
+  "1.02",
+  "1.03",
+  "1.04",
+  "2.03",
+  "2.10",
+  "2.11",
+  "3.0",
+  "3.1",
+  "NT 3.1",
+  "NT 3.5",
+  "NT 3.51",
+  "95",
+  "NT 4.0",
+  "98",
+  "2000",
+  "Me",
+  "XP",
+  "Vista",
+  "7",
+  "8",
+  "8.1",
+  "10"
+]
+module.exports={
+  start:()=>{
+    global.maestro = mc.createClient({
+      host:conf.server,
+      port:conf.port,
+      version:"1.14.4",
+      username:"Linux "+win[Math.floor(Math.random()*win.length)]
+    });
+    global.isMaestro=1;
+    global.maestro.on("position",(p)=>{
+      try{
+        if(maestro.posd){
+          if(p.x!=maestroPos[0] && p.z!=maestroPos[2]){
+            global.maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})
+          }
+        }
+        else 
+        {
+          maestroPos=[Math.floor(p.x),p.y,Math.floor(p.z)]
+          maestro.posd=1
+        }
+      } catch (e){}
+    })
+    setTimeout(()=>{maestro.write("chat",{message:"Fake fucking maestro. This is not &b&lhhhzzzsss&r' bot. "})},1000)
+    setTimeout(()=>{maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})},2000)
+    setTimeout(()=>{maestro.write("chat",{message:"/fill "+(maestroPos[0]-1)+" 2 "+(maestroPos[2]-1)+" "+(maestroPos[0]-16)+" 2 "+(maestroPos[2]-16)+" command_block"})},3000)
+    global.maestro.on("map_chunk",(p)=>{
+      try{
+        if(p.x===1 && p.z===1){
+          const chunkd=p.chunkData;
+          const chunkl=(new chunk())
+          chunkl.load(chunkd);
+          var fix=0;
+          for(var i=16;i<=31;i++){
+            for(var j=16;j<=31;j++){
+              clqa.push(cwc(""+chunkl.getBlockType({x:i,y:2,z:j})))
+            }
+          }
+        }
+      } catch (e){console.error(e)}
+    })
+  },
+  run:(cm)=>{
+    var _cm = cm;
+    if(cm.indexOf("%tlist") || cm.indexOf("%tlist")){
+      var i=0;
+      for(var i in P){
+        _cm = cm.split("%tlist").join(P[i].name).split("%ulist").join(P[i].UUID)
+        setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+maestroPos[0],y:+2,z:Math.floor("+index+" / 16)+maestroPos[2],},command:_cm,mode:1,flags:4})"),20*i);
+        index++;
+        index=index%255;
+      }
+    }
+  },
+  runmany:(cm,cnt)=>{
+    global._cm=cm;
+    for(var i=0;i<=cnt;i++){
+      setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+(maestroPos[0]-16),y:+2,z:Math.floor("+index+" / 16)+(maestroPos[2]-16)},command:_cm["+(i%_cm.length)+"],mode:1,flags:4})"),20*i);
+      index++;
+      index=index%255;
+    }
+  },
+  stop:()=>{
+    maestro.end();
+    global.isMaestro=0;
+  },
+  build:(file,coords)=>{
+    cwc("&7Now building file &d"+file.split("&").join("&&d"))
+    fs.readFile(file, function (err, data) {
+      if(err){console.log(err)}else {try{
+        nbt.parse(data, function(error, data) {
+          if(error) return;
+          try{
+            var x = data.value.Width.value;
+            var y = data.value.Height.value;
+            var z = data.value.Length.value;
+            var schem = data.value.BlockData.value;
+            console.log(schem);
+            var pal = data.value.Palette.value;
+            console.log(pal);
+            var inversePal = [];
+            for(var i in pal){
+              inversePal[pal[i].value]=i;
+            }
+            var j=0;
+            for(var X=0;X<x;X++){for(var Z=0;Z<z;Z++){for(var Y=0;Y<y;Y++){
+              var i=(Y*z+Z)*x+X
+              if(inversePal[schem[i]]=="minecraft:air"){continue;}
+              if(schem[i]>=128){
+                schem[i]=schem[i]+(schem[i+1]-1)*128
+                schem.splice(i+1,1)
+              }
+              setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+(maestroPos[0]-16),y:+2,z:Math.floor("+index+" /16)+(maestroPos[2]-16),},command:'"+("setblock "+(X+coords.x)+" "+(Y+coords.y)+" "+(Z+coords.z)+" "+inversePal[schem[i]].split("[distance=").join("[\"distance\"="))+"',mode:1,flags:4})"),20*j);
+              console.log("setblock "+(X+coords.x)+" "+(Y+coords.y)+" "+(Z+coords.z)+" "+inversePal[schem[i]])
+              index++;
+              j++
+              index=index%255;
+            }}}
+          }catch(e){}
+        });}catch(e){}
+      }
+    });
+  },
+  cmdspeed:(speed)=>{
+    global._maestro._cmdspeed=speed;
+  },
+  position:(_new)=>{
+    maestroPos=_new;
+    setTimeout(()=>{maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})},500)
+    setTimeout(()=>{maestro.write("chat",{message:"/fill "+(maestroPos[0]-1)+" 2 "+(maestroPos[2]-1)+" "+(maestroPos[0]-16)+" 2 "+(maestroPos[2]-16)+" command_block"})},1000)
+  },
+  _cmdspeed: 20
+}
