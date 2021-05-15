@@ -1,6 +1,6 @@
 #!/bin/bash
-while true 
+while [ true ]
 do
-node index.js --force-conflicting-cmds
-sleep 10
+node index.js
+sleep 5
 done
