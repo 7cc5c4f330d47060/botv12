@@ -1,30 +1,13 @@
-{
-	"TFTWPhoenix":[7],
-        "\u00a7\u00a7\u00a74\u00a7lQ\u00a7\u00a7\u00a74\u00a7luad":4,
-        "bartoszm77":[-1.5,"Skid"],
-	"_HIhiHI_":[1],
-	"mit420":[0.1],
-	"constructor":[0],
-        "__proto__":[0],
-	"MrHonir":[-1],
-	"TriggeredKat":[-1],
-	"Skeppy":[-1],
-	"BadBoyHalo":[-1],
-	"a6d":[-1],
-	"Technoblade":[-1],
-	"Dream":-1,
-	"GeorgeNotFound":[-1],
-	"Sapnap":[-1],
-	"Zelkam":[-1],
-	"ZelkTheElk":[-1],
-	"MegaPVP":[-1],
-	"MegaPvP":[-1],
-	"DanTDM":[-1],
-	"threadrippa":[-7],
-        "apmunute":[-9],
-        "maniaplay":[0,"RecycleBot Dev"],
-        "Technosquare":[-9],
-    "LastedGuide":[-10,"No."],
-     "Roizor":[-11,"no"]
-}
+	{
+  "e23a69d2-809f-64b4-8d92-3ab9e0f28823":[11,["Console", "Owner"],"Console",["*","Console","Owner", "Admin", "Staff","Skiddie","Bot Developer","User"]],
+  "434760a3-e2ad-3303-9b18-e21d41d92af3":[7,["Admin", "Starbot Developer"],"TFTWPhoenix", ["Admin","Bot Developer","Staff", "User"]],
+  "b33277c3-393e-3af1-9d67-e0421b2539d2":[5,["User"],"ChromecastGaming",["Staff","User"]],
+  "0e77d1d3-6f63-3145-8105-c6656a78200e":[5,["User"],"bartoszm77",["Staff","Bot Developer","User"]],
+  "UUID:Suni29":[5,["User"],"bartoszm77",["Staff","Bot Developer","User"]],
+  "UUID:MrHonir":[0,["\u0421\u043e\u0431\u0430\u043a\u0430","Skiddie"],"MrHonir",["Skiddie","Bot Developer","User"]],
+  "UUID:\u00a7b\u00a7lhhhzzzsss":[5,["User"],"",["Staff","Bot Developer","User"]],
+  "UUID:IuCC":[5,["User"],"",["Staff","Bot Developer","User"]],
+  "UUID:MorganAnkan":[1,["RecycleBot Developer"],"",["Bot Developer","User"]],
+  "UUID:maniaplay":[3,["User"],"",["Bot Developer","User"]]
 
+}

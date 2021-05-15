@@ -1,8 +1,6 @@
 const mc = require("minecraft-protocol");
 const chunk = require('prismarine-chunk')("1.14")
 var nbt = require('prismarine-nbt');
-global.index = 0;
-global.maestroPos=[32,5,32]
 const win=[
   "1.0",
   "1.02",
@@ -29,32 +27,35 @@ const win=[
   "10"
 ]
 module.exports={
-  start:()=>{
-    global.maestro = mc.createClient({
-      host:conf.server,
-      port:conf.port,
+  start:(bi)=>{
+    bots[bi].Mmaestro = mc.createClient({
+      host:bots[bi]._server.split(":")[0],
+      port:bots[bi]._server.split(":")[1]?+bots[bi]._server.split(":")[1]:25565,
       version:"1.14.4",
-      username:"Linux "+win[Math.floor(Math.random()*win.length)]
+      username:"Windows "+win[Math.floor(Math.random()*win.length)]
     });
-    global.isMaestro=1;
-    global.maestro.on("position",(p)=>{
+bots[bi].Mindex = 0;
+bots[bi].MmaestroPos=[32,5,32]
+
+    bots[bi].MisMaestro=1;
+    bots[bi].Mmaestro.on("position",(p)=>{
       try{
-        if(maestro.posd){
-          if(p.x!=maestroPos[0] && p.z!=maestroPos[2]){
-            global.maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})
+        if(bots[bi].Mmaestro.posd){
+          if(p.x!=bots[bi].MmaestroPos[0] && p.z!=bots[bi].MmaestroPos[2]){
+            bots[bi].Mmaestro.write("chat",{message:"/tp "+bots[bi].MmaestroPos.join(" ")})
           }
         }
         else 
         {
-          maestroPos=[Math.floor(p.x),p.y,Math.floor(p.z)]
-          maestro.posd=1
+          bots[bi].MmaestroPos=[Math.floor(p.x),p.y,Math.floor(p.z)]
+          bots[bi].Mmaestro.posd=1
         }
       } catch (e){}
     })
-    setTimeout(()=>{maestro.write("chat",{message:"Fake fucking maestro. This is not &b&lhhhzzzsss&r' bot. "})},1000)
-    setTimeout(()=>{maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})},2000)
-    setTimeout(()=>{maestro.write("chat",{message:"/fill "+(maestroPos[0]-1)+" 2 "+(maestroPos[2]-1)+" "+(maestroPos[0]-16)+" 2 "+(maestroPos[2]-16)+" command_block"})},3000)
-    global.maestro.on("map_chunk",(p)=>{
+    setTimeout(()=>{bots[bi].Mmaestro.write("chat",{message:"Fake fucking maestro. This is not &b&lhhhzzzsss&r' bot. "})},1000)
+    setTimeout(()=>{bots[bi].Mmaestro.write("chat",{message:"/tp "+bots[bi].MmaestroPos.join(" ")})},2000)
+    setTimeout(()=>{bots[bi].Mmaestro.write("chat",{message:"/fill "+(bots[bi].MmaestroPos[0]-1)+" 2 "+(bots[bi].MmaestroPos[2]-1)+" "+(bots[bi].MmaestroPos[0]-16)+" 2 "+(bots[bi].MmaestroPos[2]-16)+" command_block"})},3000)
+    bots[bi].Mmaestro.on("map_chunk",(p)=>{
       try{
         if(p.x===1 && p.z===1){
           const chunkd=p.chunkData;
@@ -70,31 +71,31 @@ module.exports={
       } catch (e){console.error(e)}
     })
   },
-  run:(cm)=>{
+  run:(bi,cm)=>{
     var _cm = cm;
     if(cm.indexOf("%tlist") || cm.indexOf("%tlist")){
       var i=0;
       for(var i in P){
         _cm = cm.split("%tlist").join(P[i].name).split("%ulist").join(P[i].UUID)
-        setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+maestroPos[0],y:+2,z:Math.floor("+index+" / 16)+maestroPos[2],},command:_cm,mode:1,flags:4})"),20*i);
-        index++;
-        index=index%255;
+        setTimeout(Function("bots["+bi+"].Mmaestro.write('update_command_block',{location:{x:("+bots[bi].Mindex+" % 16)+bots["+bi+"].MmaestroPos[0],y:+2,z:Math.floor("+bots[bi].Mindex+" / 16)+bots["+bi+"].MmaestroPos[2],},command:_cm,mode:1,flags:4})"),20*i);
+        bots[bi].Mindex++;
+        bots[bi].Mindex=bots[bi].Mindex%255;
       }
     }
   },
-  runmany:(cm,cnt)=>{
-    global._cm=cm;
+  runmany:(bi,cm,cnt)=>{
+    var _cm=cm;
     for(var i=0;i<=cnt;i++){
-      setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+(maestroPos[0]-16),y:+2,z:Math.floor("+index+" / 16)+(maestroPos[2]-16)},command:_cm["+(i%_cm.length)+"],mode:1,flags:4})"),20*i);
-      index++;
-      index=index%255;
+      setTimeout(Function("bots["+bi+"].Mmaestro.write('update_command_block',{location:{x:("+bots[bi].Mindex+" % 16)+(bots["+bi+"].MmaestroPos[0]-16),y:+2,z:Math.floor("+bots["+bi+"].Mindex+" / 16)+(bots["+bi+"].MmaestroPos[2]-16)},command:_cm["+(i%_cm.length)+"],mode:1,flags:4})"),20*i);
+      bots[bi].Mindex++;
+      bots[bi].Mindex=bots[bi].Mindex%255;
     }
   },
-  stop:()=>{
-    maestro.end();
-    global.isMaestro=0;
+  stop:(bi)=>{
+    bots[bi].Mmaestro.end();
+    bots[bi].MisMaestro=0;
   },
-  build:(file,coords)=>{
+  build:(bi,file,coords)=>{
     cwc("&7Now building file &d"+file.split("&").join("&&d"))
     fs.readFile(file, function (err, data) {
       if(err){console.log(err)}else {try{
@@ -120,24 +121,24 @@ module.exports={
                 schem[i]=schem[i]+(schem[i+1]-1)*128
                 schem.splice(i+1,1)
               }
-              setTimeout(Function("maestro.write('update_command_block',{location:{x:("+index+" % 16)+(maestroPos[0]-16),y:+2,z:Math.floor("+index+" /16)+(maestroPos[2]-16),},command:'"+("setblock "+(X+coords.x)+" "+(Y+coords.y)+" "+(Z+coords.z)+" "+inversePal[schem[i]].split("[distance=").join("[\"distance\"="))+"',mode:1,flags:4})"),20*j);
+              setTimeout(Function("bots["+bi+"].Mmaestro.write('update_command_block',{location:{x:("+bots[bi].Mindex+" % 16)+(bots["+bi+"].MmaestroPos[0]-16),y:+2,z:Math.floor("+bots[bi].Mindex+" /16)+(bots["+bi+"].MmaestroPos[2]-16),},command:'"+("setblock "+(X+coords.x)+" "+(Y+coords.y)+" "+(Z+coords.z)+" "+inversePal[schem[i]].split("[distance=").join("[\"distance\"="))+"',mode:1,flags:4})"),20*j);
               console.log("setblock "+(X+coords.x)+" "+(Y+coords.y)+" "+(Z+coords.z)+" "+inversePal[schem[i]])
-              index++;
+              bots[bi].Mindex++;
               j++
-              index=index%255;
+              bots[bi].Mindex=bots[bi].Mindex%255;
             }}}
           }catch(e){}
         });}catch(e){}
       }
     });
   },
-  cmdspeed:(speed)=>{
-    global._maestro._cmdspeed=speed;
+  cmdspeed:(bi,speed)=>{
+    bots[bi].M_maestro._cmdspeed=speed;
   },
-  position:(_new)=>{
-    maestroPos=_new;
-    setTimeout(()=>{maestro.write("chat",{message:"/tp "+maestroPos.join(" ")})},500)
-    setTimeout(()=>{maestro.write("chat",{message:"/fill "+(maestroPos[0]-1)+" 2 "+(maestroPos[2]-1)+" "+(maestroPos[0]-16)+" 2 "+(maestroPos[2]-16)+" command_block"})},1000)
+  position:(bi,_new)=>{
+    bots[bi].MmaestroPos=_new;
+    setTimeout(()=>{bots[bi].Mmaestro.write("chat",{message:"/tp "+bots[bi].MmaestroPos.join(" ")})},500)
+    setTimeout(()=>{bots[bi].Mmaestro.write("chat",{message:"/fill "+(bots[bi].MmaestroPos[0]-1)+" 2 "+(bots[bi].MmaestroPos[2]-1)+" "+(bots[bi].MmaestroPos[0]-16)+" 2 "+(bots[bi].MmaestroPos[2]-16)+" command_block"})},1000)
   },
   _cmdspeed: 20
 }

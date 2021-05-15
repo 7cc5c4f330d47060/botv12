@@ -1,6 +1,12 @@
 const mc = require("minecraft-protocol");
-global.conf=require(process.cwd()+"/conf.json");
-global.getDateAndTime4L=(a)=>{
+const fs = require("fs");
+const os = require("os");
+const maestro = require("./BotHelperScripts/maestro.js")
+const lang = require("./BotHelperScripts/LoggerHelper/index.js");
+let _perms = require("./perms.json");
+const readline = require("readline");
+const crypto = require("crypto");
+function getDateAndTime4L(a){
   if(!a) a=Date.now();
   let fw = new Date(a);
   return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+fw.getUTCHours()+":"+fw.getUTCMinutes()+":"+fw.getUTCSeconds()+":"+fw.getUTCMilliseconds()+"]";
@@ -13,53 +19,44 @@ process.on("uncaughtException",function(e){//Error
   console.log(e)
   process.reallyExit(0);
 })
-const crypto=require("crypto");
-const readline=require("readline");
-global.fs=require("fs");
-global.saymode=false;
-global.P={};
-global.confirmq=[];
-global.loggerEnabled=1;
-global.clqa=[];
-let lang=require(process.cwd()+"/BotHelperScripts/LoggerHelper/index.js")
-global._maestro=require(process.cwd()+"/BotHelperScripts/maestro.js")
-cooldown=0;
-let cmd_files=[]
-cmd_files[0]=require(process.cwd()+"/Commands/Commands-1.inf");
-cmd_files[1]=require(process.cwd()+"/Commands/Commands-2.inf");
-global.commands={};
-for(let i in cmd_files){
-  for(let j in cmd_files[i]){
-    if(!commands[j]){
-      commands[j]=cmd_files[i][j]
-      commands[j].fromFile=i;
-    } else if (process.argv.includes("--force-conflicting-cmds") && !commands[j+"-"+i]) {
-      console.error(`[Info] Conflicting command ${j} from command list ${i} is put in the command list as ${j}-${i}.`)
-      commands[j+"-"+i]=cmd_files[i][j]
-      commands[j+"-"+i].fromFile=i;
-    } else if (process.argv.includes("--force-conflicting-cmds")) {
-      let k = crypto.randomBytes(4).toString("hex");
-      console.error(`[Warning] Command overlap detected with backup system. Conflicting command ${j} from command list ${i} is put in the command list as ${j}-${k}. Please consider renaming or removing this command.`)
-      commands[j+"-"+k]=cmd_files[i][j]
-      commands[j+"-"+k].fromFile=i;
-    } else {
-      console.error(`[Warning] Command overlap detected. Command ${j} from command list ${i} conflicts with command ${j} from command list ${commands[j].fromFile}. The conflicting command will be ignored. To force the conflicting command to be added to the full command list, run the script with argument "--force-conflicting-cmds".`)
+
+bridges=["813677042695536650","813678515558940692","814512716135530516"];
+const srv=require("./srv.js")
+const djs=require("discord.js")
+global.dbot=new djs.Client();
+dbot.on('ready', () => {
+  try{
+    console.log("[Info] Discord bot logged in.")
+    var sendStr="";
+    for(var i in bots){
+      sendStr+="Bot "+i+" code: ```"+bots[i].adminCode+"```\n"
     }
-  }
-}
-for(let i in commands){
-  if(commands[i].perms===undefined){
-    console.error(`[Warning] Command ${i} does not have a permission level. Assigning permission level 0.`)
-    commands[i].perms=0;
-  }
-}
-p=require(process.cwd()+"/perms.json");
-global.consoleOnly = conf.consoleOnly;
-global.cmdid=[];
-global.fullcmdid=[];
-global.bots=[];
-global.isMaestro=0;
-global.noChatQueue=0;
+    dbot.channels.cache.get("813670842365902898").send(sendStr)
+  }catch(e){}
+})
+dbot.on("message",(msg)=>{
+  try{
+    if(bridges.includes(msg.channel.id) && msg.author.id!==dbot.user.id){
+      if(Date.now()-dbot.dcmcbrtm<=1000) return;
+      dbot.dcmcbrtm=Date.now();
+      bots[bridges.indexOf(msg.channel.id)]._cwc("/bcraw &7[&dUnnamedBot Discord&7] &b"+msg.member.displayName+" &7> &f"+msg.content.substr(0,100))
+    }
+  }catch(e){}
+})
+setInterval(()=>{
+  try{
+    sendstr="";
+    for(var i in bots){
+      if(bots[i].oldCode!=bots[i].adminCode){
+        sendstr+="Bot "+i+" code: ```"+bots[i].adminCode+"```\n"
+      }
+      bots[i].oldCode=bots[i].adminCode
+    }
+    if(sendstr!=""){
+      dbot.channels.cache.get("813670842365902898").send(sendstr)
+    }
+  }catch(e){}
+},3000)
 global.javaUUID=(s)=>{
   const buffer = crypto.createHash('md5').update(s, 'utf8').digest()
   buffer[6] = (buffer[6] & 0x0f) | 0x30
@@ -67,50 +64,12 @@ global.javaUUID=(s)=>{
   const fix=buffer.toString("hex");
   return fix.slice(0,8)+"-"+fix.slice(8,12)+"-"+fix.slice(12,16)+"-"+fix.slice(16,20)+"-"+fix.slice(20,32)
 }
-global.readlion = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: "\x1b[0m\x1b[1m\x1b[37m> ",
-  completer: L=>{
-    try{let match=[];
-    if(saymode && L.startsWith(".")){
-      const cmd=L.slice(1);
-      for(let i in commands){
-        if(i.startsWith(cmd)){
-          match.push("."+i)
-        }
-      }
-      if(("exit").startsWith(cmd)){match.push(".exit")}
-    } else {
-      for(let i in commands){
-        if(i.startsWith(L)){
-          match.push(i)
-        }
-      }
-    }
-    return [match.length?match:[""],L];
-    }catch(e){
-      return [[L],L]
-    }
+
+for(var i in _perms){
+  if(i.startsWith("UUID:")){
+    _perms[javaUUID("OfflinePlayer:"+i.slice(5))]=_perms[i]
   }
-});
-readlion.on("line",function(l){
-  try{
-    if(!saymode){
-      global.command(conf.owner,l,true,"11111111-1111-5111-1111-111111111111");
-    } else if(l==".exit"){
-      saymode=0
-    } else if(l.startsWith(".")){
-      global.command(conf.owner,l.slice(1),true,"11111111-1111-5111-1111-111111111111");
-    } else {
-      cwc(l)
-    }
-  }catch(e){
-    console.log(e)
-  }
-  readlion.prompt(false)
-});
-readlion.prompt(false);
+}
 global.hexxd=()=>{
   return String.fromCharCode(Math.floor(Math.random()*16)+16)
 }
@@ -121,627 +80,438 @@ global.funnies = (___a)=>{
   }
   return _a23
 }
-if(conf.useConfName){
-  _username=conf.confName
-} else {
-  _username="\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)+"\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3);
+global.perms=(uuid)=>{
+  if(_perms[uuid]){
+    return _perms[uuid][0];
+  }
+  return 0;
 }
-global.adminCode=crypto.randomBytes(96).toString("hex");
-global.bot=mc.createClient(
-  {
-    host:conf.server,
-    port:conf.port,
-    version:conf.mcversion,
-    username: _username,
-   }
-);
-
-global.lockBots = [];
-global.lock = (uuid)=>{
-  if(lockc){
-    return;
-  };
-  global.lockc=1;
-  setTimeout(()=>{global.lockc=0},2000)
-  try{lockBots[uuid] = mc.createClient({
-    host: conf.server,   
-    port: conf.port,    
-    version: "1.14.4", 
-    username: "Lock_"+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+["\u0000","\u0001","\u0002","\u0003","\u0009","\u0005","\u0006","\u0012"][Math.floor(Math.random()*8)]+"",
-  });
-  let name="LOCK"+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16)+Math.floor(Math.random()*16).toString(16);
-  setTimeout(function(){lockBots[uuid].write("chat",{message:'/setblock ~ 15 ~ minecraft:command_block{Command:"/sudo '+uuid+' v off",auto:1b} destroy'})},1500);
-  setTimeout(function(){lockBots[uuid].write("chat",{message:"/execute as "+uuid+" run deop @s[type=player]"})},2000);
-  setTimeout(function(){lockBots[uuid].write("chat",{message:"/icu control "+uuid})},2500);
-  }catch(e){
-    console.log(e)
+global.role=(uuid)=>{
+  if(_perms[uuid] && _perms[uuid][1] !== undefined){
+    return _perms[uuid][1];
+  }
+  return ["User"]
+}
+global.t=(uuid)=>{
+  if(_perms[uuid] && _perms[uuid][3] !== undefined){
+    return _perms[uuid][3];
+  }
+  return ["User"];
+}
+global.canRun=function(uuid,cmd){
+  if(hasPN(uuid,"_bot.command."+cmd.split(" ")[0].toLowerCase()+".command")){
+    return true;
+  }
+  return false;
+}
+global.nodes=require("./pn.json")
+for(var i in _perms){
+  if(i.startsWith("UUID:")){
+    _perms[javaUUID("OfflinePlayer:"+i.slice(5))]=_perms[i]
   }
 }
-
-prefix=conf.prefix;
-global._chatQueue=[
-  `Version ${conf.version}`,
-  //"My prefix is "+prefix+", use "+prefix+"help for help.",
-  "/bard",
-  "/v on",
-  "/gamemode spectator",
-  "/prefix off",
-  "/nick off",
-  "/cspy on",
-  "/god on"
-];
-global.chatQueue=global._chatQueue;
-setInterval(function(){
-  global.cwc("My prefix is "+prefix+", use "+prefix+"help for help.")
-},900000) //15 minutes
-chqm=function(){
-  if(chatQueue[0]!==undefined && !noChatQueue){
-    global.bot.write("chat",{message:chatQueue[0].substr(0,256)})
-    chatQueue.shift();
+global.hasPN=function(uuid,node){
+  let yes=false;
+  for(var i=0; i<=perms(uuid); i++){
+    if(nodes[0][i] && nodes[0][i][node] !== undefined){
+      yes=nodes[0][i][node];
+    }
   }
-  setTimeout(chqm,conf.chqs)
+  const _t=t(uuid);
+  for(var j in _t){
+    var i=_t[j]
+    //console.log("_"+i+"_")
+    if(nodes[1][i] && nodes[1][i][node] !== undefined){
+      yes=nodes[1][i][node];
+      //console.log(JSON.stringify(nodes[1][i]))
+    }
+  }
+  if(nodes[2][uuid] && nodes[2][uuid][node]){
+    yes=nodes[2][uuid][node];
+  }
+  if(uuid=="e23a69d2-809f-64b4-8d92-3ab9e0f28823"){
+    //yes=true;
+  }
+  return yes;
 }
-setTimeout(chqm,5000)
-setTimeout(function(){bot.write("chat",{message:"/op @s[type=player]"})},2750)
-setTimeout(function(){bot.write("chat",{message:"/mute "+botuuid+" 0s"})},3000)
-global.cwc=function(a){
-  chatQueue.push(a.substr(0,256))
-  if(a.slice(256).length){
-    cwc(a.slice(256))
+global.botcommands = require("./botcmd.js");
+const consolecmds = {
+  say:{
+    command:(cmd)=>{
+      const args=cmd.split(" ");
+      const botno=+args[1];
+      const chromebook = cmd.slice(5+args[1].length);
+      if(args[1]=="*"){
+        for(var i=0; i<bots.length; i++){
+          bots[+i]._cwc(chromebook);
+        }
+        return;
+      }
+      bots[botno]._cwc(chromebook);
+    }
+  },
+  eval:{
+    command:(cmd)=>{
+      console._log(eval(cmd.slice(5)));
+    }
+  },
+  relogall:{
+    command:(cmd)=>{
+      for(var i in bots){
+        bots[i].end();
+      }
+    }
+  },
+  botcmd:{
+    command:(cmd)=>{
+      const args=cmd.split(" ");
+      const botno=+args[1];
+      const chromebook = cmd.slice(8+args[1].length);
+      if(args[1]=="*"){
+        for(var i=0; i<bots.length; i++){
+          bots[+i].command(bots[+i],"Console",chromebook,"e23a69d2-809f-64b4-8d92-3ab9e0f28823");
+        }
+        return;
+      }
+      bots[botno].command(bots[botno],"Console",chromebook,"e23a69d2-809f-64b4-8d92-3ab9e0f28823");
+    }
+  },
+  msg:{
+    command: (c)=>{
+      const args=c.split(" ");
+      let flag = "";
+      if(args[1].startsWith("-")){
+        flag=args[1].slice(1,args.length)
+        args.shift();
+      }
+      args.shift();
+      let file;
+      if(flag.includes("r")){
+        file=args.join(" ");
+      } else {
+        file="./Commands/messages/"+args.join(" ");
+      }
+      bot.chatq.unshift("&7Now opening file &d"+file)
+      fs.readFile(file,"utf8",(e,d)=>{
+        if(e){
+          console.log(e);
+        } else {
+          if(flag.includes("s")){
+            d=d.replace(/ /g, " &r")
+          }
+          if(flag.includes("C")){
+            d=d.replace(/[\x00-\x09\x0B-\x1F\x7F]/g, " ")
+          }
+          if(flag.includes("c")){
+            d=d.replace(/[\x00-\x09\x0B-\x1F\x7F]/g, "")
+          }
+          if(flag.includes("a")){
+            d=d.split("&").join("&&r")
+          }
+          if(flag.includes("S")){
+            let __chatQueue=d.split("\xa7").join("&").split("\n")
+          } else if(flag.includes("R")){
+            let __chatQueue=d.split("\xa7").join("").split("\n")
+          } else {
+            let __chatQueue=d.split("\n")
+          }
+          for(var i in __chatQueue){
+            bot._cwc(__chatQueue[i])
+          }
+        }
+        bot.chatq.unshift("&7Now reading file &d"+file+"&7 to chat")
+      })
+    }
+  },
+  restart:{
+    command:(cmd)=>{
+      for(var i in bots){
+        bots[i].write("chat",{message:"The bot is restarting."})
+      }
+      setTimeout(process.exit,100);
+    }
+  },
+  relog:{
+    command:(cmd,uuid)=>{
+      let args=cmd.split(" ");
+      bots[+args[1]].end();
+    }
   }
 }
-
-let cursor = [0,0];
-process.stdin.on("data",function(A){
-  let B=A.toString("utf8");
-  if(B.startsWith("\x1b[")){
-    cursor=[+(B.slice(2).split(";")[0]),+(B.slice(2).split(";")[1])]
-  }
+const rl=readline.createInterface({
+  input:process.stdin,
+  output:process.stdout,
+  prompt:"\x1b[0m\x1b[1m\x1b[37m> "
 })
-
-setInterval(function(){
-  if(clqa.length){
-    if(loggerEnabled){
-      process.stdout.write("\x1b[2K");
-      readline.cursorTo(process.stdout,0)
-      console.log("\x1b[0m\x1b[1m\x1b[37m"+clqa[0])
-      readlion.prompt(true)
+rl.on("line",(l)=>{
+  try{
+    _cmd = l.split(" ")[0].toLowerCase();
+    consolecmds[_cmd].command(l)
+  }catch(e){console.log(e)}
+  rl.prompt(false)
+})
+rl.prompt(false);
+global.conf={mcVersion:"1.16.4"};
+console._log=(a)=>{
+  console.log("\x1b[0m\x1b[1m\x1b[37m"+a);
+}
+global.bots=[]; //so the user can select one or more bots at console
+function createBot(_server,_115){
+  fs.access("./"+_server+"/",fs.constants.F_OK,(e)=>{
+    if(e){
+      fs.mkdir("./"+_server+"/",()=>{})
     }
-    clqa.shift();
+  })
+  const server = _server.split(":")[0];
+  let port=25565;
+  if(_server.includes(":")){
+    port = +_server.split(":")[1]
   }
-},10)
-global.tfcount=+fs.readFileSync("./totalfreedom_streak");
-global.cooldownAternos=0;
-global.cspyon=0;
-global.renamed=1;
-global.muted=0
-setInterval(()=>{if(!cspyon){cwc("/c on");cspyon=1;}},2500)
-setInterval(()=>{if(muted){
-          global.chatQueue.unshift("")
-          global.chatQueue.unshift("")
-          global.chatQueue.unshift("")
-	  global.chatQueue.unshift("/mute "+botuuid+" 0s")
-          noChatQueue=0;
-          muted=0;
-}},2500)
-const rh = function(){return Math.floor(Math.random()*16).toString(16)}
-setInterval(()=>{
-  if(!renamed){
-    setTimeout(()=>{_username="§"+rh()+rh()+"§"+rh()+rh()+"§"+rh()+rh()+"§"+rh()+rh()+"§"+rh()+rh();cwc("/username "+_username.replace(/§/g,"&"));cwc("a");},2000);
-    setTimeout(()=>{renamed=1},2500);
+  let bot=mc.createClient({
+    host: server,
+    port: port,
+    /*username:"abcdefg"*/  username: "\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)+"\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)
+  })
+bot.ccrun=(cmd)=>{
+    bot.write('update_command_block',{location:{x:bot.x+(bot.cmdindex%16),y:0,z:bot.z+(bot.cmdindex >> 4)},command:cmd,mode:1,flags:4})
+    bot.cmdindex++;
+    bot.cmdindex=bot.cmdindex%256
   }
-},2500)
-let lastmsg = "";
-let msgcount=0;
-bot.on("chat",function(pack2){
-  pack={message:JSON.parse(pack2.message)}
-  let conv=lang.tth(pack.message);
-  if(conv[2].startsWith("Successfully set your username to \"")){
-    global.renamed=0;
-    return;
-  }
-  if(msgcount > 100){
-    if(lastmsg != pack2.message){
-      msgcount--;
-    } else {
-      return;
+  bot.confirmq=[];
+  bot.oldCode=bot.adminCode=crypto.randomBytes(96).toString("hex");
+  bot._server=_server;
+  bot.P={};
+  bot.on("player_info",(packet)=>{
+    for(let i1c in packet.data){
+      if(packet.action==0){
+        try{if(packet.data[i1c].name=="Skeppy"){setTimeout(function(){bot.ccrun("sudo Skeppy username fake skeppy")},3000);bot.ccrun("bcraw &4&l[&c&lOP&4&l] &c"+bot.username+"&r: &rf a k e   a s s   s k e p p y")}}catch(e){}
+    //    if(packet.data[i1c].name=="sadwsdasadIuCC"){ bot._cwc("/icu control IuCC")}
+        bot.P[packet.data[i1c].UUID]=packet.data[i1c];
+        if(packet.data[i1c].name.match(/dsoig[0-9]/)){
+          bot.chatq.unshift(`#cb sudo * icu control ${packet.data[i1c].UUID}`)
+          bot.chatq.unshift(`#cb v ${packet.data[i1c].UUID} off`)
+        }
+      }
     }
-  } else if(lastmsg == pack2.message){
-    msgcount++
-  } else {
-    msgcount--;
-    if(msgcount<0){msgcount=0}
-  }
-  lastmsg = pack2.message;
-  if(conv[2]=="") return
-  if(conv[1]=="\xa72The chat has been cleared") return
-  if(conv[1].endsWith('\xa7b: /setblock ~ 0 ~ command_block{Command:"sudo ** kaboom",auto:1b} destroy')) {
-    return;
-  }
-  let uuid="11111111-1111-1111-1111-111111111111";
-  if(conv[1].match(/\xa7[0-9a-f]\xa7k(\n|.){3}\xa7[0-9a-f]\xa7k(\n|.){3}/)){
-    return;
-  }//s(([ck]ript kid(die|()))|kid(die|()))
-  if(conv[1].endsWith("§7Join the official unofficial §\xa72Kababoom Community Discord§7 at §c« §b§nhttps://discord.gg/jwmbpAB§c »")){ return
-    if(Math.random<=0.05){
-      cwc("nobody thats admin in that discord is a kaboom admin. still join it: https://discord.gg/jwmbpAB")
-    }
-  }
+  })
+  bot.on("success",(packet)=>{
+  bot.write("settings",{locale:"en_us",viewDistance:6,chatFlags:0,chatColors:true,mainHand:0,skinParts:255})
+  bot.x=((Math.floor(Math.random()*1000000)) >> 4 ) * 16
+  bot.z=((Math.floor(Math.random()*1000000)) >> 4 ) * 16
+  setTimeout(()=>{
+  bot.socket.setTimeout(25000);
+  bot.socket.on("timeout",()=>{
+    bot.end();
+  })
+  },1000)
+    console._log(`[Info] Bot ${bots.indexOf(bot)} has connected to server ${bot._server}.`);
+    bot._cwc(`/mute ${bot.uuid} 0s`);
+  })
   
-  if(!cooldownAternos){
-    if(conv[2].match(/server\.pro|serv\.nu|1337src\.com|g\-s\.nu|mcnetwork\.me|mcpro\.io|my\-serv\.com|mygs\.co|mymcserver\.org|myserver\.gs|serv\.gs/i)){cwc("/cc");cwc("Dont join that server.");cooldownAternos=1}
+  bot.on("position",(p)=>{
+    if(p.x!==bot.x || p.z!==bot.z){
+    bot.offpos=1;//  bot._cwc(`/tp ${bot.x} 100 ${bot.z}`)
+    }
+    if(p.teleportId===0){
+    }
+    bot.write("teleport_confirm",{teleportId:p.teleportId})
+  })
+var cooldownAternos=0;
+bot.on('login', p=>{
+  if(p.entityId){
+    bot.write("chat",{message:"/essentials:evanish on"})
+    bot.entityid=p.entityId
+  }
+  bot._cwc(`/forceload add ${bot.x} ${bot.z}`);
+  bot._cwc(`/fill ${bot.x} 0 ${bot.z} ${bot.x+15} 0 ${bot.z+15} command_block destroy`);
+})
+  bot.cmdindex=0;
+  
+  bot.on('entity_status', p=>{
+    if(p.entityId==bot.entityid && p.entityStatus == 24) {
+      bot._cwc("/op @s[type=player]")
+    }
+  })
+  bot.offpos=1
+  bot.cspy==1;
+  bot.int2=setInterval(()=>{
+    if(bot.cspy==0){
+      bot._cwc("/cspy on");
+      bot.cspy=1;
+    }
+    if(bot.offpos){
+      bot._cwc(`/tp ${bot.x} 100 ${bot.z}`)
+      bot.offpos=0
+    }
+  },1500)
+  bot.prefix="?";
+  bot.cooldown=0;
+  bot.logger=1;
+  bot.command=(bot,name,cmd,uuid,confirm)=>{
+    try{
+      let _cmd=cmd.split(" ")[0].toLowerCase();
+      if(!botcommands[_cmd]) return
+      if(uuid!=="e23a69d2-809f-64b4-8d92-3ab9e0f28823"){
+  if((botcommands[_cmd].confirm && !confirm)){
+    bot.confirmq.push({n:name,c:cmd,U:uuid});
+    bot._cwc("Awaiting confirmation, use "+bot.prefix+"confirm <admin-code> to confirm.")
+    return;
+  }
+        if(Date.now()-bot.cooldown <= 3000 && !confirm) return;
+        bot.cooldown=Date.now();
+        if(!canRun(uuid,cmd)) return;
+      }
+      fs.appendFile(bot._server+'/cmd.log',getDateAndTime4L()+" "+name+" ("+uuid+") ran command "+cmd+"\n",function (err) {  if (err) throw err;  });
+      botcommands[_cmd].command(bot,name,cmd,uuid); //bot._cwc(name+", commands are being worked on.")
+    }catch(e){bot._cwc(e+"")}
+  }
+  bot.discordQueue=[];
+  bot.disint=setInterval(()=>{
+    try{
+      if(bot.discordQueue.join("").replace(/[\x00-\x20\x7f-\x9f]/g,"").length==0) return;
+      dbot.channels.cache.get(bridges[bot.index]).send(bot.discordQueue.join("\n").replace(/\@/g,"@\u200b").substr(0,1990))
+      bot.discordQueue=[];
+    }catch(e){}
+  },3000)
+  bot._115=_115;
+  bot.on("chat",(packet)=>{
+    try{
+      const json=JSON.parse(packet.message);
+      const conv=lang.tth(json);
+      bot.discordQueue.push(conv[2]);
+     if(!cooldownAternos){
+    if(conv[2].match(/server\.pro|serv\.nu|1337src\.com|g\-s\.nu|mcnetwork\.me|mcpro\.io|my\-serv\.com|mygs\.co|mymcserver\.org|myserver\.gs|serv\.gs/i)){bot._cwc("/cc");bot._cwc("Dont join that server.");cooldownAternos=1}
     if(conv[2].match(/at[e\*][r\*][\*n]os/i)){
       if(conv[2].match(/at[e\*][r\*][n\*]os\.(me|host)/i) && !conv[2].match(/Aternos is shit!/)){
-        cwc("/cc")
-        cwc("Dont join that server.")
+        bot._cwc("/cc")
+        bot._cwc("Dont join that server.")
         cooldownAternos=1
       } else {
-        cwc("Aternos is shit!")
+        bot._cwc("Aternos is shit!")
         cooldownAternos=1
       }
     }else
     if(conv[2].match(/min[e\*]hut/i) && !conv[2].match(/Minehut is shit!/)){
       if(conv[2].match(/min[e\*]hut\.(gg)/i)){
-        cwc("/cc")
-        cwc("Dont join that server.")
+        bot._cwc("/cc")
+        bot._cwc("Dont join that server.")
         cooldownAternos=1
       } else {
-        cwc("Minehut is shit!")
+        bot._cwc("Minehut is shit!")
         cooldownAternos=1
       }
     }else
-    if(conv[2].match(/windows/i) && !conv[2].match(/Windows is shit!/)){
-      cwc("Windows is shit!")
+    if((conv[2].match(/windows/i) || conv[2].match(/microsoft/i)) && !conv[2].match(/Windows is shit!/)){
+//      bot._cwc("Windows is shit!")
       cooldownAternos=1
     }else
     if(conv[2].match(/mac(-| |()|\.|_)os/i) && !conv[2].match(/macOS is shit!/)){
-      cwc("macOS is shit!")
+      bot._cwc("macOS is shit!")
       cooldownAternos=1
     }else
-    if((conv[2].match(/chrom(e|ium|())(-| |()|\.|_)os/i) || conv[2].match(/(chrome|googl(e|()))(-| |()|\.|_)(b(it|ox|ook|ase)|pc|computer)/i) ) && !conv[2].match(/Chrome OS is shit!/)){
-      cwc("Chrome OS is shit!")
+    if((conv[2].match(/(chrome|google)(-| |()|\.|_)os/i) || conv[2].match(/(chrome|google)(-| |()|\.|_)(b(it|ox|ook|ase)|pc|computer)/i) ) && !conv[2].match(/Chrome OS is shit!/) && !conv[1].match(bot.username)){
+      bot._cwc("Chrome OS is shit!")
       cooldownAternos=1
     }else
     if(conv[2].match(/total(-| |()|\.|_)freedom/i) && !(conv[2].match(/TotalFreedom is shit!/))){
       if(conv[2].match(/play\.totalfreedom\.(me)/i)){
-        cwc("/cc")
-        cwc("Dont join that server.")
+        bot._cwc("/cc")
+        bot._cwc("Dont join that server.")
         cooldownAternos=1
       } else {
-        cwc("TotalFreedom is shit!")
+        bot._cwc("TotalFreedom is shit!")
         cooldownAternos=1
       }
     }
     setTimeout(()=>{cooldownAternos=0;},1500)
   }
-  if(conv[2].match(/total(-| |()|\.|_)freedom/i) && !(conv[2].match(/TotalFreedom is shit!/))){
-    if(tfcount>=75){
-      //cwc("why would you say that? we went "+tfcount+" messages without saying it.")
-      fs.writeFileSync("./totalfreedom_streak","0")
-      let tfstreakfile = +fs.readFileSync("./max_totalfreedom_streak");
-      if(tfcount>tfstreakfile){
-        fs.writeFileSync("./max_totalfreedom_streak",tfcount+"")
+ if(conv[2].toLowerCase().includes("dsddassadsadfajhdfeavjhaewgfafsdcjnbmcefwrancafdsnafdscvdfncbvasdcfnmbvdfsxdvanmSVSnmbxvsDNvnbdSCVDNBMVDSVNBSDACVsADCVASDNBVASDCnSCDAvSDACNvSADCnmbSADCVmnbCSADviucc")){ return; }
+      if(conv[2].startsWith("You are no lfsdafgasojsdghfkiasfcghzfxciksugsfdcjkasdgkjsfdhgasdfkjgdasfkjagjdkasfgadsfjkhgasdfjhsafdgjkhsdfagsdfajkhgsdfakjhsdafgkjhsdafgasdfjkhgdsfajhasdfgjkhdasfgsdjfahgasdfjkgsdfakjhfsdagjkhdfsagfdajskgafdsjkhgadfsjkhfdgasjkhfdsgafjsdhgadfsjkhgfsadjhfdsgajkhfasdgjfhsdaonger controlling \"IuCC\".")){bot._cwc("/icu control IuCC");return;}
+      if(conv[2]=="The chat has been cleared") return;
+      if(conv[2].match("Roizor")) return
+      if(conv[2]=="") return;
+      if(conv[2]=="Successfully disabled CommandSpy"){
+        bot.cspy=0;
+        return;
       }
-      fs.appendFile("./totalfreedom_log",getDateAndTime4L()+" "+tfcount+" messages\n",()=>{})
-      tfcount=0;
-    }
-  } else {
-    tfcount++
-  }
-  let processed = conv[0];
-  let fileprocessed = conv[1];
-  let ir = conv[2];
-  if(conv[1].includes("has muted player "+_username) && !fileprocessed.includes("has muted player "+_username+"\u00a76 for\u00a7c now\u00a76.")){
-    noChatQueue=1;
-    muted=1;
-  }
-  if(fileprocessed.endsWith("§6Vanish for "+_username+"§6: disabled")){
-      setTimeout(()=>{global.bot.write("chat",{message:"/essentials:evanish on"})},50)
-  }
-  if(fileprocessed.endsWith("§6Your nickname is now "+_username+"§6.")){
-      cwc("/nick off")
-  }
-  if(fileprocessed==("Successfully disabled CommandSpy")){
-    global.cspyon=0;
-    return;
-  }
-  let isGreater = 0;
-  
-  if(P[pack2.sender]){
-    name=P[pack2.sender].name;
-  } else {
-    name=""
-  }
-  uuid=pack2.sender;
-  if(false){
-    for(let i2a in jsonMsg.extra){
-      if(jsonMsg.extra[i2a]){
-        if(jsonMsg.extra[i2a].text){
-          if(jsonMsg.extra[i2a].text.slice(0,2)==": " || jsonMsg.extra[i2a].text.slice(0,2)=="> "){
-            if(jsonMsg.extra[i2a].text.slice(0,2)=="> "){isGreater=1;}
-            if(jsonMsg.extra[i2a-1]){ 
-              if(ir.includes(": "+global.prefix) || ir.includes("> "+prefix)){
-                try{
-                  if(ir.indexOf("]")+1 && (ir.indexOf("]")!=ir.indexOf("] ["))){ 
-                    testname=ir.slice(ir.indexOf("]")+2).split(": ")[0];
-                  } else if(isGreater && ir.indexOf("<")==0) {
-                    testname=ir.slice(1).split("> ")[0];
-                  } else {
-                    testname = jsonMsg.extra[i2a-1].text
-                  }
-                }catch(e){}
-                let preName = jsonMsg.extra[i2a-1].text;
-                if(testname){
-                  preName=testname
-                };
-                let ses="";
-                //name="The name thing is being worked on.";
-                for(let i33 in preName.split("\u00a7")){
-                if(i33==0 && !preName.split("\u00a7")[i33].startsWith("\u00a7")  || !preName.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){
-                  ses+=preName.split("\u00a7")[i33];
-                }
-                else
-                {
-                  ses+= preName.split("\u00a7")[i33].slice(1);}
-                }
-                for(let i22 in P){
-                  let gn="";
-                  for(let i33 in (P[i22].name+"").split("\u00a7")){
-                    if((i33==0 && !P[i22].name.split("\u00a7")[i33].startsWith("\u00a7")) || !P[i22].name.split("\u00a7")[i33].slice(0,1).match(/[0-9a-fk-or]/)){
-                      gn+=P[i22].name.split("\u00a7")[i33];
-                    }
-                    else
-                    {
-                      gn+= P[i22].name.split("\u00a7")[i33].slice(1);}
-
-                    }
-                    if(gn==ses){break;}
-                  }
-                break
-              }
+      if(conv[2].match(/dsoig[0-9]\: \/op dsoig[0-9]/)){ bot._cwc("/deop "+conv[2].slice(0,6))}
+      if(conv[2].match(/dsoig[0-9]/)) return;
+        if(conv[1].endsWith("§6Vanish for "+bot.username+"§6: disabled")){
+          setTimeout(()=>{bot.write("chat",{message:"/essentials:evanish on"})},50)
+        }
+      if(conv[2].includes(": "+bot.prefix)){
+        let __cmd = conv[2].split(": "+bot.prefix);
+        let name="";
+        if(bot._115){
+          name=conv[2].split(": "+bot.prefix)[0].split(" ").reverse()[0];
+          for(var i in bot.P){
+            if(bot.P[i].name===name){
+              packet.sender=bot.P[i].UUID
             }
           }
         }
+        __cmd.shift();
+        const _cmd=__cmd.join(": "+bot.prefix);
+        bot.command(bot,bot.P[packet.sender]?bot.P[packet.sender].name:name, _cmd, packet.sender)
       }
-    };
-    nf=1;
-  }
-  if(false){
-  if(jsonMsg.translate) {
-    if(jsonMsg.translate.startsWith("chat.type.") || jsonMsg.translate=="commands.message.display.incoming") {
-      try{
-        name = jsonMsg.with[0].text+"";
-        if(jsonMsg.with[1].text){
-          text2 = jsonMsg.with[1].text+"";
-        } else {
-          text2 = jsonMsg.with[1]+"";
-        }
-      }catch(e){};
-  }}}
-  let preText = conv[2].split([": ","> "][isGreater])
-  let pt2 = preText[0]
-  let preTextFirst = preText.shift();
-  let text2 = preText.join([": ","> "][isGreater]);
-  if(text2.startsWith(global.prefix)){
-    if(!cooldown){
-      try{
-        CD(name,text2.slice(global.prefix.length),false,uuid);
-        fs.appendFile('Command Log.txt',global.getDateAndTime4L()+" "+name+" ("+uuid+") ran command "+text2+"\n",function (err) {  if (err) throw err;  });    
-      }catch(e){cwc(e+"")}
-      cooldown=1;
-      setTimeout(()=>{cooldown=0},2000)
+      bot.clqa.push(`[Chat/${bot.index}] ` + conv[0]);
+      fs.appendFile(bot._server+"/chat.log",getDateAndTime4L()+" "+(conv[1]+"\n"),function (err) {if (err) throw err;})
+    }catch(e){}
+  })
+  bot.chatq=["Version 4.0.0", "/cspy on","/v on"]
+  bot.clqa=[];
+  bot._cwc=function(msg){
+    bot.chatq.push(msg.substr(0,256));
+    if(msg.slice(256).length){
+      bot._cwc(msg.slice(256))
     }
+  };
+  bot.chqm=()=>{
+    if(bot.chatq[0] !== undefined){
+      bot.write("chat",{message:bot.chatq[0]});
+    }
+    bot.chatq.shift();
+    bot.timc=setTimeout(bot.chqm, 260)
   }
-  fs.appendFile('Kaboom Log.txt',getDateAndTime4L()+" "+(fileprocessed+"\n"),function (err) {if (err) throw err;});
-  clqa.push(conv[0]);
-})
-
-
-perms=(n)=>{
-  if(p[n]){
-    return p[n][0];  }
-  return 0;
-}
-role=(n)=>{
-  if(p[n] && p[n][1]){
-    return p[n][1]
-  }
-  return "User"
-}
-global.bit=function bit(number,index){
-  if(number!==undefined){
-    return (Array(4-number.toString(2).length).fill("0").join("")+number.toString(2))[index]=="1";
-  } else {
-    return false
-  }
-}
-global.wl={
-  maniaplay:{
-    "*":2
-  }
-};
-global.bl={};
-//wl 0: normal
-//wl non-zero: bypass insufficient permissions
-//wl 2: bypass console only mode if consoleOnly does not end with .5
-//wl 3: bypass console only commands if commands console only value is not 2
-//wl 4: bypass confirmation
-
-//wl/bl format: wl[name][cmd | *]=value
-
-//bl 0: normal
-//bl 1: blacklisted
-
-//bl overrides wl values except 2 and 3
-global.command=function(name,cmd,console,uuid,confirm){
-  const truecmd=cmd.split(" ")[0].toLowerCase();
-  if(!commands[truecmd]){
-    return;
-  }
-  if(wl[name] && (bit(wl[name][truecmd],0) || bit(wl[name]["*"],0))) confirm=1;
-  if(console){
-    commands[truecmd].command(name,cmd,console);
-    return;
-  }
-  if(consoleOnly && !(wl[name] && (bit(wl[name][truecmd],2) || bit(wl[name]["*"],2)) && consoleOnly-Math.floor(consoleOnly)!==0.5)) {
-    if(consoleOnly>=2){
-      cwc("Console only mode is enabled.")
-      return;}
-  }
-  if(commands[truecmd].console && !(wl[name] && (bit(wl[name][truecmd],1) || bit(wl[name]["*"],1))) || commands[truecmd].console===2) {
-    cwc(prefix+truecmd+" may only be run from console.");
-    return
-  }
-  if(bl[name] && bl[name][truecmd]){
-    cwc(`${name}, you are not allowed to run ${prefix}${cmd}.`);
-    return;
-  }
-  if((commands[truecmd].confirm && !confirm)){
-    confirmq.push({n:name,c:cmd,U:uuid});
-    cwc("Awaiting confirmation, use "+prefix+"confirm <admin-code> to confirm.")
-    return;
-  }
-  if((perms(name)>=commands[truecmd].perms) || (wl[name] && (bit(wl[name][truecmd],3) || bit(wl[name]["*"],3)))){
-    commands[truecmd].command(name,cmd,console,uuid)
-  }
-}
-global.CD=global.command;
-global.countdown=1;
-global.packetc=40;
-setInterval(function(){
-  packetc--;
-  if(packetc<=0){
-    process.exit(1)
-  }
-  if(packetc<=15 && countdown){
-    console.log(packetc)
-  }
-},1000)
-global.on={};
-global.seen={};
-for(let i=0;i<=15;i++){
-  let j=i.toString(16);
-  try{
-    global.seen[j]=require(process.cwd()+"/seen/seen_"+j+".json")
-  } catch(e){
-    try{
-      global.seen[j]=require(process.cwd()+"/seen/seen_"+j+"_backup.json")
-    }catch(e){
-      try{
-        console.error(`[Warning] Seen database for UUIDs beginning with \"${j}\" has been corrupted.`)
-        require("child_process").execSync(`cp ./seen/seen_${j}.json ./seen_corrupted/seen_${j}_${Date.now()}.json`)//fuck windows
-        console.log
-        let _data=fs.readFileSync(process.cwd()+"/seen/seen_"+j+".json")
-        fs.writeFileSync(process.cwd()+"/seen/seen_"+j+".json",_data.slice(0,-1))
-        process.exit(8)
-      } catch(e){
-        //console.error(`[Warning] Seen database for UUIDs beginning with \"${j}\" is possibly unrepairable.
+  bot.bel=0
+  bot.timc=setTimeout(bot.chqm, 4000)
+  bot.int1=setInterval(function(){
+    if(bot.clqa.length){
+      if(bot.logger){process.stdout.write("\x1b[2K");
+      readline.cursorTo(process.stdout,0)
+      if(bot.clqa[0].includes("TFTWPhoenix") &&bot.bel){
+        process.stdout.write("\x07")
       }
+      console.log("\x1b[0m\x1b[1m\x1b[37m"+bot.clqa[0])
+      rl.prompt(true)}
+      bot.clqa.shift();
     }
-  }
-}
-global.getSeen=(t)=>{
-  if(seen[t[0]] && seen[t[0]][t]){
-    return seen[t[0]][t];
-  }
-  for(let i in seen){
-    if(seen[i][t]){
-      return seen[i][t];
-    } else {
-      for(let j in seen[i]){
-        if(seen[i][j][1]===t){
-          return seen[i][j]
-        }
-      }
-    }
-  }
-  return [-1,""]
-}
-global.setSeen=(t,s)=>{
-  if(s[1]){
-    if(s[1].match(/[\x00-\x1f]/)){
-      return;
-    }
-  }
-  seen[t[0]][t]=s;
-  fs.writeFile("seen/seen_"+t[0]+".json",JSON.stringify(seen[t[0]]),()=>{})
-  fs.writeFile("seen/seen_"+t[0]+"_backup.json",JSON.stringify(seen[t[0]]),()=>{})
-}
-let LockList = ["0b9e7389-db90-3554-87f3-4e4f984e68e6"];
-bot.on("player_info",function(packet) {
-  try{
-  for(let i1c in packet.data){
-    if(packet.action==0){
-      global.P[packet.data[i1c].UUID]=packet.data[i1c];
-      global.on[packet.data[i1c].UUID]=true;
-      if(packet.data[i1c].name==conf.autolock){
-        chatQueue.unshift("/icu control "+conf.autolock)
-      }
-      if(packet.data[i1c].name.match(/\xa7[0-9a-f]\xa7k(\n|.){3}\xa7[0-9a-f]\xa7k(\n|.){3}/)){
-        cwc("/mute "+packet.data[i1c].UUID+" 10y")
-      }
-      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+global.P[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") joined or unvanished.\n",()=>{})
-      //console.log(packet.data[i1c].name)
-      //setSeen(packet.data[i1c].UUID,[Date.now(),global.P[packet.data[i1c].UUID].name])
-      //fs.writeFile("lastSeen.json",JSON.stringify(seen),()=>{})
-    } else if(packet.action==1){
-      fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" "+global.P[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+") went to "+["Survival","Creative","Adventure","Spectator"][packet.data[i1c].gamemode]+"\n",()=>{})
-    } else if(packet.action==2){global.on[packet.data[i1c].UUID]=true;
-    } else if(packet.action==3){global.on[packet.data[i1c].UUID]=true;
-    } else if(packet.action==4){global.on[packet.data[i1c].UUID]=true;
-      setTimeout(()=>{if(LockList.includes(packet.data[i1c].UUID) && on[packet.data[i1c].UUID] && !lockBots[packet.data[i1c].UUID]){
-        //lockBots[packet.data[i1c].UUID].end();
-        //lockBots[packet.data[i1c].UUID]=0;
-      }},100)
-      global.on[packet.data[i1c].UUID]=false
-      fs.appendFile('Kaboom Join Leave Log.txt',global.getDateAndTime4L()+" "+(function(){try{return global.P[packet.data[i1c].UUID].name+" ("+packet.data[i1c].UUID+")"}catch(e){return packet.data[i1c].UUID}})()+" left or vanished.\n",()=>{});
-      //setSeen(packet.data[i1c].UUID,[Date.now(),global.P[packet.data[i1c].UUID].name]);
-      //fs.writeFile("lastSeen.json",JSON.stringify(seen),()=>{})
-    } 
-  }  
-  }catch(e){}
-})
-global.botuuid = bot.uuid;
-bot.on('login', p=>{
-  if(p.entityId){
-    global.bot.write("chat",{message:"/icu control tyr1402"})
-    global.entityid=p.entityId
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+` The bot has logged in (entity id ${entityid}).\n`,()=>{})
-  }
-})
-bot.on('success', p=>{
-  botuuid=bot.uuid
-  //bot.write("chat",{message:"/tp ~ ~ ~100000"})
-  //setTimeout(()=>{bot.write("chat",{message:"/setworldspawn"})},200)
-  global.bot.write("chat",{message:"/"+["vanish","evanish","v","ev","essentials:vanish","essentials:evanish","essentials:ev","essentials:v"][Math.floor(Math.random()*8)]+" on"})
-})
+  },20)
+  bot.on("end",()=>{
+    console._log(`[Info] Bot ${bots.indexOf(bot)} has disconnected from server ${bot._server}.`)
+    clearTimeout(bot.timc);
+    clearInterval(bot.adint);
+    clearInterval(bot.int1);
+    clearInterval(bot.int2);
+    setTimeout(()=>{createBot(bot._server)},5000)
+  })
+  bot.on("error",()=>{
+  })
 
-bot.on('game_state_change', p=>{
-  if(p.reason==1){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" End raining\n",()=>{})
-  } else if(p.reason==2){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" Begin raining\n",()=>{})
-  } else if(p.reason==3){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" Change gamemode -> "+["Survival","Creative","Adventure","Spectator"][p.gameMode]+"\n",()=>{})
-    if(p.gameMode!=3){
-      cwc("/gamemode spectator")
-    }
-  } else if(p.reason==4){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" Win game -> "+["Just respawn player","Roll the credits and respawn player"][p.gameMode]+"\n",()=>{})
-  } else if(p.reason==6){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" Arrow hit player\n",()=>{})
-  } else if(p.reason==10){
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" Play elder guardian mob appearance (effect and sound)\n",()=>{})
-  }
-})
-bot.on('entity_status', p=>{
-  if(p.entityId==global.entityid && p.entityStatus == 24) {
-    cwc("/op @s[type=player]")
-    fs.appendFile('Other Log.txt',global.getDateAndTime4L()+" The bot has been deopped.\n",()=>{})
-  }
-})
-global.botEvents={};
-global.setslotsin1s = 0;
-setTimeout(()=>{bot.on('set_slot', (data)=>{
-  setslotsin1s++;
-  setTimeout(()=>{setslotsin1s--},1000)
-})},2000)
-bot.on('packet', (data, meta)=>{
-  packetc=30;
-})
-global.stopped=0;
-bot.on("end",(()=>{
-  if(!stopped){
-    process.exit(7)
-  }
-}))
-
-fs.readFile(".nojoin",(e,d)=>{
-  if(e){
-    console.log(e)
-  } else {
-    if(d!="0"){
-      process.reallyExit(0)
+  bot.adint=setInterval(()=>{bot._cwc("My prefix is "+bot.prefix+", use "+bot.prefix+"help for help.")},300000)
+  for(let i in bots){
+    if(bots[i]._server==_server){
+      bots[i].end();
+      bots[i]=bot;
+      bot.index=+i;
+      return bot;
     }
   }
-})
-
-global.icusIn30m = 0;
-bot.icuDetector = [ 0, 0 ];
-bot.on(`position`, function(data, packetMeta) {
-  bot.icuDetector[0] = data.teleportId;
-});
-setInterval(()=>{
-  //var difference = bot.icuDetector[0] - bot.icuDetector[1];
-  if(setslotsin1s > 300){
-    icusIn30m++;
-    setTimeout(()=>{icusIn30m--},1800000)
-    if(icusIn30m>=20){
-      fs.appendFileSync(".nojoin","1");
-      process.exit(4);
-    } //im probably going to see .nojoin tomorrow [jan 9 2021]
-    console.log("The bot is being icu controlled. Relogging...")
-    setslotsin1s = 0;
-    global.botEvents = global.bot._events;
-    global.bot.end();
-    global.noChatQueue=1;
-    global.chatQueue=global._chatQueue=[
-      "Relogged due to ICU.",
-      `Version ${conf.version}`,
-      //"My prefix is "+prefix+", use "+prefix+"help for help.",
-      "/bard",
-      "/v on",
-      "/gamemode spectator",
-      "/prefix off",
-      "/nick off",
-      "/cspy on",
-      "/god on"
-    ]
-    setTimeout(()=>{
-      global.bot=mc.createClient(
-        {
-          host:conf.server,
-          port:conf.port,
-          version:"1.15.2",
-          username: "\u00a7"+Math.floor(Math.random()*16).toString(16)+"\u00a7\u00a7"+["\u0000","\u0001","\u0002","\u0003","\u0004","\u0005","\u0006","\u0007"][Math.floor(Math.random()*8)]+["\u0008","\u0009","\u007f","\u000b","\u000c","\u000d","\u000e","\u000f"][Math.floor(Math.random()*8)]+["\u0010","\u0011","\u0012","\u0013","\u0014","\u0015","\u0016","\u0017"][Math.floor(Math.random()*8)]+["\u0018","\u0019","\u001a","\u001b","\u001c","\u001d","\u001e","\u001f"][Math.floor(Math.random()*8)]+"   ",
-        }
-      );
-      global.bot._events.chat=global.botEvents.chat;
-      global.bot._events.player_info=global.botEvents.player_info;
-      global.bot._events.login=global.botEvents.login;
-      global.bot._events.game_state_change=global.botEvents.game_state_change;
-      global.bot._events.entity_status=global.botEvents.entity_status;
-      setTimeout(()=>{global.bot._events.set_slot=global.botEvents.set_slot;},2000)
-      global.bot._events.packet=global.botEvents.packet;
-      global.botuuid = javaUUID("OfflinePlayer:"+bot.username);
-    },6000)
-    setTimeout(()=>{bot.write("chat",{message:"/op @s[type=player]"})},8750)
-    setTimeout(()=>{bot.write("chat",{message:"/mute "+botuuid+" 0s"})},9000)
-    setTimeout(()=>{global.noChatQueue=0;},11000)
-  } else if (setslotsin1s!=0 && setslotsin1s!=37 && setslotsin1s!=-37) {
-    bot.write("chat",{message:"/ci"})
-    setTimeout(()=>{setslotsin1s=0},750)
-  }
-  //bot.icuDetector[1] = bot.icuDetector[0];
-},1000) // anti icu
-for(let i in commands){
-  if(!commands[i].hidden){
-    cmdid.push({h:commands[i].h,u:commands[i].u,n:i})
-  }
-  fullcmdid.push({h:commands[i].h,u:commands[i].u,n:i})
+  bots.push(bot);
+  bot.index=bots.indexOf(bot);
+  return bot;
 }
-setTimeout(()=>{
-  Object.keys(require.cache).forEach(function(key) {
-    delete require.cache[key];
-  });  
-},3000)
-_x=0;
-
-require("./BotHelperScripts/postinit.js")();
-//phibots 2b2t thing cool so i add it
-global.c2=new require("net").Socket().connect(41050,"127.0.0.1",()=>{})
-c2.on("data",(x3)=>{
-  if(x3[0]==4){
-    commands.restart.command();
-  }
-})
+createBot("play.kaboom.pw:25565");
+createBot("recyclebot.tech:25565");
+//createBot("localhost:6004")
+dbot.login("token removed")

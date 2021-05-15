@@ -1,6 +1,6 @@
 var translates=require("./en_us.json");
 var _116=0;
-if(conf.mcversion.startsWith("1.16")){_116=1}
+if(true){_116=1}
 const tth=function(T,go,NC){if(NC && !T.color){T.color=NC}
 if(!_116){go=0}
 if(T){
