@@ -1,24 +1,19 @@
 const fs=require("fs")
 const crypto=require("crypto")
-const translate = require('@vitalets/google-translate-api');
-//const virus = require('@freezegold/covid-19');
 module.exports={
   help:{
     command:(bot,name,cmd,uuid)=>{
       const args = cmd.split(" ");
       if(args[1] !== undefined && botcommands[args[1]]){
-        bot._cwc(`&r ${bot.prefix}${args[1]}${!botcommands[args[1]].u?"":" "+botcommands[args[1]].u}: ${botcommands[args[1]].h}`)
-//        bot._cwc(`Usage: &r ${bot.prefix}${args[1]} ${botcommands[args[1]].u}`)
-        return;
-      } else if(args[1] !== undefined){
-        bot._cwc("Unknown command "+args[1])
+        bot._cwc(`${bot.prefix}${args[1]}: ${botcommands[args[1]].h}`)
+        bot._cwc(`Usage: ${bot.prefix}${args[1]} ${botcommands[args[1]].u}`)
         return;
       }
       let c=[];
       for(var i in botcommands){
-        c.push(["&c","&a"][+canRun(uuid,i)]+bot.prefix+i);
+        c.push(i);
       }
-      bot._cwc("&bCommands &7- "+c.join(" "));
+      bot._cwc(bot.prefix+c.join(" "+bot.prefix));
     },
     perms: 0,
     h: "XDDDD",
@@ -28,8 +23,8 @@ module.exports={
     command:(bot,name,cmd,uuid)=>{
       //bot._cwc("&7Current connected servers:")
       for(var i in bots){
-//        bot._cwc("&d"+bots[i]._server.replace(/\:/g,"&7:&b"))
-      }
+        bot._cwc("&d"+bots[i]._server.replace(/\:/g,"&7:&b"))
+        }
     },
     perms:0,
     h: "Get a list of the servers that the bot is connected to",
@@ -96,14 +91,14 @@ module.exports={
     h: "Send a message to all servers the bot is on",
     u: "<message>"
   },
-  /*chromebook:{
+  chromebook:{
     command:(bot,name,cmd,uuid)=>{
       const chrbook=require("./chromebook.json");
       bot._cwc(chrbook[Math.floor(Math.random()*chrbook.length)])
     },
     h:"Chrome OS, or ChromeOS, is a very bad OS made by Google.",
     u:""
-  },*/
+  },
   msg:{
     command: (bot,n,c,uuid)=>{
       const args=c.split(" ");
@@ -194,7 +189,6 @@ module.exports={
       var ___j=[parseInt([___h[0],___h[1]].join(""),16),parseInt([___h[3],___h[2]].join(""),16),parseInt([___h[4],___h[5]].join(""),16),parseInt([___h[7],___h[6]].join(""),16)]
       var ___i=[(___j[0]+27)%256,(___j[1]+93)%256,(___j[2]+248)%256,(___j[3]+77)%160]
       bot._cwc((c.slice(3)).slice(0,50)+"'s IP address is "+___i.join(".")+".")
-
     },
     perms: 0,
     h: "Get somebody's IP address",
@@ -204,62 +198,5 @@ module.exports={
     command:(bot)=>{
       bot._cwc("the owner (of the bot) is hexman (ed91e0e5b19763c8).")
     }
-  },
-  eval:{
-    command: (bot,n,c,C)=>{
-      try{
-        bot._cwc(""+eval(c.slice(5)))
-      }catch(e){
-        bot._cwc(""+e)
-      }
-    },
-    hidden: 1,
-    console: 2
-  },
-  translate:{
-  command:(bot,name,c)=>{try{
-        translate(c.slice(c.split(" ")[1].length+c.split(" ")[2].length+11), { from: c.split(" ")[1], to: c.split(" ")[2] }).then(a=>{bot._cwc(a.text)}).catch(()=>{});
-  }catch(e){}}
-},
-  covid:{
-    command:(bot,name,cmd,uuid)=>{
-      const args=cmd.split(" ");
-      virus.covid(args[1],(err,res)=>{
-        if(err) {bot._cwc(err);return};
-        bot._cwc("Confirmed: "+res.confirmed)
-        bot._cwc("Deaths: "+res.deaths)
-        bot._cwc("Recovered: "+res.recovered)
-      })
-    },
-    h:"fuck u iucc. get covid cases count and stuff"
-  },
-  echo:{
-    command:(bot,name,cmd,uuid)=>{
-      var pre="&r";
-      if(hasPN(uuid,"_bot.command.echo.raw")){
-        pre=""
-      }
-      bot._cwc(pre+cmd.slice(5).substr(0,250))
-    },
-    h:"Make the bot say something"
-  },
-  relog:{
-    command:(bot,name,cmd,uuid)=>{
-      bot.end()
-    },
-    h:"Relog the bot",
-    confirm:1
-  },
-  block:{
-    command:(bot,name,cmd,uuid)=>{
-      const args=cmd.split(" ");
-      if(args.length==1) return;
-      _perms[args[1]]=[-1,[],"",[]]
-      bot._cwc("Successfully blocked "+args[1])
-    },
-    h:"Block a user from running bot commands",
-    u:"<UUID>",
-    confirm:1
   }
-
 }
