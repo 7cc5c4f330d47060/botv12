@@ -22,8 +22,8 @@ process.on("uncaughtException",function(e){//Error
 
 bridges=["813677042695536650","813678515558940692","814512716135530516"];
 const srv=require("./srv.js")
-//const djs=require("discord.js")
-/*global.dbot=new djs.Client();
+const djs=require("discord.js")
+global.dbot=new djs.Client();
 dbot.on('ready', () => {
   try{
     console.log("[Info] Discord bot logged in.")
@@ -33,16 +33,16 @@ dbot.on('ready', () => {
     }
     dbot.channels.cache.get("813670842365902898").send(sendStr)
   }catch(e){}
-})*/
-/*dbot.on("message",(msg)=>{
+})
+dbot.on("message",(msg)=>{
   try{
     if(bridges.includes(msg.channel.id) && msg.author.id!==dbot.user.id){
       if(Date.now()-dbot.dcmcbrtm<=1000) return;
-      //dbot.dcmcbrtm=Date.now();
+      dbot.dcmcbrtm=Date.now();
       bots[bridges.indexOf(msg.channel.id)]._cwc("/bcraw &7[&dUnnamedBot Discord&7] &b"+msg.member.displayName+" &7> &f"+msg.content.substr(0,100))
     }
   }catch(e){}
-})*/
+})
 setInterval(()=>{
   try{
     sendstr="";
@@ -53,7 +53,7 @@ setInterval(()=>{
       bots[i].oldCode=bots[i].adminCode
     }
     if(sendstr!=""){
-      //dbot.channels.cache.get("813670842365902898").send(sendstr)
+      dbot.channels.cache.get("813670842365902898").send(sendstr)
     }
   }catch(e){}
 },3000)
@@ -257,7 +257,7 @@ console._log=(a)=>{
 }
 global.bots=[]; //so the user can select one or more bots at console
 function createBot(_server,_115){
-  fs.access("./"+_server+"/",fs.constants.F_OK,(e)=>{//bro this is obviously skidded (this bot's code was most likely written in early 2021)
+  fs.access("./"+_server+"/",fs.constants.F_OK,(e)=>{
     if(e){
       fs.mkdir("./"+_server+"/",()=>{})
     }
@@ -270,10 +270,9 @@ function createBot(_server,_115){
   let bot=mc.createClient({
     host: server,
     port: port,
-    version: "1.15.2",
-    username:"abcdefg"  //username: "\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)+"\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)
+    /*username:"abcdefg"*/  username: "\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)+"\xa7"+Math.floor(Math.random()*16).toString(16)+funnies(3)
   })
-  bot.ccrun=(cmd)=>{
+bot.ccrun=(cmd)=>{
     bot.write('update_command_block',{location:{x:bot.x+(bot.cmdindex%16),y:0,z:bot.z+(bot.cmdindex >> 4)},command:cmd,mode:1,flags:4})
     bot.cmdindex++;
     bot.cmdindex=bot.cmdindex%256
@@ -370,7 +369,7 @@ bot.on('login', p=>{
   bot.disint=setInterval(()=>{
     try{
       if(bot.discordQueue.join("").replace(/[\x00-\x20\x7f-\x9f]/g,"").length==0) return;
-      //dbot.channels.cache.get(bridges[bot.index]).send(bot.discordQueue.join("\n").replace(/\@/g,"@\u200b").substr(0,1990))
+      dbot.channels.cache.get(bridges[bot.index]).send(bot.discordQueue.join("\n").replace(/\@/g,"@\u200b").substr(0,1990))
       bot.discordQueue=[];
     }catch(e){}
   },3000)
@@ -515,4 +514,4 @@ bot.on('login', p=>{
 createBot("play.kaboom.pw:25565");
 createBot("recyclebot.tech:25565");
 //createBot("localhost:6004")
-//dbot.login("")
+dbot.login("token removed")
