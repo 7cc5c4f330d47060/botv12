@@ -1,0 +1,12 @@
+[
+  {
+    "host":"play.kaboom.pw",
+    "port":"25565",
+    "opt":{"om":false}
+  },
+  {
+    "host":"sus.shhnowisnottheti.me",
+    "port":"25565",
+    "opt":{"om":false}
+  }
+]
