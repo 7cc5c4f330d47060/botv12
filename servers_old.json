@@ -1,0 +1,17 @@
+[
+  {
+    "host":"69.14.158.48",
+    "port":"25565",
+    "opt":{"om":false}
+  },
+  {
+    "host":"play.kaboom.pw",
+    "port":"25565",
+    "opt":{"om":false}
+  },
+  {
+    "host":"207.180.201.168",
+    "port":"25565",
+    "opt":{"om":false,"hidden":true}
+  }
+]
