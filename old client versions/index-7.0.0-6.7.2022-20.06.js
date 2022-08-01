@@ -1,21 +1,8 @@
 //In this version I dont put a try+catch around everything. Only the things that need it like JS code evaluation.
-const version="7.0.0-3"
+const version="7.0.0"
 const custom=false; //If you make a modified version, set this to true. This will disable auto updating (if added). If you release a modified version with update support set this to false, but make sure to set the update server to your own server.
-const safeMode=2; //0: disable loading 3rd-party plugins and commands.
-                  //1: ask if each 3rd-party plugin should be loaded.
-                  //2: load normally.
-const logging=0;	//1: log to console
-			//2: log to file
-			//4: log fatal errors (regardless of if this is enabled, if one were to occur this would shut down)
-			//8: log regular errors (example: command failed to run)
-			//16: log warnings (example: client got kicked from a server)
-			//32: log debug info (example: client started joining to a server)
-			//64: log info (example: client successfully joined a server)
-			//128: log console commands
-			//256: log bot client commands
 const fs=require("fs")
 console.log("Loading version "+version)
-process.title="[bot name] version "+version
 const isWindows=(process.platform=="win32")
 const mcp=require("minecraft-protocol")
 const servers=require("./servers.json")
