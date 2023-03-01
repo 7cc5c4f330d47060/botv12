@@ -14,9 +14,7 @@
 		"opt":{
 			"om":false,
 			"legacy_name":true,
-			"ccore_teleport":true,
-			"autocrash":false,
-			"disabled":true
+			"ccore_teleport":true
 		}
 	},
 	{
@@ -33,7 +31,7 @@
 		"port":"61530",
 		"opt":{
 			"om":false,
-			"disabled":false,
+			"disabled":true,
 			"legacy_name":true,
 			"ccore_teleport":true
 		}
