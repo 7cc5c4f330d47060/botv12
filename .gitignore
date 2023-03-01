@@ -1,0 +1,4 @@
+# Adapted from old 2020 history repo.
+/UBotLogs
+/ba.txt # Only relevant to botv8 versions
+/plugins/translations

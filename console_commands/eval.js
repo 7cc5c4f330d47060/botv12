@@ -1,9 +1,0 @@
-module.exports={
-  command:(cmd,things)=>{
-    try{
-      console.log(eval(cmd.slice(5)))
-    }catch(e){
-      console.log(e)
-    }
-  }
-}

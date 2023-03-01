@@ -1,15 +1,94 @@
-//0% Skidded™
-//the parts that are are stated
-const startms=Date.now();
-const m = require("minecraft-protocol");
-//let bots=[];
-const servers=require("./servers.json");
-let things={};
-things.bots=[];
+const mp=require("minecraft-protocol")
 const fs=require("fs")
-global.loadplug=()=>{
+const settings=require("./settings.json");
+let servers;
+if(settings.localhostOnly){
+	servers=[{
+		host:"127.0.0.1",
+		port:25565,
+			opt:{
+				om:false,
+				disabled:false,
+				ccore_teleport:true
+			}
+		}]
+} else {
+	servers=require("./servers.json");
+}
+const cp=require("child_process")
+//const os=require("os")
+const op=process.platform;//();
+
+const isLinux=(op=="linux" || op=="android")
+const isAndroid=(op=="android")
+const isWindows=(op=="win32")
+let android_sdk;
+let android_version;
+if(isAndroid){
+	android_sdk=+cp.execSync("getprop ro.build.version.sdk").toString("UTF-8").split("\n")[0];
+	android_version=cp.execSync("getprop ro.build.version.release").toString("UTF-8").split("\n")[0];
+	console.log(`Running on Android ${android_version} (${android_sdk})`)
+}
+
+const secureMode=false;
+const user=cp.execSync("whoami").toString("UTF-8").split("\n")[0]; //Only tested on Linux so far
+if(secureMode && (user=="root" || user.toLowerCase().includes("nt authority"))){
+	process.exit(1)
+}
+
+if(isAndroid && secureMode && android_sdk<24){ //Android 7.0
+	console.log("Android version too old. Upgrade to Android 7.0 or higher, or disable secure mode.")
+	process.exit(1)
+}
+
+let bots=[];
+const usernameGen=()=>{
+	const prefix="distance=";
+	const chars=16-prefix.length;
+	const suffix=Math.random().toString(36).slice(2,2+chars);
+	return prefix+suffix;
+}
+const createBot=(h,p,o)=>{
+	//Bot per-server options:
+	//disabled: Disable connection to server
+	//legacy_name: Uses just player name rather than prefix+player name to determine sender UUID
+	//ccore_teleport: Teleport for command core. Disable on servers which slow down when unloaded chunks are loaded.
+	//autocrash: Crash the server
+	//om: Online mode (unused)	
+	if(o.disabled){
+		console.log("[Info] Bot connecting to "+h+":"+(p?p:25565)+" is not enabled.")
+		return 4;
+	}
+	const b=mp.createClient({
+		host:h,
+		port:p,
+		username:usernameGen(),
+		version: "1.19.2"
+	})
+	b.o=o;
+	b.on("error",(e)=>{
+		console.log(e)
+	})
+	b.host=h;
+	b.port=p;
+	b.real=true;
+	return b;
+}
+
+//plugins (everything because of habit & modular bots are better)
+//for the most part this is from u6
+let p={};
+
+//DO NOT TOUCH
+module.exports.createBot=createBot;
+module.exports.bots=bots;
+module.exports.p=p;
+module.exports.secure=secureMode;
+//end of DO NOT TOUCH
+
+global.loadplug=(botno)=>{
   let botplug=[];
-  let bpl=fs.readdirSync("plugins")
+  const bpl=fs.readdirSync("plugins")
   for(var i in bpl){
     if(!bpl[i].endsWith(".js")){
       continue
@@ -18,59 +97,33 @@ global.loadplug=()=>{
       botplug.push(require(`./plugins/${bpl[i]}`));
     }catch(e){console.log(e)}
   }
-  botplug.forEach((plug)=>{
-    try{
-      plug.load(things)
-      console.log(`[Info] Loaded ${plug.description}`)
-    }catch(e){console.log(e)}
-  })
+	botplug.forEach((plug)=>{
+		try{
+			if(botno!==undefined){
+				if(plug.load2){
+					plug.load2(bots[botno])
+				}
+				//console.log("reload")
+			} else {
+				plug.load()
+				//console.log("non-reload")
+			}
+			//console.log(`[Info] Loaded ${plug.description}`)
+		}catch(e){console.log(e)}
+	})
 }
-global.loadplug();
-things.createBot=(server,port,options)=>{
-  things.randomstring=()=>{
-    let out="";
-    for(let i=0;i<=5;i++){
-      out+=String.fromCharCode(Math.floor(Math.random()*26)+96)
-    }
-    return out
-  }
-  let bot=m.createClient({
-//    username:"U\x00\x00amedBot v\xa766",
-    auth: !options.om?"mojang":"microsoft",
-    username:!options.om?things.randomstring():"Email removed",
-    password:!options.om?false:"Password removed",
-    host:server,
-    port:port
-  })
-  bot.on("error",(e)=>{
-    console.log(e)
-  })
-  //idk if this is anywhere else
-  bot.botopt=options
-  bot.host=server
-  bot.port=port
-  bot.loadbotplug=()=>{
-    let botplug=[];
-    let bpl=fs.readdirSync("botplugins")
-    for(var i in bpl){
-      if(!bpl[i].endsWith(".js")){
-        continue
-      }
-      try{
-        botplug.push(require(`./botplugins/${bpl[i]}`));
-      }catch(e){console.log(e)}
-    }
-    botplug.forEach((plug)=>{
-      plug.load(bot,things)
-      console.log(`[Info] Loaded ${plug.description}`)
-    })
-  }
-  bot.loadbotplug();
-  return bot
+
+global.loadplug()
+//require("./test.js")
+//console.log(JSON.stringify(p))
+
+for(let i in servers){
+	const mcb=createBot(servers[i].host,servers[i].port,servers[i].opt);
+	if(mcb==4){
+		bots[i]={id:i,real:false}
+		continue;
+	}
+	bots.push(mcb);
+	bots[i].id=i;
+	global.loadplug(i);
 }
-servers.forEach(function(server){
-  let bot=things.createBot(server.host,server.port,server.opt)
-  things.bots.push(bot)
-  bot.index=things.bots.indexOf(bot)
-})  
-console.log("started in "+(Date.now()-startms)+" milliseconds")
