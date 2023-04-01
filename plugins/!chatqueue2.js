@@ -6,7 +6,14 @@ module.exports={
 		
         },
 	load2: function(b){
-		b.chatqueue=["/cspy on"]
+		b.chatqueue=["/cspy on"];
+		if(!b.o.chatqueue_split){
+			b.o.chatqueue_split=250;
+		}
+		if(!b.o.chatqueue_speed){
+			b.o.chatqueue_speed=260;
+		}
+		b.chatqueue_regex=RegExp(`.{1,${b.o.chatqueue_split}}`,"g")
 		b.command=function(command,hasSlash){
 			if(hasSlash){
 				command=command.slice(1)
@@ -32,7 +39,7 @@ module.exports={
 		}
 		b.send=function(msg){
 //			console.log(msg)
-			const msgs=msg.match(/.{1,250}/g)
+			const msgs=msg.match(b.chatqueue_regex)
 			for(let i in msgs){
 //				console.log(123)
 				b.chatqueue.push(msgs[i])
@@ -50,7 +57,7 @@ module.exports={
 			}
 			console.log("success packet")//ba.split("\n")
 			//b.cqa=Function("index.p.advancecq()")//"+i+"
-			setTimeout(()=>{b.cqi=setInterval(b.advancecq,260)},2240) //adds up to 2500
+			setTimeout(()=>{b.cqi=setInterval(b.advancecq,b.o.chatqueue_speed)},2240) //adds up to 2500
 		})
 	}
 }

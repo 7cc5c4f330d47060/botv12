@@ -42,8 +42,13 @@ if(isAndroid && secureMode && android_sdk<24){ //Android 7.0
 }
 
 let bots=[];
-const usernameGen=()=>{
-	const prefix="distance=";
+const usernameGen=(legal)=>{
+	let prefix;
+	if(legal){
+		prefix="UBotv8_";
+	} else {
+		prefix="distance=";
+	}
 	const chars=16-prefix.length;
 	const suffix=Math.random().toString(36).slice(2,2+chars);
 	return prefix+suffix;
@@ -55,6 +60,15 @@ const createBot=(h,p,o)=>{
 	//ccore_teleport: Teleport for command core. Disable on servers which slow down when unloaded chunks are loaded.
 	//autocrash: Crash the server
 	//om: Online mode (unused)	
+	//cc_enabled: Enable command core
+	//partial_op: Enable joining to servers with reduced permissions
+	//deop: Enable joining to servers with reduced permissions
+	//legal_username: Use a username with only legal characters (Latin alphabet, numbers and _)
+	//chatqueue_split: How many characters will messages be split at (default: 250)
+	//chatqueue_speed: Rate at which messages are sent
+	//msg_split: Message seperator (default: ": ")
+	//hidden: Hide server from commands that display a list of servers
+	//version: Minecraft version to join as (default: 1.19.2)
 	if(o.disabled){
 		console.log("[Info] Bot connecting to "+h+":"+(p?p:25565)+" is not enabled.")
 		return 4;
@@ -62,8 +76,8 @@ const createBot=(h,p,o)=>{
 	const b=mp.createClient({
 		host:h,
 		port:p,
-		username:usernameGen(),
-		version: "1.19.2"
+		username:usernameGen(o.legal_username),
+		version: o.version?o.version:"1.19.2"
 	})
 	b.o=o;
 	b.on("error",(e)=>{
@@ -120,7 +134,14 @@ global.loadplug()
 for(let i in servers){
 	const mcb=createBot(servers[i].host,servers[i].port,servers[i].opt);
 	if(mcb==4){
-		bots[i]={id:i,real:false}
+		bots[i]={
+			id:i,
+			real:false,
+			send:()=>{},
+			host:servers[i].host,
+			port:servers[i].port,
+			o:servers[i].opt
+		}
 		continue;
 	}
 	bots.push(mcb);

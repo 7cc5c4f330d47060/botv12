@@ -5,18 +5,20 @@
 		"opt":{
 			"om":false,
 			"disabled":false,
-			"ccore_teleport":true
+			"ccore_teleport":false,
+			"cc_enabled":true
 		}
 	},
 	{
-		"host":"sus.shhnowisnottheti.me",
-		"port":"25565",
+		"host":"chayapak.chipmunk.land",
+		"port":"25564",
 		"opt":{
 			"om":false,
-			"legacy_name":true,
+			"legacy_name":false,
 			"ccore_teleport":true,
 			"autocrash":false,
-			"disabled":true
+			"disabled":false,
+			"cc_enabled":true
 		}
 	},
 	{
@@ -25,7 +27,8 @@
 		"opt":{
 			"om":false,
 			"disabled":false,
-			"ccore_teleport":false
+			"ccore_teleport":false,
+			"cc_enabled":true
 		}
 	},
 	{
@@ -35,7 +38,50 @@
 			"om":false,
 			"disabled":false,
 			"legacy_name":true,
-			"ccore_teleport":true
+			"ccore_teleport":true,
+			"cc_enabled":true,
+			"hidden":true
+		}
+	},
+	{
+		"host":"sus.shhnowisnottheti.me",
+		"port":"25565",
+		"opt":{
+			"om":false,
+			"disabled":false,
+			"legacy_name":true,
+			"ccore_teleport":false,
+			"cc_enabled":false,
+			"partial_op":true,
+			"legal_username":true,
+			"chatqueue_split":100,
+			"chatqueue_speed":300,
+			"msg_split":" » ",
+			"version": "1.12.2"
+		}
+	},
+	{
+		"host":"mcslot.eu",
+		"port":"25565",
+		"opt":{
+			"om":false,
+			"disabled":false,
+			"legacy_name":false,
+			"ccore_teleport":true,
+			"cc_enabled":true,
+			"hidden":true
+		}
+	},
+	{
+		"host":"localhost",
+		"port":"25565",
+		"opt":{
+			"om":false,
+			"disabled":true,
+			"legacy_name":true,
+			"cc_enabled":true,
+			"hidden":false,
+			"chatqueue_speed":1
 		}
 	}
 ]

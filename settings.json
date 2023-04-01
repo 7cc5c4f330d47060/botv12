@@ -1,6 +1,7 @@
 {
-	"name":"U8",
+	"name":"Air Island Mammott",
 	"coreName":"U8 Core",
 	"secureMode":false,
-	"localhostOnly":false
+	"localhostOnly":false,
+	"version":"8.0.0-2"
 }

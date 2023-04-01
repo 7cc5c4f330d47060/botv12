@@ -1,15 +1,17 @@
 //Copied from U6
 const index=require("../index.js")
 module.exports={
-  description: "Rejoin on leave",
-  load: function(){},
-  load2: (bot)=>{
-    bot.on("end",()=>{
-      clearInterval(bot.cqi)
-      clearInterval(bot.ccqi)
-      clearInterval(bot.cfqi)
-      clearInterval(bot.fi)
-      setTimeout(()=>{index.bots[bot.id]=index.createBot(bot.host,bot.port,bot.o);global.loadplug(bot.id);index.bots[bot.id].id=bot.id;},5000)
-    })
-  }
+	description: "Rejoin on leave",
+	load: function(){},
+	load2: (b)=>{
+		b.on("end",()=>{
+			clearInterval(b.cqi)
+			clearInterval(b.fi)
+			if(!b.o.partial_op && !b.o.deop){
+				clearInterval(b.ccqi)
+				clearInterval(b.cfqi)
+			}
+			setTimeout(()=>{index.bots[b.id]=index.createBot(b.host,b.port,b.o);global.loadplug(b.id);index.bots[b.id].id=b.id;},5000)
+		})
+	}
 }
