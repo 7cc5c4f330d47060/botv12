@@ -11,8 +11,8 @@ module.exports={
 		b.creativemode=0;
 		b.usent=0;
 		b.on("update_time",(a)=>{
-			if(a.time>=10000){
-				//b.send("/time set 1000")
+			if(a.time>=10000 && !(b.o.partial_op || b.o.deop)){
+				//b.ccq.push("/minecraft:time set 1000")
 			}
 		})
 		b.on("game_state_change",(a)=>{
@@ -24,28 +24,30 @@ module.exports={
 		})
 		b.on("success",()=>{
 			b.fi=setInterval(()=>{
-				if(b.pos.correct==0){
-					if(b.o.ccore_teleport){
-						b.send("/tp "+Math.floor(b.original_pos.x)+".0 "+b.original_pos.y+" "+Math.floor(b.original_pos.z)+".0");
-					}
-					b.send(`/fill ~2 0 ~2 ~-3 5 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`)
-					b.pos.correct=1
-				}
-				if(b.nwordsaid==1){
+				if(b.nwordsaid>=1){
 					//Big Blue Bubble will sue me if I keep this
-					//b.send("Air Island Mammott")
+					b.send("/minecraft:me Air Island Mammott")
 					b.nwordsaid=0
 				}
-				if(b.opped==0){
-					b.send("/op @s[type=player]")
-				}
 				if(b.usent==1){
-					b.ccq.push(`I am a bot and not a player. You can get a list of my commands by running ${b.prefix}help!`)
+					b.send(`I am a bot and not a player. You can get a list of my commands by running ${b.prefix}help.`)
 					b.usent=0
 				}
-				if(b.creativemode==0){
-					b.ccq.push("/gamemode creative")
-					b.creativemode=1
+				if(!b.o.partial_op && !b.o.deop){
+					if(b.o.cc_enabled && b.pos.correct==0){
+						/*if(b.o.ccore_teleport){
+							b.send("/tp "+Math.floor(b.original_pos.x)+".0 "+b.original_pos.y+" "+Math.floor(b.original_pos.z)+".0");
+						}*/
+						b.send(`/fill ~2 0 ~2 ~-3 5 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`)
+						b.pos.correct=1
+					}
+					if(b.opped==0){
+						b.send("/op @s[type=player]")
+					}
+					if(b.creativemode==0){
+						b.send("/gamemode creative")
+						b.creativemode=1
+					}
 				}
 			},600)
 		})
@@ -58,7 +60,6 @@ module.exports={
 				b.opped=0
 			} else if(p.entityId==b.entityId && p.entityStatus==28){
 				b.opped=1
-				console.log(b.opped)
 			}
 		})
 	},

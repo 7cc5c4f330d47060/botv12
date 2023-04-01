@@ -38,8 +38,12 @@ module.exports={
 		process.exit(2)
 	} else if(l.toLowerCase().startsWith("restart")){
 		process.exit(0)
+	} else if(l.toLowerCase().startsWith("hashes")){
+		for(let i=0;i<index.bots.length;i++){
+			console.log("Bot "+i+": "+index.bots[i].hash)
+		}
 	} else if(l.toLowerCase().startsWith("botcmd")){
-		index.bots[+(l.split(" ")[1])].rc(l.slice(8+l.split(" ")[1].length),"00000000-0000-0000-0000-Console00000","@a")
+		index.bots[+(l.split(" ")[1])].rc(l.slice(8+l.split(" ")[1].length),"ffffffff-ffff-ffff-ffff-ffffffffffff","Owner")
 	}
         //things.consolecmds[l.toString().toLowerCase().split(" ")[0]].command(l,things)
       }catch(e){

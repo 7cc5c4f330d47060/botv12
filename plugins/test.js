@@ -1,4 +1,5 @@
 const index=require("../index.js")
+const settings=require("../settings.json")
 module.exports={
 	load: function(){
 		index.p.testing=1.8
@@ -20,5 +21,7 @@ module.exports={
 				enableServerListing: false
 			})
 		})
+		b.send(`Version ${settings.version}`)
+		b.send(`current prefix: ${b.prefix}`)
 	}
 }
