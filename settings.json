@@ -1,7 +1,16 @@
 {
-	"name":"Air Island Mammott",
+	"name":"UBotv8",
 	"coreName":"U8 Core",
 	"secureMode":false,
-	"localhostOnly":false,
-	"version":"8.0.0-2"
+	"version":"8.0.0-3",
+	"fileLogging":true,
+	"discordLink":"https://discord.gg/",
+	"colors":{
+		"primary":"white",
+		"secondary":"gray",
+		"tertiary":"white",
+		"primaryDark":"gray",
+		"secondaryDark":"gold",
+		"tertiaryDark":"gray"
+	}
 }

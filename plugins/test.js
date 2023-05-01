@@ -1,12 +1,10 @@
-const index=require("../index.js")
-const settings=require("../settings.json")
+const settings=require("../settings.json");
 module.exports={
 	load: function(){
-		index.p.testing=1.8
 	},
 	load2: function(b){
 		b.leftHand=Math.random()<=0.1;
-		console.log(b.leftHand)
+		//console.log(b.leftHand)
 		if(b.leftHand){
 			//b.send("The bot is left handed!");
 		}
@@ -19,9 +17,9 @@ module.exports={
 				skinParts: 127,
 				mainHand: +!b.leftHand,
 				enableServerListing: false
-			})
-		})
-		b.send(`Version ${settings.version}`)
-		b.send(`current prefix: ${b.prefix}`)
+			});
+		});
+		b.send(`Version ${settings.version}`);
+		b.send(`current prefix: ${b.prefix}`);
 	}
-}
+};

