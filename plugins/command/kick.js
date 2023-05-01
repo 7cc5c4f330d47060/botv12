@@ -1,20 +1,22 @@
-const index=require("../../index.js")
+const {uuidToInt}=require("../commandblock.js");
+const {log_date}=require("../!message.js");
+const fs=require("fs");
 module.exports={
-	command:function(b,msg,sender,username){
-		const args=msg.split(" ")
-		if(args[1]=="@a" && args[1]=="confirm" && b.kickAllConfirm){
-			b.kickAllConfirm=0;
-			//b.ccq.push("/bcraw &bKicking all players in 10 seconds!")
-			setTimeout(()=>{b.ccq.push("/say @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e")},10000)
-		} else if(args[1]=="@a" && !b.kickAllConfirm){
-			b.kickAllConfirm=1;
+	command:function(b,msg){
+		const args=msg.split(" ");
+		if(args[1]=="@a"){
+			b.ccq.push(`/msg @a[nbt=!{UUID:[I;${uuidToInt(b.uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
+			b.send("Kicking all players");
 		} else {
-			b.ccq.push("/msg "+msg.split(" ")[1]+" @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e")
-			b.send("Kicking player "+msg.split(" ")[1])
+			b.kick(args[1]);
+			const d=new Date();
+			fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",log_date()+` Player ${args[1]} (no UUID) kicked (command)\n`);
+			b.send("Kicking player "+args[1]);
 		}
 	},
-	desc: "Testing command",
-	usage: "",
+	desc: "Kick a player",
+	usage: " <player>",
 	hidden: true,
 	verify: true
-}
+};
+//nbt={UUID:[I;${uuidToInt(uuid)}]}

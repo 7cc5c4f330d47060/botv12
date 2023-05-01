@@ -1,11 +1,10 @@
-const index=require("../index.js")
-const settings=require("../settings.json")
+const settings=require("../settings.json");
 const uuidToInt=function(uuid){
 	
-	const split_uuid=uuid.replace(/[^0-9a-f]/g,"").replace(/.{1,8}/g,a=>{return "0x"+a}).match(/.{1,10}/g);
-	const num_uuid=[+split_uuid[0]<<0,+split_uuid[1]<<0,+split_uuid[2]<<0,+split_uuid[3]<<0]
-	return num_uuid
-}
+	const split_uuid=uuid.replace(/[^0-9a-f]/g,"").replace(/.{1,8}/g,a=>{return "0x"+a;}).match(/.{1,10}/g);
+	const num_uuid=[+split_uuid[0]<<0,+split_uuid[1]<<0,+split_uuid[2]<<0,+split_uuid[3]<<0];
+	return num_uuid;
+};
 module.exports={
 	cs: 6,
 	uuidToInt,
@@ -14,15 +13,16 @@ module.exports={
 	},
 	load2: function(b){
 		if(!b.o.cc_enabled){
-			b.send("Joining to servers without command block permissions is still in beta. The bot may not work correctly.");
+			//b.send("Joining to servers without command block permissions is still in beta. The bot may not work correctly.");
+			b.message=b.send;
 			return;
 		}
 		/*if(b.o.ccore_teleport){
 			b.original_pos={x:Math.floor(Math.random()*2000000)-1000000,y:10,z:Math.floor(Math.random()*2000000)-1000000};
 			b.send("/tp "+Math.floor(b.original_pos.x)+".0 "+b.original_pos.y+" "+Math.floor(b.original_pos.z)+".0");
 		}*/
-		setTimeout(()=>{b.send(`/fill ~2 0 ~2 ~-3 5 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`)},10000)
-		b.cfqi=setInterval(()=>{b.send(`/fill ~2 0 ~2 ~-3 5 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`)},60000)
+		setTimeout(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`);},10000);
+		b.cfqi=setInterval(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`);},60000);
 		b.ccq=[];
 		b.blocknoX=0;
 		b.blocknoZ=0;
@@ -38,7 +38,7 @@ module.exports={
 		b.advanceccq=function(){
 			if(b.ccq[0] && b.ccq[0].length!=0){
 				b.write("update_command_block",{
-					command: b.ccq[0],
+					command: b.o.vanilla_cc?`/setblock ~ ~ ~ command_block{Command:"${b.ccq[0].replace(/\\/g,"\\\\").replace(/"/g,"\\\"")}",auto:1b}`:b.ccq[0],
 					location: {
 						x: b.commandPos.x1+b.blocknoX,
 						y: b.commandPos.y1+b.blocknoY,
@@ -62,22 +62,22 @@ module.exports={
 				//console.log(b.blocknoX,b.blocknoY,b.blocknoZ)
 				//console.log(b.blocknoX,b.blocknoZ)
 			}
-			b.ccq.splice(0,1)
-		}
+			b.ccq.splice(0,1);
+		};
 		b.on("position",function(a){
 			if(!b.ccStarted){
-				if(!b.o.ccore_teleport){
-					b.original_pos={x:a.x,y:a.y,z:a.z};
-				}
+				b.original_pos={x:a.x,y:a.y,z:a.z};
 				//console.log("started")
-				setTimeout(()=>{b.ccqi=setInterval(b.advanceccq,1)},3000); //3.6 Seconds
+				setTimeout(()=>{b.ccqi=setInterval(b.advanceccq,1);},3000); //3.6 Seconds
 				b.ccStarted=true;
+				b.pos={x:a.x,y:a.y,z:a.z,correct:1};
 			} else {
-				if(a.x!==b.original_pos.x || a.z!==b.original_pos.z){
+				b.pos={x:a.x,y:a.y,z:a.z,correct:1};
+				if(a.x!=b.original_pos.x || a.z!=b.original_pos.z){
+					b.original_pos={x:a.x,y:a.y,z:a.z};
 					b.pos.correct=0;
 				}
 			}
-			b.pos={x:a.x,y:a.y,z:a.z,correct:1}
 
 			//console.log(b.pos);
 			b.commandPos={
@@ -85,16 +85,31 @@ module.exports={
 				x2:Math.ceil(a.x)+3,
 				z1:Math.floor(a.z)-3,
 				z2:Math.ceil(a.z)+3,
-				y1:0,
-				y2:0
+				y1:10,
+				y2:10
 			};
 			//b.send("/fill ~5 0 ~5 ~-5 0 ~-5 command_block")
-		})
+		});
 		b.tellraw=(uuid,message)=>{
-			b.ccq.push(`/tellraw @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] ${message}`)
-		}
+			b.ccq.push(`/tellraw @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] ${message}`);
+		};
 		b.message=(message)=>{
-			b.ccq.push(`/tellraw @a {"translate":"chat.type.announcement","color":"aqua","with":[{"text":"${settings.name}","color":"#FF96FC"},{"text":"${message}","color":"#FF96FC"}]}`)
-		}
+			b.ccq.push(`/tellraw @a ${
+				JSON.stringify({
+					translate:"chat.type.announcement",
+					color:settings.colors.secondary,
+					with:[
+						{
+							text:settings.name,
+							color:settings.colors.primary
+						},
+						{
+							text:message,
+							color:settings.colors.tertiary
+						}
+					]
+				})
+			}`);
+		};
 	}
-}
+};
