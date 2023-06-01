@@ -8,12 +8,26 @@ module.exports={
 				text:"/"
 			});
 		});
-		b.on("tab_complete",(packet)=>{
+		b.on("tab_complete",(sex)=>{//sussy compatibility
+			if(sex.matches[0] && sex.matches[0].constructor==String){
+				let newArray=[];
+				for(const i in sex.matches){
+					newArray.push({match: sex.matches[i]});
+				}
+				b.emit("_tab_complete",{
+					matches: newArray,
+					transactionId: 1
+				});
+			} else {
+				b.emit("_tab_complete",sex);
+			}
+		});
+		b.on("_tab_complete",(packet)=>{
 			for(const i in packet.matches){
 				if(packet.matches[i].match=="totalfreedommod" ||
 				packet.matches[i].match=="/totalfreedommod" ||
 				packet.matches[i].match=="/totalfreedommod:tfm" ||
-				packet.matches[i].match=="totalfreedommod:tfm" ||
+				packet.matches[i].match=="totalfreedommod" ||
 				packet.matches[i].match=="totalfreedommod:tfm" ||
 				packet.matches[i].match.includes("totalfreedommod")){
 					b.chat("TotalFreedomMod detected, disconnecting.");

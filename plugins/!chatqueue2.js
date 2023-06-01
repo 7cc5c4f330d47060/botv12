@@ -42,10 +42,8 @@ module.exports={
 			b.chatqueue.splice(0,1);
 		};
 		b.send=function(msg){
-			//			console.log(msg)
 			const msgs=msg.match(b.chatqueue_regex);
 			for(let i in msgs){
-				//				console.log(123)
 				b.chatqueue.push(msgs[i].replace(/[\xa7\x00-\x1f\x7f-\x9f]/g,"ÿ"));
 			}
 		};

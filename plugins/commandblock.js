@@ -1,4 +1,5 @@
 const settings=require("../settings.json");
+const message=require("./!message.js");
 const uuidToInt=function(uuid){
 	
 	const split_uuid=uuid.replace(/[^0-9a-f]/g,"").replace(/.{1,8}/g,a=>{return "0x"+a;}).match(/.{1,10}/g);
@@ -12,17 +13,36 @@ module.exports={
 	
 	},
 	load2: function(b){
+		b.message=(message)=>{
+			b.tellraw("@a",JSON.stringify({
+					translate:"chat.type.announcement",
+					color:settings.colors.secondary,
+					with:[
+						{
+							text:settings.name,
+							color:settings.colors.primary
+						},
+						{
+							text:message,
+							color:settings.colors.tertiary
+						}
+					]
+				})
+			);
+		};
 		if(!b.o.cc_enabled){
 			//b.send("Joining to servers without command block permissions is still in beta. The bot may not work correctly.");
-			b.message=b.send;
+			b.tellraw=function(__sender,text){
+				b.send(message.parse(JSON.parse(text))[2].replace(/\u00a7/g,"&"));
+			}
 			return;
 		}
 		/*if(b.o.ccore_teleport){
 			b.original_pos={x:Math.floor(Math.random()*2000000)-1000000,y:10,z:Math.floor(Math.random()*2000000)-1000000};
 			b.send("/tp "+Math.floor(b.original_pos.x)+".0 "+b.original_pos.y+" "+Math.floor(b.original_pos.z)+".0");
 		}*/
-		setTimeout(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`);},10000);
-		b.cfqi=setInterval(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`);},60000);
+		setTimeout(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);},10000);
+		b.cfqi=setInterval(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);},60000);
 		b.ccq=[];
 		b.blocknoX=0;
 		b.blocknoZ=0;
@@ -38,13 +58,23 @@ module.exports={
 		b.advanceccq=function(){
 			if(b.ccq[0] && b.ccq[0].length!=0){
 				b.write("update_command_block",{
-					command: b.o.vanilla_cc?`/setblock ~ ~ ~ command_block{Command:"${b.ccq[0].replace(/\\/g,"\\\\").replace(/"/g,"\\\"")}",auto:1b}`:b.ccq[0],
+					command: b.ccq[0],
 					location: {
 						x: b.commandPos.x1+b.blocknoX,
 						y: b.commandPos.y1+b.blocknoY,
 						z: b.commandPos.z1+b.blocknoZ
 					},
-					mode: 1,
+					mode: 2,
+					flags: 1
+				});
+				b.write("update_command_block",{
+					command: b.ccq[0],
+					location: {
+						x: b.commandPos.x1+b.blocknoX,
+						y: b.commandPos.y1+b.blocknoY,
+						z: b.commandPos.z1+b.blocknoZ
+					},
+					mode: b.o.vanilla_cc?2:1,
 					flags: 5
 				});
 				b.blocknoX++;
@@ -91,25 +121,18 @@ module.exports={
 			//b.send("/fill ~5 0 ~5 ~-5 0 ~-5 command_block")
 		});
 		b.tellraw=(uuid,message)=>{
-			b.ccq.push(`/tellraw @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] ${message}`);
-		};
-		b.message=(message)=>{
-			b.ccq.push(`/tellraw @a ${
-				JSON.stringify({
-					translate:"chat.type.announcement",
-					color:settings.colors.secondary,
-					with:[
-						{
-							text:settings.name,
-							color:settings.colors.primary
-						},
-						{
-							text:message,
-							color:settings.colors.tertiary
-						}
-					]
-				})
-			}`);
+			let finalname="";
+			if(uuid=="@a"){
+				finalname="@a";
+			} else if(uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/) && b.o.legacy_cc){
+				finalname=b.players[uuid][1];
+			} else if(uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)){
+				finalname=`@a[nbt={UUID:[I;${uuidToInt(uuid)}]}]`;
+			} else {
+				finalname=uuid;
+			}
+			b.ccq.push(`/tellraw ${finalname} ${message}`);
 		};
 	}
 };
+/*b.o.vanilla_cc?`/setblock ~ ~ ~ command_block{Command:"${b.ccq[0].replace(/\\/g,"\\\\").replace(/"/g,"\\\"")}",auto:1b}`:*/

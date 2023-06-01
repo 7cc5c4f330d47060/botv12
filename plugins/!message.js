@@ -1,5 +1,6 @@
 const index=require("../index.js");
 const wordbl=require("../wordblacklist.json");
+const wl=require("../whitelist.json");
 const settings=require("../settings.json");
 let wordbl2=[];
 for(let i in wordbl){
@@ -67,6 +68,7 @@ const cp=function(c){
 			textConsole+="\x1b[48;5;15m";
 		}
 		textConsole+=`\x1b[38;2;${red};${green};${blue}m`;
+		textMC+=`\xa7${c.substring(0,7)}`;
 	} else if(c=="black"){
 		textConsole+="\x1b[0m\x1b[38;5;0m\x1b[48;5;15m";
 		textMC+="\xa70";
@@ -132,18 +134,48 @@ const j=function(msg,l){
 	let textClear="";
 	let textConsole="";
 	let textMC="";
+	if(msg.constructor==Array){
+		for(const i in msg){
+			const msg2=j(msg[i]);
+			textClear+=msg2[0];
+			textConsole+=msg2[1];
+			textMC+=msg2[2];
+		}
+	}
 	if(msg===undefined){
 		return ["undefined","undefined","undefined"];
 	}
-	if(msg.color){
+/*	if(msg.color){
 		const c2=cp(msg.color);
 		textConsole+=c2[0];
+		textConsole=textConsole.replace(/\n/g,"\n"+c2[0]);
 		textMC+=c2[1];
+	}*/
+	if(msg.obfuscated){
+		textMC+="\xa7k";
+	}
+	if(msg.bold){
+		textMC+="\xa7l";
+	}
+	if(msg.strikethrough){
+		textMC+="\xa7m";
+	}
+	if(msg.underlined){
+		textMC+="\xa7n";
+	}
+	if(msg.italic){
+		textMC+="\xa7o";
 	}
 	if(msg.text){
 		textClear+=msg.text;
 		textConsole+=msg.text.replace(/\u001b/g,"[ESC]");
 		textMC+=msg.text;
+	}
+	if(msg.color){
+		const c2=cp(msg.color);
+		textConsole=c2[0]+textConsole;
+		textConsole=textConsole.replace(/\n/g,"\n"+c2[0]);
+		textMC=c2[1]+textMC;
 	}
 	if(msg.translate){
 		let color1="";
@@ -152,6 +184,21 @@ const j=function(msg,l){
 			const c2=cp(msg.color);
 			color1=c2[0];
 			color2=c2[1];
+			if(msg.obfuscated){
+				color2+="\xa7k";
+			}
+			if(msg.bold){
+				color2+="\xa7l";
+			}
+			if(msg.strikethrough){
+				color2+="\xa7m";
+			}
+			if(msg.underlined){
+				color2+="\xa7n";
+			}
+			if(msg.italic){
+				color2+="\xa7o";
+			}
 		} else {
 			const c2=cp("reset");
 			color1=c2[0];
@@ -167,40 +214,40 @@ const j=function(msg,l){
 		}
 		for(let i in msg.with){
 			const j2=j(msg.with[i],l+1);
-			trans=trans.replace(/%s/,j2[0].replace(/%s/g,"\ue124"));
-			trans2=trans2.replace(/%s/,j2[1].replace(/%s/g,"\ue124")+color1);
-			trans3=trans3.replace(/%s/,j2[2].replace(/%s/g,"\ue124")+color2);
+			trans=trans.replace(/%s/,j2[0].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+			trans2=trans2.replace(/%s/,j2[1].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125")+color1);
+			trans3=trans3.replace(/%s/,j2[2].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125")+color2);
 		}
 		//%n$s only goes up to 4 normally
 		if(msg.with){
 			if(msg.with[0]){
 				const j2_1=j(msg.with[0],l+1);
-				trans=trans.replace(/%1\$s/g,j2_1[0].replace(/%s/g,"\ue124"));
-				trans2=trans2.replace(/%1\$s/g,j2_1[1].replace(/%s/g,"\ue124"));
-				trans3=trans3.replace(/%1\$s/g,j2_1[2].replace(/%s/g,"\ue124"));
+				trans=trans.replace(/%1\$s/g,j2_1[0].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans2=trans2.replace(/%1\$s/g,j2_1[1].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans3=trans3.replace(/%1\$s/g,j2_1[2].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
 			}
 			if(msg.with[1]){
 				const j2_2=j(msg.with[1],l+1);
-				trans=trans.replace(/%2\$s/g,j2_2[0].replace(/%s/g,"\ue124"));
-				trans2=trans2.replace(/%2\$s/g,j2_2[1].replace(/%s/g,"\ue124"));
-				trans3=trans3.replace(/%2\$s/g,j2_2[2].replace(/%s/g,"\ue124"));
+				trans=trans.replace(/%2\$s/g,j2_2[0].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans2=trans2.replace(/%2\$s/g,j2_2[1].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans3=trans3.replace(/%2\$s/g,j2_2[2].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
 			}
 			if(msg.with[2]){
 				const j2_3=j(msg.with[2],l+1);
-				trans=trans.replace(/%3\$s/g,j2_3[0].replace(/%s/g,"\ue124"));
-				trans2=trans2.replace(/%3\$s/g,j2_3[1].replace(/%s/g,"\ue124"));
-				trans3=trans3.replace(/%3\$s/g,j2_3[2].replace(/%s/g,"\ue124"));
+				trans=trans.replace(/%3\$s/g,j2_3[0].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans2=trans2.replace(/%3\$s/g,j2_3[1].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans3=trans3.replace(/%3\$s/g,j2_3[2].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
 			}
 			if(msg.with[3]){
 				const j2_4=j(msg.with[3],l+1);
-				trans=trans.replace(/%4\$s/g,j2_4[0].replace(/%s/g,"\ue124"));
-				trans2=trans2.replace(/%4\$s/g,j2_4[1].replace(/%s/g,"\ue124"));
-				trans3=trans3.replace(/%4\$s/g,j2_4[2].replace(/%s/g,"\ue124"));
+				trans=trans.replace(/%4\$s/g,j2_4[0].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans2=trans2.replace(/%4\$s/g,j2_4[1].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
+				trans3=trans3.replace(/%4\$s/g,j2_4[2].replace(/%s/g,"\ue124").replace(/\$s/g,"\ue125"));
 			}
 		}
-		textClear+=trans.replace(/\ue123/g,"%%").replace(/\ue124/g,"%s");
-		textConsole+=trans2.replace(/\ue123/g,"%%").replace(/\ue124/g,"%s");
-		textMC+=trans3.replace(/\ue123/g,"%%").replace(/\ue124/g,"%s");
+		textClear+=trans.replace(/%([0-9]*\$){0,1}s/g,"").replace(/\ue123/g,"%").replace(/\ue124/g,"%s").replace(/\ue125/g,"$s");
+		textConsole+=trans2.replace(/%([0-9]*\$){0,1}s/g,"").replace(/\ue123/g,"%").replace(/\ue124/g,"%s").replace(/\ue125/g,"$s").replace(/\n/g,"\n"+color1);
+		textMC+=trans3.replace(/%([0-9]*\$){0,1}s/g,"").replace(/\ue123/g,"%").replace(/\ue124/g,"%s").replace(/\ue125/g,"$s");
 	}
 	if(msg.extra){
 		for(let i in msg.extra){
@@ -208,6 +255,21 @@ const j=function(msg,l){
 				const c2=cp(msg.color);
 				textConsole+=c2[0];
 				textMC+=c2[1];
+				if(msg.obfuscated){
+					textMC+="\xa7k";
+				}
+				if(msg.bold){
+					textMC+="\xa7l";
+				}
+				if(msg.strikethrough){
+					textMC+="\xa7m";
+				}
+				if(msg.underlined){
+					textMC+="\xa7n";
+				}
+				if(msg.italic){
+					textMC+="\xa7o";
+				}
 			} else {
 				const c2=cp("reset");
 				textConsole+=c2[0];
@@ -229,13 +291,6 @@ const j=function(msg,l){
 const includesNWord=function(msg2){
 	const msg=msg2.replace(/[;:!|]/g,"i")
 		.toLowerCase();
-	if(msg.includes("nigg") ||
-	msg.includes("fag") ||
-	msg.includes("trann") ||
-	msg.includes("卐") ||
-	msg.includes("卍")){
-		return true;
-	}
 	for(let i in wordbl2){
 		if(msg.includes(wordbl2[i])){
 			return true;
@@ -267,7 +322,10 @@ module.exports={
 		b.antispam=0;
 		b.msgblacklist=[];
 		if(!b.o.msg_split){
-			b.o.msg_split=": ";
+			b.o.msg_split="§r:§r §r";
+		}
+		if(!b.o.msg_split_clear){
+			b.o.msg_split_clear=": ";
 		}
 		b.on("kick_disconnect", function(p){
 			console.log(`Bot ${b.id} kicked: ${j(JSON.parse(p.reason))[0]}`);
@@ -369,7 +427,7 @@ module.exports={
 				console.log("[Chat/"+b.id+"] "+console_msg[i]);
 				const fw=new Date(Date.now());
 				if(settings.fileLogging && b.o.fileLogging){
-					fs.appendFileSync("UBotLogs/"+fw.getUTCDate()+"_"+(fw.getUTCMonth()+1)+"_"+fw.getUTCFullYear()+"/chat_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" "+filemsg+"\n");
+					fs.appendFileSync("UBotLogs/"+fw.getUTCDate()+"_"+(fw.getUTCMonth()+1)+"_"+fw.getUTCFullYear()+"/chat_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" "+filemsg[i]+"\n");
 				}
 				if(index.p.readlineLoaded){
 					index.p.rl.prompt(true);
@@ -391,11 +449,12 @@ module.exports={
 								}
 							}
 						}
-						if(uuid==b.uuid || uuid=="Invalid UUID") return;
-						b.kick(username,uuid);
-						const d=new Date();
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+` Player ${username} (${uuid}) kicked (message)\n`);
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg+"\n");
+						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(username)) return;
+						b.kick(username,uuid,"message");
+						if(b.o.kick_method!="none"){
+							const d=new Date();
+							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
+						}
 						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
 						b.nwordsaid=2;
 					}
@@ -412,7 +471,7 @@ module.exports={
 						}
 						const command_s=command_full.slice(b.prefix.length);
 						//b.send("Command: "+command_s+" from UUID "+uuid)
-						b.emit("command_u",command_s,uuid,username);//MSG.sender)
+						b.emit("command_u",command_s.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_s);//MSG.sender)
 					}
 				} else if(JSON.parse(MSG.content).translate=="[%s] %s › %s"){
 					const split=JSON.parse(MSG.content);
@@ -426,11 +485,12 @@ module.exports={
 								}
 							}
 						}
-						if(uuid==b.uuid || uuid=="Invalid UUID") return;
-						b.kick(username,uuid);
-						const d=new Date();
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+` Player ${username} (${uuid}) kicked (message)\n`);
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg+"\n");
+						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(username)) return;
+						b.kick(username,uuid,"message");
+						if(b.o.kick_method!="none"){
+							const d=new Date();
+							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
+						}
 						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
 						b.nwordsaid=2;
 					}
@@ -447,48 +507,61 @@ module.exports={
 						}
 						const command_s=command_full.slice(b.prefix.length);
 						//b.send("Command: "+command_s+" from UUID "+uuid)
-						b.emit("command_u",command_s,uuid,username);//MSG.sender)
+						b.emit("command_u",command_s.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_s);//MSG.sender)
 					}
 				} else {
-					const split=msgs[0].split(b.o.msg_split);
+					const split=msgs[2].split(b.o.msg_split);
+					const splitClear=msgs[0].split(b.o.msg_split_clear);
 					const prefix=split[0];
+					const prefixClear=splitClear[0];
 					const username=prefix.split(" ")[prefix.split(" ").length-1];
+					const usernameClear=prefixClear.split(" ")[prefixClear.split(" ").length-1];
 					if(b.nwordsaid==1){
 						if(!MSG._ubot_uuid){
 							for(let i in b.players){
 								if(prefix==b.players[i][0] && !b.o.legacy_name){
 									uuid=i;
-								} else if (username==b.players[i][1]){
+									//console.log(3);
+								} else if (usernameClear==b.players[i][1]){
 									uuid=i;
 								}
 							}
 						}
-						if(uuid==b.uuid || uuid=="Invalid UUID") return;
-						b.kick(username,uuid);
-						const d=new Date();
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+` Player ${username} (${uuid}) kicked (message)\n`);
-						fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg+"\n");
+						
+						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(usernameClear)) return;
+						b.kick(usernameClear,uuid,"message");
+						if(b.o.kick_method!="none"){
+							const d=new Date();
+							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
+						}
 						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
 						b.nwordsaid=2;
 					}
-					const command_full=msgs[0].slice(prefix.length+b.o.msg_split.length);
+					const command_full=msgs[2].slice(prefix.length+b.o.msg_split.length);
+					const command_full_c=msgs[0].slice(prefixClear.length+b.o.msg_split_clear.length);
+					//console.log(command_full);
 					if(command_full==b.username){
 						b.usent=1;
 					}
 					//console.log(command_full)
+					let username2;
 					if(command_full.startsWith(b.prefix)){
 						if(!MSG._ubot_uuid){
 							for(let i in b.players){
 								if(prefix==b.players[i][0] && !b.o.legacy_name){
+									//b.send("say gex")
 									uuid=i;
-								} else if (username==b.players[i][1]){
+									username2=b.players[i][1];
+								} else if (usernameClear==b.players[i][1]){
 									uuid=i;
 								}
 							}
 						}
-						const command_s=command_full.slice(b.prefix.length);
+						let command_s=command_full.slice(b.prefix.length);
+						let command_s_c=command_full_c.slice(b.prefix.length);
+						if(command_s.endsWith("\xa7r")) command_s=command_s.slice(0,command_s.length-2);
 						//b.send("Command: "+command_s+" from UUID "+MSG.sender)
-						b.emit("command_u",command_s,uuid,username);//MSG.sender)
+						b.emit("command_u",command_s/*.replace(/\u00a7/g,"&")*/,uuid,username2?username2:usernameClear,command_s_c);//MSG.sender)
 					}
 				}
 			}

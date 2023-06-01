@@ -15,7 +15,7 @@ module.exports={
 		const players=Object.keys(b.players_o);
 		//b.send("Command: "+msg+" from UUID "+sender+" ("+username+")")
 		if(b.o.sudo_username){
-			if(b.o.partial_op || b.o.deop){
+			if(b.o.partial_op || b.o.deop || !b.o.cc_enabled){
 				for(let i in players){
 					b.send(`/sudo ${b.players_o[players[i]].name} ${msg.slice(1+args[0].length)}`);
 				}
@@ -25,7 +25,7 @@ module.exports={
 				}
 			}
 		} else {
-			if(b.o.partial_op || b.o.deop){
+			if(b.o.partial_op || b.o.deop || !b.o.cc_enabled){
 				for(let i in players){
 					b.send(`/sudo ${players[i]} ${msg.slice(1+args[0].length)}`);
 				}
