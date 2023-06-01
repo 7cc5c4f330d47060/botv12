@@ -1,4 +1,7 @@
 //Source code of the shittiest free-OP server bot.
+//If you found this file, please stop reading it. The source code
+//below is guaranteed to be bad. People have died reading just this
+//index.js file. /j
 
 //Global options (settings.json):
 //name: Bot name
@@ -18,6 +21,7 @@ const mp=require("minecraft-protocol");
 const fs=require("fs");
 const crypto=require("crypto");
 const servers=require("./servers.json");
+const settings=require("./settings.json");
 if(servers.length==0){
 	console.log("There are no servers in servers.json. Please add a server.");
 	process.exit(1);
@@ -26,9 +30,9 @@ const cp=require("child_process");
 //const os=require("os")
 const op=process.platform;//();
 
-const isLinux=(op=="linux" || op=="android");
+//const isLinux=(op=="linux" || op=="android");
 const isAndroid=(op=="android");
-const isWindows=(op=="win32");
+//const isWindows=(op=="win32");
 let android_sdk;
 let android_version;
 if(isAndroid){
@@ -71,9 +75,13 @@ const usernameGen=(legal)=>{
 	let prefix;
 	if(legal){
 		//prefix="UBotv8_"
-		return en[Math.floor(Math.random()*en.length)]+en[Math.floor(Math.random()*en.length)]+Math.floor(Math.random()*10)+"_";
+		return en[Math.floor(Math.random()*en.length)]+en[Math.floor(Math.random()*en.length)]+(Math.floor(Math.random()*90)+10);
 	} else {
-		prefix="distance=";
+		//new allink extras
+		//const selectors=["a","e","p","r","s"];
+		//prefix=`@${selectors[Math.floor(Math.random()*selectors.length)]}[distance=`
+		//prefix="distance=";
+		prefix="@a[bb_"
 	}
 	const chars=16-prefix.length;
 	const suffix=rb(chars);
@@ -85,7 +93,7 @@ const createBot=(h,p,o)=>{
 	//legacy_name: Uses just player name rather than prefix+player name to determine sender UUID
 	//ccore_teleport: Teleport for command core. Disable on servers which slow down when unloaded chunks are loaded.
 	//autocrash: Crash the server
-	//om: Online mode (unused)	
+	//om: Online mode
 	//cc_enabled: Enable command core
 	//partial_op: Enable joining to servers with reduced permissions
 	//deop: Enable joining to servers with reduced permissions
@@ -97,10 +105,15 @@ const createBot=(h,p,o)=>{
 	//version: Minecraft version to join as (default: 1.19.2)
 	//vanilla_cc: Use setblock for command core
 	//sudo_username: Whether to use username or uuid for sudo command
-	//command_time: Command cooldown, in milliseconds (default:2500)
+	//command_time: Command cooldown, in milliseconds (default: 2500)
 	//discord_enabled: Enable Discord bridge for this bot
 	//discord_channel: Discord channel to send messages to
 	//kick_method: Method used to kick players
+	//startup_disabled: Disable version/prefix announcement
+	//netmsg_disabled: Disable global broadcast commands, such as netmsg
+	//commands_disabled: Disable commands
+	//ad_rate: Rate at which the help command/Discord server are advertised
+	//nocheck: Disables checks of various things ("self care")
 	if(o.disabled){
 		console.log("[Info] Bot connecting to "+h+":"+(p?p:25565)+" is not enabled.");
 		return 4;
@@ -108,12 +121,14 @@ const createBot=(h,p,o)=>{
 	const b=mp.createClient({
 		host:h,
 		port:p,
-		username:usernameGen(o.legal_username),
+		username:o.om?settings.onlineuser:usernameGen(o.legal_username),
+		password:o.om?settings.onlinepass:null,
+		auth: o.om?"microsoft":"offline",
 		version: o.version?o.version:"1.19.2"
 	});
 	b.o=o;
 	b.on("error",(e)=>{
-		console.log(e);
+		console.log(`[Error/${b.id}] ${e}`);
 	});
 	b.host=h;
 	b.port=p;
@@ -135,7 +150,7 @@ module.exports.secure=secureMode;
 global.loadplug=(botno)=>{
 	let botplug=[];
 	const bpl=fs.readdirSync("plugins");
-	for(var i in bpl){
+	for(const i in bpl){
 		if(!bpl[i].endsWith(".js")){
 			continue;
 		}

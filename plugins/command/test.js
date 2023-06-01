@@ -3,13 +3,9 @@ module.exports={
 	command:function(b,msg,sender,username){
 		const args=msg.split(" ");
 		//b.send("Command: "+msg+" from UUID "+sender+" ("+username+")")
-		if(b.o.partial_op || b.o.deop || args[1]=="--say" || args[1]=="-s"){
-			b.send("Command: "+msg+" from UUID "+sender+" ("+username+")");
-			return;
-		}
 		b.tellraw(sender,JSON.stringify({
 			translate:"Command: %s from UUID %s (%s)",
-			color:settings.colors.primary,
+			color:settings.colors.secondary,
 			with:[
 				{
 					text:msg,

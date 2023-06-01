@@ -1,40 +1,271 @@
 const index=require("../../index.js");
 const settings=require("../../settings.json");
+const processColorCode=function(code){
+	if(code=="r"){
+		return {
+			color:"white",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="l"){
+		return {bold:true};
+	} else if(code=="m"){
+		return {strikethrough:true};
+	} else if(code=="n"){
+		return {underlined:true};
+	} else if(code=="o"){
+		return {italic:true};
+	} else if(code=="1"){
+		return {
+			color:"dark_blue",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="2"){
+		return {
+			color:"dark_green",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="3"){
+		return {
+			color:"dark_aqua",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="4"){
+		return {
+			color:"dark_red",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="5"){
+		return {
+			color:"dark_purple",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="6"){
+		return {
+			color:"gold",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="7"){
+		return {
+			color:"gray",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="8"){
+		return {
+			color:"dark_gray",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="9"){
+		return {
+			color:"blue",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="a"){
+		return {
+			color:"green",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="b"){
+		return {
+			color:"aqua",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="c"){
+		return {
+			color:"red",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="d"){
+		return {
+			color:"light_purple",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="e"){
+		return {
+			color:"yellow",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code=="f"){
+		return {
+			color:"white",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	} else if(code.startsWith("#")){
+		return {
+			color:code,
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+	}
+};
 module.exports={
 	command:function(b,msg,sender,username){
 		const args=msg.split(" ");
 		let username2="@a";
 		let msg2=msg.slice(1+args[0].length);
+		let ndc=0;
 		if(args[1]=="-u" || args[1]=="--user"){
 			msg2=msg.slice(3+args[0].length+args[1].length+args[2].length);
 			username2=`@a[name=${args[2].substring(0,16)}]`;
 		}
-		if(msg2==""){
-			if(b.o.partial_op || b.o.deop || !b.o.cc_enabled){
-				b.send("You must provide a message!");
+
+		let message_colorcoded=[];
+		let msg3=msg2.split("\xa7");
+		message_colorcoded.push({
+			text:msg3.splice(0,1)[0],
+			color:"white",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		});
+		let message_colorcoded_2={
+			text:"",
+			color:"white",
+			bold:false,
+			italic:false,
+			underlined:false,
+			strikethrough:false,
+			obfuscated:false
+		};
+		for(const i in msg3){
+			if(msg3[i].length==1){
+				let precode;
+				if(msg3[i][0]=="#"){
+					precode=msg3[i].substring(0,7);
+				} else {
+					precode=msg3[i].substring(0,1);
+				}
+				const code=processColorCode(precode);
+				for(const j in code){
+					message_colorcoded_2[j]=code[j];
+				}
 			} else {
-				b.tellraw(sender,JSON.stringify({
-					text:"You must provide a message!",
-					color:settings.colors.primary
-				}));
+				let precode;
+				if(msg3[i][0]=="#"){
+					precode=msg3[i].substring(0,7);
+				} else {
+					precode=msg3[i].substring(0,1);
+				}
+				const code=processColorCode(precode);
+				for(const j in code){
+					message_colorcoded_2[j]=code[j];
+				}
+				if(precode.startsWith("#")){
+					message_colorcoded_2.hoverEvent={
+						action:"show_text",
+						contents:{
+							text:`This text may be hard to read if the color code is that of a dark color.\n\nOriginal text: ${msg3[i].slice(precode.length)}`
+						}
+					};
+				}
+				message_colorcoded_2.text=msg3[i].slice(precode.length);
+				message_colorcoded.push(message_colorcoded_2);
+				message_colorcoded_2={
+					text:"",
+					color:message_colorcoded_2.color,
+					bold:message_colorcoded_2.bold,
+					italic:message_colorcoded_2.italic,
+					underlined:message_colorcoded_2.underlined,
+					strikethrough:message_colorcoded_2.strikethrough,
+					obfuscated:false
+				};
 			}
+		}
+		//console.log(message_colorcoded);
+
+		if(msg2==""){
+			b.tellraw(sender,JSON.stringify({
+				text:"You must provide a message!",
+				color:settings.colors.primary
+			}));
 			return;
 		}
 		for(let i in index.bots){
-			if(index.bots[i].o.cc_enabled && index.bots[i].real){
-				index.bots[i].ccq.push(`/tellraw ${username2} ${
-					JSON.stringify(
+			if(index.bots[i].o.netmsg_disabled){
+				ndc++;
+				continue;
+			}
+			if(index.bots[i].real){
+				index.bots[i].tellraw(username2,JSON.stringify(
 						{
 							translate:"[%s:%s] %s%s%s",
 							color:settings.colors.secondary,
 							clickEvent:{
 								action:"suggest_command",
-								value:(b.prefix+"netmsg -u "+username+" <message>")
+								value:(b.prefix+"netmsg -u "+username+" ")
 							},
 							hoverEvent:{
 								action:"show_text",
 								contents:{
-									"text":`Click to reply to ${username}`
+									"text":sender=="Invalid UUID"?"This message may not be real. The player sending it has no UUID.":`Click to reply to ${username}`
 								}
 							},
 							"with":[
@@ -54,22 +285,22 @@ module.exports={
 									text:" › ",
 									color:settings.colors.tertiaryDark
 								},
-								{
-									text:msg2.replace(/netmsg/gi,"nеtmsg"),
-									color:settings.colors.tertiary
-								}
+								message_colorcoded
 							]
 						}
 					).replace(/distance=/g,"distance\\u003d")
-				}`);
-			} else if(index.bots[i].real){
-				index.bots[i].send((`[${b.host}:${b.port}] ${username}: ${msg2}`).slice(0,b.o.chatqueue_split)); //prevent commands being run on these servers
+				);
 			}
+		}
+		if(ndc!=0){
+			//b.message(`Netmsg has been disabled in ${ndc} server${ndc==1?"":"s"}.`)
 		}
 	},
 	desc: "Send a message to all connected servers",
 	usage: " [-u USER] <message>",
-	hidden: false
+	hidden: false,
+	format: true,
+	processColorCode
 };
 
 /*

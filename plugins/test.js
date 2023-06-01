@@ -19,7 +19,9 @@ module.exports={
 				enableServerListing: false
 			});
 		});
-		b.send(`Version ${settings.version}`);
-		b.send(`current prefix: ${b.prefix}`);
+		if(!b.o.startup_disabled){
+			b.send(`Version ${settings.version}`);
+			b.send(`current prefix: ${b.prefix}`);
+		}
 	}
 };

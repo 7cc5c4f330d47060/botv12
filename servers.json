@@ -10,8 +10,9 @@
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086462628307681330",
-			"kick_method":"msg@e",
-			"fileLogging":true
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1
 		}
 	},
 	{
@@ -22,14 +23,15 @@
 			"legacy_name":false,
 			"ccore_teleport":true,
 			"autocrash":false,
-			"disabled":false,
+			"disabled":true,
 			"cc_enabled":true,
 			"hidden":true,
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086488318834917566",
-			"kick_method":"msg@e",
-			"fileLogging":true
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1
 		}
 	},
 	{
@@ -43,8 +45,9 @@
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086488449059655772",
-			"kick_method":"msg@e",
-			"fileLogging":true
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1
 		}
 	},
 	{
@@ -53,38 +56,32 @@
 		"opt":{
 			"om":false,
 			"disabled":true,
-			"legacy_name":true,
+			"legacy_name":false,
 			"ccore_teleport":true,
 			"cc_enabled":true,
 			"hidden":false,
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086488500905451641",
-			"kick_method":"msg@e",
-			"fileLogging":true
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1
 		}
 	},
 	{
-		"host":"sus.shhnowisnottheti.me",
-		"port":"25565",
+		"host":"167.235.79.88",
+		"port":"49309",
 		"opt":{
 			"om":false,
-			"disabled":true,
-			"legacy_name":true,
-			"ccore_teleport":false,
+			"disabled":false,
+			"fileLogging":true,
+			"hidden":false,
 			"cc_enabled":false,
-			"partial_op":true,
-			"legal_username":true,
-			"chatqueue_split":100,
-			"chatqueue_speed":300,
-			"msg_split":" » ",
-			"command_time":4000,
-			"sudo_username":true,
-			"version": "1.10.2",
-			"discord_enabled":true,
-			"discord_channel":"1086488591233986671",
-			"kick_method":"none",
-			"fileLogging":false
+			"version":"1.19.2",
+			"discord_channel":null,
+			"legal_username":false,
+			"kick_method":"item",
+			"ad_rate":-1
 		}
 	},
 	{
@@ -100,11 +97,13 @@
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086488675975696416",
-			"kick_method":"msg@e",
-			"fileLogging":true
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1
 		}
 	},
 	{
+		"host2":"",
 		"host":"discordtonystark.com",
 		"port":"25565",
 		"opt":{
@@ -115,25 +114,66 @@
 			"cc_enabled":true,
 			"version":"1.19.2",
 			"discord_channel":null,
-			"kick_method":"msg@e"
+			"kick_method":"item",
+			"ad_rate":-1
 		}
 	},
 	{
 		"host":"localhost",
 		"port":"25565",
 		"opt":{
-			"om":false,
+			"om":true,
 			"disabled":true,
 			"legacy_name":true,
 			"cc_enabled":true,
 			"hidden":false,
-			"chatqueue_speed":1,
+			"vanilla_cc":false,
+			"legacy_cc":true,
+			"version":"1.19.2",
+			"discord_enabled":true,
+			"discord_channel":"1086536029487497316",
+			"fileLogging":true,
+			"legal_username":false,
+			"ad_rate":-1,
+			"msg_split":"§r: §r"
+		}
+	},
+	{
+		"host":"eaglerboom.chipmunk.land",
+		"port":"25569",
+		"opt":{
+			"om":false,
+			"disabled":false,
+			"legacy_name":true,
+			"cc_enabled":true,
+			"hidden":false,
 			"vanilla_cc":false,
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086536029487497316",
 			"fileLogging":true,
-			"legal_username":true
+			"legal_username":false,
+			"ad_rate":-1
+		}
+	},
+	{
+		"host":"191.17.46.5",
+		"port":"25565",
+		"opt":{
+			"om":true,
+			"disabled":true,
+			"ccore_teleport":false,
+			"version":"1.7.10",
+			"discord_enabled":false,
+			"discord_channel":"1086462628307681330",
+			"kick_method":"none",
+			"fileLogging":true,
+			"ad_rate":-1,
+			"nocheck":true,
+			"cc_enabled":false,
+			"chatqueue_split":100,
+			"msg_split":"§rÂ§r: ",
+			"msg_split_clear":"Â: "
 		}
 	}
 ]

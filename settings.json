@@ -2,9 +2,10 @@
 	"name":"UBotv8",
 	"coreName":"U8 Core",
 	"secureMode":false,
-	"version":"8.0.0-3",
+	"version":"8.0.0-4",
 	"fileLogging":true,
-	"discordLink":"https://discord.gg/",
+	"discordLink":"https://youtube.com/watch?v=dQw4w9WgXcQ",
+	"saygex":"https://discord.gg/",
 	"colors":{
 		"primary":"white",
 		"secondary":"gray",
@@ -12,5 +13,13 @@
 		"primaryDark":"gray",
 		"secondaryDark":"gold",
 		"tertiaryDark":"gray"
-	}
+	},
+	"onlineuser":"",
+	"onlinepass":"",
+	"ads":[
+		"UBotv8 prefix is %prefix%, type %prefix%help for help.",
+		"Join the Discord server at %discord%!"
+	],
+	"sbotKey":"",
+	"prefix":"\""
 }
