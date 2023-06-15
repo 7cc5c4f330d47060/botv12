@@ -29,7 +29,8 @@ module.exports={
 				packet.matches[i].match=="/totalfreedommod:tfm" ||
 				packet.matches[i].match=="totalfreedommod" ||
 				packet.matches[i].match=="totalfreedommod:tfm" ||
-				packet.matches[i].match.includes("totalfreedommod")){
+				packet.matches[i].match.includes("totalfreedommod") ||
+				packet.matches[i].match.includes("freedom-01")){
 					b.chat("TotalFreedomMod detected, disconnecting.");
 					setTimeout(()=>{
 						b.reconnect=false;

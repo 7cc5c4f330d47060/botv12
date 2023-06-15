@@ -1,12 +1,6 @@
 const index=require("../index.js");
-const wordbl=require("../wordblacklist.json");
 const wl=require("../whitelist.json");
 const settings=require("../settings.json");
-let wordbl2=[];
-for(let i in wordbl){
-	wordbl2.push(wordbl[i].toLowerCase());
-}
-const rl2=require("readline");
 const trans4=require("./translations.json");
 //console.log("\x1b[38:5:0m\x1b[48:5:15mtesting\x1b[0m")
 //let cmd;
@@ -16,38 +10,7 @@ const fs=require("fs");
 //	cmd=require("./cmd.js")
 //}
 //console.log(cmd)
-const log_date=(a)=>{
-	if(!a) a=Date.now();
-	const fw = new Date(a);
-	let msecond=fw.getUTCMilliseconds();
-	if(msecond.toString().length==1){
-		msecond="00"+msecond;
-	} else if(msecond.toString().length==2){
-		msecond="0"+msecond;
-	}
-	let second=fw.getUTCSeconds();
-	if(second.toString().length==1){
-		second="0"+second;
-	}
-	let minute=fw.getUTCMinutes();
-	if(minute.toString().length==1){
-		minute="0"+minute;
-	}
-	let hour=fw.getUTCHours();
-	if(hour.toString().length==1){
-		hour="0"+hour;
-	}
-	return "["+fw.getUTCDate()+"."+(fw.getUTCMonth()+1)+"."+fw.getUTCFullYear()+" "+hour+":"+minute+":"+second+":"+msecond+"]";
-};
-const logcheck=()=>{
-	if(!fs.readdirSync(".").includes("UBotLogs")) fs.mkdirSync("UBotLogs"); //base log dir
-	const fw=new Date(Date.now());
-	const fw_tomorrow=new Date(Date.now()+86400000);
-	if(!fs.readdirSync("./UBotLogs").includes(fw.getUTCDate()+"_"+(fw.getUTCMonth()+1)+"_"+fw.getUTCFullYear())) fs.mkdirSync("UBotLogs/"+fw.getUTCDate()+"_"+(fw.getUTCMonth()+1)+"_"+fw.getUTCFullYear());
-	if(!fs.readdirSync("./UBotLogs").includes(fw_tomorrow.getUTCDate()+"_"+(fw_tomorrow.getUTCMonth()+1)+"_"+fw_tomorrow.getUTCFullYear())) fs.mkdirSync("UBotLogs/"+fw_tomorrow.getUTCDate()+"_"+(fw_tomorrow.getUTCMonth()+1)+"_"+fw_tomorrow.getUTCFullYear());
-};
-setInterval(logcheck,3000000);//every 50 minutes
-logcheck();
+
 
 const vct=[
 	"chat.type.text",
@@ -288,16 +251,7 @@ const j=function(msg,l){
 	}
 	return [textClear,textConsole,textMC];
 };
-const includesNWord=function(msg2){
-	const msg=msg2.replace(/[;:!|]/g,"i")
-		.toLowerCase();
-	for(let i in wordbl2){
-		if(msg.includes(wordbl2[i])){
-			return true;
-		}
-	}
-	return false;
-};
+
 /*
 {
   extra: [
@@ -313,7 +267,6 @@ const includesNWord=function(msg2){
 */
 
 module.exports={
-	log_date,
 	load: function(){
 		//index.p.testing=1.9
 	},
@@ -385,9 +338,11 @@ module.exports={
 			b.emit("system_chat",{content:MSG.message});
 		});
 		b.on("system_chat", function(MSG){
-			//			console.log(JSON.parse(MSG.message))
-			//			console.log(MSG.content)
-			const msgs=j(JSON.parse(MSG.content));
+			//console.log(JSON.parse(MSG.message))
+			//console.log(MSG.content)
+			const j2=JSON.parse(MSG.content);
+			b.emit("chatRaw",j2)
+			const msgs=j(j2);
 			if(b.msgblacklist.includes(msgs[0])) return;
 			if(b.lastmsg==msgs[0]){
 				b.antispam++;
@@ -402,171 +357,77 @@ module.exports={
 				return;
 			}
 			b.lastmsg=msgs[0];
-			if(msgs[0].startsWith("You have been muted") && !msgs[0].startsWith("You have been muted for now.")){
-				b.muted=true;
-			}
-			if(msgs[0]=="Successfully disabled CommandSpy"){
-				b.commandspy=false;
-			}
-			if(includesNWord(msgs[0])){
-				b.nwordsaid=true;
-			}
-			if(msgs[0].startsWith("Command set: ")){
-				return;
-			}
 			const console_msg=msgs[1].split("\n");
 			const cmsg=msgs[0].split("\n");
 			const filemsg=msgs[2].split("\n");
 			for(const i in cmsg){
-				if(cmsg[i]=="" || cmsg[i]==" "){
-					continue;
-				}
-				if(b.discordReady) b.disqueue.push(cmsg[i]);
-				rl2.cursorTo(process.stdout,0);
-				rl2.clearLine(process.stdout,0);
-				console.log("[Chat/"+b.id+"] "+console_msg[i]);
-				const fw=new Date(Date.now());
-				if(settings.fileLogging && b.o.fileLogging){
-					fs.appendFileSync("UBotLogs/"+fw.getUTCDate()+"_"+(fw.getUTCMonth()+1)+"_"+fw.getUTCFullYear()+"/chat_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" "+filemsg[i]+"\n");
-				}
-				if(index.p.readlineLoaded){
-					index.p.rl.prompt(true);
-				}
+				if(cmsg[i]=="" || cmsg[i]==" ") continue;
+				if(cmsg[i].startsWith("Command set: ")) continue;
+				b.emit("chatAnsi",console_msg[i])
+				b.emit("chatClear",cmsg[i])
+				b.emit("chatMotd",filemsg[i])//name for this from prismarine-chat
 			}
-			
-			if(index.p.commandsLoaded){
-				let uuid=MSG._ubot_uuid?MSG._ubot_uuid:"Invalid UUID";
-				const slashsay=vct.includes(JSON.parse(MSG.content).translate);
-				if(slashsay){
-					const split=JSON.parse(MSG.content);
-					if(split.with===undefined || split.with.length<2) return;
-					const username=j(split.with[0])[0];
-					if(b.nwordsaid==1){
-						if(!MSG._ubot_uuid){
-							for(let i in b.players){
-								if (username==b.players[i][1]){
-									uuid=i;
-								}
-							}
+
+			//text -> username+message
+			let uuid=MSG._ubot_uuid?MSG._ubot_uuid:"Invalid UUID";
+			const slashsay=vct.includes(JSON.parse(MSG.content).translate);
+			if(slashsay){
+				const split=JSON.parse(MSG.content);
+				if(split.with===undefined || split.with.length<2) return;
+				const username=j(split.with[0])[0];
+				const command_full=j(split.with[1])[0];
+				if(!MSG._ubot_uuid){
+					for(const i in b.players){
+						if (username==b.players[i][1]){
+							uuid=i;
 						}
-						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(username)) return;
-						b.kick(username,uuid,"message");
-						if(b.o.kick_method!="none"){
-							const d=new Date();
-							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
-						}
-						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
-						b.nwordsaid=2;
-					}
-					//console.log("a"+username+"a")
-					const command_full=j(split.with[1])[0];
-					//console.log(command_full)
-					if(command_full.startsWith(b.prefix)){
-						if(!MSG._ubot_uuid){
-							for(const i in b.players){
-								if (username==b.players[i][1]){
-									uuid=i;
-								}
-							}
-						}
-						const command_s=command_full.slice(b.prefix.length);
-						//b.send("Command: "+command_s+" from UUID "+uuid)
-						b.emit("command_u",command_s.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_s);//MSG.sender)
-					}
-				} else if(JSON.parse(MSG.content).translate=="[%s] %s › %s"){
-					const split=JSON.parse(MSG.content);
-					if(split.with===undefined || split.with.length<2) return;
-					const username=j(split.with[1])[0];
-					if(b.nwordsaid==1){
-						if(!MSG._ubot_uuid){
-							for(let i in b.players){
-								if (username==b.players[i][1]){
-									uuid=i;
-								}
-							}
-						}
-						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(username)) return;
-						b.kick(username,uuid,"message");
-						if(b.o.kick_method!="none"){
-							const d=new Date();
-							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
-						}
-						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
-						b.nwordsaid=2;
-					}
-					//console.log("a"+username+"a")
-					const command_full=j(split.with[2])[0];
-					//console.log(command_full)
-					if(command_full.startsWith(b.prefix)){
-						if(!MSG._ubot_uuid){
-							for(let i in b.players){
-								if (username==b.players[i][1]){
-									uuid=i;
-								}
-							}
-						}
-						const command_s=command_full.slice(b.prefix.length);
-						//b.send("Command: "+command_s+" from UUID "+uuid)
-						b.emit("command_u",command_s.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_s);//MSG.sender)
-					}
-				} else {
-					const split=msgs[2].split(b.o.msg_split);
-					const splitClear=msgs[0].split(b.o.msg_split_clear);
-					const prefix=split[0];
-					const prefixClear=splitClear[0];
-					const username=prefix.split(" ")[prefix.split(" ").length-1];
-					const usernameClear=prefixClear.split(" ")[prefixClear.split(" ").length-1];
-					if(b.nwordsaid==1){
-						if(!MSG._ubot_uuid){
-							for(let i in b.players){
-								if(prefix==b.players[i][0] && !b.o.legacy_name){
-									uuid=i;
-									//console.log(3);
-								} else if (usernameClear==b.players[i][1]){
-									uuid=i;
-								}
-							}
-						}
-						
-						if(uuid==b.uuid || uuid=="Invalid UUID" || wl.includes(usernameClear)) return;
-						b.kick(usernameClear,uuid,"message");
-						if(b.o.kick_method!="none"){
-							const d=new Date();
-							fs.appendFileSync("UBotLogs/"+d.getUTCDate()+"_"+(d.getUTCMonth()+1)+"_"+d.getUTCFullYear()+"/kick_"+b.host+"_"+b.port+".txt",module.exports.log_date()+" Offending message: "+filemsg.join("\n")+"\n");
-						}
-						//b.ccq.push(`/minecraft:msg @a[nbt={UUID:[I;${uuidToInt(uuid)}]}] @e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e@e`);
-						b.nwordsaid=2;
-					}
-					const command_full=msgs[2].slice(prefix.length+b.o.msg_split.length);
-					const command_full_c=msgs[0].slice(prefixClear.length+b.o.msg_split_clear.length);
-					//console.log(command_full);
-					if(command_full==b.username){
-						b.usent=1;
-					}
-					//console.log(command_full)
-					let username2;
-					if(command_full.startsWith(b.prefix)){
-						if(!MSG._ubot_uuid){
-							for(let i in b.players){
-								if(prefix==b.players[i][0] && !b.o.legacy_name){
-									//b.send("say gex")
-									uuid=i;
-									username2=b.players[i][1];
-								} else if (usernameClear==b.players[i][1]){
-									uuid=i;
-								}
-							}
-						}
-						let command_s=command_full.slice(b.prefix.length);
-						let command_s_c=command_full_c.slice(b.prefix.length);
-						if(command_s.endsWith("\xa7r")) command_s=command_s.slice(0,command_s.length-2);
-						//b.send("Command: "+command_s+" from UUID "+MSG.sender)
-						b.emit("command_u",command_s/*.replace(/\u00a7/g,"&")*/,uuid,username2?username2:usernameClear,command_s_c);//MSG.sender)
 					}
 				}
+				b.emit("playermsg",command_full.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_full);//MSG.sender)
+			} else if(JSON.parse(MSG.content).translate=="[%s] %s › %s"){
+				const split=JSON.parse(MSG.content);
+				if(split.with===undefined || split.with.length<2) return;
+				const username=j(split.with[1])[0];
+				const command_full=j(split.with[2])[0];
+				if(!MSG._ubot_uuid){
+					for(let i in b.players){
+						if (username==b.players[i][1]){
+							uuid=i;
+						}
+					}
+				}
+				b.emit("playermsg",command_full.replace(/&/g,"\u00a7").replace(/\u00a7\u00a7/g,"&"),uuid,username,command_full);//MSG.sender)
+			} else {
+				const split=msgs[2].split(b.o.msg_split);
+				const splitClear=msgs[0].split(b.o.msg_split_clear);
+				const prefix=split[0];
+				const prefixClear=splitClear[0];
+				//const username=prefix.split(" ")[prefix.split(" ").length-1];
+				const usernameClear=prefixClear.split(" ")[prefixClear.split(" ").length-1];
+				let command_full=msgs[2].slice(prefix.length+b.o.msg_split.length);
+				const command_full_c=msgs[0].slice(prefixClear.length+b.o.msg_split_clear.length);
+				if(command_full==b.username){
+					b.usent=1;
+				}
+				let username2;
+				if(!MSG._ubot_uuid){
+					for(let i in b.players){
+						if(prefix==b.players[i][0] && !b.o.legacy_name){
+							uuid=i;
+							username2=b.players[i][1];
+						} else if (usernameClear==b.players[i][1]){
+							uuid=i;
+						}
+					}
+				}
+				if(command_full_c=="") return;
+				if(command_full.endsWith("\xa7r")) command_full=command_full.slice(0,command_full.length-2);
+				b.emit("playermsg",command_full_c,uuid,username2?username2:usernameClear,command_full);//MSG.sender)
 			}
 		});
+		b.on("playermsg",(a,b,c,d)=>{
+			
+		})
 	},
-	parse: j,
-	wordDetect: includesNWord
+	parse: j
 };

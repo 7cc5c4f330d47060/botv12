@@ -93,7 +93,7 @@
 			"legacy_name":false,
 			"ccore_teleport":true,
 			"cc_enabled":true,
-			"hidden":false,
+			"hidden":true,
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086488675975696416",
@@ -119,27 +119,23 @@
 		}
 	},
 	{
-		"host":"127.0.0.1",
-		"port":"25568",
+		"host":"localhost",
+		"port":"25565",
 		"opt":{
-			"om":false,
-			"disabled":false,
+			"om":true,
+			"disabled":true,
 			"legacy_name":true,
+			"cc_enabled":true,
 			"hidden":false,
 			"vanilla_cc":false,
-			"legacy_cc":false,
+			"legacy_cc":true,
 			"version":"1.19.2",
 			"discord_enabled":true,
 			"discord_channel":"1086536029487497316",
 			"fileLogging":true,
 			"legal_username":false,
 			"ad_rate":-1,
-			"no_self_care":true,
-			"chatqueue_split":46,
-			"cc_enabled":false,
-			"msg_split":": ",
-			"msg_split_clear":": ",
-			"deop":true
+			"msg_split":"§r: §r"
 		}
 	},
 	{
@@ -148,7 +144,7 @@
 		"opt":{
 			"om":false,
 			"disabled":false,
-			"legacy_name":false,
+			"legacy_name":true,
 			"cc_enabled":true,
 			"hidden":false,
 			"vanilla_cc":false,

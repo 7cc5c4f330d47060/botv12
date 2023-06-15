@@ -177,6 +177,14 @@ module.exports={
 
 		let message_colorcoded=[];
 		let msg3=msg2.split("\xa7");
+		let botCount=0;
+		for(const i in index.bots){
+			if(index.bots[i].o.disabled) continue;
+			botCount++;
+		}
+		if(botCount==1){
+			b.message("Only one server is connected, this server will be the only one receiving the message.")
+		}
 		message_colorcoded.push({
 			text:msg3.splice(0,1)[0],
 			color:"white",
@@ -248,6 +256,7 @@ module.exports={
 			}));
 			return;
 		}
+		
 		for(let i in index.bots){
 			if(index.bots[i].o.netmsg_disabled){
 				ndc++;

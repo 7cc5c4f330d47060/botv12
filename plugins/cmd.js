@@ -21,6 +21,7 @@ const loadplug=()=>{
 					botplug[botplug[name].aliases[j]]={};
 					botplug[botplug[name].aliases[j]].command=botplug[name].command;
 					botplug[botplug[name].aliases[j]].verify=botplug[name].verify;
+					botplug[botplug[name].aliases[j]].coreRequired=botplug[name].coreRequired;
 					botplug[botplug[name].aliases[j]].opRequired=botplug[name].opRequired;
 					botplug[botplug[name].aliases[j]].delay=botplug[name].delay;
 					botplug[botplug[name].aliases[j]].desc=`Alias for ${name}`;//botplug[name].desc;
@@ -38,7 +39,7 @@ module.exports={
 	commands: loadplug(),
 	load: function(){
 		//index.p.testing=1.8
-		console.log(module.exports.commands)
+		//console.log(module.exports.commands)
 		index.p.commandsLoaded=true;
 	},
 	load2: function(b){
@@ -50,6 +51,7 @@ module.exports={
 			b.o.command_time=1000;
 		}
 		b.rc=function(cmdFormat,sender,user,cmd){
+			//console.log(cmdFormat,sender,user,cmd)
 			if(b.o.commands_disabled) return;
 			if(b.username==user) return;
 			let v=false;
@@ -89,9 +91,10 @@ module.exports={
 						sender=b.uuid;
 						user="Console";
 					}
-					//}
-					if(module.exports.commands[command].opRequired && (b.o.partial_op || b.o.deop)){
-						b.send("Operator access required to run command.");
+					if(module.exports.commands[command].coreRequired && !b.o.cc_enabled){
+						b.send("Command core is disabled, command will not run.");
+					} else if(module.exports.commands[command].opRequired && (b.o.partial_op || b.o.deop)){
+						b.send("OP access is disabled, command will not run.");
 					} else {
 						if(command=="help"){
 							module.exports.commands[command].command(b,module.exports.commands[command].format?cmdFormat:cmd,sender,user,v,module.exports.commands);
@@ -108,5 +111,8 @@ module.exports={
 			//b.send("Command: "+cmd+" from UUID "+sender+" ("+user+")")
 		};
 		b.on("command_u",b.rc);
+		b.on("playermsg",(clear,uuid,name,sussy)=>{
+			if(clear.startsWith(b.prefix)) b.emit("command_u",sussy.slice(b.prefix.length),uuid,name,clear.slice(b.prefix.length))
+		})
 	}
 };

@@ -23,5 +23,9 @@
 	"Notch",
 	"AJAFIEMACPEURAKV",
 	"_______TB_______",
-	"oranjpeel78"
+	"oranjpeel78",
+	"DragonElement",
+	"regex:_.*fd",
+	"regex:testing[0-9]{1,3}",
+	"regex:Drugs.*"
 ]

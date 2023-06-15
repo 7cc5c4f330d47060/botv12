@@ -58,6 +58,14 @@ module.exports={
 				b.send(`Description: ${v5[args[1]].desc}`);
 				b.send(`Usage: ${b.prefix+args[1]+v5[args[1]].usage}`);
 			}*/
+			let usage="";
+			if(v5[args[1].toLowerCase()].usage.constructor==Array){
+				for(const i in v5[args[1].toLowerCase()].usage){
+					usage+=b.prefix+args[1].toLowerCase()+v5[args[1].toLowerCase()].usage[i]+"\n";
+				}
+			} else {
+				usage=b.prefix+args[1].toLowerCase()+v5[args[1].toLowerCase()].usage
+			}
 			b.tellraw(sender,JSON.stringify([
 				{
 					translate: "Command name: %s\n",
@@ -84,7 +92,7 @@ module.exports={
 					color: settings.colors.secondary,
 					with:[
 						{
-							text: b.prefix+args[1].toLowerCase()+v5[args[1].toLowerCase()].usage,
+							text: usage.replace(/(?<=.*)\n(?!.+)/g,""),
 							color: settings.colors.primary
 						}
 					]

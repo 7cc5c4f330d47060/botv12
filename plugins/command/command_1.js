@@ -93,7 +93,8 @@ module.exports={
 		b.tellraw(sender,`{"text":"-------------------------","color":"black"}`);
 		b.tellraw(sender,`{"text":"No version of this bot has anything to do with the \\\"nocom exploit\\\"."}`);*/
 	},
-	desc: "Testing command",
+	desc: "Get system/bot info",
 	usage: "",
-	hidden: true
+	hidden: true,
+	aliases: ["serverinfo"]
 };
