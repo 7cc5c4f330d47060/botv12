@@ -1,5 +1,6 @@
 //const fs=require("fs")
 //const ba=fs.readFileSync("./ba.txt").toString()
+const settings=require("../settings.json")
 module.exports={
 	load: function(){
 		
@@ -7,6 +8,9 @@ module.exports={
 	load2: function(b){
 		//b.chatqueue=["/de","/gamerule doMobLoot false","/gamerule doMobSpawning false","/gamerule doTileDrops false","/gamerule doEntityDrops false","/de","/cspy on"];
 		b.chatqueue=["/cspy on"];
+		if(b.o.cc_enabled){
+			b.chatqueue.unshift(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`)
+		}
 		b.version_2=+b.version.split(".")[1];
 		b.legacy_command=b.version_2<=18;
 		if(!b.o.chatqueue_split){
@@ -35,7 +39,7 @@ module.exports={
 				if(b.chatqueue[0].startsWith("/") && !b.legacy_command){
 					b.command(b.chatqueue[0].slice(1),false);
 				} else {
-					//					console.log(b.id)
+					//console.log(b.id)
 					b.chat(b.chatqueue[0]);
 				}
 			}
@@ -59,7 +63,7 @@ module.exports={
 			}
 			//console.log("success packet")//ba.split("\n")
 			//b.cqa=Function("index.p.advancecq()")//"+i+"
-			setTimeout(()=>{b.cqi=setInterval(b.advancecq,b.o.chatqueue_speed);},3240); //adds up to 3500
+			setTimeout(()=>{b.cqi=setInterval(b.advancecq,b.o.chatqueue_speed);},1000); //adds up to 1150
 		});
 	}
 };

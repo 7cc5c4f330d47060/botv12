@@ -2,10 +2,10 @@
 	"name":"UBotv8",
 	"coreName":"U8 Core",
 	"secureMode":false,
-	"version":"8.0.0-4",
+	"version":"8.0.0-5",
 	"fileLogging":true,
 	"discordLink":"https://youtube.com/watch?v=dQw4w9WgXcQ",
-	"saygex":"https://discord.gg/",
+	"saygex":"https://discord.gg/fYrqVNArSS",
 	"colors":{
 		"primary":"white",
 		"secondary":"gray",

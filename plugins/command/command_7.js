@@ -48,7 +48,8 @@ module.exports={
 			}));//b.send("&2"+percent100+"%")
 		}
 	},
-	desc: "Copied from UnnamedBot version 7 alpha",
-	usage: ""
+	desc: "Version 7 filter test. Copied from UnnamedBot version 7 alpha.",
+	usage: "",
+	aliases: ["v7ft","v7ftest","v7filter"]
 };
 

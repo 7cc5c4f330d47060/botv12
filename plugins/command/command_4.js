@@ -17,6 +17,7 @@ module.exports={
 		b.ccq.push(`/essentials:tp ${sender} ${random}`);
 		//}
 	},
-	desc: "Testing command",
-	usage: ""
+	desc: "Teleport to a random player",
+	usage: "",
+	aliases: ["tprp","playertp"]
 };

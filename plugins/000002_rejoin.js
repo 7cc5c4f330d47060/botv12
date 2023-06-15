@@ -15,6 +15,11 @@ module.exports={
 				clearInterval(b.ccqi);
 				clearInterval(b.cfqi);
 			}
+			if(b.cloops){
+				for(const i in b.cloops){
+					clearInterval(b.cloops[i].interval);
+				}
+			}
 			setTimeout(()=>{
 				let dr;
 				if(b.discordReady) dr=1;

@@ -113,7 +113,8 @@ const createBot=(h,p,o)=>{
 	//netmsg_disabled: Disable global broadcast commands, such as netmsg
 	//commands_disabled: Disable commands
 	//ad_rate: Rate at which the help command/Discord server are advertised
-	//nocheck: Disables checks of various things ("self care")
+	//no_self_care: Disables self care
+	//")checks of various things ("
 	if(o.disabled){
 		console.log("[Info] Bot connecting to "+h+":"+(p?p:25565)+" is not enabled.");
 		return 4;
@@ -124,7 +125,8 @@ const createBot=(h,p,o)=>{
 		username:o.om?settings.onlineuser:usernameGen(o.legal_username),
 		password:o.om?settings.onlinepass:null,
 		auth: o.om?"microsoft":"offline",
-		version: o.version?o.version:"1.19.2"
+		version: o.version?o.version:"1.19.2",
+		hideErrors: true
 	});
 	b.o=o;
 	b.on("error",(e)=>{
