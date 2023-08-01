@@ -1,46 +1,42 @@
-const settings=require("../settings.json");
-const message=require("./!message.js");
-const uuidToInt=function(uuid){
-	const split_uuid=uuid.replace(/[^0-9a-f]/g,"").replace(/.{1,8}/g,a=>{return "0x"+a;}).match(/.{1,10}/g);
-	const num_uuid=[+split_uuid[0]<<0,+split_uuid[1]<<0,+split_uuid[2]<<0,+split_uuid[3]<<0];
-	return num_uuid;
-};
+const settings=require('../settings.json');
+const message=require('./!message.js');
+const uuidToInt = require('../util/uuidtoint.js')
 module.exports={
-	cs: 6,
-	uuidToInt,
+	cs: 1,
+	cs_v: 6,
 	load: function(){
 	
 	},
 	load2: function(b){
 		b.message=(message)=>{
-			b.tellraw("@a",JSON.stringify({
-					translate:"chat.type.announcement",
-					color:settings.colors.secondary,
-					with:[
-						{
-							text:settings.name,
-							color:settings.colors.primary
-						},
-						{
-							text:message,
-							color:settings.colors.tertiary
-						}
-					]
-				})
+			b.tellraw('@a',JSON.stringify({
+				translate:'chat.type.announcement',
+				color:settings.colors.secondary,
+				with:[
+					{
+						text:settings.name,
+						color:settings.colors.primary
+					},
+					{
+						text:message,
+						color:settings.colors.tertiary
+					}
+				]
+			})
 			);
 		};
 		if(!b.o.cc_enabled){
 			//b.send("Joining to servers without command block permissions is still in beta. The bot may not work correctly.");
 			b.tellraw=function(__sender,text){
-				b.send(message.parse(JSON.parse(text))[2].replace(/\u00a7/g,"&"));
-			}
+				b.send(message.parse(JSON.parse(text))[2].replace(/\u00a7/g,'&'));
+			};
 			return;
 		}
 		/*if(b.o.ccore_teleport){
 			b.original_pos={x:Math.floor(Math.random()*2000000)-1000000,y:10,z:Math.floor(Math.random()*2000000)-1000000};
 			b.send("/tp "+Math.floor(b.original_pos.x)+".0 "+b.original_pos.y+" "+Math.floor(b.original_pos.z)+".0");
 		}*/
-		b.cfqi=setInterval(()=>{b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);},60000);
+		b.cfqi=setInterval(()=>{b.send(`/fill ~ 10 ~ ~ 15 ~ command_block${b.o.legacy_cc?'':`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);},60000);
 		b.ccq=['/tellraw @a {"text":"Hello, world!"}'];
 		b.blocknoX=0;
 		b.blocknoZ=0;
@@ -55,7 +51,7 @@ module.exports={
 		}*/
 		b.advanceccq=function(){
 			if(b.ccq[0] && b.ccq[0].length!=0){
-				b.write("update_command_block",{
+				b.write('update_command_block',{
 					command: b.ccq[0],
 					location: {
 						x: b.commandPos.x1+b.blocknoX,
@@ -65,7 +61,7 @@ module.exports={
 					mode: 2,
 					flags: 1
 				});
-				b.write("update_command_block",{
+				b.write('update_command_block',{
 					command: b.ccq[0],
 					location: {
 						x: b.commandPos.x1+b.blocknoX,
@@ -79,7 +75,7 @@ module.exports={
 				if(b.blocknoX==module.exports.cs){
 					b.blocknoY++;
 					b.blocknoX=0;
-					if(b.blocknoY==module.exports.cs){
+					if(b.blocknoY==module.exports.cs_v){
 						b.blocknoZ++;
 						b.blocknoY=0;
 						if(b.blocknoZ==module.exports.cs){
@@ -92,20 +88,21 @@ module.exports={
 			}
 			b.ccq.splice(0,1);
 		};
-		b.send(`/fill ~2 10 ~2 ~-3 15 ~-3 command_block${b.o.legacy_cc?"":`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);
+		b.send(`/fill ~ 10 ~ ~ 15 ~ command_block${b.o.legacy_cc?'':`{CustomName:"{\\"text\\":\\"${settings.coreName}\\"}"}`}`);
 
-		b.on("ccstart",()=>{
-			setTimeout(()=>{b.ccqi=setInterval(b.advanceccq,1);},1000); //1 Second and 1 Millisecond
+		b.on('ccstart',()=>{
+			setTimeout(()=>{b.ccqi=setInterval(b.advanceccq,12);},1000); //1 Second and 12 Milliseconds
 			b.ccStarted=true;
+			//b.createcloop('Fake Command UwU', 1000) //fix for karboom?
 			//console.log("COMMAND CORE STARTED!")
-		})
-		b.on("chatRaw",(text)=>{//
-			if(!b.ccStarted && (text.translate=="commands.fill.failed" || (text.extra && text.extra[0] && text.extra[0].translate=="commands.fill.failed") ||
-			text.translate=="commands.fill.success" || (text.extra && text.extra[0] && text.extra[0].translate=="commands.fill.success"))){
-				b.emit("ccstart")
+		});
+		b.on('chatRaw',(text)=>{//
+			if(!b.ccStarted && (text.translate=='commands.fill.failed' || (text.extra && text.extra[0] && text.extra[0].translate=='commands.fill.failed') ||
+			text.translate=='commands.fill.success' || (text.extra && text.extra[0] && text.extra[0].translate=='commands.fill.success'))){
+				b.emit('ccstart');
 			}
-		})
-		b.on("position",function(a){
+		});
+		b.on('position',function(a){
 			if(!b.ccStarted){
 				b.original_pos={x:a.x,y:a.y,z:a.z};
 				b.pos={x:a.x,y:a.y,z:a.z,correct:1};
@@ -119,19 +116,20 @@ module.exports={
 
 			//console.log(b.pos);
 			b.commandPos={
-				x1:Math.floor(a.x)-3,
+				x1:Math.floor(a.x),
 				x2:Math.ceil(a.x)+3,
-				z1:Math.floor(a.z)-3,
+				z1:Math.floor(a.z),
 				z2:Math.ceil(a.z)+3,
 				y1:10,
 				y2:10
 			};
 			//b.send("/fill ~5 0 ~5 ~-5 0 ~-5 command_block")
+			b.write("teleport_confirm", {teleportId: a.teleportId});
 		});
 		b.tellraw=(uuid,message)=>{
-			let finalname="";
-			if(uuid=="@a"){
-				finalname="@a";
+			let finalname='';
+			if(uuid=='@a'){
+				finalname='@a';
 			} else if(uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/) && b.o.legacy_cc){
 				finalname=b.players[uuid][1];
 			} else if(uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)){

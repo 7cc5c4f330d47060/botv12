@@ -1,0 +1,13 @@
+{
+
+	"de": "de.wikipedia.org/w/api.php",
+	"en": "en.wikipedia.org/w/api.php",
+	"es": "es.wikipedia.org/w/api.php",
+	"ru": "ru.wikipedia.org/w/api.php",
+	"test": "test.wikipedia.org/w/api.php",
+	"test2": "test2.wikipedia.org/w/api.php",
+	"uk": "es.wikipedia.org/w/api.php",
+	"mediawiki": "www.mediawiki.org/w/api.php",
+	"meta": "meta.wikimedia.org/w/api.php",
+	"en-beta": "en.wikipedia.beta.wmflabs.org/w/api.php"
+}

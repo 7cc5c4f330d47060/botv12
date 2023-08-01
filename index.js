@@ -5,7 +5,7 @@
 
 //Global options (settings.json):
 //name: Bot name
-//coreName: Command core name (names the command blocks)
+//coreName: Comm'use strict';and core name (names the command blocks)
 //secureMode: Disables raw JavaScript evaluation
 //version: Bot version
 //fileLogging: Log chat to file (disable on devices with limited storage, logs can get large)
@@ -17,59 +17,59 @@
 //	colors.primaryDark: Dark version of colors.primary
 //	colors.secondaryDark: Dark version of colors.secondary
 //	colors.tertiaryDark: Dark version of colors.tertiary
-const mp=require("minecraft-protocol");
-const fs=require("fs");
-const crypto=require("crypto");
-const servers=require("./servers.json");
-const settings=require("./settings.json");
+const mp=require('minecraft-protocol');
+const fs=require('fs');
+const crypto=require('crypto');
+const servers=require('./servers.json');
+const settings=require('./settings.json');
 if(servers.length==0){
-	console.log("There are no servers in servers.json. Please add a server.");
+	console.log('There are no servers in servers.json. Please add a server.');
 	process.exit(1);
 }
-const cp=require("child_process");
+const cp=require('child_process');
 //const os=require("os")
 const op=process.platform;//();
 
 //const isLinux=(op=="linux" || op=="android");
-const isAndroid=(op=="android");
+const isAndroid=(op=='android');
 //const isWindows=(op=="win32");
 let android_sdk;
 let android_version;
 if(isAndroid){
-	android_sdk=+cp.execSync("getprop ro.build.version.sdk").toString("UTF-8").split("\n")[0];
-	android_version=cp.execSync("getprop ro.build.version.release").toString("UTF-8").split("\n")[0];
+	android_sdk=+cp.execSync('getprop ro.build.version.sdk').toString('UTF-8').split('\n')[0];
+	android_version=cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0];
 	console.log(`Running on Android ${android_version} (${android_sdk})`);
 }
 
 const secureMode=false;
-const user=cp.execSync("whoami").toString("UTF-8").split("\n")[0]; //Only tested on Linux so far
-if(secureMode && (user=="root" || user.toLowerCase().includes("nt authority"))){
+const user=cp.execSync('whoami').toString('UTF-8').split('\n')[0]; //Only tested on Linux so far
+if(secureMode && (user=='root' || user.toLowerCase().includes('nt authority'))){
 	process.exit(1);
 }
 
 if(isAndroid && secureMode && android_sdk<24){ //Android 7.0
-	console.log("Android version too old. Upgrade to Android 7.0 or higher, or disable secure mode.");
+	console.log('Android version too old. Upgrade to Android 7.0 or higher, or disable secure mode.');
 	process.exit(1);
 }
 
 let bots=[];
 const en=[
-	"Yee",
-	"Yeer",
-	"Yeeg",
-	"Yeeish",
-	"Yeeler",
-	"Eagl",
-	"Eagler",
-	"Vigg",
-	"Darver",
-	"Darvler",
-	"Vool",
-	"Yigg",
-	"Deev"
+	'Yee',
+	'Yeer',
+	'Yeeg',
+	'Yeeish',
+	'Yeeler',
+	'Eagl',
+	'Eagler',
+	'Vigg',
+	'Darver',
+	'Darvler',
+	'Vool',
+	'Yigg',
+	'Deev'
 ];
 const rb=function(length){
-	return crypto.randomBytes(Math.ceil(length/2)).toString("hex").substring(0,length);
+	return crypto.randomBytes(Math.ceil(length/2)).toString('hex').substring(0,length);
 };
 const usernameGen=(legal)=>{
 	let prefix;
@@ -81,7 +81,7 @@ const usernameGen=(legal)=>{
 		//const selectors=["a","e","p","r","s"];
 		//prefix=`@${selectors[Math.floor(Math.random()*selectors.length)]}[distance=`
 		//prefix="distance=";
-		prefix="@a[bb_"
+		prefix='@a[bb_';
 	}
 	const chars=16-prefix.length;
 	const suffix=rb(chars);
@@ -116,7 +116,7 @@ const createBot=(h,p,o)=>{
 	//no_self_care: Disables self care
 	//")checks of various things ("
 	if(o.disabled){
-		console.log("[Info] Bot connecting to "+h+":"+(p?p:25565)+" is not enabled.");
+		console.log('[Info] Bot connecting to '+h+':'+(p?p:25565)+' is not enabled.');
 		return 4;
 	}
 	const b=mp.createClient({
@@ -124,12 +124,12 @@ const createBot=(h,p,o)=>{
 		port:p,
 		username:o.om?settings.onlineuser:usernameGen(o.legal_username),
 		password:o.om?settings.onlinepass:null,
-		auth: o.om?"microsoft":"offline",
-		version: o.version?o.version:"1.19.2",
+		auth: o.om?'microsoft':'offline',
+		version: o.version?o.version:'1.19.2',
 		hideErrors: true
 	});
 	b.o=o;
-	b.on("error",(e)=>{
+	b.on('error',(e)=>{
 		console.log(`[Error/${b.id}] ${e}`);
 	});
 	b.host=h;
@@ -140,20 +140,20 @@ const createBot=(h,p,o)=>{
 
 //plugins (everything because of habit & modular bots are better)
 //for the most part this is from u6
-let p={};
+//let p={};
 
 //DO NOT TOUCH
 module.exports.createBot=createBot;
 module.exports.bots=bots;
-module.exports.p=p;
+//module.exports.p=p;
 module.exports.secure=secureMode;
 //end of DO NOT TOUCH
 
 global.loadplug=(botno)=>{
 	let botplug=[];
-	const bpl=fs.readdirSync("plugins");
+	const bpl=fs.readdirSync('plugins');
 	for(const i in bpl){
-		if(!bpl[i].endsWith(".js")){
+		if(!bpl[i].endsWith('.js')){
 			continue;
 		}
 		try{
