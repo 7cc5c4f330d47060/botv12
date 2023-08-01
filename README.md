@@ -1,0 +1,1 @@
+^(\[|\(|{)?(.*(Bot)?)(\]|\)|})?\s?(>|⟩|»|›|-|–|·)?\s?Join the (official)?\s?.*\s(Discord)?\s?(Server)?\s(at|on|>|⟩|»|›|-|–|·)?\s(https?:\/\/)?((discord|dsc)?\.gg|discord\.com\/invite)?\/?\w+

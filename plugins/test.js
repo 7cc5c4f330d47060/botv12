@@ -1,4 +1,4 @@
-const settings=require("../settings.json");
+const settings=require('../settings.json');
 module.exports={
 	load: function(){
 	},
@@ -8,9 +8,9 @@ module.exports={
 		if(b.leftHand){
 			//b.send("The bot is left handed!");
 		}
-		b.on("success",()=>{
-			b.write("settings",{
-				locale: "en_US",
+		b.on('success',()=>{
+			b.write('settings',{
+				locale: 'en_US',
 				viewDistance: 4,
 				chatFlags: 0,
 				chatColors: true,
@@ -21,7 +21,17 @@ module.exports={
 		});
 		if(!b.o.startup_disabled){
 			b.send(`Version ${settings.version}`);
-			b.send(`current prefix: ${b.prefix}`);
 		}
+		b.on('death_combat_event', packet => {
+			if(packet.playerId == b.entityId) {
+				b.chatqueuepaused=true;
+				b.send("The chat queue is now unpaused, and the bot is alive again!")
+				setTimeout(() => {
+					b.chatqueuepaused=false;
+					b.write('client_command',{actionId: 0})
+				}, 5000)
+			}
+		})
+		
 	}
 };
