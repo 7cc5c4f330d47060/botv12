@@ -4,8 +4,6 @@
 	"secureMode":false,
 	"version":"9.0.0-1",
 	"fileLogging":true,
-	"discordLink":"https://youtube.com/watch?v=dQw4w9WgXcQ",
-	"saygex":"https://discord.gg/fYrqVNArSS",
 	"colors":{
 		"primary":"#FFCCDD",
 		"secondary":"gray",
@@ -14,8 +12,7 @@
 		"secondaryDark":"gray",
 		"tertiaryDark":"gray"
 	},
-	"onlineuser":"",
-	"onlinepass":"",
-	"prefix":"d\"",
-	"discordtoken":""
+	"prefix":"\"",
+	"onlineuser": "file:/home/name3/settings10.json",
+	"onlinepass": null
 }

@@ -1,24 +1,28 @@
-//Discord Token:
-//MTA4NjQ1OTIzMDE4MzI0MzgyOA.G0XDzk.nOP9QTJw_PQkynEsZxd3rmUR34UzR38AYUwCyo
 //testing resumed for v9
-const dj=require("discord.js");
-const index=require("../index.js");
-const settings=require("../settings.json");
+const dj=require('discord.js');
+const index=require('../index.js');
+const settings=require('../settings.json');
+let discordToken = '';
+if(settings.discordtoken.startsWith('file:')){
+	discordToken=require(settings.discordtoken.slice(5)).discordtoken;
+} else {
+	discordToken=settings.discordtoken
+}
 const { request } = require('node:https');
 const db=new dj.Client({intents:dj.GatewayIntentBits.Guilds+dj.GatewayIntentBits.GuildMessages+dj.GatewayIntentBits.MessageContent+dj.GatewayIntentBits.GuildMembers});
 
 
 module.exports={
 	load: function(){
-		db.on("ready",()=>{
+		db.on('ready',()=>{
 			for(const i in index.bots){
 				if(index.bots[i].o.disabled) continue;
 				if(!index.bots[i].o.discord_enabled) continue;
 				index.bots[i].discordReady=true;
-				index.bots[i].emit("dr");
+				index.bots[i].emit('dr');
 			}
 		});
-		db.on("messageCreate",(msg)=>{
+		db.on('messageCreate',(msg)=>{
 			if(msg.webhookId) return;
 			if(msg.author.id==db.user.id) return;
 			for(const i in index.bots){
@@ -30,20 +34,20 @@ module.exports={
 					} else {
 						index.bots[i].ccq.push(`/tellraw @a ${
 							JSON.stringify({
-								translate:"[%s] %s%s%s",
+								translate:'[%s] %s%s%s',
 								color:settings.colors.secondary,
 								with:[
 									{
 										text:msg.guild.name,
 										color:settings.colors.primary,
 										hoverEvent:{
-											action:"show_text",
+											action:'show_text',
 											contents:{
 												text:`Click to join!\n${settings.discordLink}`
 											}
 										},
 										clickEvent:{
-											action:"open_url",
+											action:'open_url',
 											value:settings.discordLink
 										}
 									},
@@ -52,11 +56,11 @@ module.exports={
 										color:settings.colors.primary
 									},
 									{
-										text:" › ",
+										text:' › ',
 										color:settings.colors.tertiaryDark
 									},
 									{
-										text:msg.content.replace(/\n/g,"\\n"),
+										text:msg.content.replace(/\n/g,'\\n'),
 										color:settings.colors.tertiary
 									}
 								]
@@ -70,7 +74,7 @@ module.exports={
 	},
 	load2: function(b){
 		b.disqueue=[];
-		b.on("dr",()=>{
+		b.on('dr',()=>{
 			b.di=setInterval(()=>{
 				if(b.disqueue.length==0) return;
 				if(!b.o.discord_webhook) return;
@@ -79,9 +83,9 @@ module.exports={
 				const r = request(b.o.discord_webhook, {
 					method:'POST',
 					headers:{'Content-Type':'application/json'}
-				}, ()=>{})
-				r.on('error', console.log)
-				r.write(JSON.stringify({'content':`\`\`\`${b.disqueue.join("\n").substring(0,1994).replace(/@/g,"＠")}\`\`\``}))
+				}, ()=>{});
+				r.on('error', console.log);
+				r.write(JSON.stringify({'content':`\`\`\`${b.disqueue.join('\n').substring(0,1994).replace(/@/g,'＠')}\`\`\``}));
 				r.end();
 				b.disqueue=[];
 			},2500);
