@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "discord.js": "^14.8.0",
-    "minecraft-protocol": "^1.40.3"
+    "minecraft-protocol": "^1.40.3",
+    "standard": "^17.1.0"
   },
   "devDependencies": {
     "eslint": "^8.36.0"

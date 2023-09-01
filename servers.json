@@ -20,145 +20,23 @@
 		}
 	},
 	{
-		"host":"chayapak.chipmunk.land",
-		"port":"25564",
+		"host":"iucc.unreach.host",
+		"port":"25565",
 		"opt":{
 			"om":false,
 			"disabled":true,
 			"legacy_name":false,
-			"ccore_teleport":true,
-			"autocrash":false,
 			"cc_enabled":true,
 			"hidden":true,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1086488318834917566",
-			"kick_method":"item",
-			"fileLogging":true,
-			"ad_rate":-1,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"chipmunk.land",
-		"port":"25565",
-		"opt":{
-			"om":false,
-			"disabled":true,
-			"ccore_teleport":false,
-			"cc_enabled":true,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1086488449059655772",
-			"kick_method":"item",
-			"fileLogging":true,
-			"ad_rate":-1,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"kitsune.icu",
-		"port":"61530",
-		"opt":{
-			"om":false,
-			"disabled":false,
-			"legacy_name":false,
-			"ccore_teleport":true,
-			"cc_enabled":true,
-			"hidden":false,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1086488500905451641",
-			"kick_method":"item",
-			"fileLogging":true,
-			"ad_rate":-1,
-			"chatqueue_wait": 2500,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"167.235.79.88",
-		"port":"49309",
-		"opt":{
-			"om":false,
-			"disabled":false,
-			"fileLogging":true,
-			"hidden":false,
-			"cc_enabled":false,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1091146606444822600",
-			"legal_username":false,
-			"kick_method":"item",
-			"ad_rate":-1,
-			"chatqueue_wait": 2500,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"kaboom.fusselig.xyz",
-		"port":"25565",
-		"opt":{
-			"om":false,
-			"disabled":false,
-			"legacy_name":false,
-			"ccore_teleport":true,
-			"cc_enabled":true,
-			"hidden":false,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1086488675975696416",
-			"kick_method":"sus",
-			"fileLogging":true,
-			"ad_rate":-1,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"discordtonystark.com",
-		"port":"25565",
-		"opt":{
-			"om":false,
-			"disabled":false,
-			"fileLogging":true,
-			"hidden":false,
-			"cc_enabled":true,
-			"version":"1.20.1",
-			"discord_enabled":true,
-			"discord_channel":"1090367967008673873",
-			"kick_method":"item",
-			"ad_rate":-1,
-			"selfcare":{
-				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"eaglerboom.chipmunk.land",
-		"port":"25569",
-		"opt":{
-			"om":false,
-			"disabled":true,
-			"legacy_name":false,
-			"cc_enabled":true,
-			"hidden":false,
 			"vanilla_cc":false,
 			"version":"1.20.1",
 			"discord_enabled":true,
-			"discord_channel":"1086536029487497316",
+			"discord_channel":"1122010891471290459",
+			"discord_webhook":"https://discord.com/api/webhooks/1122280784406007928/cUe1BqCVDC5VE6KWf7iBzE1PhvyzsPyrjipFC7DJ3vKgSbLI4GUFb0kO8cdDPATJwyt7",
 			"fileLogging":true,
 			"legal_username":false,
 			"ad_rate":-1,
+			"msg_split":"§f:§r §r",
 			"selfcare":{
 				"enabled": true
 			}
@@ -168,7 +46,7 @@
 		"host":"sus.shhnowisnottheti.me",
 		"port":"25565",
 		"opt":{
-			"disabled":false,
+			"disabled":true,
 			"legal_username":true,
 			"legacy_name":true,
 			"version":"1.7.10",
@@ -191,21 +69,82 @@
 		}
 	},
 	{
-		"host":"iucc.unreach.host",
+		"host":"kitsune.icu",
+		"port":"61530",
+		"opt":{
+			"om":false,
+			"disabled":true,
+			"legacy_name":false,
+			"ccore_teleport":true,
+			"cc_enabled":true,
+			"hidden":false,
+			"version":"1.20.1",
+			"discord_enabled":true,
+			"discord_channel":"1086488500905451641",
+			"kick_method":"item",
+			"fileLogging":true,
+			"ad_rate":-1,
+			"chatqueue_wait": 2500,
+			"selfcare":{
+				"enabled": true
+			}
+		}
+	},
+	{
+		"host":"167.235.79.88",
+		"port":"49309",
+		"opt":{
+			"om":false,
+			"disabled":true,
+			"fileLogging":true,
+			"hidden":false,
+			"cc_enabled":false,
+			"version":"1.20.1",
+			"discord_enabled":true,
+			"discord_channel":"1091146606444822600",
+			"legal_username":false,
+			"kick_method":"item",
+			"ad_rate":-1,
+			"chatqueue_wait": 2500,
+			"selfcare":{
+				"enabled": true
+			}
+		}
+	},
+	{
+		"host":"37.114.56.57",
 		"port":"25565",
 		"opt":{
 			"om":false,
 			"disabled":false,
 			"legacy_name":false,
+			"ccore_teleport":true,
 			"cc_enabled":true,
-			"hidden":true,
-			"vanilla_cc":false,
+			"hidden":false,
+			"version":"1.18.2",
+			"discord_enabled":true,
+			"discord_channel":"1086488675975696416",
+			"kick_method":"sus",
+			"fileLogging":true,
+			"ad_rate":-1,
+			"selfcare":{
+				"enabled": true
+			}
+		}
+	},
+	{
+		"host":"chipmunk.land",
+		"port":"25565",
+		"opt":{
+			"om":false,
+			"disabled":true,
+			"ccore_teleport":false,
+			"cc_enabled":true,
 			"version":"1.20.1",
 			"discord_enabled":true,
-			"discord_channel":"1122010891471290459",
-			"discord_webhook":"https://discord.com/api/webhooks/1122280784406007928/cUe1BqCVDC5VE6KWf7iBzE1PhvyzsPyrjipFC7DJ3vKgSbLI4GUFb0kO8cdDPATJwyt7",
+			"discord_channel":"1122010602307592214",
+			"kick_method":"item",
 			"fileLogging":true,
-			"legal_username":false,
 			"ad_rate":-1,
 			"selfcare":{
 				"enabled": true
@@ -217,7 +156,7 @@
 		"port":"25565",
 		"opt":{
 			"om":false,
-			"disabled":false,
+			"disabled":true,
 			"legacy_name":false,
 			"hidden":false,
 			"vanilla_cc":false,
@@ -232,32 +171,6 @@
 			"cc_enabled":true,
 			"selfcare":{
 				"enabled": true
-			}
-		}
-	},
-	{
-		"host":"ipt.esixtwo.one",
-		"port":"25565",
-		"opt":{
-			"om":true,
-			"disabled":false,
-			"hidden":true,
-			"legal_username":true,
-			"legacy_name":true,
-			"version":"1.20.1",
-			"discord_enabled":false,
-			"kick_method":"none",
-			"fileLogging":true,
-			"ad_rate":-1,
-			"nocheck":true,
-			"cc_enabled":false,
-			"chatqueue_split":250,
-			"msg_split":"§r§7 »§r ",
-			"msg_split_clear":" » ",
-			"deop": true,
-			"chatqueue_wait": 5500,
-			"selfcare":{
-				"enabled": false
 			}
 		}
 	}
