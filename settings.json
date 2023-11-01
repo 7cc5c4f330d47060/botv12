@@ -1,18 +1,12 @@
 {
-	"name":"UBotv9",
-	"coreName":"U9 Core",
-	"secureMode":false,
-	"version":"9.0.0-1",
-	"fileLogging":true,
-	"colors":{
-		"primary":"#FFCCDD",
-		"secondary":"gray",
-		"tertiary":"white",
-		"primaryDark":"#FFAACC",
-		"secondaryDark":"gray",
-		"tertiaryDark":"gray"
-	},
-	"prefix":"\"",
-	"onlineuser": "file:/home/name3/settings10.json",
-	"onlinepass": null
+    "secret":"/home/name3/settings10.json",
+    "servers":[
+        {
+            "host": "chipmunk.land",
+            "port": 25565,
+            "options":{
+                "name": "chipmunk"
+            }
+        }
+    ]
 }
