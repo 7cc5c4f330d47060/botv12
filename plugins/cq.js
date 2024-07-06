@@ -4,18 +4,19 @@ module.exports={//profileless_chat player_chat system_chat
     },
     loadBot:(b)=>{
         //console.log(`Loaded on bot ${b.id}`)
-        b._client.on("success",()=>{
-            setInterval(()=>{
+        b._client.on("login",()=>{
+            b.interval.chatQueue=setInterval(()=>{
                 if(b.chatqueue.length!=0){
                     b._client.chat(b.chatqueue[0]);
                     b.chatqueue.splice(0,1)
                 }
-            },300)
+            },150)
             //b.chat("Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. ")
         })
-        b.chatqueue=["Prefix: \" (not implemented)"];
+        b.chatqueue=[];//"Prefix: \""];
         b.chat=function chat(msg){
-            msg.match(/.{0,250}/g).forEach(element => {
+            if(msg.length==0) return;
+            msg.match(/.{1,250}/g).forEach(element => {
                 b.chatqueue.push(element)
             });
         }

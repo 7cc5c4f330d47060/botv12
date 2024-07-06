@@ -1,26 +1,6 @@
-const lang = require("minecraft-data")("1.20.2").language;
-const parse=function(data){
-    const out=["","",""];
-    if(data.text){
-        out[0]+=data.text;
-        out[1]+=data.text;
-        out[2]+=data.text;
-    }
-    if(data.translate){
-        out[0]+=data.translate;
-        out[1]+=data.translate;
-        out[2]+=data.translate;
-    }
-    if(data.extra){
-        for(const i in data.extra){
-            parsed=parse(data.extra[i])
-            out[0]+=parsed[0];
-            out[1]+=parsed[1];
-            out[2]+=parsed[2];
-        }
-    }
-    return out;
-}
+const console2 = require("./console.js")
+const parse = require("../util/chatparse.js")
+const parse1204 = require("../util/chatparse_1204.js")
 module.exports={
     load:()=>{
         //console.log("Loaded on global")
@@ -35,26 +15,35 @@ module.exports={
 }
 */
         b._client.on("profileless_chat",(data)=>{
-            console.log("pxc", data)
+            //console.log("pxc", data)
             if(data.type==4){
-                b.emit("chat",{json:data.message,type:"profileless",uuid:"N/A"})
+                //const parsedmessage = parse(JSON.parse(data.message));
+                //console.log(parsedmessage)
+                b.emit("chat",{json:parse1204(data.message),type:"profileless",uuid:"N/A", message: ""})
             }
         })
 
         b._client.on("player_chat",(data)=>{
             //console.log("pc", data)
             if(data.type==4){
-                b.emit("chat",{json:data.unsignedChatContent,type:"player",uuid:data.senderUuid})
+                b.emit("chat",{json:parse1204(data.unsignedChatContent),type:"player",uuid:data.senderUuid, message: data.plainMessage})
             }
         })
         b._client.on("system_chat",(data)=>{
             //console.log("sc", data)
-            b.emit("chat",{json:data.content,type:"system",uuid:"N/A"})
+            //console.log(data)
+            b.emit("chat",{json:parse1204(data.content),type:"system",uuid:"N/A", message: ""})
         })
         b.on("chat",(data)=>{
-            //console.log(data);
-            const jp=JSON.parse(data.json);
-            console.log(parse(jp)[0])
+            const msg=parse(data.json);
+            console2.write(`[${b.id}] [${data.type}] `+msg[0])
+            let fullCommand = "";
+            if(data.type=="player") fullCommand=data.message;
+            //console.log(name, fullCommand)
+            if(fullCommand.startsWith(b.prefix)){
+                const command=fullCommand.slice(b.prefix.length);
+                b.runCommand("N/A",data.uuid,command);
+            }
         })
     },
     parse
