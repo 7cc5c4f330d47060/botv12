@@ -6,7 +6,9 @@ const parse=function(data, l){
         return ['', '', '']
     }
 
-
+    if(data[""]){
+        data.text=data[""];
+    }
     if(data.text){
         out[0]+=data.text;
         out[1]+=data.text;
