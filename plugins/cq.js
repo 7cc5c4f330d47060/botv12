@@ -13,7 +13,7 @@ module.exports={//profileless_chat player_chat system_chat
             },150)
             //b.chat("Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. Text longer than 256 characters. ")
         })
-        b.chatqueue=[];//"Prefix: \""];
+        b.chatqueue=[];
         b.chat=function chat(msg){
             if(msg.length==0) return;
             msg.match(/.{1,250}/g).forEach(element => {
