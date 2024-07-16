@@ -43,7 +43,7 @@ module.exports={
                     return b.players[i].realName
                 }
             }
-            return "Stereo Madness"
+            return "Geometrical Dominator"
         }
     }
 }
