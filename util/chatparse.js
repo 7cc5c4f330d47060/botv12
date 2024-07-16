@@ -18,8 +18,13 @@ const consoleColors={
     "white":"\x1B[0m\x1B[38;2;255;255;255m",
     "reset":"\x1B[0m\x1B[38;2;255;255;255m"
 }
-const parse=function(data, l, resetColor){
-    //console.log(data)
+const parse=function(_data, l, resetColor){
+    let data;
+    if(typeof _data == "string"){
+        data=JSON.parse(_data);
+    } else {
+        data=_data;
+    }
     let nkt=false;
     if(!resetColor){
         resetColor=[consoleColors.reset];
