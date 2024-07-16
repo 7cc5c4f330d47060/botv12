@@ -20,7 +20,7 @@ class ConsoleCommand{
 				}
 				console.log("Commands: "+helpCmds.join(" "))
 			},
-			printCmdHelp:(cmd)=>{
+			printCmdHelp:(uuid,cmd)=>{
 				console.log(cmd+cmds[cmd].usage+" - "+cmds[cmd].desc);
 			}
 		}; //bot does not exist at console
