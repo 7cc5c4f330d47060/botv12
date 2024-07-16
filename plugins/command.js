@@ -6,9 +6,9 @@ module.exports={
         module.exports.loadCMD();
     },
     loadBot:(b)=>{
-        b.prefix="\""
+        b.prefix=["\"", "ubot:"]
         b.lastCmd=0;
-        b.runCommand=(name, uuid, text)=>{
+        b.runCommand=(name, uuid, text, prefix)=>{
             if(Date.now-b.lastCmd<=1000){
                 console.log("Executed too early, "+(Date.now-b.lastCmd)+"ms left");
                 return;
@@ -16,17 +16,17 @@ module.exports={
             const cmd=text.split(" ");
             if(cmds[cmd[0].toLowerCase()]){
                 try{
-                    cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,"prefix N/A",b,false))
+                    cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,false))
                 } catch(e) { console.log(e); b.chat("An error occured (check console for more info)") }
             } else {
                 b.chat("Command not found")
             }
         }
-        b.printHelp=(uuid)=>{
+        b.printHelp=(uuid,prefix)=>{
             let helpCmds=[];
             for(const i in cmds){
                 if(cmds[i].hidden) continue;
-                helpCmds.push(b.prefix+i)
+                helpCmds.push(prefix+i)
             }
             b.tellraw(uuid,JSON.stringify({"text":"Commands: "+helpCmds.join(" ")}));
         }
