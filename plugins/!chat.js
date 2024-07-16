@@ -40,9 +40,11 @@ module.exports={
             let fullCommand = "";
             if(data.type=="player") fullCommand=data.message;
             //console.log(name, fullCommand)
-            if(fullCommand.startsWith(b.prefix)){
-                const command=fullCommand.slice(b.prefix.length);
-                b.runCommand("N/A",data.uuid,command);
+            for(const i in b.prefix){
+                if(fullCommand.startsWith(b.prefix[i])){
+                    const command=fullCommand.slice(b.prefix[i].length);
+                    b.runCommand("N/A",data.uuid,command,b.prefix[i]);
+                }
             }
         })
     },
