@@ -15,7 +15,6 @@ module.exports={
 }
 */
         b._client.on("profileless_chat",(data)=>{
-            //console.log("pxc", data)
             if(data.type==4){
                 const json=parse1204(data.message);
                 const parsed=parse(json)[1];
@@ -28,14 +27,11 @@ module.exports={
         })
 
         b._client.on("player_chat",(data)=>{
-            console.log("pc", data)
             if(data.type==4){
                 b.emit("chat",{json:parse1204(data.unsignedChatContent),type:"player",uuid:data.senderUuid, message: data.plainMessage, username: parse(parse1204(data.networkName))[1]})
             }
         })
         b._client.on("system_chat",(data)=>{
-            //console.log("sc", data)
-            //console.log(data)
             const json=parse1204(data.content);
             const parsed=parse(json)[1];
             let split=parsed.split(": ");
@@ -45,8 +41,6 @@ module.exports={
             b.emit("chat",{json,type:"system",uuid, message: split.join(": "), username})
         })
         b._client.on("chat",(data)=>{ //Legacy chat
-            //console.log("sc", data)
-            //console.log(data)
             const json=parse1204(data.message);
             const parsed=parse(json)[1];
             let split=parsed.split(": ");
