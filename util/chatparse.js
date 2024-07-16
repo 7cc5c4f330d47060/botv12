@@ -26,6 +26,8 @@ const parse=function(_data, l, resetColor){
         } catch(e){
             data={text:_data, color: "reset"}
         }
+    } else if(typeof _data == "number"){
+        data={text:_data+"", color: "reset"}
     } else {
         data=_data;
     }
