@@ -13,7 +13,7 @@ module.exports={
         c.bot: Bot that received the command. Will be different type based on where it was received
         c.type: Type of bot receiving the command ("minecraft", "console", "discord")
         */
-        if(c.args[0].startsWith("/")) return;
+        if(c.args[0].startsWith("/") && !c.type=="console") return;
         c.bot.chat(c.args.join(" "))
     },
     desc: "Sends a message to chat", // Command description
