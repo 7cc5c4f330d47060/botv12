@@ -34,6 +34,11 @@ module.exports={
             //console.log(data)
             b.emit("chat",{json:parse1204(data.content),type:"system",uuid:"N/A", message: ""})
         })
+        b._client.on("chat",(data)=>{ //Legacy chat
+            //console.log("sc", data)
+            //console.log(data)
+            b.emit("chat",{json:parse1204(data.message),type:"legacy",uuid:data.uuid?data.uuid:"5bcefaf5-a9b8-ffff-fff5-a9b85bcefa00", message: ""})
+        })
         b.on("chat",(data)=>{
             const msg=parse(data.json);
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
