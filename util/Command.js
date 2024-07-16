@@ -14,8 +14,8 @@ class Command{
 		this.index = bot.id;
 		this.args = cmd.split(' ').slice(1);
 		this.verify = verify;
-		this.host = bot.host;
-		this.port = bot.port;
+		this.host = bot.host.host;
+		this.port = bot.host.port;
 	}
 }
 
