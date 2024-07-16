@@ -1,22 +1,22 @@
 const lang = require("minecraft-data")("1.20.2").language;
 const consoleColors={
-    "dark_red":"\x1B[38;5;1m",
-    "red":"\x1B[38;5;9m",
-    "dark_green":"\x1B[38;5;2m",
-    "green":"\x1B[38;5;10m",
-    "gold":"\x1B[38;5;3m",
-    "yellow":"\x1B[38;5;11m",
-    "dark_blue":"\x1B[38;5;4m",
-    "blue":"\x1B[38;5;12m",
-    "dark_purple":"\x1B[38;5;5m",
-    "light_purple":"\x1B[38;5;13m",
-    "dark_aqua":"\x1B[38;5;6m",
-    "aqua":"\x1B[38;5;14m",
-    "black":"\x1B[38;5;0m",
-    "gray":"\x1B[38;5;7m",
-    "dark_gray":"\x1B[38;5;8m",
-    "white":"\x1B[38;5;15m",
-    "reset":"\x1B[0m\x1B[38;5;15m"
+    "dark_red":"\x1B[0m\x1B[38;2;170;0;0m",
+    "red":"\x1B[0m\x1B[38;2;255;85;85m",
+    "dark_green":"\x1B[0m\x1B[38;2;0;170;0m",
+    "green":"\x1B[0m\x1B[38;2;85;255;85m",
+    "gold":"\x1B[0m\x1B[38;2;255;170;0m",
+    "yellow":"\x1B[0m\x1B[38;2;255;255;85m",
+    "dark_blue":"\x1B[0m\x1B[38;2;0;0;170m",
+    "blue":"\x1B[0m\x1B[38;2;85;85;255m",
+    "dark_purple":"\x1B[0m\x1B[38;2;170;0;170m",
+    "light_purple":"\x1B[0m\x1B[38;2;255;85;255m",
+    "dark_aqua":"\x1B[0m\x1B[38;2;0;170;170m",
+    "aqua":"\x1B[0m\x1B[38;2;85;255;255m",
+    "black":"\x1B[0m\x1B[48;2;127;127;127m\x1B[38;2;0;0;0m",
+    "gray":"\x1B[0m\x1B[38;2;170;170;170m",
+    "dark_gray":"\x1B[0m\x1B[38;2;85;85;85m",
+    "white":"\x1B[0m\x1B[38;2;255;255;255m",
+    "reset":"\x1B[0m\x1B[38;2;255;255;255m"
 }
 const parse=function(data, l, resetColor){
     //console.log(data)
