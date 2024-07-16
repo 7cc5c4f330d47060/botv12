@@ -20,8 +20,7 @@ module.exports={
                 const json=parse1204(data.message);
                 const parsed=parse(json)[1];
                 let split=parsed.split(": ");
-                const beforeColon = split.splice(0,1)[0].split(" ");
-                const chatName = beforeColon[beforeColon.length-1]
+                const chatName = split.splice(0,1)[0]
                 const username=b.findRealName(chatName);
                 const uuid=b.findUUID(username)
                 b.emit("chat",{json,type:"profileless",uuid,message: split.join(": "), username})
@@ -40,8 +39,7 @@ module.exports={
             const json=parse1204(data.content);
             const parsed=parse(json)[1];
             let split=parsed.split(": ");
-            const beforeColon = split.splice(0,1)[0].split(" ");
-            const chatName = beforeColon[beforeColon.length-1]
+            const chatName = split.splice(0,1)[0]
             const username=b.findRealName(chatName);
             const uuid=b.findUUID(username)
             b.emit("chat",{json,type:"system",uuid, message: split.join(": "), username})
@@ -52,23 +50,21 @@ module.exports={
             const json=parse1204(data.message);
             const parsed=parse(json)[1];
             let split=parsed.split(": ");
-            const beforeColon = split.splice(0,1)[0].split(" ");
-            const chatName = beforeColon[beforeColon.length-1]
+            const chatName = split.splice(0,1)[0]
             const username=b.findRealName(chatName);
             const uuid=b.findUUID(username)
             b.emit("chat",{json,type:"legacy",uuid:data.uuid?data.uuid:uuid, message: split.join(": "), username})
         })
         b.on("chat",(data)=>{
             const msg=parse(data.json);
-            console2.write(data.username+" ("+data.uuid+"): "+data.message)
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
-            let fullCommand = "";
-            if(data.type=="player") fullCommand=data.message;
+            let fullCommand = data.message;
+
             //console.log(name, fullCommand)
             for(const i in b.prefix){
                 if(fullCommand.startsWith(b.prefix[i])){
                     const command=fullCommand.slice(b.prefix[i].length);
-                    b.runCommand("N/A",data.uuid,command,b.prefix[i]);
+                    b.runCommand(data.username,data.uuid,command,b.prefix[i]);
                 }
             }
         })
