@@ -1,8 +1,8 @@
 {
     "secret":"/home/name3/settings10.json",
     "name": "botvX alpha",
-    "version": "10.0.0-alpha.5",
-    "version_mc": "1.20.4",
+    "version": "10.0.0-alpha.6",
+    "version_mc": "1.20.6",
     "servers":[
         {
             "host": "kaboom.pw",
