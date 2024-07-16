@@ -117,6 +117,7 @@ const parse=function(_data, l, resetColor){
             out[2]+=parsed[2];
         }
     }
+    out[0]+=resetColor[0];
     return out;
 }
 module.exports = parse
