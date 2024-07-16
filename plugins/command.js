@@ -31,7 +31,7 @@ module.exports={
             b.tellraw(uuid,JSON.stringify({"text":"Commands: "+helpCmds.join(" ")}));
         }
         b.printCmdHelp=(uuid,cmd)=>{
-            b.tellraw(uuid,JSON.stringify({"text":"Commands: "+cmd+cmds[cmd].usage+" - "+cmds[cmd].desc}));
+            b.tellraw(uuid,JSON.stringify({"text":cmd+cmds[cmd].usage+" - "+cmds[cmd].desc}));
         }
     },
     loadCMD:()=>{
@@ -42,8 +42,20 @@ module.exports={
                 continue
             }
             try {
-                cmds[bpl[i].split(".js")[0]]=require(`./commands/${bpl[i]}`);
-                console.log("Loaded command "+bpl[i].split(".js")[0])
+                commandName=bpl[i].split(".js")[0];
+                cmds[commandName]=require(`./commands/${bpl[i]}`);
+                console.log("Loaded command "+commandName)
+                if(cmds[commandName].aliases){
+                    for(const j in cmds[commandName].aliases){
+                        cmds[cmds[commandName].aliases[j]]={
+                            execute:cmds[commandName].execute,
+                            desc:"Alias to "+commandName,
+                            usage:cmds[commandName].usage,
+                            hidden:true,
+                            consoleIndex:cmds[commandName].consoleIndex
+                        };
+                    }
+                }
             } catch (e) { console.log(e); }
         }
     },
