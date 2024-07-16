@@ -2,7 +2,7 @@
 const parse = require("../util/chatparse.js")
 class Command{
 	constructor (uuid,user,nick,cmd,prefix,bot,verify){
-		this.send = ()=>{}; 
+		this.send = (uuid,text)=>{bot.tellraw(uuid,text)}; 
 		this.reply = text => bot.tellraw(uuid,text);
 		this.uuid = uuid;
 		this.username = user;
