@@ -37,6 +37,8 @@ const parse=function(data, l, resetColor){
     if(data.color){
         if(data.color=="reset"){
             out[0]+=resetColor[0]
+        } else if (data.color.startsWith("#")){
+            out[0]+="";
         } else {
             out[0]+=consoleColors[data.color];
         }
