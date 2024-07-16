@@ -10,7 +10,8 @@ module.exports={
         b.lastCmd=0;
         b.runCommand=(name, uuid, text)=>{
             if(Date.now-b.lastCmd<=1000){
-                console.log("Executed too early, "+(Date.now-b.lastCmd)+"ms left")
+                console.log("Executed too early, "+(Date.now-b.lastCmd)+"ms left");
+                return;
             }
             const cmd=text.split(" ");
             if(cmds[cmd[0].toLowerCase()]){
