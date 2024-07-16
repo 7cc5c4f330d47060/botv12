@@ -17,30 +17,50 @@ module.exports={
         b._client.on("profileless_chat",(data)=>{
             //console.log("pxc", data)
             if(data.type==4){
-                //const parsedmessage = parse(JSON.parse(data.message));
-                //console.log(parsedmessage)
-                b.emit("chat",{json:parse1204(data.message),type:"profileless",uuid:"N/A", message: ""})
+                const json=parse1204(data.message);
+                const parsed=parse(json)[1];
+                let split=parsed.split(": ");
+                const beforeColon = split.splice(0,1)[0].split(" ");
+                const chatName = beforeColon[beforeColon.length-1]
+                const username=b.findRealName(chatName);
+                const uuid=b.findUUID(username)
+                b.emit("chat",{json,type:"profileless",uuid,message: split.join(": "), username})
             }
         })
 
         b._client.on("player_chat",(data)=>{
-            //console.log("pc", data)
+            console.log("pc", data)
             if(data.type==4){
-                b.emit("chat",{json:parse1204(data.unsignedChatContent),type:"player",uuid:data.senderUuid, message: data.plainMessage})
+                b.emit("chat",{json:parse1204(data.unsignedChatContent),type:"player",uuid:data.senderUuid, message: data.plainMessage, username: parse(parse1204(data.networkName))[1]})
             }
         })
         b._client.on("system_chat",(data)=>{
             //console.log("sc", data)
             //console.log(data)
-            b.emit("chat",{json:parse1204(data.content),type:"system",uuid:"N/A", message: ""})
+            const json=parse1204(data.content);
+            const parsed=parse(json)[1];
+            let split=parsed.split(": ");
+            const beforeColon = split.splice(0,1)[0].split(" ");
+            const chatName = beforeColon[beforeColon.length-1]
+            const username=b.findRealName(chatName);
+            const uuid=b.findUUID(username)
+            b.emit("chat",{json,type:"system",uuid, message: split.join(": "), username})
         })
         b._client.on("chat",(data)=>{ //Legacy chat
             //console.log("sc", data)
             //console.log(data)
-            b.emit("chat",{json:parse1204(data.message),type:"legacy",uuid:data.uuid?data.uuid:"5bcefaf5-a9b8-ffff-fff5-a9b85bcefa00", message: ""})
+            const json=parse1204(data.message);
+            const parsed=parse(json)[1];
+            let split=parsed.split(": ");
+            const beforeColon = split.splice(0,1)[0].split(" ");
+            const chatName = beforeColon[beforeColon.length-1]
+            const username=b.findRealName(chatName);
+            const uuid=b.findUUID(username)
+            b.emit("chat",{json,type:"legacy",uuid:data.uuid?data.uuid:uuid, message: split.join(": "), username})
         })
         b.on("chat",(data)=>{
             const msg=parse(data.json);
+            console2.write(data.username+" ("+data.uuid+"): "+data.message)
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
             let fullCommand = "";
             if(data.type=="player") fullCommand=data.message;
