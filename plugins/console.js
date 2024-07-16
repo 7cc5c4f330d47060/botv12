@@ -14,14 +14,11 @@ module.exports = {
       prompt: '\x1b[0m\x1b[38;5;15m> '
     })
     rl.on('line', (l) => {
-      // 00000000-0000-0000-0000-Console00000
       try {
         if(newercommands[l.split(' ')[0].toLowerCase()]){
           if(newercommands[l.split(' ')[0].toLowerCase()].consoleIndex){
             let tmpcmd = l.split(' ');
             const index2 = tmpcmd.splice(1,1)[0];
-
-
             if (index2 === '*') {
               for (let i = 0; i < index.bot.length; i++) {
                 //if(index.bot[i].o.disabled) continue;
