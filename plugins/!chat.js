@@ -36,7 +36,6 @@ module.exports={
         })
         b.on("chat",(data)=>{
             const msg=parse(data.json);
-            console.log(data.json);
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
             let fullCommand = "";
             if(data.type=="player") fullCommand=data.message;
