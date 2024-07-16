@@ -64,7 +64,7 @@ const parse=function(_data, l, resetColor){
         out[2]+=data.text;
     }
     if (data.translate) {
-        let trans = data.translate
+        let trans = data.translate.replace(/%%/g, '\ue123')
         let trans2 = data.translate.replace(/%%/g, '\ue123')
         let trans3 = data.translate.replace(/%%/g, '\ue123')
         if (lang[trans] !== undefined) {
@@ -72,7 +72,7 @@ const parse=function(_data, l, resetColor){
             trans2 = lang[trans2].replace(/%%/g, '\ue123')
             trans3 = lang[trans3].replace(/%%/g, '\ue123')
         }
-            for (const i in data.with) {
+        for (const i in data.with) {
             const j2 = parse(data.with[i], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
             trans = trans.replace(/%s/, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replace(/%s/, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
@@ -105,8 +105,8 @@ const parse=function(_data, l, resetColor){
                 trans3 = trans3.replace(/%4\$s/g, j2_4[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             }
         }
-        out[1] += trans.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
-        out[0] += trans2.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s').replace(/\n/g, '\n')
+        out[0] += trans.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+        out[1] += trans2.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
         out[2] += trans3.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
     }
     if(data.extra){
