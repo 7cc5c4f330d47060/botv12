@@ -8,7 +8,7 @@ const fs=require("fs")
 module.exports.bot=[];
 
 const generateUser = function generateUser(){
-    return "@s["+crypto.randomBytes(2).toString("hex")+"_=\xa7c "+crypto.randomBytes(2).toString("hex")
+    return "@s["+crypto.randomBytes(2).toString("hex")+"_=  \xa7"+crypto.randomBytes(2).toString("hex")
 }
 
 const loadplug = (botno) => {
