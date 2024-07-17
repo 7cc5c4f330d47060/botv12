@@ -51,6 +51,7 @@ module.exports={
         })
         b.on("chat",(data)=>{
             const msg=parse(data.json);
+            b.emit("plainchat",msg[1])
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
             let fullCommand = data.message;
 
