@@ -57,7 +57,7 @@ module.exports = {
             b.chat(`/fill ~ 10 ~ ~ 15 ~ command_block`)
         })
         b.on('ccstart', () => {
-            setTimeout(() => { b.ccqi = setInterval(b.advanceccq, 12) }, 1000) // 1 Second and 12 Milliseconds
+            setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 12) }, 1000) // 1 Second and 12 Milliseconds
             b.ccStarted = true;
             b.info("Command block!");
         })

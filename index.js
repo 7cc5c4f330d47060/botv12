@@ -48,7 +48,10 @@ const createBot = function createBot(host,oldId){
         //console.log(bot);
     })
     if(typeof oldId !== "undefined"){
-        delete bot[oldId];
+        for(const i in module.exports.bot[oldId].interval){
+            clearInterval(module.exports.bot[oldId].interval[i]);
+        }
+        delete module.exports.bot[oldId];
         bot.id=oldId;
         module.exports.bot[oldId]=bot;
         console.log("Re-creating bot "+bot.id)
