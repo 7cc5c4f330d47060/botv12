@@ -4,7 +4,7 @@ module.exports={
 
     },
     loadBot:(b)=>{
-        b.add_sc_task("cspy","/cspy on", true)
+        b.add_sc_task("cspy","/cspy on", true, true)
         b.on('plainchat', (msg) => {
             if (msg == "Successfully disabled CommandSpy") {
                 b.sc_tasks["cspy"].failed = 1
