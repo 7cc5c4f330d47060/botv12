@@ -1,12 +1,12 @@
 const uuidToInt = require('../util/uuidtoint.js')
 module.exports = {
-    cs: 1,
+    cs: 4,
     cs_v: 6,
     load: function () {
 
     },
     loadBot: function (b) {
-        b.interval.commandFill = setInterval(() => { b.chat(`/fill ~ 10 ~ ~ 15 ~ command_block`) }, 60000)
+        b.interval.commandFill = setInterval(() => { b.chat(`/fill ~ 10 ~ ~3 15 ~3 command_block`) }, 60000)
         b.ccq = []
         b.blocknoX = 0
         b.blocknoZ = 0
@@ -16,7 +16,7 @@ module.exports = {
 
         b.advanceccq = function () {
             if (b.ccq[0] && b.ccq[0].length != 0) {
-                b._client.write('update_command_block', {
+                /*b._client.write('update_command_block', {
                     command: b.ccq[0],
                     location: {
                         x: b.commandPos.x1 + b.blocknoX,
@@ -25,7 +25,7 @@ module.exports = {
                     },
                     mode: 2,
                     flags: 1
-                })
+                })*/
                 b._client.write('update_command_block', {
                     command: b.ccq[0],
                     location: {
@@ -33,7 +33,7 @@ module.exports = {
                         y: b.commandPos.y1 + b.blocknoY,
                         z: b.commandPos.z1 + b.blocknoZ
                     },
-                    mode: 2,
+                    mode: 1,
                     flags: 5
                 })
                 b.blocknoX++
@@ -48,16 +48,16 @@ module.exports = {
                         }
                     }
                 }
-                // console.log(b.blocknoX,b.blocknoY,b.blocknoZ)
+                console.log(b.blocknoX,b.blocknoY,b.blocknoZ)
                 // console.log(b.blocknoX,b.blocknoZ)
             }
             b.ccq.splice(0, 1)
         }
         b._client.on("login",()=>{
-            b.chat(`/fill ~ 10 ~ ~ 15 ~ command_block`)
+            b.chat(`/fill ~ 10 ~ ~3 15 ~3 command_block`)
         })
         b.on('ccstart', () => {
-            setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 12) }, 1000) // 1 Second and 12 Milliseconds
+            setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
             b.ccStarted = true;
         })
         b.on('chat', (data) => { //
@@ -75,7 +75,7 @@ module.exports = {
                 if (a.x != b.original_pos.x || a.z != b.original_pos.z) {
                     b.original_pos = { x: a.x, y: a.y, z: a.z }
                     b.pos.correct = 0
-                    b.chat(`/fill ~ 10 ~ ~ 15 ~ command_block`)
+                    b.chat(`/fill ~ 10 ~ ~3 15 ~3 command_block`)
                 }
             }
 
