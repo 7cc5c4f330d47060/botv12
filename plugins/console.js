@@ -6,6 +6,12 @@ const ConsoleCommand = require('../util/ConsoleCommand.js')
 const fs = require('fs')
 const newercommands = require('./command.js').cmds;
 let rl
+function consoleWrite(text) {
+  readln.cursorTo(process.stdout, 0)
+  readln.clearLine(process.stdout, 0)
+  process.stdout.write(text + '\n')
+  rl.prompt(true)
+}
 module.exports = {
   load: () => {
     rl = readln.createInterface({
@@ -21,7 +27,6 @@ module.exports = {
             const index2 = tmpcmd.splice(1,1)[0];
             if (index2 === '*') {
               for (let i = 0; i < index.bot.length; i++) {
-                //if(index.bot[i].o.disabled) continue;
                 const cmd = new ConsoleCommand(tmpcmd.join(' '),i);
                 newercommands[l.split(' ')[0].toLowerCase()].execute(cmd)
               }
@@ -34,7 +39,6 @@ module.exports = {
             newercommands[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
         }
-        // things.consolecmds[l.toString().toLowerCase().split(" ")[0]].command(l,things)
       } catch (e) {
         console.log(e)
       }
@@ -42,11 +46,11 @@ module.exports = {
     })
     rl.prompt()
   },
+  loadBot: (b)=>{
+    b.info=(msg)=>{
+      consoleWrite(`[${b.id}] [info] ${msg}`)
+    }
+  },
   rl,
-  write: (text) => {
-    readln.cursorTo(process.stdout, 0)
-    readln.clearLine(process.stdout, 0)
-    process.stdout.write(text + '\n')
-    rl.prompt(true)
-  }
+  write: consoleWrite
 }
