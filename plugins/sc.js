@@ -1,11 +1,11 @@
 class SCTask{
-    constructor (failTask,chatCommand){
+    constructor (failTask,chatCommand,startFailed=false){
         /*
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
          * chatCommand: Whether to run failTask in chat rather than in command block
         */
-        this.failed=false;
+        this.failed=startFailed;
         this.failTask=failTask;
         this.chatCommand=chatCommand;
     }
@@ -27,8 +27,8 @@ module.exports={
                 }
             }
         },1000)
-        b.add_sc_task=(name,failTask,chatCommand)=>{
-            b.sc_tasks[name] = new SCTask(failTask,chatCommand);
+        b.add_sc_task=(name,failTask,chatCommand,startFailed)=>{
+            b.sc_tasks[name] = new SCTask(failTask,chatCommand,startFailed);
         }
     }
 }
