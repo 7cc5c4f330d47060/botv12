@@ -59,7 +59,6 @@ module.exports = {
         b.on('ccstart', () => {
             setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 12) }, 1000) // 1 Second and 12 Milliseconds
             b.ccStarted = true;
-            b.info("Command block!");
         })
         b.on('chat', (data) => { //
             if (!b.ccStarted && (data.json.translate == 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.failed') ||
