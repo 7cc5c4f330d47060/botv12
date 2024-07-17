@@ -19,8 +19,6 @@ module.exports={
                 try{
                     cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,false))
                 } catch(e) { console.log(e); b.chat("An error occured (check console for more info)") }
-            } else {
-                b.chat("Command not found")
             }
         }
         b.printHelp=(uuid,prefix)=>{
