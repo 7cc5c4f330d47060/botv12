@@ -6,7 +6,7 @@ module.exports = {
 
     },
     loadBot: function (b) {
-        b.interval.commandFill = setInterval(() => { b.chat(`/fill ~ 220 ~ ~3 225 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`) }, 60000)
+        b.interval.commandFill = setInterval(() => { b.chat(`/fill ~ 20 ~ ~3 25 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`) }, 60000)
         b.ccq = []
         b.blocknoX = 0
         b.blocknoZ = 0
@@ -54,7 +54,7 @@ module.exports = {
             b.ccq.splice(0, 1)
         }
         b._client.on("login",()=>{
-            b.chat(`/fill ~ 220 ~ ~3 225 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`)
+            b.chat(`/fill ~ 20 ~ ~3 25 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`)
         })
         b.on('ccstart', () => {
             setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
@@ -75,7 +75,7 @@ module.exports = {
                 if (a.x != b.original_pos.x || a.z != b.original_pos.z) {
                     b.original_pos = { x: a.x, y: a.y, z: a.z }
                     b.pos.correct = 0
-                    b.chat(`/fill ~ 220 ~ ~3 225 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`)
+                    b.chat(`/fill ~ 20 ~ ~3 25 ~3 command_block{CustomName:'{"translate":"pack.dropConfirm","color":"#FFAAFF"}'}`)
                 }
             }
 
@@ -85,7 +85,7 @@ module.exports = {
                 x2: Math.ceil(a.x) + 3,
                 z1: Math.floor(a.z),
                 z2: Math.ceil(a.z) + 3,
-                y1: 220,
+                y1: 20,
                 y2: 10
             }
             // b.send("/fill ~5 0 ~5 ~-5 0 ~-5 command_block")
