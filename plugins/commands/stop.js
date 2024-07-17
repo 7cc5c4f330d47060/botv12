@@ -6,5 +6,5 @@ module.exports={
     desc: "Restart bot", // Command description
     usage: ' <required> [optional]', // Command usage
     hidden: true,
-    aliases: ["restart"]
+    aliases: ["restart", "exit"]
 }
