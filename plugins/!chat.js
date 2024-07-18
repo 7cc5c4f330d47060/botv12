@@ -47,7 +47,7 @@ module.exports={
                     type:"profileless",
                     uuid:"00000000-0000-0000-0000-000000000000",
                     message: parse(parse1204(data.message))[1],
-                     username:parse(parse1204(data.name))[1]
+                    username:parse(parse1204(data.name))[1]
                 })
             }
         })
