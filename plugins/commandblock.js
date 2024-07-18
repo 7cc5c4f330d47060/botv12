@@ -16,7 +16,7 @@ module.exports = {
 
         b.advanceccq = function () {
             if (b.ccq[0] && b.ccq[0].length != 0) {
-                /*b._client.write('update_command_block', {
+                b._client.write('update_command_block', {
                     command: b.ccq[0],
                     location: {
                         x: b.commandPos.x1 + b.blocknoX,
@@ -25,7 +25,7 @@ module.exports = {
                     },
                     mode: 2,
                     flags: 1
-                })*/
+                })
                 b._client.write('update_command_block', {
                     command: b.ccq[0],
                     location: {
@@ -33,7 +33,7 @@ module.exports = {
                         y: b.commandPos.y1 + b.blocknoY,
                         z: b.commandPos.z1 + b.blocknoZ
                     },
-                    mode: 1,
+                    mode: 2,
                     flags: 5
                 })
                 b.blocknoX++
@@ -48,8 +48,6 @@ module.exports = {
                         }
                     }
                 }
-                console.log(b.blocknoX,b.blocknoY,b.blocknoZ)
-                // console.log(b.blocknoX,b.blocknoZ)
             }
             b.ccq.splice(0, 1)
         }
