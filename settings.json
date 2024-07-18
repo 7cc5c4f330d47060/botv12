@@ -5,7 +5,10 @@
     "version_mc": "1.20.4",
     "prefix":[
         "ubot:",
-        "\""
+        "\"",
+        "''",
+        "``",
+        "SundanceNanshan 10A23941a"
     ],
     "servers":[
         {
