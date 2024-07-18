@@ -3,7 +3,7 @@
 const settings = require("../../settings.json")
 module.exports = {
   execute: function (c) {
-    c.reply('{"text":"UBot - a minecraft bot made by a \\"baby\\""}');
+    c.reply('{"text":"UBot - a minecraft bot made by 77c8f4699b732c11 / a5a06d596f15c7db"}');
     c.reply('{"text":""}');
     c.reply('{"text":"Version '+settings.version+'"}');
     c.reply('{"text":""}');
