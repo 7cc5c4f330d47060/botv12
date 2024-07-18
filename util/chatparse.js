@@ -12,11 +12,21 @@ const consoleColors={
     "light_purple":"\x1B[0m\x1B[38;2;255;85;255m",
     "dark_aqua":"\x1B[0m\x1B[38;2;0;170;170m",
     "aqua":"\x1B[0m\x1B[38;2;85;255;255m",
-    "black":"\x1B[0m\x1B[48;2;127;127;127m\x1B[38;2;0;0;0m",
+    "black":"\x1B[0m\x1B[48;2;200;200;200m\x1B[38;2;0;0;0m",
     "gray":"\x1B[0m\x1B[38;2;170;170;170m",
     "dark_gray":"\x1B[0m\x1B[38;2;85;85;85m",
     "white":"\x1B[0m\x1B[38;2;255;255;255m",
     "reset":"\x1B[0m\x1B[38;2;255;255;255m"
+}
+const hexColorParser=(color)=>{
+    let out="\x1B[0m";//\x1B[48;2;200;200;200m\x1B[38;2;0;0;0m
+    const redChannel=Number("0x"+color.slice(1,3));
+    const greenChannel=Number("0x"+color.slice(3,5));
+    const blueChannel=Number("0x"+color.slice(5,7));
+    if(redChannel < 96 && greenChannel < 96 && blueChannel < 96){
+        out+="\x1B[48;2;200;200;200m";
+    }
+    return out+`\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
 const parse=function(_data, l, resetColor){
     let data;
@@ -49,7 +59,7 @@ const parse=function(_data, l, resetColor){
         if(data.color=="reset"){
             out[0]+=resetColor[0]
         } else if (data.color.startsWith("#")){
-            out[0]+="";
+            out[0]+=hexColorParser(data.color);
         } else {
             out[0]+=consoleColors[data.color];
         }
