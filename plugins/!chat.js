@@ -25,7 +25,6 @@ module.exports={
 }
 */
         b._client.on("profileless_chat",(data)=>{
-            console.log(data)
             if(data.type==4){
                 const json=parse1204(data.message);
                 const parsed=parse(json)[1];
@@ -53,7 +52,6 @@ module.exports={
         })
 
         b._client.on("player_chat",(data)=>{
-            console.log(data)
             if(data.type==4){
                 b.emit("chat",{json:parse1204(data.unsignedChatContent),type:"player",uuid:data.senderUuid, message: data.plainMessage, username: parse(parse1204(data.networkName))[1]})
             } else {
