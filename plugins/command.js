@@ -1,12 +1,13 @@
 const fs=require("fs");
 const Command=require("../util/Command.js");
+const settings = require("../settings.json");
 let cmds={};
 module.exports={
     load:()=>{
         module.exports.loadCMD();
     },
     loadBot:(b)=>{
-        b.prefix=["\"", "ubot:"]
+        b.prefix=settings.prefix;
         b.lastCmd=0;
         b.runCommand=(name, uuid, text, prefix)=>{
             if(uuid=="00000000-0000-0000-0000-000000000000") return;
