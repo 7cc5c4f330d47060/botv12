@@ -4,7 +4,9 @@ const rsg=function(count){
     let rng=Math.floor(Math.random()*16)+1;
     if(rng==7) rng=17; //No bells
     if(rng==10) rng=18; //No line feeds
-    if(rng==13) rng=19; //No carriage returns
+    if(rng==11) rng=19; //No vertical tabulations
+    if(rng==12) rng=20; //No form feed
+    if(rng==13) rng=21; //No carriage returns
     output+=String.fromCharCode(rng)
   }
   return output;
