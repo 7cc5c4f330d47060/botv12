@@ -3,7 +3,7 @@ const index=require("../../index.js") //Not used in the code, but may be used by
 module.exports={
     execute: (c)=>{
         if(c.type!="console"){
-            c.reply(textformat("Eval command is currently not available to players in Minecraft"))
+            c.reply(textformat("Eval command is currently not available to players in Minecraft due to security issues."))
         };
         try{
             console.log(eval(c.args.join(" ")));
