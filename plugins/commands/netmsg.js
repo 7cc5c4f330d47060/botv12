@@ -34,6 +34,5 @@ module.exports={
     },
     desc: "Send a message to all servers the bot is connected to", // Command description
     usage: ' <message>', // Command usage
-    hidden: true, // To show the command on the help command list, remove this line
     consoleIndex: true // When run from console, the second argument will be a bot ID
 }
