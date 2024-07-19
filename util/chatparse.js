@@ -32,7 +32,10 @@ const hexColorParser=(color)=>{
     }
     return out+`\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
-const parse=function(_data, l, resetColor){
+const parse=function(_data, l = 0, resetColor){
+    if (l >= 12) {
+        return ['', '', '']
+    }
     let data;
     if(typeof _data == "string"){
         try {
@@ -50,11 +53,6 @@ const parse=function(_data, l, resetColor){
         resetColor=[consoleColors.reset];
     }
     const out=["","",""]; //console plain minecraft
-    if (l === undefined) l = 0
-    if (l >= 12) {
-        return ['', '', '']
-    }
-
     if(data[""]){
         data.text=data[""];
         nkt=true;
@@ -136,4 +134,16 @@ const parse=function(_data, l, resetColor){
     out[0]+=resetColor[0];
     return out;
 }
-module.exports = parse
+const parse2=function(_data, l, resetColor){
+    try{
+        return parse(_data)
+    } catch(e){
+        console.error(e)
+        return [
+            "\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.",
+            "An error occured while parsing a message. See console for more information.",
+            "§cAn error occured while parsing a message. See console for more information."
+        ]
+    }
+}
+module.exports = parse2
