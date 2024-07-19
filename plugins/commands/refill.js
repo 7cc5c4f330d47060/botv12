@@ -4,7 +4,6 @@ module.exports={
     },
     desc: "Refill core", // Command description
     usage: '', // Command usage
-    hidden: false, // To show the command on the help command list, remove this line
     consoleIndex: true, // When run from console, the second argument will be a bot ID
     aliases: ["refillcore", "rc"]
 }
