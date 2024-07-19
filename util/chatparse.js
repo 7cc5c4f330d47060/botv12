@@ -32,7 +32,7 @@ const hexColorParser=(color)=>{
     }
     return out+`\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
-const parse=function(_data, l = 0, resetColor = consoleColors.reset){
+const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
     if (l >= 12) {
         return ['', '', '']
     }
