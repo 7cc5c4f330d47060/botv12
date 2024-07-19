@@ -32,7 +32,7 @@ const hexColorParser=(color)=>{
     }
     return out+`\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
-const parse=function(_data, l = 0, resetColor){
+const parse=function(_data, l = 0, resetColor = consoleColors.reset){
     if (l >= 12) {
         return ['', '', '']
     }
@@ -49,9 +49,6 @@ const parse=function(_data, l = 0, resetColor){
         data=_data;
     }
     let nkt=false;
-    if(!resetColor){
-        resetColor=[consoleColors.reset];
-    }
     const out=["","",""]; //console plain minecraft
     if(data[""]){
         data.text=data[""];
