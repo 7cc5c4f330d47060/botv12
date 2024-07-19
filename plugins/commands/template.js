@@ -17,5 +17,6 @@ module.exports={
     desc: "Does nothing", // Command description
     usage: ' <required> [optional]', // Command usage
     hidden: true, // To show the command on the help command list, remove this line
-    consoleIndex: true // When run from console, the second argument will be a bot ID
+    consoleIndex: true, // When run from console, the second argument will be a bot ID
+    aliases: ["example", "testing"] // Other command names that will work the same
 }
