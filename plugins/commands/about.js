@@ -10,5 +10,6 @@ module.exports = {
     c.reply('{"text":"To view system information, run the command \\"serverinfo\\"."}')
   },
   desc: 'About the bot',
-  usage: ''
+  usage: '',
+  aliases: ["info"]
 }
