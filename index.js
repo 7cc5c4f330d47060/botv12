@@ -1,15 +1,12 @@
 const m = require("minecraft-protocol")
 const settings = require("./settings.json")
+const generateUser = require("./util/usergen.js")
 const secret = require(settings.secret)
 const EventEmitter = require("node:events")
 const crypto = require("crypto")
 const fs=require("fs")
 
 module.exports.bot=[];
-
-const generateUser = function generateUser(){
-    return "@s["+crypto.randomBytes(2).toString("hex")+"_=  \xa7"+crypto.randomBytes(2).toString("hex")
-}
 
 const loadplug = (botno) => {
     const botplug = []
