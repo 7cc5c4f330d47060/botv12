@@ -1,4 +1,8 @@
-const lang = require("minecraft-data")("1.20.2").language;
+const _lang = require("minecraft-data")("1.20.2").language;
+let lang=Object.create(null); //Without constructor function
+for(const i in _lang){
+    lang[i]=_lang[i];
+}
 const consoleColors={
     "dark_red":"\x1B[0m\x1B[38;2;170;0;0m",
     "red":"\x1B[0m\x1B[38;2;255;85;85m",
