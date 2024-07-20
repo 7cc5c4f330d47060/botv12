@@ -1,7 +1,7 @@
 {
     "secret":"/home/name3/settings10.json",
     "name": "botvX alpha",
-    "version": "10.0.0-alpha.6",
+    "version": "10.0.0-alpha.7",
     "version_mc": "1.20.4",
     "prefix":[
         "ubot:",
