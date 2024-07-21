@@ -232,7 +232,7 @@
             "port": 25565,
             "options":{
                 "name": "localhost",
-		"legalName": true
+		        "legalName": true
             }
         }
     ]
