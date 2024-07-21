@@ -1,7 +1,7 @@
 const fs=require("fs");
 const Command=require("../util/Command.js");
 const settings = require("../settings.json");
-let cmds={};
+let cmds=Object.create(null);
 module.exports={
     load:()=>{
         module.exports.loadCMD();
