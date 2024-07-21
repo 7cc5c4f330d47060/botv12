@@ -11,6 +11,10 @@ const rsg=function(count){
   }
   return output;
 }
-module.exports = function () {
-  return "  \xa7"+rsg(6)+"   "+rsg(4)
+module.exports = function (legal) {
+  if(legal){
+    return Math.floor(Math.random()*1000000).toString()
+  } else {
+    return "  \xa7"+rsg(6)+"   "+rsg(4)
+  }
 }
