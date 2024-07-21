@@ -16,14 +16,6 @@ module.exports={
         //console.log("Loaded on global")
     },
     loadBot:(b)=>{
-        //profileless_chat player_chat system_chat
-                /*pxc {
-  message: '{"text":"gex"}',
-  type: 5,
-  name: '{"bold":true,"italic":false,"color":"yellow","text":"NothingCore"}',
-  target: undefined
-}
-*/
         b._client.on("profileless_chat",(data)=>{
             if(data.type==4){
                 const json=parse1204(data.message);
@@ -96,7 +88,6 @@ module.exports={
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
             let fullCommand = data.message;
 
-            //console.log(name, fullCommand)
             for(const i in b.prefix){
                 if(fullCommand.startsWith(b.prefix[i])){
                     const command=fullCommand.slice(b.prefix[i].length);
