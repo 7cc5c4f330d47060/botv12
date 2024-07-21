@@ -70,12 +70,12 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             out[0]+=resetColor[0];
             out[2]+=resetColor[1];
         }
-        out[0]+=data.text;
+        out[0]+=data.text.replace(/\u001b/g,""); //Remove escape codes from console format
         out[1]+=data.text;
         out[2]+=data.text;
     }
     if (data.translate) {
-        let trans = data.translate.replace(/%%/g, '\ue123')
+        let trans = data.translate.replace(/%%/g, '\ue123').replace(/\u001b/g,""); //Remove escape codes from console format
         let trans2 = data.translate.replace(/%%/g, '\ue123')
         let trans3 = data.translate.replace(/%%/g, '\ue123')
         if (lang[trans] !== undefined) {
