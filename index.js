@@ -38,7 +38,7 @@ const createBot = function createBot(host,oldId){
     bot._client = m.createClient({
         host: host.host,
         port: host.port ? host.port : 25565,
-        username: generateUser(),
+        username: generateUser(host.options.legalName),
         version: settings.version_mc
     })
     bot._client.on("success",()=>{
