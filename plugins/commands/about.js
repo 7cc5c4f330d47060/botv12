@@ -1,5 +1,3 @@
-// This is not C source code
-//const settings = require('../settings.json')
 const version = require("../../version.json")
 const settings = require('../../settings.json')
 module.exports = {

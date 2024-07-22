@@ -3,8 +3,8 @@ module.exports={
         if(c.verify<2) return;
         c.bot._client.end();
     },
-    desc: "Does nothing", // Command description
-    usage: ' <required> [optional]', // Command usage
+    desc: "Does nothing",
+    usage: ' <required> [optional]',
     hidden: true,
     consoleIndex: true
 }

@@ -1,5 +1,5 @@
 const textformat=require("../../util/textformat.js")
-const index=require("../../index.js") //Not used in the code, but may be used by users of the command
+const index=require("../../index.js") // Not used in the code, but may be used by users of the command
 module.exports={
     execute: (c)=>{
         if(c.verify<3){
@@ -12,8 +12,8 @@ module.exports={
             console.error(e);
         }
     },
-    desc: "Run JavaScript code", // Command description
-    usage: '', // Command usage
+    desc: "Run JavaScript code",
+    usage: '',
     hidden: true,
     level: 3
 }

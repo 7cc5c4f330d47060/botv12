@@ -32,7 +32,6 @@ module.exports={
             bot[i].tellraw("@a",json)
         }
     },
-    desc: "Send a message to all servers the bot is connected to", // Command description
-    usage: ' <message>', // Command usage
-    consoleIndex: false // When run from console, the second argument will be a bot ID
+    desc: "Send a message to all servers the bot is connected to",
+    usage: ' <message>'
 }
