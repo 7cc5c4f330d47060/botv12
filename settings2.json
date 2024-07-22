@@ -1,5 +1,5 @@
 {
-    "secret":"/home/name3/settings10.json",
+    "secret":"./settings_s.json",
     "name": "Minecraft Bot",
     "version": "1.0.0",
     "version_mc": "1.20.4",
