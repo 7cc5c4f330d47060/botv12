@@ -122,7 +122,7 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
     }
     if(data.extra){
         for(const i in data.extra){
-            parsed=parse(data.extra[i], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
+            parsed=parse(data.extra[i], l, data.color?[consoleColors[data.color],""]:resetColor)
             out[0]+=parsed[0];
             out[1]+=parsed[1];
             out[2]+=parsed[2];
