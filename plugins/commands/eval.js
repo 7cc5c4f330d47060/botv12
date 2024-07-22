@@ -14,5 +14,6 @@ module.exports={
     },
     desc: "Run JavaScript code", // Command description
     usage: '', // Command usage
-    hidden: true
+    hidden: true,
+    level: 3
 }
