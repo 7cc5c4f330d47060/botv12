@@ -1,6 +1,6 @@
 module.exports={
     execute: (c)=>{
-        if(c.type!="console") return;
+        if(c.verify<2) return;
         c.bot._client.end();
     },
     desc: "Does nothing", // Command description
