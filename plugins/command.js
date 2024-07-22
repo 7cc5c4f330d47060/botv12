@@ -1,5 +1,6 @@
 const fs=require("fs");
 const Command=require("../util/Command.js");
+const hashcheck=require("../util/hashcheck.js");
 const settings = require("../settings.json");
 let cmds=Object.create(null);
 module.exports={
@@ -16,9 +17,10 @@ module.exports={
                 return;
             }
             const cmd=text.split(" ");
+            let verify=hashcheck(cmd);
             if(cmds[cmd[0].toLowerCase()]){
                 try{
-                    cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,false))
+                    cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,verify))
                 } catch(e) { console.log(e); b.chat("An error occured (check console for more info)") }
             }
         }
@@ -28,10 +30,10 @@ module.exports={
                 if(cmds[i].hidden) continue;
                 helpCmds.push(prefix+i)
             }
-            b.tellraw(uuid,JSON.stringify({"text":"Commands: "+helpCmds.join(" ")}));
+            b.tellraw(uuid,{"text":"Commands: "+helpCmds.join(" ")});
         }
         b.printCmdHelp=(uuid,cmd)=>{
-            b.tellraw(uuid,JSON.stringify({"text":cmd+cmds[cmd].usage+" - "+cmds[cmd].desc}));
+            b.tellraw(uuid,{"text":cmd+cmds[cmd].usage+" - "+cmds[cmd].desc});
         }
     },
     loadCMD:()=>{
