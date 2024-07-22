@@ -66,13 +66,17 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
         out[0]+=resetColor[0]
     }
     if(data.text){
+        let _text=data.text;
+        if(typeof _text=="number"){
+            _text=_text.toString()
+        }
         if(nkt){
             out[0]+=resetColor[0];
             out[2]+=resetColor[1];
         }
-        out[0]+=data.text.replace(/\u001b/g,""); //Remove escape codes from console format
-        out[1]+=data.text;
-        out[2]+=data.text;
+        out[0]+=_text.replace(/\u001b/g,""); //Remove escape codes from console format
+        out[1]+=_text;
+        out[2]+=_text;
     }
     if (data.translate) {
         let trans = data.translate.replace(/%%/g, '\ue123').replace(/\u001b/g,""); //Remove escape codes from console format
@@ -137,9 +141,9 @@ const parse2=function(_data, l, resetColor){
     } catch(e){
         console.error(e)
         return [
-            "\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.",
-            "An error occured while parsing a message. See console for more information.",
-            "§cAn error occured while parsing a message. See console for more information."
+            "\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: "+JSON.stringify(_data),
+            "An error occured while parsing a message. See console for more information. JSON that caused the error: "+JSON.stringify(_data),
+            "§cAn error occured while parsing a message. See console for more information. JSON that caused the error: "+JSON.stringify(_data)
         ]
     }
 }
