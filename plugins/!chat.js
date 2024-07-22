@@ -84,6 +84,7 @@ module.exports={
         b.on("chat",(data)=>{
             const msg=parse(data.json);
             if(msg[1].endsWith("\n\n\n\n\nThe chat has been cleared")) return;
+            if(msg[1].startsWith("Command set: ")) return;
             b.emit("plainchat",msg[1])
             console2.write(`[${b.id}] [${data.type}] `+msg[0])
             let fullCommand = data.message;
