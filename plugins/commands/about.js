@@ -1,6 +1,7 @@
 // This is not C source code
 //const settings = require('../settings.json')
 const version = require("../../version.json")
+const settings = require('../../settings.json')
 module.exports = {
   execute: function (c) {
     c.reply('{"text":"'+settings.name+' - a minecraft bot made by 77c8f4699b732c11 / a5a06d596f15c7db"}');
