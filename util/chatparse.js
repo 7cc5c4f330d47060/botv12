@@ -88,33 +88,9 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             trans = trans.replace(/%s/, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replace(/%s/, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replace(/%s/, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-        }
-        // %n$s only goes up to 4 normally
-        if (data.with) {
-            if (data.with[0]) {
-                const j2_1 = parse(data.with[0], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
-                trans = trans.replace(/%1\$s/g, j2_1[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans2 = trans2.replace(/%1\$s/g, j2_1[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans3 = trans3.replace(/%1\$s/g, j2_1[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-            }
-            if (data.with[1]) {
-                const j2_2 = parse(data.with[1], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
-                trans = trans.replace(/%2\$s/g, j2_2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans2 = trans2.replace(/%2\$s/g, j2_2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans3 = trans3.replace(/%2\$s/g, j2_2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-            }
-            if (data.with[2]) {
-                const j2_3 = parse(data.with[2], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
-                trans = trans.replace(/%3\$s/g, j2_3[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans2 = trans2.replace(/%3\$s/g, j2_3[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans3 = trans3.replace(/%3\$s/g, j2_3[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-            }
-            if (data.with[3]) {
-                const j2_4 = parse(data.with[3], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
-                trans = trans.replace(/%4\$s/g, j2_4[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans2 = trans2.replace(/%4\$s/g, j2_4[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-                trans3 = trans3.replace(/%4\$s/g, j2_4[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-            }
+            trans = trans.replaceAll(`%${+i+1}$s`, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+            trans2 = trans2.replaceAll(`%${+i+1}$s`, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+            trans3 = trans3.replaceAll(`%${+i+1}$s`, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
         }
         out[0] += trans.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
         out[1] += trans2.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
