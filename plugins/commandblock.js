@@ -98,7 +98,7 @@ module.exports = {
             } else {
                 finalname = uuid
             }
-            b.ccq.push(`/tellraw ${finalname} ${message}`)
+            b.ccq.push(`/tellraw ${finalname} ${JSON.stringify(message)}`)
         }
     }
 }
