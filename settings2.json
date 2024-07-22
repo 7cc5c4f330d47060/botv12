@@ -1,0 +1,19 @@
+{
+    "secret":"/home/name3/settings10.json",
+    "name": "Minecraft Bot",
+    "version": "1.0.0",
+    "version_mc": "1.20.4",
+    "prefix":[
+        "ubot:",
+        "\""
+    ],
+    "servers":[
+        {
+            "host": "kaboom.pw",
+            "port": 25565,
+            "options":{
+                "name": "kaboom"
+            }
+        }
+    ]
+}
