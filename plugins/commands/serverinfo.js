@@ -2,6 +2,7 @@ const os = require('os')
 const cp = require('child_process')
 const settings = require('../../settings.json')
 const timeformat = require('../../util/timeformat.js')
+const version = require("../../version.json")
 const fs=require("fs")
 const gr = function (text, value, color) {
   if (!color) color = 'white'
@@ -80,7 +81,7 @@ module.exports = {
       c.reply(gr('Device model', dBrand+dModel, 'green'))
     }
     c.reply(gr('Bot name', settings.name, 'yellow'))
-    c.reply(gr('Bot version', settings.version, 'yellow'))
+    c.reply(gr('Bot version', version.bot, 'yellow'))
   },
   desc: 'Get system/bot info (ported from V9). Not complete.',
   usage: ''
