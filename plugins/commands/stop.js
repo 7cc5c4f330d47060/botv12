@@ -3,8 +3,8 @@ module.exports={
         if(c.verify<2) return;
         process.exit(0);
     },
-    desc: "Restart bot", // Command description
-    usage: ' <required> [optional]', // Command usage
+    desc: "Restart bot",
+    usage: ' <required> [optional]',
     hidden: true,
     aliases: ["restart", "exit"]
 }

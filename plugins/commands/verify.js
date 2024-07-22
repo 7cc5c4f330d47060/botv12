@@ -7,8 +7,8 @@ module.exports={
             text: c.command
         })
     },
-    desc: "Does nothing", // Command description
-    usage: ' <required> [optional]', // Command usage
-    hidden: false, // To show the command on the help command list, remove this line
+    desc: "Does nothing",
+    usage: ' <required> [optional]',
+    hidden: false,
     level: 1
 }
