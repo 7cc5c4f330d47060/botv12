@@ -46,7 +46,6 @@ const os2 = function (o2) {
       return o2
   }
 }
-// b.tellraw(sender,gr("Example",example))
 module.exports = {
   execute: function (c) {
     c.reply(gr('Operating system', os2(process.platform)))
