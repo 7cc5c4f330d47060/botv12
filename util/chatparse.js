@@ -92,9 +92,9 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             trans2 = trans2.replaceAll(`%${+i+1}$s`, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replaceAll(`%${+i+1}$s`, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
         }
-        out[0] += trans.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
-        out[1] += trans2.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
-        out[2] += trans3.replace(/%([0-9]*\$){0,1}s/g, '').replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+        out[0] += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+        out[1] += trans2.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+        out[2] += trans3.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
     }
     if(data.extra){
         for(const i in data.extra){
