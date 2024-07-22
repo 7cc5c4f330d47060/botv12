@@ -18,10 +18,28 @@ module.exports={
             }
             const cmd=text.split(" ");
             let verify=hashcheck(cmd);
+            if(verify>0){
+                text=cmd.slice(0,cmd.length-1).join(" ");
+            }
             if(cmds[cmd[0].toLowerCase()]){
+                const command = cmds[cmd[0].toLowerCase()];
+                if(command.level!==undefined && command.level>verify){
+                    b.tellraw(uuid,{
+                        text:"You do not have permission to run this command. If you have permission, please make sure you put the command hash at the end, or ran the command through your client's hashing system."
+                    });
+                    b.tellraw(uuid,{
+                        text:"Your permission level: "+verify
+                    });
+                    b.tellraw(uuid,{
+                        text:"Command requires: "+command.level
+                    });
+                    return;
+                }
                 try{
                     cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,verify))
-                } catch(e) { console.log(e); b.chat("An error occured (check console for more info)") }
+                } catch(e) {
+                    console.log(e); b.chat("An error occured (check console for more info)")
+                }
             }
         }
         b.printHelp=(uuid,prefix)=>{
