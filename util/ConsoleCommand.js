@@ -27,7 +27,7 @@ class ConsoleCommand{
 		this.type = 'console';
 		this.index = index2;
 		this.args = cmd.split(' ').slice(1);
-		this.verify = true;
+		this.verify = 3;
 		this.host = "";
 		this.port = "3"; // :3
 	}
