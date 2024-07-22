@@ -38,11 +38,7 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
     }
     let data;
     if(typeof _data == "string"){
-        try {
-            data=JSON.parse(_data);
-        } catch(e){
-            data={text:_data, color: "reset"}
-        }
+        data={text:_data, color: "reset"}
     } else if(typeof _data == "number"){
         data={text:_data+"", color: "reset"}
     } else {
