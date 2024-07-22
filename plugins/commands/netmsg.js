@@ -29,7 +29,7 @@ module.exports={
             color: "white"
         }
         for(const i in bot){
-            bot[i].tellraw("@a",JSON.stringify(json))
+            bot[i].tellraw("@a",json)
         }
     },
     desc: "Send a message to all servers the bot is connected to", // Command description

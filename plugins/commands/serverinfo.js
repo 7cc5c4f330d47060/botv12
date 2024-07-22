@@ -6,7 +6,7 @@ const version = require("../../version.json")
 const fs=require("fs")
 const gr = function (text, value, color) {
   if (!color) color = 'white'
-  return JSON.stringify({
+  return {
     translate: '%s: %s',
     with: [
       {
@@ -28,7 +28,7 @@ const gr = function (text, value, color) {
       action: 'copy_to_clipboard',
       value
     }
-  })
+  }
 }
 
 const os2 = function (o2) {
