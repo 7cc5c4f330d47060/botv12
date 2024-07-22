@@ -226,14 +226,6 @@
             "options":{
                 "name": "chipmunk"
             }
-        },
-        {
-            "host": "localhost",
-            "port": 25565,
-            "options":{
-                "name": "localhost",
-		        "legalName": true
-            }
         }
     ]
 }
