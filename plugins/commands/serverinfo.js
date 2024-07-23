@@ -78,7 +78,7 @@ module.exports = {
       c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os.android.version"), android_version, 'green'))
       const dModel=cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0];
       const dBrand=cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0];
-      c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os.android.model"), dBrand+dModel, 'green'))
+      c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os.android.model"), dBrand+" "+dModel, 'green'))
     }
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.botName"), settings.name, 'yellow'))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.botVer"), version.bot, 'yellow'))
