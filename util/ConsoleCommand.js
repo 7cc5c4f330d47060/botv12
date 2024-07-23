@@ -24,7 +24,7 @@ class ConsoleCommand{
 				console.log(getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")]))
 			},
 			printCmdHelp:(uuid,cmd)=>{
-				let usage=getMessage(lang,`command.${cmd}.usage`);
+				let usage=getMessage(lang,`command.${cmd}.usage`).split("||");
 				let desc=getMessage(lang,`command.${cmd}.desc`);
 				if(cmds[cmd].usage){
 					usage=cmds[cmd].usage.split("||");
@@ -33,15 +33,15 @@ class ConsoleCommand{
 					desc=cmds[cmd].desc;
 				}
 				for(const i in usage){
-					console.log({"text":getMessage(lang,"command.help.commandUsage",[cmd,usage[i]])});
+					console.log(getMessage(lang,"command.help.commandUsage",[cmd,usage[i]]));
 				}
-				console.log({"text":getMessage(lang,"command.help.commandDesc",[desc])});
+				console.log(getMessage(lang,"command.help.commandDesc",[desc]));
 				const permsN=getMessage(lang,"command.help.permsNormal");
 				const permsT=getMessage(lang,"command.help.permsTrusted");
 				const permsO=getMessage(lang,"command.help.permsOwner");
 				const permsC=getMessage(lang,"command.help.permsConsole");
 				const rPerms=cmds[cmd].level?cmds[cmd].level:0;
-				console.log({"text":getMessage(lang,"command.help.commandPerms",[[permsN,permsT,permsO,permsC][rPerms]])});
+				console.log(getMessage(lang,"command.help.commandPerms",[[permsN,permsT,permsO,permsC][rPerms]]));
 			}
 		}; //bot does not exist at console
 		this.type = 'console';
