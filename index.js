@@ -34,6 +34,10 @@ const loadplug = (botno) => {
 loadplug()
 
 const createBot = function createBot(host,oldId){
+    if(host.options.disabled){
+        console.log(`Skipping server ${host.host}:${host.port}`)
+        return;
+    }
     const bot = new EventEmitter();
     bot._client = m.createClient({
         host: host.host,
