@@ -50,7 +50,7 @@ const os2 = function (o2,l) {
 module.exports = {
   execute: function (c) {
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os"), os2(process.platform,c.lang)))
-    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.processor"), os.cpus()[0].model))
+    if(os.cpus()[0]) c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.processor"), os.cpus()[0].model))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.arch"), os.machine()))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.osUsername"), os.userInfo().username))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.runTime"), timeformat(process.uptime() * 1000)))
