@@ -31,7 +31,5 @@ module.exports={
         for(const i in bot){
             bot[i].tellraw("@a",json)
         }
-    },
-    desc: "Send a message to all servers the bot is connected to",
-    usage: ' <message>'
+    }
 }

@@ -9,7 +9,5 @@ module.exports = {
     c.reply({text:""});
     c.reply({text:getMessage(c.lang,"command.about.serverinfo")})
   },
-  desc: 'About the bot',
-  usage: '',
   aliases: ["info"]
 }
