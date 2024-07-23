@@ -51,7 +51,7 @@ module.exports={
             b.tellraw(uuid,{"text":getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
         }
         b.printCmdHelp=(uuid,cmd,lang)=>{
-            let usage=getMessage(lang,`command.${cmd}.usage`);
+            let usage=getMessage(lang,`command.${cmd}.usage`).split("||");
             let desc=getMessage(lang,`command.${cmd}.desc`);
             if(cmds[cmd].usage){
                 usage=cmds[cmd].usage.split("||");
