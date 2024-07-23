@@ -1,7 +1,8 @@
 //HOW TO WRITE CLASS JS
 const index = require('../index.js')
 const { cmds } = require('../plugins/command.js');
-const parse = require("../util/chatparse.js")
+const parse = require("../util/chatparse.js");
+const settings = require("../settings.json");
 class ConsoleCommand{
 	constructor (cmd,index2){
 		this.send = ()=>{}; //not needed for console
@@ -30,6 +31,7 @@ class ConsoleCommand{
 		this.verify = 3;
 		this.host = "";
 		this.port = "3"; // :3
+		this.lang = settings.defaultLang;
 	}
 }
 

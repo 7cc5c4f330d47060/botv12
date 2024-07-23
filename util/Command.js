@@ -1,7 +1,8 @@
 //HOW TO WRITE CLASS JS
-const parse = require("../util/chatparse.js")
+const parse = require("../util/chatparse.js");
+const settings = require("../settings.json");
 class Command{
-	constructor (uuid,user,nick,cmd,prefix,bot,verify){
+	constructor (uuid,user,nick,cmd,prefix,bot,verify,lang = settings.defaultLang){
 		this.send = (text,uuid)=>{bot.tellraw(uuid?uuid:"@a",text)}; 
 		this.reply = text => bot.tellraw(uuid,text);
 		this.uuid = uuid;
@@ -16,6 +17,7 @@ class Command{
 		this.verify = verify;
 		this.host = bot.host.host;
 		this.port = bot.host.port;
+		this.lang = lang;
 	}
 }
 
