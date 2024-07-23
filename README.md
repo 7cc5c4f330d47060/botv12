@@ -18,3 +18,17 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 
 ## Command list
 
+| Name | Usage | Description |
+|-|-|-|
+| about | | About the bot |
+| cb | \<command\> | Run a command in a command block |
+| eval | \<code\> | Run JavaScript code (must run through console)|
+| help | [cmd] | Shows command help |
+| logoff | | Disconnect and reconnect the bot from a server |
+| netmsg | \<message\> | Send a message to all servers the bot is connected to |
+| refill | | Refill core |
+| say | \<message\> | Sends a message to chat |
+| serverinfo | | Get system/bot info, similar to Kaboom's <code>serverinfo</code> command |
+| stop | | Restart bot |
+| template | | Used in development, does nothing |
+| verify | | Check the hashing system |
