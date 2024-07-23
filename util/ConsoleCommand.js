@@ -3,6 +3,7 @@ const index = require('../index.js')
 const { cmds } = require('../plugins/command.js');
 const parse = require("../util/chatparse.js");
 const settings = require("../settings.json");
+const getMessage = require('../../util/lang.js');
 const lang=settings.defaultLang;
 class ConsoleCommand{
 	constructor (cmd,index2){
