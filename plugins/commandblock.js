@@ -98,7 +98,7 @@ module.exports = {
             } else {
                 finalname = uuid
             }
-            b.ccq.push(`/tellraw ${finalname} ${JSON.stringify(message)}`)
+            b.ccq.push(`/minecraft:tellraw ${finalname} ${JSON.stringify(message)}`)
         }
     }
 }
