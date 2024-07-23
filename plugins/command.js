@@ -13,10 +13,8 @@ module.exports={
         b.lastCmd=0;
         b.runCommand=(name, uuid, text, prefix)=>{
             if(uuid=="00000000-0000-0000-0000-000000000000") return;
-            if(Date.now-b.lastCmd<=1000){
-                console.log("Executed too early, "+(Date.now-b.lastCmd)+"ms left");
-                return;
-            }
+            if(Date.now()-b.lastCmd<=1000) return;
+            b.lastCmd=Date.now();
             const cmd=text.split(" ");
             let lang=settings.defaultLang;
             let verify=hashcheck(cmd);
