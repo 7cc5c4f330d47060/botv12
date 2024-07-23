@@ -5,7 +5,7 @@
 	"command.help.cmdList": "Commands: %s",
 	"command.help.commandInfo": "%s%s - %s",
 	"command.error": "An error occured (check console for more info)",
-	"command.disallowed.perms": "You do not have permission to run this command. If you have permission, please make sure you put the command hash at the end, or ran the command through your client's hashing system.",
+	"command.disallowed.perms": "You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through your client's hashing system.",
 	"command.disallowed.perms.yourLevel": "Your permission level: %s",
 	"command.disallowed.perms.cmdLevel": "Command requires: %s"
 }
