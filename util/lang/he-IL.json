@@ -1,0 +1,5 @@
+{
+	"command.about.author": "%s - a Minecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
+	"command.about.version": "Vewsion %s",
+	"command.about.serverinfo": "To view system infowmation, wun the command \"serverinfo\"."
+}

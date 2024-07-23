@@ -2,6 +2,7 @@ const fs=require("fs");
 const Command=require("../util/Command.js");
 const hashcheck=require("../util/hashcheck.js");
 const settings = require("../settings.json");
+const getMessage = require('../util/lang.js');
 let cmds=Object.create(null);
 module.exports={
     load:()=>{
@@ -17,6 +18,7 @@ module.exports={
                 return;
             }
             const cmd=text.split(" ");
+            let lang=settings.defaultLang;
             let verify=hashcheck(cmd);
             if(verify>0){
                 text=cmd.slice(0,cmd.length-1).join(" ");
@@ -25,33 +27,33 @@ module.exports={
                 const command = cmds[cmd[0].toLowerCase()];
                 if(command.level!==undefined && command.level>verify){
                     b.tellraw(uuid,{
-                        text:"You do not have permission to run this command. If you have permission, please make sure you put the command hash at the end, or ran the command through your client's hashing system."
+                        text:getMessage(lang,"command.disallowed.perms")
                     });
                     b.tellraw(uuid,{
-                        text:"Your permission level: "+verify
+                        text:getMessage(lang,"command.disallowed.perms.yourLevel",[verify+""])
                     });
                     b.tellraw(uuid,{
-                        text:"Command requires: "+command.level
+                        text:getMessage(lang,"command.disallowed.perms.cmdLevel",[command.level+""])
                     });
                     return;
                 }
                 try{
                     cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,verify))
                 } catch(e) {
-                    console.log(e); b.chat("An error occured (check console for more info)")
+                    console.log(e); b.chat(getMessage(lang,"command.error"))
                 }
             }
         }
-        b.printHelp=(uuid,prefix)=>{
+        b.printHelp=(uuid,prefix,lang)=>{
             let helpCmds=[];
             for(const i in cmds){
                 if(cmds[i].hidden) continue;
                 helpCmds.push(prefix+i)
             }
-            b.tellraw(uuid,{"text":"Commands: "+helpCmds.join(" ")});
+            b.tellraw(uuid,{"text":getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
         }
-        b.printCmdHelp=(uuid,cmd)=>{
-            b.tellraw(uuid,{"text":cmd+cmds[cmd].usage+" - "+cmds[cmd].desc});
+        b.printCmdHelp=(uuid,cmd,lang)=>{
+            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,getMessage(lang,`command.${cmd}.usage`),getMessage(lang,"command.${cmd}.desc")])});
         }
     },
     loadCMD:()=>{
