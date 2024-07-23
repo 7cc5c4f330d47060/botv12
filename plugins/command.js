@@ -89,6 +89,7 @@ module.exports={
                             execute:cmds[commandName].execute,
                             desc:"Alias to "+commandName,
                             usage:cmds[commandName].usage,
+                            level:cmds[commandName].level,
                             hidden:true,
                             consoleIndex:cmds[commandName].consoleIndex
                         };
