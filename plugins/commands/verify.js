@@ -7,8 +7,6 @@ module.exports={
             text: c.command
         })
     },
-    desc: "Does nothing",
-    usage: ' <required> [optional]',
     hidden: false,
     level: 1
 }

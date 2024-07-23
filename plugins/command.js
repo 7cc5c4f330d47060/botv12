@@ -53,7 +53,15 @@ module.exports={
             b.tellraw(uuid,{"text":getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
         }
         b.printCmdHelp=(uuid,cmd,lang)=>{
-            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,getMessage(lang,`command.${cmd}.usage`),getMessage(lang,"command.${cmd}.desc")])});
+            let usage=getMessage(lang,`command.${cmd}.usage`);
+            let desc=getMessage(lang,`command.${cmd}.desc`);
+            if(cmds[cmd].usage){
+                usage=cmds[cmd].usage;
+            }
+            if(cmds[cmd].desc){
+                desc=cmds[cmd].desc;
+            }
+            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
         }
     },
     loadCMD:()=>{
