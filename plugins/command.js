@@ -54,13 +54,15 @@ module.exports={
             let usage=getMessage(lang,`command.${cmd}.usage`);
             let desc=getMessage(lang,`command.${cmd}.desc`);
             if(cmds[cmd].usage){
-                usage=cmds[cmd].usage;
+                usage=cmds[cmd].usage.split("||");
             }
             if(cmds[cmd].desc){
                 desc=cmds[cmd].desc;
             }
             //b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
-            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandUsage",[cmd,usage,desc])});
+            for(const i in usage){
+                b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandUsage",[cmd,usage[i]])});
+            }
             b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandDesc",[desc])});
             const permsN=getMessage(lang,"command.help.permsNormal");
             const permsT=getMessage(lang,"command.help.permsTrusted");
