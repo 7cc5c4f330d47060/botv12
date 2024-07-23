@@ -1,5 +1,11 @@
 {
 	"command.about.author": "%s - a Minecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
 	"command.about.version": "Vewsion %s",
-	"command.about.serverinfo": "To view system infowmation, wun the command \"serverinfo\"."
+	"command.about.serverinfo": "To view system infowmation, wun the command \"serverinfo\".",
+	"command.help.cmdList": "Commands: %s",
+	"command.help.commandInfo": "%s%s - %s",
+	"command.error": "An ewwow occuwed (check consowe fow mowe info)",
+	"command.disallowed.perms": "You do nyot have pewmission to wun this command. If you do have pewmission, pwease make suwe you put the command hash at the end, ow wan the command thwough youw cwient's hashing system.",
+	"command.disallowed.perms.yourLevel": "Youw pewmission wevew: %s",
+	"command.disallowed.perms.cmdLevel": "Command wequiwes: %s"
 }
