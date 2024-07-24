@@ -81,7 +81,7 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             out[0]+=resetColor[0];
             out[2]+=resetColor[1];
         }
-        out[0]+=_text.replace(/\u001b/g,"").replace(/\u000F/g,""); //Remove escape codes and [SO] from console format
+        out[0]+=_text.replace(/\u001b/g,"").replace(/\u000e/g,""); //Remove escape codes and [SO] from console format
         out[1]+=_text;
         out[2]+=_text;
     }
