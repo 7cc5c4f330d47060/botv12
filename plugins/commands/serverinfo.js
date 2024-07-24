@@ -83,6 +83,16 @@ module.exports = {
       c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os.android.model"), dBrand+" "+dModel, 'green'))
     }
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.botName"), settings.name, 'yellow'))
-    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.botVer"), version.bot, 'yellow'))
+    let botVersion=version.bot;
+    let gitCommit;
+    try {
+      gitCommit = cp.execSync('git rev-parse --short HEAD').toString('UTF-8').split('\n')[0];
+    } catch(e){
+      gitCommit = false
+    }
+    if(gitCommit){
+      botVersion+=` (${gitCommit})`
+    }
+    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.botVer"), botVersion, 'yellow'))
   }
 }
