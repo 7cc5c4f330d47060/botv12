@@ -54,6 +54,7 @@ module.exports = {
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.arch"), os.machine()))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.osUsername"), os.userInfo().username))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.hostName"), os.hostname()))
+    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.workingDir"), process.cwd()))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.runTime"), timeformat(process.uptime() * 1000)))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.upTime"), timeformat(os.uptime() * 1000)))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.nodeVersion"), process.version))
