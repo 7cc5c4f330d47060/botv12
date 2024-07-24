@@ -1,6 +1,7 @@
 const version = require("../../version.json")
 const settings = require('../../settings.json')
 const getMessage = require('../../util/lang.js')
+const cp = require('child_process')
 module.exports = {
   execute: function (c) {
     c.reply({text:getMessage(c.lang,"command.about.author",[settings.name])});
