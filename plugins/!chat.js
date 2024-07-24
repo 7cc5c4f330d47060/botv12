@@ -13,7 +13,7 @@ const messageTypes=[
 ]
 module.exports={
     load:()=>{
-        //console.log("Loaded on global")
+        
     },
     loadBot:(b)=>{
         b._client.on("profileless_chat",(data)=>{
