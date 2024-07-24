@@ -58,7 +58,7 @@ module.exports = {
             setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
             b.ccStarted = true;
         })
-        b.on('chat', (data) => { //
+        b.on('chat', (data) => {
             if (!b.ccStarted && (data.json.translate == 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.failed') ||
             data.json.translate == 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.success'))) {
                 b.emit('ccstart')
@@ -77,7 +77,6 @@ module.exports = {
                 }
             }
 
-            // console.log(b.pos);
             b.commandPos = {
                 x1: Math.floor(a.x),
                 x2: Math.ceil(a.x) + 3,
@@ -86,7 +85,6 @@ module.exports = {
                 y1: 20,
                 y2: 10
             }
-            // b.send("/fill ~5 0 ~5 ~-5 0 ~-5 command_block")
             b._client.write('teleport_confirm', { teleportId: a.teleportId })
         })
         b.tellraw = (uuid, message) => {

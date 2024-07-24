@@ -1,5 +1,3 @@
-// copied from u6, u9
-// Old name: 020000_console.js
 const readln = require('readline')
 const index = require('../index.js')
 const ConsoleCommand = require('../util/ConsoleCommand.js')
