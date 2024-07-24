@@ -46,7 +46,6 @@ const createBot = function createBot(host,oldId){
         version: settings.version_mc
     })
     bot._client.on("success",()=>{
-        //console.log(bot);
     })
     if(typeof oldId !== "undefined"){
         for(const i in module.exports.bot[oldId].interval){
@@ -68,9 +67,6 @@ const createBot = function createBot(host,oldId){
     bot.info=(msg)=>{
         console.log(`[${bot.id}] [info] ${msg}`)
     }
-    /*bot.error=(msg){
-        console.log(`[${bot.id}] [error] ${msg}`)
-    }*/
     loadplug(bot.id);
     bot._client.on("error",(err)=>{
         console.log(err)
