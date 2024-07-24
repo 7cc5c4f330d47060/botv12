@@ -32,6 +32,17 @@ const hexColorParser=(color)=>{
     }
     return out+`\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
+const processColor=(col,rcol)=>{
+    let out=["",""]
+    if(col=="reset"){
+        out[0]=rcol[0]
+    } else if (col.startsWith("#")){
+        out[0]=hexColorParser(col);
+    } else {
+        out[0]=consoleColors[col];
+    }
+    return out;
+}
 const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
     if (l >= 12) {
         return ['', '', '']
@@ -84,10 +95,11 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             trans3 = lang[trans3].replace(/%%/g, '\ue123')
         }
         for (const i in data.with) {
-            const j2 = parse(data.with[i], l + 1, data.color?[consoleColors[data.color],""]:resetColor)
+            const j2 = parse(data.with[i], l + 1, data.color?processColor(data.color,resetColor):resetColor)
             trans = trans.replace(/%s/, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replace(/%s/, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replace(/%s/, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+            console.log(j2)
             trans = trans.replaceAll(`%${+i+1}$s`, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replaceAll(`%${+i+1}$s`, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replaceAll(`%${+i+1}$s`, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
@@ -98,7 +110,7 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
     }
     if(data.extra){
         for(const i in data.extra){
-            parsed=parse(data.extra[i], l, data.color?[consoleColors[data.color],""]:resetColor)
+            parsed=parse(data.extra[i], l, data.color?processColor(data.color,resetColor):resetColor)
             out[0]+=parsed[0];
             out[1]+=parsed[1];
             out[2]+=parsed[2];
