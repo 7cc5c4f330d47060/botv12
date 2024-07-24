@@ -1,7 +1,6 @@
 const index = require('../index.js')
 module.exports={
     load:()=>{
-        //console.log("Loaded on global")
     },
     loadBot:(b)=>{
         b._client.on("end",()=>{

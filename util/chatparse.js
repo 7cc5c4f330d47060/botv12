@@ -23,7 +23,7 @@ const consoleColors={
     "reset":"\x1B[0m\x1B[38;2;255;255;255m"
 }
 const hexColorParser=(color)=>{
-    let out="\x1B[0m";//\x1B[48;2;220;220;220m\x1B[38;2;0;0;0m
+    let out="\x1B[0m";
     const redChannel=Number("0x"+color.slice(1,3));
     const greenChannel=Number("0x"+color.slice(3,5));
     const blueChannel=Number("0x"+color.slice(5,7));
