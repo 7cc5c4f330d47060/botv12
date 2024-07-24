@@ -52,6 +52,7 @@
 	"command.serverinfo.processor": "CPU",
 	"command.serverinfo.arch": "Architecture",
 	"command.serverinfo.osUsername": "Username",
+	"command.serverinfo.hostName": "Hostname",
 	"command.serverinfo.runTime": "Bot uptime",
 	"command.serverinfo.upTime": "System uptime",
 	"command.serverinfo.nodeVersion": "Node.js version",
