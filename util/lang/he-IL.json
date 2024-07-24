@@ -52,6 +52,7 @@
 	"command.serverinfo.processor": "CPU",
 	"command.serverinfo.arch": "Awchitectuwe",
 	"command.serverinfo.osUsername": "Usewnyame",
+	"command.serverinfo.hostName": "Hostnyame",
 	"command.serverinfo.runTime": "Bot uptime",
 	"command.serverinfo.upTime": "System uptime",
 	"command.serverinfo.nodeVersion": "Nyode.js vewsion",
