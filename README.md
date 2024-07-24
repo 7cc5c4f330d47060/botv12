@@ -22,7 +22,7 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 |-|-|-|
 | about | | About the bot |
 | cb | \<command\> | Run a command in a command block |
-| cb | add <rate> <command>, remove <index>, list, clear | Run a command in a command block |
+| cloop | add <rate> <command>, remove <index>, list, clear | Run a command in a command block |
 | eval | \<code\> | Run JavaScript code (must run through console)|
 | help | [cmd] | Shows command help |
 | logoff | | Disconnect and reconnect the bot from a server |
