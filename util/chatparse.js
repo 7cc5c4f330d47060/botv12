@@ -99,7 +99,6 @@ const parse=function(_data, l = 0, resetColor = [consoleColors.reset]){
             trans = trans.replace(/%s/, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replace(/%s/, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replace(/%s/, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-            console.log(j2)
             trans = trans.replaceAll(`%${+i+1}$s`, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans2 = trans2.replaceAll(`%${+i+1}$s`, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
             trans3 = trans3.replaceAll(`%${+i+1}$s`, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
