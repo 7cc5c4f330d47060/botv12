@@ -48,9 +48,13 @@ module.exports={
                 if(cmds[i].hidden) continue;
                 helpCmds.push(prefix+i)
             }
-            b.tellraw(uuid,{"text":getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
+            b.tellraw(uuid,{text:getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
         }
         b.printCmdHelp=(uuid,cmd,lang)=>{
+            if(!cmds[cmd]){
+                b.tellraw(uuid,{text:getMessage(lang,"command.help.noCommand")});
+                return;
+            }
             let usage=getMessage(lang,`command.${cmd}.usage`).split("||");
             let desc=getMessage(lang,`command.${cmd}.desc`);
             if(cmds[cmd].usage){
@@ -61,15 +65,15 @@ module.exports={
             }
             //b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
             for(const i in usage){
-                b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandUsage",[cmd,usage[i]])});
+                b.tellraw(uuid,{text:getMessage(lang,"command.help.commandUsage",[cmd,usage[i]])});
             }
-            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandDesc",[desc])});
+            b.tellraw(uuid,{text:getMessage(lang,"command.help.commandDesc",[desc])});
             const permsN=getMessage(lang,"command.help.permsNormal");
             const permsT=getMessage(lang,"command.help.permsTrusted");
             const permsO=getMessage(lang,"command.help.permsOwner");
             const permsC=getMessage(lang,"command.help.permsConsole");
             const rPerms=cmds[cmd].level?cmds[cmd].level:0;
-            b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandPerms",[[permsN,permsT,permsO,permsC][rPerms]])});
+            b.tellraw(uuid,{text:getMessage(lang,"command.help.commandPerms",[[permsN,permsT,permsO,permsC][rPerms]])});
         }
     },
     loadCMD:()=>{
