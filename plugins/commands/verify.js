@@ -7,6 +7,5 @@ module.exports={
             text: c.command
         })
     },
-    hidden: false,
     level: 1
 }

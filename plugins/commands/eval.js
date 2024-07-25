@@ -1,4 +1,3 @@
-const textformat=require("../../util/textformat.js")
 const index=require("../../index.js") // Not used in the code, but may be used by users of the command
 module.exports={
     execute: (c)=>{
