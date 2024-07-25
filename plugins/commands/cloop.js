@@ -30,7 +30,6 @@ module.exports={
                 c.reply(`Unknown subcommand, please do ${c.prefix}help cloop`)
         }
     },
-    hidden: true,
     consoleIndex: true,
     level: 1
 }
