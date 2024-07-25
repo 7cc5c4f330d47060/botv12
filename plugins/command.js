@@ -4,6 +4,11 @@ const hashcheck=require("../util/hashcheck.js");
 const settings = require("../settings.json");
 const getMessage = require('../util/lang.js');
 let cmds=Object.create(null);
+const sortHelp=function sortHelp(c1, c2){
+    const level1 = cmds[c1.with[1]].level?cmds[c1.with[1]].level:0;
+    const level2 = cmds[c2.with[1]].level?cmds[c2.with[1]].level:0;
+    return level1 - level2
+}
 module.exports={
     load:()=>{
         module.exports.loadCMD();
@@ -38,17 +43,59 @@ module.exports={
                 try{
                     cmds[cmd[0].toLowerCase()].execute(new Command(uuid,name,"nick N/A",text,prefix,b,verify))
                 } catch(e) {
-                    console.log(e); b.chat(getMessage(lang,"command.error"))
+                    console.log(e);
+                    b.tellraw(uuid,{
+                        text:getMessage(lang,"command.error"),
+                        color: "red",
+                        hoverEvent:{
+                            action: "show_text",
+                            value:{
+                                "text": e.stack
+                            }
+                        }
+                    });
                 }
             }
         }
         b.printHelp=(uuid,prefix,lang)=>{
-            let helpCmds=[];
+            let commandList=[];
             for(const i in cmds){
                 if(cmds[i].hidden) continue;
-                helpCmds.push(prefix+i)
+                let cmdColor;
+                switch (cmds[i].level){
+                    case 0:
+                        cmdColor = "green";
+                        break;
+                    case 1:
+                        cmdColor = "red";
+                        break;
+                    case 2:
+                        cmdColor = "dark_red";
+                        break;
+                    case 3:
+                        cmdColor = "dark_gray";
+                        break;
+                    default:
+                        cmdColor = "gray";
+                }
+                commandList.push(
+                    {
+                        translate: "%s%s ",
+                        color: cmdColor,
+                        with: [
+                            prefix,
+                            i
+                        ]
+                    }
+                )
             }
-            b.tellraw(uuid,{text:getMessage(lang,"command.help.cmdList",[helpCmds.join(" ")])});
+            b.tellraw(uuid,{
+                translate: "%s: %s",
+                with: [
+                    getMessage(lang,"command.help.cmdList"),
+                    commandList.sort(sortHelp)
+                ]
+            })
         }
         b.printCmdHelp=(uuid,cmd,lang)=>{
             if(!cmds[cmd]){
@@ -86,7 +133,10 @@ module.exports={
             try {
                 commandName=bpl[i].split(".js")[0];
                 cmds[commandName]=require(`./commands/${bpl[i]}`);
-                console.log("Loaded command "+commandName)
+                if(cmds[commandName].level === undefined){
+                    cmds[commandName].level = 0;
+                }
+                console.log("Loaded command "+commandName);
                 if(cmds[commandName].aliases){
                     for(const j in cmds[commandName].aliases){
                         cmds[cmds[commandName].aliases[j]]={
