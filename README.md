@@ -18,7 +18,7 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 
 ## How to install?
 
-1. Download the latest release, or alternatively, download using <code>git clone https://10.0.0.151:3000/7cc5c4f330d47060/botvX/</code>.
+1. Download the latest release, or alternatively, download the latest development version using <code>git clone https://10.0.0.151:3000/7cc5c4f330d47060/botvX/</code>.
 2. Extract the files if necessary.
 3. Adjust the settings to fit your needs. Do not forget to also create a secrets file.
 4. Run ./launch.sh to start a bot launcher, which will reload the bot when the process closes.
