@@ -5,5 +5,8 @@ module.exports={
         } else {
             c.bot.printHelp(c.uuid,c.prefix,c.lang);
         }
-    }
+    },
+    aliases: [
+        "heko" //Parker2991 request
+    ]
 }
