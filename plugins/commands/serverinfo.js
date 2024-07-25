@@ -52,7 +52,7 @@ module.exports = {
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.os"), os2(process.platform,c.lang)))
     if(os.cpus()[0]) c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.processor"), os.cpus()[0].model))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.arch"), os.machine()))
-    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.osUsername"), os.userInfo().username))
+    c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.osUsername"), `${os.userInfo().username} (${os.userInfo().uid})`))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.hostName"), os.hostname()))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.workingDir"), process.cwd()))
     c.reply(gr(c.lang,getMessage(c.lang,"command.serverinfo.runTime"), timeformat(process.uptime() * 1000)))
