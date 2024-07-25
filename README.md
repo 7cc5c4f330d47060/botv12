@@ -16,6 +16,13 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 
 "UBot" just means "UBot", but is based on an older bot name "UnnamedBot". On some older versions, this bot did not have a proper name. "UnnamedBot" was introduced in version 4, which was shortened to just "UBot" around version 8.
 
+## How to install?
+
+1. Download the latest release, or alternatively, download using <code>git clone https://10.0.0.151:3000/7cc5c4f330d47060/botvX/</code>.
+2. Extract the files if necessary.
+3. Adjust the settings to fit your needs. Do not forget to also create a secrets file.
+4. Run ./launch.sh to start a bot launcher, which will reload the bot when the process closes.
+
 ## Command list
 
 | Name | Usage | Description |
