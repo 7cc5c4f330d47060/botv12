@@ -7,6 +7,5 @@ module.exports={
             console.error(e);
         }
     },
-    hidden: true,
     level: 3
 }
