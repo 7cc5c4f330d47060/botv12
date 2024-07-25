@@ -52,14 +52,15 @@ module.exports = {
             b.ccq.splice(0, 1)
         }
         b._client.on("login",()=>{
-            b.add_sc_task("cc",`/fill ~ 55 ~ ~3 60 ~3 command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'} destroy`,true,true)
+            b.add_sc_task("cc",`/fill ~ 55 ~ ~3 60 ~3 command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`,true,true)
         })
         b.on('ccstart', () => {
             setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
             b.ccStarted = true;
         })
         b.on('chat', (data) => {
-            if(data.json.translate == 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.success')){
+            if(data.json.translate == 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.failed') ||
+            data.json.translate == 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.success')){
                 if (!b.ccStarted) {
                     b.emit('ccstart')
                 }
