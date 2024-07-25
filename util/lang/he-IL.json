@@ -33,7 +33,7 @@
 	"command.cloop.success.remove": "Wemoved command woop %s",
 	"command.cloop.success.clear": "Cweawed aww command woops",
 	"command.cloop.list": "%s: Command: %s Rate: %s",
-	"command.help.cmdList": "Commands: %s",
+	"command.help.cmdList": "Commands",
 	"command.help.commandInfo": "%s%s - %s",
 	"command.help.commandUsage": "Usage - %s%s",
 	"command.help.commandDesc": "Descwiption - %s",
