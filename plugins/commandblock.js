@@ -79,11 +79,8 @@ module.exports = {
 
             b.commandPos = {
                 x1: Math.floor(a.x),
-                x2: Math.ceil(a.x) + 3,
                 z1: Math.floor(a.z),
-                z2: Math.ceil(a.z) + 3,
-                y1: 55,
-                y2: 10
+                y1: 55
             }
             b._client.write('teleport_confirm', { teleportId: a.teleportId })
         })
