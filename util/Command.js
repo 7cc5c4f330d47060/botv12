@@ -18,6 +18,7 @@ class Command{
 		this.host = bot.host.host;
 		this.port = bot.host.port;
 		this.lang = lang;
+		this.colors = settings.colors;
 	}
 }
 

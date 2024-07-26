@@ -9,18 +9,18 @@ module.exports={
                     with:[
                         {
                             text: c.host,
-                            color: "light_purple"
+                            color: c.colors.primary
                         },
                         {
                             text: c.port+"",
-                            color: "light_purple"
+                            color: c.colors.primary
                         }
                     ],
-                    color: "gray"
+                    color: c.colors.secondary
                 },
                 {
                     text: c.username,
-                    color: "light_purple"
+                    color: c.colors.primary
                 },
                 {
                     text: c.args.join(" ")
