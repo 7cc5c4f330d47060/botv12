@@ -51,6 +51,7 @@ class ConsoleCommand{
 		this.host = "";
 		this.port = "3"; // :3
 		this.lang = settings.defaultLang;
+		this.colors = settings.colors;
 	}
 }
 

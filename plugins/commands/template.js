@@ -12,7 +12,8 @@ module.exports={
         c.prefix: Prefix being used to send the command (when applicable)
         c.bot: Bot that received the command. Will be different type based on where it was received
         c.type: Type of bot receiving the command ("minecraft", "console", "discord")
-        c.lang: The language the player has selected, or en-US if none
+        c.lang: The language the player has selected, or the default if none
+        c.colors: The color palette the player has selected, or the default if none
         */
     },
     /*
