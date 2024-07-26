@@ -6,7 +6,7 @@ module.exports = {
 
     },
     loadBot: function (b) {
-        b.interval.commandFill = setInterval(() => { b.sc_tasks["cc"].failed = 1; }, 60000)
+        b.interval.commandFill = setInterval(() => { if(b.sc_tasks["cc"]) b.sc_tasks["cc"].failed = 1; }, 60000)
         b.ccq = []
         b.blocknoX = 0
         b.blocknoZ = 0
@@ -53,6 +53,7 @@ module.exports = {
         }
         b._client.on("login",()=>{
             b.add_sc_task("cc",`/fill ~ 55 ~ ~3 60 ~3 command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`,true,true)
+            b.add_sc_task("cc_size",`/gamerule commandModificationBlockLimit 32767`,true,false,true)
         })
         b.on('ccstart', () => {
             setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
@@ -65,6 +66,9 @@ module.exports = {
                     b.emit('ccstart')
                 }
                 b.sc_tasks["cc"].failed = 0;
+                b.sc_tasks["cc_size"].failed = 0;
+            } else if(data.json.translate == 'commands.fill.toobig' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate == 'commands.fill.toobig')){
+                b.sc_tasks["cc_size"].failed = 1;
             }
         })
         b._client.on('position', function (a) {
