@@ -7,29 +7,73 @@ module.exports={
                 const rate=+(c.args.splice(0,1)[0]);
                 const command=c.args.join(" ");
                 if(rate<20){
-                    c.reply({text:getMessage(c.lang,"command.cloop.error.tooShort")})
+                    c.reply({
+                        text:getMessage(c.lang,"command.cloop.error.tooShort")
+                    })
                 }
                 c.bot.addCloop(command,rate)
-                c.reply({text:getMessage(c.lang,"command.cloop.success.add",[command,rate+""])})
+                c.reply({
+                    translate:getMessage(c.lang,"command.cloop.success.add"),
+                    color: c.colors.secondary,
+                    with:[
+                        {
+                            text:command,
+                            color:c.colors.primary
+                        },
+                        {
+                            text:rate+"",
+                            color:c.colors.primary
+                        },
+                    ]
+                })
                 break
             case "remove":
                 const index=+c.args[0];
                 c.bot.removeCloop(c.args[0]);
-                c.reply({text:getMessage(c.lang,"command.cloop.success.remove",[index+""])})
+                c.reply({
+                    translate:getMessage(c.lang,"command.cloop.success.remove"),
+                    color: c.colors.secondary,
+                    with:[
+                        {
+                            text:index+"",
+                            color:c.colors.primary
+                        }
+                    ]
+                })
                 break
             case "list":
                 for(const i in c.bot.cloops){
-                    c.reply({text:getMessage(c.lang,"command.cloop.list",[i,c.bot.cloops[i].command,c.bot.cloops[i].rate+""])})
+                    c.reply({
+                        translate:getMessage(c.lang,"command.cloop.list"),
+                        color: c.colors.secondary,
+                        with: [
+                            {
+                                text:i,
+                                color:c.colors.primary
+                            },
+                            {
+                                text:c.bot.cloops[i].command,
+                                color:c.colors.primary
+                            },
+                            {
+                                text:c.bot.cloops[i].rate+"",
+                                color:c.colors.primary
+                            }
+                        ]
+                    })
                 }
                 break
             case "clear":
                 c.bot.clearCloops();
-                c.reply({text:getMessage(c.lang,"command.cloop.success.clear")})
+                c.reply({
+                    text:getMessage(c.lang,"command.cloop.success.clear"),
+                    color: c.colors.secondary
+                })
                 break
             default:
                 c.reply(`Unknown subcommand, please do ${c.prefix}help cloop`)
         }
     },
     consoleIndex: true,
-    level: 1
+    level: 0
 }
