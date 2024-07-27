@@ -72,8 +72,14 @@ module.exports={
                 break
             default:
                 c.reply({
-                    text:getMessage(c.lang,"command.cloop.error.subcommand",[c.prefix]),
-                    color: c.colors.secondary
+                    translate:getMessage(c.lang,"command.cloop.error.subcommand"),
+                    color: c.colors.secondary,
+                    with:[
+                        {
+                            text:`${c.prefix}help cloop`,
+                            color: c.colors.primary
+                        }
+                    ]
                 })
         }
     },
