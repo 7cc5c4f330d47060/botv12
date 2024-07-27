@@ -29,6 +29,7 @@
 	"command.about.version": "Version %s",
 	"command.about.serverinfo": "To view system information, run the command %s.",
 	"command.cloop.error.tooShort": "Command loops must have a rate above 20ms.",
+	"command.cloop.error.subcommand": "Unknown subcommand, please do %shelp cloop",
 	"command.cloop.success.add": "Added command loop with command %s and rate %s",
 	"command.cloop.success.remove": "Removed command loop %s",
 	"command.cloop.success.clear": "Cleared all command loops",
