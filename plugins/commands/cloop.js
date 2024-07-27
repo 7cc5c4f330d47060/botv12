@@ -75,5 +75,5 @@ module.exports={
         }
     },
     consoleIndex: true,
-    level: 1
+    level: 0
 }
