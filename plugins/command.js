@@ -97,7 +97,7 @@ module.exports={
                 ]
             })
         }
-        b.printCmdHelp=(uuid,cmd,lang)=>{
+        b.printCmdHelp=(uuid,cmd,lang,color)=>{
             if(!cmds[cmd]){
                 b.tellraw(uuid,{text:getMessage(lang,"command.help.noCommand")});
                 return;
@@ -112,15 +112,46 @@ module.exports={
             }
             //b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
             for(const i in usage){
-                b.tellraw(uuid,{text:getMessage(lang,"command.help.commandUsage",[cmd,usage[i]])});
+                b.tellraw(uuid,{
+                    translate:getMessage(lang,"command.help.commandUsage"),
+                    color: color.secondary,
+                    with:[
+                        {
+                            text: cmd,
+                            color: color.primary
+                        },
+                        {
+                            text: usage[i],
+                            color: color.primary
+                        },
+                    ]
+                });
             }
-            b.tellraw(uuid,{text:getMessage(lang,"command.help.commandDesc",[desc])});
+            b.tellraw(uuid,{
+                translate:getMessage(lang,"command.help.commandDesc"),
+                color: color.secondary,
+                with:[
+                    {
+                        text: desc,
+                        color: color.primary
+                    }
+                ]
+            });
             const permsN=getMessage(lang,"command.help.permsNormal");
             const permsT=getMessage(lang,"command.help.permsTrusted");
             const permsO=getMessage(lang,"command.help.permsOwner");
             const permsC=getMessage(lang,"command.help.permsConsole");
             const rPerms=cmds[cmd].level?cmds[cmd].level:0;
-            b.tellraw(uuid,{text:getMessage(lang,"command.help.commandPerms",[[permsN,permsT,permsO,permsC][rPerms]])});
+            b.tellraw(uuid,{
+                translate:getMessage(lang,"command.help.commandPerms"),
+                color: color.secondary,
+                with:[
+                    {
+                        text: [permsN,permsT,permsO,permsC][rPerms],
+                        color: color.primary
+                    }
+                ]
+            });
         }
     },
     loadCMD:()=>{
