@@ -71,7 +71,10 @@ module.exports={
                 })
                 break
             default:
-                c.reply(`Unknown subcommand, please do ${c.prefix}help cloop`)
+                c.reply({
+                    text:getMessage(c.lang,"command.cloop.error.subcommand",[c.prefix]),
+                    color: c.colors.secondary
+                })
         }
     },
     consoleIndex: true,
