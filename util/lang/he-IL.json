@@ -25,7 +25,7 @@
 	"command.template.desc": "Does nyothing",
 	"command.verify.usage": " [awgs...]",
 	"command.verify.desc": "Check the hashing system",
-	"command.about.author": "%s - a Minyecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db\nThis is currently set to uwu language to test support for other languages. It is stored internally as Hebrew (Israel) - language code he-IL.",
+	"command.about.author": "%s - a Minyecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
 	"command.about.version": "Vewsion %s",
 	"command.about.serverinfo": "To view system infowmation, wun the command %s.",
 	"command.cloop.error.tooShort": "Command woops must have a wate above 20ms.",
