@@ -29,6 +29,7 @@
 	"command.about.version": "Vewsion %s",
 	"command.about.serverinfo": "To view system infowmation, wun the command %s.",
 	"command.cloop.error.tooShort": "Command woops must have a wate above 20ms.",
+	"command.cloop.error.subcommand": "Unknown subcommand, pwease do %shelp cloop",
 	"command.cloop.success.add": "Added command woop with command %s and wate %s",
 	"command.cloop.success.remove": "Wemoved command woop %s",
 	"command.cloop.success.clear": "Cweawed aww command woops",
