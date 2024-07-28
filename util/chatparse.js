@@ -52,6 +52,8 @@ const parse = function (_data, l = 0, resetColor = [consoleColors.reset]) {
     data = { text: _data, color: 'reset' }
   } else if (typeof _data === 'number') {
     data = { text: _data + '', color: 'reset' }
+  } else if (_data.constructor === Array) {
+    data = { extra: _data, color: 'reset' }
   } else {
     data = _data
   }
