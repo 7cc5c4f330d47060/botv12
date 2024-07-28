@@ -1,7 +1,7 @@
-module.exports={
-    execute: (c)=>{
-        c.bot._client.end();
-    },
-    consoleIndex: true,
-    level: 2
+module.exports = {
+  execute: (c) => {
+    c.bot._client.end()
+  },
+  consoleIndex: true,
+  level: 2
 }

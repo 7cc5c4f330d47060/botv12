@@ -1,10 +1,9 @@
 const readln = require('readline')
 const index = require('../index.js')
 const ConsoleCommand = require('../util/ConsoleCommand.js')
-const fs = require('fs')
-const newercommands = require('./command.js').cmds;
+const newercommands = require('./command.js').cmds
 let rl
-function consoleWrite(text) {
+function consoleWrite (text) {
   readln.cursorTo(process.stdout, 0)
   readln.clearLine(process.stdout, 0)
   process.stdout.write(text + '\n')
@@ -19,21 +18,21 @@ module.exports = {
     })
     rl.on('line', (l) => {
       try {
-        if(newercommands[l.split(' ')[0].toLowerCase()]){
-          if(newercommands[l.split(' ')[0].toLowerCase()].consoleIndex){
-            let tmpcmd = l.split(' ');
-            const index2 = tmpcmd.splice(1,1)[0];
+        if (newercommands[l.split(' ')[0].toLowerCase()]) {
+          if (newercommands[l.split(' ')[0].toLowerCase()].consoleIndex) {
+            const tmpcmd = l.split(' ')
+            const index2 = tmpcmd.splice(1, 1)[0]
             if (index2 === '*') {
               for (let i = 0; i < index.bot.length; i++) {
-                const cmd = new ConsoleCommand(tmpcmd.join(' '),i);
+                const cmd = new ConsoleCommand(tmpcmd.join(' '), i)
                 newercommands[l.split(' ')[0].toLowerCase()].execute(cmd)
               }
             } else {
-              const cmd = new ConsoleCommand(tmpcmd.join(' '),+index2);
+              const cmd = new ConsoleCommand(tmpcmd.join(' '), +index2)
               newercommands[l.split(' ')[0].toLowerCase()].execute(cmd)
             }
           } else {
-            const cmd = new ConsoleCommand(l,-2);
+            const cmd = new ConsoleCommand(l, -2)
             newercommands[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
         }
@@ -44,8 +43,8 @@ module.exports = {
     })
     rl.prompt()
   },
-  loadBot: (b)=>{
-    b.info=(msg)=>{
+  loadBot: (b) => {
+    b.info = (msg) => {
       consoleWrite(`[${b.id}] [info] ${msg}`)
     }
   },
