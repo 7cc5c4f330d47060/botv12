@@ -1,8 +1,8 @@
-module.exports={
-    load:()=>{
+module.exports = {
+  load: () => {
 
-    },
-    loadBot:(b)=>{
-        
-    }
+  },
+  loadBot: (b) => {
+
+  }
 }
