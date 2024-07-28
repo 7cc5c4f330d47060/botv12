@@ -19,10 +19,11 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 
 ## How to install?
 
-1. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX/</code>.
-2. Extract the files if necessary.
-3. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
-4. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows, coming soon) to start a bot launcher, which will reload the bot when the process closes.
+1. Install [Node.js](https://nodejs.org/) for your operating system.
+2. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX/</code>.
+3. Extract the files if necessary.
+4. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
+5. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows, coming soon) to start a bot launcher, which will reload the bot when the process closes.
 
 ## Command list
 
