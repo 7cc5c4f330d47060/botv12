@@ -7,6 +7,7 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 - commands (obviously)
 - a self care system
 - a command core, to run commands quickly
+- a hashing system, to enable trusted users to securely run certain commands in chat
 
 ## What does "botvX" mean?
 
