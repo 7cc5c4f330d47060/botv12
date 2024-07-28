@@ -23,7 +23,7 @@ class ConsoleCommand {
             // if(cmds[i].hidden) continue;
               helpCmds.push(i)
             }
-            console.log(getMessage(lang, 'command.help.cmdList', [helpCmds.join(' ')]))
+            console.log(getMessage(lang, 'command.help.cmdList'), helpCmds.join(' '))
           },
           printCmdHelp: (uuid, cmd) => {
             let usage = getMessage(lang, `command.${cmd}.usage`).split('||')
