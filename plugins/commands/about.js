@@ -9,13 +9,13 @@ module.exports = {
       color: c.colors.secondary,
       with: [
         {
-          text: settings.name,
+          text: version.botName,
           color: c.colors.primary
         }
       ]
     })
     c.reply({ text: '' })
-    const botVersion = version.bot
+    const botVersion = version.botVersion
     let gitCommit
     try {
       gitCommit = cp.execSync('git rev-parse --short HEAD').toString('UTF-8').split('\n')[0]

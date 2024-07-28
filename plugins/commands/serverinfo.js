@@ -80,8 +80,8 @@ module.exports = {
       const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
       c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os.android.model'), dBrand + ' ' + dModel, c.colors))
     }
-    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botName'), settings.name, c.colors))
-    let botVersion = version.bot
+    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botName'), version.botName, c.colors))
+    let botVersion = version.botVersion
     let gitCommit
     try {
       gitCommit = cp.execSync('git rev-parse --short HEAD').toString('UTF-8').split('\n')[0]
