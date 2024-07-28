@@ -34,7 +34,7 @@
 	"command.cloop.success.remove": "Removed command loop %s",
 	"command.cloop.success.clear": "Cleared all command loops",
 	"command.cloop.list": "%s: Command: %s Rate: %s",
-	"command.help.cmdList": "Commands",
+	"command.help.cmdList": "Commands:",
 	"command.help.commandInfo": "%s%s - %s",
 	"command.help.commandUsage": "Usage - %s%s",
 	"command.help.commandDesc": "Description - %s",

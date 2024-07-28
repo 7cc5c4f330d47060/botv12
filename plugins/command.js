@@ -90,7 +90,7 @@ module.exports = {
         )
       }
       b.tellraw(uuid, {
-        translate: '%s: %s',
+        translate: '%s %s',
         with: [
           getMessage(lang, 'command.help.cmdList'),
           commandList.sort(sortHelp)
