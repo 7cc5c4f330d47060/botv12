@@ -1,6 +1,6 @@
 # botvX
 
-## Что это такое?
+## What is it?
 
 botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
