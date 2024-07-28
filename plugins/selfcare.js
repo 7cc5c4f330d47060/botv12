@@ -4,7 +4,7 @@ class SCTask {
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
          * chatCommand: Whether to run failTask in chat rather than in command block
-        */
+    */
     this.failed = startFailed
     this.failTask = failTask
     this.chatCommand = chatCommand
