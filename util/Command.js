@@ -1,25 +1,24 @@
-//HOW TO WRITE CLASS JS
-const parse = require("../util/chatparse.js");
-const settings = require("../settings.json");
-class Command{
-	constructor (uuid,user,nick,cmd,prefix,bot,verify,lang = settings.defaultLang){
-		this.send = (text,uuid)=>{bot.tellraw(uuid?uuid:"@a",text)}; 
-		this.reply = text => bot.tellraw(uuid,text);
-		this.uuid = uuid;
-		this.username = user;
-		this.nickname = nick;
-		this.command = cmd;
-		this.prefix = prefix;
-		this.bot = bot;
-		this.type = 'minecraft';
-		this.index = bot.id;
-		this.args = cmd.split(' ').slice(1);
-		this.verify = verify;
-		this.host = bot.host.host;
-		this.port = bot.host.port;
-		this.lang = lang;
-		this.colors = settings.colors;
-	}
+// HOW TO WRITE CLASS JS
+const settings = require('../settings.json')
+class Command {
+  constructor (uuid, user, nick, cmd, prefix, bot, verify, lang = settings.defaultLang) {
+    this.send = (text, uuid) => { bot.tellraw(uuid || '@a', text) }
+    this.reply = text => bot.tellraw(uuid, text)
+    this.uuid = uuid
+    this.username = user
+    this.nickname = nick
+    this.command = cmd
+    this.prefix = prefix
+    this.bot = bot
+    this.type = 'minecraft'
+    this.index = bot.id
+    this.args = cmd.split(' ').slice(1)
+    this.verify = verify
+    this.host = bot.host.host
+    this.port = bot.host.port
+    this.lang = lang
+    this.colors = settings.colors
+  }
 }
 
-module.exports = Command;
+module.exports = Command

@@ -1,16 +1,16 @@
-const settings=require("../settings.json");
+const settings = require('../settings.json')
 module.exports = function (text) {
   return JSON.stringify({
-    translate: "[%s] %s",
-    color: "#FFAAFF",
-    with:[
+    translate: '[%s] %s',
+    color: '#FFAAFF',
+    with: [
       {
         text: settings.name,
-        color: "light_purple"
+        color: 'light_purple'
       },
       {
-        text: text,
-        color: "white"
+        text,
+        color: 'white'
       }
     ]
   })
