@@ -24,7 +24,7 @@
 	"command.template.usage": " <required> [optional]",
 	"command.template.desc": "Does nothing",
 	"command.tpr.desc": "Teleport to a random location",
-    "command.tpr.usage": " [-s]",
+    "command.tpr.usage": "",
 	"command.verify.usage": " [args...]",
 	"command.verify.desc": "Check the hashing system",
 	"command.about.author": "%s - a Minecraft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
