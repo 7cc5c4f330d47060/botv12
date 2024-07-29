@@ -47,7 +47,7 @@
 	"command.help.noCommand": "Command does not exist",
 	"command.serverinfo.os.android": "Android",
 	"command.serverinfo.os.freebsd": "FreeBSD",
-	"command.serverinfo.os.linux": "Linux",
+	"command.serverinfo.os.linux": "Linux %s",
 	"command.serverinfo.os.macos": "macOS",
 	"command.serverinfo.os.macos_old": "OS X",
 	"command.serverinfo.os": "Operating system",

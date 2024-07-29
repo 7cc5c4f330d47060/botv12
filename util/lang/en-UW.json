@@ -47,7 +47,7 @@
 	"command.help.noCommand": "Command does nyot exist",
 	"command.serverinfo.os.android": "Andwoid",
 	"command.serverinfo.os.freebsd": "FweeBSD",
-	"command.serverinfo.os.linux": "Winyux",
+	"command.serverinfo.os.linux": "Winyux %s",
 	"command.serverinfo.os.macos": "macOS",
 	"command.serverinfo.os.macos_old": "OS X",
 	"command.serverinfo.os": "Opewating system",
