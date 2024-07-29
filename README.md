@@ -1,5 +1,7 @@
 # botvX
 
+# Go to chipmunk
+
 ## Что это такое?
 
 botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
