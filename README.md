@@ -22,8 +22,9 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 1. Install [Node.js](https://nodejs.org/) for your operating system.
 2. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX/</code>.
 3. Extract the files if necessary.
-4. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
-5. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows) to start a bot launcher, which will reload the bot when the process closes. If it displays an error saying Node is not a command, please make sure Node.js is on your PATH.
+4. Run <code>npm install</code> in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
+5. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
+6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows) to start a bot launcher, which will reload the bot when the process closes. If it displays an error saying Node is not a command, please make sure Node.js is on your PATH.
 
 ## Command list
 
