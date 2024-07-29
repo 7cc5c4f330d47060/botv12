@@ -1,8 +1,5 @@
 module.exports = {
-  load: () => {
-
-  },
-  loadBot: (b) => {
+  load: (b) => {
 
   }
 }

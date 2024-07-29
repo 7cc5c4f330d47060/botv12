@@ -1,8 +1,6 @@
 const index = require('../index.js')
 module.exports = {
-  load: () => {
-  },
-  loadBot: (b) => {
+  load: (b) => {
     b._client.on('end', () => {
       b.info('bot ' + b.id + ' disconnected')
       for (const i in b.interval) {

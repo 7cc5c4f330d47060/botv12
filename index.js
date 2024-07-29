@@ -19,17 +19,12 @@ const loadplug = (botno) => {
   }
   botplug.forEach((plug) => {
     try {
-      if (botno !== undefined) {
-        if (plug.loadBot) {
-          plug.loadBot(module.exports.bot[botno])
-        }
-      } else {
-        plug.load()
+      if (plug.load) {
+        plug.load(module.exports.bot[botno])
       }
     } catch (e) { console.log(e) }
   })
 }
-loadplug()
 
 const createBot = function createBot (host, oldId) {
   if (host.options.disabled) {
