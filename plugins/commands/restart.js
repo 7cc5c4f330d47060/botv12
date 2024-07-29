@@ -1,7 +1,7 @@
 module.exports = {
   execute: (c) => {
-    process.exit(0)
+    process.exit(1)
   },
-  aliases: ['exit'],
+  aliases: ['reboot'],
   level: 2
 }
