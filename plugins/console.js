@@ -40,9 +40,6 @@ function consoleWrite (text) {
   rl.prompt(true)
 }
 module.exports = {
-  load: () => {
-    
-  },
   loadBot: (b) => {
     b.info = (msg) => {
       consoleWrite(`[${b.id}] [info] ${msg}`)

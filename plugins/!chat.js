@@ -12,9 +12,6 @@ const messageTypes = [
   ''
 ]
 module.exports = {
-  load: () => {
-
-  },
   loadBot: (b) => {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {
