@@ -151,3 +151,6 @@ dist
 
 # Bot Settings
 settings.json
+
+# Default secret file
+secret.json
