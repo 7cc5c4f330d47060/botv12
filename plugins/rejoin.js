@@ -1,7 +1,5 @@
 const index = require('../index.js')
 module.exports = {
-  load: () => {
-  },
   loadBot: (b) => {
     b._client.on('end', () => {
       b.info('bot ' + b.id + ' disconnected')

@@ -1,8 +1,6 @@
 const parse = require('../util/chatparse.js')
 const parse1204 = require('../util/chatparse_1204.js')
 module.exports = {
-  load: () => {
-  },
   loadBot: (b) => {
     b.players = {}
     b._client.on('player_info', (data) => {

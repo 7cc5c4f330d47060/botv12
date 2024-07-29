@@ -37,9 +37,6 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 module.exports = {
-  load: () => {
-    
-  },
   loadBot: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
