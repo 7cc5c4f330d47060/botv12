@@ -19,8 +19,8 @@ const loadplug = (botno) => {
   }
   botplug.forEach((plug) => {
     try {
-      if (plug.loadBot) {
-        plug.loadBot(module.exports.bot[botno])
+      if (plug.load) {
+        plug.load(module.exports.bot[botno])
       }
     } catch (e) { console.log(e) }
   })
