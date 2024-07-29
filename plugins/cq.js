@@ -1,5 +1,5 @@
 module.exports = {
-  loadBot: (b) => {
+  load: (b) => {
     b._client.on('login', () => {
       b.interval.chatQueue = setInterval(() => {
         if (b.chatqueue.length !== 0) {

@@ -12,7 +12,7 @@ const messageTypes = [
   ''
 ]
 module.exports = {
-  loadBot: (b) => {
+  load: (b) => {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {
         const json = parse1204(data.message)
