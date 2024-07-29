@@ -36,7 +36,7 @@ const gr = function (l, text, value, color) {
 const os2 = function (o2, l) {
   switch (o2) {
     case 'win32':
-      return os.version()
+      return `${os.version()} (${os.release})`
     case 'android':
       return getMessage(l, 'command.serverinfo.os.android')
     case 'linux':
