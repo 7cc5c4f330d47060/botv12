@@ -42,4 +42,5 @@ botvX or UBot is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones
 | serverinfo | | Get system/bot info, similar to Kaboom's <code>serverinfo</code> command |
 | stop | | Restart bot |
 | template | | Used in development, does nothing |
+| tpr | | Teleport to a random location |
 | verify | | Check the hashing system |
