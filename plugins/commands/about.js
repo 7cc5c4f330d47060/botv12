@@ -34,7 +34,7 @@ module.exports = {
             },
             {
               translate: ' (%s)',
-              color: 'white',
+              color: c.colors.primary,
               with: [
                 {
                   text: gitCommit,
@@ -79,7 +79,7 @@ module.exports = {
       with: [
         {
           translate: '"%s"',
-          color: 'white',
+          color: c.colors.secondary,
           with: [
             {
               text: 'serverinfo',
