@@ -1,6 +1,11 @@
 module.exports = {
   execute: function (c) {
-    if(c.type == console) return; //this can not run at console
+    let uuid;
+    if(c.type == "console"){
+      uuid = c.bot._client.uuid;
+    } else {
+      uuid = c.uuid;
+    }
     const original_pos = {
       x: Math.floor(Math.random() * 2000000) - 1000000,
       y: 100,
@@ -30,9 +35,10 @@ module.exports = {
         ]
       }
     )
-    c.bot.ccq.push(`/essentials:tp ${c.uuid} ${original_pos.x}.0 ${original_pos.y} ${original_pos.z}.0`)
+    c.bot.ccq.push(`/essentials:tp ${uuid} ${original_pos.x}.0 ${original_pos.y} ${original_pos.z}.0`)
   },
   desc: 'Teleport to a random location',
   usage: ' [-s]',
+  consoleIndex: true,
   aliases: ['rtp']
 }
