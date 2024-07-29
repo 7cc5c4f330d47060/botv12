@@ -24,7 +24,7 @@
 	"command.template.usage": " <wequiwed> [optionyaw]",
 	"command.template.desc": "Does nyothing",
 	"command.tpr.desc": "Tewepowt to a wandom wocation",
-    "command.tpr.usage": " [-s]",
+    "command.tpr.usage": "",
 	"command.verify.usage": " [awgs...]",
 	"command.verify.desc": "Check the hashing system",
 	"command.about.author": "%s - a Minyecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
