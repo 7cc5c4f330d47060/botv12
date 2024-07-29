@@ -3,17 +3,41 @@ const Command = require('../util/Command.js')
 const hashcheck = require('../util/hashcheck.js')
 const settings = require('../settings.json')
 const getMessage = require('../util/lang.js')
-const cmds = Object.create(null)
+const cmds = Object.create(null);
+const bpl = fs.readdirSync('./plugins/commands')
+for (const i in bpl) { // Built-in loadCMD
+  if (!bpl[i].endsWith('.js')) {
+    continue
+  }
+  try {
+    const commandName = bpl[i].split('.js')[0]
+    cmds[commandName] = require(`./commands/${bpl[i]}`)
+    if (cmds[commandName].level === undefined) {
+      cmds[commandName].level = 0
+    }
+    console.log('Loaded command ' + commandName)
+    if (cmds[commandName].aliases) {
+      for (const j in cmds[commandName].aliases) {
+        cmds[cmds[commandName].aliases[j]] = {
+          execute: cmds[commandName].execute,
+          desc: 'Alias to ' + commandName,
+          usage: cmds[commandName].usage,
+          level: cmds[commandName].level,
+          hidden: true,
+          consoleIndex: cmds[commandName].consoleIndex
+        }
+      }
+    }
+  } catch (e) { console.log(e) }
+}
+
 const sortHelp = function sortHelp (c1, c2) {
   const level1 = cmds[c1.with[1]].level ? cmds[c1.with[1]].level : 0
   const level2 = cmds[c2.with[1]].level ? cmds[c2.with[1]].level : 0
   return level1 - level2
 }
 module.exports = {
-  load: () => {
-    module.exports.loadCMD()
-  },
-  loadBot: (b) => {
+  load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
     b.runCommand = (name, uuid, text, prefix) => {
@@ -152,34 +176,6 @@ module.exports = {
           }
         ]
       })
-    }
-  },
-  loadCMD: () => {
-    const bpl = fs.readdirSync('./plugins/commands')
-    for (const i in bpl) {
-      if (!bpl[i].endsWith('.js')) {
-        continue
-      }
-      try {
-        const commandName = bpl[i].split('.js')[0]
-        cmds[commandName] = require(`./commands/${bpl[i]}`)
-        if (cmds[commandName].level === undefined) {
-          cmds[commandName].level = 0
-        }
-        console.log('Loaded command ' + commandName)
-        if (cmds[commandName].aliases) {
-          for (const j in cmds[commandName].aliases) {
-            cmds[cmds[commandName].aliases[j]] = {
-              execute: cmds[commandName].execute,
-              desc: 'Alias to ' + commandName,
-              usage: cmds[commandName].usage,
-              level: cmds[commandName].level,
-              hidden: true,
-              consoleIndex: cmds[commandName].consoleIndex
-            }
-          }
-        }
-      } catch (e) { console.log(e) }
     }
   },
   cmds

@@ -11,10 +11,7 @@ class SCTask {
   }
 }
 module.exports = {
-  load: () => {
-
-  },
-  loadBot: (b) => {
+  load: (b) => {
     b.sc_tasks = {}
     b.interval.sc = setInterval(() => {
       for (const i in b.sc_tasks) {
