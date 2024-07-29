@@ -59,6 +59,21 @@ module.exports = {
     }
     c.reply({ text: '' })
     c.reply({
+      translate: getMessage(c.lang, 'command.about.sourceCode'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: version.sourceURL,
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'open_url',
+            value: version.sourceURL
+          }
+        }
+      ]
+    })
+    c.reply({ text: '' })
+    c.reply({
       translate: getMessage(c.lang, 'command.about.serverinfo'),
       color: c.colors.secondary,
       with: [
