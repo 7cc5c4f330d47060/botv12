@@ -1,3 +1,4 @@
+const getMessage = require('../../util/lang.js')
 module.exports = {
   execute: function (c) {
     let uuid;
@@ -13,7 +14,7 @@ module.exports = {
     }
     c.reply(
       {
-        translate: 'Teleporting %s to %s, %s, %s',
+        translate: getMessage(c.lang,"command.tpr.success"),
         color: c.colors.secondary,
         with: [
           {
@@ -37,8 +38,6 @@ module.exports = {
     )
     c.bot.ccq.push(`/essentials:tp ${uuid} ${original_pos.x}.0 ${original_pos.y} ${original_pos.z}.0`)
   },
-  desc: 'Teleport to a random location',
-  usage: ' [-s]',
   consoleIndex: true,
   aliases: ['rtp']
 }
