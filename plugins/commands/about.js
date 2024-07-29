@@ -34,7 +34,7 @@ module.exports = {
             },
             {
               translate: ' (%s)',
-              color: c.colors.primary,
+              color: c.colors.secondary,
               with: [
                 {
                   text: gitCommit,
