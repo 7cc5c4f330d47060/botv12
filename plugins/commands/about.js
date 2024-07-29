@@ -17,10 +17,13 @@ module.exports = {
     c.reply({ text: '' })
     const botVersion = version.botVersion
     let gitCommit
+    let gitBranch
     try {
       gitCommit = cp.execSync('git rev-parse --short HEAD').toString('UTF-8').split('\n')[0]
+      gitBranch = cp.execSync('git rev-parse --abbrev-ref HEAD').toString('UTF-8').split('\n')[0]
     } catch (e) {
       gitCommit = false
+      gitBranch = false
     }
     if (gitCommit) {
       c.reply({
@@ -33,11 +36,15 @@ module.exports = {
               color: c.colors.primary
             },
             {
-              translate: ' (%s)',
+              translate: ' (%s - %s)',
               color: c.colors.secondary,
               with: [
                 {
                   text: gitCommit,
+                  color: c.colors.primary
+                },
+                {
+                  text: gitBranch,
                   color: c.colors.primary
                 }
               ]
