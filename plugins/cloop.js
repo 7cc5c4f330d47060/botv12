@@ -1,7 +1,4 @@
 module.exports = {
-  load: () => {
-
-  },
   loadBot: (b) => {
     b.cloops = []
     b.addCloop = function (command, rate) {

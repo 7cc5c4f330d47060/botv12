@@ -2,9 +2,6 @@ const uuidToInt = require('../util/uuidtoint.js')
 module.exports = {
   cs: 4,
   cs_v: 6,
-  load: function () {
-
-  },
   loadBot: function (b) {
     b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 60000)
     b.ccq = []

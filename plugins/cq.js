@@ -1,7 +1,4 @@
 module.exports = {
-  load: () => {
-
-  },
   loadBot: (b) => {
     b._client.on('login', () => {
       b.interval.chatQueue = setInterval(() => {
