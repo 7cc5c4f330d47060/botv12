@@ -14,9 +14,9 @@ const loadplug = (botno) => {
 loadplug()
 const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
-  if (languages[l][message] !== undefined) {
+  if (languages[l] && languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')
-  } else if (languages['en-US'][message] !== undefined) {
+  } else if (languages[l] && languages['en-US'][message] !== undefined) {
     message = languages['en-US'][message].replace(/%%/g, '\ue123')
   }
   for (const i in with2) {
@@ -35,19 +35,24 @@ module.exports = {
     const days = Math.floor(time / 86400000) % 7
     const weeks = Math.floor(time / 604800000)
     if (weeks !== 0) {
-      finalString += `${weeks}${weeks === 1 ? getMessage(language, "time.week") : getMessage(language, "time.weekPlural")} `
+      finalString += weeks;
+      finalString += `${weeks === 1 ? getMessage(language, "time.week") : getMessage(language, "time.weekPlural")}`
     }
     if (days !== 0) {
-      finalString += `${days}${days === 1 ? getMessage(language, "time.day") : getMessage(language, "time.dayPlural")} `
+      finalString += days;
+      finalString += `${days === 1 ? getMessage(language, "time.day") : getMessage(language, "time.dayPlural")}`
     }
     if (hours !== 0) {
-      finalString += `${hours}${hours === 1 ? getMessage(language, "time.hour") : getMessage(language, "time.hourPlural")} `
+      finalString += hours;
+      finalString += `${hours === 1 ? getMessage(language, "time.hour") : getMessage(language, "time.hourPlural")}`
     }
     if (minutes !== 0) {
-      finalString += `${minutes}${minutes === 1 ? getMessage(language, "time.minute") : getMessage(language, "time.minutePlural")} `
+      finalString += minutes;
+      finalString += `${minutes === 1 ? getMessage(language, "time.minute") : getMessage(language, "time.minutePlural")}`
     }
     if (seconds !== 0) {
-      finalString += `${seconds}${seconds === 1 ? getMessage(language, "time.second") : getMessage(language, "time.secondPlural")} `
+      finalString += seconds;
+      finalString += `${seconds === 1 ? getMessage(language, "time.second") : getMessage(language, "time.secondPlural")}`
     }
     return finalString
   }
