@@ -5,7 +5,7 @@ const newercommands = require('./command.js').cmds
 const rl = readln.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: '\x1b[0m\x1b[38;5;15m> '
+  prompt: '\x1b[0m> '
 })
 rl.on('line', (l) => {
   try {
