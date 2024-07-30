@@ -8,7 +8,7 @@ const lang = settings.defaultLang
 class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {} // not needed for console
-    this.reply = text => process.stdout.write(parse(text)[0] + '\n')
+    this.reply = text => process.stdout.write(parse(text).console + '\n')
     this.uuid = 'dde5a2a6-ebdd-4bbb-8eac-f75b10c10446_console' // hard-coded because uuid does not exist at console
     this.username = 'Owner'
     this.nickname = 'Console'

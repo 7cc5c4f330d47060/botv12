@@ -13,11 +13,11 @@ module.exports = {
           uuid = data.data[i].UUID
         }
         if (data.data[i].player && data.data[i].player.name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].player.name, displayName: parse(parse1204(data.data[i].displayName))[1] }
+          buffer2[uuid] = { realName: data.data[i].player.name, displayName: parse(parse1204(data.data[i].displayName)).plain }
         } else if (data.data[i].name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parse1204(data.data[i].displayName))[1] }
+          buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parse1204(data.data[i].displayName)).plain }
         } else if (data.data[i].displayName !== undefined) {
-          buffer2[uuid] = { displayName: parse(parse1204(data.data[i].displayName))[1] }
+          buffer2[uuid] = { displayName: parse(parse1204(data.data[i].displayName)).plain }
         }
       }
       for (const uuid in buffer2) {

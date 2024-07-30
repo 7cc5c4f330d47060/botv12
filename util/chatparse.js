@@ -30,17 +30,17 @@ const hexColorParser = (color) => {
   return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
 const processColor = (col, rcol) => {
-  const out = ['', '']
+  let out;
   if (col === 'reset') {
-    out[0] = rcol[0]
+    out = rcol
   } else if (col.startsWith('#')) {
-    out[0] = hexColorParser(col)
+    out = hexColorParser(col)
   } else {
-    out[0] = consoleColors[col]
+    out = consoleColors[col]
   }
   return out
 }
-const parse = function (_data, l = 0, resetColor = [consoleColors.reset]) {
+const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
   if (l >= 12) {
     return ['', '', '']
   }
@@ -55,21 +55,25 @@ const parse = function (_data, l = 0, resetColor = [consoleColors.reset]) {
     data = _data
   }
   let nkt = false
-  const out = ['', '', ''] // console plain minecraft
+  const out = {
+    console: "", // Console formatting using ANSI escape codes for colors
+    plain: "", // Plain formatting with no colors
+    minecraft: "" // Minecraft section sign formatting
+  }
   if (data['']) {
     data.text = data['']
     nkt = true
   }
   if (data.color) {
     if (data.color === 'reset') {
-      out[0] += resetColor[0]
+      out.console += resetColor
     } else if (data.color.startsWith('#')) {
-      out[0] += hexColorParser(data.color)
+      out.console += hexColorParser(data.color)
     } else {
-      out[0] += consoleColors[data.color]
+      out.console += consoleColors[data.color]
     }
   } else {
-    out[0] += resetColor[0]
+    out.console += resetColor
   }
   if (data.text) {
     let _text = data.text
@@ -77,12 +81,11 @@ const parse = function (_data, l = 0, resetColor = [consoleColors.reset]) {
       _text = _text.toString()
     }
     if (nkt) {
-      out[0] += resetColor[0]
-      out[2] += resetColor[1]
+      out.console += resetColor
     }
-    out[0] += _text.replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes and [SO] from console format
-    out[1] += _text
-    out[2] += _text
+    out.console += _text.replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes and [SO] from console format
+    out.plain += _text
+    out.minecraft += _text
   }
   if (data.translate) {
     let trans = data.translate.replace(/%%/g, '\ue123').replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes from console format
@@ -95,26 +98,26 @@ const parse = function (_data, l = 0, resetColor = [consoleColors.reset]) {
     }
     for (const i in data.with) {
       const j2 = parse(data.with[i], l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
-      trans = trans.replace(/%s/, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans2 = trans2.replace(/%s/, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans3 = trans3.replace(/%s/, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans = trans.replaceAll(`%${+i + 1}$s`, j2[0].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans2 = trans2.replaceAll(`%${+i + 1}$s`, j2[1].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans3 = trans3.replaceAll(`%${+i + 1}$s`, j2[2].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans = trans.replace(/%s/, j2.console.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans2 = trans2.replace(/%s/, j2.plain.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans3 = trans3.replace(/%s/, j2.minecraft.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans = trans.replaceAll(`%${+i + 1}$s`, j2.console.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans2 = trans2.replaceAll(`%${+i + 1}$s`, j2.plain.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans3 = trans3.replaceAll(`%${+i + 1}$s`, j2.minecraft.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
     }
-    out[0] += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
-    out[1] += trans2.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
-    out[2] += trans3.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out.console += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out.plain += trans2.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out.minecraft += trans3.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
   }
   if (data.extra) {
     for (const i in data.extra) {
       const parsed = parse(data.extra[i], l, data.color ? processColor(data.color, resetColor) : resetColor)
-      out[0] += parsed[0]
-      out[1] += parsed[1]
-      out[2] += parsed[2]
+      out.console += parsed.console
+      out.plain += parsed.plain
+      out.minecraft += parsed.minecraft
     }
   }
-  out[0] += resetColor[0]
+  out.console += resetColor
   return out
 }
 const parse2 = function (_data, l, resetColor) {
@@ -122,11 +125,11 @@ const parse2 = function (_data, l, resetColor) {
     return parse(_data)
   } catch (e) {
     console.error(e)
-    return [
-      '\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ' + JSON.stringify(_data),
-      'An error occured while parsing a message. See console for more information. JSON that caused the error: ' + JSON.stringify(_data),
-      '§cAn error occured while parsing a message. See console for more information. JSON that caused the error: ' + JSON.stringify(_data)
-    ]
+    return {
+      console: '\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ' + JSON.stringify(_data),
+      plain: 'An error occured while parsing a message. See console for more information. JSON that caused the error: ' + JSON.stringify(_data),
+      minecraft: '§cAn error occured while parsing a message. See console for more information. JSON that caused the error: ' + JSON.stringify(_data)
+    }
   }
 }
 module.exports = parse2
