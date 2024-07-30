@@ -1,20 +1,20 @@
 const getMessage = require('../../util/lang.js')
 module.exports = {
   execute: function (c) {
-    let uuid;
-    if(c.type == "console"){
-      uuid = c.bot._client.uuid;
+    let uuid
+    if (c.type === 'console') {
+      uuid = c.bot._client.uuid
     } else {
-      uuid = c.uuid;
+      uuid = c.uuid
     }
-    const original_pos = {
+    const originalPos = {
       x: Math.floor(Math.random() * 2000000) - 1000000,
       y: 100,
       z: Math.floor(Math.random() * 2000000) - 1000000
     }
     c.reply(
       {
-        translate: getMessage(c.lang,"command.tpr.success"),
+        translate: getMessage(c.lang, 'command.tpr.success'),
         color: c.colors.secondary,
         with: [
           {
@@ -22,21 +22,21 @@ module.exports = {
             color: c.colors.primary
           },
           {
-            text: original_pos.x.toString(),
+            text: originalPos.x.toString(),
             color: c.colors.primary
           },
           {
-            text: original_pos.y.toString(),
+            text: originalPos.y.toString(),
             color: c.colors.primary
           },
           {
-            text: original_pos.z.toString(),
+            text: originalPos.z.toString(),
             color: c.colors.primary
           }
         ]
       }
     )
-    c.bot.ccq.push(`/essentials:tp ${uuid} ${original_pos.x}.0 ${original_pos.y} ${original_pos.z}.0`)
+    c.bot.ccq.push(`/essentials:tp ${uuid} ${originalPos.x}.0 ${originalPos.y} ${originalPos.z}.0`)
   },
   consoleIndex: true,
   aliases: ['rtp']

@@ -1,20 +1,20 @@
 const rsg = function (count) {
   let output = ''
   for (let i = 0; i < count; i++) {
-    const type=Math.floor(Math.random()*6);
-    switch(type){
+    const type = Math.floor(Math.random() * 6)
+    switch (type) {
       case 0:
-        output += "  "
-        break;
+        output += '  '
+        break
       case 1:
-        output += "§§"
-        break;
+        output += '§§'
+        break
       case 2:
-        output += "§ "
-        break;
+        output += '§ '
+        break
       case 3:
       case 4:
-      case 5:{ //Make this case more likely
+      case 5:{ // Make this case more likely
         let rng = Math.floor(Math.random() * 16) + 1
         if (rng === 7) rng = 17 // No bells
         if (rng === 10) rng = 18 // No line feeds
@@ -33,6 +33,6 @@ module.exports = function (legal) {
   if (legal) {
     return Math.floor(Math.random() * 1000000).toString()
   } else {
-    return rsg(6+Math.floor(Math.random()*3))
+    return rsg(6 + Math.floor(Math.random() * 3))
   }
 }

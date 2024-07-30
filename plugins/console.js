@@ -2,7 +2,7 @@ const readln = require('readline')
 const index = require('../index.js')
 const ConsoleCommand = require('../util/ConsoleCommand.js')
 const newercommands = require('./command.js').cmds
-let rl = readln.createInterface({
+const rl = readln.createInterface({
   input: process.stdin,
   output: process.stdout,
   prompt: '\x1b[0m\x1b[38;5;15m> '
@@ -32,7 +32,7 @@ rl.on('line', (l) => {
   }
   rl.prompt(false)
 })
-rl.prompt();
+rl.prompt()
 function consoleWrite (text) {
   readln.cursorTo(process.stdout, 0)
   readln.clearLine(process.stdout, 0)

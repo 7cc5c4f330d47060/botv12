@@ -1,6 +1,5 @@
 const os = require('os')
 const cp = require('child_process')
-const settings = require('../../settings.json')
 const timeformat = require('../../util/timeformat.js')
 const version = require('../../version.json')
 const getMessage = require('../../util/lang.js')
