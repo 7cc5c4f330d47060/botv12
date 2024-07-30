@@ -104,10 +104,9 @@ module.exports = {
         }
         commandList.push(
           {
-            translate: '%s%s ',
+            translate: '%s ',
             color: cmdColor,
             with: [
-              prefix,
               i
             ]
           }
