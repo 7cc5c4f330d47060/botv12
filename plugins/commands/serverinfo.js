@@ -2,7 +2,7 @@ const os = require('os')
 const cp = require('child_process')
 const timeformat = require('../../util/timeformat.js')
 const version = require('../../version.json')
-const lang = require('../../util/lang.js')
+const {getMessage,formatTime} = require('../../util/lang.js')
 const fs = require('fs')
 const gr = function (l, text, value, color) {
   if (!color) color = 'white'
@@ -52,8 +52,8 @@ module.exports = {
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.osUsername'), `${os.userInfo().username} (${os.userInfo().uid})`, c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.hostName'), os.hostname(), c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.workingDir'), process.cwd(), c.colors))
-    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.runTime'), lang.formatTime(process.uptime() * 1000, c.lang), c.colors))
-    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.upTime'), lang.formatTime(os.uptime() * 1000, c.lang), c.colors))
+    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.runTime'), formatTime(process.uptime() * 1000, c.lang), c.colors))
+    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.upTime'), formatTime(os.uptime() * 1000, c.lang), c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.nodeVersion'), process.version, c.colors))
     if (process.platform === 'linux' || process.platform === 'freebsd') {
       try {
