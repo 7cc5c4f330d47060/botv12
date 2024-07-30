@@ -12,7 +12,7 @@ const loadplug = (botno) => {
   }
 }
 loadplug()
-module.exports = function (l, msg, with2) {
+const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')
@@ -24,4 +24,31 @@ module.exports = function (l, msg, with2) {
     message = message.replaceAll(`%${+i + 1}$s`, with2[i].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
   }
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+}
+module.exports = {
+  getMessage,
+  formatTime: function (time, language) {
+    let finalString = ''
+    const seconds = Math.floor(time / 1000) % 60
+    const minutes = Math.floor(time / 60000) % 60
+    const hours = Math.floor(time / 3600000) % 24
+    const days = Math.floor(time / 86400000) % 7
+    const weeks = Math.floor(time / 604800000)
+    if (weeks !== 0) {
+      finalString += `${weeks}${weeks === 1 ? getMessage(language, "time.week") : getMessage(language, "time.weekPlural")} `
+    }
+    if (days !== 0) {
+      finalString += `${days}${days === 1 ? getMessage(language, "time.day") : getMessage(language, "time.dayPlural")} `
+    }
+    if (hours !== 0) {
+      finalString += `${hours}${hours === 1 ? getMessage(language, "time.hour") : getMessage(language, "time.hourPlural")} `
+    }
+    if (minutes !== 0) {
+      finalString += `${minutes}${minutes === 1 ? getMessage(language, "time.minute") : getMessage(language, "time.minutePlural")} `
+    }
+    if (seconds !== 0) {
+      finalString += `${seconds}${seconds === 1 ? getMessage(language, "time.second") : getMessage(language, "time.secondPlural")} `
+    }
+    return finalString
+  }
 }
