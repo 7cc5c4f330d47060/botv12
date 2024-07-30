@@ -1,36 +1,33 @@
-const _lang = require('minecraft-data')('1.20.2').language
+const _lang = require('minecraft-data')('1.20.2').language;
+const settings = require('../settings.json');
 const lang = Object.create(null) // Without constructor function
 for (const i in _lang) {
   lang[i] = _lang[i]
 }
-const consoleColors = {
-  dark_red: '\x1B[0m\x1B[38;2;170;0;0m',
-  red: '\x1B[0m\x1B[38;2;255;85;85m',
-  dark_green: '\x1B[0m\x1B[38;2;0;170;0m',
-  green: '\x1B[0m\x1B[38;2;85;255;85m',
-  gold: '\x1B[0m\x1B[38;2;255;170;0m',
-  yellow: '\x1B[0m\x1B[38;2;255;255;85m',
-  dark_blue: '\x1B[0m\x1B[38;2;0;0;170m',
-  blue: '\x1B[0m\x1B[38;2;85;85;255m',
-  dark_purple: '\x1B[0m\x1B[38;2;170;0;170m',
-  light_purple: '\x1B[0m\x1B[38;2;255;85;255m',
-  dark_aqua: '\x1B[0m\x1B[38;2;0;170;170m',
-  aqua: '\x1B[0m\x1B[38;2;85;255;255m',
-  black: '\x1B[0m\x1B[48;2;220;220;220m\x1B[38;2;0;0;0m',
-  gray: '\x1B[0m\x1B[38;2;170;170;170m',
-  dark_gray: '\x1B[0m\x1B[38;2;85;85;85m',
-  white: '\x1B[0m\x1B[38;2;255;255;255m',
-  reset: '\x1B[0m\x1B[38;2;255;255;255m'
+const _consoleColors = require("./consolecolors.json");
+let consoleColors;
+let consoleColors24;
+if(_consoleColors[settings.terminalMode]){
+  consoleColors=_consoleColors[settings.terminalMode].fourBit
+  consoleColors24=_consoleColors[settings.terminalMode].twentyFourBit
+} else {
+  consoleColors=_consoleColors.none.fourBit
+  consoleColors24=_consoleColors.none.twentyFourBit
 }
 const hexColorParser = (color) => {
-  let out = '\x1B[0m'
+  if(!consoleColors24.enabled || consoleColors24.bit!==24){ //Non-24bit hex color parsing is not implemented yet
+    return "";
+  }
+  let out = '\x1B[0;'
   const redChannel = Number('0x' + color.slice(1, 3))
   const greenChannel = Number('0x' + color.slice(3, 5))
   const blueChannel = Number('0x' + color.slice(5, 7))
-  if (redChannel < 96 && greenChannel < 96 && blueChannel < 96) {
-    out += '\x1B[48;2;220;220;220m'
+  if (!consoleColors24.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
+    out += '48;2;220;220;220;'
+  } else if (consoleColors24.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
+    out += '48;2;0;0;0;'
   }
-  return out + `\x1B[38;2;${redChannel};${greenChannel};${blueChannel}m`
+  return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
 const processColor = (col, rcol) => {
   const out = ['', '']
