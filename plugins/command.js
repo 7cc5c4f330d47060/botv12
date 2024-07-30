@@ -3,7 +3,7 @@ const Command = require('../util/Command.js')
 const hashcheck = require('../util/hashcheck.js')
 const settings = require('../settings.json')
 const getMessage = require('../util/lang.js')
-const cmds = Object.create(null);
+const cmds = Object.create(null)
 const bpl = fs.readdirSync('./plugins/commands')
 for (const i in bpl) { // Built-in loadCMD
   if (!bpl[i].endsWith('.js')) {

@@ -1,5 +1,4 @@
 const version = require('../../version.json')
-const settings = require('../../settings.json')
 const getMessage = require('../../util/lang.js')
 const cp = require('child_process')
 module.exports = {

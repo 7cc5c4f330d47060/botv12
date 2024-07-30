@@ -42,7 +42,7 @@ module.exports = {
         b.sc_tasks.op.failed = 0
       }
     })
-    
+
     // Commandspy
     b.add_sc_task('cspy', '/cspy on', true, true)
     b.on('plainchat', (msg) => {
