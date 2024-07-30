@@ -32,8 +32,8 @@ for (const i in bpl) { // Built-in loadCMD
 }
 
 const sortHelp = function sortHelp (c1, c2) {
-  const level1 = cmds[c1.with[1]].level ? cmds[c1.with[1]].level : 0
-  const level2 = cmds[c2.with[1]].level ? cmds[c2.with[1]].level : 0
+  const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
+  const level2 = cmds[c2.with[0]].level ? cmds[c2.with[0]].level : 0
   return level1 - level2
 }
 module.exports = {
