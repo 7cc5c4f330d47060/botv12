@@ -1,6 +1,6 @@
 module.exports = {
   execute: (c) => {
-    process.exit(0)
+    process.exit(1)
   },
   aliases: ['exit'],
   level: 2
