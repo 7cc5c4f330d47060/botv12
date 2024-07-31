@@ -18,4 +18,4 @@ const parse2 = function (_data) {
     }
   }
 }
-module.exports = parse
+module.exports = parse2
