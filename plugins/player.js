@@ -12,12 +12,18 @@ module.exports = {
         } else if (data.data[i].UUID) {
           uuid = data.data[i].UUID
         }
+        let displayName;
+        if(data.data[i].displayName !== undefined){
+          displayName = data.data[i].displayName;
+        } else {
+          displayName = "Undefined!"
+        }
         if (data.data[i].player && data.data[i].player.name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].player.name, displayName: parse(parse1204(data.data[i].displayName)).plain }
+          buffer2[uuid] = { realName: data.data[i].player.name, displayName: displayName.plain }
         } else if (data.data[i].name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parse1204(data.data[i].displayName)).plain }
+          buffer2[uuid] = { realName: data.data[i].name, displayName: displayName.plain }
         } else if (data.data[i].displayName !== undefined) {
-          buffer2[uuid] = { displayName: parse(parse1204(data.data[i].displayName)).plain }
+          buffer2[uuid] = { displayName: displayName.plain }
         }
       }
       for (const uuid in buffer2) {
