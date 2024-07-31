@@ -44,15 +44,17 @@ module.exports = {
     })
 
     // Commandspy
-    b.add_sc_task('cspy', '/cspy on', true, true)
-    b.on('plainchat', (msg) => {
-      if (msg === 'Successfully disabled CommandSpy') {
-        b.sc_tasks.cspy.failed = 1
-      } else if (msg === 'Successfully enabled CommandSpy') {
-        b.sc_tasks.cspy.failed = 0
-      }
-    })
-
+    if(!b.host.options.isVanilla){
+      b.add_sc_task('cspy', '/cspy on', true, true)
+      b.on('plainchat', (msg) => {
+        if (msg === 'Successfully disabled CommandSpy') {
+          b.sc_tasks.cspy.failed = 1
+        } else if (msg === 'Successfully enabled CommandSpy') {
+          b.sc_tasks.cspy.failed = 0
+        }
+      })
+    }
+    
     // Gamemode
     b.add_sc_task('gamemode', '/minecraft:gamemode creative', true)
     b._client.on('game_state_change', (p) => {
