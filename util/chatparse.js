@@ -88,11 +88,9 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
   if (data.translate) {
     let trans = data.translate.replace(/%%/g, '\ue123').replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes from console format
     let trans2 = data.translate.replace(/%%/g, '\ue123')
-    let trans3 = data.translate.replace(/%%/g, '\ue123')
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
       trans2 = lang[trans2].replace(/%%/g, '\ue123')
-      trans3 = lang[trans3].replace(/%%/g, '\ue123')
     }
     for (const i in data.with) {
       const j2 = parse(data.with[i], l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
