@@ -97,7 +97,13 @@ module.exports = {
       } else {
         finalname = uuid
       }
-      b.ccq.push(`/minecraft:tellraw ${finalname} ${JSON.stringify(message)}`)
+      let tellrawCommand;
+      if(b.host.options.isVanilla){
+        tellrawCommand = "tellraw";
+      } else {
+        tellrawCommand = "minecraft:tellraw";
+      }
+      b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
     }
   }
 }

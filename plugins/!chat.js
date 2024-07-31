@@ -1,3 +1,4 @@
+const settings = require('../settings.json')
 const console2 = require('./console.js')
 const parse = require('../util/chatparse.js')
 const parse1204 = require('../util/chatparse_1204.js')
@@ -72,14 +73,26 @@ module.exports = {
     b._client.on('chat', (data) => { // Legacy chat
       const json = parse1204(data.message)
       const parsed = parse(json).plain
-      const split = parsed.split(': ')
-      const chatName = split.splice(0, 1)[0]
-      const username = b.findRealName(chatName)
-      const uuid = b.findUUID(username)
-      b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message: split.join(': '), username })
+      let chatName
+      let username
+      let message;
+      let uuid;
+      if(b.host.options.isVanilla && json.translate === "chat.type.text"){ // Servers without Extras chat
+        message = parse(json.with[1]).plain;
+        username = parse(json.with[0]).plain;
+        uuid = b.findUUID(username);
+      } else { // Servers with Extras chat, such as Kaboom
+        const split = parsed.split(': ')
+        message = split.join(': ')
+        uuid = b.findUUID(username)
+        chatName = split.splice(0, 1)[0]
+        username = b.findRealName(chatName)
+      }
+      b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message, username })
     })
     b.on('chat', (data) => {
       const msg = parse(data.json)
+      if(settings.logJSONmessages) console.log(data.json)
       if (msg.plain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
       if (msg.plain.startsWith('Command set: ')) return
       b.emit('plainchat', msg.plain)
