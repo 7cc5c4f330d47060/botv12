@@ -22,6 +22,9 @@ const gr = function (l, text, value, color) {
       action: 'show_text',
       contents: {
         text: getMessage(l, 'copyText')
+      },
+      value: { // Added twice for backwards compatibility
+        text: getMessage(l, 'copyText')
       }
     },
     clickEvent: {
