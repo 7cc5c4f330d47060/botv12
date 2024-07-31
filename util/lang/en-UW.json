@@ -40,6 +40,7 @@
 	"command.about.author": "%s - a Minyecwaft bot made by 77c8f4699b732c11 / a5a06d596f15c7db",
 	"command.about.version": "Vewsion %s",
 	"command.about.sourceCode": "Souwce code: %s",
+	"command.about.sourceCode.openInBrowser": "Cwick to open the souwce code wink in youw defauwt bwowsew",
 	"command.about.serverinfo": "To view system infowmation, wun the command %s.",
 	"command.cloop.error.tooShort": "Command woops must have a wate above 20ms.",
 	"command.cloop.error.subcommand": "Unknyown subcommand, pwease do %s",
