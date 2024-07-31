@@ -46,7 +46,7 @@ module.exports = {
           return b.players[i].realName
         }
       }
-      return 'Geometrical Dominator'
+      return '[[[[ no name ]]]]'
     }
   }
 }
