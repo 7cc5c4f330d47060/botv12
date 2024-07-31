@@ -74,8 +74,17 @@ module.exports = {
           clickEvent: {
             action: 'open_url',
             value: version.sourceURL
+          },
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            },
+            value: { // Added twice for backwards compatibility
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            }
           }
-        }
+        },
       ]
     })
     c.reply({ text: '' })
