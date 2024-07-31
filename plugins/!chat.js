@@ -71,7 +71,7 @@ module.exports = {
     })
     b._client.on('chat', (data) => { // Legacy chat
       const json = parse1204(data.message)
-      const parsed = parse(json)[1]
+      const parsed = parse(json).plain
       const split = parsed.split(': ')
       const chatName = split.splice(0, 1)[0]
       const username = b.findRealName(chatName)
