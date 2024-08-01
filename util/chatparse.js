@@ -64,13 +64,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     nkt = true
   }
   if (data.color) {
-    if (data.color === 'reset') {
-      out.console += resetColor
-    } else if (data.color.startsWith('#')) {
-      out.console += hexColorParser(data.color)
-    } else {
-      out.console += consoleColors[data.color]
-    }
+    out.console += processColor(data.color, resetColor)
   } else {
     out.console += resetColor
   }
