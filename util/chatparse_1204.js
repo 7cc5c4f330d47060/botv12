@@ -8,14 +8,4 @@ const parse = function (data) {
     return data
   }
 }
-const parse2 = function (_data) {
-  try {
-    return parse(_data)
-  } catch (e) {
-    console.error(e)
-    return {
-      text: 'An error occured while parsing a message. See console for more information.'
-    }
-  }
-}
 module.exports = parse
