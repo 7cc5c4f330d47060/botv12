@@ -15,7 +15,7 @@ const parse = function (_data, l = 0) {
     data = _data
   }
   let nkt = false
-  const out = ""
+  let out = ""
   if (data['']) {
     data.text = data['']
     nkt = true
@@ -28,17 +28,16 @@ const parse = function (_data, l = 0) {
     out += _text
   }
   if (data.translate) {
-    let trans2 = data.translate.replace(/%%/g, '\ue123')
+    let trans = data.translate.replace(/%%/g, '\ue123')
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
-      trans2 = lang[trans2].replace(/%%/g, '\ue123')
     }
     for (const i in data.with) {
       const j2 = parse(data.with[i], l + 1)
-      trans2 = trans2.replace(/%s/, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans2 = trans2.replaceAll(`%${+i + 1}$s`, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans = trans.replace(/%s/, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans = trans.replaceAll(`%${+i + 1}$s`, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
     }
-    out += trans2.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
   }
   if (data.extra) {
     for (const i in data.extra) {
