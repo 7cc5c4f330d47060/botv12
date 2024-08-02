@@ -40,3 +40,4 @@ botvX is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones. It has
 | template | | Used in development, does nothing |
 | tpr | | Teleport to a random location |
 | verify | | Check the hashing system |
+
