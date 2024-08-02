@@ -18,7 +18,7 @@ module.exports = {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {
         const json = parse1204(data.message)
-        const parsed = parsePlain(json).plain
+        const parsed = parsePlain(json)
         const split = parsed.split(': ')
         const chatName = split.splice(0, 1)[0]
         const username = b.findRealName(chatName)
