@@ -10,6 +10,10 @@ module.exports = {
         {
           text: version.botName,
           color: c.colors.primary
+        },
+        {
+          text: version.botAuthor,
+          color: c.colors.primary
         }
       ]
     })
@@ -61,6 +65,12 @@ module.exports = {
             color: c.colors.primary
           }
         ]
+      })
+    }
+    if(version.isPreRelease){
+      c.reply({
+        text: getMessage(c.lang, 'command.about.preRelease'),
+        color: c.colors.secondary,
       })
     }
     c.reply({ text: '' })
