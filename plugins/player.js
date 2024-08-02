@@ -1,5 +1,3 @@
-const parse = require('../util/chatparse.js')
-const parse1204 = require('../util/chatparse_1204.js')
 module.exports = {
   load: (b) => {
     b.players = {}

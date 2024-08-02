@@ -1,14 +1,14 @@
 // HOW TO WRITE CLASS JS
 const index = require('../index.js')
 const { cmds } = require('../plugins/command.js')
-const parse = require('../util/chatparse.js')
+const parse = require('../util/chatparse_console.js')
 const settings = require('../settings.json')
 const {getMessage} = require('../util/lang.js')
 const lang = settings.defaultLang
 class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {} // not needed for console
-    this.reply = text => process.stdout.write(parse(text).console + '\n')
+    this.reply = text => process.stdout.write(parse(text) + '\n')
     this.uuid = 'dde5a2a6-ebdd-4bbb-8eac-f75b10c10446_console' // hard-coded because uuid does not exist at console
     this.username = 'Owner'
     this.nickname = 'Console'
