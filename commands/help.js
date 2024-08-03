@@ -76,7 +76,7 @@ const printHelp = (c) => {
 const printCmdHelp = (c) => {
   const cmd=c.args[0];
   if (!cmds[cmd]) {
-    b.reply({ text: getMessage(c.lang, 'command.help.noCommand') })
+    c.reply({ text: getMessage(c.lang, 'command.help.noCommand') })
     return
   }
   let usage = getMessage(c.lang, `command.${cmd}.usage`).split('||')
