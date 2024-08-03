@@ -1,4 +1,4 @@
-const {getMessage} = require('../../util/lang.js')
+const {getMessage} = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
     const subcmd = c.args.splice(0, 1)[0]
