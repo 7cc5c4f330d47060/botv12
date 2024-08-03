@@ -3,6 +3,7 @@ const cp = require('child_process')
 const version = require('../version.json')
 const {getMessage,formatTime} = require('../util/lang.js')
 const fs = require('fs')
+const botVersion = require('../util/version.js')
 const gr = function (l, text, value, color) {
   if (!color) color = 'white'
   return {
@@ -82,19 +83,6 @@ module.exports = {
       c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os.android.model'), dBrand + ' ' + dModel, c.colors))
     }
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botName'), version.botName, c.colors))
-    let botVersion = version.botVersion
-    let gitCommit
-    let gitBranch
-    try {
-      gitCommit = cp.execSync('git rev-parse --short HEAD').toString('UTF-8').split('\n')[0]
-      gitBranch = cp.execSync('git rev-parse --abbrev-ref HEAD').toString('UTF-8').split('\n')[0]
-    } catch (e) {
-      gitCommit = false
-      gitBranch = false
-    }
-    if (gitCommit) {
-      botVersion += ` (${gitCommit} - ${gitBranch})`
-    }
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botVer'), botVersion, c.colors))
   }
 }
