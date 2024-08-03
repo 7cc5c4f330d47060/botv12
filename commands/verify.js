@@ -7,5 +7,6 @@ module.exports = {
       text: c.command
     })
   },
+  aliases: ['validate'],
   level: 1
 }
