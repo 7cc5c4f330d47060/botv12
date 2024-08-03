@@ -1,4 +1,4 @@
-const { bot } = require('../../index.js')
+const { bot } = require('../index.js')
 module.exports = {
   execute: (c) => {
     const json = {
