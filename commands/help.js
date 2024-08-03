@@ -15,27 +15,15 @@ for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circu
   }
   try {
     const commandName = bpl[i].split('.js')[0]
-    if(commandName != "help") cmds[commandName] = require(`./${bpl[i]}`)
-    if (cmds[commandName].level === undefined) {
-      cmds[commandName].level = 0
-    }
-    cmds["help"] = module.exports;
+    if(commandName != "help"){
+      cmds[commandName] = require(`./${bpl[i]}`)
+      if (cmds[commandName].level === undefined) {
+        cmds[commandName].level = 0
+      }
+    } 
   } catch (e) { console.log(e) }
 }
 
-for (const i in cmds){
-  if (cmds[i].aliases) {
-    for (const j in cmds[i].aliases) {
-      cmds[cmds[i].aliases[j]] = {
-        desc: 'Alias to ' + i,
-        usage: cmds[i].usage,
-        level: cmds[i].level,
-        hidden: true,
-        consoleIndex: cmds[i].consoleIndex
-      }
-    }
-  }
-}
 
 const printHelp = (c) => {
   const commandList = []
@@ -144,4 +132,25 @@ module.exports = {
   aliases: [
     'heko' // Parker2991 request
   ]
+}
+
+cmds.help = module.exports; // Placed after to ensure that the correct values are added to cmds
+if (cmds.help.level === undefined) {
+  cmds.help.level = 0
+}
+
+console.log(cmds.help)
+
+for (const i in cmds){
+  if (cmds[i].aliases) {
+    for (const j in cmds[i].aliases) {
+      cmds[cmds[i].aliases[j]] = {
+        desc: 'Alias to ' + i,
+        usage: cmds[i].usage,
+        level: cmds[i].level,
+        hidden: true,
+        consoleIndex: cmds[i].consoleIndex
+      }
+    }
+  }
 }
