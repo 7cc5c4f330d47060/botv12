@@ -98,9 +98,9 @@ module.exports = {
       if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
       if (msgPlain.startsWith('Command set: ')) return
       b.emit('plainchat', msgPlain)
-      console2.write(`[${b.id}] [${data.type}] ${msgConsole}\x1b[0m`)
-      const fullCommand = data.message
+      b.displayChat(data.type,`${msgConsole}\x1b[0m`)
 
+      const fullCommand = data.message
       for (const i in b.prefix) {
         if (fullCommand.startsWith(b.prefix[i])) {
           const command = fullCommand.slice(b.prefix[i].length)
