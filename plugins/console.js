@@ -44,7 +44,8 @@ module.exports = {
     b.info = (msg) => {
       consoleWrite(`[${b.id}] [info] ${msg}`)
     }
-  },
-  rl,
-  write: consoleWrite
+    b.displayChat = (type, msg) => {
+      consoleWrite(`[${b.id}] [${type}] ${msg}`)
+    }
+  }
 }
