@@ -36,6 +36,7 @@ for (const i in cmds){
     }
   }
 }
+
 const printHelp = (c) => {
   const commandList = []
   for (const i in cmds) {
