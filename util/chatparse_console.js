@@ -13,7 +13,7 @@ if(_consoleColors[settings.terminalMode]){
 }
 
 const hexColorParser = (color) => {
-  if(!consoleColors24.enabled || consoleColors24.bit!==24){ //Non-24bit hex color parsing is not implemented yet
+  if(!consoleColors24.enabled || consoleColors24.bit!==24){ // Hex color parsing to the 8 bit and 4 bit modes has not been implemented yet
     return "";
   }
   let out = '\x1B[0;'
