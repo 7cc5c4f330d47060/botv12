@@ -1,9 +1,141 @@
+const fs = require('fs')
+const cmds = Object.create(null)
+const bpl = fs.readdirSync('./commands')
+const {getMessage} = require('../util/lang.js')
+
+const sortHelp = function sortHelp (c1, c2) {
+  const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
+  const level2 = cmds[c2.with[0]].level ? cmds[c2.with[0]].level : 0
+  return level1 - level2
+}
+
+for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circular require
+  if (!bpl[i].endsWith('.js')) {
+    continue
+  }
+  try {
+    const commandName = bpl[i].split('.js')[0]
+    if(commandName != "help") cmds[commandName] = require(`./${bpl[i]}`)
+    if (cmds[commandName].level === undefined) {
+      cmds[commandName].level = 0
+    }
+    cmds["help"] = module.exports;
+
+    if (cmds[commandName].aliases) {
+      for (const j in cmds[commandName].aliases) {
+        cmds[cmds[commandName].aliases[j]] = {
+          desc: 'Alias to ' + commandName,
+          usage: cmds[commandName].usage,
+          level: cmds[commandName].level,
+          hidden: true,
+          consoleIndex: cmds[commandName].consoleIndex
+        }
+      }
+    }
+  } catch (e) { console.log(e) }
+}
+const printHelp = (c) => {
+  const commandList = []
+  for (const i in cmds) {
+    if (cmds[i].hidden) continue
+    let cmdColor
+    switch (cmds[i].level) {
+      case 0:
+        cmdColor = 'green'
+        break
+      case 1:
+        cmdColor = 'red'
+        break
+      case 2:
+        cmdColor = 'dark_red'
+        break
+      case 3:
+        cmdColor = 'dark_gray'
+        break
+      default:
+        cmdColor = 'gray'
+    }
+    commandList.push(
+      {
+        translate: '%s ',
+        color: cmdColor,
+        with: [
+          i
+        ]
+      }
+    )
+  }
+  c.reply({
+    translate: '%s %s',
+    with: [
+      getMessage(c.lang, 'command.help.cmdList'),
+      commandList.sort(sortHelp)
+    ]
+  })
+}
+const printCmdHelp = (c) => {
+  const cmd=c.args[0];
+  if (!cmds[cmd]) {
+    b.reply({ text: getMessage(c.lang, 'command.help.noCommand') })
+    return
+  }
+  let usage = getMessage(c.lang, `command.${cmd}.usage`).split('||')
+  let desc = getMessage(c.lang, `command.${cmd}.desc`)
+  if (cmds[cmd].usage) {
+    usage = cmds[cmd].usage.split('||')
+  }
+  if (cmds[cmd].desc) {
+    desc = cmds[cmd].desc
+  }
+  // b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
+  for (const i in usage) {
+    c.reply({
+      translate: getMessage(c.lang, 'command.help.commandUsage'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: cmd,
+          color: c.colors.primary
+        },
+        {
+          text: usage[i],
+          color: c.colors.primary
+        }
+      ]
+    })
+  }
+  c.reply({
+    translate: getMessage(c.lang, 'command.help.commandDesc'),
+    color: c.colors.secondary,
+    with: [
+      {
+        text: desc,
+        color: c.colors.primary
+      }
+    ]
+  })
+  const permsN = getMessage(c.lang, 'command.help.permsNormal')
+  const permsT = getMessage(c.lang, 'command.help.permsTrusted')
+  const permsO = getMessage(c.lang, 'command.help.permsOwner')
+  const permsC = getMessage(c.lang, 'command.help.permsConsole')
+  const rPerms = cmds[cmd].level ? cmds[cmd].level : 0
+  c.reply({
+    translate: getMessage(c.lang, 'command.help.commandPerms'),
+    color: c.colors.secondary,
+    with: [
+      {
+        text: [permsN, permsT, permsO, permsC][rPerms],
+        color: c.colors.primary
+      }
+    ]
+  })
+}
 module.exports = {
   execute: (c) => {
     if (c.args.length > 0) {
-      c.bot.printCmdHelp(c.uuid, c.args[0], c.lang, c.colors)
+      printCmdHelp(c)
     } else {
-      c.bot.printHelp(c.uuid, c.prefix, c.lang, c.colors)
+      printHelp(c)
     }
   },
   aliases: [
