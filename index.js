@@ -38,8 +38,6 @@ const createBot = function createBot (host, oldId) {
     username: generateUser(host.options.legalName),
     version: host.version?host.version:settings.version_mc
   })
-  bot._client.on('success', () => {
-  })
   if (typeof oldId !== 'undefined') {
     for (const i in module.exports.bot[oldId].interval) {
       clearInterval(module.exports.bot[oldId].interval[i])
@@ -60,6 +58,10 @@ const createBot = function createBot (host, oldId) {
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
+  bot.displayChat = (type, msg) => {
+    console.log(`[${bot.id}] [${type}] ${msg}`)
+  }
+
   loadplug(bot.id)
   bot._client.on('error', (err) => {
     console.log(err)
