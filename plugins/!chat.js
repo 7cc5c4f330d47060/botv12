@@ -79,8 +79,10 @@ module.exports = {
       let message;
       let uuid;
       if(b.host.options.isVanilla && json.translate === "chat.type.text"){ // Servers without Extras chat
-        message = parsePlain(json.with[1]);
-        username = parsePlain(json.with[0]);
+        if(json.with.length>=2){
+          message = parsePlain(json.with[1]);
+          username = parsePlain(json.with[0]);
+        }
         uuid = b.findUUID(username);
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
