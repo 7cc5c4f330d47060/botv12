@@ -79,7 +79,7 @@ module.exports = {
       let message;
       let uuid;
       if(b.host.options.isVanilla && json.translate === "chat.type.text"){ // Servers without Extras chat
-        if(json.with.length>=2){
+        if(json.with && json.with.length>=2){
           message = parsePlain(json.with[1]);
           username = parsePlain(json.with[0]);
         }
