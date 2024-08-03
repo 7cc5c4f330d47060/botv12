@@ -1,4 +1,4 @@
-const index = require('../../index.js') // Not used in the code, but may be used by users of the command
+const index = require('../index.js') // Not used in the code, but may be used by users of the command
 module.exports = {
   execute: (c) => {
     try {

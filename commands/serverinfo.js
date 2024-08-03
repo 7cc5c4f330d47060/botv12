@@ -1,7 +1,7 @@
 const os = require('os')
 const cp = require('child_process')
-const version = require('../../version.json')
-const {getMessage,formatTime} = require('../../util/lang.js')
+const version = require('../version.json')
+const {getMessage,formatTime} = require('../util/lang.js')
 const fs = require('fs')
 const gr = function (l, text, value, color) {
   if (!color) color = 'white'

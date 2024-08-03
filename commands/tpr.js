@@ -1,4 +1,4 @@
-const {getMessage} = require('../../util/lang.js')
+const {getMessage} = require('../util/lang.js')
 module.exports = {
   execute: function (c) {
     let uuid

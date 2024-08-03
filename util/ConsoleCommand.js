@@ -1,6 +1,6 @@
 // HOW TO WRITE CLASS JS
 const index = require('../index.js')
-const { cmds } = require('../plugins/command.js')
+const cmds = require('./commands.js')
 const parse = require('../util/chatparse_console.js')
 const settings = require('../settings.json')
 const {getMessage} = require('../util/lang.js')
