@@ -1,6 +1,5 @@
 const os = require('os')
 const cp = require('child_process')
-const version = require('../version.json')
 const {getMessage,formatTime} = require('../util/lang.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
@@ -82,7 +81,6 @@ module.exports = {
       const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
       c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os.android.model'), dBrand + ' ' + dModel, c.colors))
     }
-    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botName'), version.botName, c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.botVer'), botVersion, c.colors))
   }
 }
