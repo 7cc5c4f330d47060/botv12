@@ -20,19 +20,21 @@ for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circu
       cmds[commandName].level = 0
     }
     cmds["help"] = module.exports;
+  } catch (e) { console.log(e) }
+}
 
-    if (cmds[commandName].aliases) {
-      for (const j in cmds[commandName].aliases) {
-        cmds[cmds[commandName].aliases[j]] = {
-          desc: 'Alias to ' + commandName,
-          usage: cmds[commandName].usage,
-          level: cmds[commandName].level,
-          hidden: true,
-          consoleIndex: cmds[commandName].consoleIndex
-        }
+for (const i in cmds){
+  if (cmds[i].aliases) {
+    for (const j in cmds[i].aliases) {
+      cmds[cmds[i].aliases[j]] = {
+        desc: 'Alias to ' + i,
+        usage: cmds[i].usage,
+        level: cmds[i].level,
+        hidden: true,
+        consoleIndex: cmds[i].consoleIndex
       }
     }
-  } catch (e) { console.log(e) }
+  }
 }
 const printHelp = (c) => {
   const commandList = []
