@@ -1,5 +1,6 @@
 const fs = require('fs')
 const languages = {}
+
 const loadplug = (botno) => {
   const bpl = fs.readdirSync('util/lang')
   for (const i in bpl) {
@@ -12,6 +13,7 @@ const loadplug = (botno) => {
   }
 }
 loadplug()
+
 const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l] && languages[l][message] !== undefined) {
@@ -25,6 +27,7 @@ const getMessage = function (l, msg, with2) {
   }
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
 }
+
 module.exports = {
   getMessage,
   formatTime: function (time, language) {
