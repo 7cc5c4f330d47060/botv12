@@ -61,6 +61,7 @@ module.exports = {
         })
       }
     })
+
     b._client.on('system_chat', (data) => {
       const json = parse1204(data.content)
       const parsed = parsePlain(json)
@@ -70,6 +71,7 @@ module.exports = {
       const uuid = b.findUUID(username)
       b.emit('chat', { json, type: 'system', uuid, message: split.join(': '), username })
     })
+
     b._client.on('chat', (data) => { // Legacy chat
       const json = parse1204(data.message)
       const parsed = parsePlain(json)
@@ -92,6 +94,7 @@ module.exports = {
       }
       b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message, username })
     })
+    
     b.on('chat', (data) => {
       const msgConsole = parseConsole(data.json)
       const msgPlain = parsePlain(data.json)
