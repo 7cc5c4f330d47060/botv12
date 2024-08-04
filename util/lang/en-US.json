@@ -80,6 +80,7 @@
 	"command.serverinfo.botName": "Bot name",
 	"command.serverinfo.botVer": "Bot version",
 	"command.tpr.success": "Teleporting %s to %s, %s, %s",
+	"command.verify.success": "Successfully verified with permission level %s",
 	"command.error": "An error occured (check console for more info)",
 	"command.disallowed.perms": "You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through your client's hashing system.",
 	"command.disallowed.perms.yourLevel": "Your permission level: %s",
