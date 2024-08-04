@@ -97,11 +97,11 @@ module.exports = {
       } else {
         finalname = uuid
       }
-      let tellrawCommand;
-      if(b.host.options.isVanilla){
-        tellrawCommand = "tellraw";
+      let tellrawCommand
+      if (b.host.options.isVanilla) {
+        tellrawCommand = 'tellraw'
       } else {
-        tellrawCommand = "minecraft:tellraw";
+        tellrawCommand = 'minecraft:tellraw'
       }
       b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
     }

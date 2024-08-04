@@ -1,7 +1,7 @@
 const fs = require('fs')
 const cmds = Object.create(null)
 const bpl = fs.readdirSync('./commands')
-const {getMessage} = require('../util/lang.js')
+const { getMessage } = require('../util/lang.js')
 
 const sortHelp = function sortHelp (c1, c2) {
   const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
@@ -15,7 +15,7 @@ for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circu
   }
   try {
     const commandName = bpl[i].split('.js')[0]
-    if(commandName != "help"){
+    if (commandName !== 'help') {
       cmds[commandName] = require(`./${bpl[i]}`)
       if (cmds[commandName].level === undefined) {
         cmds[commandName].level = 0
@@ -65,7 +65,7 @@ const printHelp = (c) => {
 }
 
 const printCmdHelp = (c) => {
-  const cmd=c.args[0];
+  const cmd = c.args[0]
   if (!cmds[cmd]) {
     c.reply({ text: getMessage(c.lang, 'command.help.noCommand') })
     return
@@ -134,12 +134,12 @@ module.exports = {
   ]
 }
 
-cmds.help = module.exports; // Placed after to ensure that the correct values are added to cmds
+cmds.help = module.exports // Placed after to ensure that the correct values are added to cmds
 if (cmds.help.level === undefined) {
   cmds.help.level = 0
 }
 
-for (const i in cmds){
+for (const i in cmds) {
   if (cmds[i].aliases) {
     for (const j in cmds[i].aliases) {
       cmds[cmds[i].aliases[j]] = {
