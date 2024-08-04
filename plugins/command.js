@@ -3,7 +3,6 @@ const hashcheck = require('../util/hashcheck.js')
 const settings = require('../settings.json')
 const { getMessage } = require('../util/lang.js')
 const cmds = require('../util/commands.js')
-
 module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
