@@ -48,6 +48,7 @@ module.exports = {
       }
       b.ccq.splice(0, 1)
     }
+
     b._client.on('login', () => {
       b.add_sc_task('cc', '/fill ~ 55 ~ ~3 60 ~3 command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}\'}', true, true)
       b.add_sc_task('cc_size', '/gamerule commandModificationBlockLimit 32767', true, false, true)
@@ -80,7 +81,6 @@ module.exports = {
           b.sc_tasks.cc.failed = 1
         }
       }
-
       b.commandPos = {
         x: Math.floor(a.x),
         z: Math.floor(a.z),
@@ -88,6 +88,7 @@ module.exports = {
       }
       b._client.write('teleport_confirm', { teleportId: a.teleportId })
     })
+
     b.tellraw = (uuid, message) => {
       let finalname = ''
       if (uuid === '@a') {
