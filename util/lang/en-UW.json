@@ -80,6 +80,7 @@
 	"command.serverinfo.botName": "Bot nyame",
 	"command.serverinfo.botVer": "Bot vewsion",
 	"command.tpr.success": "Tewepowting %s to %s, %s, %s",
+	"command.verify.success": "Successfuwwy vewified with pewmission wevew %s",
 	"command.error": "An ewwow occuwed (check consowe fow mowe info)",
 	"command.disallowed.perms": "You do nyot have pewmission to wun this command. If you do have pewmission, pwease make suwe you put the command hash at the end, ow wan the command thwough youw cwient's hashing system.",
 	"command.disallowed.perms.yourLevel": "Youw pewmission wevew: %s",
