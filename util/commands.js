@@ -1,7 +1,7 @@
 const fs = require('fs')
 const cmds = Object.create(null)
 const bpl = fs.readdirSync('./commands')
-for (const i in bpl) { // Built-in loadCMD
+for (const i in bpl) {
   if (!bpl[i].endsWith('.js')) {
     continue
   }
