@@ -12,6 +12,7 @@ try {
   gitCommit = false
   gitBranch = false
 }
+
 if (gitCommit) {
   botVersion += ` (${gitCommit} - ${gitBranch})`
 }
