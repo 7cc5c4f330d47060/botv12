@@ -6,11 +6,11 @@ const messageTypes = [
   '',
   'chat.type.emote',
   'commands.message.display.incoming',
-  '',
+  'commands.message.display.outgoing',
   '',
   'chat.type.announcement',
-  '',
-  ''
+  'chat.type.team.text',
+  'chat.type.team.sent'
 ]
 module.exports = {
   load: (b) => {
@@ -23,11 +23,27 @@ module.exports = {
         const username = b.findRealName(chatName)
         const uuid = b.findUUID(username)
         b.emit('chat', { json, type: 'profileless', uuid, message: split.join(': '), username })
+      } else if(data.type === 6 || data.type === 7){
+        b.emit('chat', {
+          json: {
+            translate: messageTypes[data.type],
+            color: (data.type === 2 || data.type === 3) ? 'gray' : 'reset',
+            with: [
+              parse1204(data.target),
+              parse1204(data.name),
+              data.message
+            ]
+          },
+          type: 'profileless',
+          uuid: data.senderUuid,
+          message: parsePlain(data.message),
+          username: parsePlain(parse1204(data.name))
+        })
       } else {
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
-            color: data.type === 2 ? 'gray' : 'reset',
+            color: (data.type === 2 || data.type === 3) ? 'gray' : 'reset',
             with: [
               parse1204(data.name),
               parse1204(data.message)
@@ -44,11 +60,27 @@ module.exports = {
     b._client.on('player_chat', (data) => {
       if (data.type === 4) {
         b.emit('chat', { json: parse1204(data.unsignedChatContent), type: 'player', uuid: data.senderUuid, message: data.plainMessage, username: parsePlain(parse1204(data.networkName)) })
-      } else {
+      } else if(data.type === 6 || data.type === 7){
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
             color: data.type === 2 ? 'gray' : 'reset',
+            with: [
+              parse1204(data.networkTargetName),
+              parse1204(data.networkName),
+              data.plainMessage
+            ]
+          },
+          type: 'player',
+          uuid: data.senderUuid,
+          message: parsePlain(data.plainMessage),
+          username: parsePlain(parse1204(data.networkName))
+        })
+      } else {
+        b.emit('chat', {
+          json: {
+            translate: messageTypes[data.type],
+            color: (data.type === 2 || data.type === 3) ? 'gray' : 'reset',
             with: [
               parse1204(data.networkName),
               data.plainMessage
