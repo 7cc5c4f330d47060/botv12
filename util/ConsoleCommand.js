@@ -6,7 +6,7 @@ class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {} // not needed for console
     this.reply = text => process.stdout.write(parse(text) + '\n')
-    this.uuid = 'dde5a2a6-ebdd-4bbb-8eac-f75b10c10446_console' // hard-coded because uuid does not exist at console
+    this.uuid = 'dde5a2a6-ebdd-7bbb-8eac-f75b10c10446' // hard-coded because uuid does not exist at console
     this.username = 'Owner'
     this.nickname = 'Console'
     this.command = cmd
