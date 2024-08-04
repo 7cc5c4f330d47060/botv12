@@ -3,6 +3,7 @@ const cp = require('child_process')
 const { getMessage, formatTime } = require('../util/lang.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
+
 const gr = function (l, text, value, color) {
   if (!color) color = 'white'
   return {
@@ -46,6 +47,7 @@ const os2 = function (o2, l) {
       return o2
   }
 }
+
 module.exports = {
   execute: function (c) {
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os'), os2(process.platform, c.lang), c.colors))
