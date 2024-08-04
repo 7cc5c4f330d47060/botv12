@@ -1,5 +1,4 @@
 const lang = require('./mc_lang.js')
-
 const parse = function (_data, l = 0) {
   if (l >= 12) {
     return ['', '', '']
