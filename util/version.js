@@ -17,4 +17,4 @@ if (gitCommit) {
   botVersion += ` (${gitCommit} - ${gitBranch})`
 }
 
-module.exports=botVersion;
+module.exports = botVersion

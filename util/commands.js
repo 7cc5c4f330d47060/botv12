@@ -26,4 +26,4 @@ for (const i in bpl) { // Built-in loadCMD
     }
   } catch (e) { console.log(e) }
 }
-module.exports=cmds;
+module.exports = cmds

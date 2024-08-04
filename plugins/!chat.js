@@ -1,5 +1,4 @@
 const settings = require('../settings.json')
-const console2 = require('./console.js')
 const parsePlain = require('../util/chatparse_plain.js')
 const parseConsole = require('../util/chatparse_console.js')
 const parse1204 = require('../util/chatparse_1204.js')
@@ -76,14 +75,14 @@ module.exports = {
       const parsed = parsePlain(json)
       let chatName
       let username
-      let message;
-      let uuid;
-      if(b.host.options.isVanilla && json.translate === "chat.type.text"){ // Servers without Extras chat
-        if(json.with && json.with.length>=2){
-          message = parsePlain(json.with[1]);
-          username = parsePlain(json.with[0]);
+      let message
+      let uuid
+      if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
+        if (json.with && json.with.length >= 2) {
+          message = parsePlain(json.with[1])
+          username = parsePlain(json.with[0])
         }
-        uuid = b.findUUID(username);
+        uuid = b.findUUID(username)
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
         message = split.join(': ')
@@ -96,11 +95,11 @@ module.exports = {
     b.on('chat', (data) => {
       const msgConsole = parseConsole(data.json)
       const msgPlain = parsePlain(data.json)
-      if(settings.logJSONmessages) console.log(data.json)
+      if (settings.logJSONmessages) console.log(data.json)
       if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
       if (msgPlain.startsWith('Command set: ')) return
       b.emit('plainchat', msgPlain)
-      b.displayChat(data.type,`${msgConsole}\x1b[0m`)
+      b.displayChat(data.type, `${msgConsole}\x1b[0m`)
 
       const fullCommand = data.message
       for (const i in b.prefix) {

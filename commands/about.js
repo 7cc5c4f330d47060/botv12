@@ -1,5 +1,5 @@
 const version = require('../version.json')
-const {getMessage} = require('../util/lang.js')
+const { getMessage } = require('../util/lang.js')
 const botVersion = require('../util/version.js')
 module.exports = {
   execute: function (c) {
@@ -28,10 +28,10 @@ module.exports = {
         }
       ]
     })
-    if(version.isPreRelease){
+    if (version.isPreRelease) {
       c.reply({
         text: getMessage(c.lang, 'command.about.preRelease'),
-        color: c.colors.secondary,
+        color: c.colors.secondary
       })
     }
     c.reply({ text: '' })
@@ -55,7 +55,7 @@ module.exports = {
               text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
             }
           }
-        },
+        }
       ]
     })
     c.reply({ text: '' })

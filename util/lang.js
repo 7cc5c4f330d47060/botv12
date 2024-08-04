@@ -35,24 +35,24 @@ module.exports = {
     const days = Math.floor(time / 86400000) % 7
     const weeks = Math.floor(time / 604800000)
     if (weeks !== 0) {
-      finalString += weeks;
-      finalString += `${weeks === 1 ? getMessage(language, "time.week") : getMessage(language, "time.weekPlural")}`
+      finalString += weeks
+      finalString += `${weeks === 1 ? getMessage(language, 'time.week') : getMessage(language, 'time.weekPlural')}`
     }
     if (days !== 0) {
-      finalString += days;
-      finalString += `${days === 1 ? getMessage(language, "time.day") : getMessage(language, "time.dayPlural")}`
+      finalString += days
+      finalString += `${days === 1 ? getMessage(language, 'time.day') : getMessage(language, 'time.dayPlural')}`
     }
     if (hours !== 0) {
-      finalString += hours;
-      finalString += `${hours === 1 ? getMessage(language, "time.hour") : getMessage(language, "time.hourPlural")}`
+      finalString += hours
+      finalString += `${hours === 1 ? getMessage(language, 'time.hour') : getMessage(language, 'time.hourPlural')}`
     }
     if (minutes !== 0) {
-      finalString += minutes;
-      finalString += `${minutes === 1 ? getMessage(language, "time.minute") : getMessage(language, "time.minutePlural")}`
+      finalString += minutes
+      finalString += `${minutes === 1 ? getMessage(language, 'time.minute') : getMessage(language, 'time.minutePlural')}`
     }
     if (seconds !== 0) {
-      finalString += seconds;
-      finalString += `${seconds === 1 ? getMessage(language, "time.second") : getMessage(language, "time.secondPlural")}`
+      finalString += seconds
+      finalString += `${seconds === 1 ? getMessage(language, 'time.second') : getMessage(language, 'time.secondPlural')}`
     }
     return finalString
   }

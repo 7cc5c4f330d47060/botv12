@@ -1,7 +1,7 @@
 const readln = require('readline')
 const index = require('../index.js')
 const ConsoleCommand = require('../util/ConsoleCommand.js')
-const cmds = require("../util/commands.js")
+const cmds = require('../util/commands.js')
 const rl = readln.createInterface({
   input: process.stdin,
   output: process.stdout,
