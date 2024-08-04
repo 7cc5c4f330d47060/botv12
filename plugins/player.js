@@ -10,11 +10,11 @@ module.exports = {
         } else if (data.data[i].UUID) {
           uuid = data.data[i].UUID
         }
-        let displayName;
-        if(data.data[i].displayName !== undefined){
-          displayName = data.data[i].displayName;
+        let displayName
+        if (data.data[i].displayName !== undefined) {
+          displayName = data.data[i].displayName
         } else {
-          displayName = "Undefined!"
+          displayName = 'Undefined!'
         }
         if (data.data[i].player && data.data[i].player.name !== undefined) {
           buffer2[uuid] = { realName: data.data[i].player.name, displayName: displayName.plain }

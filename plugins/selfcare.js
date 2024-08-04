@@ -44,7 +44,7 @@ module.exports = {
     })
 
     // Commandspy
-    if(!b.host.options.isVanilla){
+    if (!b.host.options.isVanilla) {
       b.add_sc_task('cspy', '/cspy on', true, true)
       b.on('plainchat', (msg) => {
         if (msg === 'Successfully disabled CommandSpy') {
@@ -54,7 +54,7 @@ module.exports = {
         }
       })
     }
-    
+
     // Gamemode
     b.add_sc_task('gamemode', '/minecraft:gamemode creative', true)
     b._client.on('game_state_change', (p) => {

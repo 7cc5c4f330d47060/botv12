@@ -36,7 +36,7 @@ const createBot = function createBot (host, oldId) {
     host: host.host,
     port: host.port ? host.port : 25565,
     username: generateUser(host.options.legalName),
-    version: host.version?host.version:settings.version_mc
+    version: host.version ? host.version : settings.version_mc
   })
   if (typeof oldId !== 'undefined') {
     for (const i in module.exports.bot[oldId].interval) {
@@ -58,7 +58,7 @@ const createBot = function createBot (host, oldId) {
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
-  
+
   bot.displayChat = (type, msg) => {
     console.log(`[${bot.id}] [${type}] ${msg}`)
   }
