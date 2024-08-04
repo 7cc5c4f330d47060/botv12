@@ -28,7 +28,7 @@ module.exports = {
       b.sc_tasks[name] = new SCTask(failTask, chatCommand, startFailed)
     }
 
-    // Selfcare tasks
+    // Self care tasks
 
     // Operator
     b.add_sc_task('op', '/op @s[type=player]', true)
@@ -43,7 +43,7 @@ module.exports = {
       }
     })
 
-    // Commandspy
+    // CommandSpy
     if (!b.host.options.isVanilla) {
       b.add_sc_task('cspy', '/cspy on', true, true)
       b.on('plainchat', (msg) => {
