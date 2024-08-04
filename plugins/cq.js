@@ -11,7 +11,7 @@ module.exports = {
     b.chatqueue = []
     b.chat = function chat (msg) {
       if (msg.length === 0) return
-      msg.match(/.{1,250}/g).forEach(element => {
+      msg.match(/.{1,255}/g).forEach(element => {
         b.chatqueue.push(element)
       })
     }
