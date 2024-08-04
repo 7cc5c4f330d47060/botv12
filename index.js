@@ -58,6 +58,7 @@ const createBot = function createBot (host, oldId) {
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
+  
   bot.displayChat = (type, msg) => {
     console.log(`[${bot.id}] [${type}] ${msg}`)
   }
@@ -71,4 +72,5 @@ const createBot = function createBot (host, oldId) {
 for (const i in settings.servers) {
   createBot(settings.servers[i])
 }
+
 module.exports.createBot = createBot
