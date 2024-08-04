@@ -16,9 +16,9 @@ module.exports = {
         b._client.write('update_command_block', {
           command: b.ccq[0],
           location: {
-            x: b.commandPos.x1 + b.blocknoX,
-            y: b.commandPos.y1 + b.blocknoY,
-            z: b.commandPos.z1 + b.blocknoZ
+            x: b.commandPos.x + b.blocknoX,
+            y: b.commandPos.y + b.blocknoY,
+            z: b.commandPos.z + b.blocknoZ
           },
           mode: 2,
           flags: 1
@@ -26,9 +26,9 @@ module.exports = {
         b._client.write('update_command_block', {
           command: b.ccq[0],
           location: {
-            x: b.commandPos.x1 + b.blocknoX,
-            y: b.commandPos.y1 + b.blocknoY,
-            z: b.commandPos.z1 + b.blocknoZ
+            x: b.commandPos.x + b.blocknoX,
+            y: b.commandPos.y + b.blocknoY,
+            z: b.commandPos.z + b.blocknoZ
           },
           mode: 2,
           flags: 5
@@ -82,9 +82,9 @@ module.exports = {
       }
 
       b.commandPos = {
-        x1: Math.floor(a.x),
-        z1: Math.floor(a.z),
-        y1: 55
+        x: Math.floor(a.x),
+        z: Math.floor(a.z),
+        y: 55
       }
       b._client.write('teleport_confirm', { teleportId: a.teleportId })
     })
