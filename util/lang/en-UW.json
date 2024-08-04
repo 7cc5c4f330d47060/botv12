@@ -48,7 +48,7 @@
 	"command.cloop.success.add": "Added command woop with command %s and wate %s",
 	"command.cloop.success.remove": "Wemoved command woop %s",
 	"command.cloop.success.clear": "Cweawed aww command woops",
-	"command.cloop.list": "%s: Command: %s Rate: %s",
+	"command.cloop.list": "%s: Command: %s Wate: %s",
 	"command.help.cmdList": "Commands:",
 	"command.help.commandInfo": "%s%s - %s",
 	"command.help.commandUsage": "Usage - %s%s",
