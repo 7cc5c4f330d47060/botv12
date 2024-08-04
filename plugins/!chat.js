@@ -23,7 +23,7 @@ module.exports = {
         const username = b.findRealName(chatName)
         const uuid = b.findUUID(username)
         b.emit('chat', { json, type: 'profileless', uuid, message: split.join(': '), username })
-      } else if(data.type === 6 || data.type === 7){
+      } else if (data.type === 6 || data.type === 7) {
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
@@ -60,7 +60,7 @@ module.exports = {
     b._client.on('player_chat', (data) => {
       if (data.type === 4) {
         b.emit('chat', { json: parse1204(data.unsignedChatContent), type: 'player', uuid: data.senderUuid, message: data.plainMessage, username: parsePlain(parse1204(data.networkName)) })
-      } else if(data.type === 6 || data.type === 7){
+      } else if (data.type === 6 || data.type === 7) {
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
@@ -126,7 +126,7 @@ module.exports = {
       }
       b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message, username })
     })
-    
+
     b.on('chat', (data) => {
       const msgConsole = parseConsole(data.json)
       const msgPlain = parsePlain(data.json)

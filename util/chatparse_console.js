@@ -55,8 +55,8 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     data = _data
   }
   if (data['']) {
-    data.text = data[''];
-    if(!data.color) data.color="reset";
+    data.text = data['']
+    if (!data.color) data.color = 'reset'
   }
 
   let out = ''
