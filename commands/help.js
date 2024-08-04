@@ -1,6 +1,5 @@
 const fs = require('fs')
 const cmds = Object.create(null)
-const bpl = fs.readdirSync('./commands')
 const { getMessage } = require('../util/lang.js')
 
 const sortHelp = function sortHelp (c1, c2) {
@@ -9,6 +8,7 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 
+const bpl = fs.readdirSync('./commands')
 for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circular require
   if (!bpl[i].endsWith('.js')) {
     continue
@@ -78,7 +78,6 @@ const printCmdHelp = (c) => {
   if (cmds[cmd].desc) {
     desc = cmds[cmd].desc
   }
-  // b.tellraw(uuid,{"text":getMessage(lang,"command.help.commandInfo",[cmd,usage,desc])});
   for (const i in usage) {
     c.reply({
       translate: getMessage(c.lang, 'command.help.commandUsage'),
@@ -121,6 +120,7 @@ const printCmdHelp = (c) => {
     ]
   })
 }
+
 module.exports = {
   execute: (c) => {
     if (c.args.length > 0) {
