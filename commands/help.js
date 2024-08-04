@@ -20,10 +20,9 @@ for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circu
       if (cmds[commandName].level === undefined) {
         cmds[commandName].level = 0
       }
-    } 
+    }
   } catch (e) { console.log(e) }
 }
-
 
 const printHelp = (c) => {
   const commandList = []
@@ -64,6 +63,7 @@ const printHelp = (c) => {
     ]
   })
 }
+
 const printCmdHelp = (c) => {
   const cmd=c.args[0];
   if (!cmds[cmd]) {
@@ -138,8 +138,6 @@ cmds.help = module.exports; // Placed after to ensure that the correct values ar
 if (cmds.help.level === undefined) {
   cmds.help.level = 0
 }
-
-console.log(cmds.help)
 
 for (const i in cmds){
   if (cmds[i].aliases) {
