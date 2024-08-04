@@ -33,6 +33,7 @@ rl.on('line', (l) => {
   rl.prompt(false)
 })
 rl.prompt()
+
 function consoleWrite (text) {
   readln.cursorTo(process.stdout, 0)
   readln.clearLine(process.stdout, 0)
