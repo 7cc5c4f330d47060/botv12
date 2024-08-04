@@ -40,10 +40,10 @@ const printHelp = (c) => {
         cmdColor = 'dark_red'
         break
       case 3:
-        cmdColor = 'dark_gray'
+        cmdColor = 'dark_red'
         break
       default:
-        cmdColor = 'gray'
+        cmdColor = 'green'
     }
     commandList.push(
       {
