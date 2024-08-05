@@ -72,9 +72,9 @@ module.exports = {
     b._client.on('position', function (a) {
       if (!b.ccStarted) {
         b.original_pos = { x: a.x, y: a.y, z: a.z }
-        b.pos = { x: a.x, y: a.y, z: a.z, correct: 1 }
+        b.pos = { x: a.x, y: a.y, z: a.z }
       } else {
-        b.pos = { x: a.x, y: a.y, z: a.z, correct: 1 }
+        b.pos = { x: a.x, y: a.y, z: a.z }
         if (a.x !== b.original_pos.x || a.z !== b.original_pos.z) {
           b.original_pos = { x: a.x, y: a.y, z: a.z }
           b.sc_tasks.cc.failed = 1
