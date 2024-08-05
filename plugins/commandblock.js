@@ -7,7 +7,7 @@ module.exports = {
     b.ccq = []
     b.blocknoX = 0
     b.blocknoZ = 0
-    b.ccStarted = 0
+    b.ccStarted = false
     b.blocknoY = 0
     b.pos = { x: 0, y: 0, z: 0, correct: 0 }
 
