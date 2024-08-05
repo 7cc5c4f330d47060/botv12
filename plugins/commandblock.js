@@ -9,7 +9,7 @@ module.exports = {
     b.blocknoZ = 0
     b.ccStarted = false
     b.blocknoY = 0
-    b.pos = { x: 0, y: 0, z: 0, correct: 0 }
+    b.pos = { x: 0, y: 0, z: 0 }
 
     b.advanceccq = function () {
       if (b.ccq[0] && b.ccq[0].length !== 0) {
@@ -76,7 +76,6 @@ module.exports = {
         b.pos = { x: a.x, y: a.y, z: a.z, correct: 1 }
         if (a.x !== b.original_pos.x || a.z !== b.original_pos.z) {
           b.original_pos = { x: a.x, y: a.y, z: a.z }
-          b.pos.correct = 0
           b.sc_tasks.cc.failed = 1
         }
       }
