@@ -1,5 +1,4 @@
-const lang = require('./mc_lang.js');
-
+const lang = require('./mc_lang.js')
 const parse = function (_data, l = 0) {
   if (l >= 12) {
     return ['', '', '']
@@ -14,11 +13,9 @@ const parse = function (_data, l = 0) {
   } else {
     data = _data
   }
-  let nkt = false
-  let out = ""
+  let out = ''
   if (data['']) {
     data.text = data['']
-    nkt = true
   }
   if (data.text) {
     let _text = data.text

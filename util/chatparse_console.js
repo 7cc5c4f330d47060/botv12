@@ -1,20 +1,20 @@
-const settings = require('../settings.json');
-const lang = require('./mc_lang.js');
+const settings = require('../settings.json')
+const lang = require('./mc_lang.js')
+const _consoleColors = require('./consolecolors.json')
 
-const _consoleColors = require("./consolecolors.json");
-let consoleColors;
-let consoleColors24;
-if(_consoleColors[settings.terminalMode]){
-  consoleColors=_consoleColors[settings.terminalMode].fourBit
-  consoleColors24=_consoleColors[settings.terminalMode].twentyFourBit
+let consoleColors
+let consoleColors24
+if (_consoleColors[settings.terminalMode]) {
+  consoleColors = _consoleColors[settings.terminalMode].fourBit
+  consoleColors24 = _consoleColors[settings.terminalMode].twentyFourBit
 } else {
-  consoleColors=_consoleColors.none.fourBit
-  consoleColors24=_consoleColors.none.twentyFourBit
+  consoleColors = _consoleColors.none.fourBit
+  consoleColors24 = _consoleColors.none.twentyFourBit
 }
 
 const hexColorParser = (color) => {
-  if(!consoleColors24.enabled || consoleColors24.bit!==24){ //Non-24bit hex color parsing is not implemented yet
-    return "";
+  if (!consoleColors24.enabled || consoleColors24.bit !== 24) { // Hex color parsing to the 8 bit and 4 bit modes has not been implemented yet
+    return ''
   }
   let out = '\x1B[0;'
   const redChannel = Number('0x' + color.slice(1, 3))
@@ -29,7 +29,7 @@ const hexColorParser = (color) => {
 }
 
 const processColor = (col, rcol) => {
-  let out;
+  let out
   if (col === 'reset') {
     out = rcol
   } else if (col.startsWith('#')) {
@@ -54,12 +54,12 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
   } else {
     data = _data
   }
-  let nkt = false
-  let out = ""
   if (data['']) {
     data.text = data['']
-    nkt = true
+    if (!data.color) data.color = 'reset'
   }
+
+  let out = ''
   if (data.color) {
     out += processColor(data.color, resetColor)
   } else {
@@ -69,9 +69,6 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     let _text = data.text
     if (typeof _text === 'number') {
       _text = _text.toString()
-    }
-    if (nkt) {
-      out += resetColor
     }
     out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes and [SO] from console format
   }
