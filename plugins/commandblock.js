@@ -60,7 +60,7 @@ module.exports = {
       }, true)
       b.add_sc_task('cc_size', () => {
         b.chat('/gamerule commandModificationBlockLimit 32767')
-      }, true)
+      })
     })
     b.on('ccstart', () => {
       setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
