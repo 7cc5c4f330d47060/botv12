@@ -1,7 +1,10 @@
 const uuidToInt = require('../util/uuidtoint.js')
+const cs = {
+  x: 4,
+  y: 6,
+  z: 4
+}
 module.exports = {
-  cs: 4,
-  cs_v: 6,
   load: function (b) {
     b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 60000)
     b.ccq = []
@@ -34,13 +37,13 @@ module.exports = {
           flags: 5
         })
         b.blocknoX++
-        if (b.blocknoX === module.exports.cs) {
+        if (b.blocknoX === cs.x) {
           b.blocknoY++
           b.blocknoX = 0
-          if (b.blocknoY === module.exports.cs_v) {
+          if (b.blocknoY === cs.y) {
             b.blocknoZ++
             b.blocknoY = 0
-            if (b.blocknoZ === module.exports.cs) {
+            if (b.blocknoZ === cs.z) {
               b.blocknoZ = 0
             }
           }
