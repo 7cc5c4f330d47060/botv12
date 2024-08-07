@@ -1,5 +1,5 @@
 class SCTask {
-  constructor (failTask, chatCommand, startFailed = false) {
+  constructor (failTask, startFailed = false) {
     /*
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
@@ -7,7 +7,7 @@ class SCTask {
     */
     this.failed = startFailed
     this.failTask = failTask
-    this.chatCommand = chatCommand
+    //this.chatCommand = chatCommand
   }
 }
 module.exports = {
@@ -16,22 +16,20 @@ module.exports = {
     b.interval.sc = setInterval(() => {
       for (const i in b.sc_tasks) {
         if (b.sc_tasks[i].failed) {
-          if (b.sc_tasks[i].chatCommand) {
-            b.chat(b.sc_tasks[i].failTask)
-          } else {
-            b.ccq.push(b.sc_tasks[i].failTask) // Does not automatically reset
-          }
+          b.sc_tasks[i].failTask()
         }
       }
     }, 1000)
-    b.add_sc_task = (name, failTask, chatCommand, startFailed) => {
-      b.sc_tasks[name] = new SCTask(failTask, chatCommand, startFailed)
+    b.add_sc_task = (name, failTask, startFailed) => {
+      b.sc_tasks[name] = new SCTask(failTask, startFailed)
     }
 
     // Self care tasks
 
     // Operator
-    b.add_sc_task('op', '/op @s[type=player]', true)
+    b.add_sc_task('op', () => {
+      b.chat('/minecraft:op @s[type=player]')
+    })
     b._client.on('login', (p) => {
       b.entityId = p.entityId
     })
@@ -45,7 +43,9 @@ module.exports = {
 
     // CommandSpy
     if (!b.host.options.isVanilla) {
-      b.add_sc_task('cspy', '/cspy on', true, true)
+      b.add_sc_task('cspy', () => {
+        b.chat('/cspy on')
+      }, true)
       b.on('plainchat', (msg) => {
         if (msg === 'Successfully disabled CommandSpy') {
           b.sc_tasks.cspy.failed = 1
@@ -56,7 +56,9 @@ module.exports = {
     }
 
     // Gamemode
-    b.add_sc_task('gamemode', '/minecraft:gamemode creative', true)
+    b.add_sc_task('gamemode', () => {
+      b.chat('/minecraft:gamemode creative')
+    })
     b._client.on('game_state_change', (p) => {
       if (p.reason === 3 && p.gameMode !== 1) {
         b.sc_tasks.gamemode.failed = 1
@@ -65,10 +67,14 @@ module.exports = {
       }
     })
 
-    // Temporary fix. SC will be rewritten to use functions
+    // Respawning after dying
+    b.add_sc_task('respawn', () => {
+      b._client.write('client_command', {actionId: 0}) // Simulates respawning
+      b.sc_tasks.respawn.failed=0
+    })
     b.on("chat",(data)=>{
       if(data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')){
-        b._client.write('client_command', {actionId: 0}) // Simulates respawning
+        b.sc_tasks.respawn.failed=1
       }
     })
   }
