@@ -64,5 +64,12 @@ module.exports = {
         b.sc_tasks.gamemode.failed = 0
       }
     })
+
+    // Temporary fix. SC will be rewritten to use functions
+    b.on("chat",(data)=>{
+      if(data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')){
+        b._client.write('client_command', {actionId: 0}) // Simulates respawning
+      }
+    })
   }
 }
