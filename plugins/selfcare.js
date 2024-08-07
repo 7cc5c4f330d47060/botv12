@@ -28,7 +28,7 @@ module.exports = {
 
     // Operator
     b.add_sc_task('op', () => {
-      b.chat('/minecraft:op @s[type=player]')
+      b.chat('/op @s[type=player]')
     })
     b._client.on('login', (p) => {
       b.entityId = p.entityId
