@@ -1,3 +1,5 @@
+const parse = require("../util/chatparse_plain")
+const parseNBT = require("../util/chatparse_1204")
 module.exports = {
   load: (b) => {
     b.players = {}
@@ -14,12 +16,12 @@ module.exports = {
         if (data.data[i].displayName !== undefined) {
           displayName = data.data[i].displayName
         } else {
-          displayName = 'Undefined!'
+          displayName = '{"text":"[[[[ No display name ]]]]"}'
         }
         if (data.data[i].player && data.data[i].player.name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].player.name, displayName: displayName.plain }
+          buffer2[uuid] = { realName: data.data[i].player.name, displayName: parse(parseNBT(displayName)) }
         } else if (data.data[i].name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].name, displayName: displayName.plain }
+          buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parseNBT(displayName)) }
         } else if (data.data[i].displayName !== undefined) {
           buffer2[uuid] = { displayName: displayName.plain }
         }
