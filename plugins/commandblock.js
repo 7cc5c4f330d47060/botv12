@@ -14,6 +14,8 @@ module.exports = {
     b.blocknoY = 0
     b.pos = { x: 0, y: 0, z: 0 }
 
+    b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x-1} ${54+cs.y} ~${cs.z-1} command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}\'}`
+
     b.advanceccq = function () {
       if (b.ccq[0] && b.ccq[0].length !== 0) {
         b._client.write('update_command_block', {
@@ -53,7 +55,7 @@ module.exports = {
     }
 
     b._client.on('login', () => {
-      b.add_sc_task('cc', '/fill ~ 55 ~ ~3 60 ~3 command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}\'}', true, true)
+      b.add_sc_task('cc', b.refillCoreCmd, true, true)
       b.add_sc_task('cc_size', '/gamerule commandModificationBlockLimit 32767', true, false, true)
     })
     b.on('ccstart', () => {
