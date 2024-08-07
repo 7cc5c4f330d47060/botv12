@@ -55,8 +55,12 @@ module.exports = {
     }
 
     b._client.on('login', () => {
-      b.add_sc_task('cc', b.refillCoreCmd, true, true)
-      b.add_sc_task('cc_size', '/gamerule commandModificationBlockLimit 32767', true, false, true)
+      b.add_sc_task('cc', () => {
+        b.chat(b.refillCoreCmd)
+      }, true)
+      b.add_sc_task('cc_size', () => {
+        b.chat('/gamerule commandModificationBlockLimit 32767')
+      }, true)
     })
     b.on('ccstart', () => {
       setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
