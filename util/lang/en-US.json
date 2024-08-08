@@ -59,6 +59,7 @@
 	"command.help.permsOwner": "Owner",
 	"command.help.permsConsole": "Console",
 	"command.help.noCommand": "Command does not exist",
+	"command.help.alias": "Alias to %s",
 	"command.serverinfo.os.android": "Android",
 	"command.serverinfo.os.freebsd": "FreeBSD",
 	"command.serverinfo.os.linux": "Linux %s",
