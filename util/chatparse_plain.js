@@ -49,7 +49,7 @@ const parse2 = function (_data, l) {
     return parse(_data)
   } catch (e) {
     console.error(e)
-    return 'An error occured while parsing a message. See console for more information. JSON that caused the error: ' + JSON.stringify(_data)
+    return `An error occured while parsing a message. See console for more information. JSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
 module.exports = parse2

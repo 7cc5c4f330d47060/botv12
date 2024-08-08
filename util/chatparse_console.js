@@ -17,9 +17,9 @@ const hexColorParser = (color) => {
     return ''
   }
   let out = '\x1B[0;'
-  const redChannel = Number('0x' + color.slice(1, 3))
-  const greenChannel = Number('0x' + color.slice(3, 5))
-  const blueChannel = Number('0x' + color.slice(5, 7))
+  const redChannel = Number(`0x${color.slice(1, 3)}`)
+  const greenChannel = Number(`0x${color.slice(3, 5)}`)
+  const blueChannel = Number(`0x${color.slice(5, 7)}`)
   if (!consoleColors24.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
     out += '48;2;220;220;220;'
   } else if (consoleColors24.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
@@ -98,7 +98,7 @@ const parse2 = function (_data, l, resetColor) {
     return parse(_data)
   } catch (e) {
     console.error(e)
-    return '\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ' + JSON.stringify(_data)
+    return `\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
 module.exports = parse2
