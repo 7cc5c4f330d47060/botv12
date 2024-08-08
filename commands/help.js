@@ -78,6 +78,17 @@ const printCmdHelp = (c) => {
   if (cmds[cmd].desc) {
     desc = cmds[cmd].desc
   }
+  if (cmds[cmd].alias) {
+    console.log(cmds[cmds[cmd].alias])
+    usage = getMessage(c.lang, `command.${cmds[cmd].alias}.usage`).split('||')
+    desc = getMessage(c.lang, `command.help.alias`, [cmds[cmd].alias])
+    if (cmds[cmds[cmd].alias].usage) {
+      usage = cmds[cmds[cmd].alias].usage.split('||')
+    }
+    if (cmds[cmds[cmd].alias].desc) {
+      desc = cmds[cmds[cmd].alias].desc
+    }
+  }
   for (const i in usage) {
     c.reply({
       translate: getMessage(c.lang, 'command.help.commandUsage'),
