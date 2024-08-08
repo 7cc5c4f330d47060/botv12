@@ -59,6 +59,7 @@
 	"command.help.permsOwner": "Ownyew",
 	"command.help.permsConsole": "Consowe",
 	"command.help.noCommand": "Command does nyot exist",
+	"command.help.alias": "Awias to %s",
 	"command.serverinfo.os.android": "Andwoid",
 	"command.serverinfo.os.freebsd": "FweeBSD",
 	"command.serverinfo.os.linux": "Winyux %s",
