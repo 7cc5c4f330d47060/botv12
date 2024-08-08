@@ -28,7 +28,6 @@ const loadplug = (botno) => {
 
 const createBot = function createBot (host, oldId) {
   if (host.options.disabled) {
-    console.log(`Skipping server ${host.host}:${host.port}`)
     return
   }
   const bot = new EventEmitter()
@@ -45,11 +44,9 @@ const createBot = function createBot (host, oldId) {
     delete module.exports.bot[oldId]
     bot.id = oldId
     module.exports.bot[oldId] = bot
-    console.log('Re-creating bot ' + bot.id)
   } else {
     bot.id = module.exports.bot.length
     module.exports.bot.push(bot)
-    console.log('Creating bot ' + bot.id)
   }
 
   bot.host = host
