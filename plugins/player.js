@@ -1,5 +1,5 @@
-const parse = require("../util/chatparse_plain")
-const parseNBT = require("../util/chatparse_1204")
+const parse = require('../util/chatparse_plain')
+const parseNBT = require('../util/chatparse_1204')
 module.exports = {
   load: (b) => {
     b.players = {}

@@ -67,12 +67,12 @@ module.exports = {
 
     // Respawning after dying
     b.add_sc_task('respawn', () => {
-      b._client.write('client_command', {actionId: 0}) // Simulates respawning
-      b.sc_tasks.respawn.failed=0
+      b._client.write('client_command', { actionId: 0 }) // Simulates respawning
+      b.sc_tasks.respawn.failed = 0
     })
-    b.on("chat",(data)=>{
-      if(data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')){
-        b.sc_tasks.respawn.failed=1
+    b.on('chat', (data) => {
+      if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')) {
+        b.sc_tasks.respawn.failed = 1
       }
     })
   }
