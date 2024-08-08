@@ -59,7 +59,7 @@ module.exports = {
         b.chat(b.refillCoreCmd)
       }, true)
       b.add_sc_task('cc_size', () => {
-        b.chat('/gamerule commandModificationBlockLimit 32767')
+        b.chat('/gamerule commandModificationBlockLimit 32768')
       })
     })
     b.on('ccstart', () => {
