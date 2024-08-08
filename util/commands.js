@@ -11,7 +11,6 @@ for (const i in bpl) {
     if (cmds[commandName].level === undefined) {
       cmds[commandName].level = 0
     }
-    console.log('Loaded command ' + commandName)
     if (cmds[commandName].aliases) {
       for (const j in cmds[commandName].aliases) {
         cmds[cmds[commandName].aliases[j]] = {
