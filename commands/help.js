@@ -143,7 +143,7 @@ for (const i in cmds) {
   if (cmds[i].aliases) {
     for (const j in cmds[i].aliases) {
       cmds[cmds[i].aliases[j]] = {
-        desc: 'Alias to ' + i,
+        alias: i,
         usage: cmds[i].usage,
         level: cmds[i].level,
         hidden: true,

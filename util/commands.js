@@ -15,7 +15,7 @@ for (const i in bpl) {
       for (const j in cmds[commandName].aliases) {
         cmds[cmds[commandName].aliases[j]] = {
           execute: cmds[commandName].execute,
-          desc: 'Alias to ' + commandName,
+          alias: commandName,
           usage: cmds[commandName].usage,
           level: cmds[commandName].level,
           hidden: true,
