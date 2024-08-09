@@ -35,26 +35,13 @@ const gr = function (l, text, value, color) {
   }
 }
 
-const os2 = function (o2, l) {
-  switch (o2) {
-    case 'win32':
-      return `${os.version()} (${os.release})`
-    case 'android':
-      return getMessage(l, 'command.serverinfo.os.android')
-    case 'linux':
-      return getMessage(l, 'command.serverinfo.os.linux', [os.release()])
-    default:
-      return o2
-  }
-}
-
 module.exports = {
   execute: function (c) {
     c.reply({
       text: getMessage(c.lang, 'command.serverinfo.deprecated')
     })
     
-    c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os'), os2(process.platform, c.lang), c.colors))
+    // c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os'), os2(process.platform, c.lang), c.colors))
     if (os.cpus()[0]) c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.processor'), os.cpus()[0].model, c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.arch'), os.machine(), c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.osUsername'), `${os.userInfo().username} (${os.userInfo().uid})`, c.colors))

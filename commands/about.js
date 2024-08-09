@@ -60,9 +60,46 @@ const aboutBot = function (c){
   })
 }
 
+const os2 = function (o2, l) {
+  switch (o2) {
+    case 'win32':
+      return `${os.version()} (${os.release})`
+    case 'android':
+      return getMessage(l, 'command.serverinfo.os.android')
+    case 'linux':
+      return getMessage(l, 'command.serverinfo.os.linux', [os.release()])
+    default:
+      return o2
+  }
+}
+
+const aboutServer = function (c){
+  const displayInfo = function (name, infoFunc) {
+    c.reply({
+      translate: '%s: %s',
+      with:[
+        {
+          text: getMessage(c.lang, name)
+        },
+        {
+          text: infoFunc()
+        }
+      ]
+    })
+  }
+
+  // Testing the new system
+  displayInfo('command.about.serverInfo.os.freebsd', () => {
+    return "testing!"
+  })
+}
 module.exports = {
   execute: function (c) {
-    aboutBot(c)
+    if(c.args[0] === 'server'){
+      aboutServer(c)
+    } else {
+      aboutBot(c)
+    }
   },
   aliases: ['info']
 }
