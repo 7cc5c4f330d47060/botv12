@@ -1,5 +1,7 @@
-const version = require('../version.json')
-const { getMessage } = require('../util/lang.js')
+const os = require('os')
+const cp = require('child_process')
+const { getMessage, formatTime } = require('../util/lang.js')
+const fs = require('fs')
 const botVersion = require('../util/version.js')
 
 const aboutBot = function (c){
