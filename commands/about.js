@@ -3,6 +3,7 @@ const cp = require('child_process')
 const { getMessage, formatTime } = require('../util/lang.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
+const version = require('../version.json')
 
 const aboutBot = function (c){
   c.reply({
