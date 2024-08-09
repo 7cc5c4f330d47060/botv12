@@ -19,17 +19,6 @@ const aboutBot = function (c){
       }
     ]
   })
-  c.reply({ text: '' })
-  c.reply({
-    translate: getMessage(c.lang, 'command.about.version'),
-    color: c.colors.secondary,
-    with: [
-      {
-        text: botVersion,
-        color: c.colors.primary
-      }
-    ]
-  })
   if (version.isPreRelease) {
     c.reply({
       text: getMessage(c.lang, 'command.about.preRelease'),
@@ -67,9 +56,9 @@ const os2 = function (o2, l) {
     case 'win32':
       return `${os.version()} (${os.release})`
     case 'android':
-      return getMessage(l, 'command.serverinfo.os.android')
+      return getMessage(l, 'command.about.serverInfo.os.android')
     case 'linux':
-      return getMessage(l, 'command.serverinfo.os.linux', [os.release()])
+      return getMessage(l, 'command.about.serverInfo.os.linux', [os.release()])
     default:
       return o2
   }
@@ -91,8 +80,8 @@ const aboutServer = function (c){
   }
 
   // Testing the new system
-  displayInfo('command.about.serverInfo.os.freebsd', () => {
-    return "testing!"
+  displayInfo('command.about.serverInfo.os', () => {
+    return os2(process.platform, c.lang)
   })
 }
 module.exports = {
