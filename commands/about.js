@@ -58,23 +58,6 @@ module.exports = {
         }
       ]
     })
-    c.reply({ text: '' })
-    c.reply({
-      translate: getMessage(c.lang, 'command.about.serverinfo'),
-      color: c.colors.secondary,
-      with: [
-        {
-          translate: '"%s"',
-          color: c.colors.secondary,
-          with: [
-            {
-              text: 'serverinfo',
-              color: c.colors.primary
-            }
-          ]
-        }
-      ]
-    })
   },
   aliases: ['info']
 }
