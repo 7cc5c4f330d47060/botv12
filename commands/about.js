@@ -31,11 +31,11 @@ const aboutBot = function (c){
     color: c.colors.secondary,
     with: [
       {
-        text: version.sourceURL,
+        text: botVersion.sourceURL,
         color: c.colors.primary,
         clickEvent: {
           action: 'open_url',
-          value: version.sourceURL
+          value: botVersion.sourceURL
         },
         hoverEvent: {
           action: 'show_text',
