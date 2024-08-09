@@ -56,10 +56,35 @@ const os2 = function (o2, l) {
   switch (o2) {
     case 'win32':
       return `${os.version()} (${os.release})`
-    case 'android':
-      return getMessage(l, 'command.about.serverInfo.os.android')
+    case 'android':{
+      try {
+        const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
+        return getMessage(l, 'command.about.serverInfo.os.android', [version])
+      } catch(e){
+        getMessage(l, 'command.about.serverInfo.os.android.noVersion')
+      }
+    }
     case 'linux':
-      return getMessage(l, 'command.about.serverInfo.os.linux', [os.release()])
+    case 'freebsd':{
+      if(fs.readdirSync("/etc").includes("os-release")){
+        const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
+        const osrelease2 = {}
+        for (const i in osrelease) {
+          if (!osrelease[i].includes('=')) continue
+          let osrvalue = osrelease[i].split('=')[1]
+          if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
+          osrelease2[osrelease[i].split('=')[0]] = osrvalue
+        }
+
+        if (osrelease2.PRETTY_NAME) {
+          return getMessage(l, '%s %s', [osrelease2.PRETTY_NAME, os.release()])
+        } else {
+          return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+        }
+      } else {
+        return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+      }
+    }
     default:
       return o2
   }
@@ -130,30 +155,8 @@ const aboutServer = function (c){
     return formatTime(os.uptime() * 1000, c.lang)
   })
 
-  if (process.platform === 'linux' || process.platform === 'freebsd') {
-    displayInfo('command.about.serverInfo.osRelease', () => {
-      const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
-      const osrelease2 = {}
-      for (const i in osrelease) {
-        if (!osrelease[i].includes('=')) continue
-        let osrvalue = osrelease[i].split('=')[1]
-        if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
-        osrelease2[osrelease[i].split('=')[0]] = osrvalue
-      }
-
-      if (osrelease2.PRETTY_NAME) {
-        return osrelease2.PRETTY_NAME
-      } else {
-        return "PRETTY_NAME not present"
-      }
-    })
-  }
 
   if (process.platform === 'android') {
-    displayInfo('command.about.serverInfo.os.android.version', () => {
-      return cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
-    })
-
     displayInfo('command.about.serverInfo.os.android.model', () => {
       const dModel = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
       const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
