@@ -24,7 +24,7 @@ const gr = function (l, text, value, color) {
       contents: {
         text: getMessage(l, 'copyText')
       },
-      value: { // Added twice for backwards compatibility
+      value: { // Added twice for backwards compatibility with old versions of Minecraft
         text: getMessage(l, 'copyText')
       }
     },
