@@ -124,39 +124,46 @@ const aboutServer = function (c){
     })
   }
 
-  // Processor architecture
   if (os.cpus()[0]){
+    // Processor architecture
     displayInfo('command.about.serverInfo.arch', () => {
       return os.machine()
     })
   }
 
+  // Username and UID
   displayInfo('command.about.serverInfo.osUsername', () => {
     return `${os.userInfo().username} (${os.userInfo().uid})`
   })
 
+  // Hostname
   displayInfo('command.about.serverInfo.hostName', () => {
     return os.hostname()
   })
   
+  // Current working directory
   displayInfo('command.about.serverInfo.workingDir', () => {
     return process.cwd()
   })
   
+  // Node.js® version
   displayInfo('command.about.serverInfo.nodeVersion', () => {
     return process.version
   })
 
+  // Bot uptime
   displayInfo('command.about.serverInfo.runTime', () => {
     return formatTime(process.uptime() * 1000, c.lang)
   })
 
+  // System uptime
   displayInfo('command.about.serverInfo.upTime', () => {
     return formatTime(os.uptime() * 1000, c.lang)
   })
 
 
   if (process.platform === 'android') {
+    // Device model
     displayInfo('command.about.serverInfo.os.android.model', () => {
       const dModel = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
       const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
@@ -164,6 +171,7 @@ const aboutServer = function (c){
     })
   }
 
+  // Bot version
   displayInfo('command.about.serverInfo.botVer', () => {
     return botVersion
   })
