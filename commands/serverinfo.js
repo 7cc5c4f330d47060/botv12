@@ -50,6 +50,10 @@ const os2 = function (o2, l) {
 
 module.exports = {
   execute: function (c) {
+    c.reply({
+      text: getMessage(c.lang, 'command.serverinfo.deprecated')
+    })
+    
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.os'), os2(process.platform, c.lang), c.colors))
     if (os.cpus()[0]) c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.processor'), os.cpus()[0].model, c.colors))
     c.reply(gr(c.lang, getMessage(c.lang, 'command.serverinfo.arch'), os.machine(), c.colors))
