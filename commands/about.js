@@ -67,6 +67,13 @@ const os2 = function (o2, l) {
 
 const aboutServer = function (c){
   const displayInfo = function (name, infoFunc) {
+    let thisItem;
+    try {
+      thisItem = infoFunc()
+    } catch(e) {
+      console.error(e)
+      thisItem = "Error! (check console)"
+    }
     c.reply({
       translate: '%s: %s',
       with:[
@@ -74,16 +81,90 @@ const aboutServer = function (c){
           text: getMessage(c.lang, name)
         },
         {
-          text: infoFunc()
+          text: thisItem
         }
       ]
     })
   }
 
-  // Testing the new system
+  // Operating system
   displayInfo('command.about.serverInfo.os', () => {
     return os2(process.platform, c.lang)
   })
+
+  // Processor
+  if (os.cpus()[0]){
+    displayInfo('command.about.serverInfo.processor', () => {
+      return os.cpus()[0].model
+    })
+  }
+
+  // Processor architecture
+  if (os.cpus()[0]){
+    displayInfo('command.about.serverInfo.arch', () => {
+      return os.machine()
+    })
+  }
+
+  displayInfo('command.about.serverInfo.osUsername', () => {
+    return `${os.userInfo().username} (${os.userInfo().uid})`
+  })
+
+  displayInfo('command.about.serverInfo.hostName', () => {
+    return os.hostname()
+  })
+  
+  displayInfo('command.about.serverInfo.workingDir', () => {
+    return process.cwd()
+  })
+  
+  displayInfo('command.about.serverInfo.nodeVersion', () => {
+    return process.version
+  })
+
+  displayInfo('command.about.serverInfo.runTime', () => {
+    return formatTime(process.uptime() * 1000, c.lang)
+  })
+
+  displayInfo('command.about.serverInfo.upTime', () => {
+    return formatTime(os.uptime() * 1000, c.lang)
+  })
+
+  if (process.platform === 'linux' || process.platform === 'freebsd') {
+    displayInfo('command.about.serverInfo.osRelease', () => {
+      const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
+      const osrelease2 = {}
+      for (const i in osrelease) {
+        if (!osrelease[i].includes('=')) continue
+        let osrvalue = osrelease[i].split('=')[1]
+        if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
+        osrelease2[osrelease[i].split('=')[0]] = osrvalue
+      }
+
+      if (osrelease2.PRETTY_NAME) {
+        return osrelease2.PRETTY_NAME
+      } else {
+        return "PRETTY_NAME not present"
+      }
+    })
+  }
+
+  if (process.platform === 'android') {
+    displayInfo('command.about.serverInfo.os.android.version', () => {
+      return cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
+    })
+
+    displayInfo('command.about.serverInfo.os.android.model', () => {
+      const dModel = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
+      const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
+      return `${dBrand} ${dModel}`
+    })
+  }
+
+  displayInfo('command.about.serverInfo.botVer', () => {
+    return botVersion
+  })
+  
 }
 module.exports = {
   execute: function (c) {
