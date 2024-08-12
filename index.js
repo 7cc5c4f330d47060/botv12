@@ -19,21 +19,15 @@ const loadplug = (botno) => {
   }
   botplug.forEach((plug) => {
     try {
-      if (botno !== undefined) {
-        if (plug.loadBot) {
-          plug.loadBot(module.exports.bot[botno])
-        }
-      } else {
-        plug.load()
+      if (plug.load) {
+        plug.load(module.exports.bot[botno])
       }
     } catch (e) { console.log(e) }
   })
 }
-loadplug()
 
 const createBot = function createBot (host, oldId) {
   if (host.options.disabled) {
-    console.log(`Skipping server ${host.host}:${host.port}`)
     return
   }
   const bot = new EventEmitter()
@@ -41,9 +35,7 @@ const createBot = function createBot (host, oldId) {
     host: host.host,
     port: host.port ? host.port : 25565,
     username: generateUser(host.options.legalName),
-    version: settings.version_mc
-  })
-  bot._client.on('success', () => {
+    version: host.version ? host.version : settings.version_mc
   })
   if (typeof oldId !== 'undefined') {
     for (const i in module.exports.bot[oldId].interval) {
@@ -52,11 +44,9 @@ const createBot = function createBot (host, oldId) {
     delete module.exports.bot[oldId]
     bot.id = oldId
     module.exports.bot[oldId] = bot
-    console.log('Re-creating bot ' + bot.id)
   } else {
     bot.id = module.exports.bot.length
     module.exports.bot.push(bot)
-    console.log('Creating bot ' + bot.id)
   }
 
   bot.host = host
@@ -65,6 +55,11 @@ const createBot = function createBot (host, oldId) {
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
+
+  bot.displayChat = (type, msg) => {
+    console.log(`[${bot.id}] [${type}] ${msg}`)
+  }
+
   loadplug(bot.id)
   bot._client.on('error', (err) => {
     console.log(err)
@@ -74,4 +69,5 @@ const createBot = function createBot (host, oldId) {
 for (const i in settings.servers) {
   createBot(settings.servers[i])
 }
+
 module.exports.createBot = createBot

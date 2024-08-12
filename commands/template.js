@@ -23,7 +23,7 @@ module.exports = {
         replacing (name) with the name of the new command.
         Some more complex commands may have messages of their own, which should be placed there too.
         First, insert the following line near the top of the command's file (not in the execute function):
-            const getMessage = require('../../util/lang.js')
+            const { getMessage } = require('../../util/lang.js')
         Then, to get a specific message:
             getMessage(c.lang,"(message key)",[(arguments, in an array (optional))])
         For example, this will show the "about" command's redirection to "serverinfo":
