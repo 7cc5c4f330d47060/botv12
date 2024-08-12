@@ -3,6 +3,17 @@ const hashcheck = require('../util/hashcheck.js')
 const settings = require('../settings.json')
 const { getMessage } = require('../util/lang.js')
 const cmds = require('../util/commands.js')
+const fs = require("fs")
+
+if(!fs.readdirSync('.').includes('userPref')) fs.mkdirSync("userPref");
+
+const loadSettings = function(uuid){
+  try {
+    return require(`../userPref/${uuid}.json`)
+  } catch (e) {
+    return {}
+  }
+}
 module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
@@ -10,6 +21,7 @@ module.exports = {
     b.runCommand = (name, uuid, text, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return
+      const userSettings = loadSettings(uuid);
       b.lastCmd = Date.now()
       const cmd = text.split(' ')
       const lang = settings.defaultLang
@@ -32,7 +44,7 @@ module.exports = {
           return
         }
         try {
-          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, 'nick N/A', text, prefix, b, verify))
+          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, 'nick N/A', text, prefix, b, verify, userSettings))
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {

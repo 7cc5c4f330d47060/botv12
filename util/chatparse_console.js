@@ -41,8 +41,8 @@ const processColor = (col, rcol) => {
 }
 
 const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
-  if (l >= 12) {
-    return ['', '', '']
+  if (l >= 4) {
+    return ''
   }
   let data
   if (typeof _data === 'string') {

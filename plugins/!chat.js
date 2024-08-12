@@ -1,7 +1,7 @@
 const settings = require('../settings.json')
 const parsePlain = require('../util/chatparse_plain.js')
 const parseConsole = require('../util/chatparse_console.js')
-const parse1204 = require('../util/chatparse_1204.js')
+const parse1204 = require('../util/parseNBT.js')
 const messageTypes = [
   '',
   'chat.type.emote',
