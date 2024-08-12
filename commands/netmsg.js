@@ -1,6 +1,14 @@
 const { bot } = require('../index.js')
+const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
+    if(c.bot.host && c.bot.host.options.netmsgDisabled){
+      c.reply({
+        text: getMessage(c.lang, "command.netmsg.disabled"),
+        color: c.colors.secondary
+      })
+      return
+    }
     const json = {
       translate: '[%s] %s: %s',
       with: [
@@ -29,6 +37,7 @@ module.exports = {
       color: 'white'
     }
     for (const i in bot) {
+      if(bot[i].host.options.netmsgDisabled) continue
       bot[i].tellraw('@a', json)
     }
   }

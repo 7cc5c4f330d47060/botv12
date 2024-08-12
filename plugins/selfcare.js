@@ -11,13 +11,18 @@ class SCTask {
 module.exports = {
   load: (b) => {
     b.sc_tasks = {}
+    b.selfcareRun = 0
     b.interval.sc = setInterval(() => {
+      if(Date.now() - b.selfcareRun <= 600){
+        return
+      }
       for (const i in b.sc_tasks) {
         if (b.sc_tasks[i].failed) {
           b.sc_tasks[i].failTask()
         }
       }
-    }, 1000)
+      b.selfcareRun = Date.now()
+    }, 40)
     b.add_sc_task = (name, failTask, startFailed) => {
       b.sc_tasks[name] = new SCTask(failTask, startFailed)
     }

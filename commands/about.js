@@ -5,7 +5,7 @@ const fs = require('fs')
 const botVersion = require('../util/version.js')
 const version = require('../version.json')
 
-const aboutBot = function (c){
+const aboutBot = function (c) {
   c.reply({
     translate: getMessage(c.lang, 'command.about.author'),
     color: c.colors.secondary,
@@ -60,13 +60,13 @@ const os2 = function (o2, l) {
       try {
         const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
         return getMessage(l, 'command.about.serverInfo.os.android', [version])
-      } catch(e){
+      } catch (e) {
         getMessage(l, 'command.about.serverInfo.os.android.noVersion')
       }
     }
     case 'linux':
     case 'freebsd':{
-      if(fs.readdirSync("/etc").includes("os-release")){
+      if (fs.readdirSync('/etc').includes('os-release')) {
         const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
         const osrelease2 = {}
         for (const i in osrelease) {
@@ -90,23 +90,26 @@ const os2 = function (o2, l) {
   }
 }
 
-const aboutServer = function (c){
+const aboutServer = function (c) {
   const displayInfo = function (name, infoFunc) {
-    let thisItem;
+    let thisItem
     try {
       thisItem = infoFunc()
-    } catch(e) {
+    } catch (e) {
       console.error(e)
-      thisItem = "Error! (check console)"
+      thisItem = 'Error! (check console)'
     }
     c.reply({
       translate: '%s: %s',
-      with:[
+      color: c.colors.primary,
+      with: [
         {
-          text: getMessage(c.lang, name)
+          text: getMessage(c.lang, name),
+          color: c.colors.secondary
         },
         {
-          text: thisItem
+          text: thisItem,
+          color: c.colors.primary
         }
       ]
     })
@@ -118,13 +121,13 @@ const aboutServer = function (c){
   })
 
   // Processor
-  if (os.cpus()[0]){
+  if (os.cpus()[0]) {
     displayInfo('command.about.serverInfo.processor', () => {
       return os.cpus()[0].model
     })
   }
 
-  if (os.cpus()[0]){
+  if (os.cpus()[0]) {
     // Processor architecture
     displayInfo('command.about.serverInfo.arch', () => {
       return os.machine()
@@ -140,12 +143,12 @@ const aboutServer = function (c){
   displayInfo('command.about.serverInfo.hostName', () => {
     return os.hostname()
   })
-  
+
   // Current working directory
   displayInfo('command.about.serverInfo.workingDir', () => {
     return process.cwd()
   })
-  
+
   // Node.js® version
   displayInfo('command.about.serverInfo.nodeVersion', () => {
     return process.version
@@ -161,13 +164,12 @@ const aboutServer = function (c){
     return formatTime(os.uptime() * 1000, c.lang)
   })
 
-
   if (process.platform === 'android') {
     // Device model
     displayInfo('command.about.serverInfo.os.android.model', () => {
-      const dModel = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
-      const dBrand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
-      return `${dBrand} ${dModel}`
+      const brand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
+      const model = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
+      return `${brand} ${model}`
     })
   }
 
@@ -175,11 +177,10 @@ const aboutServer = function (c){
   displayInfo('command.about.serverInfo.botVer', () => {
     return botVersion
   })
-  
 }
 module.exports = {
   execute: function (c) {
-    if(c.args[0] === 'server'){
+    if (c.args[0] === 'server') {
       aboutServer(c)
     } else {
       aboutBot(c)

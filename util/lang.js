@@ -18,7 +18,7 @@ const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l] && languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')
-  } else if (languages[l] && languages['en-US'][message] !== undefined) {
+  } else if (languages['en-US'] && languages['en-US'][message] !== undefined) {
     message = languages['en-US'][message].replace(/%%/g, '\ue123')
   }
   for (const i in with2) {
@@ -29,6 +29,7 @@ const getMessage = function (l, msg, with2) {
 }
 
 module.exports = {
+  languages: Object.keys(languages),
   getMessage,
   formatTime: function (time, language) {
     let finalString = ''
