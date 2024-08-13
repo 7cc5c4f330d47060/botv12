@@ -2,13 +2,13 @@ const fs = require('fs')
 const languages = {}
 
 const loadplug = (botno) => {
-  const bpl = fs.readdirSync('util/lang')
+  const bpl = fs.readdirSync('lang')
   for (const i in bpl) {
     if (!bpl[i].endsWith('.json')) {
       continue
     }
     try {
-      languages[bpl[i].split('.')[0]] = require(`./lang/${bpl[i]}`)
+      languages[bpl[i].split('.')[0]] = require(`../lang/${bpl[i]}`)
     } catch (e) { console.log(e) }
   }
 }
