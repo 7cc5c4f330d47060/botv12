@@ -4,6 +4,7 @@ const { getMessage, formatTime } = require('../util/lang.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
 const version = require('../version.json')
+const index = require('../index.js')
 
 const aboutBot = function (c) {
   c.reply({
@@ -178,10 +179,33 @@ const aboutServer = function (c) {
     return botVersion
   })
 }
+
+const displayServerList = function (c) {
+  for(const i in index.bot){
+    if(index.bot[i].host.options && index.bot[i].host.options.hidden) continue
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.serverListItem'),
+      color: c.colors.secondary,
+      with:[
+        {
+          text: i.toString(),
+          color: c.colors.primary
+        },
+        {
+          text: `${index.bot[i].host.host}:${index.bot[i].host.port}`,
+          color: c.colors.primary
+        }
+      ]
+    })
+  }
+}
+
 module.exports = {
   execute: function (c) {
     if (c.args[0] === 'server') {
       aboutServer(c)
+    } else if (c.args[0] === 'serverlist') {
+      displayServerList(c)
     } else {
       aboutBot(c)
     }
