@@ -78,7 +78,7 @@ module.exports = {
       case 'get':{
         c.reply({
           translate: "%s: %s",
-          color: c.colors.secondary,
+          color: c.colors.primary,
           with:[
             {
               text: getMessage(c.lang, 'command.settings.get.colorPrimary'),
@@ -92,7 +92,7 @@ module.exports = {
         })
         c.reply({
           translate: "%s: %s",
-          color: c.colors.secondary,
+          color: c.colors.primary,
           with:[
             {
               text: getMessage(c.lang, 'command.settings.get.colorSecondary'),
@@ -106,11 +106,11 @@ module.exports = {
         })
         c.reply({
           translate: "%s: %s (%s)",
-          color: c.colors.secondary,
+          color: c.colors.primary,
           with:[
             {
               text: getMessage(c.lang, 'command.settings.get.language'),
-              color: c.colors.primary
+              color: c.colors.secondary
             },
             {
               text: getMessage(c.lang, 'language.name'),
