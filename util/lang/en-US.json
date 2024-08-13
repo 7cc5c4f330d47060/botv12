@@ -39,7 +39,7 @@
 	"command.verify.desc": "Check the hashing system",
 	"command.about.author": "%s - a Minecraft bot made by %s for Kaboom and clones",
 	"command.about.version": "Version %s",
-	"command.about.preRelease": "This is prerelease software - there may be errors, and features may be changed or removed at any time.",
+	"command.about.preRelease": "This is a development version - there may be errors, and features may be changed or removed at any time. Please report any errors to the bot's developer.",
 	"command.about.sourceCode": "Source code: %s",
 	"command.about.sourceCode.openInBrowser": "Click to open the source code link in your default browser",
 	"command.cloop.error.tooShort": "Command loops must have a rate above 20ms.",
