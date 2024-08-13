@@ -88,6 +88,7 @@
 	"command.about.serverInfo.os.android.model": "Device model",
 	"command.about.serverInfo.botName": "Bot name",
 	"command.about.serverInfo.botVer": "Bot version",
+	"command.about.serverListItem": "Server %s - %s",
 	"command.tpr.success": "Teleporting %s to %s, %s, %s",
 	"command.verify.success": "Successfully verified with permission level %s",
 	"command.error": "An error occured (check console for more info)",
