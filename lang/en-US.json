@@ -29,6 +29,8 @@
 	"command.refill.desc": "Refill core",
 	"command.say.usage": " <message>",
 	"command.say.desc": "Sends a message to chat",
+	"command.settings.usage": " get|| set <key> <value>",
+	"command.settings.desc": "Set your user preferences",
 	"command.stop.usage": "",
 	"command.stop.desc": "Restart bot",
 	"command.template.usage": " <required> [optional]",
