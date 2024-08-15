@@ -157,3 +157,7 @@ secret.json
 
 # botvX user settings
 userPref/
+
+# botvX log files
+UBotLogs/
+botvXLogs/
