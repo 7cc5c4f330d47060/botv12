@@ -13,7 +13,7 @@ module.exports = {
     b.sc_tasks = {}
     b.selfcareRun = 0
     b.interval.sc = setInterval(() => {
-      if(Date.now() - b.selfcareRun <= 600){
+      if (Date.now() - b.selfcareRun <= 600) {
         return
       }
       for (const i in b.sc_tasks) {

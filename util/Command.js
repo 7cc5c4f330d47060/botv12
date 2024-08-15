@@ -18,19 +18,19 @@ class Command {
     this.port = bot.host.port
     // this.lang = lang
     this.prefs = prefs
-    if(prefs.lang){
+    if (prefs.lang) {
       this.lang = prefs.lang
     } else {
       this.lang = settings.defaultLang
     }
-    
-    let _colors = {}
-    if(prefs.colorPrimary){
+
+    const _colors = {}
+    if (prefs.colorPrimary) {
       _colors.primary = prefs.colorPrimary
     } else {
       _colors.primary = settings.colors.primary
     }
-    if(prefs.colorSecondary){
+    if (prefs.colorSecondary) {
       _colors.secondary = prefs.colorSecondary
     } else {
       _colors.secondary = settings.colors.secondary
