@@ -2,9 +2,9 @@ const { bot } = require('../index.js')
 const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
-    if(c.bot.host && c.bot.host.options.hidden){
+    if (c.bot.host && c.bot.host.options.hidden) {
       c.reply({
-        text: getMessage(c.lang, "command.netmsg.disabled"),
+        text: getMessage(c.lang, 'command.netmsg.disabled'),
         color: c.colors.secondary
       })
       return
@@ -37,7 +37,7 @@ module.exports = {
       color: 'white'
     }
     for (const i in bot) {
-      if(bot[i].host.options.hidden) continue
+      if (bot[i].host.options.hidden) continue
       bot[i].tellraw('@a', json)
     }
   }
