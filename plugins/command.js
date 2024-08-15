@@ -29,6 +29,7 @@ module.exports = {
       if (verify > 0) {
         text = cmd.slice(0, cmd.length - 1).join(' ')
       }
+      b.emit("command", name, uuid, text, prefix)
       if (cmds[cmd[0].toLowerCase()]) {
         const command = cmds[cmd[0].toLowerCase()]
         if (command.level !== undefined && command.level > verify) {
