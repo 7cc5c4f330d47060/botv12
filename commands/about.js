@@ -181,12 +181,12 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  for(const i in index.bot){
-    if(index.bot[i].host.options && index.bot[i].host.options.hidden) continue
+  for (const i in index.bot) {
+    if (index.bot[i].host.options && index.bot[i].host.options.hidden) continue
     c.reply({
       translate: getMessage(c.lang, 'command.about.serverListItem'),
       color: c.colors.secondary,
-      with:[
+      with: [
         {
           text: i.toString(),
           color: c.colors.primary
