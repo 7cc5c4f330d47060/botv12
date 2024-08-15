@@ -133,7 +133,7 @@ module.exports = {
       if (settings.logJSONmessages) console.log(data.json)
       if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
       if (msgPlain.startsWith('Command set: ')) return
-      b.emit('plainchat', msgPlain)
+      b.emit('plainchat', msgPlain, data.type)
       b.displayChat(data.type, `${msgConsole}\x1b[0m`)
 
       const fullCommand = data.message
