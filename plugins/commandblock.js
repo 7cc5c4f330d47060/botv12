@@ -71,7 +71,7 @@ module.exports = {
       })
     })
     b.on('ccstart', () => {
-      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
+      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000) // 1 second and 2 milliseconds
       b.ccStarted = true
     })
     b.on('chat', (data) => {
