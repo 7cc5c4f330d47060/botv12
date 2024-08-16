@@ -55,6 +55,14 @@ module.exports = {
     }
 
     b._client.on('login', () => {
+      b._client.write("settings",{
+        locale: "ru_RU", // Русский (Россия)
+        viewDistance: 4,
+        chatFlags: 0, // Enable full chat functionality
+        chatColors: true,
+        skinParts: 127, // Allow the second layer of the skin, when the bot is sudoed to do /skin
+        mainHand: 1 // Right hand
+      })
       b.add_sc_task('cc', () => {
         b.chat(b.refillCoreCmd)
       }, true)
