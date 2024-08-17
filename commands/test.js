@@ -21,6 +21,7 @@ module.exports = {
     c.reply(reply("username",c.username))
     c.reply(reply("nickname",c.nickname))
     c.reply(reply("command",c.command))
+    c.reply(reply("msgType",c.msgType))
     c.reply(reply("prefix",c.prefix))
     c.reply(reply("index",c.index.toString()))
     c.reply(reply("args",c.args.join(", ")))
