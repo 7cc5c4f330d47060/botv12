@@ -26,6 +26,7 @@ module.exports = {
       const cmd = text.split(' ')
       const lang = settings.defaultLang
       const verify = hashcheck(cmd)
+      const nickname = b.findDisplayName(uuid)
       if (verify > 0) {
         text = cmd.slice(0, cmd.length - 1).join(' ')
       }
@@ -45,7 +46,7 @@ module.exports = {
           return
         }
         try {
-          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, 'nick N/A', text, prefix, b, verify, userSettings))
+          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, prefix, b, verify, userSettings))
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {
