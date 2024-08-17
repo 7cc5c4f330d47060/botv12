@@ -119,10 +119,10 @@ module.exports = {
         uuid = b.findUUID(username)
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
-        message = split.join(': ')
-        uuid = b.findUUID(username)
         chatName = split.splice(0, 1)[0]
         username = b.findRealName(chatName)
+        uuid = b.findUUID(username)
+        message = split.join(': ')
       }
       b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message, username })
     })
