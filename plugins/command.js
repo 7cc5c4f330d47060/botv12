@@ -18,7 +18,7 @@ module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
-    b.runCommand = (name, nickname, uuid, text, prefix) => {
+    b.runCommand = (name, nickname, uuid, text, msgType, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return
       const userSettings = loadSettings(uuid)
@@ -45,7 +45,7 @@ module.exports = {
           return
         }
         try {
-          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, prefix, b, verify, userSettings))
+          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, msgType, prefix, b, verify, userSettings))
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {

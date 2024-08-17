@@ -10,6 +10,7 @@ class ConsoleCommand {
     this.username = 'Owner'
     this.nickname = 'Console'
     this.command = cmd
+    this.msgType = "_bot_console";
     this.prefix = '' // prefix does not exist at console
     this.bot = index2 >= 0
       ? index.bot[index2]
