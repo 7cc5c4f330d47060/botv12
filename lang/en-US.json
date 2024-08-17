@@ -73,6 +73,7 @@
 	"command.test.username": "Username",
 	"command.test.nickname": "Nickname",
 	"command.test.command": "Command",
+	"command.test.msgType": "Message type",
 	"command.test.prefix": "Prefix",
 	"command.test.index": "Bot ID",
 	"command.test.args": "Arguments",
