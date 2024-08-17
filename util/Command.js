@@ -1,12 +1,13 @@
 const settings = require('../settings.json')
 class Command {
-  constructor (uuid, user, nick, cmd, prefix, bot, verify, prefs) {
+  constructor (uuid, user, nick, cmd, msgType, prefix, bot, verify, prefs) {
     this.send = (text, uuid) => { bot.tellraw(uuid || '@a', text) }
     this.reply = text => bot.tellraw(uuid, text)
     this.uuid = uuid
     this.username = user
     this.nickname = nick
     this.command = cmd
+    this.msgType = msgType;
     this.prefix = prefix
     this.bot = bot
     this.type = 'minecraft'
