@@ -157,7 +157,13 @@ module.exports = {
         uuid = b.findUUID(username)
         message = split.join(': ')
       }
-      b.emit('chat', { json, type: 'legacy', uuid: data.uuid ? data.uuid : uuid, message, username })
+      b.emit('chat', {
+        json,
+        type: 'legacy',
+        uuid: data.uuid ? data.uuid : uuid,
+        message,
+        username
+      })
     })
 
     b.on('chat', (data) => {
@@ -173,7 +179,7 @@ module.exports = {
       for (const i in b.prefix) {
         if (fullCommand.startsWith(b.prefix[i])) {
           const command = fullCommand.slice(b.prefix[i].length)
-          b.runCommand(data.username, data.nickname, data.uuid, command, b.prefix[i])
+          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, b.prefix[i])
         }
       }
     })
