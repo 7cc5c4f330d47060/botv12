@@ -23,7 +23,7 @@ module.exports = {
         } else if (data.data[i].name !== undefined) {
           buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parseNBT(displayName)) }
         } else if (data.data[i].displayName !== undefined) {
-          buffer2[uuid] = { displayName: displayName.plain }
+          buffer2[uuid] = { displayName: parse(parseNBT(displayName)) }
         }
       }
       for (const uuid in buffer2) {
@@ -47,6 +47,13 @@ module.exports = {
         }
       }
       return '[[[[ no name ]]]]'
+    }
+    b.findRealNameFromUUID = (name) => {
+      if(b.players[name]){
+        return b.players[name].realName
+      } else {
+        return "[[[[ no name ]]]]"
+      }
     }
     b.findDisplayName = (name) => {
       if(b.players[name]){

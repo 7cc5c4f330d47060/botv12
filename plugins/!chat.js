@@ -20,10 +20,22 @@ module.exports = {
         const parsed = parsePlain(json)
         const split = parsed.split(': ')
         const chatName = split.splice(0, 1)[0]
+        const chatNameSplit = chatName.split(" ");
+        const nickname = chatNameSplit[chatNameSplit.length-1]
         const username = b.findRealName(chatName)
         const uuid = b.findUUID(username)
-        b.emit('chat', { json, type: 'profileless', uuid, message: split.join(': '), username })
+        b.emit('chat', {
+          json,
+          type: 'profileless',
+          uuid,
+          message: split.join(': '),
+          nickname,
+          username
+        })
       } else if (data.type === 6 || data.type === 7) {
+        const uuid = b.findUUID(parsePlain(parse1204(data.name)))
+        const nickname = b.findDisplayName(uuid)
+        console.log(uuid)
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
@@ -35,11 +47,14 @@ module.exports = {
             ]
           },
           type: 'profileless',
-          uuid: data.senderUuid,
+          uuid,
           message: parsePlain(data.message),
+          nickname,
           username: parsePlain(parse1204(data.name))
         })
       } else {
+        const uuid = b.findUUID(parsePlain(parse1204(data.name)))
+        const nickname = b.findDisplayName(uuid)
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
@@ -50,16 +65,24 @@ module.exports = {
             ]
           },
           type: 'profileless',
-          uuid: '00000000-0000-0000-0000-000000000000',
+          uuid,
           message: parsePlain(parse1204(data.message)),
+          nickname,
           username: parsePlain(parse1204(data.name))
         })
       }
     })
 
     b._client.on('player_chat', (data) => {
+      console.log(parsePlain(parse1204(data.networkName)))
       if (data.type === 4) {
-        b.emit('chat', { json: parse1204(data.unsignedChatContent), type: 'player', uuid: data.senderUuid, message: data.plainMessage, username: parsePlain(parse1204(data.networkName)) })
+        b.emit('chat', {
+          json: parse1204(data.unsignedChatContent),
+          type: 'player', uuid: data.senderUuid,
+          message: data.plainMessage,
+          nickname: parsePlain(parse1204(data.networkName)),
+          username: b.findRealNameFromUUID(data.senderUuid)
+        })
       } else if (data.type === 6 || data.type === 7) {
         b.emit('chat', {
           json: {
@@ -74,7 +97,8 @@ module.exports = {
           type: 'player',
           uuid: data.senderUuid,
           message: parsePlain(data.plainMessage),
-          username: parsePlain(parse1204(data.networkName))
+          nickname: parsePlain(parse1204(data.networkName)),
+          username: b.findRealNameFromUUID(data.senderUuid)
         })
       } else {
         b.emit('chat', {
@@ -89,7 +113,8 @@ module.exports = {
           type: 'player',
           uuid: data.senderUuid,
           message: parsePlain(data.plainMessage),
-          username: parsePlain(parse1204(data.networkName))
+          nickname: parsePlain(parse1204(data.networkName)),
+          username: b.findRealNameFromUUID(data.senderUuid)
         })
       }
     })
@@ -99,9 +124,17 @@ module.exports = {
       const parsed = parsePlain(json)
       const split = parsed.split(': ')
       const chatName = split.splice(0, 1)[0]
+      const chatNameSplit = chatName.split(" ");
+      const nickname = chatNameSplit[chatNameSplit.length-1]
       const username = b.findRealName(chatName)
       const uuid = b.findUUID(username)
-      b.emit('chat', { json, type: 'system', uuid, message: split.join(': '), username })
+      b.emit('chat', {
+        json,
+        type: 'system',
+        uuid, message: split.join(': '),
+        nickname,
+        username
+      })
     })
 
     b._client.on('chat', (data) => { // Legacy chat
@@ -140,7 +173,7 @@ module.exports = {
       for (const i in b.prefix) {
         if (fullCommand.startsWith(b.prefix[i])) {
           const command = fullCommand.slice(b.prefix[i].length)
-          b.runCommand(data.username, data.uuid, command, b.prefix[i])
+          b.runCommand(data.username, data.nickname, data.uuid, command, b.prefix[i])
         }
       }
     })
