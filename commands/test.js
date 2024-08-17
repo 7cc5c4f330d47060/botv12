@@ -23,7 +23,6 @@ module.exports = {
     c.reply(reply("command",c.command))
     c.reply(reply("msgType",c.msgType))
     c.reply(reply("prefix",c.prefix))
-    c.reply(reply("index",c.index.toString()))
     c.reply(reply("args",c.args.join(", ")))
     c.reply(reply("verify",c.verify.toString()))
     c.reply(reply("host",c.host))
