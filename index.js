@@ -6,17 +6,18 @@ const fs = require('fs')
 
 module.exports.bot = []
 
-const loadplug = (botno) => {
-  const botplug = []
-  const bpl = fs.readdirSync('plugins')
-  for (const i in bpl) {
-    if (!bpl[i].endsWith('.js')) {
-      continue
-    }
-    try {
-      botplug.push(require(`./plugins/${bpl[i]}`))
-    } catch (e) { console.log(e) }
+const botplug = []
+const bpl = fs.readdirSync('plugins')
+for (const i in bpl) {
+  if (!bpl[i].endsWith('.js')) {
+    continue
   }
+  try {
+    botplug.push(require(`./plugins/${bpl[i]}`))
+  } catch (e) { console.log(e) }
+}
+
+const loadplug = (botno) => {
   botplug.forEach((plug) => {
     try {
       if (plug.load) {
