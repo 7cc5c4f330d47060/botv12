@@ -16,7 +16,6 @@ class ConsoleCommand {
       ? index.bot[index2]
       : {}
     this.type = 'console'
-    this.index = index2
     this.args = cmd.split(' ').slice(1)
     this.verify = 3
     this.host = ''

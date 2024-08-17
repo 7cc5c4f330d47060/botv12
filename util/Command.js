@@ -11,7 +11,6 @@ class Command {
     this.prefix = prefix
     this.bot = bot
     this.type = 'minecraft'
-    this.index = bot.id
     this.args = cmd.split(' ').slice(1)
     this.verify = verify
     this.host = bot.host.host
