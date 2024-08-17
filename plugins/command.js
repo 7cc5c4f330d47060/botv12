@@ -18,7 +18,7 @@ module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
-    b.runCommand = (name, uuid, text, prefix) => {
+    b.runCommand = (name, nickname, uuid, text, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return
       const userSettings = loadSettings(uuid)
@@ -26,7 +26,6 @@ module.exports = {
       const cmd = text.split(' ')
       const lang = settings.defaultLang
       const verify = hashcheck(cmd)
-      const nickname = b.findDisplayName(uuid)
       if (verify > 0) {
         text = cmd.slice(0, cmd.length - 1).join(' ')
       }
