@@ -8,7 +8,7 @@ const parse = function (_data, l = 0) {
     data = { text: _data }
   } else if (typeof _data === 'number') {
     data = { text: _data + '' }
-  } else if (_data.constructor === Array) {
+  } else if (_data.constructor && _data.constructor === Array) {
     data = { extra: _data }
   } else {
     data = _data
