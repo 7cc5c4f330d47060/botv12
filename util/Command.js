@@ -1,4 +1,3 @@
-// HOW TO WRITE CLASS JS
 const settings = require('../settings.json')
 class Command {
   constructor (uuid, user, nick, cmd, prefix, bot, verify, prefs) {
@@ -16,7 +15,6 @@ class Command {
     this.verify = verify
     this.host = bot.host.host
     this.port = bot.host.port
-    // this.lang = lang
     this.prefs = prefs
     if (prefs.lang) {
       this.lang = prefs.lang
