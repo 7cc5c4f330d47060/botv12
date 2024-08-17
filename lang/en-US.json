@@ -77,7 +77,6 @@
 	"command.test.command": "Command",
 	"command.test.msgType": "Message type",
 	"command.test.prefix": "Prefix",
-	"command.test.index": "Bot ID",
 	"command.test.args": "Arguments",
 	"command.test.verify": "Permission level",
 	"command.test.host": "Server host",
