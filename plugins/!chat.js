@@ -131,7 +131,8 @@ module.exports = {
       b.emit('chat', {
         json,
         type: 'system',
-        uuid, message: split.join(': '),
+        uuid,
+        message: split.join(': '),
         nickname,
         username
       })
@@ -141,6 +142,7 @@ module.exports = {
       const json = parse1204(data.message)
       const parsed = parsePlain(json)
       let chatName
+      let nickname
       let username
       let message
       let uuid
@@ -153,15 +155,19 @@ module.exports = {
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
         chatName = split.splice(0, 1)[0]
+        const chatNameSplit = chatName.split(" ");
+        nickname = chatNameSplit[chatNameSplit.length-1]
         username = b.findRealName(chatName)
         uuid = b.findUUID(username)
         message = split.join(': ')
       }
+      if(data.uuid) uuid = data.uuid;
       b.emit('chat', {
         json,
         type: 'legacy',
-        uuid: data.uuid ? data.uuid : uuid,
+        uuid: uuid,
         message,
+        nickname,
         username
       })
     })
