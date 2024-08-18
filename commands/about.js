@@ -56,7 +56,7 @@ const aboutBot = function (c) {
 const os2 = function (o2, l) {
   switch (o2) {
     case 'win32':
-      return `${os.version()} (${os.release})`
+      return `${os.version()}`
     case 'android':{
       try {
         const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
@@ -78,12 +78,12 @@ const os2 = function (o2, l) {
         }
 
         if (osrelease2.PRETTY_NAME) {
-          return getMessage(l, '%s %s', [osrelease2.PRETTY_NAME, os.release()])
+          return getMessage(l, '%s', [osrelease2.PRETTY_NAME])
         } else {
-          return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+          return getMessage(l, `command.about.serverInfo.os.${o2}`)
         }
       } else {
-        return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+        return getMessage(l, `command.about.serverInfo.os.${o2}`)
       }
     }
     default:
@@ -119,6 +119,11 @@ const aboutServer = function (c) {
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
     return os2(process.platform, c.lang)
+  })
+
+  // Kernel version: os.release()
+  displayInfo('command.about.serverInfo.kernelVer', () => {
+    return os.release()
   })
 
   // Processor
