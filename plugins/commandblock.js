@@ -55,8 +55,8 @@ module.exports = {
     }
 
     b._client.on('login', () => {
-      b._client.write("settings",{
-        locale: "ru_RU",
+      b._client.write('settings', {
+        locale: 'ru_RU',
         viewDistance: 4,
         chatFlags: 0, // Enable full chat functionality
         chatColors: true,

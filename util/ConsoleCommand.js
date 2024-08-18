@@ -9,7 +9,7 @@ class ConsoleCommand {
     this.username = 'Owner'
     this.nickname = 'Console'
     this.command = cmd
-    this.msgType = "_bot_console";
+    this.msgType = '_bot_console'
     this.prefix = ''
     this.bot = index2 >= 0
       ? index.bot[index2]
