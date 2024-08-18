@@ -20,8 +20,8 @@ module.exports = {
         const parsed = parsePlain(json)
         const split = parsed.split(': ')
         const chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(" ");
-        const nickname = chatNameSplit[chatNameSplit.length-1]
+        const chatNameSplit = chatName.split(' ')
+        const nickname = chatNameSplit[chatNameSplit.length - 1]
         const username = b.findRealName(chatName)
         const uuid = b.findUUID(username)
         b.emit('chat', {
@@ -76,7 +76,8 @@ module.exports = {
       if (data.type === 4) {
         b.emit('chat', {
           json: parse1204(data.unsignedChatContent),
-          type: 'player', uuid: data.senderUuid,
+          type: 'player',
+          uuid: data.senderUuid,
           message: data.plainMessage,
           nickname: parsePlain(parse1204(data.networkName)),
           username: b.findRealNameFromUUID(data.senderUuid)
@@ -122,8 +123,8 @@ module.exports = {
       const parsed = parsePlain(json)
       const split = parsed.split(': ')
       const chatName = split.splice(0, 1)[0]
-      const chatNameSplit = chatName.split(" ");
-      const nickname = chatNameSplit[chatNameSplit.length-1]
+      const chatNameSplit = chatName.split(' ')
+      const nickname = chatNameSplit[chatNameSplit.length - 1]
       const username = b.findRealName(chatName)
       const uuid = b.findUUID(username)
       b.emit('chat', {
@@ -153,17 +154,17 @@ module.exports = {
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
         chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(" ");
-        nickname = chatNameSplit[chatNameSplit.length-1]
+        const chatNameSplit = chatName.split(' ')
+        nickname = chatNameSplit[chatNameSplit.length - 1]
         username = b.findRealName(chatName)
         uuid = b.findUUID(username)
         message = split.join(': ')
       }
-      if(data.uuid) uuid = data.uuid;
+      if (data.uuid) uuid = data.uuid
       b.emit('chat', {
         json,
         type: 'legacy',
-        uuid: uuid,
+        uuid,
         message,
         nickname,
         username
