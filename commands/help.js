@@ -9,7 +9,7 @@ const sortHelp = function sortHelp (c1, c2) {
 }
 
 const bpl = fs.readdirSync('./commands')
-for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circular require
+for (const i in bpl) {
   if (!bpl[i].endsWith('.js')) {
     continue
   }

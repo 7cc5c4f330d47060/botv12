@@ -56,7 +56,7 @@ module.exports = {
 
     b._client.on('login', () => {
       b._client.write("settings",{
-        locale: "ru_RU", // Русский (Россия)
+        locale: "ru_RU",
         viewDistance: 4,
         chatFlags: 0, // Enable full chat functionality
         chatColors: true,
@@ -71,7 +71,7 @@ module.exports = {
       })
     })
     b.on('ccstart', () => {
-      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000) // 1 second and 2 milliseconds
+      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
       b.ccStarted = true
     })
     b.on('chat', (data) => {
