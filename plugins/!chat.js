@@ -136,7 +136,7 @@ module.exports = {
       })
     })
 
-    b._client.on('chat', (data) => { // Legacy chat
+    b._client.on('chat', (data) => { // Legacy chat for versions <1.19
       const json = parse1204(data.message)
       const parsed = parsePlain(json)
       let chatName
