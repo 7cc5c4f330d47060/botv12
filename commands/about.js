@@ -62,7 +62,7 @@ const os2 = function (o2, l) {
         const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
         return getMessage(l, 'command.about.serverInfo.os.android', [version])
       } catch (e) {
-        getMessage(l, 'command.about.serverInfo.os.android.noVersion')
+        return getMessage(l, 'command.about.serverInfo.os.android.noVersion')
       }
     }
     case 'linux':
