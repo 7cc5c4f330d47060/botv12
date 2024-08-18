@@ -19,7 +19,7 @@ module.exports = {
     b.advanceccq = function () {
       if (b.ccq[0] && b.ccq[0].length !== 0) {
         b._client.write('update_command_block', {
-          command: b.ccq[0],
+          command: "/",
           location: {
             x: b.commandPos.x + b.blocknoX,
             y: b.commandPos.y + b.blocknoY,
@@ -29,7 +29,7 @@ module.exports = {
           flags: 1
         })
         b._client.write('update_command_block', {
-          command: b.ccq[0],
+          command: b.ccq[0].substr(0,32767),
           location: {
             x: b.commandPos.x + b.blocknoX,
             y: b.commandPos.y + b.blocknoY,
