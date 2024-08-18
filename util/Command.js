@@ -7,7 +7,7 @@ class Command {
     this.username = user
     this.nickname = nick
     this.command = cmd
-    this.msgType = msgType;
+    this.msgType = msgType
     this.prefix = prefix
     this.bot = bot
     this.type = 'minecraft'

@@ -1,7 +1,7 @@
 const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
-    const reply=function(name, item){
+    const reply = function (name, item) {
       return {
         translate: '%s: %s',
         color: c.colors.primary,
@@ -17,18 +17,18 @@ module.exports = {
         ]
       }
     }
-    c.reply(reply("uuid",c.uuid))
-    c.reply(reply("username",c.username))
-    c.reply(reply("nickname",c.nickname))
-    c.reply(reply("command",c.command))
-    c.reply(reply("msgType",c.msgType))
-    c.reply(reply("prefix",c.prefix))
-    c.reply(reply("args",c.args.join(", ")))
-    c.reply(reply("verify",c.verify.toString()))
-    c.reply(reply("host",c.host))
-    c.reply(reply("port",c.port.toString()))
-    c.reply(reply("lang",c.lang))
-    c.reply(reply("colorPrimary",c.colors.primary))
-    c.reply(reply("colorSecondary",c.colors.secondary))
+    c.reply(reply('uuid', c.uuid))
+    c.reply(reply('username', c.username))
+    c.reply(reply('nickname', c.nickname))
+    c.reply(reply('command', c.command))
+    c.reply(reply('msgType', c.msgType))
+    c.reply(reply('prefix', c.prefix))
+    c.reply(reply('args', c.args.join(', ')))
+    c.reply(reply('verify', c.verify.toString()))
+    c.reply(reply('host', c.host))
+    c.reply(reply('port', c.port.toString()))
+    c.reply(reply('lang', c.lang))
+    c.reply(reply('colorPrimary', c.colors.primary))
+    c.reply(reply('colorSecondary', c.colors.secondary))
   }
 }

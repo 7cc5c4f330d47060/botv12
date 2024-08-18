@@ -49,18 +49,18 @@ module.exports = {
       return '[[[[ no name ]]]]'
     }
     b.findRealNameFromUUID = (name) => {
-      if(b.players[name]){
+      if (b.players[name]) {
         return b.players[name].realName
       } else {
-        return "[[[[ no name ]]]]"
+        return '[[[[ no name ]]]]'
       }
     }
     b.findDisplayName = (name) => {
-      if(b.players[name]){
-        const displayName = b.players[name].displayName.split(" ");
-        return displayName[displayName.length-1]
+      if (b.players[name]) {
+        const displayName = b.players[name].displayName.split(' ')
+        return displayName[displayName.length - 1]
       } else {
-        return "[[[[ No display name ]]]]"
+        return '[[[[ No display name ]]]]'
       }
     }
   }
