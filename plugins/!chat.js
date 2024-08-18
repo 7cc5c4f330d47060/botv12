@@ -35,7 +35,6 @@ module.exports = {
       } else if (data.type === 6 || data.type === 7) {
         const uuid = b.findUUID(parsePlain(parse1204(data.name)))
         const nickname = b.findDisplayName(uuid)
-        console.log(uuid)
         b.emit('chat', {
           json: {
             translate: messageTypes[data.type],
@@ -74,7 +73,6 @@ module.exports = {
     })
 
     b._client.on('player_chat', (data) => {
-      console.log(parsePlain(parse1204(data.networkName)))
       if (data.type === 4) {
         b.emit('chat', {
           json: parse1204(data.unsignedChatContent),
