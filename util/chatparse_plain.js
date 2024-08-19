@@ -31,10 +31,10 @@ const parse = function (_data, l = 0) {
     }
     for (const i in data.with) {
       const j2 = parse(data.with[i], l + 1)
-      trans = trans.replace(/%s/, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans = trans.replaceAll(`%${+i + 1}$s`, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
+      trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
     }
-    out += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out += trans.replaceAll('\ud900\ud801', '%').replaceAll('\ud900\ud804', '%s').replaceAll('\ud900\ud805', '$s')
   }
   if (data.extra) {
     for (const i in data.extra) {
