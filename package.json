@@ -6,6 +6,7 @@
   "name": "botv11",
   "version": "11.0.0-alpha.1",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
