@@ -1,30 +1,30 @@
-const m = require('minecraft-protocol')
-const settings = require('./settings.json')
-const generateUser = require('./util/usergen.js')
-const EventEmitter = require('node:events')
-const fs = require('fs')
+import * as m from 'minecraft-protocol'
+import * as settings from './settings.json' with {type: "json"}
+import * as generateUser from './util/usergen.js'
+import EventEmitter from 'node:events'
+import * as fs from 'fs'
 
-module.exports.bot = []
+let botArray = []
 
 const botplug = []
 const bpl = fs.readdirSync('plugins')
 for (const i in bpl) {
-  if (!bpl[i].endsWith('.js')) {
+  /*if (!bpl[i].endsWith('.js')) {
     continue
   }
   try {
     botplug.push(require(`./plugins/${bpl[i]}`))
-  } catch (e) { console.log(e) }
+  } catch (e) { console.log(e) }*/
 }
 
 const loadplug = (botno) => {
-  botplug.forEach((plug) => {
+  /*botplug.forEach((plug) => {
     try {
       if (plug.load) {
-        plug.load(module.exports.bot[botno])
+        plug.load(botArray[botno])
       }
     } catch (e) { console.log(e) }
-  })
+  })*/
 }
 
 const createBot = function createBot (host, oldId) {
@@ -35,21 +35,21 @@ const createBot = function createBot (host, oldId) {
   bot._client = m.createClient({
     host: host.host,
     port: host.port ? host.port : 25565,
-    username: generateUser(host.options.legalName),
+    username: generateUser.generateUser(host.options.legalName),
     version: host.version ? host.version : settings.version_mc
   })
   if (typeof oldId !== 'undefined') {
-    for (const i in module.exports.bot[oldId].interval) {
-      clearInterval(module.exports.bot[oldId].interval[i])
+    for (const i in botArray[oldId].interval) {
+      clearInterval(botArray[oldId].interval[i])
     }
-    delete module.exports.bot[oldId]
+    delete botArray[oldId]
     bot.id = oldId
-    module.exports.bot[oldId] = bot
+    botArray[oldId] = bot
   } else {
-    bot.id = module.exports.bot.length
-    module.exports.bot.push(bot)
+    bot.id = botArray.length
+    botArray.push(bot)
   }
-
+  
   bot.host = host
   bot.interval = {}
 
@@ -61,14 +61,14 @@ const createBot = function createBot (host, oldId) {
     console.log(`[${bot.id}] [${type}] ${msg}`)
   }
 
-  loadplug(bot.id)
+  //loadplug(bot.id)
   bot._client.on('error', (err) => {
     console.log(err)
   })
 }
 
-for (const i in settings.servers) {
-  createBot(settings.servers[i])
+for (const i in settings.default.servers) {
+  createBot(settings.default.servers[i])
 }
 
-module.exports.createBot = createBot
+//module.exports.createBot = createBot

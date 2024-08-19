@@ -29,10 +29,11 @@ const rsg = function (count) {
   }
   return output
 }
-module.exports = function (legal) {
+const generateUser = function (legal) {
   if (legal) {
     return Math.floor(Math.random() * 1000000).toString()
   } else {
     return rsg(6 + Math.floor(Math.random() * 3))
   }
 }
+export { generateUser }
