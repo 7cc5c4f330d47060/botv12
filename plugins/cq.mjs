@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   load: (b) => {
     b._client.on('login', () => {
       b.interval.chatQueue = setInterval(() => {
@@ -15,5 +15,6 @@ module.exports = {
         b.chatqueue.push(element)
       })
     }
+    b.chat(":3")
   }
 }

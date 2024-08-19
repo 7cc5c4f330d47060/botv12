@@ -8,9 +8,11 @@ let botArray = []
 
 const botplug = [];
 
-import { default as botplug_testPlugin } from "./plugins/testing.mjs" // We have to load plugins manually, because auto-detection does not work in this format
+import { default as botplug_test } from "./plugins/testing.mjs" // We have to load plugins manually, because auto-detection does not work in this format
+import { default as botplug_chat } from "./plugins/cq.mjs" 
 
-botplug.push(botplug_testPlugin)
+botplug.push(botplug_test)
+botplug.push(botplug_chat)
 
 const bpl = fs.readdirSync('plugins')
 
