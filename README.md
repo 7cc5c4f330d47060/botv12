@@ -9,6 +9,8 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
+This is a fork from commit 4efbf43edb with partial support of using ECMAScript modules (import/export) rather than CommonJS modules (require/module.exports). Only some plugins have been converted, and a lot of functionality is missing. Due to differences in how Node.js operates in these two modes, this version is API incompatible with the regular version, and has version number 11. This will most likely never become complete, as CommonJS works well enough to continue using, and it supports more features, such as automatic plugin detection.
+
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
