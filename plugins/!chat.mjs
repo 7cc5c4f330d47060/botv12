@@ -1,7 +1,7 @@
-const settings = require('../settings.json')
-const parsePlain = require('../util/chatparse_plain.js')
-const parseConsole = require('../util/chatparse_console.js')
-const parse1204 = require('../util/parseNBT.js')
+import { default as settings } from '../settings.json' with {type: "json"}
+import { default as parsePlain } from '../util/chatparse_plain.js'
+import { default as parseConsole } from '../util/chatparse_console.js'
+import { default as parse1204 } from '../util/parseNBT.js'
 const messageTypes = [
   '',
   'chat.type.emote',
@@ -12,7 +12,7 @@ const messageTypes = [
   'chat.type.team.text',
   'chat.type.team.sent'
 ]
-module.exports = {
+export default {
   load: (b) => {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {

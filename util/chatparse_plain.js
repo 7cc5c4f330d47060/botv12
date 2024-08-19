@@ -1,4 +1,4 @@
-const lang = require('./mc_lang.js')
+import { default as lang } from './mc_lang.js'
 const parse = function (_data, l = 0) {
   if (l >= 4) {
     return ''
@@ -52,4 +52,4 @@ const parse2 = function (_data, l) {
     return `An error occured while parsing a message. See console for more information. JSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
-module.exports = parse2
+export default parse2

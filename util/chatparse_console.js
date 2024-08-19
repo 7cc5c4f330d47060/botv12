@@ -1,6 +1,6 @@
-const settings = require('../settings.json')
-const lang = require('./mc_lang.js')
-const _consoleColors = require('./consolecolors.json')
+import { default as settings } from '../settings.json' with {type: "json"}
+import { default as lang } from './mc_lang.js'
+import { default as _consoleColors } from './consolecolors.json' with {type: "json"}
 
 let consoleColors
 let consoleColors24
@@ -101,4 +101,5 @@ const parse2 = function (_data, l, resetColor) {
     return `\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
-module.exports = parse2
+export default parse2
+

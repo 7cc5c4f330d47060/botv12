@@ -1,6 +1,6 @@
-const parse = require('../util/chatparse_plain')
-const parseNBT = require('../util/parseNBT')
-module.exports = {
+import { default as parse } from '../util/chatparse_plain.js'
+import { default as parseNBT } from '../util/parseNBT.js'
+export default {
   load: (b) => {
     b.players = {}
     b._client.on('player_info', (data) => {

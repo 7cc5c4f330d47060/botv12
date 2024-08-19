@@ -1,5 +1,5 @@
 import * as m from 'minecraft-protocol'
-import * as settings from './settings.json' with {type: "json"}
+import { default as settings } from './settings.json' with {type: "json"}
 import { generateUser } from './util/usergen.js'
 import EventEmitter from 'node:events'
 import * as fs from 'fs'
@@ -10,9 +10,13 @@ const botplug = [];
 
 import { default as botplug_test } from "./plugins/testing.mjs" // We have to load plugins manually, because auto-detection does not work in this format
 import { default as botplug_chat } from "./plugins/cq.mjs" 
+import { default as botplug_chatParse } from "./plugins/!chat.mjs" 
+import { default as botplug_player } from "./plugins/player.mjs" 
 
 botplug.push(botplug_test)
 botplug.push(botplug_chat)
+botplug.push(botplug_chatParse)
+botplug.push(botplug_player)
 
 const bpl = fs.readdirSync('plugins')
 
@@ -66,8 +70,8 @@ const createBot = function createBot (host, oldId) {
   })
 }
 
-for (const i in settings.default.servers) {
-  createBot(settings.default.servers[i])
+for (const i in settings.servers) {
+  createBot(settings.servers[i])
 }
 
 //module.exports.createBot = createBot

@@ -1,4 +1,4 @@
-const { processNbtMessage } = require('prismarine-chat')
+import { processNbtMessage } from 'prismarine-chat'
 const parse = function (data) {
   if (typeof data.type === 'string') {
     return JSON.parse(processNbtMessage(data))
@@ -8,4 +8,4 @@ const parse = function (data) {
     return data
   }
 }
-module.exports = parse
+export default parse
