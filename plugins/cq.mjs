@@ -15,6 +15,5 @@ export default {
         b.chatqueue.push(element)
       })
     }
-    b.chat(":3")
   }
 }
