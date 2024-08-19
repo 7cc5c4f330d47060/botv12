@@ -1,30 +1,27 @@
 import * as m from 'minecraft-protocol'
 import * as settings from './settings.json' with {type: "json"}
-import * as generateUser from './util/usergen.js'
+import { generateUser } from './util/usergen.js'
 import EventEmitter from 'node:events'
 import * as fs from 'fs'
 
 let botArray = []
 
-const botplug = []
+const botplug = [];
+
+import { default as botplug_testPlugin } from "./plugins/testing.mjs" // We have to load plugins manually, because auto-detection does not work in this format
+
+botplug.push(botplug_testPlugin)
+
 const bpl = fs.readdirSync('plugins')
-for (const i in bpl) {
-  /*if (!bpl[i].endsWith('.js')) {
-    continue
-  }
-  try {
-    botplug.push(require(`./plugins/${bpl[i]}`))
-  } catch (e) { console.log(e) }*/
-}
 
 const loadplug = (botno) => {
-  /*botplug.forEach((plug) => {
+  botplug.forEach((plug) => {
     try {
       if (plug.load) {
         plug.load(botArray[botno])
       }
     } catch (e) { console.log(e) }
-  })*/
+  })
 }
 
 const createBot = function createBot (host, oldId) {
@@ -35,7 +32,7 @@ const createBot = function createBot (host, oldId) {
   bot._client = m.createClient({
     host: host.host,
     port: host.port ? host.port : 25565,
-    username: generateUser.generateUser(host.options.legalName),
+    username: generateUser(host.options.legalName),
     version: host.version ? host.version : settings.version_mc
   })
   if (typeof oldId !== 'undefined') {
@@ -61,7 +58,7 @@ const createBot = function createBot (host, oldId) {
     console.log(`[${bot.id}] [${type}] ${msg}`)
   }
 
-  //loadplug(bot.id)
+  loadplug(bot.id)
   bot._client.on('error', (err) => {
     console.log(err)
   })
