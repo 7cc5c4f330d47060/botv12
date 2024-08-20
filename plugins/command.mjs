@@ -9,7 +9,7 @@ if (!fs.readdirSync('.').includes('userPref')) fs.mkdirSync('userPref')
 
 const loadSettings = function (uuid) {
   try {
-    return JSON.parse(fs.readFileSync(`../userPref/${uuid}.json`).toString("UTF-8")) // One line JSON loader
+    return JSON.parse(fs.readFileSync(`./userPref/${uuid}.json`).toString("UTF-8")) // One line JSON loader
   } catch (e) {
     return {}
   }
