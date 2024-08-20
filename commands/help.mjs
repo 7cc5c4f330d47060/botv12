@@ -1,6 +1,4 @@
-const fs = require('fs')
-const cmds = Object.create(null)
-const { getMessage } = require('../util/lang.js')
+import { getMessage } from '../util/lang.js'
 
 const sortHelp = function sortHelp (c1, c2) {
   const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
@@ -8,21 +6,7 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 
-const bpl = fs.readdirSync('./commands')
-for (const i in bpl) {
-  if (!bpl[i].endsWith('.js')) {
-    continue
-  }
-  try {
-    const commandName = bpl[i].split('.js')[0]
-    if (commandName !== 'help') {
-      cmds[commandName] = require(`./${bpl[i]}`)
-      if (cmds[commandName].level === undefined) {
-        cmds[commandName].level = 0
-      }
-    }
-  } catch (e) { console.log(e) }
-}
+import { default as cmds } from '../util/commands.js'
 
 const printHelp = (c) => {
   const commandList = []
@@ -132,7 +116,7 @@ const printCmdHelp = (c) => {
   })
 }
 
-module.exports = {
+export default {
   execute: (c) => {
     if (c.args.length > 0) {
       printCmdHelp(c)
@@ -143,23 +127,4 @@ module.exports = {
   aliases: [
     'heko' // Parker2991 request
   ]
-}
-
-cmds.help = module.exports // Placed after to ensure that the correct values are added to cmds
-if (cmds.help.level === undefined) {
-  cmds.help.level = 0
-}
-
-for (const i in cmds) {
-  if (cmds[i].aliases) {
-    for (const j in cmds[i].aliases) {
-      cmds[cmds[i].aliases[j]] = {
-        alias: i,
-        usage: cmds[i].usage,
-        level: cmds[i].level,
-        hidden: true,
-        consoleIndex: cmds[i].consoleIndex
-      }
-    }
-  }
 }

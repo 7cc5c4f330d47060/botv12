@@ -1,7 +1,7 @@
-const readln = require('readline')
-const index = require('../index.js')
-const ConsoleCommand = require('../util/ConsoleCommand.js')
-const cmds = require('../util/commands.js')
+import * as readln from 'readline'
+import { bot } from '../index.js'
+import { default as ConsoleCommand } from '../util/ConsoleCommand.js'
+import { default as cmds } from '../util/commands.js'
 const rl = readln.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -14,7 +14,7 @@ rl.on('line', (l) => {
         const tmpcmd = l.split(' ')
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
-          for (let i = 0; i < index.bot.length; i++) {
+          for (let i = 0; i < bot.length; i++) {
             const cmd = new ConsoleCommand(tmpcmd.join(' '), i)
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
@@ -40,7 +40,7 @@ function consoleWrite (text) {
   process.stdout.write(text + '\n')
   rl.prompt(true)
 }
-module.exports = {
+export default {
   load: (b) => {
     b.info = (msg) => {
       consoleWrite(`[${b.id}] [info] ${msg}`)

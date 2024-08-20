@@ -1,6 +1,6 @@
-const index = require('../index.js')
-const parse = require('../util/chatparse_console.js')
-const settings = require('../settings.json')
+import { bot } from '../index.js'
+import { default as parse } from '../util/chatparse_console.js'
+import { default as settings } from '../settings.json' with {type: "json"}
 class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {}
@@ -12,7 +12,7 @@ class ConsoleCommand {
     this.msgType = '_bot_console'
     this.prefix = ''
     this.bot = index2 >= 0
-      ? index.bot[index2]
+      ? bot[index2]
       : {}
     this.type = 'console'
     this.args = cmd.split(' ').slice(1)
@@ -23,5 +23,4 @@ class ConsoleCommand {
     this.colors = settings.colors
   }
 }
-
-module.exports = ConsoleCommand
+export default ConsoleCommand
