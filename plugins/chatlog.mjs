@@ -5,13 +5,13 @@ import { default as settings } from '../settings.json' with {type: "json"}
 const checkLog = () => {
   if (settings.disableLogging) return
   try {
-    if (!fs.readdirSync('.').includes('logs')) fs.mkdirSync('logs')
+    if (!readdirSync('.').includes('logs')) mkdirSync('logs')
     const dateToday = new Date(Date.now())
     const dateTomorrow = new Date(Date.now() + 86400000)
     const filenameToday = `${dateToday.getUTCMonth() + 1}-${dateToday.getUTCDate()}-${dateToday.getUTCFullYear()}`
     const filenameTomorrow = `${dateTomorrow.getUTCMonth() + 1}-${dateTomorrow.getUTCDate()}-${dateTomorrow.getUTCFullYear()}`
-    if (!fs.readdirSync('./logs').includes(filenameToday)) fs.mkdirSync(`logs/${filenameToday}`)
-    if (!fs.readdirSync('./logs').includes(filenameTomorrow)) fs.mkdirSync(`logs/${filenameTomorrow}`) // Create tomorrow's log directory early
+    if (!readdirSync('./logs').includes(filenameToday)) mkdirSync(`logs/${filenameToday}`)
+    if (!readdirSync('./logs').includes(filenameTomorrow)) mkdirSync(`logs/${filenameTomorrow}`) // Create tomorrow's log directory early
   } catch (e) {
     console.log(e) // Prevents some crashes when disk space is full or when the permissions are incorrect
   }
