@@ -4,7 +4,7 @@ import { generateUser } from './util/usergen.mjs'
 import EventEmitter from 'node:events'
 import * as fs from 'fs'
 
-let botArray = []
+let bots = []
 
 const botplug = [];
 
@@ -32,13 +32,11 @@ botplug.push(botplug_console)
 botplug.push(botplug_chatlog)
 botplug.push(botplug_cloop)
 
-const bpl = fs.readdirSync('plugins')
-
 const loadplug = (botno) => {
   botplug.forEach((plug) => {
     try {
       if (plug.load) {
-        plug.load(botArray[botno])
+        plug.load(bots[botno])
       }
     } catch (e) { console.log(e) }
   })
@@ -56,15 +54,15 @@ const createBot = function createBot (host, oldId) {
     version: host.version ? host.version : settings.version_mc
   })
   if (typeof oldId !== 'undefined') {
-    for (const i in botArray[oldId].interval) {
-      clearInterval(botArray[oldId].interval[i])
+    for (const i in bots[oldId].interval) {
+      clearInterval(bots[oldId].interval[i])
     }
-    delete botArray[oldId]
+    delete bots[oldId]
     bot.id = oldId
-    botArray[oldId] = bot
+    bots[oldId] = bot
   } else {
-    bot.id = botArray.length
-    botArray.push(bot)
+    bot.id = bots.length
+    bots.push(bot)
   }
   
   bot.host = host
@@ -89,7 +87,7 @@ for (const i in settings.servers) {
 }
 
 export {
-  botArray as bot,
+  bots,
   createBot
 }
 //module.exports.createBot = createBot
