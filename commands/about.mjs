@@ -4,7 +4,7 @@ import { getMessage, formatTime } from '../util/lang.mjs'
 import { readdirSync, readFileSync } from "fs"
 import { default as botVersion } from "../util/version.js"
 import { default as version } from "../version.json" with { type: "json" }
-import { bots } from "../index.js"
+import { bots } from "../index.mjs"
 
 const aboutBot = function (c) {
   c.reply({
