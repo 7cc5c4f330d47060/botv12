@@ -17,7 +17,6 @@ export default {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {
         const json = parse1204(data.message)
-        console.log(json)
         const parsed = parsePlain(json)
         let chatName
         let nickname
