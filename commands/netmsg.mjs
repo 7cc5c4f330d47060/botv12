@@ -1,6 +1,6 @@
-const { bot } = require('../index.js')
-const { getMessage } = require('../util/lang.js')
-module.exports = {
+import { bot } from '../index.js'
+import { getMessage } from '../util/lang.js'
+export default {
   execute: (c) => {
     if (c.bot.host && c.bot.host.options.hidden) {
       c.reply({

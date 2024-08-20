@@ -2,9 +2,11 @@ const cmds = Object.create(null)
 
 import { default as commandTest } from "../commands/test.mjs"
 import { default as commandSay } from "../commands/say.mjs"
+import { default as commandNetmsg } from "../commands/netmsg.mjs"
 
 cmds.test = commandTest
 cmds.say = commandSay
+cmds.netmsg = commandNetmsg
 
 for(const commandName in cmds){
   if (cmds[commandName].aliases) {
