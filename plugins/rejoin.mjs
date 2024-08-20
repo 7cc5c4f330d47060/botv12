@@ -1,5 +1,5 @@
-const index = require('../index.js')
-module.exports = {
+import { createBot } from "../index.js"
+export default {
   load: (b) => {
     b._client.on('end', () => {
       b.info(`Bot ${b.id} disconnected`)
@@ -8,7 +8,7 @@ module.exports = {
       }
       setTimeout(() => {
         b.info(`Re-connecting bot ${b.id}`)
-        index.createBot(b.host, b.id)
+        createBot(b.host, b.id)
       }, 5000)
     })
   }

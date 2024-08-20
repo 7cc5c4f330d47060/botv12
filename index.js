@@ -15,6 +15,7 @@ import { default as botplug_player } from "./plugins/player.mjs"
 import { default as botplug_cmd } from "./plugins/command.mjs" 
 import { default as botplug_cmdCore } from "./plugins/commandblock.mjs"
 import { default as botplug_selfCare } from "./plugins/selfcare.mjs"
+import { default as botplug_rejoin } from "./plugins/rejoin.mjs"
 
 botplug.push(botplug_test)
 botplug.push(botplug_chat)
@@ -23,6 +24,7 @@ botplug.push(botplug_player)
 botplug.push(botplug_cmd)
 botplug.push(botplug_cmdCore)
 botplug.push(botplug_selfCare)
+botplug.push(botplug_rejoin)
 
 const bpl = fs.readdirSync('plugins')
 
