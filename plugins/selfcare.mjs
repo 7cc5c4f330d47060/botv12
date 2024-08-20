@@ -8,7 +8,7 @@ class SCTask {
     this.failTask = failTask
   }
 }
-module.exports = {
+export default {
   load: (b) => {
     b.sc_tasks = {}
     b.selfcareRun = 0

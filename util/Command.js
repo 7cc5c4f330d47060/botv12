@@ -1,4 +1,4 @@
-const settings = require('../settings.json')
+import { default as settings } from '../settings.json' with {type: "json"}
 class Command {
   constructor (uuid, user, nick, cmd, msgType, prefix, bot, verify, prefs) {
     this.send = (text, uuid) => { bot.tellraw(uuid || '@a', text) }
@@ -16,25 +16,9 @@ class Command {
     this.host = bot.host.host
     this.port = bot.host.port
     this.prefs = prefs
-    if (prefs.lang) {
-      this.lang = prefs.lang
-    } else {
-      this.lang = settings.defaultLang
-    }
-
-    const _colors = {}
-    if (prefs.colorPrimary) {
-      _colors.primary = prefs.colorPrimary
-    } else {
-      _colors.primary = settings.colors.primary
-    }
-    if (prefs.colorSecondary) {
-      _colors.secondary = prefs.colorSecondary
-    } else {
-      _colors.secondary = settings.colors.secondary
-    }
-    this.colors = _colors
+    this.lang = settings.defaultLang
+    this.colors = settings.colors
   }
 }
 
-module.exports = Command
+export default Command

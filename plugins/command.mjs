@@ -1,27 +1,27 @@
-const Command = require('../util/Command.js')
-const hashcheck = require('../util/hashcheck.js')
-const settings = require('../settings.json')
-const { getMessage } = require('../util/lang.js')
-const cmds = require('../util/commands.js')
-const fs = require('fs')
+import { default as Command } from '../util/Command.js'
+import { default as hashcheck } from '../util/hashcheck.js'
+import { default as settings } from '../settings.json' with {type: "json"}
+import { getMessage } from '../util/lang.js'
+import { default as cmds } from '../util/commands.js'
+//import * as fs from 'fs'
 
-if (!fs.readdirSync('.').includes('userPref')) fs.mkdirSync('userPref')
+//if (!fs.readdirSync('.').includes('userPref')) fs.mkdirSync('userPref')
 
-const loadSettings = function (uuid) {
+/*const loadSettings = function (uuid) {
   try {
     return require(`../userPref/${uuid}.json`)
   } catch (e) {
     return {}
   }
-}
-module.exports = {
+}*/
+export default {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
     b.runCommand = (name, nickname, uuid, text, msgType, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return
-      const userSettings = loadSettings(uuid)
+      //const userSettings = loadSettings(uuid)
       b.lastCmd = Date.now()
       const cmd = text.split(' ')
       const lang = settings.defaultLang
@@ -45,7 +45,7 @@ module.exports = {
           return
         }
         try {
-          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, msgType, prefix, b, verify, userSettings))
+          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, msgType, prefix, b, verify/*, userSettings*/))
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {

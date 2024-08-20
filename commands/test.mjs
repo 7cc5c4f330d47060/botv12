@@ -1,5 +1,5 @@
-const { getMessage } = require('../util/lang.js')
-module.exports = {
+import { getMessage } from '../util/lang.js'
+export default {
   execute: (c) => {
     const reply = function (name, item) {
       return {

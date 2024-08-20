@@ -12,11 +12,17 @@ import { default as botplug_test } from "./plugins/testing.mjs" // We have to lo
 import { default as botplug_chat } from "./plugins/cq.mjs" 
 import { default as botplug_chatParse } from "./plugins/!chat.mjs" 
 import { default as botplug_player } from "./plugins/player.mjs" 
+import { default as botplug_cmd } from "./plugins/command.mjs" 
+import { default as botplug_cmdCore } from "./plugins/commandblock.mjs"
+import { default as botplug_selfCare } from "./plugins/selfcare.mjs"
 
 botplug.push(botplug_test)
 botplug.push(botplug_chat)
 botplug.push(botplug_chatParse)
 botplug.push(botplug_player)
+botplug.push(botplug_cmd)
+botplug.push(botplug_cmdCore)
+botplug.push(botplug_selfCare)
 
 const bpl = fs.readdirSync('plugins')
 
@@ -74,4 +80,8 @@ for (const i in settings.servers) {
   createBot(settings.servers[i])
 }
 
+export {
+  botArray as bot,
+  createBot
+}
 //module.exports.createBot = createBot

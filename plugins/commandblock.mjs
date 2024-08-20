@@ -1,10 +1,10 @@
-const uuidToInt = require('../util/uuidtoint.js')
+import { default as uuidToInt } from '../util/uuidtoint.js'
 const cs = {
   x: 4,
   y: 6,
   z: 4
 }
-module.exports = {
+export default {
   load: function (b) {
     b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 150000)
     b.ccq = []

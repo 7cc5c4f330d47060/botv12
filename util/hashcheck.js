@@ -1,7 +1,6 @@
-const crypto = require('crypto')
-const settings = require('../settings.json')
-const secret = require(settings.secret)
-module.exports = function (cmd) {
+import * as crypto from 'crypto'
+import { default as secret } from '../secret.json' with {type: "json"}
+export default function (cmd) {
   const cmdWithoutHash = cmd.slice(0, cmd.length - 1).join(' ')
   const _dateString = Date.now().toString()
   const dateString = _dateString.slice(0, _dateString.length - 4)
