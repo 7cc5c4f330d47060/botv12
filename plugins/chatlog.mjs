@@ -1,6 +1,6 @@
-const chatlog = require('../util/chatlog.js')
-const fs = require('fs')
-const settings = require('../settings.json')
+import { default as chatlog } from "../util/chatlog.mjs"
+import { readdirSync, mkdirSync } from "fs"
+import { default as settings } from '../settings.json' with {type: "json"}
 
 const checkLog = () => {
   if (settings.disableLogging) return

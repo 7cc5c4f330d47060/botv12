@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   load: (b) => {
     b.cloops = []
     b.addCloop = function (command, rate) {
