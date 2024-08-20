@@ -4,6 +4,7 @@ import { getMessage, formatTime } from '../util/lang.mjs'
 import { readdirSync, readFileSync } from "fs"
 import { default as botVersion } from "../util/version.js"
 import { default as version } from "../version.json" with { type: "json" }
+import { bots } from "../index.js"
 
 const aboutBot = function (c) {
   c.reply({
@@ -185,8 +186,8 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  for (const i in bot) {
-    if (bot[i].host.options && bot[i].host.options.hidden) continue
+  for (const i in bots) {
+    if (bots[i].host.options && bots[i].host.options.hidden) continue
     c.reply({
       translate: getMessage(c.lang, 'command.about.serverListItem'),
       color: c.colors.secondary,
@@ -196,7 +197,7 @@ const displayServerList = function (c) {
           color: c.colors.primary
         },
         {
-          text: `${bot[i].host.host}:${bot[i].host.port}`,
+          text: `${bots[i].host.host}:${bots[i].host.port}`,
           color: c.colors.primary
         }
       ]
