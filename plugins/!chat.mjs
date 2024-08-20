@@ -17,18 +17,34 @@ export default {
     b._client.on('profileless_chat', (data) => {
       if (data.type === 4) {
         const json = parse1204(data.message)
+        console.log(json)
         const parsed = parsePlain(json)
-        const split = parsed.split(': ')
-        const chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(' ')
-        const nickname = chatNameSplit[chatNameSplit.length - 1]
-        const username = b.findRealName(chatName)
-        const uuid = b.findUUID(username)
+        let chatName
+        let nickname
+        let username
+        let message
+        let uuid
+        if (json.translate === 'chat.type.text') { // Servers without Extras chat
+          if (json.with && json.with.length >= 2) {
+            message = parsePlain(json.with[1])
+            username = parsePlain(json.with[0])
+          }
+          uuid = b.findUUID(username)
+          nickname = b.findDisplayName(uuid)
+        } else { // Servers with Extras chat, such as Kaboom
+          const split = parsed.split(': ')
+          chatName = split.splice(0, 1)[0]
+          const chatNameSplit = chatName.split(' ')
+          nickname = chatNameSplit[chatNameSplit.length - 1]
+          username = b.findRealName(chatName)
+          uuid = b.findUUID(username)
+          message = split.join(': ')
+        }
         b.emit('chat', {
           json,
           type: 'profileless',
           uuid,
-          message: split.join(': '),
+          message,
           nickname,
           username
         })
@@ -145,12 +161,13 @@ export default {
       let username
       let message
       let uuid
-      if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
+      if (json.translate === 'chat.type.text') { // Servers without Extras chat
         if (json.with && json.with.length >= 2) {
           message = parsePlain(json.with[1])
           username = parsePlain(json.with[0])
         }
         uuid = b.findUUID(username)
+        nickname = b.findDisplayName(uuid)
       } else { // Servers with Extras chat, such as Kaboom
         const split = parsed.split(': ')
         chatName = split.splice(0, 1)[0]
