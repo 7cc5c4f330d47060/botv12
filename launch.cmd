@@ -1,6 +1,6 @@
 @echo off
 :botlaunch
-node index.js
+node index.mjs
 if %errorlevel%==1 (
 	exit
 )
