@@ -1,5 +1,5 @@
-import { bot } from '../index.js'
-import { getMessage } from '../util/lang.js'
+import { bot } from '../index.mjs'
+import { getMessage } from '../util/lang.mjs'
 export default {
   execute: (c) => {
     if (c.bot.host && c.bot.host.options.hidden) {

@@ -1,10 +1,10 @@
-const os = require('os')
-const cp = require('child_process')
-const { getMessage, formatTime } = require('../util/lang.js')
-const fs = require('fs')
-const botVersion = require('../util/version.js')
-const version = require('../version.json')
-const index = require('../index.js')
+import * as os from "os"
+import { execSync } from "child_process"
+import { getMessage, formatTime } from '../util/lang.mjs'
+import { readdirSync, readFileSync } from "fs"
+import { default as botVersion } from "../util/version.js"
+import { default as version } from "../version.json" with { type: "json" }
+import { bot } from "../index.mjs"
 
 const aboutBot = function (c) {
   c.reply({
@@ -59,7 +59,7 @@ const os2 = function (o2, l) {
       return `${os.version()}`
     case 'android':{
       try {
-        const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
+        const version = execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
         return getMessage(l, 'command.about.serverInfo.os.android', [version])
       } catch (e) {
         return getMessage(l, 'command.about.serverInfo.os.android.noVersion')
@@ -67,8 +67,8 @@ const os2 = function (o2, l) {
     }
     case 'linux':
     case 'freebsd':{
-      if (fs.readdirSync('/etc').includes('os-release')) {
-        const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
+      if (readdirSync('/etc').includes('os-release')) {
+        const osrelease = readFileSync('/etc/os-release').toString('UTF-8').split('\n')
         const osrelease2 = {}
         for (const i in osrelease) {
           if (!osrelease[i].includes('=')) continue
@@ -173,8 +173,8 @@ const aboutServer = function (c) {
   if (process.platform === 'android') {
     // Device model
     displayInfo('command.about.serverInfo.os.android.model', () => {
-      const brand = cp.execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
-      const model = cp.execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
+      const brand = execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
+      const model = execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
       return `${brand} ${model}`
     })
   }
@@ -186,8 +186,8 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  for (const i in index.bot) {
-    if (index.bot[i].host.options && index.bot[i].host.options.hidden) continue
+  for (const i in bot) {
+    if (bot[i].host.options && bot[i].host.options.hidden) continue
     c.reply({
       translate: getMessage(c.lang, 'command.about.serverListItem'),
       color: c.colors.secondary,
@@ -197,7 +197,7 @@ const displayServerList = function (c) {
           color: c.colors.primary
         },
         {
-          text: `${index.bot[i].host.host}:${index.bot[i].host.port}`,
+          text: `${bot[i].host.host}:${bot[i].host.port}`,
           color: c.colors.primary
         }
       ]
@@ -205,7 +205,7 @@ const displayServerList = function (c) {
   }
 }
 
-module.exports = {
+export default {
   execute: function (c) {
     if (c.args[0] === 'server') {
       aboutServer(c)

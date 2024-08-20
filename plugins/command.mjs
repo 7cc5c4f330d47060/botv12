@@ -1,8 +1,8 @@
-import { default as Command } from '../util/Command.js'
-import { default as hashcheck } from '../util/hashcheck.js'
+import { default as Command } from '../util/Command.mjs'
+import { default as hashcheck } from '../util/hashcheck.mjs'
 import { default as settings } from '../settings.json' with {type: "json"}
-import { getMessage } from '../util/lang.js'
-import { default as cmds } from '../util/commands.js'
+import { getMessage } from '../util/lang.mjs'
+import { default as cmds } from '../util/commands.mjs'
 import * as fs from 'fs'
 
 if (!fs.readdirSync('.').includes('userPref')) fs.mkdirSync('userPref')

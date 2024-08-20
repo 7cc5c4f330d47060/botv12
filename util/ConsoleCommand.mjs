@@ -1,5 +1,5 @@
-import { bot } from '../index.js'
-import { default as parse } from '../util/chatparse_console.js'
+import { bot } from '../index.mjs'
+import { default as parse } from './chatparse_console.mjs'
 import { default as settings } from '../settings.json' with {type: "json"}
 class ConsoleCommand {
   constructor (cmd, index2) {

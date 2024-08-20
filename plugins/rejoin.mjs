@@ -1,4 +1,4 @@
-import { createBot } from "../index.js"
+import { createBot } from "../index.mjs"
 export default {
   load: (b) => {
     b._client.on('end', () => {

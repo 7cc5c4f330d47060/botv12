@@ -1,4 +1,4 @@
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.mjs'
 
 const sortHelp = function sortHelp (c1, c2) {
   const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
@@ -6,7 +6,7 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 
-import { default as cmds } from '../util/commands.js'
+import { default as cmds } from '../util/commands.mjs'
 
 const printHelp = (c) => {
   const commandList = []

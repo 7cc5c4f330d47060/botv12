@@ -1,6 +1,6 @@
 import * as m from 'minecraft-protocol'
 import { default as settings } from './settings.json' with {type: "json"}
-import { generateUser } from './util/usergen.js'
+import { generateUser } from './util/usergen.mjs'
 import EventEmitter from 'node:events'
 import * as fs from 'fs'
 

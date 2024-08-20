@@ -1,6 +1,6 @@
-const { languages, getMessage } = require('../util/lang.js')
-const fs = require('fs')
-module.exports = {
+import { languages, getMessage } from '../util/lang.mjs'
+import { writeFileSync } from "fs"
+export default {
   execute: (c) => {
     const subcmd = c.args.splice(0, 1)[0]
     switch (subcmd) {
@@ -64,12 +64,13 @@ module.exports = {
         c.prefs[key] = value
 
         // Save to file
-        fs.writeFileSync(`userPref/${c.uuid}.json`, JSON.stringify(c.prefs))
+        writeFileSync(`userPref/${c.uuid}.json`, JSON.stringify(c.prefs))
 
         // Delete require cache
-        for (const i in require.cache) {
+        /*for (const i in require.cache) {
           if (i.endsWith(`${c.uuid}.json`)) delete require.cache[i]
-        }
+        }*/
+
         c.reply({
           text: getMessage(c.lang, 'command.settings.saved'),
           color: c.colors.secondary

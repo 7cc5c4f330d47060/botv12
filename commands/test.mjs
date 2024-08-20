@@ -1,4 +1,4 @@
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.mjs'
 export default {
   execute: (c) => {
     const reply = function (name, item) {

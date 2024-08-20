@@ -1,4 +1,4 @@
-import { default as uuidToInt } from '../util/uuidtoint.js'
+import { default as uuidToInt } from '../util/uuidtoint.mjs'
 const cs = {
   x: 4,
   y: 6,

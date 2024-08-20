@@ -1,7 +1,7 @@
 import { default as settings } from '../settings.json' with {type: "json"}
-import { default as parsePlain } from '../util/chatparse_plain.js'
-import { default as parseConsole } from '../util/chatparse_console.js'
-import { default as parse1204 } from '../util/parseNBT.js'
+import { default as parsePlain } from '../util/chatparse_plain.mjs'
+import { default as parseConsole } from '../util/chatparse_console.mjs'
+import { default as parse1204 } from '../util/parseNBT.mjs'
 const messageTypes = [
   '',
   'chat.type.emote',

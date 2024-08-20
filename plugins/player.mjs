@@ -1,5 +1,5 @@
-import { default as parse } from '../util/chatparse_plain.js'
-import { default as parseNBT } from '../util/parseNBT.js'
+import { default as parse } from '../util/chatparse_plain.mjs'
+import { default as parseNBT } from '../util/parseNBT.mjs'
 export default {
   load: (b) => {
     b.players = {}

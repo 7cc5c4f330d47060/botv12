@@ -1,5 +1,5 @@
-const { getMessage } = require('../util/lang.js')
-module.exports = {
+import { getMessage } from '../util/lang.mjs'
+export default {
   execute: (c) => {
     const subcmd = c.args.splice(0, 1)[0]
     switch (subcmd) {

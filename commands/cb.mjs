@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   execute: (c) => {
     c.bot.ccq.push(c.args.join(' '))
   },

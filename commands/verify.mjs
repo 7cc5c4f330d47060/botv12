@@ -1,5 +1,5 @@
-const { getMessage } = require('../util/lang.js')
-module.exports = {
+import { getMessage } from '../util/lang.mjs'
+export default {
   execute: (c) => {
     const permsN = getMessage(c.lang, 'command.help.permsNormal')
     const permsT = getMessage(c.lang, 'command.help.permsTrusted')

@@ -1,7 +1,7 @@
 import * as readln from 'readline'
-import { bot } from '../index.js'
-import { default as ConsoleCommand } from '../util/ConsoleCommand.js'
-import { default as cmds } from '../util/commands.js'
+import { bot } from '../index.mjs'
+import { default as ConsoleCommand } from '../util/ConsoleCommand.mjs'
+import { default as cmds } from '../util/commands.mjs'
 const rl = readln.createInterface({
   input: process.stdin,
   output: process.stdout,

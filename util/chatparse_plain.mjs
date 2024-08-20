@@ -1,4 +1,4 @@
-import { default as lang } from './mc_lang.js'
+import { default as lang } from './mc_lang.mjs'
 const parse = function (_data, l = 0) {
   if (l >= 4) {
     return ''

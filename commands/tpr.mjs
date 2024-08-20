@@ -1,5 +1,5 @@
-const { getMessage } = require('../util/lang.js')
-module.exports = {
+import { getMessage } from '../util/lang.mjs'
+export default {
   execute: function (c) {
     let uuid
     if (c.type === 'console') {
