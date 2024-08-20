@@ -1,5 +1,5 @@
 import * as readln from 'readline'
-import { bot } from '../index.mjs'
+import { bots } from '../index.mjs'
 import { default as ConsoleCommand } from '../util/ConsoleCommand.mjs'
 import { default as cmds } from '../util/commands.mjs'
 const rl = readln.createInterface({
@@ -14,7 +14,7 @@ rl.on('line', (l) => {
         const tmpcmd = l.split(' ')
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
-          for (let i = 0; i < bot.length; i++) {
+          for (let i = 0; i < bots.length; i++) {
             const cmd = new ConsoleCommand(tmpcmd.join(' '), i)
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }

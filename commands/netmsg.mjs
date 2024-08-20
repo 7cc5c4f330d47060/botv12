@@ -1,4 +1,4 @@
-import { bot } from '../index.mjs'
+import { bots } from '../index.mjs'
 import { getMessage } from '../util/lang.mjs'
 export default {
   execute: (c) => {
@@ -36,9 +36,9 @@ export default {
       ],
       color: 'white'
     }
-    for (const i in bot) {
-      if (bot[i].host.options.hidden) continue
-      bot[i].tellraw('@a', json)
+    for (const i in bots) {
+      if (bots[i].host.options.hidden) continue
+      bots[i].tellraw('@a', json)
     }
   }
 }

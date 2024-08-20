@@ -1,4 +1,4 @@
-import { bot } from '../index.mjs'
+import { bots } from '../index.mjs'
 import { default as parse } from './chatparse_console.mjs'
 import { default as settings } from '../settings.json' with {type: "json"}
 class ConsoleCommand {
@@ -12,7 +12,7 @@ class ConsoleCommand {
     this.msgType = '_bot_console'
     this.prefix = ''
     this.bot = index2 >= 0
-      ? bot[index2]
+      ? bots[index2]
       : {}
     this.type = 'console'
     this.args = cmd.split(' ').slice(1)
