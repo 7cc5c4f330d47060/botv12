@@ -20,7 +20,7 @@ const checkLog = () => {
 setInterval(checkLog, 3600000) // Runs once every hour,
 checkLog() // and at bot startup.
 
-module.exports = {
+export default {
   load: (b) => {
     b.on('plainchat', (msg, type) => {
       if (!settings.disableLogging && !settings.disableChatLogging) chatlog(`chat_${b.host.host}_${b.host.port}`, `[${type}] ${msg}`)
