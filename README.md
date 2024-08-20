@@ -11,6 +11,8 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 
 This is a fork from commit 4efbf43edb with support for using ECMAScript modules (import/export) rather than CommonJS modules (require/module.exports). All plugins have been converted to be ECMAScript modules, but the v11 API has not been finalized, and there will be API breaks before this version is released. Due to differences in how Node.js operates in these two modes, this version is not compatible with plugins, commands, etc. from version 10 without modifying them in some way, and as such, this branch has major version number 11.
 
+This codebase will most likely not be used unless Node.js deprecates CommonJS.
+
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
