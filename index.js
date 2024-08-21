@@ -8,12 +8,12 @@ module.exports.bot = []
 
 const botplug = []
 const bpl = fs.readdirSync('plugins')
-for (const i in bpl) {
-  if (!bpl[i].endsWith('.js')) {
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
     continue
   }
   try {
-    botplug.push(require(`./plugins/${bpl[i]}`))
+    botplug.push(require(`./plugins/${plugin}`))
   } catch (e) { console.log(e) }
 }
 
@@ -67,8 +67,8 @@ const createBot = function createBot (host, oldId) {
   })
 }
 
-for (const i in settings.servers) {
-  createBot(settings.servers[i])
+for (const server of settings.servers) {
+  createBot(server)
 }
 
 module.exports.createBot = createBot

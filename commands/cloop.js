@@ -44,26 +44,26 @@ module.exports = {
         break
       }
       case 'list':
-        for (const i in c.bot.cloops) {
+        c.bot.cloops.forEach((item, i)=>{
           c.reply({
             translate: getMessage(c.lang, 'command.cloop.list'),
             color: c.colors.secondary,
             with: [
               {
-                text: i,
+                text: i.toString(),
                 color: c.colors.primary
               },
               {
-                text: c.bot.cloops[i].command,
+                text: item.command,
                 color: c.colors.primary
               },
               {
-                text: c.bot.cloops[i].rate + '',
+                text: item.rate + '',
                 color: c.colors.primary
               }
             ]
           })
-        }
+        })
         break
       case 'clear':
         c.bot.clearCloops()

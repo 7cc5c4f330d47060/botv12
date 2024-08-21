@@ -37,8 +37,8 @@ const parse = function (_data, l = 0) {
     out += trans.replaceAll('\ud900\ud801', '%').replaceAll('\ud900\ud804', '%s').replaceAll('\ud900\ud805', '$s')
   }
   if (data.extra) {
-    for (const i in data.extra) {
-      const parsed = parse(data.extra[i], l)
+    for (const item of data.extra) {
+      const parsed = parse(item, l)
       out += parsed
     }
   }

@@ -181,10 +181,10 @@ module.exports = {
       b.displayChat(data.type, `${msgConsole}\x1b[0m`)
 
       const fullCommand = data.message
-      for (const i in b.prefix) {
-        if (fullCommand.startsWith(b.prefix[i])) {
-          const command = fullCommand.slice(b.prefix[i].length)
-          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, b.prefix[i])
+      for (const prefix of b.prefix) {
+        if (fullCommand.startsWith(prefix)) {
+          const command = fullCommand.slice(prefix.length)
+          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, prefix)
         }
       }
     })
