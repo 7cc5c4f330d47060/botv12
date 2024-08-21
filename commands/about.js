@@ -70,11 +70,11 @@ const os2 = function (o2, l) {
       if (fs.readdirSync('/etc').includes('os-release')) {
         const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
         const osrelease2 = {}
-        for (const i in osrelease) {
-          if (!osrelease[i].includes('=')) continue
-          let osrvalue = osrelease[i].split('=')[1]
+        for (const item of osrelease) {
+          if (!item.includes('=')) continue
+          let osrvalue = item.split('=')[1]
           if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
-          osrelease2[osrelease[i].split('=')[0]] = osrvalue
+          osrelease2[item.split('=')[0]] = osrvalue
         }
 
         if (osrelease2.PRETTY_NAME) {
@@ -186,8 +186,8 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  for (const i in index.bot) {
-    if (index.bot[i].host.options && index.bot[i].host.options.hidden) continue
+  index.bot.forEach((item, i)=>{
+    if (item.host.options && item.host.options.hidden) return
     c.reply({
       translate: getMessage(c.lang, 'command.about.serverListItem'),
       color: c.colors.secondary,
@@ -197,12 +197,12 @@ const displayServerList = function (c) {
           color: c.colors.primary
         },
         {
-          text: `${index.bot[i].host.host}:${index.bot[i].host.port}`,
+          text: `${item.host.host}:${item.host.port}`,
           color: c.colors.primary
         }
       ]
     })
-  }
+  })
 }
 
 module.exports = {

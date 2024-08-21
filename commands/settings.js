@@ -17,27 +17,27 @@ module.exports = {
         const value = c.args.join(' ')
         if (value === '' && key === 'lang') {
           // Show all valid languages to user
-          for (const i in languages) {
+          for (const item of languages) {
             c.reply({
               translate: '%s (%s)',
               color: c.colors.secondary,
               with: [
                 {
-                  text: getMessage(languages[i], 'language.name'),
+                  text: getMessage(item, 'language.name'),
                   color: c.colors.primary
                 },
                 {
-                  text: getMessage(languages[i], 'language.region'),
+                  text: getMessage(item, 'language.region'),
                   color: c.colors.primary
                 }
               ],
               hoverEvent: {
                 action: 'show_text',
                 value: {
-                  translate: getMessage(languages[i], 'command.settings.setLanguage'),
+                  translate: getMessage(item, 'command.settings.setLanguage'),
                   with: [
                     {
-                      text: `${c.prefix}settings set lang ${languages[i]}`,
+                      text: `${c.prefix}settings set lang ${item}`,
                       color: c.colors.secondary
                     }
                   ]

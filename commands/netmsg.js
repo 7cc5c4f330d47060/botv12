@@ -36,9 +36,9 @@ module.exports = {
       ],
       color: 'white'
     }
-    for (const i in bot) {
-      if (bot[i].host.options.hidden) continue
-      bot[i].tellraw('@a', json)
-    }
+    bot.forEach(item => {
+      if (item.host.options.hidden) return
+      item.tellraw('@a', json)
+    })
   }
 }
