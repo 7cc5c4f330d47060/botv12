@@ -1,6 +1,5 @@
 const crypto = require('crypto')
-const settings = require('../settings.json')
-const secret = require(settings.secret)
+const secret = require('../secret.json')
 module.exports = function (cmd) {
   const cmdWithoutHash = cmd.slice(0, cmd.length - 1).join(' ')
   const _dateString = Date.now().toString()
