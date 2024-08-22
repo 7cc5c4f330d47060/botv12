@@ -1,0 +1,23 @@
+{
+    "secret":"/path/to/secrets/file/secret.json",
+    "version_mc": "1.20.4",
+    "defaultLang": "en-US",
+    "terminalMode": "blackTerminal_24bit",
+    "colors": {
+        "primary": "#FFCCEE",
+        "secondary": "#FF99DD"
+    },
+    "prefix":[
+        "bot:",
+        "\""
+    ],
+    "servers":[
+        {
+            "host": "kaboom.pw",
+            "port": 25565,
+            "options":{
+                "name": "kaboom"
+            }
+        }
+    ]
+}
