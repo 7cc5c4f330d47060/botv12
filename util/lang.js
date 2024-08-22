@@ -2,13 +2,13 @@ const fs = require('fs')
 const languages = {}
 
 const loadplug = (botno) => {
-  const bpl = fs.readdirSync('util/lang')
-  for (const i in bpl) {
-    if (!bpl[i].endsWith('.json')) {
+  const bpl = fs.readdirSync('lang')
+  for (const plugin of bpl) {
+    if (!plugin.endsWith('.json')) {
       continue
     }
     try {
-      languages[bpl[i].split('.')[0]] = require(`./lang/${bpl[i]}`)
+      languages[plugin.split('.')[0]] = require(`../lang/${plugin}`)
     } catch (e) { console.log(e) }
   }
 }
@@ -18,17 +18,20 @@ const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l] && languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')
-  } else if (languages[l] && languages['en-US'][message] !== undefined) {
+  } else if (languages['en-US'] && languages['en-US'][message] !== undefined) {
     message = languages['en-US'][message].replace(/%%/g, '\ue123')
   }
-  for (const i in with2) {
-    message = message.replace(/%s/, with2[i].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-    message = message.replaceAll(`%${+i + 1}$s`, with2[i].replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+  if (with2){
+    for (const withItem of with2) {
+      message = message.replace(/%s/, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+      message = message.replaceAll(`%${+i + 1}$s`, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+    }
   }
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
 }
 
 module.exports = {
+  languages: Object.keys(languages),
   getMessage,
   formatTime: function (time, language) {
     let finalString = ''

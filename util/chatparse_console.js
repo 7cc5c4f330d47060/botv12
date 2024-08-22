@@ -17,9 +17,9 @@ const hexColorParser = (color) => {
     return ''
   }
   let out = '\x1B[0;'
-  const redChannel = Number('0x' + color.slice(1, 3))
-  const greenChannel = Number('0x' + color.slice(3, 5))
-  const blueChannel = Number('0x' + color.slice(5, 7))
+  const redChannel = Number(`0x${color.slice(1, 3)}`)
+  const greenChannel = Number(`0x${color.slice(3, 5)}`)
+  const blueChannel = Number(`0x${color.slice(5, 7)}`)
   if (!consoleColors24.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
     out += '48;2;220;220;220;'
   } else if (consoleColors24.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
@@ -41,8 +41,8 @@ const processColor = (col, rcol) => {
 }
 
 const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
-  if (l >= 12) {
-    return ['', '', '']
+  if (l >= 4) {
+    return ''
   }
   let data
   if (typeof _data === 'string') {
@@ -70,23 +70,25 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (typeof _text === 'number') {
       _text = _text.toString()
     }
-    out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes and [SO] from console format
+    out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '')
   }
   if (data.translate) {
-    let trans = data.translate.replace(/%%/g, '\ue123').replaceAll('\x1b', '').replaceAll('\x0e', '') // Remove escape codes from console format
+    let trans = data.translate.replaceAll('%%', '\ud900\ud801').replaceAll('\x1b', '').replaceAll('\x0e', '')
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
-    for (const i in data.with) {
-      const j2 = parse(data.with[i], l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
-      trans = trans.replace(/%s/, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-      trans = trans.replaceAll(`%${+i + 1}$s`, j2.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
+    if(data.with){
+      data.with.forEach((item, i) => {
+        const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
+        trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
+        trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
+      })
     }
-    out += trans.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
+    out += trans.replaceAll('\ud900\ud801', '%').replaceAll('\ud900\ud804', '%s').replaceAll('\ud900\ud805', '$s')
   }
   if (data.extra) {
-    for (const i in data.extra) {
-      const parsed = parse(data.extra[i], l, data.color ? processColor(data.color, resetColor) : resetColor)
+    for (const item of data.extra) {
+      const parsed = parse(item, l, data.color ? processColor(data.color, resetColor) : resetColor)
       out += parsed
     }
   }
@@ -98,7 +100,7 @@ const parse2 = function (_data, l, resetColor) {
     return parse(_data)
   } catch (e) {
     console.error(e)
-    return '\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ' + JSON.stringify(_data)
+    return `\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
 module.exports = parse2

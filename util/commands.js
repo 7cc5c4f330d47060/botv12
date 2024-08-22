@@ -1,22 +1,21 @@
 const fs = require('fs')
 const cmds = Object.create(null)
 const bpl = fs.readdirSync('./commands')
-for (const i in bpl) {
-  if (!bpl[i].endsWith('.js')) {
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
     continue
   }
   try {
-    const commandName = bpl[i].split('.js')[0]
-    cmds[commandName] = require(`../commands/${bpl[i]}`)
+    const commandName = plugin.split('.js')[0]
+    cmds[commandName] = require(`../commands/${plugin}`)
     if (cmds[commandName].level === undefined) {
       cmds[commandName].level = 0
     }
-    console.log('Loaded command ' + commandName)
     if (cmds[commandName].aliases) {
-      for (const j in cmds[commandName].aliases) {
-        cmds[cmds[commandName].aliases[j]] = {
+      for (const alias of cmds[commandName].aliases) {
+        cmds[alias] = {
           execute: cmds[commandName].execute,
-          desc: 'Alias to ' + commandName,
+          alias: commandName,
           usage: cmds[commandName].usage,
           level: cmds[commandName].level,
           hidden: true,

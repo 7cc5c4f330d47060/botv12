@@ -14,12 +14,12 @@ module.exports = {
     b.blocknoY = 0
     b.pos = { x: 0, y: 0, z: 0 }
 
-    b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x-1} ${54+cs.y} ~${cs.z-1} command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}\'}`
+    b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x - 1} ${54 + cs.y} ~${cs.z - 1} command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`
 
     b.advanceccq = function () {
       if (b.ccq[0] && b.ccq[0].length !== 0) {
         b._client.write('update_command_block', {
-          command: b.ccq[0],
+          command: '/',
           location: {
             x: b.commandPos.x + b.blocknoX,
             y: b.commandPos.y + b.blocknoY,
@@ -29,7 +29,7 @@ module.exports = {
           flags: 1
         })
         b._client.write('update_command_block', {
-          command: b.ccq[0],
+          command: b.ccq[0].substr(0, 32767),
           location: {
             x: b.commandPos.x + b.blocknoX,
             y: b.commandPos.y + b.blocknoY,
@@ -55,15 +55,23 @@ module.exports = {
     }
 
     b._client.on('login', () => {
+      b._client.write('settings', {
+        locale: 'ru_RU',
+        viewDistance: 4,
+        chatFlags: 0, // Enable full chat functionality
+        chatColors: true,
+        skinParts: 127, // Allow the second layer of the skin, when the bot is sudoed to do /skin
+        mainHand: 1 // Right hand
+      })
       b.add_sc_task('cc', () => {
         b.chat(b.refillCoreCmd)
       }, true)
       b.add_sc_task('cc_size', () => {
-        b.chat('/gamerule commandModificationBlockLimit 32767')
+        b.chat('/gamerule commandModificationBlockLimit 32768')
       })
     })
     b.on('ccstart', () => {
-      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 3) }, 1000) // 1 Second and 3 Milliseconds
+      setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
       b.ccStarted = true
     })
     b.on('chat', (data) => {

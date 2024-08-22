@@ -2,16 +2,12 @@
 
 ## What is it?
 
-botvX is a Minecraft bot for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
+botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
 - commands (obviously)
 - a self care system
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
-
-## What does "botvX" mean?
-
-"botvX" means "bot version 10". The v is used to signify that whatever after it is a version, as was done with previous versions (botv4, botv6, botv8, botv9), and the X is the Roman numeral for 10, since this is the 10th major version.
 
 ## How to install?
 

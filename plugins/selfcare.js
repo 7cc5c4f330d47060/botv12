@@ -3,23 +3,26 @@ class SCTask {
     /*
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
-         * chatCommand: Whether to run failTask in chat rather than in command block
     */
     this.failed = startFailed
     this.failTask = failTask
-    //this.chatCommand = chatCommand
   }
 }
 module.exports = {
   load: (b) => {
     b.sc_tasks = {}
+    b.selfcareRun = 0
     b.interval.sc = setInterval(() => {
+      if (Date.now() - b.selfcareRun <= 600) {
+        return
+      }
       for (const i in b.sc_tasks) {
         if (b.sc_tasks[i].failed) {
           b.sc_tasks[i].failTask()
         }
       }
-    }, 1000)
+      b.selfcareRun = Date.now()
+    }, 40)
     b.add_sc_task = (name, failTask, startFailed) => {
       b.sc_tasks[name] = new SCTask(failTask, startFailed)
     }
@@ -28,7 +31,7 @@ module.exports = {
 
     // Operator
     b.add_sc_task('op', () => {
-      b.chat('/minecraft:op @s[type=player]')
+      b.chat('/op @s[type=player]')
     })
     b._client.on('login', (p) => {
       b.entityId = p.entityId
@@ -69,12 +72,13 @@ module.exports = {
 
     // Respawning after dying
     b.add_sc_task('respawn', () => {
-      b._client.write('client_command', {actionId: 0}) // Simulates respawning
-      b.sc_tasks.respawn.failed=0
+      b._client.write('client_command', { actionId: 0 }) // Simulates respawning
+      b.sc_tasks.respawn.failed = 0
     })
-    b.on("chat",(data)=>{
-      if(data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')){
-        b.sc_tasks.respawn.failed=1
+    b.on('chat', (data) => {
+      if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options') ||
+      data.json.translate === 'Chat disabled in client options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'Chat disabled in client options')) {
+        b.sc_tasks.respawn.failed = 1
       }
     })
   }

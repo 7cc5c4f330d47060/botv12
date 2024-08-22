@@ -9,14 +9,14 @@ const sortHelp = function sortHelp (c1, c2) {
 }
 
 const bpl = fs.readdirSync('./commands')
-for (const i in bpl) { // Built-in loadCMD to the help command, to prevent circular require
-  if (!bpl[i].endsWith('.js')) {
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
     continue
   }
   try {
-    const commandName = bpl[i].split('.js')[0]
+    const commandName = plugin.split('.js')[0]
     if (commandName !== 'help') {
-      cmds[commandName] = require(`./${bpl[i]}`)
+      cmds[commandName] = require(`./${plugin}`)
       if (cmds[commandName].level === undefined) {
         cmds[commandName].level = 0
       }
@@ -78,7 +78,18 @@ const printCmdHelp = (c) => {
   if (cmds[cmd].desc) {
     desc = cmds[cmd].desc
   }
-  for (const i in usage) {
+  if (cmds[cmd].alias) {
+    console.log(cmds[cmds[cmd].alias])
+    usage = getMessage(c.lang, `command.${cmds[cmd].alias}.usage`).split('||')
+    desc = getMessage(c.lang, 'command.help.alias', [cmds[cmd].alias])
+    if (cmds[cmds[cmd].alias].usage) {
+      usage = cmds[cmds[cmd].alias].usage.split('||')
+    }
+    if (cmds[cmds[cmd].alias].desc) {
+      desc = cmds[cmds[cmd].alias].desc
+    }
+  }
+  for (const item of usage) {
     c.reply({
       translate: getMessage(c.lang, 'command.help.commandUsage'),
       color: c.colors.secondary,
@@ -88,7 +99,7 @@ const printCmdHelp = (c) => {
           color: c.colors.primary
         },
         {
-          text: usage[i],
+          text: item,
           color: c.colors.primary
         }
       ]
@@ -141,9 +152,9 @@ if (cmds.help.level === undefined) {
 
 for (const i in cmds) {
   if (cmds[i].aliases) {
-    for (const j in cmds[i].aliases) {
-      cmds[cmds[i].aliases[j]] = {
-        desc: 'Alias to ' + i,
+    for (const alias of cmds[commandName].aliases) {
+      cmds[alias] = {
+        alias: i,
         usage: cmds[i].usage,
         level: cmds[i].level,
         hidden: true,
