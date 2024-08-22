@@ -14,8 +14,8 @@ module.exports = {
       b.cloops.splice(index, 1)
     }
     b.clearCloops = function () {
-      for (const i in b.cloops) {
-        clearInterval(b.cloops[i].interval)
+      for (const cloop of b.cloops) {
+        clearInterval(cloop.interval)
       }
       b.cloops = []
     }

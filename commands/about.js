@@ -4,6 +4,7 @@ const { getMessage, formatTime } = require('../util/lang.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
 const version = require('../version.json')
+const index = require('../index.js')
 
 const aboutBot = function (c) {
   c.reply({
@@ -55,13 +56,13 @@ const aboutBot = function (c) {
 const os2 = function (o2, l) {
   switch (o2) {
     case 'win32':
-      return `${os.version()} (${os.release})`
+      return `${os.version()}`
     case 'android':{
       try {
         const version = cp.execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
         return getMessage(l, 'command.about.serverInfo.os.android', [version])
       } catch (e) {
-        getMessage(l, 'command.about.serverInfo.os.android.noVersion')
+        return getMessage(l, 'command.about.serverInfo.os.android.noVersion')
       }
     }
     case 'linux':
@@ -69,20 +70,20 @@ const os2 = function (o2, l) {
       if (fs.readdirSync('/etc').includes('os-release')) {
         const osrelease = fs.readFileSync('/etc/os-release').toString('UTF-8').split('\n')
         const osrelease2 = {}
-        for (const i in osrelease) {
-          if (!osrelease[i].includes('=')) continue
-          let osrvalue = osrelease[i].split('=')[1]
+        for (const item of osrelease) {
+          if (!item.includes('=')) continue
+          let osrvalue = item.split('=')[1]
           if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
-          osrelease2[osrelease[i].split('=')[0]] = osrvalue
+          osrelease2[item.split('=')[0]] = osrvalue
         }
 
         if (osrelease2.PRETTY_NAME) {
-          return getMessage(l, '%s %s', [osrelease2.PRETTY_NAME, os.release()])
+          return getMessage(l, '%s', [osrelease2.PRETTY_NAME])
         } else {
-          return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+          return getMessage(l, `command.about.serverInfo.os.${o2}`)
         }
       } else {
-        return getMessage(l, `command.about.serverInfo.os.${o2}`, [os.release()])
+        return getMessage(l, `command.about.serverInfo.os.${o2}`)
       }
     }
     default:
@@ -118,6 +119,11 @@ const aboutServer = function (c) {
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
     return os2(process.platform, c.lang)
+  })
+
+  // Kernel version: os.release()
+  displayInfo('command.about.serverInfo.kernelVer', () => {
+    return os.release()
   })
 
   // Processor
@@ -178,10 +184,33 @@ const aboutServer = function (c) {
     return botVersion
   })
 }
+
+const displayServerList = function (c) {
+  index.bot.forEach((item, i)=>{
+    if (item.host.options && item.host.options.hidden) return
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.serverListItem'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: i.toString(),
+          color: c.colors.primary
+        },
+        {
+          text: `${item.host.host}:${item.host.port}`,
+          color: c.colors.primary
+        }
+      ]
+    })
+  })
+}
+
 module.exports = {
   execute: function (c) {
     if (c.args[0] === 'server') {
       aboutServer(c)
+    } else if (c.args[0] === 'serverlist') {
+      displayServerList(c)
     } else {
       aboutBot(c)
     }

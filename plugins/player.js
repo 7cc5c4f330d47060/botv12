@@ -5,25 +5,25 @@ module.exports = {
     b.players = {}
     b._client.on('player_info', (data) => {
       const buffer2 = {}
-      for (const i in data.data) {
+      for (const player of data.data) {
         let uuid
-        if (data.data[i].uuid) {
-          uuid = data.data[i].uuid
-        } else if (data.data[i].UUID) {
-          uuid = data.data[i].UUID
+        if (player.uuid) {
+          uuid = player.uuid
+        } else if (player.UUID) {
+          uuid = player.UUID
         }
         let displayName
-        if (data.data[i].displayName !== undefined) {
-          displayName = data.data[i].displayName
+        if (player.displayName !== undefined) {
+          displayName = player.displayName
         } else {
           displayName = '{"text":"[[[[ No display name ]]]]"}'
         }
-        if (data.data[i].player && data.data[i].player.name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].player.name, displayName: parse(parseNBT(displayName)) }
-        } else if (data.data[i].name !== undefined) {
-          buffer2[uuid] = { realName: data.data[i].name, displayName: parse(parseNBT(displayName)) }
-        } else if (data.data[i].displayName !== undefined) {
-          buffer2[uuid] = { displayName: displayName.plain }
+        if (player.player && player.player.name !== undefined) {
+          buffer2[uuid] = { realName: player.player.name, displayName: parse(parseNBT(displayName)) }
+        } else if (player.name !== undefined) {
+          buffer2[uuid] = { realName: player.name, displayName: parse(parseNBT(displayName)) }
+        } else if (player.displayName !== undefined) {
+          buffer2[uuid] = { displayName: parse(parseNBT(displayName)) }
         }
       }
       for (const uuid in buffer2) {
@@ -47,6 +47,21 @@ module.exports = {
         }
       }
       return '[[[[ no name ]]]]'
+    }
+    b.findRealNameFromUUID = (name) => {
+      if (b.players[name]) {
+        return b.players[name].realName
+      } else {
+        return '[[[[ no name ]]]]'
+      }
+    }
+    b.findDisplayName = (name) => {
+      if (b.players[name]) {
+        const displayName = b.players[name].displayName.split(' ')
+        return displayName[displayName.length - 1]
+      } else {
+        return '[[[[ No display name ]]]]'
+      }
     }
   }
 }

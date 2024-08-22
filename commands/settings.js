@@ -4,40 +4,40 @@ module.exports = {
   execute: (c) => {
     const subcmd = c.args.splice(0, 1)[0]
     switch (subcmd) {
-      case 'set':
-        const allowedKeys = ["colorPrimary", "colorSecondary", "lang"]
+      case 'set':{
+        const allowedKeys = ['colorPrimary', 'colorSecondary', 'lang']
         const key = c.args.splice(0, 1)[0]
-        if(!allowedKeys.includes(key)){
+        if (!allowedKeys.includes(key)) {
           c.reply({
             text: getMessage(c.lang, 'command.settings.error.invalidKey'),
             color: c.colors.secondary
-          });
-          return;
+          })
+          return
         }
-        const value = c.args.join(" ")
-        if(value === "" && key==="lang"){
+        const value = c.args.join(' ')
+        if (value === '' && key === 'lang') {
           // Show all valid languages to user
-          for(const i in languages){
+          for (const item of languages) {
             c.reply({
-              translate: "%s (%s)",
+              translate: '%s (%s)',
               color: c.colors.secondary,
-              with:[
+              with: [
                 {
-                  text: getMessage(languages[i], 'language.name'),
-                  color: c.colors.primary   
+                  text: getMessage(item, 'language.name'),
+                  color: c.colors.primary
                 },
                 {
-                  text: getMessage(languages[i], 'language.region'),
+                  text: getMessage(item, 'language.region'),
                   color: c.colors.primary
                 }
               ],
-              hoverEvent:{
-                action: "show_text",
+              hoverEvent: {
+                action: 'show_text',
                 value: {
-                  translate: getMessage(languages[i], 'command.settings.setLanguage'),
-                  with:[
+                  translate: getMessage(item, 'command.settings.setLanguage'),
+                  with: [
                     {
-                      text: `${c.prefix}settings set lang ${languages[i]}`,
+                      text: `${c.prefix}settings set lang ${item}`,
                       color: c.colors.secondary
                     }
                   ]
@@ -47,19 +47,19 @@ module.exports = {
           }
           return
         }
-        if(value === ""){
+        if (value === '') {
           c.reply({
             text: getMessage(c.lang, 'command.settings.error.mustProvideValue'),
             color: c.colors.secondary
-          });
-          return;
+          })
+          return
         }
-        if(key==="lang" && !languages.includes(value)){
+        if (key === 'lang' && !languages.includes(value)) {
           c.reply({
             text: getMessage(c.lang, 'command.settings.error.invalidLanguage'),
             color: c.colors.secondary
-          });
-          return;
+          })
+          return
         }
         c.prefs[key] = value
 
@@ -67,19 +67,20 @@ module.exports = {
         fs.writeFileSync(`userPref/${c.uuid}.json`, JSON.stringify(c.prefs))
 
         // Delete require cache
-        for(const i in require.cache){
-            if(i.endsWith(`${c.uuid}.json`)) delete require.cache[i]
+        for (const i in require.cache) {
+          if (i.endsWith(`${c.uuid}.json`)) delete require.cache[i]
         }
         c.reply({
           text: getMessage(c.lang, 'command.settings.saved'),
           color: c.colors.secondary
-        });
-        break;
-      case 'get':{
+        })
+        break
+      }
+      case 'get':
         c.reply({
-          translate: "%s: %s",
-          color: c.colors.secondary,
-          with:[
+          translate: '%s: %s',
+          color: c.colors.primary,
+          with: [
             {
               text: getMessage(c.lang, 'command.settings.get.colorPrimary'),
               color: c.colors.secondary
@@ -91,9 +92,9 @@ module.exports = {
           ]
         })
         c.reply({
-          translate: "%s: %s",
-          color: c.colors.secondary,
-          with:[
+          translate: '%s: %s',
+          color: c.colors.primary,
+          with: [
             {
               text: getMessage(c.lang, 'command.settings.get.colorSecondary'),
               color: c.colors.secondary
@@ -105,12 +106,12 @@ module.exports = {
           ]
         })
         c.reply({
-          translate: "%s: %s (%s)",
-          color: c.colors.secondary,
-          with:[
+          translate: '%s: %s (%s)',
+          color: c.colors.primary,
+          with: [
             {
               text: getMessage(c.lang, 'command.settings.get.language'),
-              color: c.colors.primary
+              color: c.colors.secondary
             },
             {
               text: getMessage(c.lang, 'language.name'),
@@ -123,7 +124,6 @@ module.exports = {
           ]
         })
         break
-      }
       default:
         c.reply({
           translate: getMessage(c.lang, 'command.cloop.error.subcommand'),
