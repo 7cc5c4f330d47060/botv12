@@ -152,7 +152,7 @@ if (cmds.help.level === undefined) {
 
 for (const i in cmds) {
   if (cmds[i].aliases) {
-    for (const alias of cmds[commandName].aliases) {
+    for (const alias of cmds[i].aliases) {
       cmds[alias] = {
         alias: i,
         usage: cmds[i].usage,
