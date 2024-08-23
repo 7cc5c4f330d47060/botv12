@@ -64,6 +64,7 @@
 	"command.help.noCommand": "Command does not exist",
 	"command.help.alias": "Alias to %s",
 	"command.netmsg.disabled": "This command has been disabled on this server.",
+	"command.settings.disabled.console": "This command cannot be run from the console.",
 	"command.settings.get.colorPrimary": "Primary color",
 	"command.settings.get.colorSecondary": "Secondary color",
 	"command.settings.get.language": "Language",

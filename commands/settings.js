@@ -2,6 +2,13 @@ const { languages, getMessage } = require('../util/lang.js')
 const fs = require('fs')
 module.exports = {
   execute: (c) => {
+    if(c.type == "console"){
+      c.reply({
+        text: getMessage(c.lang, 'command.settings.disabled.console'),
+        color: c.colors.secondary
+      })
+      return
+    }
     const subcmd = c.args.splice(0, 1)[0]
     switch (subcmd) {
       case 'set':{
