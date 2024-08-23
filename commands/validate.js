@@ -16,6 +16,6 @@ module.exports = {
       ]
     })
   },
-  aliases: ['validate'],
+  aliases: ['verify'],
   level: 1
 }
