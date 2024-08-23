@@ -11,21 +11,45 @@ if (_consoleColors[settings.terminalMode]) {
   consoleColors = _consoleColors.none.fourBit
   consoleColors24 = _consoleColors.none.twentyFourBit
 }
-
+const process8bitColorChannel = (value)=>{
+  if(value < 65) return 0
+  if(value < 115) return 1
+  if(value < 155) return 2
+  if(value < 195) return 3
+  if(value < 235) return 4
+  return 5
+}
 const hexColorParser = (color) => {
-  if (!consoleColors24.enabled || consoleColors24.bit !== 24) { // Hex color parsing to the 8 bit and 4 bit modes has not been implemented yet
+  if (!consoleColors24.enabled || consoleColors24.bit === 4) { // Hex color parsing to the 4 bit mode has not been implemented yet
     return ''
   }
-  let out = '\x1B[0;'
-  const redChannel = Number(`0x${color.slice(1, 3)}`)
-  const greenChannel = Number(`0x${color.slice(3, 5)}`)
-  const blueChannel = Number(`0x${color.slice(5, 7)}`)
-  if (!consoleColors24.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
-    out += '48;2;220;220;220;'
-  } else if (consoleColors24.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
-    out += '48;2;0;0;0;'
+  if(consoleColors24.bit == 24){
+    let out = '\x1B[0;'
+    const redChannel = Number(`0x${color.slice(1, 3)}`)
+    const greenChannel = Number(`0x${color.slice(3, 5)}`)
+    const blueChannel = Number(`0x${color.slice(5, 7)}`)
+    if (!consoleColors24.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
+      out += '48;2;220;220;220;'
+    } else if (consoleColors24.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
+      out += '48;2;0;0;0;'
+    }
+    return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
+  } else if(consoleColors24.bit == 8){
+    let out = '\x1B[0;'
+    const redChannel = Number(`0x${color.slice(1, 3)}`)
+    const greenChannel = Number(`0x${color.slice(3, 5)}`)
+    const blueChannel = Number(`0x${color.slice(5, 7)}`)
+    if (!consoleColors24.lightMode && redChannel < 65 && greenChannel < 65 && blueChannel < 65) {
+      out += '48;5;253;'
+    } else if (consoleColors24.lightMode && ((redChannel > 194 && greenChannel > 194 && blueChannel > 194) || greenChannel > 154)) {
+      out += '48;5;16;'
+    }
+    let redOut = process8bitColorChannel(redChannel);
+    let greenOut = process8bitColorChannel(greenChannel);
+    let blueOut = process8bitColorChannel(blueChannel);
+    let colorValue = 16 + 36 * redOut + 6 * greenOut + blueOut
+    return out + `38;5;${colorValue}m`
   }
-  return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
 }
 
 const processColor = (col, rcol) => {
