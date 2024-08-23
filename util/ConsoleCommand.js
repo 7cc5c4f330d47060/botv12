@@ -16,6 +16,7 @@ class ConsoleCommand {
       : {}
     this.type = 'console'
     this.args = cmd.split(' ').slice(1)
+    this.cmdName = cmd.split(' ')[0]
     this.verify = 3
     this.host = ''
     this.port = '3'
