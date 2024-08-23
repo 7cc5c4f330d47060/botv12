@@ -187,9 +187,11 @@ const aboutServer = function (c) {
 
 const displayServerList = function (c) {
   index.bot.forEach((item, i)=>{
-    if (item.host.options && item.host.options.hidden) return
+    if (item.host.options && item.host.options.hidden && c.verify !== 3 && c.bot.id !== i) return
+    let message = 'command.about.serverListItem';
+    if(c.bot.id == i) message = 'command.about.serverListItem.thisServer'
     c.reply({
-      translate: getMessage(c.lang, 'command.about.serverListItem'),
+      translate: getMessage(c.lang, message),
       color: c.colors.secondary,
       with: [
         {
@@ -207,13 +209,17 @@ const displayServerList = function (c) {
 
 module.exports = {
   execute: function (c) {
-    if (c.args[0] === 'server') {
+    let subcmd = c.args[0]
+    if(subcmd === "servers") subcmd = "serverlist"
+    if(c.cmdName === "serverinfo") subcmd = "server"
+    if(c.cmdName === "serverlist" || c.cmdName === "servers") subcmd = "serverlist"
+    if (subcmd === 'server') {
       aboutServer(c)
-    } else if (c.args[0] === 'serverlist') {
+    } else if (subcmd === 'serverlist') {
       displayServerList(c)
     } else {
       aboutBot(c)
     }
   },
-  aliases: ['info']
+  aliases: ['info', 'serverlist', 'servers', 'serverinfo']
 }
