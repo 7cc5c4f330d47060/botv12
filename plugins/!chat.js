@@ -70,7 +70,6 @@ module.exports = {
         nickname = b.findDisplayName(uuid)
         username = parsePlain(parse1204(data.name))
       }
-      console.log()
       b.emit('chat', {
         json: json,
         type: 'profileless',
