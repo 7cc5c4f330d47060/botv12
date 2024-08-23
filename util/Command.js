@@ -12,6 +12,7 @@ class Command {
     this.bot = bot
     this.type = 'minecraft'
     this.args = cmd.split(' ').slice(1)
+    this.cmdName = cmd.split(' ')[0]
     this.verify = verify
     this.host = bot.host.host
     this.port = bot.host.port
