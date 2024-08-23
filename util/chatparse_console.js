@@ -13,9 +13,7 @@ if (_consoleColors[settings.terminalMode]) {
 }
 
 const hexColorParser = (color) => {
-  if (!consoleColors24.enabled || consoleColors24.bit !== 24) { // Hex color parsing to the 8 bit and 4 bit modes has not been implemented yet
-    return ''
-  }
+  if (!consoleColors24.enabled) return ''
   let out = '\x1B[0;'
   const redChannel = Number(`0x${color.slice(1, 3)}`)
   const greenChannel = Number(`0x${color.slice(3, 5)}`)

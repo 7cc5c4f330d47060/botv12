@@ -72,9 +72,7 @@
 			"reset": "\u001B[0;38;5;15m"
 		},
 		"twentyFourBit":{
-			"enabled": true,
-			"bit": 8,
-			"lightMode": false
+			"enabled": false
 		}
 	},
 	"whiteTerminal_8bit":{
@@ -98,9 +96,7 @@
 			"reset": "\u001B[0;48;5;0;38;5;15m"
 		},
 		"twentyFourBit":{
-			"enabled": true,
-			"bit": 8,
-			"lightMode": true
+			"enabled": false
 		}
 	},
 	"blackTerminal_4bit":{
@@ -124,9 +120,7 @@
 			"reset": "\u001B[0;1;37m"
 		},
 		"twentyFourBit":{
-			"enabled": true,
-			"bit": 4,
-			"lightMode": false
+			"enabled": false
 		}
 	},
 	"whiteTerminal_4bit":{
@@ -150,9 +144,7 @@
 			"reset": "\u001B[0;40;1;37m"
 		},
 		"twentyFourBit":{
-			"enabled": true,
-			"bit": 4,
-			"lightMode": true
+			"enabled": false
 		}
 	},
 	"none":{
