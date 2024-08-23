@@ -12,7 +12,22 @@ module.exports = {
           },
           {
             text: item,
-            color: c.colors.primary
+            color: c.colors.primary,
+            clickEvent: {
+              action: "copy_to_clipboard",
+              value: item
+            },
+            hoverEvent: {
+              action: 'show_text',
+              contents: {
+                text: getMessage(c.lang, 'copyText'),
+                color: c.colors.secondary
+              },
+              value: { // Added twice for backwards compatibility
+                text: getMessage(c.lang, 'copyText'),
+                color: c.colors.secondary
+              }
+            }
           }
         ]
       }
