@@ -22,10 +22,10 @@ const getMessage = function (l, msg, with2) {
     message = languages['en-US'][message].replace(/%%/g, '\ue123')
   }
   if (with2){
-    for (const withItem of with2) {
+    with2.forEach((withItem, i)=>{
       message = message.replace(/%s/, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
       message = message.replaceAll(`%${+i + 1}$s`, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
-    }
+    })
   }
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
 }
