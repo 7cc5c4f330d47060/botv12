@@ -44,7 +44,7 @@ module.exports = {
         break
       }
       case 'list':
-        c.bot.cloops.forEach((item, i)=>{
+        c.bot.cloops.forEach((item, i) => {
           c.reply({
             translate: getMessage(c.lang, 'command.cloop.list'),
             color: c.colors.secondary,
