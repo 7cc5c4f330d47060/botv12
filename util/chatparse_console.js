@@ -11,19 +11,19 @@ if (_consoleColors[settings.terminalMode]) {
   consoleColors = _consoleColors.none.fourBit
   consoleColors24 = _consoleColors.none.twentyFourBit
 }
-const process8bitColorChannel = (value)=>{
-  if(value < 65) return 0
-  if(value < 115) return 1
-  if(value < 155) return 2
-  if(value < 195) return 3
-  if(value < 235) return 4
+const process8bitColorChannel = (value) => {
+  if (value < 65) return 0
+  if (value < 115) return 1
+  if (value < 155) return 2
+  if (value < 195) return 3
+  if (value < 235) return 4
   return 5
 }
 const hexColorParser = (color) => {
   if (!consoleColors24.enabled || consoleColors24.bit === 4) { // Hex color parsing to the 4 bit mode has not been implemented yet
     return ''
   }
-  if(consoleColors24.bit == 24){
+  if (consoleColors24.bit === 24) {
     let out = '\x1B[0;'
     const redChannel = Number(`0x${color.slice(1, 3)}`)
     const greenChannel = Number(`0x${color.slice(3, 5)}`)
@@ -34,7 +34,7 @@ const hexColorParser = (color) => {
       out += '48;2;0;0;0;'
     }
     return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
-  } else if(consoleColors24.bit == 8){
+  } else if (consoleColors24.bit === 8) {
     let out = '\x1B[0;'
     const redChannel = Number(`0x${color.slice(1, 3)}`)
     const greenChannel = Number(`0x${color.slice(3, 5)}`)
@@ -44,10 +44,10 @@ const hexColorParser = (color) => {
     } else if (consoleColors24.lightMode && ((redChannel > 194 && greenChannel > 194 && blueChannel > 194) || greenChannel > 154)) {
       out += '48;5;16;'
     }
-    let redOut = process8bitColorChannel(redChannel);
-    let greenOut = process8bitColorChannel(greenChannel);
-    let blueOut = process8bitColorChannel(blueChannel);
-    let colorValue = 16 + 36 * redOut + 6 * greenOut + blueOut
+    const redOut = process8bitColorChannel(redChannel)
+    const greenOut = process8bitColorChannel(greenChannel)
+    const blueOut = process8bitColorChannel(blueChannel)
+    const colorValue = 16 + 36 * redOut + 6 * greenOut + blueOut
     return out + `38;5;${colorValue}m`
   }
 }
@@ -101,7 +101,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
-    if(data.with){
+    if (data.with) {
       data.with.forEach((item, i) => {
         const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
         trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))

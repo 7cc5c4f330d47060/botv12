@@ -3,14 +3,14 @@ const parsePlain = require('../util/chatparse_plain.js')
 const parseConsole = require('../util/chatparse_console.js')
 const parse1204 = require('../util/parseNBT.js')
 const convertChatStyleItem = (item) => {
-  let output={};
-  for(const i in item){
+  const output = {}
+  for (const i in item) {
     output[i] = item[i].value
   }
-  return output;
+  return output
 }
 const convertChatTypeItem = (item) => {
-  if(item.style){
+  if (item.style) {
     return {
       translation_key: item.translation_key.value,
       parameters: item.parameters.value.value,
@@ -26,11 +26,11 @@ const convertChatTypeItem = (item) => {
 }
 module.exports = {
   load: (b) => {
-    b.messageTypes = [];
-    b._client.on("registry_data",(data)=>{
-      if(data.codec.value['minecraft:chat_type']){
+    b.messageTypes = []
+    b._client.on('registry_data', (data) => {
+      if (data.codec.value['minecraft:chat_type']) {
         b.messageTypes = data.codec.value['minecraft:chat_type']
-        const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value;
+        const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
         nbtItems.forEach((item, i) => {
           b.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
         })
@@ -38,24 +38,24 @@ module.exports = {
     })
     b._client.on('profileless_chat', (data) => {
       const messageType = b.messageTypes[data.type]
-      let json = {translate: messageType.translation_key, with: []}
-      messageType.parameters.forEach((item, i)=>{
-        if(item == "content"){
+      const json = { translate: messageType.translation_key, with: [] }
+      messageType.parameters.forEach((item, i) => {
+        if (item === 'content') {
           json.with[i] = parse1204(data.message)
-        } else if(item == "sender"){
+        } else if (item === 'sender') {
           json.with[i] = parse1204(data.name)
-        } else if(item == "target"){
+        } else if (item === 'target') {
           json.with[i] = parse1204(data.target)
         }
       })
-      for(const i in messageType.style){
+      for (const i in messageType.style) {
         json[i] = messageType.style[i]
       }
-      let username = ""
-      let nickname = ""
-      let uuid = "00000000-0000-0000-0000-000000000000"
-      let message = ""
-      if (messageType.translation_key == "%s") {
+      let username = ''
+      let nickname = ''
+      let uuid = '00000000-0000-0000-0000-000000000000'
+      let message = ''
+      if (messageType.translation_key === '%s') {
         const parsed = parsePlain(json)
         const split = parsed.split(': ')
         const chatName = split.splice(0, 1)[0]
@@ -63,7 +63,7 @@ module.exports = {
         nickname = chatNameSplit[chatNameSplit.length - 1]
         username = b.findRealName(chatName)
         uuid = b.findUUID(username)
-        message = split.join(": ")
+        message = split.join(': ')
       } else {
         message = parsePlain(parse1204(data.message))
         uuid = b.findUUID(parsePlain(parse1204(data.name)))
@@ -71,7 +71,7 @@ module.exports = {
         username = parsePlain(parse1204(data.name))
       }
       b.emit('chat', {
-        json: json,
+        json,
         type: 'profileless',
         uuid,
         message,
@@ -82,25 +82,25 @@ module.exports = {
 
     b._client.on('player_chat', (data) => {
       const messageType = b.messageTypes[data.type]
-      let json = {translate: messageType.translation_key, with: []}
-      messageType.parameters.forEach((item, i)=>{
-        if(item == "content"){
-          if(messageType.translation_key === "%s"){
+      const json = { translate: messageType.translation_key, with: [] }
+      messageType.parameters.forEach((item, i) => {
+        if (item === 'content') {
+          if (messageType.translation_key === '%s') {
             json.with[i] = parse1204(data.unsignedChatContent)
           } else {
             json.with[i] = data.plainMessage
           }
-        } else if(item == "sender"){
+        } else if (item === 'sender') {
           json.with[i] = parse1204(data.networkName)
-        } else if(item == "target"){
+        } else if (item === 'target') {
           json.with[i] = parse1204(data.networkTargetName)
         }
       })
-      for(const i in messageType.style){
+      for (const i in messageType.style) {
         json[i] = messageType.style[i]
       }
       b.emit('chat', {
-        json: json,
+        json,
         type: 'player',
         uuid: data.senderUuid,
         message: data.plainMessage,

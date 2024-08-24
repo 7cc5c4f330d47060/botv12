@@ -21,8 +21,8 @@ const getMessage = function (l, msg, with2) {
   } else if (languages['en-US'] && languages['en-US'][message] !== undefined) {
     message = languages['en-US'][message].replace(/%%/g, '\ue123')
   }
-  if (with2){
-    with2.forEach((withItem, i)=>{
+  if (with2) {
+    with2.forEach((withItem, i) => {
       message = message.replace(/%s/, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
       message = message.replaceAll(`%${+i + 1}$s`, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
     })

@@ -4,9 +4,9 @@ module.exports = {
   execute: (c) => {
     let host = c.host
     let port = c.port
-    if(c.bot.host.options && c.bot.host.options.hidden){
-      host = "localhost" // Makes hidden servers appear as localhost
-      port = "25565"
+    if (c.bot.host.options && c.bot.host.options.hidden) {
+      host = 'localhost' // Makes hidden servers appear as localhost
+      port = '25565'
     }
     const json = {
       translate: '[%s] %s: %s',
@@ -14,12 +14,12 @@ module.exports = {
         {
           text: c.serverName,
           hoverEvent: {
-            action: "show_text",
+            action: 'show_text',
             value: {
               translate: '%s: %s:%s',
               with: [
                 {
-                  text: getMessage(c.lang, "command.netmsg.serverAddress"),
+                  text: getMessage(c.lang, 'command.netmsg.serverAddress'),
                   color: c.colors.primary
                 },
                 {

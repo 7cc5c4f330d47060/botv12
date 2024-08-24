@@ -32,12 +32,12 @@ const rsg = function (count) {
 }
 const rsgLegal = function (count) {
   let output = ''
-  if(Math.random()>0.5){
-    output += "uwu_"
+  if (Math.random() > 0.5) {
+    output += 'uwu_'
   } else {
-    output += "owo_"
+    output += 'owo_'
   }
-  output += crypto.randomBytes(count).toString("hex")
+  output += crypto.randomBytes(count).toString('hex')
   return output
 }
 module.exports = function (legal) {
