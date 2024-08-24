@@ -7,7 +7,7 @@ class ConsoleCommand {
     this.reply = text => process.stdout.write(parse(text) + '\n')
     this.uuid = 'dde5a2a6-ebdd-7bbb-8eac-f75b10c10446'
     this.username = 'Owner'
-    this.nickname = 'Console'
+    this.nickname = 'Owner'
     this.command = cmd
     this.msgType = '_bot_console'
     this.prefix = ''
@@ -20,6 +20,7 @@ class ConsoleCommand {
     this.verify = 3
     this.host = ''
     this.port = '3'
+    this.serverName = 'botvX Console'
     this.lang = settings.defaultLang
     this.colors = settings.colors
   }
