@@ -1,23 +1,23 @@
 const lang = require('./mc_lang.js')
 
 const consoleColors = {
-  dark_red: "§4",
-  red: "§c",
-  dark_green: "§2",
-  green: "§a",
-  gold: "§6",
-  yellow: "§e",
-  dark_blue: "§1",
-  blue: "§9",
-  dark_purple: "§5",
-  light_purple: "§d",
-  dark_aqua: "§3",
-  aqua: "§b",
-  black: "§0",
-  gray: "§7",
-  dark_gray: "§8",
-  white: "§f",
-  reset: "§r§f"
+  dark_red: '§4',
+  red: '§c',
+  dark_green: '§2',
+  green: '§a',
+  gold: '§6',
+  yellow: '§e',
+  dark_blue: '§1',
+  blue: '§9',
+  dark_purple: '§5',
+  light_purple: '§d',
+  dark_aqua: '§3',
+  aqua: '§b',
+  black: '§0',
+  gray: '§7',
+  dark_gray: '§8',
+  white: '§f',
+  reset: '§r§f'
 }
 
 const processColor = (col, rcol) => {
@@ -67,7 +67,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
-    if(data.with){
+    if (data.with) {
       data.with.forEach((item, i) => {
         const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
         trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
