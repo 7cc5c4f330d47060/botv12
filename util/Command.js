@@ -16,6 +16,7 @@ class Command {
     this.verify = verify
     this.host = bot.host.host
     this.port = bot.host.port
+    this.serverName = bot.host.options.name
     this.prefs = prefs
     if (prefs.lang) {
       this.lang = prefs.lang
