@@ -18,7 +18,7 @@ module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
-    b.on("chat",(data)=>{
+    b.on('chat', (data) => {
       const fullCommand = data.message
       for (const prefix of b.prefix) {
         if (fullCommand.startsWith(prefix)) {

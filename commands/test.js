@@ -14,7 +14,7 @@ module.exports = {
             text: item,
             color: c.colors.primary,
             clickEvent: {
-              action: "copy_to_clipboard",
+              action: 'copy_to_clipboard',
               value: item
             },
             hoverEvent: {

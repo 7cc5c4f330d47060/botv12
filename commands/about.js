@@ -112,7 +112,7 @@ const aboutServer = function (c) {
           text: thisItem,
           color: c.colors.primary,
           clickEvent: {
-            action: "copy_to_clipboard",
+            action: 'copy_to_clipboard',
             value: thisItem
           },
           hoverEvent: {
@@ -201,10 +201,10 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  index.bot.forEach((item, i)=>{
+  index.bot.forEach((item, i) => {
     if (item.host.options && item.host.options.hidden && c.verify !== 3 && c.bot.id !== i) return
-    let message = 'command.about.serverListItem';
-    if(c.bot.id == i) message = 'command.about.serverListItem.thisServer'
+    let message = 'command.about.serverListItem'
+    if (c.bot.id == i) message = 'command.about.serverListItem.thisServer'
     c.reply({
       translate: getMessage(c.lang, message),
       color: c.colors.secondary,
@@ -217,7 +217,7 @@ const displayServerList = function (c) {
           text: `${item.host.host}:${item.host.port}`,
           color: c.colors.primary,
           clickEvent: {
-            action: "copy_to_clipboard",
+            action: 'copy_to_clipboard',
             value: `${item.host.host}:${item.host.port}`
           },
           hoverEvent: {
@@ -240,9 +240,9 @@ const displayServerList = function (c) {
 module.exports = {
   execute: function (c) {
     let subcmd = c.args[0]
-    if(subcmd === "servers") subcmd = "serverlist"
-    if(c.cmdName === "serverinfo") subcmd = "server"
-    if(c.cmdName === "serverlist" || c.cmdName === "servers") subcmd = "serverlist"
+    if (subcmd === 'servers') subcmd = 'serverlist'
+    if (c.cmdName === 'serverinfo') subcmd = 'server'
+    if (c.cmdName === 'serverlist' || c.cmdName === 'servers') subcmd = 'serverlist'
     if (subcmd === 'server') {
       aboutServer(c)
     } else if (subcmd === 'serverlist') {

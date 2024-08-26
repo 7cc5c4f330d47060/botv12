@@ -75,7 +75,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
-    if(data.with){
+    if (data.with) {
       data.with.forEach((item, i) => {
         const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
         trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
