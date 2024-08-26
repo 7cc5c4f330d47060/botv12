@@ -27,10 +27,10 @@ const convertChatTypeItem = (item) => {
 }
 module.exports = {
   load: (b) => {
-    b.messageCount = 0;
-    b.chatDisabledUntil = 0;
-    b.interval.antiSpam = setInterval(()=>{
-      b.messageCount = 0;
+    b.messageCount = 0
+    b.chatDisabledUntil = 0
+    b.interval.antiSpam = setInterval(() => {
+      b.messageCount = 0
     }, 4000)
     b.messageTypes = []
     b._client.on('registry_data', (data) => {
@@ -169,10 +169,10 @@ module.exports = {
     })
 
     b.on('chat', (data) => {
-      b.messageCount++;
-      if(Date.now() < b.chatDisabledUntil) return
-      if(b.messageCount >= 100){
-        b.info(getMessage(settings.defaultLang, "chat.antiSpamTriggered"))
+      b.messageCount++
+      if (Date.now() < b.chatDisabledUntil) return
+      if (b.messageCount >= 100) {
+        b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
         b.chatDisabledUntil = Date.now() + 30000
         return
       }
