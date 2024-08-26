@@ -204,7 +204,7 @@ const displayServerList = function (c) {
   index.bot.forEach((item, i) => {
     if (item.host.options && item.host.options.hidden && c.verify !== 3 && c.bot.id !== i) return
     let message = 'command.about.serverListItem'
-    if (c.bot.id == i) message = 'command.about.serverListItem.thisServer'
+    if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'
     c.reply({
       translate: getMessage(c.lang, message),
       color: c.colors.secondary,

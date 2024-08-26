@@ -3,7 +3,7 @@ const fs = require('fs')
 const settings = require('../settings.json')
 module.exports = {
   execute: (c) => {
-    if (c.type == 'console') {
+    if (c.type === 'console') {
       c.reply({
         text: getMessage(c.lang, 'command.settings.disabled.console'),
         color: c.colors.secondary

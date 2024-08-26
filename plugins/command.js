@@ -9,7 +9,7 @@ if (!fs.readdirSync('.').includes('userPref') && !settings.userSettingsDisabled)
 
 const loadSettings = function (uuid) {
   try {
-    if(settings.userSettingsDisabled){
+    if (settings.userSettingsDisabled) {
       return {}
     } else {
       return require(`../userPref/${uuid}.json`)
