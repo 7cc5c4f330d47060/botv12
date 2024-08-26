@@ -47,7 +47,7 @@ module.exports = {
       color: 'white'
     }
     bot.forEach(item => {
-      if(item.host.options && item.host.options.netmsgIncomingDisabled && c.type !== "console") return
+      if (item.host.options && item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
       item.tellraw('@a', json)
     })
   }
