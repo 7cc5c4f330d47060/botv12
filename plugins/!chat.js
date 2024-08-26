@@ -2,6 +2,7 @@ const settings = require('../settings.json')
 const parsePlain = require('../util/chatparse_plain.js')
 const parseConsole = require('../util/chatparse_console.js')
 const parse1204 = require('../util/parseNBT.js')
+const { getMessage } = require('../util/lang.js')
 const convertChatStyleItem = (item) => {
   let output={};
   for(const i in item){
@@ -26,9 +27,14 @@ const convertChatTypeItem = (item) => {
 }
 module.exports = {
   load: (b) => {
-    b.messageTypes = [];
-    b._client.on("registry_data",(data)=>{
-      if(data.codec.value['minecraft:chat_type']){
+    b.messageCount = 0;
+    b.chatDisabledUntil = 0;
+    b.interval.antiSpam = setInterval(()=>{
+      b.messageCount = 0;
+    }, 4000)
+    b.messageTypes = []
+    b._client.on('registry_data', (data) => {
+      if (data.codec.value['minecraft:chat_type']) {
         b.messageTypes = data.codec.value['minecraft:chat_type']
         const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value;
         nbtItems.forEach((item, i) => {
@@ -163,6 +169,13 @@ module.exports = {
     })
 
     b.on('chat', (data) => {
+      b.messageCount++;
+      if(Date.now() < b.chatDisabledUntil) return
+      if(b.messageCount >= 100){
+        b.info(getMessage(settings.defaultLang, "chat.antiSpamTriggered"))
+        b.chatDisabledUntil = Date.now() + 30000
+        return
+      }
       const msgConsole = parseConsole(data.json)
       const msgPlain = parsePlain(data.json)
       if (settings.logJSONmessages) console.log(data.json)
@@ -170,14 +183,6 @@ module.exports = {
       if (msgPlain.startsWith('Command set: ')) return
       b.emit('plainchat', msgPlain, data.type)
       b.displayChat(data.type, `${msgConsole}\x1b[0m`)
-
-      const fullCommand = data.message
-      for (const prefix of b.prefix) {
-        if (fullCommand.startsWith(prefix)) {
-          const command = fullCommand.slice(prefix.length)
-          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, prefix)
-        }
-      }
     })
   }
 }
