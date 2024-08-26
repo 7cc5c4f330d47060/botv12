@@ -22,6 +22,15 @@ module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
+    b.on("chat",(data)=>{
+      const fullCommand = data.message
+      for (const prefix of b.prefix) {
+        if (fullCommand.startsWith(prefix)) {
+          const command = fullCommand.slice(prefix.length)
+          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, prefix)
+        }
+      }
+    })
     b.runCommand = (name, nickname, uuid, text, msgType, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return

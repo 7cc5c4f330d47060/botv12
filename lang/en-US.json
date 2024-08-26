@@ -11,6 +11,7 @@
 	"time.minutePlural": " minutes ",
 	"time.second": " second ",
 	"time.secondPlural": " seconds ",
+	"chat.antiSpamTriggered": "Anti-spam has been triggered for this server.",
 	"command.about.usage": "",
 	"command.about.desc": "About the bot",
 	"command.cb.usage": " <command>",
