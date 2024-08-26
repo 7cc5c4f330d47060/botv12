@@ -67,7 +67,7 @@ module.exports = {
         b.sc_tasks.gamemode.failed = 1
       } else if (p.reason === 3 && p.gameMode === 1) {
         b.sc_tasks.gamemode.failed = 0
-      } else if (p.reason === 4){
+      } else if (p.reason === 4) {
         b.sc_tasks.respawn.failed = 1
       }
     })

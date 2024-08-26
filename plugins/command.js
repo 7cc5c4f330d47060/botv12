@@ -9,7 +9,7 @@ if (!fs.readdirSync('.').includes('userPref') && !settings.userSettingsDisabled)
 
 const loadSettings = function (uuid) {
   try {
-    if(settings.userSettingsDisabled){
+    if (settings.userSettingsDisabled) {
       return {}
     } else {
       return require(`../userPref/${uuid}.json`)
@@ -22,7 +22,7 @@ module.exports = {
   load: (b) => {
     b.prefix = settings.prefix
     b.lastCmd = 0
-    b.on("chat",(data)=>{
+    b.on('chat', (data) => {
       const fullCommand = data.message
       for (const prefix of b.prefix) {
         if (fullCommand.startsWith(prefix)) {
