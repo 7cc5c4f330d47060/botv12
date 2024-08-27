@@ -1,22 +1,34 @@
-const m = require('minecraft-protocol')
-const settings = require('./settings.json')
-const generateUser = require('./util/usergen.js')
-const EventEmitter = require('node:events')
 const fs = require('fs')
 
+if (!fs.readdirSync('.').includes('settings.json')) {
+  console.log('Settings file is missing, using defaults.')
+  fs.copyFileSync('settings_example.json', 'settings.json')
+}
+
+if (!fs.readdirSync('.').includes('secret.json')) {
+  console.log('Secrets file is missing, using defaults.')
+  fs.copyFileSync('secret_example.json', 'secret.json')
+  console.log('Please change the hashing keys in the secrets file.')
+}
+
+const m = require('minecraft-protocol')
+const generateUser = require('./util/usergen.js')
+const EventEmitter = require('node:events')
+const settings = require('./settings.json')
 module.exports.bot = []
 
-const loadplug = (botno) => {
-  const botplug = []
-  const bpl = fs.readdirSync('plugins')
-  for (const i in bpl) {
-    if (!bpl[i].endsWith('.js')) {
-      continue
-    }
-    try {
-      botplug.push(require(`./plugins/${bpl[i]}`))
-    } catch (e) { console.log(e) }
+const botplug = []
+const bpl = fs.readdirSync('plugins')
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
+    continue
   }
+  try {
+    botplug.push(require(`./plugins/${plugin}`))
+  } catch (e) { console.log(e) }
+}
+
+const loadplug = (botno) => {
   botplug.forEach((plug) => {
     try {
       if (plug.load) {
@@ -66,8 +78,8 @@ const createBot = function createBot (host, oldId) {
   })
 }
 
-for (const i in settings.servers) {
-  createBot(settings.servers[i])
+for (const server of settings.servers) {
+  createBot(server)
 }
 
 module.exports.createBot = createBot

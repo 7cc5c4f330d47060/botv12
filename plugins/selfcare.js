@@ -11,13 +11,18 @@ class SCTask {
 module.exports = {
   load: (b) => {
     b.sc_tasks = {}
+    b.selfcareRun = 0
     b.interval.sc = setInterval(() => {
+      if (Date.now() - b.selfcareRun <= 600) {
+        return
+      }
       for (const i in b.sc_tasks) {
         if (b.sc_tasks[i].failed) {
           b.sc_tasks[i].failTask()
         }
       }
-    }, 1000)
+      b.selfcareRun = Date.now()
+    }, 40)
     b.add_sc_task = (name, failTask, startFailed) => {
       b.sc_tasks[name] = new SCTask(failTask, startFailed)
     }
@@ -53,7 +58,7 @@ module.exports = {
       })
     }
 
-    // Gamemode
+    // Gamemode / end portal bug
     b.add_sc_task('gamemode', () => {
       b.chat('/minecraft:gamemode creative')
     })
@@ -62,6 +67,8 @@ module.exports = {
         b.sc_tasks.gamemode.failed = 1
       } else if (p.reason === 3 && p.gameMode === 1) {
         b.sc_tasks.gamemode.failed = 0
+      } else if (p.reason === 4) {
+        b.sc_tasks.respawn.failed = 1
       }
     })
 
@@ -71,7 +78,8 @@ module.exports = {
       b.sc_tasks.respawn.failed = 0
     })
     b.on('chat', (data) => {
-      if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options')) {
+      if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options') ||
+      data.json.translate === 'Chat disabled in client options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'Chat disabled in client options')) {
         b.sc_tasks.respawn.failed = 1
       }
     })

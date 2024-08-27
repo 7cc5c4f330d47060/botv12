@@ -1,3 +1,4 @@
+const crypto = require('crypto')
 const rsg = function (count) {
   let output = ''
   for (let i = 0; i < count; i++) {
@@ -29,9 +30,19 @@ const rsg = function (count) {
   }
   return output
 }
+const rsgLegal = function (count) {
+  let output = ''
+  if (Math.random() > 0.5) {
+    output += 'uwu_'
+  } else {
+    output += 'owo_'
+  }
+  output += crypto.randomBytes(count).toString('hex')
+  return output
+}
 module.exports = function (legal) {
   if (legal) {
-    return Math.floor(Math.random() * 1000000).toString()
+    return rsgLegal(6)
   } else {
     return rsg(6 + Math.floor(Math.random() * 3))
   }
