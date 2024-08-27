@@ -1,7 +1,5 @@
 # botvX
 
-## What is it?
-
 botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
 - commands (obviously)
@@ -12,17 +10,17 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX/</code>.
+2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX`.
 3. Extract the files if necessary.
-4. Run <code>npm install</code> in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
-5. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
-6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows) to start a bot launcher, which will reload the bot when the process closes. Alternatively, you can run <code>node index.js</code> to start the bot only once (it will still rejoin when kicked). If it displays an error saying Node is not a command, please make sure Node.js is on your PATH.
+4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
+5. Copy `settings_example.json` to `settings.json` and `secret_example.json` to `secret.json`, and adjust the settings to fit your needs. Change the example keys in secret.json as well. 
+6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `node index.js` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `node` is not a command, please make sure Node.js is on your PATH.
 
 ## Command list
 
 | Name | Usage | Description |
 |-|-|-|
-| about | | About the bot |
+| about | [serverlist \| servers] | About the bot |
 | cb | \<command\> | Run a command in a command block |
 | cloop | add <rate> <command>, remove <index>, list, clear | Manage command loops |
 | eval | \<code\> | Run JavaScript code (must run through console)|
@@ -30,10 +28,12 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 | logoff | | Disconnect and reconnect the bot from a server |
 | netmsg | \<message\> | Send a message to all servers the bot is connected to |
 | refill | | Refill core |
+| restart | | Restart bot, closes when launched directly |
 | say | \<message\> | Sends a message to chat |
-| serverinfo | | Get system/bot info, similar to Kaboom's <code>serverinfo</code> command |
-| stop | | Restart bot |
+| settings | get, set <key> <value> | Set your user preferences |
+| stop | | Close bot |
 | template | | Used in development, does nothing |
+| test | | Debug command for the chat parser |
 | tpr | | Teleport to a random location |
-| verify | | Check the hashing system |
+| validate | | Check the hashing system |
 
