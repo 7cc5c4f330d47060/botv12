@@ -20,7 +20,7 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 
 | Name | Usage | Description |
 |-|-|-|
-| about | [serverlist \| servers] | About the bot |
+| about | [serverlist \| servers \| server] | About the bot. May also show system information or a list of connected servers. |
 | cb | \<command\> | Run a command in a command block |
 | cloop | add <rate> <command>, remove <index>, list, clear | Manage command loops |
 | eval | \<code\> | Run JavaScript code (must run through console)|
