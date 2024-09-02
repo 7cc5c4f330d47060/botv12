@@ -15,6 +15,7 @@ const m = require('minecraft-protocol')
 const generateUser = require('./util/usergen.js')
 const EventEmitter = require('node:events')
 const settings = require('./settings.json')
+const secret = require('./secret.json')
 module.exports.bot = []
 
 const botplug = []
@@ -42,13 +43,20 @@ const createBot = function createBot (host, oldId) {
   if (host.options.disabled) {
     return
   }
-  const bot = new EventEmitter()
-  bot._client = m.createClient({
+  const options = {
     host: host.host,
     port: host.port ? host.port : 25565,
-    username: generateUser(host.options.legalName),
     version: host.version ? host.version : settings.version_mc
-  })
+  }
+  if(host.options.online){
+    options.username = secret.onlineEmail
+    options.password = secret.onlinePass
+    options.auth = 'microsoft'
+  } else {
+    options.username = generateUser(host.options.legalName)
+  }
+  const bot = new EventEmitter()
+  bot._client = m.createClient(options)
   if (typeof oldId !== 'undefined') {
     for (const i in module.exports.bot[oldId].interval) {
       clearInterval(module.exports.bot[oldId].interval[i])
