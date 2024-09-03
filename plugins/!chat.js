@@ -141,6 +141,19 @@ module.exports = {
             username: ""
           })
         }
+      } else if(json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text == ' » '){ // ChipmunkMod format - m_c_player
+        const username = parsePlain(json.extra[3])
+        const uuid = b.findUUID(username)
+        const nickname = b.findDisplayName(uuid)
+        const message = parsePlain(json.extra[5])
+        b.emit('chat', {
+          json,
+          type: 'system',
+          uuid,
+          message,
+          nickname,
+          username
+        })
       } else { // Generic system chat format
         const parsed = parsePlain(json)
         const split = parsed.split(': ')
@@ -175,7 +188,12 @@ module.exports = {
           nickname = b.findDisplayName(uuid)
           message = parsePlain(json.with[2].extra)
         }
-      } else if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
+      } else if(json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text == ' » '){ // ChipmunkMod format - m_c_player
+        username = parsePlain(json.extra[3])
+        uuid = b.findUUID(username)
+        nickname = b.findDisplayName(uuid)
+        message = parsePlain(json.extra[5])
+       } else if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
         if (json.with && json.with.length >= 2) {
           message = parsePlain(json.with[1])
           username = parsePlain(json.with[0])
