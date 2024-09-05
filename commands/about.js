@@ -1,6 +1,7 @@
 const os = require('os')
 const cp = require('child_process')
 const { getMessage, formatTime } = require('../util/lang.js')
+const memoryconvert = require('../util/memoryconvert.js')
 const fs = require('fs')
 const botVersion = require('../util/version.js')
 const version = require('../version.json')
@@ -155,6 +156,21 @@ const aboutServer = function (c) {
     })
   }
 
+  // System memory (total)
+  displayInfo('command.about.serverInfo.totalMem', () => {
+    return memoryconvert(os.totalmem())
+  })
+
+  // System memory (free)
+  displayInfo('command.about.serverInfo.freeMem', () => {
+    return memoryconvert(os.freemem())
+  })
+
+  // System memory (used)
+  displayInfo('command.about.serverInfo.usedMem', () => {
+    return memoryconvert(os.totalmem() - os.freemem())
+  })
+
   // Username and UID
   displayInfo('command.about.serverInfo.osUsername', () => {
     return `${os.userInfo().username} (${os.userInfo().uid})`
@@ -179,7 +195,7 @@ const aboutServer = function (c) {
   displayInfo('command.about.serverInfo.runTime', () => {
     return formatTime(process.uptime() * 1000, c.lang)
   })
-
+  
   // System uptime
   displayInfo('command.about.serverInfo.upTime', () => {
     return formatTime(os.uptime() * 1000, c.lang)
