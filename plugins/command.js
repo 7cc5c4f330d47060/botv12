@@ -45,15 +45,18 @@ module.exports = {
       b.emit('command', name, uuid, text, prefix)
       if (cmds[cmd[0].toLowerCase()]) {
         const command = cmds[cmd[0].toLowerCase()]
+        const permsN = getMessage(lang, 'command.help.permsNormal')
+        const permsT = getMessage(lang, 'command.help.permsTrusted')
+        const permsO = getMessage(lang, 'command.help.permsOwner')
         if (command.level !== undefined && command.level > verify) {
           b.tellraw(uuid, {
             text: getMessage(lang, 'command.disallowed.perms')
           })
           b.tellraw(uuid, {
-            text: getMessage(lang, 'command.disallowed.perms.yourLevel', [verify + ''])
+            text: getMessage(lang, 'command.disallowed.perms.yourLevel', [[permsN, permsT, permsO][verify]])
           })
           b.tellraw(uuid, {
-            text: getMessage(lang, 'command.disallowed.perms.cmdLevel', [command.level + ''])
+            text: getMessage(lang, 'command.disallowed.perms.cmdLevel', [[permsN, permsT, permsO][command.level]])
           })
           return
         }
