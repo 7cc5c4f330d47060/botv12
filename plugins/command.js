@@ -38,7 +38,7 @@ module.exports = {
       b.lastCmd = Date.now()
       const cmd = text.split(' ')
       const lang = settings.defaultLang
-      const verify = hashcheck(cmd)
+      const verify = hashcheck(cmd, uuid)
       if (verify > 0) {
         text = cmd.slice(0, cmd.length - 1).join(' ')
       }
