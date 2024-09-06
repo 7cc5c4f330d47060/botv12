@@ -1,11 +1,37 @@
 const index = require('../index.js') // Not used in the code, but may be used by users of the command
+const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
-    try {
-      console.log(eval(c.args.join(' ')))
-    } catch (e) {
-      console.error(e)
-    }
+    const item = eval(c.args.join(' '));
+    c.reply({
+      translate: '%s: %s',
+      color: c.colors.primary,
+      with: [
+        {
+          text: getMessage(c.lang, `command.eval.output`),
+          color: c.colors.secondary
+        },
+        {
+          text: item + "",
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'copy_to_clipboard',
+            value: item + ""
+          },
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'copyText'),
+              color: c.colors.secondary
+            },
+            value: { // Added twice for backwards compatibility
+              text: getMessage(c.lang, 'copyText'),
+              color: c.colors.secondary
+            }
+          }
+        }
+      ]
+    })
   },
   level: 2
 }
