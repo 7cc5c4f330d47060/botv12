@@ -17,7 +17,7 @@ class ConsoleCommand {
     this.type = 'console'
     this.args = cmd.split(' ').slice(1)
     this.cmdName = cmd.split(' ')[0]
-    this.verify = 3
+    this.verify = 2
     this.host = ''
     this.port = '3'
     this.serverName = 'botvX Console'
