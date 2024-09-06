@@ -118,14 +118,13 @@ const printCmdHelp = (c) => {
   const permsN = getMessage(c.lang, 'command.help.permsNormal')
   const permsT = getMessage(c.lang, 'command.help.permsTrusted')
   const permsO = getMessage(c.lang, 'command.help.permsOwner')
-  const permsC = getMessage(c.lang, 'command.help.permsConsole')
   const rPerms = cmds[cmd].level ? cmds[cmd].level : 0
   c.reply({
     translate: getMessage(c.lang, 'command.help.commandPerms'),
     color: c.colors.secondary,
     with: [
       {
-        text: [permsN, permsT, permsO, permsC][rPerms],
+        text: [permsN, permsT, permsO][rPerms],
         color: c.colors.primary
       }
     ]
