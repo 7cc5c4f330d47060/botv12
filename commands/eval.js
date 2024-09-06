@@ -7,5 +7,5 @@ module.exports = {
       console.error(e)
     }
   },
-  level: 3
+  level: 2
 }
