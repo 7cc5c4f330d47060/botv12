@@ -1,6 +1,7 @@
 const index = require('../index.js')
 const parse = require('../util/chatparse_console.js')
 const settings = require('../settings.json')
+const version = require("../version.json")
 class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {}
@@ -20,7 +21,7 @@ class ConsoleCommand {
     this.verify = 3
     this.host = ''
     this.port = '3'
-    this.serverName = 'botvX Console'
+    this.serverName = `${version.botName} Console`
     this.lang = settings.defaultLang
     this.colors = settings.colors
   }
