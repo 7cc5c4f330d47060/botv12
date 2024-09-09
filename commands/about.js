@@ -242,8 +242,8 @@ module.exports = {
     let subcmd;
     if(c.args.length>=1) subcmd = c.args[0].toLowerCase();
     if (subcmd === 'servers') subcmd = 'serverlist'
-    if (c.cmdName === 'serverinfo') subcmd = 'server'
-    if (c.cmdName === 'serverlist' || c.cmdName === 'servers') subcmd = 'serverlist'
+    if (c.cmdName.toLowerCase() === 'serverinfo' || c.cmdName.toLowerCase() === 'specs') subcmd = 'server'
+    if (c.cmdName.toLowerCase() === 'serverlist' || c.cmdName.toLowerCase() === 'servers') subcmd = 'serverlist'
     if (subcmd === 'server') {
       aboutServer(c)
     } else if (subcmd === 'serverlist') {
@@ -252,5 +252,5 @@ module.exports = {
       aboutBot(c)
     }
   },
-  aliases: ['info', 'serverlist', 'servers', 'serverinfo']
+  aliases: ['info', 'serverlist', 'servers', 'serverinfo', 'specs']
 }
