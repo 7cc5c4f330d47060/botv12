@@ -1,6 +1,6 @@
-# botvX
+# owobot
 
-botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
+owobot is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
 - commands (obviously)
 - a self care system
@@ -10,7 +10,7 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX`.
+2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/owobot`.
 3. Extract the files if necessary.
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
 5. Copy `settings_example.json` to `settings.json` and `secret_example.json` to `secret.json`, and adjust the settings to fit your needs. Change the example keys in secret.json as well. 
