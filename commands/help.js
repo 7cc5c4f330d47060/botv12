@@ -65,7 +65,8 @@ const printHelp = (c) => {
 }
 
 const printCmdHelp = (c) => {
-  const cmd = c.args[0]
+  let cmd;
+  if(c.args.length>=1) cmd = c.args[0].toLowerCase();
   if (!cmds[cmd] || (cmds[cmd].hidden && c.type !== 'console')) {
     c.reply({ text: getMessage(c.lang, 'command.help.noCommand') })
     return
