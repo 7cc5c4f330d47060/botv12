@@ -239,7 +239,8 @@ const displayServerList = function (c) {
 
 module.exports = {
   execute: function (c) {
-    let subcmd = c.args[0]
+    let subcmd;
+    if(c.args.length>=1) subcmd = c.args[0].toLowerCase();
     if (subcmd === 'servers') subcmd = 'serverlist'
     if (c.cmdName === 'serverinfo') subcmd = 'server'
     if (c.cmdName === 'serverlist' || c.cmdName === 'servers') subcmd = 'serverlist'
