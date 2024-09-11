@@ -1,5 +1,4 @@
 const Command = require('../util/Command.js')
-const hashcheck = require('../util/hashcheck.js')
 const settings = require('../settings.json')
 const { getMessage } = require('../util/lang.js')
 const cmds = require('../util/commands.js')
@@ -36,36 +35,15 @@ module.exports = {
       if (Date.now() - b.lastCmd <= 1000) return
       const userSettings = loadSettings(uuid)
       b.lastCmd = Date.now()
-      const cmd = text.split(' ')
       const lang = settings.defaultLang
-      const verify = hashcheck(cmd, uuid)
-      if (verify > 0) {
-        text = cmd.slice(0, cmd.length - 1).join(' ')
-      }
 
-      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, verify, userSettings);
+      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, userSettings);
       b.emit("command",commandClass)
       if(commandClass.cancel === true) return
 
-      if (cmds[cmd[0].toLowerCase()]) {
-        const command = cmds[cmd[0].toLowerCase()]
-        const permsN = getMessage(lang, 'command.help.permsNormal')
-        const permsT = getMessage(lang, 'command.help.permsTrusted')
-        const permsO = getMessage(lang, 'command.help.permsOwner')
-        if (command.level !== undefined && command.level > verify) {
-          b.tellraw(uuid, {
-            text: getMessage(lang, 'command.disallowed.perms')
-          })
-          b.tellraw(uuid, {
-            text: getMessage(lang, 'command.disallowed.perms.yourLevel', [[permsN, permsT, permsO][verify]])
-          })
-          b.tellraw(uuid, {
-            text: getMessage(lang, 'command.disallowed.perms.cmdLevel', [[permsN, permsT, permsO][command.level]])
-          })
-          return
-        }
+      if (cmds[commandClass.cmdName.toLowerCase()]) {
         try {
-          if(commandClass.cancel === false) cmds[cmd[0].toLowerCase()].execute(commandClass)
+          cmds[commandClass.cmdName.toLowerCase()].execute(commandClass)
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {
