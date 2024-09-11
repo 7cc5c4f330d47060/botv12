@@ -1,6 +1,6 @@
 const settings = require('../settings.json')
 class Command {
-  constructor (uuid, user, nick, cmd, msgType, prefix, bot, verify, prefs) {
+  constructor (uuid, user, nick, cmd, msgType, prefix, bot, prefs) {
     this.send = (text, uuid) => { bot.tellraw(uuid || '@a', text) }
     this.reply = text => bot.tellraw(uuid, text)
     this.uuid = uuid
@@ -13,7 +13,7 @@ class Command {
     this.type = 'minecraft'
     this.args = cmd.split(' ').slice(1)
     this.cmdName = cmd.split(' ')[0]
-    this.verify = verify
+    this.verify = 0
     this.host = bot.host.host
     this.port = bot.host.port
     this.serverName = bot.host.options.name
@@ -37,6 +37,12 @@ class Command {
       _colors.secondary = settings.colors.secondary
     }
     this.colors = _colors
+
+    this.rewriteCommand = newCmd => {
+      this.command = newCmd
+      this.args = newCmd.split(' ').slice(1)
+      this.cmdName = newCmd.split(' ')[0]
+    }
   }
 }
 
