@@ -25,8 +25,8 @@ module.exports = {
     b.on('plainchat', (msg, type) => {
       if (!settings.disableLogging && !settings.disableChatLogging) chatlog(`chat_${b.host.host}_${b.host.port}`, `[${type}] ${msg}`)
     })
-    b.on('command', (name, uuid, text) => {
-      if (!settings.disableLogging && !settings.disableCommandLogging) chatlog(`cmd_${b.host.host}_${b.host.port}`, `${name} (${uuid}): ${text}`)
+    b.on('command', c => {
+      if (!settings.disableLogging && !settings.disableCommandLogging) chatlog(`cmd_${b.host.host}_${b.host.port}`, `${c.username} (${c.uuid}): ${c.command}`)
     })
   }
 }
