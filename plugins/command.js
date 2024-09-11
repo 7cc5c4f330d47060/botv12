@@ -42,7 +42,11 @@ module.exports = {
       if (verify > 0) {
         text = cmd.slice(0, cmd.length - 1).join(' ')
       }
-      b.emit('command', name, uuid, text, prefix)
+
+      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, verify, userSettings);
+      b.emit("command",commandClass)
+      if(commandClass.cancel === true) return
+
       if (cmds[cmd[0].toLowerCase()]) {
         const command = cmds[cmd[0].toLowerCase()]
         const permsN = getMessage(lang, 'command.help.permsNormal')
@@ -61,7 +65,7 @@ module.exports = {
           return
         }
         try {
-          cmds[cmd[0].toLowerCase()].execute(new Command(uuid, name, nickname, text, msgType, prefix, b, verify, userSettings))
+          if(commandClass.cancel === false) cmds[cmd[0].toLowerCase()].execute(commandClass)
         } catch (e) {
           console.log(e)
           b.tellraw(uuid, {

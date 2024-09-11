@@ -18,6 +18,7 @@ class Command {
     this.port = bot.host.port
     this.serverName = bot.host.options.name
     this.prefs = prefs
+    this.cancel = false;
     if (prefs.lang) {
       this.lang = prefs.lang
     } else {

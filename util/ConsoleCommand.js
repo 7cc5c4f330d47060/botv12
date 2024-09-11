@@ -22,6 +22,7 @@ class ConsoleCommand {
     this.host = ''
     this.port = '3'
     this.serverName = `${version.botName} Console`
+    this.cancel = false;
     this.lang = settings.defaultLang
     this.colors = settings.colors
   }
