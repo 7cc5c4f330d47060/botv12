@@ -13,7 +13,7 @@ class ConsoleCommand {
     this.msgType = '_bot_console'
     this.prefix = ''
     this.bot = index2 >= 0
-      ? index.bot[index2]
+      ? index.bots[index2]
       : {}
     this.type = 'console'
     this.args = cmd.split(' ').slice(1)
