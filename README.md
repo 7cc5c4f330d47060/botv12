@@ -7,6 +7,8 @@ owobot is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) a
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
+It supports all Minecraft versions from 1.9 to 1.20.4 that are supported by node-minecraft-protocol.
+
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
