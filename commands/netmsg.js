@@ -41,7 +41,7 @@ module.exports = {
           color: c.colors.primary
         },
         {
-          text: c.args.join(' ')
+          text: c.args.join(' ').slice(0,512)
         }
       ],
       color: 'white'
