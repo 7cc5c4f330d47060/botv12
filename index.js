@@ -66,7 +66,7 @@ const createBot = function createBot (host, oldId) {
     module.exports.bots[oldId] = bot
   } else {
     bot.id = module.exports.bots.length
-    module.exports.bots.push(bots)
+    module.exports.bots.push(bot)
   }
 
   bot.host = host
