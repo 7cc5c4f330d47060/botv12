@@ -117,8 +117,8 @@ module.exports = {
 
     b._client.on('system_chat', (data) => {
       const json = parse1204(data.content)
-      if(json.translate == '%s %s › %s'){ // ChipmunkMod format
-        if(json.with && json.with[1] && json.with[2]){
+      if (json.translate === '%s %s › %s') { // ChipmunkMod format
+        if (json.with && json.with[1] && json.with[2]) {
           const username = parsePlain(json.with[1])
           const uuid = b.findUUID(username)
           const nickname = b.findDisplayName(uuid)
@@ -135,13 +135,13 @@ module.exports = {
           b.emit('chat', {
             json,
             type: 'system',
-            uuid: "00000000-0000-0000-0000-000000000000",
-            message: "",
-            nickname: "",
-            username: ""
+            uuid: '00000000-0000-0000-0000-000000000000',
+            message: '',
+            nickname: '',
+            username: ''
           })
         }
-      } else if(json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text == ' » '){ // ChipmunkMod format - m_c_player
+      } else if (json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text === ' » ') { // ChipmunkMod format - m_c_player
         const username = parsePlain(json.extra[3])
         const uuid = b.findUUID(username)
         const nickname = b.findDisplayName(uuid)
@@ -181,19 +181,19 @@ module.exports = {
       let username
       let message
       let uuid
-      if(json.translate == '%s %s › %s'){ // ChipmunkMod format
-        if(json.with && json.with[1] && json.with[2]){
+      if (json.translate === '%s %s › %s') { // ChipmunkMod format
+        if (json.with && json.with[1] && json.with[2]) {
           username = parsePlain(json.with[1])
           uuid = b.findUUID(username)
           nickname = b.findDisplayName(uuid)
           message = parsePlain(json.with[2].extra)
         }
-      } else if(json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text == ' » '){ // ChipmunkMod format - m_c_player
+      } else if (json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text === ' » ') { // ChipmunkMod format - m_c_player
         username = parsePlain(json.extra[3])
         uuid = b.findUUID(username)
         nickname = b.findDisplayName(uuid)
         message = parsePlain(json.extra[5])
-       } else if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
+      } else if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
         if (json.with && json.with.length >= 2) {
           message = parsePlain(json.with[1])
           username = parsePlain(json.with[0])
