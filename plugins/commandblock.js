@@ -1,4 +1,6 @@
 const uuidToInt = require('../util/uuidtoint.js')
+const plainParser = require('../util/chatparse_plain.js')
+const mcParser = require('../util/chatparse_mc.js')
 const cs = {
   x: 4,
   y: 6,
@@ -17,6 +19,7 @@ module.exports = {
     b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x - 1} ${54 + cs.y} ~${cs.z - 1} command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`
 
     b.advanceccq = function () {
+      if(b.host.options.useChat) return
       if (b.ccq[0] && b.ccq[0].length !== 0) {
         b._client.write('update_command_block', {
           command: '/',
@@ -63,12 +66,14 @@ module.exports = {
         skinParts: 127, // Allow the second layer of the skin, when the bot is sudoed to do /skin
         mainHand: 1 // Right hand
       })
-      b.add_sc_task('cc', () => {
-        b.chat(b.refillCoreCmd)
-      }, true)
-      b.add_sc_task('cc_size', () => {
-        b.chat('/gamerule commandModificationBlockLimit 32768')
-      })
+      if (!b.host.options.useChat){
+        b.add_sc_task('cc', () => {
+          b.chat(b.refillCoreCmd)
+        }, true)
+        b.add_sc_task('cc_size', () => {
+          b.chat('/gamerule commandModificationBlockLimit 32768')
+        })
+      }
     })
     b.on('ccstart', () => {
       setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
@@ -107,20 +112,28 @@ module.exports = {
 
     b.tellraw = (uuid, message) => {
       let finalname = ''
-      if (uuid === '@a') {
-        finalname = '@a'
-      } else if (uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)) {
-        finalname = `@a[nbt={UUID:[I;${uuidToInt(uuid)}]}]`
+      if(b.host.options.useChat){
+        if(b.host.options.useAmpersandColorCodes){
+          b.chat(mcParser(message).replaceAll("§", "&"))
+        } else {
+          b.chat(plainParser(message))
+        }
       } else {
-        finalname = uuid
+        if (uuid === '@a') {
+          finalname = '@a'
+        } else if (uuid.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)) {
+          finalname = `@a[nbt={UUID:[I;${uuidToInt(uuid)}]}]`
+        } else {
+          finalname = uuid
+        }
+        let tellrawCommand
+        if (b.host.options.isVanilla) {
+          tellrawCommand = 'tellraw'
+        } else {
+          tellrawCommand = 'minecraft:tellraw'
+        }
+        b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
       }
-      let tellrawCommand
-      if (b.host.options.isVanilla) {
-        tellrawCommand = 'tellraw'
-      } else {
-        tellrawCommand = 'minecraft:tellraw'
-      }
-      b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
     }
   }
 }
