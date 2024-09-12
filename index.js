@@ -33,7 +33,7 @@ const loadplug = (botno) => {
   botplug.forEach((plug) => {
     try {
       if (plug.load) {
-        plug.load(module.exports.bot[botno])
+        plug.load(module.exports.bots[botno])
       }
     } catch (e) { console.log(e) }
   })
@@ -58,15 +58,15 @@ const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
   bot._client = m.createClient(options)
   if (typeof oldId !== 'undefined') {
-    for (const i in module.exports.bot[oldId].interval) {
-      clearInterval(module.exports.bot[oldId].interval[i])
+    for (const i in module.exports.bots[oldId].interval) {
+      clearInterval(module.exports.bots[oldId].interval[i])
     }
-    delete module.exports.bot[oldId]
+    delete module.exports.bots[oldId]
     bot.id = oldId
     module.exports.bots[oldId] = bot
   } else {
-    bot.id = module.exports.bot.length
-    module.exports.bot.push(bots)
+    bot.id = module.exports.bots.length
+    module.exports.bots.push(bots)
   }
 
   bot.host = host
