@@ -1,4 +1,4 @@
-const { bot } = require('../index.js')
+const { bots } = require('../index.js')
 const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
@@ -46,7 +46,7 @@ module.exports = {
       ],
       color: 'white'
     }
-    bot.forEach(item => {
+    bots.forEach(item => {
       if (item.host.options && item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
       item.tellraw('@a', json)
     })
