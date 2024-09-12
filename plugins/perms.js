@@ -11,7 +11,7 @@ module.exports = {
       const permsN = getMessage(c.lang, 'command.help.permsNormal')
       const permsT = getMessage(c.lang, 'command.help.permsTrusted')
       const permsO = getMessage(c.lang, 'command.help.permsOwner')
-      if (command.level !== undefined && command.level > verify) {
+      if (command && command.level !== undefined && command.level > verify) {
         b.tellraw(c.uuid, {
           text: getMessage(c.lang, 'command.disallowed.perms')
         })
