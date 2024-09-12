@@ -1,7 +1,7 @@
 const index = require('../index.js')
 const parse = require('../util/chatparse_console.js')
 const settings = require('../settings.json')
-const version = require("../version.json")
+const version = require('../version.json')
 class ConsoleCommand {
   constructor (cmd, index2) {
     this.send = () => {}
