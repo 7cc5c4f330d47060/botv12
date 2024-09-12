@@ -14,7 +14,7 @@ rl.on('line', (l) => {
         const tmpcmd = l.split(' ')
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
-          for (let i = 0; i < index.bot.length; i++) {
+          for (let i = 0; i < index.bots.length; i++) {
             const cmd = new ConsoleCommand(tmpcmd.join(' '), i)
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
