@@ -217,7 +217,7 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  index.bot.forEach((item, i) => {
+  index.bots.forEach((item, i) => {
     if (item.host.options && item.host.options.hidden && c.verify !== 3 && c.bot.id !== i) return
     let message = 'command.about.serverListItem'
     if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'

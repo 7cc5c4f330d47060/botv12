@@ -16,7 +16,7 @@ const generateUser = require('./util/usergen.js')
 const EventEmitter = require('node:events')
 const settings = require('./settings.json')
 const secret = require('./secret.json')
-module.exports.bot = []
+module.exports.bots = []
 
 const botplug = []
 const bpl = fs.readdirSync('plugins')
@@ -63,10 +63,10 @@ const createBot = function createBot (host, oldId) {
     }
     delete module.exports.bot[oldId]
     bot.id = oldId
-    module.exports.bot[oldId] = bot
+    module.exports.bots[oldId] = bot
   } else {
     bot.id = module.exports.bot.length
-    module.exports.bot.push(bot)
+    module.exports.bot.push(bots)
   }
 
   bot.host = host
