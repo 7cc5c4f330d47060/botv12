@@ -195,7 +195,7 @@ const aboutServer = function (c) {
   displayInfo('command.about.serverInfo.runTime', () => {
     return formatTime(process.uptime() * 1000, c.lang)
   })
-  
+
   // System uptime
   displayInfo('command.about.serverInfo.upTime', () => {
     return formatTime(os.uptime() * 1000, c.lang)
@@ -255,8 +255,8 @@ const displayServerList = function (c) {
 
 module.exports = {
   execute: function (c) {
-    let subcmd;
-    if(c.args.length>=1) subcmd = c.args[0].toLowerCase();
+    let subcmd
+    if (c.args.length >= 1) subcmd = c.args[0].toLowerCase()
     if (subcmd === 'servers') subcmd = 'serverlist'
     if (c.cmdName.toLowerCase() === 'serverinfo' || c.cmdName.toLowerCase() === 'specs') subcmd = 'server'
     if (c.cmdName.toLowerCase() === 'serverlist' || c.cmdName.toLowerCase() === 'servers') subcmd = 'serverlist'

@@ -2,21 +2,21 @@ const index = require('../index.js') // Not used in the code, but may be used by
 const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
-    const item = eval(c.args.join(' '));
+    const item = eval(c.args.join(' '))
     c.reply({
       translate: '%s: %s',
       color: c.colors.primary,
       with: [
         {
-          text: getMessage(c.lang, `command.eval.output`),
+          text: getMessage(c.lang, 'command.eval.output'),
           color: c.colors.secondary
         },
         {
-          text: item + "",
+          text: item + '',
           color: c.colors.primary,
           clickEvent: {
             action: 'copy_to_clipboard',
-            value: item + ""
+            value: item + ''
           },
           hoverEvent: {
             action: 'show_text',

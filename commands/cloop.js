@@ -1,8 +1,8 @@
 const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
-    let subcmd;
-    if(c.args.length>=1) subcmd = c.args.splice(0, 1)[0].toLowerCase();
+    let subcmd
+    if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
     switch (subcmd) {
       case 'add': {
         const rate = +(c.args.splice(0, 1)[0])
