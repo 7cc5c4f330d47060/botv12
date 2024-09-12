@@ -4,7 +4,7 @@ const hashcheck = require('../util/hashcheck.js')
 
 module.exports = {
   load: (b) => {
-    b.on("command", c => {
+    b.on('command', c => {
       const cmd = c.command.split(' ')
       const command = cmds[c.cmdName.toLowerCase()]
       const verify = hashcheck(cmd, c.uuid)
@@ -24,7 +24,7 @@ module.exports = {
         c.cancel = true
       } else if (verify > 0) {
         c.rewriteCommand(cmd.slice(0, cmd.length - 1).join(' '))
-        c.verify = verify;
+        c.verify = verify
       }
     })
   }

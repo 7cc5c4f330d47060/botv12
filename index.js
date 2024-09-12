@@ -48,7 +48,7 @@ const createBot = function createBot (host, oldId) {
     port: host.port ? host.port : 25565,
     version: host.version ? host.version : settings.version_mc
   }
-  if(host.options.online){
+  if (host.options.online) {
     options.username = secret.onlineEmail
     options.password = secret.onlinePass
     options.auth = 'microsoft'

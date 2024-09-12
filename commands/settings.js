@@ -17,8 +17,8 @@ module.exports = {
       })
       return
     }
-    let subcmd;
-    if(c.args.length>=1) subcmd = c.args.splice(0, 1)[0].toLowerCase();
+    let subcmd
+    if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
     switch (subcmd) {
       case 'set':{
         const allowedKeys = ['colorPrimary', 'colorSecondary', 'lang']

@@ -37,9 +37,9 @@ module.exports = {
       b.lastCmd = Date.now()
       const lang = settings.defaultLang
 
-      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, userSettings);
-      b.emit("command",commandClass)
-      if(commandClass.cancel === true) return
+      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, userSettings)
+      b.emit('command', commandClass)
+      if (commandClass.cancel === true) return
 
       if (cmds[commandClass.cmdName.toLowerCase()]) {
         try {
