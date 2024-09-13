@@ -26,21 +26,14 @@ for (const plugin of bpl) {
 
 const printHelp = (c) => {
   const commandList = []
+  const colorList = ["green", "red", "dark_red"]
   for (const i in cmds) {
     if (cmds[i].hidden) continue
     let cmdColor
-    switch (cmds[i].level) {
-      case 0:
-        cmdColor = 'green'
-        break
-      case 1:
-        cmdColor = 'red'
-        break
-      case 2:
-        cmdColor = 'dark_red'
-        break
-      default:
-        cmdColor = 'green'
+    if(colorList[cmds[i].level]){
+      cmdColor = colorList[cmds[i].level]
+    } else {
+      cmdColor = colorList[0]
     }
     commandList.push(
       {
@@ -52,10 +45,31 @@ const printHelp = (c) => {
       }
     )
   }
+  const permsN = getMessage(c.lang, 'command.help.permsNormal')
+  const permsT = getMessage(c.lang, 'command.help.permsTrusted')
+  const permsO = getMessage(c.lang, 'command.help.permsOwner')
+  const permList = [permsN, permsT, permsO]
+  const permListFormat = []
+  permList.forEach((item, i)=>{
+    permListFormat.push({
+      translate: i === permList.length - 1 ? "%s" : "%s ",
+      color: colorList[i],
+      with: [
+        item
+      ]
+    })
+  })
+
   c.reply({
     translate: '%s %s',
     with: [
-      getMessage(c.lang, 'command.help.cmdList'),
+      {
+        translate: "%s (%s):",
+        with: [
+          getMessage(c.lang, 'command.help.cmdList'),
+          permListFormat
+        ]
+      },
       commandList.sort(sortHelp)
     ]
   })
