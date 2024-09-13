@@ -39,9 +39,6 @@ const printHelp = (c) => {
       case 2:
         cmdColor = 'dark_red'
         break
-      case 3:
-        cmdColor = 'dark_red'
-        break
       default:
         cmdColor = 'green'
     }
