@@ -3,8 +3,8 @@ const cmds = Object.create(null)
 const { getMessage } = require('../util/lang.js')
 
 const sortHelp = function sortHelp (c1, c2) {
-  const level1 = cmds[c1.with[0]].level ? cmds[c1.with[0]].level : 0
-  const level2 = cmds[c2.with[0]].level ? cmds[c2.with[0]].level : 0
+  const level1 = cmds[c1.with[0].text].level ? cmds[c1.with[0].text].level : 0
+  const level2 = cmds[c2.with[0].text].level ? cmds[c2.with[0].text].level : 0
   return level1 - level2
 }
 
@@ -26,6 +26,10 @@ for (const plugin of bpl) {
 
 const printHelp = (c) => {
   const commandList = []
+  const permsN = getMessage(c.lang, 'command.help.permsNormal')
+  const permsT = getMessage(c.lang, 'command.help.permsTrusted')
+  const permsO = getMessage(c.lang, 'command.help.permsOwner')
+  const permList = [permsN, permsT, permsO]
   const colorList = ["green", "red", "dark_red"]
   for (const i in cmds) {
     if (cmds[i].hidden) continue
@@ -35,20 +39,77 @@ const printHelp = (c) => {
     } else {
       cmdColor = colorList[0]
     }
+    let usage = getMessage(c.lang, `command.${i}.usage`).split('||')
+    let desc = getMessage(c.lang, `command.${i}.desc`)
+    if (cmds[i].usage) {
+      usage = cmds[i].usage.split('||')
+    }
+    if (cmds[i].desc) {
+      desc = cmds[i].desc
+    }
+    hoverText = []
+    for (const item of usage) {
+      hoverText.push({
+        translate: getMessage(c.lang, 'command.help.commandUsage.lf'),
+        color: c.colors.secondary,
+        with: [
+          {
+            text: i,
+            color: c.colors.primary
+          },
+          {
+            text: item,
+            color: c.colors.primary
+          }
+        ]
+      })
+    }
+    hoverText.push({
+      translate: getMessage(c.lang, 'command.help.commandDesc.lf'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: desc,
+          color: c.colors.primary
+        }
+      ]
+    })
+    const rPerms = cmds[i].level ? cmds[i].level : 0
+    hoverText.push({
+      translate: getMessage(c.lang, 'command.help.commandPerms.lf'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: permList[rPerms],
+          color: c.colors.primary
+        }
+      ]
+    })
+    hoverText.push({
+      translate: getMessage(c.lang, 'command.help.runCommand'),
+      color: c.colors.secondary
+    })
     commandList.push(
       {
         translate: '%s ',
         color: cmdColor,
         with: [
-          i
+          {
+            text: i,
+            hoverEvent: {
+              action: "show_text",
+              value: hoverText,
+              contents: hoverText
+            },
+            clickEvent: {
+              action: 'suggest_command',
+              value: `${c.prefix}${i}`
+            }
+          }
         ]
       }
     )
   }
-  const permsN = getMessage(c.lang, 'command.help.permsNormal')
-  const permsT = getMessage(c.lang, 'command.help.permsTrusted')
-  const permsO = getMessage(c.lang, 'command.help.permsOwner')
-  const permList = [permsN, permsT, permsO]
   const permListFormat = []
   permList.forEach((item, i)=>{
     permListFormat.push({
