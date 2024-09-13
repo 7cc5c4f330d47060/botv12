@@ -59,7 +59,7 @@
 	"command.help.commandUsage": "Usage - %s%s",
 	"command.help.commandDesc": "Description - %s",
 	"command.help.commandPerms": "Required permissions - %s",
-	"command.help.permsNormal": "Normal",
+	"command.help.permsNormal": "Public",
 	"command.help.permsTrusted": "Trusted",
 	"command.help.permsOwner": "Owner",
 	"command.help.noCommand": "Command does not exist",
