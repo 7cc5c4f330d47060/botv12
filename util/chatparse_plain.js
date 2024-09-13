@@ -29,11 +29,13 @@ const parse = function (_data, l = 0) {
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
-    data.with.forEach((item, i) => {
-      const j2 = parse(item, l + 1)
-      trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
-      trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
-    })
+    if (data.with) {
+      data.with.forEach((item, i) => {
+        const j2 = parse(item, l + 1)
+        trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
+        trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
+      })
+    }
     out += trans.replaceAll('\ud900\ud801', '%').replaceAll('\ud900\ud804', '%s').replaceAll('\ud900\ud805', '$s')
   }
   if (data.extra) {
