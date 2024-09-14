@@ -221,6 +221,11 @@ const displayServerList = function (c) {
     if (item.host.options && item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
     let message = 'command.about.serverListItem'
     if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'
+    let host = item.host.host
+    let port = item.host.port
+    if(item.host.options && item.host.options.displayAsIPv6){
+      host = `[${host}]`
+    }
     c.reply({
       translate: getMessage(c.lang, message),
       color: c.colors.secondary,
@@ -230,11 +235,11 @@ const displayServerList = function (c) {
           color: c.colors.primary
         },
         {
-          text: `${item.host.host}:${item.host.port}`,
+          text: `${host}:${port}`,
           color: c.colors.primary,
           clickEvent: {
             action: 'copy_to_clipboard',
-            value: `${item.host.host}:${item.host.port}`
+            value: `${host}:${port}`
           },
           hoverEvent: {
             action: 'show_text',
