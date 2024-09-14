@@ -70,6 +70,9 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot.host = host
+  if(bot.host.host.includes(":")){
+    bot.host.options.displayAsIPv6 = true
+  }
   bot.interval = {}
 
   bot.info = (msg) => {
