@@ -1,4 +1,5 @@
 const fs = require('fs')
+const settings = require("../settings.json")
 const cmds = Object.create(null)
 const { getMessage } = require('../util/lang.js')
 
@@ -15,6 +16,7 @@ for (const plugin of bpl) {
   }
   try {
     const commandName = plugin.split('.js')[0]
+    if(commandName == "settings" && settings.userSettingsDisabled) continue
     if (commandName !== 'help') {
       cmds[commandName] = require(`./${plugin}`)
       if (cmds[commandName].level === undefined) {
