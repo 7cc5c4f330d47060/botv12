@@ -83,7 +83,7 @@ module.exports = {
       setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
       b.ccStarted = true
     })
-    b.on('chat', (data) => {
+    b.on('chat_unparsed', (data) => {
       if (data.json.translate === 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.failed') ||
             data.json.translate === 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.success')) {
         if (!b.ccStarted) {

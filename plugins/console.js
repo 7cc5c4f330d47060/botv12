@@ -45,8 +45,12 @@ module.exports = {
     b.info = (msg) => {
       consoleWrite(`[${b.id}] [info] ${msg}`)
     }
-    b.displayChat = (type, msg) => {
-      consoleWrite(`[${b.id}] [${type}] ${msg}`)
+    b.displayChat = (type, subtype, msg) => {
+      if(settings.displaySubtypesToConsole){
+        consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
+      } else {
+        consoleWrite(`[${b.id}] [${type}] ${msg}`)
+      }
     }
   }
 }
