@@ -77,7 +77,7 @@ module.exports = {
       b._client.write('client_command', { actionId: 0 }) // Simulates respawning
       b.sc_tasks.respawn.failed = 0
     })
-    b.on('chat', (data) => {
+    b.on('chat_unparsed', (data) => {
       if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options') ||
       data.json.translate === 'Chat disabled in client options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'Chat disabled in client options')) {
         b.sc_tasks.respawn.failed = 1

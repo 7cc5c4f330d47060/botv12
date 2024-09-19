@@ -79,8 +79,12 @@ const createBot = function createBot (host, oldId) {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
 
-  bot.displayChat = (type, msg) => {
-    console.log(`[${bot.id}] [${type}] ${msg}`)
+  bot.displayChat = (type, subtype, msg) => {
+    if(settings.displaySubtypesToConsole){
+      console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
+    } else {
+      console.log(`[${bot.id}] [${type}] ${msg}`)
+    }
   }
 
   loadplug(bot.id)

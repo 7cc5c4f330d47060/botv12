@@ -11,6 +11,7 @@ class ConsoleCommand {
     this.nickname = 'Owner'
     this.command = cmd
     this.msgType = '_bot_console'
+    this.msgSubtype = '_bot_console'
     this.prefix = ''
     this.bot = index2 >= 0
       ? index.bots[index2]

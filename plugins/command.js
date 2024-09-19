@@ -26,18 +26,18 @@ module.exports = {
       for (const prefix of b.prefix) {
         if (fullCommand.startsWith(prefix)) {
           const command = fullCommand.slice(prefix.length)
-          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, prefix)
+          b.runCommand(data.username, data.nickname, data.uuid, command, data.type, data.subtype, prefix)
         }
       }
     })
-    b.runCommand = (name, nickname, uuid, text, msgType, prefix) => {
+    b.runCommand = (name, nickname, uuid, text, msgType, msgSubtype, prefix) => {
       if (uuid === '00000000-0000-0000-0000-000000000000') return
       if (Date.now() - b.lastCmd <= 1000) return
       const userSettings = loadSettings(uuid)
       b.lastCmd = Date.now()
       const lang = settings.defaultLang
 
-      const commandClass = new Command(uuid, name, nickname, text, msgType, prefix, b, userSettings)
+      const commandClass = new Command(uuid, name, nickname, text, msgType, msgSubtype, prefix, b, userSettings)
       b.emit('command', commandClass)
       if (commandClass.cancel === true) return
 
