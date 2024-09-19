@@ -8,7 +8,6 @@ for (const plugin of bpl) {
   }
   try {
     const commandName = plugin.split('.js')[0]
-    console.log(commandName)
     if(commandName == "settings" && settings.userSettingsDisabled) continue
     cmds[commandName] = require(`../commands/${plugin}`)
     if (cmds[commandName].level === undefined) {
