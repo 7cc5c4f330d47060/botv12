@@ -86,6 +86,7 @@
 	"command.test.nickname": "Nickname",
 	"command.test.command": "Command",
 	"command.test.msgType": "Message type",
+	"command.test.msgSubtype": "Message subtype",
 	"command.test.prefix": "Prefix",
 	"command.test.args": "Arguments",
 	"command.test.verify": "Permission level",

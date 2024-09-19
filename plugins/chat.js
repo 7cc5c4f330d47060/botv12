@@ -57,32 +57,18 @@ module.exports = {
       for (const i in messageType.style) {
         json[i] = messageType.style[i]
       }
-      let username = ''
-      let nickname = ''
-      let uuid = '00000000-0000-0000-0000-000000000000'
-      let message = ''
-      if (messageType.translation_key === '%s') {
-        const parsed = parsePlain(json)
-        const split = parsed.split(': ')
-        const chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(' ')
-        nickname = chatNameSplit[chatNameSplit.length - 1]
-        username = b.findRealName(chatName)
-        uuid = b.findUUID(username)
-        message = split.join(': ')
-      } else {
-        message = parsePlain(parse1204(data.message))
-        uuid = b.findUUID(parsePlain(parse1204(data.name)))
-        nickname = b.findDisplayName(uuid)
-        username = parsePlain(parse1204(data.name))
-      }
-      b.emit('chat', {
+      message = parsePlain(parse1204(data.message))
+      uuid = b.findUUID(parsePlain(parse1204(data.name)))
+      nickname = b.findDisplayName(uuid)
+      username = parsePlain(parse1204(data.name))
+      b.emit('chat_unparsed', {
         json,
         type: 'profileless',
         uuid,
         message,
         nickname,
-        username
+        username,
+        playerChatType: messageType
       })
     })
 
@@ -105,117 +91,46 @@ module.exports = {
       for (const i in messageType.style) {
         json[i] = messageType.style[i]
       }
-      b.emit('chat', {
+      b.emit('chat_unparsed', {
         json,
         type: 'player',
         uuid: data.senderUuid,
         message: data.plainMessage,
         nickname: parsePlain(parse1204(data.networkName)),
-        username: b.findRealNameFromUUID(data.senderUuid)
+        username: b.findRealNameFromUUID(data.senderUuid),
+        playerChatType: messageType
       })
     })
 
     b._client.on('system_chat', (data) => {
       const json = parse1204(data.content)
-      if (json.translate === '%s %s › %s') { // ChipmunkMod format
-        if (json.with && json.with[1] && json.with[2]) {
-          const username = parsePlain(json.with[1])
-          const uuid = b.findUUID(username)
-          const nickname = b.findDisplayName(uuid)
-          const message = parsePlain(json.with[2].extra)
-          b.emit('chat', {
-            json,
-            type: 'system',
-            uuid,
-            message,
-            nickname,
-            username
-          })
-        } else {
-          b.emit('chat', {
-            json,
-            type: 'system',
-            uuid: '00000000-0000-0000-0000-000000000000',
-            message: '',
-            nickname: '',
-            username: ''
-          })
-        }
-      } else if (json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text === ' » ') { // ChipmunkMod format - m_c_player
-        const username = parsePlain(json.extra[3])
-        const uuid = b.findUUID(username)
-        const nickname = b.findDisplayName(uuid)
-        const message = parsePlain(json.extra[5])
-        b.emit('chat', {
-          json,
-          type: 'system',
-          uuid,
-          message,
-          nickname,
-          username
-        })
-      } else { // Generic system chat format
-        const parsed = parsePlain(json)
-        const split = parsed.split(': ')
-        const chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(' ')
-        const nickname = chatNameSplit[chatNameSplit.length - 1]
-        const username = b.findRealName(chatName)
-        const uuid = b.findUUID(username)
-        b.emit('chat', {
-          json,
-          type: 'system',
-          uuid,
-          message: split.join(': '),
-          nickname,
-          username
-        })
-      }
+      b.emit('chat_unparsed', {
+        json,
+        type: 'system',
+        uuid: "00000000-0000-0000-0000-000000000000",
+        message: "",
+        nickname: "",
+        username: "",
+        playerChatType: {}
+      })
     })
 
     b._client.on('chat', (data) => { // Legacy chat for versions <1.19
       const json = parse1204(data.message)
       const parsed = parsePlain(json)
-      let chatName
       let nickname
       let username
       let message
       let uuid
-      if (json.translate === '%s %s › %s') { // ChipmunkMod format
-        if (json.with && json.with[1] && json.with[2]) {
-          username = parsePlain(json.with[1])
-          uuid = b.findUUID(username)
-          nickname = b.findDisplayName(uuid)
-          message = parsePlain(json.with[2].extra)
-        }
-      } else if (json.extra && json.extra[4] && json.extra[3] && json.extra[5] && json.extra[4].text === ' » ') { // ChipmunkMod format - m_c_player
-        username = parsePlain(json.extra[3])
-        uuid = b.findUUID(username)
-        nickname = b.findDisplayName(uuid)
-        message = parsePlain(json.extra[5])
-      } else if (b.host.options.isVanilla && json.translate === 'chat.type.text') { // Servers without Extras chat
-        if (json.with && json.with.length >= 2) {
-          message = parsePlain(json.with[1])
-          username = parsePlain(json.with[0])
-        }
-        uuid = b.findUUID(username)
-      } else { // Servers with Extras chat, such as Kaboom
-        const split = parsed.split(': ')
-        chatName = split.splice(0, 1)[0]
-        const chatNameSplit = chatName.split(' ')
-        nickname = chatNameSplit[chatNameSplit.length - 1]
-        username = b.findRealName(chatName)
-        uuid = b.findUUID(username)
-        message = split.join(': ')
-      }
       if (data.uuid) uuid = data.uuid
-      b.emit('chat', {
+      b.emit('chat_unparsed', {
         json,
         type: 'legacy',
         uuid,
         message,
         nickname,
-        username
+        username,
+        playerChatType: {}
       })
     })
 
@@ -232,8 +147,8 @@ module.exports = {
       if (settings.logJSONmessages) console.log(data.json)
       if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
       if (msgPlain.startsWith('Command set: ')) return
-      b.emit('plainchat', msgPlain, data.type)
-      b.displayChat(data.type, `${msgConsole}\x1b[0m`)
+      b.emit('plainchat', msgPlain, data.type, data.subtype)
+      b.displayChat(data.type, data.subtype, `${msgConsole}\x1b[0m`)
     })
   }
 }
