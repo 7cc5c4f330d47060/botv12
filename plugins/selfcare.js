@@ -111,11 +111,15 @@ module.exports = {
       }
       b.add_sc_task('playerlist_ads', () => {
         b.chat(`/prefix ${parseMc(b.adPrefix).replaceAll('§', '&')}`)
-        b.sc_tasks.playerlist_ads.failed = 0
       })
       b.on('playerdata', (uuid, displayName) => {
         if (uuid === b._client.uuid && !displayName.startsWith(parsePlain(b.adPrefix))) {
           b.sc_tasks.playerlist_ads.failed = 1
+        }
+      })
+      b.on('plainchat', (msg) => {
+        if (msg === `You now have the tag: ${parseMc(b.adPrefix).replaceAll('§', '&')}`) {
+          b.sc_tasks.playerlist_ads.failed = 0
         }
       })
     }
