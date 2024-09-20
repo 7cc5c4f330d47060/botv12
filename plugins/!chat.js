@@ -43,7 +43,8 @@ module.exports = {
       }
     })
     b._client.on('profileless_chat', (data) => {
-      const messageType = b.messageTypes[data.type]
+      let messageType = b.messageTypes[data.type]
+      if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {
         if (item === 'content') {
@@ -87,7 +88,8 @@ module.exports = {
     })
 
     b._client.on('player_chat', (data) => {
-      const messageType = b.messageTypes[data.type]
+      let messageType = b.messageTypes[data.type]
+      if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {
         if (item === 'content') {
