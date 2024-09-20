@@ -2,7 +2,7 @@ const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
   parse: (data, b) => {
     if (data.type === 'legacy') {
-      let subtype = `vanilla_legacy`
+      let subtype = 'vanilla_legacy'
       if (data.type === 'legacy' && data.uuid) subtype += '_withuuid'
       if (data.json.translate === 'chat.type.text') { // Servers without Extras chat
         let message
