@@ -39,7 +39,7 @@ module.exports = {
           realName = buffer2[uuid].realName
           b.players[uuid].realName = buffer2[uuid].realName
         } 
-        b.emit("playerdata",uuid,realName,displayName)
+        b.emit("playerdata",uuid,displayName,realName)
       }
     })
     b.findUUID = (name) => {
