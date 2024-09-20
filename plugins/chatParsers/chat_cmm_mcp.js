@@ -11,7 +11,7 @@ module.exports = {
           parsed: true,
           json: data.json,
           type: data.type,
-          subtype: `chipmunkmod_mcp_${data.type}`,
+          subtype: `chipmunkmod_mcp`,
           uuid,
           message,
           nickname,
