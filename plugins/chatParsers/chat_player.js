@@ -5,7 +5,7 @@ module.exports = {
         parsed: true,
         json: data.json,
         type: data.type,
-        subtype: `generic_player`,
+        subtype: 'generic_player',
         uuid: data.uuid,
         message: data.message,
         nickname: data.nickname,
