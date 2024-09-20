@@ -1,7 +1,7 @@
 const uuidToInt = require('../util/uuidtoint.js')
 const plainParser = require('../util/chatparse_plain.js')
 const mcParser = require('../util/chatparse_mc.js')
-const protover = require("../util/getProtocolVersion.js")
+const protover = require('../util/getProtocolVersion.js')
 const cs = {
   x: 4,
   y: 6,
@@ -9,7 +9,7 @@ const cs = {
 }
 module.exports = {
   load: function (b) {
-    if(protover(b._client.version) < 386){ // 1.13-pre4
+    if (protover(b._client.version) < 386) { // 1.13-pre4
       b.host.options.useChat = true // This does not support command blocks below 1.13
     }
     b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 150000)

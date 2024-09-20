@@ -1,5 +1,5 @@
 const fs = require('fs')
-const settings = require("../settings.json")
+const settings = require('../settings.json')
 const cmds = Object.create(null)
 const bpl = fs.readdirSync('./commands')
 for (const plugin of bpl) {
@@ -8,7 +8,7 @@ for (const plugin of bpl) {
   }
   try {
     const commandName = plugin.split('.js')[0]
-    if(commandName == "settings" && settings.userSettingsDisabled) continue
+    if (commandName === 'settings' && settings.userSettingsDisabled) continue
     cmds[commandName] = require(`../commands/${plugin}`)
     if (cmds[commandName].level === undefined) {
       cmds[commandName].level = 0

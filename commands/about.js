@@ -222,8 +222,8 @@ const displayServerList = function (c) {
     let message = 'command.about.serverListItem'
     if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'
     let host = item.host.host
-    let port = item.host.port
-    if(item.host.options && item.host.options.displayAsIPv6){
+    const port = item.host.port
+    if (item.host.options && item.host.options.displayAsIPv6) {
       host = `[${host}]`
     }
     c.reply({

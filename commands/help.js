@@ -1,5 +1,5 @@
 const fs = require('fs')
-const settings = require("../settings.json")
+const settings = require('../settings.json')
 const cmds = Object.create(null)
 const { getMessage } = require('../util/lang.js')
 
@@ -16,7 +16,7 @@ for (const plugin of bpl) {
   }
   try {
     const commandName = plugin.split('.js')[0]
-    if(commandName == "settings" && settings.userSettingsDisabled) continue
+    if (commandName === 'settings' && settings.userSettingsDisabled) continue
     if (commandName !== 'help') {
       cmds[commandName] = require(`./${plugin}`)
       if (cmds[commandName].level === undefined) {
@@ -32,11 +32,11 @@ const printHelp = (c) => {
   const permsT = getMessage(c.lang, 'command.help.permsTrusted')
   const permsO = getMessage(c.lang, 'command.help.permsOwner')
   const permList = [permsN, permsT, permsO]
-  const colorList = ["green", "red", "dark_red"]
+  const colorList = ['green', 'red', 'dark_red']
   for (const i in cmds) {
     if (cmds[i].hidden) continue
     let cmdColor
-    if(colorList[cmds[i].level]){
+    if (colorList[cmds[i].level]) {
       cmdColor = colorList[cmds[i].level]
     } else {
       cmdColor = colorList[0]
@@ -49,7 +49,7 @@ const printHelp = (c) => {
     if (cmds[i].desc) {
       desc = cmds[i].desc
     }
-    hoverText = []
+    const hoverText = []
     for (const item of usage) {
       hoverText.push({
         translate: getMessage(c.lang, 'command.help.commandUsage.lf'),
@@ -99,7 +99,7 @@ const printHelp = (c) => {
           {
             text: i,
             hoverEvent: {
-              action: "show_text",
+              action: 'show_text',
               value: hoverText,
               contents: hoverText
             },
@@ -113,9 +113,9 @@ const printHelp = (c) => {
     )
   }
   const permListFormat = []
-  permList.forEach((item, i)=>{
+  permList.forEach((item, i) => {
     permListFormat.push({
-      translate: i === permList.length - 1 ? "%s" : "%s ",
+      translate: i === permList.length - 1 ? '%s' : '%s ',
       color: colorList[i],
       with: [
         item
@@ -127,7 +127,7 @@ const printHelp = (c) => {
     translate: '%s %s',
     with: [
       {
-        translate: "%s (%s):",
+        translate: '%s (%s):',
         with: [
           getMessage(c.lang, 'command.help.cmdList'),
           permListFormat

@@ -70,7 +70,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot.host = host
-  if(bot.host.host.includes(":")){
+  if (bot.host.host.includes(':')) {
     bot.host.options.displayAsIPv6 = true
   }
   bot.interval = {}
@@ -80,7 +80,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot.displayChat = (type, subtype, msg) => {
-    if(settings.displaySubtypesToConsole){
+    if (settings.displaySubtypesToConsole) {
       console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
     } else {
       console.log(`[${bot.id}] [${type}] ${msg}`)
