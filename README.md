@@ -9,6 +9,10 @@ owobot is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) a
 
 It supports all Minecraft versions from 1.9 to 1.20.4 that are supported by node-minecraft-protocol.
 
+If you are not sure if this code is safe to run, you can read through every line of code. You can also see the commit history by clicking on the (n) commits button, to make sure nobody added any exploits to the code.
+
+If you find any exploits, security issues, etc in the code, please send me an issue or pull request and I will try to respond to it whenever I see it.
+
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
