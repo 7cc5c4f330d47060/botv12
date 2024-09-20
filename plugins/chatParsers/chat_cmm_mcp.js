@@ -1,7 +1,6 @@
-const parsePlain = require('../util/chatparse_plain.js')
+const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
-  load: (b) => {
-    b.on("chat_unparsed", data => {
+  parse: (data) => {
       if(data.type == "system" || data.type == "legacy"){
         if(data.parsed) return
         if (data.json.extra && data.json.extra[4] && data.json.extra[3] && data.json.extra[5] && data.json.extra[4].text === ' » ') { // ChipmunkMod format - m_c_player
@@ -20,6 +19,6 @@ module.exports = {
           })
         }
       }
-    })
+    
   }
 }

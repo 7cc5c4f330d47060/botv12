@@ -1,6 +1,6 @@
 module.exports = {
-  load: (b) => {
-    b.on("chat_unparsed", data => {
+  parse: (data) => {
+    
       if(data.type == "player" || data.type == "profileless"){
         if(data.parsed) return
         if (data.type == "profileless" && data.playerChatType.translation_key === '%s') return
@@ -14,6 +14,6 @@ module.exports = {
           username: data.username
         })
       }
-    })
+    
   }
 }
