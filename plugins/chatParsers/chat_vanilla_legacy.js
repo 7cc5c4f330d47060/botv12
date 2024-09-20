@@ -1,7 +1,6 @@
-const parsePlain = require('../util/chatparse_plain.js')
+const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
-  load: (b) => {
-    b.on("chat_unparsed", data => {
+  parse: (data) => {
       if(data.type == "legacy"){
         if(data.parsed) return
         let subtype = `vanilla_${data.type}`
@@ -28,6 +27,5 @@ module.exports = {
           })
         }
       }
-    })
   }
 }
