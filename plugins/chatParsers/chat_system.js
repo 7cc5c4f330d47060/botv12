@@ -1,7 +1,7 @@
-const parsePlain = require('../util/chatparse_plain.js')
+const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
-  load: (b) => {
-    b.on("chat_unparsed", data => {
+  parse: (data) => {
+   
       if(data.type == "system" || data.type == "legacy"){
         if(data.parsed) return
         if (data.type == "legacy" && data.json.translate === 'chat.type.text') return
@@ -24,6 +24,6 @@ module.exports = {
           username: username
         })
       }
-    })
+    
   }
 }
