@@ -5,11 +5,10 @@ module.exports = {
       if (data.json.translate === '%s %s › %s' || data.json.translate === '[%s] %s › %s') {
         let subtype = 'chipmunkmod_'
         if (data.json.translate === '%s %s › %s') {
-          subtype += 'name3_'
+          subtype += 'name3'
         } else if (data.json.translate === '[%s] %s › %s') {
-          subtype += 'chomens_'
+          subtype += 'chomens'
         }
-        subtype += `${data.type}`
         if (data.json.with && data.json.with[1] && data.json.with[2]) {
           const username = parsePlain(data.json.with[1])
           const uuid = b.findUUID(username)

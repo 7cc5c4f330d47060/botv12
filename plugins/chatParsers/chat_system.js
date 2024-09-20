@@ -2,7 +2,7 @@ const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
   parse: (data, b) => {
     if (data.type === 'system' || data.type === 'legacy') {
-      let subtype = `generic_${data.type}`
+      let subtype = `generic_system`
       if (data.type === 'legacy' && data.uuid) subtype += '_withuuid'
       const parsed = parsePlain(data.json)
       const split = parsed.split(': ')
