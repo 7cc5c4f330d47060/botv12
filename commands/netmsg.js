@@ -7,7 +7,7 @@ module.exports = {
     if (c.bot.host.options && c.bot.host.options.hidden) {
       host = 'localhost' // Makes hidden servers appear as localhost
       port = '25565'
-    } else if(c.bot.host.options && c.bot.host.options.displayAsIPv6){
+    } else if (c.bot.host.options && c.bot.host.options.displayAsIPv6) {
       host = `[${host}]`
     }
     const json = {
@@ -43,7 +43,7 @@ module.exports = {
           color: c.colors.primary
         },
         {
-          text: c.args.join(' ').slice(0,512)
+          text: c.args.join(' ').slice(0, 512)
         }
       ],
       color: 'white'

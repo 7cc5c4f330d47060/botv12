@@ -44,7 +44,7 @@ module.exports = {
     })
     b._client.on('profileless_chat', (data) => {
       let messageType = b.messageTypes[data.type]
-      if(messageType === undefined) messageType = {translation_key: "%s", parameters: ["content"]}
+      if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {
         if (item === 'content') {
@@ -58,10 +58,10 @@ module.exports = {
       for (const i in messageType.style) {
         json[i] = messageType.style[i]
       }
-      message = parsePlain(parse1204(data.message))
-      uuid = b.findUUID(parsePlain(parse1204(data.name)))
-      nickname = b.findDisplayName(uuid)
-      username = parsePlain(parse1204(data.name))
+      const message = parsePlain(parse1204(data.message))
+      const uuid = b.findUUID(parsePlain(parse1204(data.name)))
+      const nickname = b.findDisplayName(uuid)
+      const username = parsePlain(parse1204(data.name))
       b.emit('chat_unparsed', {
         json,
         type: 'profileless',
@@ -75,7 +75,7 @@ module.exports = {
 
     b._client.on('player_chat', (data) => {
       let messageType = b.messageTypes[data.type]
-      if(messageType === undefined) messageType = {translation_key: "%s", parameters: ["content"]}
+      if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {
         if (item === 'content') {
@@ -109,17 +109,16 @@ module.exports = {
       b.emit('chat_unparsed', {
         json,
         type: 'system',
-        uuid: "00000000-0000-0000-0000-000000000000",
-        message: "",
-        nickname: "",
-        username: "",
+        uuid: '00000000-0000-0000-0000-000000000000',
+        message: '',
+        nickname: '',
+        username: '',
         playerChatType: {}
       })
     })
 
     b._client.on('chat', (data) => { // Legacy chat for versions <1.19
       const json = parse1204(data.message)
-      const parsed = parsePlain(json)
       let nickname
       let username
       let message
