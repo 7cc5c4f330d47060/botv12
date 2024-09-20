@@ -2,7 +2,6 @@ const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
   parse: (data, b) => {
     if (data.type === 'profileless') {
-      if (data.parsed) return
       if (data.playerChatType.translation_key === '%s') {
         const parsed = parsePlain(data.json)
         const split = parsed.split(': ')
@@ -12,7 +11,8 @@ module.exports = {
         const username = b.findRealName(chatName)
         const uuid = b.findUUID(username)
         const message = split.join(': ')
-        b.emit('chat', {
+        return {
+          parsed: true,
           json: data.json,
           type: data.type,
           subtype: 'extras_profileless',
@@ -20,8 +20,12 @@ module.exports = {
           message,
           nickname,
           username
-        })
+        }
       }
     }
-  }
+    return {
+      parsed: false
+    }
+  },
+  priority: 1
 }

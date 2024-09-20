@@ -14,7 +14,8 @@ module.exports = {
         }
         const uuid = b.findUUID(username)
         const nickname = b.findDisplayName(uuid)
-        b.emit('chat', {
+        return {
+          parsed: true,
           json: data.json,
           type: data.type,
           subtype,
@@ -22,8 +23,12 @@ module.exports = {
           message,
           nickname,
           username
-        })
+        }
       }
     }
-  }
+    return {
+      parsed: false
+    }
+  },
+  priority: 1
 }
