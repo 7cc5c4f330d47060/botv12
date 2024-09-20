@@ -27,19 +27,18 @@ module.exports = {
         }
       }
       for (const uuid in buffer2) {
-
         if (!b.players[uuid]) b.players[uuid] = { displayName: '', realName: '' }
-        let displayName = "";
-        let realName = "";
-        if (buffer2[uuid].displayName){
+        let displayName = ''
+        let realName = ''
+        if (buffer2[uuid].displayName) {
           displayName = buffer2[uuid].displayName
           b.players[uuid].displayName = buffer2[uuid].displayName
-        } 
-        if (buffer2[uuid].realName){
+        }
+        if (buffer2[uuid].realName) {
           realName = buffer2[uuid].realName
           b.players[uuid].realName = buffer2[uuid].realName
-        } 
-        b.emit("playerdata",uuid,displayName,realName)
+        }
+        b.emit('playerdata', uuid, displayName, realName)
       }
     })
     b.findUUID = (name) => {
