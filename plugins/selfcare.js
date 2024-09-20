@@ -1,3 +1,6 @@
+const parsePlain = require('../util/chatparse_plain.js')
+const parseMc = require('../util/chatparse_mc_withHex.js')
+const settings = require('../settings.json')
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*
@@ -77,11 +80,44 @@ module.exports = {
       b._client.write('client_command', { actionId: 0 }) // Simulates respawning
       b.sc_tasks.respawn.failed = 0
     })
+
     b.on('chat_unparsed', (data) => {
       if (data.json.translate === 'chat.disabled.options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'chat.disabled.options') ||
       data.json.translate === 'Chat disabled in client options' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'Chat disabled in client options')) {
         b.sc_tasks.respawn.failed = 1
       }
     })
+
+    // Prefix tablist ads
+    if (!b.host.options.isVanilla) {
+      b.adPrefix = {
+        translate: '[%s]',
+        color: 'white',
+        with: [
+          {
+            translate: '%s: %s',
+            color: settings.colors.secondary,
+            with: [
+              {
+                text: 'Prefix'
+              },
+              {
+                text: b.prefix[0],
+                color: settings.colors.primary
+              }
+            ]
+          }
+        ]
+      }
+      b.add_sc_task('playerlist_ads', () => {
+        b.chat(`/prefix ${parseMc(b.adPrefix).replaceAll('§', '&')}`)
+        b.sc_tasks.playerlist_ads.failed = 0
+      })
+      b.on('playerdata', (uuid, displayName) => {
+        if (uuid === b._client.uuid && !displayName.startsWith(parsePlain(b.adPrefix))) {
+          b.sc_tasks.playerlist_ads.failed = 1
+        }
+      })
+    }
   }
 }
