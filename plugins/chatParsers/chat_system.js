@@ -8,9 +8,19 @@ module.exports = {
       const split = parsed.split(': ')
       const chatName = split.splice(0, 1)[0]
       const chatNameSplit = chatName.split(' ')
-      const nickname = chatNameSplit[chatNameSplit.length - 1]
-      const username = b.findRealName(chatName)
-      const uuid = b.findUUID(username)
+
+      let uuid;
+      let username;
+      let nickname;
+      if(data.uuid){
+        uuid = data.uuid;
+        username = b.findRealNameFromUUID(uuid);
+        nickname = b.findDisplayName(uuid);
+      } else {
+        nickname = chatNameSplit[chatNameSplit.length - 1]
+        username = b.findRealName(chatName)
+        uuid = b.findUUID(username)
+      }
       return {
         parsed: true,
         json: data.json,
