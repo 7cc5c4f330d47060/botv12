@@ -3,6 +3,7 @@ const parsePlain = require('../util/chatparse_plain.js')
 const parseConsole = require('../util/chatparse_console.js')
 const parse1204 = require('../util/parseNBT.js')
 const { getMessage } = require('../util/lang.js')
+const fs = require('fs')
 const convertChatStyleItem = (item) => {
   const output = {}
   for (const i in item) {
@@ -25,6 +26,22 @@ const convertChatTypeItem = (item) => {
     }
   }
 }
+
+// Level 0: highly specific parsers for certain players
+// Level 1: server chat format parsers
+// Level 2: generic parsers
+const parsers = [[], [], []]
+const bpl = fs.readdirSync('plugins/chatParsers')
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
+    continue
+  }
+  try {
+    const parser = require(`./chatParsers/${plugin}`)
+    parsers[parser.priority].push(parser.parse)
+  } catch (e) { console.log(e) }
+}
+
 module.exports = {
   load: (b) => {
     b.messageCount = 0
@@ -132,6 +149,28 @@ module.exports = {
         nickname,
         username,
         playerChatType: {}
+      })
+    })
+
+    b.on('chat_unparsed', (data) => {
+      for (const lvl of parsers) {
+        for (const item of lvl) {
+          const output = item(data, b)
+          if (output.parsed) {
+            b.emit('chat', output)
+            return
+          }
+        }
+      }
+      b.emit('chat', {
+        parsed: true,
+        json: data.json,
+        type: data.type,
+        subtype: 'fallback',
+        uuid: '00000000-0000-0000-0000-000000000000',
+        message: '',
+        nickname: '',
+        username: ''
       })
     })
 

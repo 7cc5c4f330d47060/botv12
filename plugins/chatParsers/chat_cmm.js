@@ -2,7 +2,6 @@ const parsePlain = require('../../util/chatparse_plain.js')
 module.exports = {
   parse: (data, b) => {
     if (data.type === 'system' || data.type === 'legacy') {
-      if (data.parsed) return
       if (data.json.translate === '%s %s › %s' || data.json.translate === '[%s] %s › %s') {
         let subtype = 'chipmunkmod_'
         if (data.json.translate === '%s %s › %s') {
@@ -16,8 +15,8 @@ module.exports = {
           const uuid = b.findUUID(username)
           const nickname = b.findDisplayName(uuid)
           const message = parsePlain(data.json.with[2].extra)
-          data.parsed = true
-          b.emit('chat', {
+          return {
+            parsed: true,
             json: data.json,
             type: data.type,
             subtype,
@@ -25,10 +24,11 @@ module.exports = {
             message,
             nickname,
             username
-          })
+          }
         } else {
           subtype += '_invalid'
-          b.emit('chat', {
+          return {
+            parsed: true,
             json: data.json,
             type: data.type,
             subtype,
@@ -36,10 +36,13 @@ module.exports = {
             message: '',
             nickname: '',
             username: ''
-          })
-          data.parsed = true
+          }
         }
       }
     }
-  }
+    return {
+      parsed: false
+    }
+  },
+  priority: 0
 }
