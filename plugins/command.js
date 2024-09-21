@@ -4,11 +4,11 @@ const { getMessage } = require('../util/lang.js')
 const cmds = require('../util/commands.js')
 const fs = require('fs')
 
-if (!fs.readdirSync('.').includes('userPref') && !settings.userSettingsDisabled) fs.mkdirSync('userPref')
+if (!fs.readdirSync('.').includes('userPref') && !settings.disableUserSettings) fs.mkdirSync('userPref')
 
 const loadSettings = function (uuid) {
   try {
-    if (settings.userSettingsDisabled) {
+    if (settings.disableUserSettings) {
       return {}
     } else {
       return require(`../userPref/${uuid}.json`)

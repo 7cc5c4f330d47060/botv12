@@ -8,7 +8,7 @@ if (!fs.readdirSync('.').includes('settings.json')) {
 if (!fs.readdirSync('.').includes('secret.json')) {
   console.log('Secrets file is missing, using defaults.')
   fs.copyFileSync('secret_example.json', 'secret.json')
-  console.log('Please change the hashing keys in the secrets file.')
+  console.log('Please change the hashing keys in the secrets file. It is also recommended to remove permissions of other users to read from this file, for example, by giving it 600 permissions if running on a Unix or Unix-like OS.')
 }
 
 const m = require('minecraft-protocol')

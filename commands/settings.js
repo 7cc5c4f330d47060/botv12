@@ -10,7 +10,7 @@ module.exports = {
       })
       return
     }
-    if (settings.userSettingsDisabled) {
+    if (settings.disableUserSettings) {
       c.reply({
         text: getMessage(c.lang, 'command.settings.disabled.global'),
         color: c.colors.secondary
