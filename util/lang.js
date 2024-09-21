@@ -1,5 +1,7 @@
 const fs = require('fs')
 const languages = {}
+const settings = require('../settings.json')
+const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : "en-US";
 
 const loadplug = (botno) => {
   const bpl = fs.readdirSync('lang')
@@ -18,8 +20,8 @@ const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l] && languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')
-  } else if (languages['en-US'] && languages['en-US'][message] !== undefined) {
-    message = languages['en-US'][message].replace(/%%/g, '\ue123')
+  } else if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
+    message = languages[fallbackLocale][message].replace(/%%/g, '\ue123')
   }
   if (with2) {
     with2.forEach((withItem, i) => {
