@@ -1,4 +1,3 @@
-const protover = require('../util/getProtocolVersion.js')
 module.exports = {
   load: (b) => {
     b._client.on('login', () => {
@@ -9,10 +8,7 @@ module.exports = {
         }
       }, 100)
     })
-    b.matcherRegex = /.{1,99}/g
-    if (protover(b._client.version) >= 306) { // 16w38a
-      b.matcherRegex = /.{1,255}/g
-    }
+    b.matcherRegex = /.{1,255}/g
     b.chatqueue = []
     b.chat = function chat (msg) {
       if (msg.length === 0) return
