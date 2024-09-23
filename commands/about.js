@@ -30,6 +30,10 @@ const aboutBot = function (c) {
   }
   c.reply({ text: '' })
   c.reply({
+    text: getMessage(c.lang, 'command.about.license'),
+    color: c.colors.secondary
+  })
+  c.reply({
     translate: getMessage(c.lang, 'command.about.sourceCode'),
     color: c.colors.secondary,
     with: [
