@@ -58,7 +58,7 @@ const createBot = function createBot (host, oldId) {
       console.error(`[error] ${version.botName} does not support Minecraft versions below ${version.minimumMcVersion} (${mcd.postNettyVersionsByProtocolVersion.pc[version.minimumMcVersion][0].minecraftVersion})`)
       return
     } else {
-      if(!bypassWarningShown) console.warn(`[warning] You have disabled the version requirement, allowing the bot to join on old servers. These versions are unsupported and may break at any time. Any issues on such versions will not be fixed.`)
+      if(!bypassWarningShown) console.warn(`[warning] You have disabled the version requirement, allowing the bot to join to servers with old Minecraft versions. These versions are unsupported and may break at any time. Any issues on such versions will not be fixed.`)
       bypassWarningShown = true;
     }
   }
