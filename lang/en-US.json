@@ -121,6 +121,7 @@
 	"command.about.serverInfo.os.android.model": "Device model",
 	"command.about.serverInfo.botName": "Bot name",
 	"command.about.serverInfo.botVer": "Bot version",
+	"command.about.serverList.hideLocally": "Server %s has been hidden from the server list.",
 	"command.about.serverListItem": "Server %s - %s",
 	"command.about.serverListItem.thisServer": "Server %s - %s (this server)",
 	"command.tpr.success": "Teleporting %s to %s, %s, %s",
