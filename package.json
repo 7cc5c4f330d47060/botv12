@@ -3,7 +3,7 @@
     "minecraft-protocol": "^1.45.0",
     "prismarine-chat": "^1.10.0"
   },
-  "name": "owobot",
+  "name": "botv11",
   "version": "11.0.0-alpha.2",
   "main": "index.js",
   "scripts": {
