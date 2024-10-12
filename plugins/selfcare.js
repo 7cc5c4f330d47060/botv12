@@ -1,6 +1,7 @@
 const parsePlain = require('../util/chatparse_plain.js')
 const parseMc = require('../util/chatparse_mc_withHex.js')
 const settings = require('../settings.json')
+const version = require('../version.json')
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*
@@ -91,7 +92,7 @@ module.exports = {
     // Prefix tablist ads
     if (!b.host.options.isVanilla) {
       b.adPrefix = {
-        translate: '[%s]',
+        translate: '[%s] %s', //Since the bot aims to have an invisible name, the ad prefix should contain information about the bot.
         color: 'white',
         with: [
           {
@@ -106,6 +107,10 @@ module.exports = {
                 color: settings.colors.primary
               }
             ]
+          },
+          {
+            text: version.botName,
+            color: settings.colors.primary
           }
         ]
       }
