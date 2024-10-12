@@ -19,7 +19,7 @@ module.exports = {
                     text: 'Prefix'
                   },
                   {
-                    text: c.bot.prefix[0],
+                    text: settings.prefix[0],
                     color: settings.colors.primary
                   }
                 ]
