@@ -2,10 +2,10 @@ const settings = require('../settings.json')
 const version = require('../version.json')
 module.exports = {
   execute: (c) => {
-    if (c.verify < 1){
-      c.bot.tellraw("@a",{
-        translate: "%s %s: %s",
-        color: "white",
+    if (c.verify < 1) {
+      c.bot.tellraw('@a', {
+        translate: '%s %s: %s',
+        color: 'white',
         with: [
           {
             translate: '[%s]',

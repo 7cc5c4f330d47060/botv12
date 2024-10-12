@@ -18,7 +18,7 @@ const settings = require('./settings.json')
 const secret = require('./secret.json')
 const version = require('./version.json')
 const protover = require('./util/getProtocolVersion.js')
-const mcd = require("minecraft-data")
+const mcd = require('minecraft-data')
 module.exports.bots = []
 
 const botplug = []
@@ -42,7 +42,7 @@ const loadplug = (botno) => {
   })
 }
 
-let bypassWarningShown = false;
+let bypassWarningShown = false
 
 const createBot = function createBot (host, oldId) {
   if (host.options.disabled) {
@@ -53,13 +53,13 @@ const createBot = function createBot (host, oldId) {
     port: host.port ? host.port : 25565,
     version: host.version ? host.version : settings.version_mc
   }
-  if(protover(options.version) < version.minimumMcVersion) {
-    if(!settings.bypassVersionRequirement){
+  if (protover(options.version) < version.minimumMcVersion) {
+    if (!settings.bypassVersionRequirement) {
       console.error(`[error] ${version.botName} does not support Minecraft versions below ${version.minimumMcVersion} (${mcd.postNettyVersionsByProtocolVersion.pc[version.minimumMcVersion][0].minecraftVersion})`)
       return
     } else {
-      if(!bypassWarningShown) console.warn(`[warning] You have disabled the version requirement, allowing the bot to join to servers with old Minecraft versions. These versions are unsupported and may break at any time. Any issues on such versions will not be fixed.`)
-      bypassWarningShown = true;
+      if (!bypassWarningShown) console.warn('[warning] You have disabled the version requirement, allowing the bot to join to servers with old Minecraft versions. These versions are unsupported and may break at any time. Any issues on such versions will not be fixed.')
+      bypassWarningShown = true
     }
   }
   if (host.options.online) {
