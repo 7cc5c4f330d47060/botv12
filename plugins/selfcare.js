@@ -102,7 +102,7 @@ module.exports = {
                 text: 'Prefix'
               },
               {
-                text: b.prefix[0],
+                text: settings.prefix[0],
                 color: settings.colors.primary
               }
             ]
