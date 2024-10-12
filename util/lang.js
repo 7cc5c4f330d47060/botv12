@@ -1,7 +1,7 @@
 const fs = require('fs')
 const languages = {}
 const settings = require('../settings.json')
-const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : "en-US";
+const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = (botno) => {
   const bpl = fs.readdirSync('lang')

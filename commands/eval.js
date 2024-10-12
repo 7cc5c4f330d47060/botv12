@@ -3,7 +3,7 @@ const { getMessage } = require('../util/lang.js')
 module.exports = {
   execute: (c) => {
     const item = eval(c.args.join(' '))
-    if(c.type == "console"){
+    if (c.type === 'console') {
       console.log(item)
     } else {
       c.reply({
