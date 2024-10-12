@@ -222,19 +222,7 @@ const aboutServer = function (c) {
 
 const displayServerList = function (c) {
   index.bots.forEach((item, i) => {
-    if (c.bot.id === i && c.bot.host.options.hideLocally) {
-      c.reply({
-        translate: getMessage(c.lang, 'command.about.serverList.hideLocally'),
-        color: c.colors.secondary,
-        with: [
-          {
-            text: i.toString(),
-            color: c.colors.primary
-          }
-        ]
-      })
-      return
-    }
+    if (c.bot.id === i && c.bot.host.options.hideLocally) return
     if (item.host.options && item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
     let message = 'command.about.serverListItem'
     if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'
