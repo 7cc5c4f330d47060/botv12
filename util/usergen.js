@@ -2,20 +2,17 @@ const crypto = require('crypto')
 const rsg = function (count) {
   let output = ''
   for (let i = 0; i < count; i++) {
-    const type = Math.floor(Math.random() * 6)
+    const type = Math.floor(Math.random() * 5)
     switch (type) {
       case 0:
-        output += '  '
-        break
-      case 1:
         output += '§§'
         break
-      case 2:
+      case 1:
         output += '§ '
         break
+      case 2:
       case 3:
-      case 4:
-      case 5:{ // Make this case more likely
+      case 4:{ // Make this case more likely
         let rng = Math.floor(Math.random() * 16) + 1
         if (rng === 7) rng = 17 // No bells
         if (rng === 10) rng = 18 // No line feeds
