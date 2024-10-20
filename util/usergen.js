@@ -1,5 +1,5 @@
 import { randomBytes } from "crypto";
 const generateUser = function (legal) {
-  return `colon3_${parseInt(randomBytes(3).toString("hex"),16)}`
+  return `${parseInt(randomBytes(8).toString("hex"),36)}`
 }
 export { generateUser }
