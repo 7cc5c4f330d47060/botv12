@@ -1,15 +1,15 @@
 {
-  "dependencies": {
-    "minecraft-protocol": "^1.45.0",
-    "prismarine-chat": "^1.10.0"
-  },
-  "name": "botv11",
-  "version": "11.0.0-alpha.2",
+  "name": "botv12",
+  "version": "12.0.0-alpha.1",
+  "description": "Minecraft bot for the Kaboom server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "MIT",
-  "description": ""
+  "repository": {
+    "type": "git",
+    "url": "https://chipmunk.land/7cc5c4f330d47060/botv12.git"
+  },
+  "author": "7cc5c4f330d47060",
+  "license": "MIT"
 }
