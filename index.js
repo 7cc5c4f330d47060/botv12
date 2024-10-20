@@ -2,8 +2,23 @@ import { createClient } from "minecraft-protocol";
 import { default as settings } from './settings.json' with {type: "json"}
 import { generateUser } from './util/usergen.js'
 import EventEmitter from 'node:events'
+import { readdirSync } from "node:fs";
 
 const bots = [];
+
+const bpl = readdirSync('plugins')
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
+    continue
+  }
+  try {
+    import(`./plugins/${plugin}`).then((pluginItem)=>{
+      for(const bot of bots){
+        pluginItem.load(bot)
+      }
+    })
+  } catch (e) { console.log(e) }
+}
 
 const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
