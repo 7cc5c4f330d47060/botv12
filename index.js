@@ -6,6 +6,7 @@ import { readdirSync } from "node:fs";
 
 const bots = [];
 
+const plugins = [];
 const bpl = readdirSync('plugins')
 for (const plugin of bpl) {
   if (!plugin.endsWith('.js')) {
@@ -16,6 +17,7 @@ for (const plugin of bpl) {
       for(const bot of bots){
         pluginItem.load(bot)
       }
+      plugins.push(pluginItem) // For rejoining
     })
   } catch (e) { console.log(e) }
 }
@@ -35,6 +37,9 @@ const createBot = function createBot (host, oldId) {
     delete bots[oldId]
     bot.id = oldId
     bots[oldId] = bot
+    for(const pluginItem of plugins){
+      pluginItem.load(bot)
+    }
   } else {
     bot.id = bots.length
     bots.push(bot)
@@ -42,6 +47,18 @@ const createBot = function createBot (host, oldId) {
   
   bot.host = host
   bot.interval = {}
+
+  bot.info = (msg) => {
+    console.log(`[${bot.id}] [info] ${msg}`)
+  }
+
+  bot.displayChat = (type, subtype, msg) => {
+    if (settings.displaySubtypesToConsole) {
+      console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
+    } else {
+      console.log(`[${bot.id}] [${type}] ${msg}`)
+    }
+  }
 
   bot._client.on('error', (err) => {
     console.log(err)
