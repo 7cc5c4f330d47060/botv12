@@ -1,13 +1,13 @@
-# owobot
+# botv12
 
-owobot is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
+botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
 - commands (obviously)
 - a self care system
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
-It supports all Minecraft versions from 1.13 to 1.20.4 that are supported by node-minecraft-protocol.
+It supports all Minecraft versions from 1.13 to 1.20.4 that are supported by node-minecraft-protocol. It may work on other versions, however, support will not be provided for them.
 
 If you are not sure if this code is safe to run, you can read through every line of code. You can also see the commit history by clicking on the (n) commits button, to make sure nobody has added any exploits or introduced vulnerabilities to the code.
 
@@ -24,22 +24,5 @@ If you find any exploits, security issues, etc in the code, please send me an is
 
 ## Command list
 
-| Name | Usage | Description |
-|-|-|-|
-| about | [serverlist \| servers \| server] | About the bot. May also show system information or a list of connected servers. |
-| cb | \<command\> | Run a command in a command block |
-| cloop | add <rate> <command>, remove <index>, list, clear | Manage command loops |
-| eval | \<code\> | Run JavaScript code (must run through console)|
-| help | [cmd] | Shows command help |
-| logoff | | Disconnect and reconnect the bot from a server |
-| netmsg | \<message\> | Send a message to all servers the bot is connected to |
-| refill | | Refill core |
-| restart | | Restart bot, closes when launched directly |
-| say | \<message\> | Sends a message to chat |
-| settings | get, set <key> <value> | Set your user preferences |
-| stop | | Close bot |
-| template | | Used in development, does nothing |
-| test | | Debug command for the chat parser |
-| tpr | | Teleport to a random location |
-| validate | | Check the hashing system |
+None yet...
 
