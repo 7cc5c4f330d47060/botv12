@@ -10,7 +10,7 @@ export default class Command {
         this.prefix = prefix
         this.colors = settings.colors
         this.verify = 0
-        this.host = "google.com"
-        this.port = 443
+        this.host = bot.host.host
+        this.port = bot.host.port
     }
 }
