@@ -2,7 +2,7 @@ import cmds from "../util/commands.js"
 import { default as settings } from '../settings.json' with {type: "json"}
 import Command from '../util/Command.js'
 export default function load (b) {
-  b.on('chat', (data) => { // constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, prefs) {
+  b.on('chat', (data) => {
     const fullCommand = data.message
     for (const prefix of settings.prefixes) {
       if (fullCommand.startsWith(prefix)) {
@@ -25,20 +25,3 @@ export default function load (b) {
     }
   }
 }
-/*
-{
-  parsed: true,
-  json: {
-    color: '#FF99DD',
-    hoverEvent: { action: 'show_text', contents: [Object] },
-    translate: '%s %s › %s',
-    with: [ [Object], [Object], [Object] ]
-  },
-  type: 'system',
-  subtype: 'chipmunkmod_name3',
-  uuid: '00000000-265d-39fa-979f-d8c9d835084e',
-  message: 'uwu',
-  nickname: 'owo439895035',
-  username: 'owo439895035'
-}
-*/
