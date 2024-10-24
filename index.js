@@ -1,6 +1,6 @@
 import { createClient } from "minecraft-protocol";
 import { default as settings } from './settings.json' with {type: "json"}
-import { generateUser } from './util/usergen.js'
+import generateUser from './util/usergen.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from "node:fs";
 
@@ -15,7 +15,7 @@ for (const plugin of bpl) {
   try {
     import(`./plugins/${plugin}`).then((pluginItem)=>{
       for(const bot of bots){
-        pluginItem.load(bot)
+        pluginItem.default(bot)
       }
       plugins.push(pluginItem) // For rejoining
     })

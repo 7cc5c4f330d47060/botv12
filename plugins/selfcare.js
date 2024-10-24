@@ -14,7 +14,7 @@ class SCTask {
 }
 
 
-export function load (b) {
+export default function load (b) {
   b.sc_tasks = {}
   b.selfcareRun = 0
   b.interval.sc = setInterval(() => {

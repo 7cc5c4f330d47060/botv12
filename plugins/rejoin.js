@@ -1,5 +1,5 @@
 import { createBot } from "../index.js"
-export function load (b) {
+export default function load (b) {
   b._client.on('end', () => {
     b.info(`Bot ${b.id} disconnected`)
     for (const i in b.interval) {

@@ -7,7 +7,7 @@ const cs = {
   z: 4
 }
 
-export function load (b) {
+export default function load (b) {
   b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 150000)
   b.ccq = []
   b.blocknoX = 0

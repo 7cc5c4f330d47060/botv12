@@ -46,7 +46,7 @@ const parse = function (_data, l = 0) {
   }
   return out
 }
-export function parse2 (_data, l) {
+export default function parse2 (_data, l) {
   try {
     return parse(_data)
   } catch (e) {

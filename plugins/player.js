@@ -1,7 +1,7 @@
 import { parse2 as parse } from '../util/chatparse_plain.js'
 import { parse as parseNBT } from '../util/parseNBT.js'
   
-export function load (b) {
+export default function load (b) {
   b.players = {}
   b._client.on('player_info', (data) => {
     const buffer2 = {}
