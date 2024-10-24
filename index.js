@@ -17,13 +17,17 @@ for (const plugin of bpl) {
       for(const bot of bots){
         pluginItem.default(bot)
       }
-      plugins.push(pluginItem) // For rejoining
+      plugins.push(pluginItem.default) // For rejoining
     })
   } catch (e) { console.log(e) }
 }
 
 const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
+  
+  bot.host = host
+  bot.interval = {}
+  
   bot._client = createClient({
     host: host.host,
     port: host.port ? host.port : 25565,
@@ -38,15 +42,12 @@ const createBot = function createBot (host, oldId) {
     bot.id = oldId
     bots[oldId] = bot
     for(const pluginItem of plugins){
-      pluginItem.load(bot)
+      pluginItem(bot)
     }
   } else {
     bot.id = bots.length
     bots.push(bot)
   }
-  
-  bot.host = host
-  bot.interval = {}
 
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
