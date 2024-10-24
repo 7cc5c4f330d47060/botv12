@@ -1,5 +1,5 @@
 import { default as settings } from '../settings.json' with {type: "json"}
-import { lang } from './mc_lang.js'
+import lang from './mc_lang.js'
 import { default as _consoleColors } from './consolecolors.json' with {type: "json"}
 
 let consoleColors

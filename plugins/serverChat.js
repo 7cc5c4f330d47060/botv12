@@ -1,7 +1,7 @@
 import { default as settings } from '../settings.json' with {type: "json"}
-import { parse2 as parsePlain } from '../util/chatparse_plain.js'
-import { parse2 as parseConsole } from '../util/chatparse_console.js'
-import { parse as parse1204 } from '../util/parseNBT.js'
+import { default as parsePlain } from '../util/chatparse_plain.js'
+import { default as parseConsole } from '../util/chatparse_console.js'
+import { default as parse1204 } from '../util/parseNBT.js'
 import { getMessage } from '../util/lang.js'
 import { readdirSync } from "node:fs"
 const convertChatStyleItem = (item) => {
@@ -45,7 +45,7 @@ for (const plugin of bpl) {
 }
 
 
-export default function load (b) {
+export default function defaultad (b) {
   b.messageCount = 0
   b.chatDisabledUntil = 0
   b.interval.antiSpam = setInterval(() => {

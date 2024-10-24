@@ -1,4 +1,4 @@
-import { lang } from './mc_lang.js'
+import lang from './mc_lang.js'
 
 const consoleColors = {
   dark_red: '§4',
