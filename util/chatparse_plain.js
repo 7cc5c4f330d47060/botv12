@@ -46,7 +46,7 @@ const parse = function (_data, l = 0) {
   }
   return out
 }
-const parse2 = function (_data, l) {
+export function parse2 (_data, l) {
   try {
     return parse(_data)
   } catch (e) {
@@ -54,4 +54,3 @@ const parse2 = function (_data, l) {
     return `An error occured while parsing a message. See console for more information. JSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
-export { parse2 }

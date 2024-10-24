@@ -119,7 +119,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
   out += resetColor
   return out
 }
-const parse2 = function (_data, l, resetColor) {
+export function parse2 (_data, l, resetColor) {
   try {
     return parse(_data)
   } catch (e) {
@@ -127,4 +127,3 @@ const parse2 = function (_data, l, resetColor) {
     return `\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
-export { parse2 }
