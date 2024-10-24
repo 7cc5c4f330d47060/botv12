@@ -25,8 +25,6 @@ If you find any exploits, security issues, etc in the code, please send me an is
 ## Command list
 
 
-## Command list
-
 | Name | Usage | Description |
 |-|-|-|
 | about | [serverlist \| servers \| server] | About the bot. May also show system information or a list of connected servers. |
