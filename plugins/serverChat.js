@@ -45,7 +45,7 @@ for (const plugin of bpl) {
 }
 
 
-export function load (b) {
+export default function load (b) {
   b.messageCount = 0
   b.chatDisabledUntil = 0
   b.interval.antiSpam = setInterval(() => {
