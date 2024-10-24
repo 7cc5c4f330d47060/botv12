@@ -1,5 +1,5 @@
-import { parse2 as parsePlain } from '../util/chatparse_plain.js'
-import { parse2 as parseMc } from '../util/chatparse_mc_withHex.js'
+import { default as parsePlain } from '../util/chatparse_plain.js'
+import { default as parseMc } from '../util/chatparse_mc_withHex.js'
 import { default as settings } from '../settings.json' with {type: "json"}
 import { default as version } from '../version.json' with {type: "json"}
 class SCTask {
