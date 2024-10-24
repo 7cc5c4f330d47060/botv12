@@ -1,4 +1,4 @@
-const load = (b) => {
+export function load (b) {
   b._client.on('login', () => {
     b.interval.chatQueue = setInterval(() => {
       if (b.chatqueue.length !== 0) {
@@ -16,4 +16,3 @@ const load = (b) => {
     })
   }
 }
-export { load }

@@ -14,7 +14,7 @@ class SCTask {
 }
 
 
-const load = (b) => {
+export function load (b) {
   b.sc_tasks = {}
   b.selfcareRun = 0
   b.interval.sc = setInterval(() => {
@@ -130,4 +130,3 @@ const load = (b) => {
     })
   }
 }
-export { load }

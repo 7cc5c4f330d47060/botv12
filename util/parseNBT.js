@@ -1,5 +1,5 @@
 import { processNbtMessage } from 'prismarine-chat'
-const parse = function (data) {
+export function parse (data) {
   if (typeof data.type === 'string') {
     return JSON.parse(processNbtMessage(data))
   } else if (typeof data === 'string') {
@@ -8,4 +8,3 @@ const parse = function (data) {
     return data
   }
 }
-export { parse }

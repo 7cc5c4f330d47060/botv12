@@ -45,7 +45,7 @@ for (const plugin of bpl) {
 }
 
 
-const load = (b) => {
+export function load (b) {
   b.messageCount = 0
   b.chatDisabledUntil = 0
   b.interval.antiSpam = setInterval(() => {
@@ -193,5 +193,3 @@ const load = (b) => {
     b.displayChat(data.type, data.subtype, `${msgConsole}\x1b[0m`)
   })
 }
-
-export { load }
