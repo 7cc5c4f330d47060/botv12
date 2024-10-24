@@ -31,18 +31,6 @@ const convertChatTypeItem = (item) => {
 // Level 1: server chat format parsers
 // Level 2: generic parsers
 
-if(false){
-  for (const plugin of bpl) {
-    if (!plugin.endsWith('.js')) {
-      continue
-    }
-    try {
-      const parser = require(`./chatParsers/${plugin}`)
-      parsers[parser.priority].push(parser.parse)
-    } catch (e) { console.log(e) }
-  }
-}
-
 const parsers = [[], [], []]
 const bpl = readdirSync('chatParsers')
 for (const plugin of bpl) {
