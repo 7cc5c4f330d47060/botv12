@@ -104,7 +104,7 @@ export default function load (b) {
               text: 'Prefix'
             },
             {
-              text: settings.prefix[0],
+              text: settings.prefixes[0],
               color: settings.colors.primary
             }
           ]
