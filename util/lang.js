@@ -1,20 +1,20 @@
-//const fs = require('fs')
+import { readdirSync } from "node:fs"
 const languages = {}
 import { default as settings } from '../settings.json' with {type: "json"}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = (botno) => {
-  const bpl = fs.readdirSync('lang')
+  const bpl = readdirSync('lang')
   for (const plugin of bpl) {
     if (!plugin.endsWith('.json')) {
       continue
     }
     try {
-      languages[plugin.split('.')[0]] = require(`../lang/${plugin}`)
+      languages[plugin.split('.')[0]] = import(`../lang/${plugin}`, {with: {type: "json"}})
     } catch (e) { console.log(e) }
   }
 }
-//loadplug()
+loadplug()
 
 const getMessage = function (l, msg, with2) {
   let message = msg.replace(/%%/g, '\ue123')
