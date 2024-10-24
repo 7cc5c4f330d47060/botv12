@@ -1,5 +1,5 @@
 import { processNbtMessage } from 'prismarine-chat'
-export function parse (data) {
+export default function parse (data) {
   if (typeof data.type === 'string') {
     return JSON.parse(processNbtMessage(data))
   } else if (typeof data === 'string') {

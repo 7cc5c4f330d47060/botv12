@@ -4,4 +4,4 @@ const lang = Object.create(null) // Without constructor function
 for (const i in _lang) {
   lang[i] = _lang[i]
 }
-export { lang }
+export default lang

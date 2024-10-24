@@ -87,7 +87,7 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
   out += resetColor
   return out
 }
-export function parse2 (_data, l, resetColor) {
+export default function parse2 (_data, l, resetColor) {
   try {
     return parse(_data)
   } catch (e) {
