@@ -22,7 +22,7 @@ const getMessage = function (l, msg, with2) {
     message = languages[l][message].replace(/%%/g, '\ue123')
   } else if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
     message = languages[fallbackLocale][message].replace(/%%/g, '\ue123')
-  }fs
+  }
   if (with2) {
     with2.forEach((withItem, i) => {
       message = message.replace(/%s/, withItem.replace(/%s/g, '\ue124').replace(/\$s/g, '\ue125'))
