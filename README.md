@@ -16,13 +16,20 @@ If you find any exploits, security issues, etc in the code, please send me an is
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/owobot`.
+2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/botv12`.
 3. Extract the files if necessary.
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
-5. Copy `settings_example.json` to `settings.json` and `secret_example.json` to `secret.json`, and adjust the settings to fit your needs. Change the example keys in secret.json as well. 
+5. Copy the reference configuration from [the old repository](https://code.chipmunk.land/7cc5c4f330d47060/owobot) to `settings.json`, and adjust the settings to fit your needs.
 6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `node index.js` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `node` is not a command, please make sure Node.js is on your PATH.
 
 ## Command list
 
-None yet...
+
+## Command list
+
+| Name | Usage | Description |
+|-|-|-|
+| about | [serverlist \| servers \| server] | About the bot. May also show system information or a list of connected servers. |
+| test | | Debug command for the chat parser |
+
 
