@@ -3,14 +3,16 @@ const languages = {}
 import { default as settings } from '../settings.json' with {type: "json"}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
-const loadplug = (botno) => {
+const loadplug = () => {
   const bpl = readdirSync('lang')
   for (const plugin of bpl) {
     if (!plugin.endsWith('.json')) {
       continue
     }
     try {
-      languages[plugin.split('.')[0]] = import(`../lang/${plugin}`, {with: {type: "json"}})
+      import(`../lang/${plugin}`, {with: {type: "json"}}).then(languageFile => {
+        languages[plugin.split('.')[0]] = languageFile.default
+      })
     } catch (e) { console.log(e) }
   }
 }
