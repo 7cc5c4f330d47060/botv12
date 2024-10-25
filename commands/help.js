@@ -171,6 +171,43 @@ const printCmdHelp = (c) => {
       }
     ]
   })
+  if(cmds[cmd].aliases){
+    const aliasList = [];
+    for(const item of cmds[cmd].aliases){
+      if(aliasList.length>0){
+        aliasList.push({
+          text: ", ",
+          color: c.colors.secondary
+        })
+      }
+      aliasList.push({
+        text: item,
+        color: c.colors.primary,
+        clickEvent: {
+          action: 'copy_to_clipboard',
+          value: item
+        },
+        hoverEvent: {
+          action: 'show_text',
+          contents: {
+            text: getMessage(c.lang, 'command.help.copyAlias'),
+            color: c.colors.secondary
+          },
+          value: { // Added twice for backwards compatibility
+            text: getMessage(c.lang, 'command.help.copyAlias'),
+            color: c.colors.secondary
+          }
+        }
+      })
+    }
+    c.reply({
+      translate: getMessage(c.lang, 'command.help.commandAliases'),
+      color: c.colors.secondary,
+      with: [
+        aliasList
+      ]
+    })
+  }
   const permsN = getMessage(c.lang, 'command.help.permsNormal')
   const permsT = getMessage(c.lang, 'command.help.permsTrusted')
   const permsO = getMessage(c.lang, 'command.help.permsOwner')
