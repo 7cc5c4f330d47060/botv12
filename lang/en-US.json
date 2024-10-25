@@ -40,7 +40,7 @@
 	"command.template.desc": "Does nothing",
 	"command.test.usage": " [args...]",
 	"command.test.desc": "Chat parsing debugger command",
-    "command.tpr.usage": "",
+  "command.tpr.usage": "",
 	"command.tpr.desc": "Teleport to a random location",
 	"command.validate.usage": " [args...]",
 	"command.validate.desc": "Check the hashing system",
@@ -65,12 +65,14 @@
 	"command.help.commandUsage.lf": "Usage - %s%s\n",
 	"command.help.commandDesc.lf": "Description - %s\n",
 	"command.help.commandPerms.lf": "Required permissions - %s\n",
+	"command.help.commandAliases": "Aliases - %s",
 	"command.help.runCommand": "Click to run command",
 	"command.help.permsNormal": "Public",
 	"command.help.permsTrusted": "Trusted",
 	"command.help.permsOwner": "Owner",
 	"command.help.noCommand": "Command does not exist",
 	"command.help.alias": "Alias to %s",
+	"command.help.copyAlias": "Click to copy this alias to your clipboard",
 	"command.netmsg.disabled": "This command has been disabled on this server.",
 	"command.netmsg.serverAddress": "Server Address",
 	"command.settings.disabled.console": "This command cannot be run from the console.",
@@ -129,5 +131,5 @@
 	"command.disallowed.perms": "You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.",
 	"command.disallowed.perms.yourLevel": "Your permission level: %s",
 	"command.disallowed.perms.cmdLevel": "Command requires: %s",
-	"copyText": "Click to copy!"
+	"copyText": "Click to copy this item to your clipboard"
 }
