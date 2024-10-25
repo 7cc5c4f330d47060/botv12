@@ -73,9 +73,7 @@
 	"command.help.noCommand": "Command does not exist",
 	"command.help.alias": "Alias to %s",
 	"command.help.copyAlias": "Click to copy this alias to your clipboard",
-	"command.netmsg.disabled": "This command has been disabled on this server.",
 	"command.netmsg.serverAddress": "Server Address",
-	"command.settings.disabled.console": "This command cannot be run from the console.",
 	"command.settings.get.colorPrimary": "Primary color",
 	"command.settings.get.colorSecondary": "Secondary color",
 	"command.settings.get.language": "Language",
@@ -131,5 +129,7 @@
 	"command.disallowed.perms": "You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.",
 	"command.disallowed.perms.yourLevel": "Your permission level: %s",
 	"command.disallowed.perms.cmdLevel": "Command requires: %s",
+	"command.disabled.local": "This command has been disabled on this server.",
+	"command.disabled.console": "This command cannot be run from the console.",
 	"copyText": "Click to copy this item to your clipboard"
 }
