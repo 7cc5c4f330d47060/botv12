@@ -52,12 +52,15 @@ export default function defaultad (b) {
     b.messageCount = 0
   }, 4000)
   b.messageTypes = []
-  b._client.on('registry_data', (data) => {
-    if (data.codec.value['minecraft:chat_type']) {
-      b.messageTypes = data.codec.value['minecraft:chat_type']
+  b._client.on('registry_data', (data) => { 
+    if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
       nbtItems.forEach((item, i) => {
         b.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
+      })
+    } else if(data.entries && data.id == 'minecraft:chat_type'){
+      data.entries.forEach((item, i)=>{
+        b.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }
   })
