@@ -12,5 +12,8 @@
     "url": "https://chipmunk.land/7cc5c4f330d47060/botv12.git"
   },
   "author": "7cc5c4f330d47060",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "minecraft-protocol": "^1.49.0"
+  }
 }
