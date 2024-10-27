@@ -1,6 +1,6 @@
 import { default as settings } from '../settings.json' with {type: "json"}
 export default class Command {
-    constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, prefs) {
+    constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, verify, prefs) {
         this.uuid=uuid;
         this.reply = text => bot.tellraw(uuid, text)
         this.username = user;
@@ -9,8 +9,9 @@ export default class Command {
         this.cmdName = cmd.split(' ')[0]
         this.prefix = prefix
         this.colors = settings.colors
-        this.verify = 0
+        this.verify = verify
         this.host = bot.host.host
         this.port = bot.host.port
+        this.bot = bot
     }
 }
