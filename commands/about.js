@@ -57,6 +57,11 @@ const aboutBot = function (c) {
       }
     ]
   })
+  c.reply({ text: '' })
+  c.reply({
+    text: getMessage(c.lang, 'command.about.subcommands'),
+    color: c.colors.secondary
+  })
 }
 
 const os2 = function (o2, l) {
@@ -222,7 +227,7 @@ const aboutServer = function (c) {
 }
 
 const displayServerList = function (c) {
-  index.bots.forEach((item, i) => {
+  bots.forEach((item, i) => {
     if (c.bot.id === i && c.bot.host.options.hideLocally) return
     if (item.host.options && item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
     let message = 'command.about.serverListItem'
