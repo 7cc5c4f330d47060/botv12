@@ -116,10 +116,13 @@
 	"command.tpr.success": "Teleporting %s to %s, %s, %s",
 	"command.verify.success": "Successfully verified with permission level %s",
 	"command.error": "An error occured (check console for more info)",
+	"command.disallowed.perms.short": "You do not have permission to run this command.",
 	"command.disallowed.perms": "You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.",
 	"command.disallowed.perms.yourLevel": "Your permission level: %s",
 	"command.disallowed.perms.cmdLevel": "Command requires: %s",
+	"command.disabled.generic": "This command has been disabled.",
 	"command.disabled.local": "This command has been disabled on this server.",
 	"command.disabled.console": "This command cannot be run from the console.",
+	"command.disabled.nonConsole": "This command must be run from the console.",
 	"copyText": "Click to copy this item to your clipboard"
 }
