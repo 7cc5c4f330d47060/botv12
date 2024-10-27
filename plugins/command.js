@@ -12,7 +12,7 @@ export default function load (b) {
     }
   })
   b.runCommand = function (user, nick, uuid, command, type, subtype, prefix){
-    const context = new Command(uuid, user, nick, command, "minecraft", type, subtype, prefix, b, {})
+    const context = new Command(uuid, user, nick, command, "minecraft", type, subtype, prefix, b, 0, {})
     if(cmds[context.cmdName.toLowerCase()]){
       try {
         cmds[context.cmdName.toLowerCase()].execute(context)
