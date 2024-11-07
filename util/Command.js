@@ -1,6 +1,6 @@
 import { default as settings } from '../settings.json' with {type: "json"}
 export default class Command {
-    constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, verify, prefs) {
+    constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, verify) {
         this.uuid=uuid;
         this.reply = text => bot.tellraw(uuid, text)
         this.username = user;
