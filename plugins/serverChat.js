@@ -45,7 +45,7 @@ for (const plugin of bpl) {
 }
 
 
-export default function defaultad (b) {
+export default function load (b) {
   b.messageCount = 0
   b.chatDisabledUntil = 0
   b.interval.antiSpam = setInterval(() => {
@@ -65,7 +65,12 @@ export default function defaultad (b) {
     }
   })
   b._client.on('profileless_chat', (data) => {
-    let messageType = b.messageTypes[data.type]
+    let messageType;
+    if(data.type.registryIndex){
+      messageType = b.messageTypes[data.type.registryIndex-1]
+    } else {
+      messageType = b.messageTypes[data.type]
+    }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json = { translate: messageType.translation_key, with: [] }
     messageType.parameters.forEach((item, i) => {
@@ -96,7 +101,12 @@ export default function defaultad (b) {
   })
 
   b._client.on('player_chat', (data) => {
-    let messageType = b.messageTypes[data.type]
+    let messageType;
+    if(data.type.registryIndex){
+      messageType = b.messageTypes[data.type.registryIndex-1]
+    } else {
+      messageType = b.messageTypes[data.type]
+    }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json = { translate: messageType.translation_key, with: [] }
     messageType.parameters.forEach((item, i) => {
@@ -108,7 +118,7 @@ export default function defaultad (b) {
         }
       } else if (item === 'sender') {
         json.with[i] = parse1204(data.networkName)
-      } else if (item === 'target') {
+      } else if (item === 'target' && data.networkTargetName) {
         json.with[i] = parse1204(data.networkTargetName)
       }
     })
