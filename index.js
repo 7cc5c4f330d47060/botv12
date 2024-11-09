@@ -34,6 +34,19 @@ const createBot = function createBot (host, oldId) {
     username: generateUser(host.options.legalName),
     version: host.version ? host.version : settings.version_mc
   })
+
+  bot.info = (msg) => {
+    console.log(`[${bot.id}] [info] ${msg}`)
+  }
+
+  bot.displayChat = (type, subtype, msg) => {
+    if (settings.displaySubtypesToConsole) {
+      console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
+    } else {
+      console.log(`[${bot.id}] [${type}] ${msg}`)
+    }
+  }
+
   if (typeof oldId !== 'undefined') {
     for (const i in bots[oldId].interval) {
       clearInterval(bots[oldId].interval[i])
@@ -47,18 +60,6 @@ const createBot = function createBot (host, oldId) {
   } else {
     bot.id = bots.length
     bots.push(bot)
-  }
-
-  bot.info = (msg) => {
-    console.log(`[${bot.id}] [info] ${msg}`)
-  }
-
-  bot.displayChat = (type, subtype, msg) => {
-    if (settings.displaySubtypesToConsole) {
-      console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
-    } else {
-      console.log(`[${bot.id}] [${type}] ${msg}`)
-    }
   }
 
   bot._client.on('error', (err) => {
