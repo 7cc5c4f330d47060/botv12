@@ -15,7 +15,7 @@ const consoleBotStub = {
 }
 const uuid = '4d616465-6c69-6e65-2075-7775203a3300'
 const user = userInfo().username // OS user the bot is running as
-const nick = 'console'
+const nick = user
 
 const rl = createInterface({
   input: process.stdin,
@@ -29,7 +29,7 @@ rl.on('line', (l) => {
         const tmpcmd = l.split(' ')
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
-          for (let i = 0; i < index.bots.length; i++) {
+          for (let i = 0; i < bots.length; i++) {
             const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[i], 2, {})
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
