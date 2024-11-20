@@ -8,8 +8,8 @@ export default {
     primary: '#EECCFF', // Used for primary subjects (e.g. items in lists)
     secondary: '#DD99FF', // Used for secondary subjects (e.g. list labels)
     tertiary: 'white', // Used mostly for messages
-    warning: '#FFAA33', // Used for warnings
-    error: '#FF6688', // Used for errors
+    warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
+    error: '#FF6688', // Used for errors that are sent to Minecraft chat
     fatalError: '#BB3344' // Used in errorh for crashes
   },
   prefixes: [ // A list of prefixes the bot will respond to in-game
