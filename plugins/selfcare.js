@@ -1,7 +1,7 @@
 import { default as parsePlain } from '../util/chatparse_plain.js'
 import { default as parseMc } from '../util/chatparse_mc_withHex.js'
 import { default as settings } from '../settings.js'
-import { default as version } from '../version.json' with {type: "json"}
+import { default as version } from '../version.js'
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*

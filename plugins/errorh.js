@@ -1,5 +1,5 @@
 import { default as settings } from '../settings.js'
-import { default as version } from '../version.json' with {type: "json"}
+import { default as version } from '../version.js'
 import { bots } from "../index.js"
 import botVersion from "../util/version.js"
 import chatlog from '../util/chatlog.js'
