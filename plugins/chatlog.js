@@ -1,6 +1,6 @@
 import chatlog from '../util/chatlog.js'
 import { readdirSync, mkdirSync } from "node:fs"
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 
 const checkLog = () => {
   if (settings.disableLogging) return

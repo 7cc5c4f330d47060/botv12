@@ -1,4 +1,4 @@
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 import { default as version } from "../version.json" with { type: "json" }
 const execute = (c) => {
   if (c.verify < 1) {

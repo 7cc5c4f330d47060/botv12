@@ -1,4 +1,4 @@
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 export default class Command {
     constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot, verify) {
         this.uuid=uuid;

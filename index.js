@@ -1,5 +1,5 @@
 import { createClient } from "minecraft-protocol";
-import { default as settings } from './settings.json' with {type: "json"}
+import { default as settings } from './settings.js'
 import generateUser from './util/usergen.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from "node:fs";
