@@ -19,7 +19,7 @@ If you find any exploits, security issues, etc in the code, please send me an is
 2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/botv12`.
 3. Extract the files if necessary.
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
-5. Copy the reference configuration from [the old repository](https://code.chipmunk.land/7cc5c4f330d47060/owobot) to `settings.json`, and adjust the settings to fit your needs.
+5. Copy the reference configuration (`settings_example.js` in the root) to `settings.js`, and adjust the settings to fit your needs. The secrets are also contained in this file as well.
 6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `node index.js` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `node` is not a command, please make sure Node.js is on your PATH.
 
 ## Command list
