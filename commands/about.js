@@ -3,10 +3,9 @@ import { execSync } from 'child_process'
 import { getMessage, formatTime } from '../util/lang.js'
 import memoryconvert from '../util/memoryconvert.js'
 import { readdirSync, readFileSync } from "node:fs"
-import { default as botVersion } from "../util/version.js"
-import { default as version } from "../version.json" with { type: "json" }
+import botVersion from "../util/version.js"
+import version from "../version.js"
 import { bots } from "../index.js"
-
 
 const aboutBot = function (c) {
   c.reply({

@@ -1,4 +1,4 @@
-import { default as parsePlain } from '../util/chatparse_plain.js'
+import parsePlain from '../util/chatparse_plain.js'
 
 const priority = 0
 const parse = (data, b) => {
