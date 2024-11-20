@@ -123,14 +123,5 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.console': 'This command cannot be run from the console.',
   'command.disabled.nonConsole': 'This command must be run from the console.',
-  'feature.deprecated': '%s will be removed in the future.',
-  'feature.deprecated.replace': '%s will be replaced with %s in the future.',
-  'feature.deprecated.merge': '%s will be merged with %s in the future.',
-  'feature.removed': '%s has been removed.',
-  'feature.removed.replace': '%s has been replaced with %s.',
-  'feature.removed.merge': '%s has been merged with %s.',
-  'feature.removed.plural': '%s have been removed.',
-  'feature.removed.replace.plural': '%s have been replaced with %s.',
-  'feature.removed.merge.plural': '%s have been merged with %s.',
   copyText: 'Click to copy this item to your clipboard'
 }
