@@ -1,9 +1,9 @@
-import { default as settings } from '../settings.js'
-import { default as parsePlain } from '../util/chatparse_plain.js'
-import { default as parseConsole } from '../util/chatparse_console.js'
-import { default as parse1204 } from '../util/parseNBT.js'
+import settings from '../settings.js'
+import parsePlain from '../util/chatparse_plain.js'
+import parseConsole from '../util/chatparse_console.js'
+import parse1204 from '../util/parseNBT.js'
 import { getMessage } from '../util/lang.js'
-import { readdirSync } from "node:fs"
+import { readdirSync } from 'node:fs'
 const convertChatStyleItem = (item) => {
   const output = {}
   for (const i in item) {
@@ -38,12 +38,11 @@ for (const plugin of bpl) {
     continue
   }
   try {
-    import(`../chatParsers/${plugin}`).then((pluginItem)=>{
+    import(`../chatParsers/${plugin}`).then((pluginItem) => {
       parsers[pluginItem.priority].push(pluginItem.parse)
     })
   } catch (e) { console.log(e) }
 }
-
 
 export default function load (b) {
   b.messageCount = 0
@@ -52,22 +51,22 @@ export default function load (b) {
     b.messageCount = 0
   }, 4000)
   b.messageTypes = []
-  b._client.on('registry_data', (data) => { 
+  b._client.on('registry_data', (data) => {
     if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
       nbtItems.forEach((item, i) => {
         b.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
-    } else if(data.entries && data.id == 'minecraft:chat_type'){
-      data.entries.forEach((item, i)=>{
+    } else if (data.entries && data.id == 'minecraft:chat_type') {
+      data.entries.forEach((item, i) => {
         b.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }
   })
   b._client.on('profileless_chat', (data) => {
-    let messageType;
-    if(data.type.registryIndex){
-      messageType = b.messageTypes[data.type.registryIndex-1]
+    let messageType
+    if (data.type.registryIndex) {
+      messageType = b.messageTypes[data.type.registryIndex - 1]
     } else {
       messageType = b.messageTypes[data.type]
     }
@@ -101,9 +100,9 @@ export default function load (b) {
   })
 
   b._client.on('player_chat', (data) => {
-    let messageType;
-    if(data.type.registryIndex){
-      messageType = b.messageTypes[data.type.registryIndex-1]
+    let messageType
+    if (data.type.registryIndex) {
+      messageType = b.messageTypes[data.type.registryIndex - 1]
     } else {
       messageType = b.messageTypes[data.type]
     }

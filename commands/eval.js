@@ -1,13 +1,13 @@
-import * as index from "../index.js" // Not used in the code, but may be used by users of the command
+import * as index from '../index.js' // Not used in the code, but may be used by users of the command
 import { getMessage } from '../util/lang.js'
 
 const execute = (c) => {
-  if(c.verify != 2){
+  if (c.verify != 2) {
     c.reply({
-      text: getMessage(c.lang, "command.disallowed.perms.short")
+      text: getMessage(c.lang, 'command.disallowed.perms.short')
     })
     c.reply({
-      text: getMessage(c.lang, "command.disabled.nonConsole")
+      text: getMessage(c.lang, 'command.disabled.nonConsole')
     })
     return
   }
@@ -48,4 +48,3 @@ const execute = (c) => {
 }
 const level = 2
 export { execute, level }
-

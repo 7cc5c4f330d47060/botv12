@@ -1,15 +1,15 @@
-import { default as settings } from '../settings.js'
-import { default as version } from '../version.js'
-import { bots } from "../index.js"
-import botVersion from "../util/version.js"
+import settings from '../settings.js'
+import version from '../version.js'
+import { bots } from '../index.js'
+import botVersion from '../util/version.js'
 import chatlog from '../util/chatlog.js'
 
-process.on("uncaughtException",(e, o)=>{
-  for(const i in bots){
-    try{
-      bots[i].ccq[0]=`/tellraw ${version.botAuthor} ${
+process.on('uncaughtException', (e, o) => {
+  for (const i in bots) {
+    try {
+      bots[i].ccq[0] = `/tellraw ${version.botAuthor} ${
         JSON.stringify({
-          translate: "%s\n",
+          translate: '%s\n',
           color: settings.colors.fatalError,
           with: [
             `An error occured and ${version.botName} will now shut down.`
@@ -17,9 +17,9 @@ process.on("uncaughtException",(e, o)=>{
         })
       }`
       bots[i].advanceccq()
-      const stack = e.stack.split("\n")
-      for(const item of stack){
-        bots[i].ccq[0]=`/tellraw ${version.botAuthor} ${
+      const stack = e.stack.split('\n')
+      for (const item of stack) {
+        bots[i].ccq[0] = `/tellraw ${version.botAuthor} ${
           JSON.stringify({
             text: item,
             color: settings.colors.fatalError
@@ -27,13 +27,13 @@ process.on("uncaughtException",(e, o)=>{
         }`
         bots[i].advanceccq()
       }
-      bots[i].ccq[0]=`/tellraw ${version.botAuthor} ${
+      bots[i].ccq[0] = `/tellraw ${version.botAuthor} ${
         JSON.stringify({
-          translate: "\n%s",
+          translate: '\n%s',
           color: settings.colors.fatalError,
           with: [
             [
-              "Additional info:\n",
+              'Additional info:\n',
               `Bot version: ${botVersion}`
             ]
           ]
@@ -42,7 +42,7 @@ process.on("uncaughtException",(e, o)=>{
       bots[i].advanceccq() // Force the command queue to advance
     } catch (e) {}
   }
-  chatlog("error", e.stack)
+  chatlog('error', e.stack)
   console.error(e)
   process.exit(1)
 })
