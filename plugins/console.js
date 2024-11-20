@@ -30,15 +30,18 @@ rl.on('line', (l) => {
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
           for (let i = 0; i < bots.length; i++) {
-            const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[i], 2, {})
+            const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[i])
+            cmd.verify = 2
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
         } else {
-          const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[+index2], 2, {})
+          const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[+index2])
+          cmd.verify = 2
           cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
         }
       } else {
-        const cmd = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub, 2, {})
+        const cmd = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
+        cmd.verify = 2
         cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
       }
     }
