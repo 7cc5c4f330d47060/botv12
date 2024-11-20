@@ -34,7 +34,7 @@ const getMessage = function (l, msg, with2) {
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
 }
 
-const languages_keys = Object.keys(languages)
+const languagesKeys = Object.keys(languages)
 const formatTime = function (time, language) {
   let finalString = ''
   const seconds = Math.floor(time / 1000) % 60
@@ -66,7 +66,7 @@ const formatTime = function (time, language) {
 }
 
 export {
-  languages_keys as languages,
+  languagesKeys as languages,
   formatTime,
   getMessage
 }
