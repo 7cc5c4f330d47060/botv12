@@ -1,5 +1,5 @@
 import cmds from "../util/commands.js" 
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 import Command from '../util/Command.js'
 export default function load (b) {
   b.on('chat', (data) => {

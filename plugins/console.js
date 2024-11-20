@@ -1,5 +1,5 @@
 import { createInterface, cursorTo, clearLine } from "node:readline"
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 import cmds from "../util/commands.js" 
 import { bots } from "../index.js"
 import Command from '../util/Command.js'
