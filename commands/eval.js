@@ -2,15 +2,6 @@ import * as index from '../index.js' // Not used in the code, but may be used by
 import { getMessage } from '../util/lang.js'
 
 const execute = (c) => {
-  if (c.verify !== 2) {
-    c.reply({
-      text: getMessage(c.lang, 'command.disallowed.perms.short')
-    })
-    c.reply({
-      text: getMessage(c.lang, 'command.disabled.nonConsole')
-    })
-    return
-  }
   const item = eval(c.args.join(' '))
   if (c.type === 'console') {
     console.log(item)
