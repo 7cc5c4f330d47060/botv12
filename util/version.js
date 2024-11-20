@@ -1,4 +1,4 @@
-import { default as version } from "../version.json" with { type: "json" }
+import { default as version } from "../version" with { type: "json" }
 import { execSync } from "child_process"
 let botVersion = version.botVersion
 let gitCommit

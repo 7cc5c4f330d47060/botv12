@@ -6,11 +6,11 @@ const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-U
 const loadplug = () => {
   const bpl = readdirSync('lang')
   for (const plugin of bpl) {
-    if (!plugin.endsWith('.json')) {
+    if (!plugin.endsWith('.js')) {
       continue
     }
     try {
-      import(`../lang/${plugin}`, {with: {type: "json"}}).then(languageFile => {
+      import(`../lang/${plugin}`).then(languageFile => {
         languages[plugin.split('.')[0]] = languageFile.default
       })
     } catch (e) { console.log(e) }
