@@ -17,7 +17,7 @@ const checkLog = () => {
   }
 }
 
-setInterval(checkLog, 3600000) // Runs once every hour,
+setInterval(checkLog, 7200000) // Runs once every two hours,
 checkLog() // and at bot startup.
 
 export default function load (b) {
