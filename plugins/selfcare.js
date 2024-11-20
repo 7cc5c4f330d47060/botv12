@@ -95,7 +95,7 @@ export default function load (b) {
   if (!b.host.options.isVanilla) {
     b.adPrefix = {
       translate: '[%s] %s', // Since the bot aims to have an invisible name, the ad prefix should contain information about the bot.
-      color: 'white',
+      color: settings.colors.tertiary,
       with: [
         {
           translate: '%s: %s',
