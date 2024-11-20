@@ -1,5 +1,5 @@
 import { appendFileSync } from 'node:fs'
-import { default as settings } from '../settings.json' with {type: "json"}
+import { default as settings } from '../settings.js'
 
 export default function chatlog (fileName, item) {
   if (settings.disableLogging) return

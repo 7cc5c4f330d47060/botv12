@@ -151,11 +151,12 @@ dist
 
 # Bot Settings
 settings.json
+settings.js
 
-# Default secret file
+# Legacy secret file for version 10
 secret.json
 
-# botvX user settings
+# botvX / owobot user settings
 userPref/
 
 # botvX log files
