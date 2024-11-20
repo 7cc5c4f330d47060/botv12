@@ -45,5 +45,9 @@ const execute = (c) => {
   c.reply(reply('lang', c.lang))
   c.reply(reply('colorPrimary', c.colors.primary))
   c.reply(reply('colorSecondary', c.colors.secondary))
+  c.reply(reply('colorTertiary', c.colors.tertiary))
+  c.reply(reply('colorWarning', c.colors.warning))
+  c.reply(reply('colorError', c.colors.error))
+  c.reply(reply('colorFatalError', c.colors.fatalError))
 }
 export { execute }
