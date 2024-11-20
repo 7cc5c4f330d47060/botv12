@@ -1,5 +1,5 @@
-import cmds from "../util/commands.js" 
-import { default as settings } from '../settings.js'
+import cmds from '../util/commands.js'
+import settings from '../settings.js'
 import Command from '../util/Command.js'
 export default function load (b) {
   b.on('chat', (data) => {
@@ -11,18 +11,18 @@ export default function load (b) {
       }
     }
   })
-  b.runCommand = function (user, nick, uuid, command, type, subtype, prefix){
-    const context = new Command(uuid, user, nick, command, "minecraft", type, subtype, prefix, b, 0)
+  b.runCommand = function (user, nick, uuid, command, type, subtype, prefix) {
+    const context = new Command(uuid, user, nick, command, 'minecraft', type, subtype, prefix, b, 0)
 
     b.emit('command', context)
 
-    if(cmds[context.cmdName.toLowerCase()]){
+    if (cmds[context.cmdName.toLowerCase()]) {
       try {
         cmds[context.cmdName.toLowerCase()].execute(context)
       } catch (e) {
         console.log(e)
         context.reply({
-          text: "An error occured (check console)"
+          text: 'An error occured (check console)'
         })
       }
     }

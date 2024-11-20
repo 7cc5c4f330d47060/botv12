@@ -1,5 +1,5 @@
-import { default as settings } from '../settings.js'
-import { default as version } from "../version.js" with { type: "json" }
+import settings from '../settings.js'
+import version from "../version.js"
 const execute = (c) => {
   if (c.verify < 1) {
     c.bot.tellraw('@a', {

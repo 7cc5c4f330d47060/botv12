@@ -1,7 +1,7 @@
-import { default as parsePlain } from '../util/chatparse_plain.js'
-import { default as parseMc } from '../util/chatparse_mc_withHex.js'
-import { default as settings } from '../settings.js'
-import { default as version } from '../version.js'
+import parsePlain from '../util/chatparse_plain.js'
+import parseMc from '../util/chatparse_mc_withHex.js'
+import settings from '../settings.js'
+import version from '../version.js'
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*
@@ -13,11 +13,10 @@ class SCTask {
   }
 }
 
-
 export default function load (b) {
   b.sc_tasks = {}
   b.selfcareRun = 0
-  b._client.on("login", ()=>{
+  b._client.on('login', () => {
     b.interval.sc = setInterval(() => {
       if (Date.now() - b.selfcareRun <= 600) {
         return

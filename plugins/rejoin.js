@@ -1,4 +1,4 @@
-import { createBot } from "../index.js"
+import { createBot } from '../index.js'
 export default function load (b) {
   b._client.on('end', () => {
     b.info(`Bot ${b.id} disconnected`)

@@ -1,6 +1,6 @@
 import chatlog from '../util/chatlog.js'
-import { readdirSync, mkdirSync } from "node:fs"
-import { default as settings } from '../settings.js'
+import { readdirSync, mkdirSync } from 'node:fs'
+import settings from '../settings.js'
 
 const checkLog = () => {
   if (settings.disableLogging) return
@@ -19,7 +19,6 @@ const checkLog = () => {
 
 setInterval(checkLog, 3600000) // Runs once every hour,
 checkLog() // and at bot startup.
-
 
 export default function load (b) {
   b.on('plainchat', (msg, type) => {
