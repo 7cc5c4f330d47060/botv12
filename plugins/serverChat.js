@@ -57,7 +57,7 @@ export default function load (b) {
       nbtItems.forEach((item, i) => {
         b.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
-    } else if (data.entries && data.id == 'minecraft:chat_type') {
+    } else if (data.entries && data.id === 'minecraft:chat_type') {
       data.entries.forEach((item, i) => {
         b.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
