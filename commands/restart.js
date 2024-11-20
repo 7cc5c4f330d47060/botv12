@@ -1,7 +1,7 @@
-const execute= (c) => {
+const execute = (c) => {
   process.exit(0)
 }
 const aliases = ['reboot']
-const level= 2
+const level = 2
 
 export { execute, aliases, level }
