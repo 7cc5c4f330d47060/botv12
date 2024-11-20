@@ -1,6 +1,6 @@
 export default {
-  'language.name': 'English',
-  'language.region': 'United States',
+  'language.name': 'Español',
+  'language.region': 'España',
   'time.week': ' week ',
   'time.weekPlural': ' weeks ',
   'time.day': ' day ',
