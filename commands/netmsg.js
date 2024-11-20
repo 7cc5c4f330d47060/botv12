@@ -46,7 +46,7 @@ const execute = (c) => {
         text: c.args.join(' ').slice(0, 512)
       }
     ],
-    color: 'white'
+    color: c.colors.tertiary
   }
   bots.forEach(item => {
     if (item.host.options && item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
