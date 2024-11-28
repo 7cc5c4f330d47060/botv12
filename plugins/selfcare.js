@@ -126,7 +126,8 @@ export default function load (b) {
       }
     })
     b.on('plainchat', (msg) => {
-      if (msg === `You now have the tag: ${parseMc(b.adPrefix).replaceAll('§', '&')}`) {
+      if (msg === `You now have the tag: ${parseMc(b.adPrefix).replaceAll('§', '&')}` ||
+          msg === 'Something went wrong while saving the prefix. Please check console.') { // Fix the prefix issue
         b.sc_tasks.playerlist_ads.failed = 0
       }
     })
