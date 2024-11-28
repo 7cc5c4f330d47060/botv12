@@ -1,16 +1,16 @@
-import { readdirSync } from "node:fs"
+import { readdirSync } from 'node:fs'
+import settings from '../settings.js'
 const languages = {}
-import { default as settings } from '../settings.json' with {type: "json"}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = () => {
   const bpl = readdirSync('lang')
   for (const plugin of bpl) {
-    if (!plugin.endsWith('.json')) {
+    if (!plugin.endsWith('.js')) {
       continue
     }
     try {
-      import(`../lang/${plugin}`, {with: {type: "json"}}).then(languageFile => {
+      import(`../lang/${plugin}`).then(languageFile => {
         languages[plugin.split('.')[0]] = languageFile.default
       })
     } catch (e) { console.log(e) }
@@ -34,7 +34,7 @@ const getMessage = function (l, msg, with2) {
   return message.replace(/\ue123/g, '%').replace(/\ue124/g, '%s').replace(/\ue125/g, '$s')
 }
 
-const languages_keys = Object.keys(languages)
+const languagesKeys = Object.keys(languages)
 const formatTime = function (time, language) {
   let finalString = ''
   const seconds = Math.floor(time / 1000) % 60
@@ -66,7 +66,7 @@ const formatTime = function (time, language) {
 }
 
 export {
-  languages_keys as languages,
+  languagesKeys as languages,
   formatTime,
   getMessage
 }

@@ -1,7 +1,7 @@
-import { default as parsePlain } from '../util/chatparse_plain.js'
-import { default as parseMc } from '../util/chatparse_mc_withHex.js'
-import { default as settings } from '../settings.json' with {type: "json"}
-import { default as version } from '../version.json' with {type: "json"}
+import parsePlain from '../util/chatparse_plain.js'
+import parseMc from '../util/chatparse_mc_withHex.js'
+import settings from '../settings.js'
+import version from '../version.js'
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*
@@ -13,11 +13,10 @@ class SCTask {
   }
 }
 
-
 export default function load (b) {
   b.sc_tasks = {}
   b.selfcareRun = 0
-  b._client.on("login", ()=>{
+  b._client.on('login', () => {
     b.interval.sc = setInterval(() => {
       if (Date.now() - b.selfcareRun <= 600) {
         return
@@ -96,7 +95,7 @@ export default function load (b) {
   if (!b.host.options.isVanilla) {
     b.adPrefix = {
       translate: '[%s] %s', // Since the bot aims to have an invisible name, the ad prefix should contain information about the bot.
-      color: 'white',
+      color: settings.colors.tertiary,
       with: [
         {
           translate: '%s: %s',
