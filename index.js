@@ -1,20 +1,20 @@
-import { createClient } from "minecraft-protocol";
-import { default as settings } from './settings.json' with {type: "json"}
+import { createClient } from 'minecraft-protocol'
+import settings from './settings.js'
 import generateUser from './util/usergen.js'
 import EventEmitter from 'node:events'
-import { readdirSync } from "node:fs";
+import { readdirSync } from 'node:fs'
 
-const bots = [];
+const bots = []
 
-const plugins = [];
+const plugins = []
 const bpl = readdirSync('plugins')
 for (const plugin of bpl) {
   if (!plugin.endsWith('.js')) {
     continue
   }
   try {
-    import(`./plugins/${plugin}`).then((pluginItem)=>{
-      for(const bot of bots){
+    import(`./plugins/${plugin}`).then((pluginItem) => {
+      for (const bot of bots) {
         pluginItem.default(bot)
       }
       plugins.push(pluginItem.default) // For rejoining
@@ -24,10 +24,10 @@ for (const plugin of bpl) {
 
 const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
-  
+
   bot.host = host
   bot.interval = {}
-  
+
   bot._client = createClient({
     host: host.host,
     port: host.port ? host.port : 25565,
@@ -54,7 +54,7 @@ const createBot = function createBot (host, oldId) {
     delete bots[oldId]
     bot.id = oldId
     bots[oldId] = bot
-    for(const pluginItem of plugins){
+    for (const pluginItem of plugins) {
       pluginItem(bot)
     }
   } else {

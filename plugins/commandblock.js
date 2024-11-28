@@ -1,6 +1,6 @@
-import { default as uuidToInt } from '../util/uuidtoint.js'
-import { default as plainParser } from '../util/chatparse_plain.js'
-import { default as mcParser } from '../util/chatparse_mc.js'
+import uuidToInt from '../util/uuidtoint.js'
+import plainParser from '../util/chatparse_plain.js'
+import mcParser from '../util/chatparse_mc.js'
 const cs = {
   x: 4,
   y: 6,

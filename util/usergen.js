@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+import { randomBytes } from 'crypto'
 const rsg = function (count) {
   let output = ''
   for (let i = 0; i < count; i++) {

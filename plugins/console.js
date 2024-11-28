@@ -1,21 +1,21 @@
-import { createInterface, cursorTo, clearLine } from "node:readline"
-import { default as settings } from '../settings.json' with {type: "json"}
-import cmds from "../util/commands.js" 
-import { bots } from "../index.js"
+import { createInterface, cursorTo, clearLine } from 'node:readline'
+import settings from '../settings.js'
+import cmds from '../util/commands.js'
+import { bots } from '../index.js'
 import Command from '../util/Command.js'
-import parse2 from "../util/chatparse_console.js"
-import { userInfo } from "node:os"
+import parse2 from '../util/chatparse_console.js'
+import { userInfo } from 'node:os'
 
 const consoleBotStub = {
   host: {
-    host: "bot console ",
+    host: 'bot console ',
     port: 3
   },
   tellraw: (_unused, data) => console.log(parse2(data))
 }
-const uuid = "4d616465-6c69-6e65-2075-7775203a3300"
+const uuid = '4d616465-6c69-6e65-2075-7775203a3300'
 const user = userInfo().username // OS user the bot is running as
-const nick = "console"
+const nick = user
 
 const rl = createInterface({
   input: process.stdin,
@@ -29,16 +29,19 @@ rl.on('line', (l) => {
         const tmpcmd = l.split(' ')
         const index2 = tmpcmd.splice(1, 1)[0]
         if (index2 === '*') {
-          for (let i = 0; i < index.bots.length; i++) {
-            const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), "console", "console", "console", "", bots[i], 2, {})
+          for (let i = 0; i < bots.length; i++) {
+            const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[i])
+            cmd.verify = 2
             cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
           }
         } else {
-          const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), "console", "console", "console", "", bots[+index2], 2, {})
+          const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[+index2])
+          cmd.verify = 2
           cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
         }
       } else {
-        const cmd = new Command(uuid, user, nick, l, "console", "console", "console", "", consoleBotStub, 2, {})
+        const cmd = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
+        cmd.verify = 2
         cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
       }
     }
