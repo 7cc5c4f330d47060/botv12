@@ -1,6 +1,6 @@
-import { default as parse } from '../util/chatparse_plain.js'
-import { default as parseNBT } from '../util/parseNBT.js'
-  
+import parse from '../util/chatparse_plain.js'
+import parseNBT from '../util/parseNBT.js'
+
 export default function load (b) {
   b.players = {}
   b._client.on('player_info', (data) => {

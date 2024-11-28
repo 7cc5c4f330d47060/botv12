@@ -1,4 +1,4 @@
-import cmds from "../util/commands.js" 
+import cmds from '../util/commands.js'
 import { getMessage } from '../util/lang.js'
 
 const sortHelp = function sortHelp (c1, c2) {
@@ -171,12 +171,12 @@ const printCmdHelp = (c) => {
       }
     ]
   })
-  if(cmds[cmd].aliases){
-    const aliasList = [];
-    for(const item of cmds[cmd].aliases){
-      if(aliasList.length>0){
+  if (cmds[cmd].aliases) {
+    const aliasList = []
+    for (const item of cmds[cmd].aliases) {
+      if (aliasList.length > 0) {
         aliasList.push({
-          text: ", ",
+          text: ', ',
           color: c.colors.secondary
         })
       }
@@ -224,7 +224,6 @@ const printCmdHelp = (c) => {
   })
 }
 
-
 const execute = (c) => {
   if (c.args.length > 0) {
     printCmdHelp(c)
@@ -236,4 +235,3 @@ const aliases = [
   'heko' // Parker2991 request
 ]
 export { execute, aliases }
-
