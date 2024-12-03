@@ -1,10 +1,20 @@
 import * as index from '../index.js' // Not used in the code, but may be used by users of the command
 import { getMessage } from '../util/lang.js'
+import { inspect } from 'node:util'
+import settings from '../settings.js'
+import chatlog from '../util/chatlog.js'
 
 const execute = (c) => {
-  const item = eval(c.args.join(' '))
+  const payload = c.args.join(' ')
+  if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Payload: ${payload}`)
+  try {
+    const result = inspect(eval(payload))
+    if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Result: ${result}`)
+  } catch (e){
+    if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Error: ${inspect(e)}`)
+  }
   if (c.type === 'console') {
-    console.log(item)
+    console.log(result)
   } else {
     c.reply({
       translate: '%s: %s',
@@ -15,11 +25,11 @@ const execute = (c) => {
           color: c.colors.secondary
         },
         {
-          text: item + '',
+          text: result + '',
           color: c.colors.primary,
           clickEvent: {
             action: 'copy_to_clipboard',
-            value: item + ''
+            value: result + ''
           },
           hoverEvent: {
             action: 'show_text',
