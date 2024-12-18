@@ -1,15 +1,16 @@
+const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+const THRESHOLD = 1000; // KiB = 1024; KB = 1000
+
 export default function memoryconvert (bytes) {
-  if (bytes >= 1125899906842624) { // Petabytes
-    return `${Math.round(bytes / 1125899906842624 * 100) / 100} PB`
-  } else if (bytes >= 1099511627776) { // Terabytes
-    return `${Math.round(bytes / 1099511627776 * 100) / 100} TB`
-  } else if (bytes >= 1073741824) { // Gigabytes
-    return `${Math.round(bytes / 1073741824 * 100) / 100} GB`
-  } else if (bytes >= 1048576) { // Megabytes
-    return `${Math.round(bytes / 1048576 * 100) / 100} MB`
-  } else if (bytes >= 1024) { // Kilobytes
-    return `${Math.round(bytes / 1024 * 100) / 100} KB`
-  } else { // Bytes
-    return `${bytes} B`
+  for (let i = 0; i < UNITS.length; i++) {
+    const last = i === (UNITS.length - 1);
+    const max = THRESHOLD ** (i + 1);
+    if (!last && bytes >= max) continue;
+
+    const divisor = THRESHOLD ** i;
+    const unit = UNITS[i];
+
+    const div = bytes / divisor;
+    return `${+div.toFixed(2)} ${unit}`
   }
 }
