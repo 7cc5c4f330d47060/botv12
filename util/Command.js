@@ -15,8 +15,8 @@ export default class Command {
     this.colors = settings.colors
     this.lang = settings.defaultLang
     this.verify = 0
-    this.host = bot.host.host
-    this.port = bot.host.port
+    this.host = bot?.host.host
+    this.port = bot?.host.port
     this.bot = bot
 
     this.rewriteCommand = newCmd => {

@@ -23,32 +23,39 @@ const rl = createInterface({
   prompt: '\x1b[0m> '
 })
 rl.on('line', (l) => {
+  const args = l.split(' ');
+  const cmdName = args[0].toLowerCase();
+
   try {
-    if (cmds[l.split(' ')[0].toLowerCase()]) {
-      if (cmds[l.split(' ')[0].toLowerCase()].consoleIndex) {
-        const tmpcmd = l.split(' ')
-        const index2 = tmpcmd.splice(1, 1)[0]
-        if (index2 === '*') {
-          for (let i = 0; i < bots.length; i++) {
-            const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[i])
-            cmd.verify = 2
-            cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
-          }
-        } else {
-          const cmd = new Command(uuid, user, nick, tmpcmd.join(' '), 'console', 'console', 'console', '', bots[+index2])
-          cmd.verify = 2
-          cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
+    const cmd = cmds[cmdName];
+    if (!cmd) {
+      rl.prompt(false);
+      return;
+    }
+
+    if (cmd.consoleIndex) {
+      const index2 = args.splice(1, 1)[0];
+      if (index2 === '*') {
+        for (let i = 0; i < bots.length; i++) {
+          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+          context.verify = 2
+          cmd.execute(context)
         }
       } else {
-        const cmd = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
-        cmd.verify = 2
-        cmds[l.split(' ')[0].toLowerCase()].execute(cmd)
+        const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
+        context.verify = 2
+        cmd.execute(context)
       }
+    } else {
+      const context = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
+      context.verify = 2
+      cmd.execute(context)
     }
   } catch (e) {
     console.log(e)
   }
-  rl.prompt(false)
+
+  rl.prompt(false);
 })
 rl.prompt()
 
@@ -58,6 +65,7 @@ function consoleWrite (text) {
   process.stdout.write(text + '\n')
   rl.prompt(true)
 }
+
 export default function load (b) {
   b.info = (msg) => {
     consoleWrite(`[${b.id}] [info] ${msg}`)

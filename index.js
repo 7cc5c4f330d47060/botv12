@@ -30,9 +30,9 @@ const createBot = function createBot (host, oldId) {
 
   bot._client = createClient({
     host: host.host,
-    port: host.port ? host.port : 25565,
+    port: host.port ?? 25565,
     username: generateUser(host.options.legalName),
-    version: host.version ? host.version : settings.version_mc
+    version: host.version ?? settings.version_mc
   })
 
   bot.info = (msg) => {
