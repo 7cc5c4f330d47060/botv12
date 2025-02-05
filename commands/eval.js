@@ -7,10 +7,12 @@ import chatlog from '../util/chatlog.js'
 const execute = (c) => {
   const payload = c.args.join(' ')
   if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Payload: ${payload}`)
+  let result;
   try {
-    const result = inspect(eval(payload))
+    result = inspect(eval(payload))
     if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Result: ${result}`)
   } catch (e){
+    result = inspect(e)
     if (!settings.disableLogging && !settings.disableEvalLogging) chatlog(`eval`, `${c.host}:${c.port} ${c.username} (${c.uuid}) Error: ${inspect(e)}`)
   }
   if (c.type === 'console') {
