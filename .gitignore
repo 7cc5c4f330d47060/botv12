@@ -163,3 +163,6 @@ userPref/
 UBotLogs/
 botvXLogs/
 logs/
+
+# Exploits file
+exploits.js

@@ -28,13 +28,21 @@ const createBot = function createBot (host, oldId) {
   bot.host = host
   bot.interval = {}
 
-  bot._client = createClient({
+  const options = {
     host: host.host,
     port: host.port ?? 25565,
     username: generateUser(host.options.legalName),
     version: host.version ?? settings.version_mc
-  })
+  }
 
+  if (host.options.online) {
+    options.username = settings.onlineEmail
+    options.password = settings.onlinePass
+    options.auth = 'microsoft'
+  }
+
+  bot._client = createClient(options)
+  
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
