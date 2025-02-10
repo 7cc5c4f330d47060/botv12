@@ -28,19 +28,12 @@ const rsg = function (count) {
   return output
 }
 const rsgLegal = function (count) {
-  let output = ''
-  if (Math.random() > 0.5) {
-    output += 'uwu_'
-  } else {
-    output += 'owo_'
-  }
-  output += randomBytes(count).toString('hex')
-  return output
+  return randomBytes(count).toString('hex')
 }
 
 export default function generateUser (legal) {
   if (legal) {
-    return rsgLegal(6)
+    return rsgLegal(8)
   } else {
     return rsg(6 + Math.floor(Math.random() * 3))
   }
