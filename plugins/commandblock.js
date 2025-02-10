@@ -2,9 +2,13 @@ import uuidToInt from '../util/uuidtoint.js'
 import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
 const cs = {
-  x: 4,
-  y: 6,
-  z: 4
+  x: 16,
+  y: 1,
+  z: 16
+}
+
+const r16 = number => {
+  return Math.floor(number/16)*16
 }
 
 export default function load (b) {
@@ -15,9 +19,8 @@ export default function load (b) {
   b.ccStarted = false
   b.blocknoY = 0
   b.pos = { x: 0, y: 0, z: 0 }
-
-  b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x - 1} ${54 + cs.y} ~${cs.z - 1} command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`
-
+  const refillPayload = `command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.name"}],"color":"#FFAAEE"}'}`
+  
   b.advanceccq = function () {
     if (b.host.options.useChat) return
     if (b.ccq[0] && b.ccq[0].length !== 0) {
@@ -68,7 +71,9 @@ export default function load (b) {
     })
     if (!b.host.options.useChat) {
       b.add_sc_task('cc', () => {
-        b.chat(b.refillCoreCmd)
+        const xstart = r16(b.pos.x);
+        const zstart = r16(b.pos.z);
+        b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
       }, true)
       b.add_sc_task('cc_size', () => {
         b.chat('/gamerule commandModificationBlockLimit 32768')
@@ -91,23 +96,23 @@ export default function load (b) {
       b.sc_tasks.cc_size.failed = 1
     }
   })
-  b._client.on('position', function (a) {
+  b._client.on('position', function (data) {
     if (!b.ccStarted) {
-      b.original_pos = { x: a.x, y: a.y, z: a.z }
-      b.pos = { x: a.x, y: a.y, z: a.z }
+      b.original_pos = { x: r16(data.x), y: data.y, z: r16(data.z) }
+      b.pos = { x: data.x, y: data.y, z: data.z }
     } else {
-      b.pos = { x: a.x, y: a.y, z: a.z }
-      if (a.x !== b.original_pos.x || a.z !== b.original_pos.z) {
-        b.original_pos = { x: a.x, y: a.y, z: a.z }
+      b.pos = { x: data.x, y: data.y, z: data.z }
+      if (r16(data.x) !== b.original_pos.x || r16(data.z) !== b.original_pos.z) {
+        b.original_pos = { x: r16(data.x), y: data.y, z: r16(data.z) }
         b.sc_tasks.cc.failed = 1
       }
     }
     b.commandPos = {
-      x: Math.floor(a.x),
-      z: Math.floor(a.z),
+      x: r16(data.x),
+      z: r16(data.z),
       y: 55
     }
-    b._client.write('teleport_confirm', { teleportId: a.teleportId })
+    b._client.write('teleport_confirm', { teleportId: data.teleportId })
   })
 
   b.tellraw = (uuid, message) => {
