@@ -9,11 +9,11 @@ import { userInfo } from 'node:os'
 const consoleBotStub = {
   host: {
     host: 'bot console ',
-    port: 3
+    port: 25565
   },
   tellraw: (_unused, data) => console.log(parse2(data))
 }
-const uuid = '4d616465-6c69-6e65-2075-7775203a3300'
+const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as
 const nick = user
 
