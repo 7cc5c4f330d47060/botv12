@@ -27,7 +27,7 @@ export default function load (b) {
         }
       }
       b.selfcareRun = Date.now()
-    }, 40)
+    }, 200)
   })
   b.add_sc_task = (name, failTask, startFailed) => {
     b.sc_tasks[name] = new SCTask(failTask, startFailed)
