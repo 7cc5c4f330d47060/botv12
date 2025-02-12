@@ -11,7 +11,7 @@ export default function load (b) {
     b.worlds={}
     b._client.on("map_chunk", payload => {
         //console.log(payload);
-        b._chunk = new c();
-        b._chunk.load(payload.chunkData)
+        //b._chunk = new c();
+        //b._chunk.load(payload.chunkData)
     })
 }
