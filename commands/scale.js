@@ -5,7 +5,7 @@ import { getMessage } from '../util/lang.js'
 */
 const execute = (c) => {
     if(c.args[0] == "set"){
-        const scale = +c.args[1]
+        const scale = Math.min(Math.max(+c.args[1],0.0625),16)
         c.reply({
             translate: getMessage(c.lang, 'command.scale.set'),
             color: c.colors.secondary,
@@ -44,5 +44,5 @@ const execute = (c) => {
         })
     }
 }
-//const aliases = ['temp01_alias'] // Other command names that will work the same (optional)
-export { execute }
+const aliases = ['size'] // Other command names that will work the same (optional)
+export { execute, aliases }
