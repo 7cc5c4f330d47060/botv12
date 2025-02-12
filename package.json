@@ -14,7 +14,9 @@
   "author": "7cc5c4f330d47060",
   "license": "MIT",
   "dependencies": {
-    "minecraft-protocol": "^1.51.0",
-    "prismarine-chat": "^1.10.1"
+    "minecraft-protocol": "^1.54.0",
+    "prismarine-chat": "^1.10.1",
+    "prismarine-chunk": "^1.38.1",
+    "prismarine-world": "^3.6.3"
   }
 }
