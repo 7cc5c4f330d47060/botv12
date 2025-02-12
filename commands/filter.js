@@ -7,13 +7,13 @@ const execute = (c) => {
   switch (subcmd) {
     case 'add': {
       const command = c.args.join(' ')
-      let playerName;
-      let uuid;
+      let playerName
+      let uuid
       console.log(command)
       if (!/[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/.test(command)) {
         playerName = command
         uuid = c.bot.findUUID(playerName)
-        if(uuid == "00000000-0000-0000-0000-000000000000"){
+        if (uuid == '00000000-0000-0000-0000-000000000000') {
           c.reply({
             text: getMessage(c.lang, 'command.filter.error.notFound')
           })
@@ -23,7 +23,7 @@ const execute = (c) => {
         playerName = c.bot.findRealNameFromUUID(command)
         uuid = command
       }
-      if(!c.bot.isFiltered(command)){
+      if (!c.bot.isFiltered(command)) {
         playerName = c.bot.findRealNameFromUUID(command)
         c.bot.addFilter(uuid, playerName)
       } else {
@@ -81,7 +81,7 @@ const execute = (c) => {
       })
       break
     case 'clear':
-      //c.bot.clearCloops()
+      // c.bot.clearCloops()
       c.reply({
         text: getMessage(c.lang, 'Not implemented')
       })
@@ -101,6 +101,6 @@ const execute = (c) => {
 }
 
 const level = 0
-const aliases = ["blacklist"]
+const aliases = ['blacklist']
 const consoleIndex = true
 export { execute, level, consoleIndex }

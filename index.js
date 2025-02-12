@@ -43,7 +43,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot._client = createClient(options)
-  
+
   bot.info = (msg) => {
     console.log(`[${bot.id}] [info] ${msg}`)
   }
