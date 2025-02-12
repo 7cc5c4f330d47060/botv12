@@ -44,5 +44,5 @@ const execute = (c) => {
         })
     }
 }
-//const aliases = ['temp01_alias'] // Other command names that will work the same (optional)
-export { execute }
+const aliases = ['size'] // Other command names that will work the same (optional)
+export { execute, aliases }
