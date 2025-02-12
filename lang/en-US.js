@@ -22,8 +22,8 @@ export default {
   'command.filter.desc': 'Manage filtered players',
   'command.help.usage': ' [cmd]',
   'command.help.desc': 'Shows command help',
-//  'command.kick.usage': ' (syntax not finalized)',
-//  'command.kick.desc': 'Kick a player',
+  //  'command.kick.usage': ' (syntax not finalized)',
+  //  'command.kick.desc': 'Kick a player',
   'command.logoff.usage': '',
   'command.logoff.desc': 'Disconnect and reconnect the bot from a server',
   'command.netmsg.usage': ' <message>',
@@ -142,5 +142,5 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.console': 'This command cannot be run from the console.',
   'command.disabled.nonConsole': 'This command must be run from the console.',
-  copyText: 'Click to copy this item to your clipboard',
+  copyText: 'Click to copy this item to your clipboard'
 }
