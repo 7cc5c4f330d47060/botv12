@@ -10,6 +10,7 @@ const execute = (c) => {
         c.reply({
           text: getMessage(c.lang, 'command.cloop.error.tooShort')
         })
+        return
       }
       c.bot.addCloop(command, rate)
       c.reply({
@@ -29,14 +30,13 @@ const execute = (c) => {
       break
     }
     case 'remove': {
-      const index = +c.args[0]
       c.bot.removeCloop(c.args[0])
       c.reply({
         translate: getMessage(c.lang, 'command.cloop.success.remove'),
         color: c.colors.secondary,
         with: [
           {
-            text: index + '',
+            text: c.args[0],
             color: c.colors.primary
           }
         ]
