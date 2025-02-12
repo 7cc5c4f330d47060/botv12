@@ -189,18 +189,18 @@ export default function load (b) {
   })
 
   b.on('chat', (data) => {
-    b.messageCount++
     if (Date.now() < b.chatDisabledUntil) return
-    if (b.messageCount >= 100) {
-      b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
-      b.chatDisabledUntil = Date.now() + 30000
-      return
-    }
     const msgConsole = parseConsole(data.json)
     const msgPlain = parsePlain(data.json)
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
     if (msgPlain.startsWith('Command set: ')) return
+    b.messageCount++
+    if (b.messageCount >= 100) {
+      b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
+      b.chatDisabledUntil = Date.now() + 20000
+      return
+    }
     b.emit('plainchat', msgPlain, data.type, data.subtype)
     b.displayChat(data.type, data.subtype, `${msgConsole}\x1b[0m`)
   })
