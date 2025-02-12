@@ -77,6 +77,8 @@ export default {
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
   'command.netmsg.serverAddress': 'Server Address',
+  'command.scale.set': 'Set player size to %s',
+  'command.scale.reset': 'Reset player size',
   'command.test.uuid': 'UUID',
   'command.test.username': 'Username',
   'command.test.nickname': 'Nickname',
@@ -134,6 +136,4 @@ export default {
   'command.disabled.console': 'This command cannot be run from the console.',
   'command.disabled.nonConsole': 'This command must be run from the console.',
   copyText: 'Click to copy this item to your clipboard',
-
-
 }
