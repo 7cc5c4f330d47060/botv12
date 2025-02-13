@@ -3,6 +3,12 @@ import parseNBT from '../util/parseNBT.js'
 
 export default function load (b) {
   b.players = {}
+  b._client.on('player_remove', (data) => {
+    for (const item of data.players) {
+      b.players[item].here = false
+      b.emit('playerquit', item)
+    }
+  })
   b._client.on('player_info', (data) => {
     const buffer2 = {}
     for (const player of data.data) {
@@ -28,6 +34,7 @@ export default function load (b) {
     }
     for (const uuid in buffer2) {
       if (!b.players[uuid]) b.players[uuid] = { displayName: '', realName: '' }
+      b.players[uuid].here = true
       let displayName = ''
       let realName = ''
       if (buffer2[uuid].displayName) {
@@ -61,7 +68,7 @@ export default function load (b) {
     if (b.players[uuid]) {
       return b.players[uuid].realName
     } else {
-      return '[[[[ no name ]]]]'
+      return uuid
     }
   }
   b.findDisplayName = (uuid) => {

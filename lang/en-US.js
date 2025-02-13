@@ -22,8 +22,8 @@ export default {
   'command.filter.desc': 'Manage filtered players',
   'command.help.usage': ' [cmd]',
   'command.help.desc': 'Shows command help',
-//  'command.kick.usage': ' (syntax not finalized)',
-//  'command.kick.desc': 'Kick a player',
+  //  'command.kick.usage': ' (syntax not finalized)',
+  //  'command.kick.desc': 'Kick a player',
   'command.logoff.usage': '',
   'command.logoff.desc': 'Disconnect and reconnect the bot from a server',
   'command.netmsg.usage': ' <message>',
@@ -60,6 +60,13 @@ export default {
   'command.cloop.success.clear': 'Cleared all command loops',
   'command.cloop.list': '%s: Command: %s Rate: %s',
   'command.eval.output': 'Output',
+  'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
+  'command.filter.error.notFound': 'Could not find player information',
+  'command.filter.error.filtered': 'The player is already in the filter list.',
+  'command.filter.success.add': 'Filtered player %2$s',
+  'command.filter.success.remove': 'Unfiltered player %s',
+  'command.filter.success.clear': 'Cleared all command loops',
+  'command.filter.list': '%s (UUID: %s)',
   'command.help.cmdList': 'Commands',
   'command.help.commandInfo': '%s%s - %s',
   'command.help.commandUsage': 'Usage - %s%s',
@@ -77,6 +84,8 @@ export default {
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
   'command.netmsg.serverAddress': 'Server Address',
+  'command.scale.set': 'Set player size to %s',
+  'command.scale.reset': 'Reset player size',
   'command.test.uuid': 'UUID',
   'command.test.username': 'Username',
   'command.test.nickname': 'Nickname',
@@ -133,7 +142,5 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.console': 'This command cannot be run from the console.',
   'command.disabled.nonConsole': 'This command must be run from the console.',
-  copyText: 'Click to copy this item to your clipboard',
-
-
+  copyText: 'Click to copy this item to your clipboard'
 }

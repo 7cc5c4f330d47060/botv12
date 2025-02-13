@@ -8,7 +8,7 @@ export default function (cmd, uuid) {
   const hashTrusted = `babyboom:${settings.keyTrusted}:${uuid}:${cmdWithoutHash}:${dateString}`
   const hashOwner = `babyboom:${settings.keyOwner}:${uuid}:${cmdWithoutHash}:${dateString}`
 
-  const hashPart = cmd[cmd.length - 1];
+  const hashPart = cmd[cmd.length - 1]
   const validhashT = createHash('sha256').update(hashTrusted).digest('hex')
   const validhashO = createHash('sha256').update(hashOwner).digest('hex')
   if (hashPart === validhashT) return 1
