@@ -20,12 +20,14 @@ export default function load (b) {
   b.advanceccq = function () {
     if (b.host.options.useChat) return
     if (b.ccq[0] && b.ccq[0].length !== 0) {
+      const xstart = b.pos.x >> 4 << 4
+      const zstart = b.pos.z >> 4 << 4
       b._client.write('update_command_block', {
         command: '/',
         location: {
-          x: b.commandPos.x + b.blocknoX,
-          y: b.commandPos.y + b.blocknoY,
-          z: b.commandPos.z + b.blocknoZ
+          x: xstart + b.blocknoX,
+          y: 55,
+          z: zstart + b.blocknoZ
         },
         mode: 2,
         flags: 1
@@ -33,9 +35,9 @@ export default function load (b) {
       b._client.write('update_command_block', {
         command: b.ccq[0].substr(0, 32767),
         location: {
-          x: b.commandPos.x + b.blocknoX,
-          y: b.commandPos.y + b.blocknoY,
-          z: b.commandPos.z + b.blocknoZ
+          x: xstart + b.blocknoX,
+          y: 55,
+          z: zstart + b.blocknoZ
         },
         mode: 2,
         flags: 5
@@ -121,7 +123,7 @@ export default function load (b) {
 
   b.interval.coreCheck = setInterval(() => {
     let cf = false
-    if (!b.currentChunk || !b.chunks[b.currentChunk.x] || !b.chunks[b.currentChunk.z]) return
+    if (!b.currentChunk || !b.chunks[b.currentChunk.x] || !b.chunks[b.currentChunk.x][b.currentChunk.z]) return
     const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z]
     for (let x = 0; x <= 15; x++) {
       for (let z = 0; z <= 15; z++) {
