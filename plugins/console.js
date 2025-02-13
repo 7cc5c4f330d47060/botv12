@@ -23,18 +23,18 @@ const rl = createInterface({
   prompt: '\x1b[0m> '
 })
 rl.on('line', (l) => {
-  const args = l.split(' ');
-  const cmdName = args[0].toLowerCase();
+  const args = l.split(' ')
+  const cmdName = args[0].toLowerCase()
 
   try {
-    const cmd = cmds[cmdName];
+    const cmd = cmds[cmdName]
     if (!cmd) {
-      rl.prompt(false);
-      return;
+      rl.prompt(false)
+      return
     }
 
     if (cmd.consoleIndex) {
-      const index2 = args.splice(1, 1)[0];
+      const index2 = args.splice(1, 1)[0]
       if (index2 === '*') {
         for (let i = 0; i < bots.length; i++) {
           const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
@@ -55,7 +55,7 @@ rl.on('line', (l) => {
     console.log(e)
   }
 
-  rl.prompt(false);
+  rl.prompt(false)
 })
 rl.prompt()
 
