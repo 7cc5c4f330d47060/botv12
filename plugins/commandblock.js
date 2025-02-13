@@ -1,15 +1,12 @@
 import uuidToInt from '../util/uuidtoint.js'
 import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
-const cs = {
+const cs = { // This value will be removed soon, as changing it can break things.
   x: 16,
   y: 1,
   z: 16
 }
 
-const r16 = number => {
-  return Math.floor(number/16)*16
-}
 
 export default function load (b) {
   b.ccq = []
@@ -70,8 +67,8 @@ export default function load (b) {
     })
     if (!b.host.options.useChat) {
       b.add_sc_task('cc', () => {
-        const xstart = r16(b.pos.x);
-        const zstart = r16(b.pos.z);
+        const xstart = Math.floor(b.pos.x/16)*16;
+        const zstart = Math.floor(b.pos.z/16)*16;
         b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
       })
       b.add_sc_task('cc_size', () => {
@@ -95,24 +92,7 @@ export default function load (b) {
       b.sc_tasks.cc_size.failed = 1
     }
   })
-  b._client.on('position', function (data) {
-    if (!b.ccStarted) {
-      b.original_pos = { x: r16(data.x), y: data.y, z: r16(data.z) }
-      b.pos = { x: data.x, y: data.y, z: data.z }
-    } else {
-      b.pos = { x: data.x, y: data.y, z: data.z }
-      if (r16(data.x) !== b.original_pos.x || r16(data.z) !== b.original_pos.z) {
-        b.original_pos = { x: r16(data.x), y: data.y, z: r16(data.z) }
-        b.sc_tasks.cc.failed = 1
-      }
-    }
-    b.commandPos = {
-      x: r16(data.x),
-      z: r16(data.z),
-      y: 55
-    }
-    b._client.write('teleport_confirm', { teleportId: data.teleportId })
-  })
+
 
   b.tellraw = (uuid, message) => {
     let finalname = ''
