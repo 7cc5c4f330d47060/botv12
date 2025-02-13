@@ -119,4 +119,21 @@ export default function load (b) {
       b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
     }
   }
+
+  b.interval.coreCheck=setInterval(()=>{
+    let cf = false
+    if(!b.currentChunk) return
+    const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z];
+    for(let x=0; x<=15; x++){
+      for(let z=0; z<=15; z++){
+        const blockName = chunk.getBlock(new Vec3(x,55,z)).name
+        if(blockName !== "command_block" && blockName !== "repeating_command_block" && blockName !== "chain_command_block"){
+          cf = true
+          if(b.sc_tasks.cc) b.sc_tasks.cc.failed = true
+          break
+        }
+      }
+      if(cf) break
+    }
+  },500)
 }
