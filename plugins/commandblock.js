@@ -121,7 +121,7 @@ export default function load (b) {
 
   b.interval.coreCheck = setInterval(() => {
     let cf = false
-    if (!b.currentChunk) return
+    if (!b.currentChunk || !b.chunks[b.currentChunk.x] || !b.chunks[b.currentChunk.z]) return
     const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z]
     for (let x = 0; x <= 15; x++) {
       for (let z = 0; z <= 15; z++) {
