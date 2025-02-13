@@ -1,6 +1,7 @@
 import uuidToInt from '../util/uuidtoint.js'
 import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
+import Vec3 from 'vec3'
 const cs = { // This value will be removed soon, as changing it can break things.
   x: 16,
   y: 1,
