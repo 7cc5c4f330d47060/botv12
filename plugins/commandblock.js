@@ -14,8 +14,8 @@ export default function load (b) {
   b.advanceccq = function () {
     if (b.host.options.useChat) return
     if (b.ccq[0] && b.ccq[0].length !== 0) {
-      const xstart = b.pos.x >> 4 << 4
-      const zstart = b.pos.z >> 4 << 4
+      const xstart = b.currentChunk.x << 4
+      const zstart = b.currentChunk.z << 4
       b._client.write('update_command_block', {
         command: '/',
         location: {
@@ -59,8 +59,8 @@ export default function load (b) {
     })
     if (!b.host.options.useChat) {
       b.add_sc_task('cc', () => {
-        const xstart = b.pos.x >> 4 << 4
-        const zstart = b.pos.z >> 4 << 4
+        const xstart = b.currentChunk.x << 4
+        const zstart = b.currentChunk.z << 4
         b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
       })
       b.add_sc_task('cc_size', () => {
