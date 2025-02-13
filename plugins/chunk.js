@@ -35,50 +35,26 @@ export default function load (b) {
   })
   b._client.on('position', data => {
     if (!b.ccStarted) {
-      b.original_pos = { x: data.x >> 4, y: data.y, z: data.z >> 4 }
+      b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
       b.pos = { x: data.x, y: data.y, z: data.z }
     } else {
       b.pos = { x: data.x, y: data.y, z: data.z }
-      if (data.x >> 4 !== b.original_pos.x || data.z >> 4 !== b.original_pos.z) {
-        b.original_pos = { x: data.x >> 4, y: data.y, z: data.z >> 4 }
-        b.sc_tasks.cc.failed = 1
-      }
-    }
-    b.commandPos = {
-      x: data.x >> 4,
-      z: data.z >> 4,
-      y: 55
+      b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
     }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
   })
   b.interval.unloadChunks=setInterval(()=>{
     for(const i in b.chunks){
       //X-values
-      if(i > b.original_pos.x + rd || i < b.original_pos.x - rd){
+      if(i > b.currentChunk.x + rd || i < b.currentChunk.x - rd){
         delete b.chunks[i]
       }
       for(const z in b.chunks[i]){
         //Z-values
-        if(z > b.original_pos.z + rd || z < b.original_pos.z - rd){
+        if(z > b.currentChunk.z + rd || z < b.currentChunk.z - rd){
           delete b.chunks[i][z]
         }
       }
     }
   },1500)
-  b.interval.coreCheck=setInterval(()=>{
-    let cf = false
-    if(!b.original_pos) return
-    const chunk = b.chunks[b.original_pos.x][b.original_pos.z];
-    for(let x=0; x<=15; x++){
-      for(let z=0; z<=15; z++){
-        const blockName = chunk.getBlock(new Vec3(x,55,z)).name
-        if(blockName !== "command_block" && blockName !== "repeating_command_block" && blockName !== "chain_command_block"){
-          cf = true
-          if(b.sc_tasks.cc) b.sc_tasks.cc.failed = true
-          break
-        }
-      }
-      if(cf) break
-    }
-  },500)
 }
