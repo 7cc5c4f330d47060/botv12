@@ -61,7 +61,7 @@ export default function load (b) {
       b.add_sc_task('cc', () => {
         const xstart = b.currentChunk.x << 4
         const zstart = b.currentChunk.z << 4
-        b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
+        b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + 16 - 1} 55 ${zstart + 16 - 1} ${refillPayload}`)
       })
       b.add_sc_task('cc_size', () => {
         b.chat('/gamerule commandModificationBlockLimit 32768')
