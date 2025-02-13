@@ -6,7 +6,6 @@ export default function load (b) {
   const c = c_loader(b._client.version)
   b.chunks = {};
   b._client.on("map_chunk", payload => {
-    //payload.x payload.z
     if(!b.chunks[payload.x]){
       b.chunks[payload.x]=[]
     }
@@ -56,13 +55,11 @@ export default function load (b) {
     for(const i in b.chunks){
       //X-values
       if(i > b.original_pos.x + rd || i < b.original_pos.x - rd){
-        //console.log(`Unloading X value ${i}`)
         delete b.chunks[i]
       }
       for(const z in b.chunks[i]){
         //Z-values
         if(z > b.original_pos.z + rd || z < b.original_pos.z - rd){
-          //console.log(`Unloading Z value ${z} in X row ${i}`)
           delete b.chunks[i][z]
         }
       }
@@ -76,7 +73,6 @@ export default function load (b) {
       for(let z=0; z<=15; z++){
         const blockName = chunk.getBlock(new Vec3(x,55,z)).name
         if(blockName !== "command_block" && blockName !== "repeating_command_block" && blockName !== "chain_command_block"){
-          //console.log(`Core fault at ${x} ${z}`)
           cf = true
           if(b.sc_tasks.cc) b.sc_tasks.cc.failed = true
           break
