@@ -5,35 +5,35 @@ const rd = 8;
 export default function load (b) {
   const c = c_loader(b._client.version)
   b.chunks = {};
-  b._client.on("map_chunk", payload => {
-    if(!b.chunks[payload.x]){
-      b.chunks[payload.x]=[]
+  b._client.on("map_chunk", data => {
+    if(!b.chunks[data.x]){
+      b.chunks[data.x]=[]
     }
     let chunk = new c();
-    chunk.load(payload.chunkData)
-    b.chunks[payload.x][payload.z]=chunk 
+    chunk.load(data.chunkData)
+    b.chunks[data.x][data.z]=chunk 
   })
-  b._client.on("block_change", payload => {
-    const chunkX = payload.location.x >> 4
-    const chunkZ = payload.location.z >> 4
-    const blockX = payload.location.x & 15
-    const blockZ = payload.location.z & 15
+  b._client.on("block_change", data => {
+    const chunkX = data.location.x >> 4
+    const chunkZ = data.location.z >> 4
+    const blockX = data.location.x & 15
+    const blockZ = data.location.z & 15
     if(b.chunks[chunkX] && b.chunks[chunkX][chunkZ]){
-      b.chunks[chunkX][chunkZ].setBlockStateId(new Vec3(blockX,payload.location.y,blockZ),payload.type)
+      b.chunks[chunkX][chunkZ].setBlockStateId(new Vec3(blockX,data.location.y,blockZ),data.type)
     }
   })
-  b._client.on("multi_block_change", payload => {
-    for(const record of payload.records){
+  b._client.on("multi_block_change", data => {
+    for(const record of data.records){
       const blockState = record >> 12
       const blockX = record >> 8 & 15
       const blockZ = record >> 4 & 15
       const blockY = record & 15
-      if(b.chunks[payload.chunkCoordinates.x] && b.chunks[payload.chunkCoordinates.x][payload.chunkCoordinates.z]){
-        b.chunks[payload.chunkCoordinates.x][payload.chunkCoordinates.z].setBlockStateId(new Vec3(blockX,blockY+16*payload.chunkCoordinates.y,blockZ),blockState)
+      if(b.chunks[data.chunkCoordinates.x] && b.chunks[data.chunkCoordinates.x][data.chunkCoordinates.z]){
+        b.chunks[data.chunkCoordinates.x][data.chunkCoordinates.z].setBlockStateId(new Vec3(blockX,blockY+16*data.chunkCoordinates.y,blockZ),blockState)
       }
     }
   })
-  b._client.on('position', function (data) {
+  b._client.on('position', data => {
     if (!b.ccStarted) {
       b.original_pos = { x: data.x >> 4, y: data.y, z: data.z >> 4 }
       b.pos = { x: data.x, y: data.y, z: data.z }
