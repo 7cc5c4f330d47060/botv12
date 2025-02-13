@@ -12,7 +12,6 @@ const r16 = number => {
 }
 
 export default function load (b) {
-  b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 150000)
   b.ccq = []
   b.blocknoX = 0
   b.blocknoZ = 0
@@ -74,7 +73,7 @@ export default function load (b) {
         const xstart = r16(b.pos.x);
         const zstart = r16(b.pos.z);
         b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
-      }, true)
+      })
       b.add_sc_task('cc_size', () => {
         b.chat('/gamerule commandModificationBlockLimit 32768')
       })
