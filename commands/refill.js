@@ -1,5 +1,5 @@
 const execute = (c) => {
-  c.bot.chat(c.bot.refillCoreCmd)
+  c.bot.sc_tasks.cc.failed = true
 }
 const consoleIndex = true
 const aliases = ['refillcore', 'rc']
