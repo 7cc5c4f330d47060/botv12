@@ -37,7 +37,6 @@ export default function load (b) {
   b._client.on('position', function (data) {
     if (!b.ccStarted) {
       b.original_pos = { x: data.x >> 4, y: data.y, z: data.z >> 4 }
-      b.currentChunk = { x: data.x >> 4, z: data.z >> 4}
       b.pos = { x: data.x, y: data.y, z: data.z }
     } else {
       b.pos = { x: data.x, y: data.y, z: data.z }
@@ -56,13 +55,13 @@ export default function load (b) {
   b.interval.unloadChunks=setInterval(()=>{
     for(const i in b.chunks){
       //X-values
-      if(i > b.currentChunk.x + rd || i < b.currentChunk.x - rd){
+      if(i > b.original_pos.x + rd || i < b.original_pos.x - rd){
         //console.log(`Unloading X value ${i}`)
         delete b.chunks[i]
       }
       for(const z in b.chunks[i]){
         //Z-values
-        if(z > b.currentChunk.z + rd || z < b.currentChunk.z - rd){
+        if(z > b.original_pos.z + rd || z < b.original_pos.z - rd){
           //console.log(`Unloading Z value ${z} in X row ${i}`)
           delete b.chunks[i][z]
         }
@@ -71,8 +70,8 @@ export default function load (b) {
   },1500)
   b.interval.coreCheck=setInterval(()=>{
     let cf = false
-    if(!b.currentChunk) return
-    const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z];
+    if(!b.original_pos) return
+    const chunk = b.chunks[b.original_pos.x][b.original_pos.z];
     for(let x=0; x<=15; x++){
       for(let z=0; z<=15; z++){
         const blockName = chunk.getBlock(new Vec3(x,55,z)).name
