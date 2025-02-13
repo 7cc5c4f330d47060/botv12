@@ -38,8 +38,8 @@ export default function load (b) {
       b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
       b.pos = { x: data.x, y: data.y, z: data.z }
     } else {
-      b.pos = { x: data.x, y: data.y, z: data.z }
       b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
+      b.pos = { x: data.x, y: data.y, z: data.z }
     }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
   })
