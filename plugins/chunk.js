@@ -1,15 +1,15 @@
-import { default as c_loader } from 'prismarine-chunk'
+import loader from 'prismarine-chunk'
 import Vec3 from 'vec3'
 const rd = 8
 
 export default function load (b) {
-  const c = c_loader(b._client.version)
+  const Chunk = loader(b._client.version)
   b.chunks = {}
   b._client.on('map_chunk', data => {
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
-    const chunk = new c()
+    const chunk = new Chunk()
     chunk.load(data.chunkData)
     b.chunks[data.x][data.z] = chunk
   })
