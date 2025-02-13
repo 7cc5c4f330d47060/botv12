@@ -2,18 +2,12 @@ import uuidToInt from '../util/uuidtoint.js'
 import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
 import Vec3 from 'vec3'
-const cs = { // This value will be removed soon, as changing it can break things.
-  x: 16,
-  y: 1,
-  z: 16
-}
 
 export default function load (b) {
   b.ccq = []
   b.blocknoX = 0
   b.blocknoZ = 0
   b.ccStarted = false
-  b.blocknoY = 0
   b.pos = { x: 0, y: 0, z: 0 }
   const refillPayload = 'command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.name"}],"color":"#FFAAEE"}\'}'
 
@@ -43,15 +37,11 @@ export default function load (b) {
         flags: 5
       })
       b.blocknoX++
-      if (b.blocknoX === cs.x) {
-        b.blocknoY++
+      if (b.blocknoX === 16) {
+        b.blocknoZ++
         b.blocknoX = 0
-        if (b.blocknoY === cs.y) {
-          b.blocknoZ++
-          b.blocknoY = 0
-          if (b.blocknoZ === cs.z) {
-            b.blocknoZ = 0
-          }
+        if (b.blocknoZ === 16) {
+          b.blocknoZ = 0
         }
       }
     }
