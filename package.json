@@ -17,6 +17,6 @@
     "minecraft-protocol": "^1.54.0",
     "prismarine-chat": "^1.10.1",
     "prismarine-chunk": "^1.38.1",
-    "prismarine-world": "^3.6.3"
+    "vec3": "^0.1.10"
   }
 }
