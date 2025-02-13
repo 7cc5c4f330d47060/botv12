@@ -7,7 +7,6 @@ const cs = { // This value will be removed soon, as changing it can break things
   z: 16
 }
 
-
 export default function load (b) {
   b.ccq = []
   b.blocknoX = 0
@@ -15,8 +14,8 @@ export default function load (b) {
   b.ccStarted = false
   b.blocknoY = 0
   b.pos = { x: 0, y: 0, z: 0 }
-  const refillPayload = `command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.name"}],"color":"#FFAAEE"}'}`
-  
+  const refillPayload = 'command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.name"}],"color":"#FFAAEE"}\'}'
+
   b.advanceccq = function () {
     if (b.host.options.useChat) return
     if (b.ccq[0] && b.ccq[0].length !== 0) {
@@ -67,8 +66,8 @@ export default function load (b) {
     })
     if (!b.host.options.useChat) {
       b.add_sc_task('cc', () => {
-        const xstart = Math.floor(b.pos.x/16)*16;
-        const zstart = Math.floor(b.pos.z/16)*16;
+        const xstart = b.pos.x >> 4 << 4
+        const zstart = b.pos.z >> 4 << 4
         b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + cs.x - 1} 55 ${zstart + cs.z - 1} ${refillPayload}`)
       })
       b.add_sc_task('cc_size', () => {
@@ -92,7 +91,6 @@ export default function load (b) {
       b.sc_tasks.cc_size.failed = 1
     }
   })
-
 
   b.tellraw = (uuid, message) => {
     let finalname = ''
@@ -120,20 +118,20 @@ export default function load (b) {
     }
   }
 
-  b.interval.coreCheck=setInterval(()=>{
+  b.interval.coreCheck = setInterval(() => {
     let cf = false
-    if(!b.currentChunk) return
-    const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z];
-    for(let x=0; x<=15; x++){
-      for(let z=0; z<=15; z++){
-        const blockName = chunk.getBlock(new Vec3(x,55,z)).name
-        if(blockName !== "command_block" && blockName !== "repeating_command_block" && blockName !== "chain_command_block"){
+    if (!b.currentChunk) return
+    const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z]
+    for (let x = 0; x <= 15; x++) {
+      for (let z = 0; z <= 15; z++) {
+        const blockName = chunk.getBlock(new Vec3(x, 55, z)).name
+        if (blockName !== 'command_block' && blockName !== 'repeating_command_block' && blockName !== 'chain_command_block') {
           cf = true
-          if(b.sc_tasks.cc) b.sc_tasks.cc.failed = true
+          if (b.sc_tasks.cc) b.sc_tasks.cc.failed = true
           break
         }
       }
-      if(cf) break
+      if (cf) break
     }
-  },500)
+  }, 500)
 }
