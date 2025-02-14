@@ -1,4 +1,4 @@
-const execute = (c) => {
+const execute = c => {
   // Blank template
   /*
         c.send(text, user?): Send text to all ("/tellraw @a")

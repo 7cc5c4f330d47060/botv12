@@ -1,7 +1,7 @@
 import { bots } from '../index.js'
 import { getMessage } from '../util/lang.js'
 
-const execute = (c) => {
+const execute = c => {
   let host = c.host
   let port = c.port
   if (c.bot.host.options && c.bot.host.options.hidden) {
