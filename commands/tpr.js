@@ -1,6 +1,6 @@
 import { getMessage } from '../util/lang.js'
 
-const execute = function (c) {
+const execute = c => {
   let uuid
   if (c.type === 'console') {
     uuid = c.bot._client.uuid

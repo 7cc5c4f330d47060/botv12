@@ -1,4 +1,4 @@
-const execute = (c) => {
+const execute = c => {
   process.exit(1)
 }
 const aliases = ['exit']

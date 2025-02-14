@@ -1,5 +1,5 @@
 import { getMessage } from '../util/lang.js'
-const execute = (c) => {
+const execute = c => {
   const reply = function (name, item) {
     return {
       translate: '%s: %s',

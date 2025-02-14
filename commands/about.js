@@ -7,7 +7,7 @@ import botVersion from '../util/version.js'
 import version from '../version.js'
 import { bots } from '../index.js'
 
-const aboutBot = function (c) {
+const aboutBot = c => {
   c.reply({
     translate: getMessage(c.lang, 'command.about.author'),
     color: c.colors.secondary,
@@ -101,7 +101,7 @@ const os2 = function (o2, l) {
   }
 }
 
-const aboutServer = function (c) {
+const aboutServer = c => {
   const displayInfo = function (name, infoFunc) {
     let thisItem
     try {
@@ -225,7 +225,7 @@ const aboutServer = function (c) {
   })
 }
 
-const displayServerList = function (c) {
+const displayServerList = c => {
   bots.forEach((item, i) => {
     if (c.bot.id === i && c.bot.host.options.hideLocally) return
     if (item.host.options && item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
@@ -268,7 +268,7 @@ const displayServerList = function (c) {
   })
 }
 
-const execute = function (c) {
+const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args[0].toLowerCase()
   if (subcmd === 'servers') subcmd = 'serverlist'

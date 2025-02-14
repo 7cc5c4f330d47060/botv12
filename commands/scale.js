@@ -3,7 +3,7 @@ import { getMessage } from '../util/lang.js'
   Please note: I had this idea before I found out it was in other bots.
   Please do not get mad at me because your bot also has this (or a similar) command.
 */
-const execute = (c) => {
+const execute = c => {
   if (c.args[0] == 'set') {
     const scale = Math.min(Math.max(+c.args[1], 0.0625), 16)
     c.reply({
