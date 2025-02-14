@@ -1,4 +1,4 @@
-const execute = (c) => {
+const execute = c => {
   c.bot.ccq.push(c.args.join(' '))
 }
 const consoleIndex = true

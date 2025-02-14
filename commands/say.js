@@ -1,6 +1,6 @@
 import settings from '../settings.js'
 import version from '../version.js'
-const execute = (c) => {
+const execute = c => {
   if (c.verify < 1) {
     c.bot.tellraw('@a', {
       translate: '%s %s: %s',

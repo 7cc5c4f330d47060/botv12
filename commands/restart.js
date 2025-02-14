@@ -1,4 +1,4 @@
-const execute = (c) => {
+const execute = c => {
   process.exit(0)
 }
 const aliases = ['reboot']

@@ -7,7 +7,7 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 
-const printHelp = (c) => {
+const printHelp = c => {
   const commandList = []
   const permsN = getMessage(c.lang, 'command.help.permsNormal')
   const permsT = getMessage(c.lang, 'command.help.permsTrusted')
@@ -119,7 +119,7 @@ const printHelp = (c) => {
   })
 }
 
-const printCmdHelp = (c) => {
+const printCmdHelp = c => {
   let cmd
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
   if (!cmds[cmd] || (cmds[cmd].hidden && c.type !== 'console')) {
@@ -224,7 +224,7 @@ const printCmdHelp = (c) => {
   })
 }
 
-const execute = (c) => {
+const execute = c => {
   if (c.args.length > 0) {
     printCmdHelp(c)
   } else {

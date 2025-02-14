@@ -1,4 +1,4 @@
-const execute = (c) => {
+const execute = c => {
   c.bot.sc_tasks.cc.failed = true
 }
 const consoleIndex = true

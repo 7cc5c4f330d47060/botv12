@@ -1,6 +1,6 @@
 import { getMessage } from '../util/lang.js'
 
-const execute = (c) => {
+const execute = c => {
   const permsN = getMessage(c.lang, 'command.help.permsNormal')
   const permsT = getMessage(c.lang, 'command.help.permsTrusted')
   const permsO = getMessage(c.lang, 'command.help.permsOwner')
