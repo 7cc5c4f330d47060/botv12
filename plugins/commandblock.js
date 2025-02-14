@@ -9,7 +9,7 @@ export default function load (b) {
   b.blocknoZ = 0
   b.ccStarted = false
   b.pos = { x: 0, y: 0, z: 0 }
-  const refillPayload = 'command_block{CustomName:\'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.name"}],"color":"#FFAAEE"}\'}'
+  const refillPayload = `command_block`
 
   b.advanceccq = function () {
     if (b.host.options.useChat) return

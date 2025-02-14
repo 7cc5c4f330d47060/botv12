@@ -3,13 +3,14 @@ import parseNBT from '../util/parseNBT.js'
 
 export default function load (b) {
   b.players = {}
-  b._client.on('player_remove', (data) => {
+  b._client.on('player_remove', data => {
     for (const item of data.players) {
+      if(!data.players[item]) continue;
       b.players[item].here = false
       b.emit('playerquit', item)
     }
   })
-  b._client.on('player_info', (data) => {
+  b._client.on('player_info', data => {
     const buffer2 = {}
     for (const player of data.data) {
       let uuid
@@ -48,7 +49,7 @@ export default function load (b) {
       b.emit('playerdata', uuid, displayName, realName)
     }
   })
-  b.findUUID = (name) => {
+  b.findUUID = name => {
     for (const i in b.players) {
       if (b.players[i].realName === name) {
         return i
@@ -56,7 +57,7 @@ export default function load (b) {
     }
     return '00000000-0000-0000-0000-000000000000'
   }
-  b.findRealName = (name) => {
+  b.findRealName = name => {
     for (const i in b.players) {
       if (b.players[i].displayName === name) {
         return b.players[i].realName
@@ -64,14 +65,14 @@ export default function load (b) {
     }
     return '[[[[ no name ]]]]'
   }
-  b.findRealNameFromUUID = (uuid) => {
+  b.findRealNameFromUUID = uuid => {
     if (b.players[uuid]) {
       return b.players[uuid].realName
     } else {
       return uuid
     }
   }
-  b.findDisplayName = (uuid) => {
+  b.findDisplayName = uuid => {
     if (b.players[uuid]) {
       const displayName = b.players[uuid].displayName.split(' ')
       return displayName[displayName.length - 1]
