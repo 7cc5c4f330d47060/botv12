@@ -10,12 +10,14 @@ const execute = c => {
   } else if (c.bot.host.options && c.bot.host.options.displayAsIPv6) {
     host = `[${host}]`
   }
+  let msg = c.args.join(' ').slice(0, 512)
+  msg = msg.replace(/:3/g, "")
   const json = {
     translate: '[%s] %s: %s',
     with: [
       {
-        text: c.serverName,
-        hoverEvent: {
+        text: c.bot.host.options?.name ?? "console",
+        /*hoverEvent: {
           action: 'show_text',
           value: {
             translate: '%s: %s:%s',
@@ -35,7 +37,7 @@ const execute = c => {
             ],
             color: c.colors.secondary
           }
-        },
+        },*/
         color: c.colors.primary
       },
       {
@@ -43,13 +45,13 @@ const execute = c => {
         color: c.colors.primary
       },
       {
-        text: c.args.join(' ').slice(0, 512)
+        text: msg
       }
     ],
     color: c.colors.tertiary
   }
   bots.forEach(item => {
-    if (item.host.options && item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
+    if (item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
     item.tellraw('@a', json)
   })
 }

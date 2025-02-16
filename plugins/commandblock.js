@@ -75,9 +75,6 @@ export default function load (b) {
   b.on('chat_unparsed', (data) => {
     if (data.json.translate === 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.failed') ||
           data.json.translate === 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.success')) {
-      if (!b.ccStarted) {
-        b.emit('ccstart')
-      }
       b.sc_tasks.cc.failed = 0
       b.sc_tasks.cc_size.failed = 0
     } else if (data.json.translate === 'commands.fill.toobig' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.toobig')) {
@@ -125,6 +122,9 @@ export default function load (b) {
         }
       }
       if (cf) break
+    }
+    if (!cf && !b.ccStarted) {
+      b.emit('ccstart')
     }
   }, 500)
 }
