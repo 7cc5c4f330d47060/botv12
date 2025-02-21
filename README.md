@@ -18,12 +18,6 @@ It supports all Minecraft versions from 1.18 to 1.21.3 that are supported by nod
 5. Copy the reference configuration (`settings_example.js` in the root) to `settings.js`, and adjust the settings to fit your needs. The secrets are also contained in this file as well.
 6. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `node index.js` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `node` is not a command, please make sure Node.js is on your PATH.
 
-## Command list
+## License
 
-
-| Name | Usage | Description |
-|-|-|-|
-| about | [serverlist \| servers \| server] | About the bot. May also show system information or a list of connected servers. |
-| test | | Debug command for the chat parser |
-
-
+This project is licensed under the MIT License. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this bot, you MUST link back to this repository. See the License file for the full terms and conditions.
