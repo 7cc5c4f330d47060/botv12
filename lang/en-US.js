@@ -51,6 +51,7 @@ export default {
   'command.about.preRelease': "This is a development version - there may be errors, and features may be changed or removed at any time. Please report any errors to the bot's developer.",
   'command.about.sourceCode': 'Source code: %s',
   'command.about.license': 'This bot is free and open-source software and is available under the terms of the MIT license.',
+  'command.about.fork': 'This bot is based on %s by %s, which is available at %s under the MIT license.',
   'command.about.subcommands': "This command has subcommands to find out more about this bot - try running the commands \"servers\" for a list of Minecraft servers the bot is connected to, or \"serverinfo\" for technical specifications of the bot's server.",
   'command.about.sourceCode.openInBrowser': 'Click to open the source code link in your default browser',
   'command.cloop.error.tooShort': 'Command loops must have a rate above 20ms.',

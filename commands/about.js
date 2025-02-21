@@ -29,33 +29,67 @@ const aboutBot = c => {
     })
   }
   c.reply({ text: '' })
-  c.reply({
-    text: getMessage(c.lang, 'command.about.license'),
-    color: c.colors.secondary
-  })
-  c.reply({
-    translate: getMessage(c.lang, 'command.about.sourceCode'),
-    color: c.colors.secondary,
-    with: [
-      {
-        text: version.sourceURL,
-        color: c.colors.primary,
-        clickEvent: {
-          action: 'open_url',
-          value: version.sourceURL
-        },
-        hoverEvent: {
-          action: 'show_text',
-          contents: {
-            text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+  if(version.officialUbot){
+    c.reply({
+      text: getMessage(c.lang, 'command.about.license'),
+      color: c.colors.secondary
+    })
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.sourceCode'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: version.sourceURL,
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'open_url',
+            value: version.sourceURL
           },
-          value: { // Added twice for backwards compatibility
-            text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            },
+            value: { // Added twice for backwards compatibility
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            }
           }
         }
-      }
-    ]
-  })
+      ]
+    })
+  } else {
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.fork'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: version.originalName,
+          color: c.colors.primary
+        },
+        {
+          text: version.originalAuthor,
+          color: c.colors.primary
+        },
+        {
+          text: version.originalRepo,
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'open_url',
+            value: version.originalRepo
+          },
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            },
+            value: { // Added twice for backwards compatibility
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            }
+          }
+        }
+      ]
+    })
+  }
   c.reply({ text: '' })
   c.reply({
     text: getMessage(c.lang, 'command.about.subcommands'),
