@@ -13,6 +13,7 @@ import { readdirSync, readFileSync } from 'node:fs'
 import botVersion from '../util/version.js'
 import version from '../version.js'
 import { bots } from '../index.js'
+import settings from '../settings.js'
 
 const aboutBot = c => {
   c.reply({
@@ -36,33 +37,10 @@ const aboutBot = c => {
     })
   }
   c.reply({ text: '' })
-  if(version.officialUbot){
+  if(settings.officialUbot){
     c.reply({
       text: getMessage(c.lang, 'command.about.license'),
       color: c.colors.secondary
-    })
-    c.reply({
-      translate: getMessage(c.lang, 'command.about.sourceCode'),
-      color: c.colors.secondary,
-      with: [
-        {
-          text: version.sourceURL,
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'open_url',
-            value: version.sourceURL
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
-            },
-            value: { // Added twice for backwards compatibility
-              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
-            }
-          }
-        }
-      ]
     })
   } else {
     c.reply({
@@ -83,6 +61,31 @@ const aboutBot = c => {
           clickEvent: {
             action: 'open_url',
             value: version.originalRepo
+          },
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            },
+            value: { // Added twice for backwards compatibility
+              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+            }
+          }
+        }
+      ]
+    })
+  }
+  if(version.sourceURL){
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.sourceCode'),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: version.sourceURL,
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'open_url',
+            value: version.sourceURL
           },
           hoverEvent: {
             action: 'show_text',

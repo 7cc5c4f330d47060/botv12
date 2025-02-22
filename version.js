@@ -7,5 +7,4 @@ export default {
   originalRepo: 'https://code.chipmunk.land/7cc5c4f330d47060/botv12',
   originalName: 'botv12',
   originalAuthor: 'owo439895035', //These three fields should only be changed in forks of forks, if the original fork is compliant with MIT
-  officialUbot: false // Used in production to show correct information in about command. If you set this to true, or otherwise remove the check, please make sure that you still comply with the license
 }
