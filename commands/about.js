@@ -39,7 +39,7 @@ const aboutBot = c => {
     })
   }
   c.reply({ text: '' })
-  if(settings.officialUbot){
+  if(settings.officialUbotRealFullVersionFreeTwoThousandTwentyOneSafeNoVirusWorkingGenerator){
     c.reply({
       text: getMessage(c.lang, 'command.about.license'),
       color: c.colors.secondary

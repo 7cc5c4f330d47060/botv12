@@ -16,8 +16,7 @@ export default {
     'ubotdev:',
     'es"',
     'd"'
-  ],
-  officialUbot: false // Used in production to show correct information in about command. If you set this to true, or otherwise remove the check, please ensure that you still comply with the license
+  ], 
   servers: [ // Server list
     {
       host: 'kaboom.pw', // Server address
