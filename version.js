@@ -6,5 +6,5 @@ export default {
   sourceURL: 'https://code.chipmunk.land/7cc5c4f330d47060/botv12', // Source code repository URL. This is different from the one in package.json.
   originalRepo: 'https://code.chipmunk.land/7cc5c4f330d47060/botv12',
   originalName: 'botv12',
-  originalAuthor: 'owo439895035', //These three fields should only be changed in forks of forks, if the original fork is compliant with MIT
+  originalAuthor: 'owo439895035' //These three fields should only be changed in forks of forks, if the original fork is compliant with MIT
 }
