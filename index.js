@@ -4,7 +4,7 @@ import generateUser from './util/usergen.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
 
-const bots = []
+if(settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
 const plugins = []
 const bpl = readdirSync('plugins')
