@@ -6,22 +6,7 @@ import { readdirSync } from 'node:fs'
 
 if(settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
-const plugins = []
-const bpl = readdirSync('plugins')
-for (const plugin of bpl) {
-  if (!plugin.endsWith('.js')) {
-    continue
-  }
-  try {
-    import(`./plugins/${plugin}`).then((pluginItem) => {
-      for (const bot of bots) {
-        pluginItem.default(bot)
-      }
-      plugins.push(pluginItem.default) // For rejoining
-    })
-  } catch (e) { console.log(e) }
-}
-
+const bots=[]
 const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
 
@@ -56,6 +41,10 @@ const createBot = function createBot (host, oldId) {
     }
   }
 
+  for (const pluginItem of plugins) {
+    pluginItem(bot)
+  }
+
   if (typeof oldId !== 'undefined') {
     for (const i in bots[oldId].interval) {
       clearInterval(bots[oldId].interval[i])
@@ -63,9 +52,6 @@ const createBot = function createBot (host, oldId) {
     delete bots[oldId]
     bot.id = oldId
     bots[oldId] = bot
-    for (const pluginItem of plugins) {
-      pluginItem(bot)
-    }
   } else {
     bot.id = bots.length
     bots.push(bot)
@@ -76,8 +62,26 @@ const createBot = function createBot (host, oldId) {
   })
 }
 
-for (const i in settings.servers) {
-  createBot(settings.servers[i])
+const init = function(){
+  for (const i in settings.servers) {
+    createBot(settings.servers[i])
+  }
+}
+
+const plugins = []
+const bpl = readdirSync('plugins')
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.js')) {
+    continue
+  }
+  try {
+    import(`./plugins/${plugin}`).then((pluginItem) => {
+      plugins.push(pluginItem.default) // For rejoining
+      if(plugins.length === bpl.length) {
+        init()
+      }
+    })
+  } catch (e) { console.log(e) }
 }
 
 export {

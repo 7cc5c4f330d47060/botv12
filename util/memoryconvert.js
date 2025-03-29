@@ -1,5 +1,5 @@
-const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
-const THRESHOLD = 1000 // KiB = 1024; KB = 1000
+const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB']
+const THRESHOLD = 1000
 
 export default function memoryconvert (bytes) {
   for (let i = 0; i < UNITS.length; i++) {
