@@ -10,7 +10,12 @@ export default function load (b) {
       b.chunks[data.x] = []
     }
     const chunk = new Chunk()
-    chunk.load(data.chunkData)
+    try {
+      chunk.load(data.chunkData)
+    }catch(e){
+      console.log(data.chunkData.toString("base64"))
+      if(b.chunks[data.x]) console.log(b.chunks[data.x][data.z])
+    }
     b.chunks[data.x][data.z] = chunk
   })
   b._client.on('block_change', data => {
