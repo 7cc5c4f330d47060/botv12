@@ -1,14 +1,13 @@
 import { createInterface, cursorTo, clearLine } from 'node:readline'
-import settings from '../settings.js'
-import cmds from '../util/commands.js'
-import { bots } from '../index.js'
+import registry from '../util/commands.js'
 import Command from '../util/Command.js'
-import parse2 from '../util/chatparse_console.js'
+import parse2 from '../util/chatparse_plain.js'
 import { userInfo } from 'node:os'
+import { bots } from "../index.js"
 
 const consoleBotStub = {
   host: {
-    host: 'bot console ',
+    host: 'bot console',
     port: 25565
   },
   tellraw: (_unused, data) => console.log(parse2(data))
@@ -27,7 +26,7 @@ rl.on('line', (l) => {
   const cmdName = args[0].toLowerCase()
 
   try {
-    const cmd = cmds[cmdName]
+    const cmd = registry.getCommand(cmdName)
     if (!cmd) {
       rl.prompt(false)
       return
@@ -66,15 +65,3 @@ function consoleWrite (text) {
   rl.prompt(true)
 }
 
-export default function load (b) {
-  b.info = (msg) => {
-    consoleWrite(`[${b.id}] [info] ${msg}`)
-  }
-  b.displayChat = (type, subtype, msg) => {
-    if (settings.displaySubtypesToConsole) {
-      consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
-    } else {
-      consoleWrite(`[${b.id}] [${type}] ${msg}`)
-    }
-  }
-}

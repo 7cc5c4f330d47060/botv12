@@ -1,4 +1,4 @@
-import cmds from '../util/commands.js'
+import registry from '../util/commands.js'
 import settings from '../settings.js'
 import Command from '../util/Command.js'
 import hashcheck from '../util/hashcheck.js'
@@ -23,7 +23,7 @@ export default function load (b) {
     b.emit('command', context)
     if (context.cancel === true) return
 
-    const commandItem = cmds[context.cmdName.toLowerCase()]
+    const commandItem = registry.getCommand(context.cmdName)
 
     const cmdsplit = command.split(' ')
     const verify = hashcheck(cmdsplit, uuid)
