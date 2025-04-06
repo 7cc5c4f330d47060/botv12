@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs'
+import CommandR from './cr.js'
 
-const cmds = Object.create(null)
+const registry = new CommandR();
 const bpl = readdirSync('commands')
 
 for (const plugin of bpl) {
@@ -10,21 +11,9 @@ for (const plugin of bpl) {
   try {
     const commandName = plugin.split('.js')[0]
     import(`../commands/${plugin}`).then((pluginItem) => {
-      cmds[commandName] = pluginItem // For rejoining
-      if (cmds[commandName].aliases) {
-        for (const j in cmds[commandName].aliases) {
-          cmds[cmds[commandName].aliases[j]] = {
-            execute: cmds[commandName].execute,
-            alias: commandName,
-            usage: cmds[commandName].usage,
-            level: cmds[commandName].level,
-            hidden: true,
-            consoleIndex: cmds[commandName].consoleIndex
-          }
-        }
-      }
+      registry.register(commandName, pluginItem.execute, pluginItem.level, pluginItem.consoleIndex, pluginItem.hidden, pluginItem.aliases, pluginItem.consoleOnly)
     })
   } catch (e) { console.log(e) }
 }
 
-export default cmds
+export default registry
