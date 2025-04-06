@@ -1,8 +1,6 @@
 import registry from '../util/commands.js'
 import { getMessage } from '../util/lang.js'
 
-
-
 const sortHelp = function sortHelp (c1, c2) {
   const level1 = c1.level ? c1.level : 0
   const level2 = c2.level ? c2.level : 0
@@ -12,18 +10,17 @@ const sortHelp = function sortHelp (c1, c2) {
 const printHelp = c => {
   const cmds = registry.listCommands()
   const commands = []
-  for(const i in cmds){
+  for (const i in cmds) {
     commands.push({
       name: i,
       level: cmds[i].level
     })
   }
-  const sortedCommands=commands.sort(sortHelp)
+  const sortedCommands = commands.sort(sortHelp)
   const commandList = []
-  const colorList = ["green","red", "dark_red"]
+  const colorList = ['green', 'red', 'dark_red']
 
   for (const cmd of sortedCommands) {
-
     let cmdColor
     if (colorList[cmd.level]) {
       cmdColor = colorList[cmd.level]
@@ -48,19 +45,19 @@ const printHelp = c => {
   }
 
   const permListFormat = []
-  for(let i=0; i<=2; i++){
+  for (let i = 0; i <= 2; i++) {
     permListFormat.push({
       color: colorList[i],
       text: getMessage(c.lang, `command.perms${i}`)
     })
-    if(i != 2) permListFormat.push(" ")
+    if (i !== 2) permListFormat.push(' ')
   }
 
   c.reply({
     translate: '%s (%s) (%s): %s',
     with: [
       getMessage(c.lang, 'command.help.cmdList'),
-      commandList.length + "",
+      commandList.length + '',
       permListFormat,
       commandList
     ]
@@ -76,22 +73,9 @@ const printCmdHelp = c => {
   if (!cmdItem) {
     return
   }
-  if (cmdItem.usage) {
-    usage = cmdItem.usage.split('||')
-  }
-  if (cmdItem.desc) {
-    desc = cmdItem.desc
-  }
   if (cmdItem.alias) {
-    console.log(cmds[cmdItem.alias])
     usage = getMessage(c.lang, `command.${cmdItem.alias}.usage`).split('||')
     desc = getMessage(c.lang, 'command.help.alias', [cmdItem.alias])
-    if (cmds[cmdItem.alias].usage) {
-      usage = cmds[cmdItem.alias].usage.split('||')
-    }
-    if (cmds[cmdItem.alias].desc) {
-      desc = cmds[cmdItem.alias].desc
-    }
   }
   for (const item of usage) {
     c.reply({

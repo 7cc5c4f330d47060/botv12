@@ -1,7 +1,7 @@
 import { readdirSync } from 'node:fs'
 import CommandR from './cr.js'
 
-const registry = new CommandR();
+const registry = new CommandR()
 const bpl = readdirSync('commands')
 
 for (const plugin of bpl) {

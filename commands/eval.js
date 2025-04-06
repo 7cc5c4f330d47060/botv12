@@ -38,10 +38,6 @@ const execute = c => {
             contents: {
               text: getMessage(c.lang, 'copyText'),
               color: c.colors.secondary
-            },
-            value: { // Added twice for backwards compatibility
-              text: getMessage(c.lang, 'copyText'),
-              color: c.colors.secondary
             }
           }
         }
