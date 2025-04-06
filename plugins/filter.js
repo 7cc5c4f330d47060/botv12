@@ -21,26 +21,26 @@ export default function load (b) {
     let index = -1
     if (/[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/.test(string)) { // Uuid code
       b.filteredPlayers.forEach((item, index2) => {
-        if (item.uuid == string) {
+        if (item.uuid === string) {
           console.log(index2)
           index = index2
         }
       })
     } else { // Uuid code
       b.filteredPlayers.forEach((item, index2) => {
-        if (item.username == string) {
+        if (item.username === string) {
           console.log(index2)
           index = index2
         }
       })
     }
-    if (index == -1) return
+    if (index === -1) return
     b.filteredPlayers.splice(index, 1)
   }
   b.isFiltered = function (string) {
     let playerIsFiltered = false
     b.filteredPlayers.forEach((item) => {
-      if (item.uuid == string) {
+      if (item.uuid === string) {
         playerIsFiltered = true
       }
     })

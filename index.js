@@ -4,9 +4,9 @@ import generateUser from './util/usergen.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
 
-if(settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
+if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
-const bots=[]
+const bots = []
 const createBot = function createBot (host, oldId) {
   const bot = new EventEmitter()
 
@@ -42,7 +42,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   for (const pluginItem of plugins) {
-    if(pluginItem) pluginItem(bot)
+    if (pluginItem) pluginItem(bot)
   }
 
   if (typeof oldId !== 'undefined') {
@@ -62,7 +62,7 @@ const createBot = function createBot (host, oldId) {
   })
 }
 
-const init = function(){
+const init = function () {
   for (const i in settings.servers) {
     createBot(settings.servers[i])
   }
@@ -77,7 +77,7 @@ for (const plugin of bpl) {
   try {
     import(`./plugins/${plugin}`).then((pluginItem) => {
       plugins.push(pluginItem.default) // For rejoining
-      if(plugins.length === bpl.length) {
+      if (plugins.length === bpl.length) {
         init()
       }
     })

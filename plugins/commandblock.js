@@ -9,7 +9,7 @@ export default function load (b) {
   b.blocknoZ = 0
   b.ccStarted = false
   b.pos = { x: 0, y: 0, z: 0 }
-  const refillPayload = `command_block`
+  const refillPayload = 'command_block'
 
   b.advanceccq = function () {
     if (b.host.options.useChat) return

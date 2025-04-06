@@ -11,13 +11,13 @@ const execute = c => {
     host = `[${host}]`
   }
   let msg = c.args.join(' ').slice(0, 512)
-  msg = msg.replace(/:3/g, "")
+  msg = msg.replace(/:3/g, '')
   const json = {
     translate: '[%s] %s: %s',
     with: [
       {
-        text: c.bot.host.options?.name ?? "console",
-        /*hoverEvent: {
+        text: c.bot.host.options?.name ?? 'console',
+        hoverEvent: {
           action: 'show_text',
           value: {
             translate: '%s: %s:%s',
@@ -37,7 +37,7 @@ const execute = c => {
             ],
             color: c.colors.secondary
           }
-        },*/
+        },
         color: c.colors.primary
       },
       {
