@@ -42,7 +42,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   for (const pluginItem of plugins) {
-    pluginItem(bot)
+    if(pluginItem) pluginItem(bot)
   }
 
   if (typeof oldId !== 'undefined') {
