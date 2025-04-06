@@ -16,7 +16,7 @@ export default {
     'ubotdev:',
     'es"',
     'd"'
-  ], 
+  ],
   servers: [ // Server list
     {
       host: 'kaboom.pw', // Server address

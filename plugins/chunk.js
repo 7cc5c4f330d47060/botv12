@@ -12,9 +12,9 @@ export default function load (b) {
     const chunk = new Chunk()
     try {
       chunk.load(data.chunkData)
-    }catch(e){
-      console.log(data.chunkData.toString("base64"))
-      if(b.chunks[data.x]) console.log(b.chunks[data.x][data.z])
+    } catch (e) {
+      console.log(data.chunkData.toString('base64'))
+      if (b.chunks[data.x]) console.log(b.chunks[data.x][data.z])
     }
     b.chunks[data.x][data.z] = chunk
   })

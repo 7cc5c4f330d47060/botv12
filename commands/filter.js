@@ -13,7 +13,7 @@ const execute = c => {
       if (!/[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/.test(command)) {
         playerName = command
         uuid = c.bot.findUUID(playerName)
-        if (uuid == '00000000-0000-0000-0000-000000000000') {
+        if (uuid === '00000000-0000-0000-0000-000000000000') {
           c.reply({
             text: getMessage(c.lang, 'command.filter.error.notFound')
           })
@@ -88,7 +88,7 @@ const execute = c => {
       break
     default:
       c.reply({
-        translate: getMessage(c.lang, 'command.cloop.error.subcommand'),
+        translate: getMessage(c.lang, 'command.error.subcommand'),
         color: c.colors.secondary,
         with: [
           {
@@ -103,4 +103,4 @@ const execute = c => {
 const level = 0
 const aliases = ['blacklist']
 const consoleIndex = true
-export { execute, level, consoleIndex }
+export { execute, level, consoleIndex, aliases }

@@ -74,7 +74,7 @@ const execute = c => {
       break
     default:
       c.reply({
-        translate: getMessage(c.lang, 'command.cloop.error.subcommand'),
+        translate: getMessage(c.lang, 'command.error.subcommand'),
         color: c.colors.secondary,
         with: [
           {

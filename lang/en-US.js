@@ -1,4 +1,5 @@
 export default {
+  // Time
   'time.week': ' week ',
   'time.weekPlural': ' weeks ',
   'time.day': ' day ',
@@ -9,8 +10,8 @@ export default {
   'time.minutePlural': ' minutes ',
   'time.second': ' second ',
   'time.secondPlural': ' seconds ',
-  'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
 
+  // Command Info
   'commands.about.usage': '',
   'commands.about.desc': 'About the bot',
   'commands.cb.usage': ' <command>',
@@ -46,6 +47,7 @@ export default {
   'commands.validate.usage': ' [args...]',
   'commands.validate.desc': 'Check the hashing system',
 
+  // Command Strings
   'command.cloop.error.tooShort': 'Command loops must have a rate above 20ms.',
   'command.cloop.success.add': 'Added command loop with command %s and rate %s',
   'command.cloop.success.remove': 'Removed command loop %s',
@@ -122,22 +124,28 @@ export default {
   'command.tpr.success': 'Teleporting %s to %s, %s, %s',
   'command.verify.success': 'Successfully verified with permission level %s',
 
+  // Command Errors
   'command.error': 'An error occured (check console for more info)',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
 
+  // Permission Error
   'command.disallowed.perms.short': 'You do not have permission to run this command.',
   'command.disallowed.perms': 'You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.',
   'command.disallowed.perms.yourLevel': 'Your permission level: %s',
   'command.disallowed.perms.cmdLevel': 'Command requires: %s',
 
+  // Disabled Commands
   'command.disabled.generic': 'This command has been disabled.',
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.console': 'This command cannot be run from the console.',
   'command.disabled.nonConsole': 'This command must be run from the console.',
 
+  // Permission Levels
   'command.perms0': 'Public',
   'command.perms1': 'Trusted',
   'command.perms2': 'Owner',
 
-  copyText: 'Click to copy this item to your clipboard'
+  // Miscellaneous
+  copyText: 'Click to copy this item to your clipboard',
+  'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.'
 }
