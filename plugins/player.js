@@ -49,6 +49,7 @@ export default function load (b) {
       b.emit('playerdata', uuid, displayName, realName)
     }
   })
+  
   b.findUUID = name => {
     for (const i in b.players) {
       if (b.players[i].realName === name) {
