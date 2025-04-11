@@ -327,8 +327,8 @@ const displaySettings = c => {
     let output = settings.colors[i] + ""
     c.reply(reply(i,output))
   }
-    
 }
+
 const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args[0].toLowerCase()
