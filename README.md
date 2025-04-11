@@ -7,7 +7,7 @@ botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) a
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
-It supports all Minecraft versions from 1.18 to 1.21.3 that are supported by node-minecraft-protocol - newer versions have bugs on Kaboom servers. It may work on other versions, however, support will not be provided for them.
+It supports all Minecraft versions from 1.19 to 1.21.3 that are supported by node-minecraft-protocol - newer versions have bugs on Kaboom servers. It may work on other versions, however, support will not be provided for them.
 
 ## How to install?
 
