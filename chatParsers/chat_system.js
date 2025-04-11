@@ -2,9 +2,8 @@ import parsePlain from '../util/chatparse_plain.js'
 
 const priority = 2
 const parse = (data, b) => {
-  if (data.type === 'system' || data.type === 'legacy') {
+  if (data.type === 'system') {
     let subtype = 'generic_system'
-    if (data.type === 'legacy' && data.uuid) subtype += '_withuuid'
     const parsed = parsePlain(data.json)
     const split = parsed.split(': ')
     const chatName = split.splice(0, 1)[0]

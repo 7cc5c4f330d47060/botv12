@@ -148,24 +148,6 @@ export default function load (b) {
     })
   })
 
-  b._client.on('chat', (data) => { // Legacy chat for versions <1.19
-    const json = parse1204(data.message)
-    let nickname
-    let username
-    let message
-    let uuid
-    if (data.uuid) uuid = data.uuid
-    b.emit('chat_unparsed', {
-      json,
-      type: 'legacy',
-      uuid,
-      message,
-      nickname,
-      username,
-      playerChatType: {}
-    })
-  })
-
   b.on('chat_unparsed', (data) => {
     for (const lvl of parsers) {
       for (const item of lvl) {
