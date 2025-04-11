@@ -256,15 +256,13 @@ const displayServerList = c => {
   bots.forEach((item, i) => {
     if (c.bot.id === i && c.bot.host.options.hideLocally) return
     if (item.host.options && item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
-    let message = 'command.about.serverListItem'
-    if (c.bot.id === i) message = 'command.about.serverListItem.thisServer'
     let host = item.host.host
     const port = item.host.port
     if (item.host.options && item.host.options.displayAsIPv6) {
       host = `[${host}]`
     }
     c.reply({
-      translate: getMessage(c.lang, message),
+      translate: getMessage(c.lang, 'command.about.serverListItem'),
       color: c.colors.secondary,
       with: [
         {
@@ -291,6 +289,46 @@ const displayServerList = c => {
   })
 }
 
+const displaySettings = c => {
+  const reply = function (name, item) {
+    return {
+      translate: '%s: %s',
+      color: c.colors.primary,
+      with: [
+        {
+          text: getMessage(c.lang, `command.about.settings.${name}`),
+          color: c.colors.secondary
+        },
+        {
+          text: item,
+          color: c.colors.primary,
+          clickEvent: {
+            action: 'copy_to_clipboard',
+            value: item
+          },
+          hoverEvent: {
+            action: 'show_text',
+            contents: {
+              text: getMessage(c.lang, 'copyText'),
+              color: c.colors.secondary
+            }
+          }
+        }
+      ]
+    }
+  }
+  for(const i in settings){
+    let output = settings[i] + ""
+    if(i == "colors" || i == "servers") continue;
+    if(i == "keyTrusted" || i == "keyOwner" || i == "onlineEmail" || i == "onlinePass") continue
+    c.reply(reply(i,output))
+  }
+  for(const i in settings.colors){
+    let output = settings.colors[i] + ""
+    c.reply(reply(i,output))
+  }
+    
+}
 const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args[0].toLowerCase()
