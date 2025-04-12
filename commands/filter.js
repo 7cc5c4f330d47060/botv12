@@ -100,7 +100,7 @@ const execute = c => {
   }
 }
 
-const level = 0
+const level = 1
 const aliases = ['blacklist']
 const consoleIndex = true
 export { execute, level, consoleIndex, aliases }
