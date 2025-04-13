@@ -5,6 +5,7 @@ import parse2 from '../util/chatparse_plain.js'
 import { userInfo } from 'node:os'
 import { bots } from '../index.js'
 import settings from '../settings.js'
+import { getMessage } from '../util/lang.js'
 
 const consoleBotStub = {
   host: {
@@ -68,13 +69,13 @@ function consoleWrite (text) {
 
 export default function load (b) {
   b.info = (msg) => {
-    consoleWrite(`[${b.id}] [info] ${msg}`)
+    consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, 'console.info')}] ${msg}`)
   }
   b.displayChat = (type, subtype, msg) => {
     if (settings.displaySubtypesToConsole) {
-      consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
+      consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] [${subtype}] ${msg}`)
     } else {
-      consoleWrite(`[${b.id}] [${type}] ${msg}`)
+      consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] ${msg}`)
     }
   }
 }
