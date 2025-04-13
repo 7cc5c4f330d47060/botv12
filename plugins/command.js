@@ -30,6 +30,31 @@ export default function load (b) {
     const permsN = getMessage(context.lang, 'command.help.permsNormal')
     const permsT = getMessage(context.lang, 'command.help.permsTrusted')
     const permsO = getMessage(context.lang, 'command.help.permsOwner')
+
+    // Block running eval in minecraft
+    if(commandItem.consoleOnly){
+      b.tellraw(uuid, {
+        text: getMessage(context.lang, 'command.disabled.consoleOnly')
+      })
+      return
+    }
+
+    // "Block ChipmunkMod" functionality
+    if(commandItem.blockChipmunkMod && subtype == "chipmunkmod"){
+      b.tellraw(uuid, {
+        text: getMessage(context.lang, 'command.disabled.chipmunkmod')
+      })
+      return
+    }
+
+    // Block ChipmunkMod Format in the trusted commands
+    if(commandItem && commandItem.level !== undefined && subtype == "chipmunkmod"){
+      b.tellraw(uuid, {
+        text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
+      })
+      return
+    }
+
     if (commandItem && commandItem.level !== undefined && commandItem.level > verify) {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms')

@@ -3,7 +3,7 @@ export default class CommandR {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
 
-    this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly) {
+    this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly, blockChipmunkMod) {
       const command = {}
       command.execute = payload
       command.level = level
@@ -12,6 +12,7 @@ export default class CommandR {
       command.aliases = aliases
       command.consoleIndex = consoleIndex
       command.consoleOnly = consoleOnly
+      command.blockChipmunkMod = blockChipmunkMod
       this._commands[name] = command
     }
 

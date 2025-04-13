@@ -1,3 +1,5 @@
+// This file is written in English - please do not use the translation system for this plugin.
+
 import settings from '../settings.js'
 import version from '../version.js'
 import { bots } from '../index.js'
