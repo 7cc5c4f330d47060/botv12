@@ -108,6 +108,8 @@ export default {
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
   'command.netmsg.serverAddress': 'Server Address',
+  'command.say.warning.trustedKey': 'This message is blocked because it contains the trusted key.',
+  'command.say.warning.ownerKey': 'This message is blocked because it contains the owner key.',
   'command.scale.set': 'Set player size to %s',
   'command.scale.reset': 'Reset player size',
   'command.test.uuid': 'UUID',
@@ -141,12 +143,14 @@ export default {
   'command.disallowed.perms': 'You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.',
   'command.disallowed.perms.yourLevel': 'Your permission level: %s',
   'command.disallowed.perms.cmdLevel': 'Command requires: %s',
+  'command.disallowed.perms.chipmunkmod': 'Commands requiring trusted permissions cannot be run through custom chat mods. Please bypass custom chat to run this command.',
 
   // Disabled Commands
   'command.disabled.generic': 'This command has been disabled.',
   'command.disabled.local': 'This command has been disabled on this server.',
-  'command.disabled.console': 'This command cannot be run from the console.',
-  'command.disabled.nonConsole': 'This command must be run from the console.',
+  'command.disabled.noConsole': 'This command cannot be run from the console.',
+  'command.disabled.consoleOnly': 'This command must be run from the console.',
+  'command.disabled.chipmunkmod': 'This command cannot be run through a custom chat format.',
 
   // Permission Levels
   'command.perms0': 'Public',
