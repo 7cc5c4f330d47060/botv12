@@ -46,4 +46,5 @@ const execute = c => {
   }
 }
 const level = 2
-export { execute, level }
+const consoleOnly = true
+export { execute, level, consoleOnly }
