@@ -1,4 +1,10 @@
 export default {
+  // Console message types
+  'console.chat.player': 'player',
+  'console.chat.system': 'system',
+  'console.chat.profileless': 'system',
+  'console.info': 'info',
+
   // Time
   'time.week': ' week ',
   'time.weekPlural': ' weeks ',

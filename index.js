@@ -1,6 +1,7 @@
 import { createClient } from 'minecraft-protocol'
 import settings from './settings.js'
 import generateUser from './util/usergen.js'
+import { getMessage } from './util/lang.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
 
@@ -30,14 +31,14 @@ const createBot = function createBot (host, oldId) {
   bot._client = createClient(options)
 
   bot.info = (msg) => {
-    console.log(`[${bot.id}] [info] ${msg}`)
+    console.log(`[${bot.id}] [${getMessage(settings.defaultLang, 'console.info')}] ${msg}`)
   }
 
   bot.displayChat = (type, subtype, msg) => {
     if (settings.displaySubtypesToConsole) {
-      console.log(`[${bot.id}] [${type}] [${subtype}] ${msg}`)
+      console.log(`[${bot.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] [${subtype}] ${msg}`)
     } else {
-      console.log(`[${bot.id}] [${type}] ${msg}`)
+      console.log(`[${bot.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] ${msg}`)
     }
   }
 
