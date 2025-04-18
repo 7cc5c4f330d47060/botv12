@@ -56,4 +56,5 @@ const execute = c => {
   })
 }
 
-export { execute }
+const blockChipmunkMod = true
+export { execute, blockChipmunkMod }
