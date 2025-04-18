@@ -40,20 +40,20 @@ export default function load (b) {
   })
   b._client.on('position', data => {
     console.log(data.flags)
-    let newX;
-    let newY;
-    let newZ;
-    newX = data.x;
-    newY = data.y;
-    newZ = data.z;
-    if(data.flags & 1) newX += b.pos.x;
-    if(data.flags & 2) newY += b.pos.y;
-    if(data.flags & 4) newZ += b.pos.z;
+    let newX
+    let newY
+    let newZ
+    newX = data.x
+    newY = data.y
+    newZ = data.z
+    if (data.flags & 1) newX += b.pos.x
+    if (data.flags & 2) newY += b.pos.y
+    if (data.flags & 4) newZ += b.pos.z
     b.currentChunk = { x: newX >> 4, z: newZ >> 4 }
     b.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
     console.log(newY)
-    if(newY > 99 || newY < 1) {
+    if (newY > 99 || newY < 1) {
       b.sc_tasks.cc_pos.failed = 1
     } else {
       b.sc_tasks.cc_pos.failed = 0

@@ -32,7 +32,7 @@ export default function load (b) {
     const permsO = getMessage(context.lang, 'command.help.permsOwner')
 
     // Block running eval in minecraft
-    if(commandItem.consoleOnly){
+    if (commandItem.consoleOnly) {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.consoleOnly')
       })
@@ -40,7 +40,7 @@ export default function load (b) {
     }
 
     // "Block ChipmunkMod" functionality
-    if(commandItem.blockChipmunkMod && subtype == "chipmunkmod"){
+    if (commandItem.blockChipmunkMod && subtype === 'chipmunkmod') {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.chipmunkmod')
       })
@@ -48,7 +48,7 @@ export default function load (b) {
     }
 
     // Block ChipmunkMod Format in the trusted commands
-    if(commandItem && commandItem.level !== undefined && subtype == "chipmunkmod"){
+    if (commandItem && commandItem.level !== undefined && subtype === 'chipmunkmod') {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
       })

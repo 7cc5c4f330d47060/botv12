@@ -3,10 +3,10 @@ import { getMessage } from '../util/lang.js'
 import version from '../version.js'
 const execute = c => {
   const msg = c.args.join(' ').slice(0, 512)
-  if(msg.includes(settings.keyTrusted) && c.verify < 1){
+  if (msg.includes(settings.keyTrusted) && c.verify < 1) {
     c.bot.info(getMessage(c.lang, 'command.say.warning.trustedKey'))
     return
-  } else if(msg.includes(settings.keyOwner) && c.verify < 2){
+  } else if (msg.includes(settings.keyOwner) && c.verify < 2) {
     c.bot.info(getMessage(c.lang, 'command.say.warning.ownerKey'))
     return
   }
