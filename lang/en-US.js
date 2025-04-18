@@ -2,7 +2,7 @@ export default {
   // Console message types
   'console.chat.player': 'player',
   'console.chat.system': 'system',
-  'console.chat.profileless': 'system',
+  'console.chat.profileless': 'profileless',
   'console.info': 'info',
 
   // Time
@@ -98,7 +98,6 @@ export default {
   'command.filter.error.filtered': 'The player is already in the filter list.',
   'command.filter.success.add': 'Filtered player %2$s',
   'command.filter.success.remove': 'Unfiltered player %s',
-  'command.filter.success.clear': 'Cleared all command loops',
   'command.filter.list': '%s (UUID: %s)',
   'command.help.cmdList': 'Commands',
   'command.help.commandInfo': '%s%s - %s',
@@ -156,7 +155,7 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.noConsole': 'This command cannot be run from the console.',
   'command.disabled.consoleOnly': 'This command must be run from the console.',
-  'command.disabled.chipmunkmod': 'This command cannot be run through a custom chat format.',
+  'command.disabled.chipmunkmod': 'This command cannot be run using a custom chat format.',
 
   // Permission Levels
   'command.perms0': 'Public',
@@ -165,5 +164,7 @@ export default {
 
   // Miscellaneous
   copyText: 'Click to copy this item to your clipboard',
-  'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.'
+  openInBrowser: 'Click to open this link in a browser',
+  'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
+  "selfcare.prefix": "Prefix"
 }

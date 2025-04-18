@@ -2,6 +2,7 @@ import parsePlain from '../util/chatparse_plain.js'
 import parseMc from '../util/chatparse_mc_withHex.js'
 import settings from '../settings.js'
 import version from '../version.js'
+import { getMessage } from '../util/lang.js'
 class SCTask {
   constructor (failTask, startFailed = false) {
     /*
@@ -102,7 +103,7 @@ export default function load (b) {
           color: settings.colors.secondary,
           with: [
             {
-              text: 'Prefix'
+              text: getMessage(settings.defaultLang, 'selfcare.prefix')
             },
             {
               text: settings.prefixes[0],
