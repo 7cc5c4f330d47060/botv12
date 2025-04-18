@@ -317,15 +317,15 @@ const displaySettings = c => {
       ]
     }
   }
-  for(const i in settings){
-    let output = settings[i] + ""
-    if(i == "colors" || i == "servers") continue;
-    if(i == "keyTrusted" || i == "keyOwner" || i == "onlineEmail" || i == "onlinePass") continue
-    c.reply(reply(i,output))
+  for (const i in settings) {
+    const output = settings[i] + ''
+    if (i === 'colors' || i === 'servers') continue
+    if (i === 'keyTrusted' || i === 'keyOwner' || i === 'onlineEmail' || i === 'onlinePass') continue
+    c.reply(reply(i, output))
   }
-  for(const i in settings.colors){
-    let output = settings.colors[i] + ""
-    c.reply(reply(i,output))
+  for (const i in settings.colors) {
+    const output = settings.colors[i] + ''
+    c.reply(reply(i, output))
   }
 }
 
