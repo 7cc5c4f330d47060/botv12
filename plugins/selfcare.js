@@ -92,6 +92,10 @@ export default function load (b) {
     }
   })
 
+  b.add_sc_task('cc_pos', () => {
+    b.chat('/minecraft:tp ~ 40 ~')
+  })
+
   // Prefix tablist ads
   if (!b.host.options.isVanilla) {
     b.adPrefix = {
