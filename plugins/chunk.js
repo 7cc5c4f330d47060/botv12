@@ -39,14 +39,25 @@ export default function load (b) {
     }
   })
   b._client.on('position', data => {
-    if (!b.ccStarted) {
-      b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
-      b.pos = { x: data.x, y: data.y, z: data.z }
-    } else {
-      b.currentChunk = { x: data.x >> 4, z: data.z >> 4 }
-      b.pos = { x: data.x, y: data.y, z: data.z }
-    }
+    console.log(data.flags)
+    let newX;
+    let newY;
+    let newZ;
+    newX = data.x;
+    newY = data.y;
+    newZ = data.z;
+    if(data.flags & 1) newX += b.pos.x;
+    if(data.flags & 2) newY += b.pos.y;
+    if(data.flags & 4) newZ += b.pos.z;
+    b.currentChunk = { x: newX >> 4, z: newZ >> 4 }
+    b.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
+    console.log(newY)
+    if(newY > 99 || newY < 1) {
+      b.sc_tasks.cc_pos.failed = 1
+    } else {
+      b.sc_tasks.cc_pos.failed = 0
+    }
   })
   b.interval.unloadChunks = setInterval(() => {
     for (const i in b.chunks) {

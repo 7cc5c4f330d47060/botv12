@@ -2,8 +2,10 @@ import uuidToInt from '../util/uuidtoint.js'
 import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
 import Vec3 from 'vec3'
-
+import loader from 'prismarine-item'
 export default function load (b) {
+  const Item = loader(b._client.version)
+  b._client.on("set_slot", (x)=>{console.log(JSON.stringify(x))})
   b.ccq = []
   b.blocknoX = 0
   b.blocknoZ = 0
@@ -61,7 +63,46 @@ export default function load (b) {
       b.add_sc_task('cc', () => {
         const xstart = b.currentChunk.x << 4
         const zstart = b.currentChunk.z << 4
-        b.chat(`/fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`)
+        let item;
+        if(b.registry.supportFeature('itemsWithComponents')){
+          item = new Item(395, 1);
+          item.components.push({
+            type: "block_entity_data",
+            data: {
+              type: "compound",
+              value: {
+                id: {
+                  type: "string",
+                  value: "minecraft:command_block"
+                },
+                Command: {
+                  type: "string",
+                  value: `/fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
+                },
+                auto: {
+                  type: "byte",
+                  value: 1
+                }
+              }
+            }
+          })
+        }
+        b._client.write('block_dig', {
+          status: 0,
+          location: {x: b.pos.x, y: b.pos.y-1, z: b.pos.z}
+        })
+        b._client.write('set_creative_slot',{
+          slot: 36,
+          item: Item.toNotch(item)
+        })
+        b._client.write('block_place', {
+          hand: 0,
+          direction: 0,
+          location: {x: b.pos.x, y: b.pos.y-1, z: b.pos.z},
+          cursorX: 0,
+          cursorY: 0,
+          cursorZ: 0
+        })
       })
       b.add_sc_task('cc_size', () => {
         b.chat('/gamerule commandModificationBlockLimit 32768')
@@ -72,7 +113,7 @@ export default function load (b) {
     setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
     b.ccStarted = true
   })
-  b.on('chat_unparsed', (data) => {
+  /*b.on('chat_unparsed', (data) => {
     if (data.json.translate === 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.failed') ||
           data.json.translate === 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.success')) {
       b.sc_tasks.cc.failed = 0
@@ -80,7 +121,7 @@ export default function load (b) {
     } else if (data.json.translate === 'commands.fill.toobig' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.toobig')) {
       b.sc_tasks.cc_size.failed = 1
     }
-  })
+  })*/
 
   b.tellraw = (uuid, message) => {
     let finalname = ''
@@ -112,6 +153,7 @@ export default function load (b) {
     let cf = false
     if (!b.currentChunk || !b.chunks[b.currentChunk.x] || !b.chunks[b.currentChunk.x][b.currentChunk.z]) return
     const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z]
+    if (b.sc_tasks.cc) b.sc_tasks.cc.failed = false
     for (let x = 0; x <= 15; x++) {
       for (let z = 0; z <= 15; z++) {
         const blockName = chunk.getBlock(new Vec3(x, 55, z)).name
