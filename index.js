@@ -4,6 +4,7 @@ import generateUser from './util/usergen.js'
 import { getMessage } from './util/lang.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
+import { default as registry } from 'prismarine-registry'
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
@@ -29,6 +30,8 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot._client = createClient(options)
+
+  bot.registry = registry(bot._client.version)
 
   bot.info = (msg) => {
     console.log(`[${bot.id}] [${getMessage(settings.defaultLang, 'console.info')}] ${msg}`)
