@@ -149,15 +149,6 @@ export default function load (b) {
     setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
     b.ccStarted = true
   })
-  /* b.on('chat_unparsed', (data) => {
-    if (data.json.translate === 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.failed') ||
-          data.json.translate === 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.success')) {
-      b.sc_tasks.cc.failed = 0
-      b.sc_tasks.cc_size.failed = 0
-    } else if (data.json.translate === 'commands.fill.toobig' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.toobig')) {
-      b.sc_tasks.cc_size.failed = 1
-    }
-  }) */
 
   b.tellraw = (uuid, message) => {
     let finalname = ''
