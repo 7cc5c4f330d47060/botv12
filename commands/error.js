@@ -1,4 +1,4 @@
 const execute = c => {
-  throw new Error();
+  throw new Error()
 }
 export { execute }
