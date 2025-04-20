@@ -40,7 +40,7 @@ export default function load (b) {
     }
 
     // "Block ChipmunkMod" functionality
-    if (commandItem.blockChipmunkMod && subtype === 'chipmunkmod') {
+    if (commandItem.blockChipmunkMod && subtype !== 'generic_player') {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.chipmunkmod')
       })
@@ -48,7 +48,7 @@ export default function load (b) {
     }
 
     // Block ChipmunkMod Format in the trusted commands
-    if (commandItem && commandItem.level !== undefined && subtype === 'chipmunkmod') {
+    if (commandItem && commandItem.level !== undefined && subtype !== 'generic_player') {
       b.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
       })

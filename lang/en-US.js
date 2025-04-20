@@ -143,6 +143,7 @@ export default {
   // Command Errors
   'command.error': 'An error occured (check console for more info)',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
+  'command.ratelimit': 'This command is rate limited for %s seconds',
 
   // Permission Error
   'command.disallowed.perms.short': 'You do not have permission to run this command.',
