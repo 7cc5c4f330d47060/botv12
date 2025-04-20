@@ -7,10 +7,10 @@
   comply with any additional terms.
 */
 
-import aboutServer from "./aboutSub/server.js"
-import displayServerList from "./aboutSub/serverList.js"
-import displaySettings from "./aboutSub/settings.js"
-import aboutBot from "./aboutSub/aboutBot.js"
+import aboutServer from './aboutSub/server.js'
+import displayServerList from './aboutSub/serverList.js'
+import displaySettings from './aboutSub/settings.js'
+import aboutBot from './aboutSub/aboutBot.js'
 
 const execute = c => {
   let subcmd

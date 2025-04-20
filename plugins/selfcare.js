@@ -122,7 +122,7 @@ export default function load (b) {
       ]
     }
     b.add_sc_task('playerlist_ads', () => {
-      //b.chat(`/prefix ${parseMc(b.adPrefix).replaceAll('§', '&')}`)
+      // b.chat(`/prefix ${parseMc(b.adPrefix).replaceAll('§', '&')}`)
     })
     b.on('playerdata', (uuid, displayName) => {
       if (uuid === b._client.uuid && !displayName.startsWith(parsePlain(b.adPrefix))) {

@@ -3,10 +3,10 @@ import plainParser from '../util/chatparse_plain.js'
 import mcParser from '../util/chatparse_mc.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
-import { default as loader_data } from 'minecraft-data'
+import { default as loaderData } from 'minecraft-data'
 export default function load (b) {
   const Item = loader(b.registry)
-  const itemsByName = loader_data(b._client.version).itemsByName
+  const itemsByName = loaderData(b._client.version).itemsByName
   b.ccq = []
   b.blocknoX = 0
   b.blocknoZ = 0
@@ -64,8 +64,8 @@ export default function load (b) {
       b.add_sc_task('cc', () => {
         const xstart = b.currentChunk.x << 4
         const zstart = b.currentChunk.z << 4
-        const item = new Item(itemsByName["command_block"].id, 1)
-        const itemSize = new Item(itemsByName["command_block"].id, 1)
+        const item = new Item(itemsByName.command_block.id, 1)
+        const itemSize = new Item(itemsByName.command_block.id, 1)
 
         // Core filling
         item.components.push({

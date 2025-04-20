@@ -43,7 +43,7 @@ const os2 = function (o2, l) {
   }
 }
 
-export default function aboutServer(c) {
+export default function aboutServer (c) {
   const displayInfo = function (name, infoFunc) {
     let thisItem
     try {
