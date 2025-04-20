@@ -17,26 +17,18 @@ const execute = c => {
       with: [
         {
           translate: '[%s]',
-          color: 'white',
+          color: 'dark_red',
+          bold: true,
           with: [
             {
-              translate: '%s: %s',
-              color: settings.colors.secondary,
-              with: [
-                {
-                  text: 'Prefix'
-                },
-                {
-                  text: settings.prefixes[0],
-                  color: settings.colors.primary
-                }
-              ]
+              text: 'OP',
+              color: 'red'
             }
           ]
         },
         {
-          text: version.botName,
-          color: settings.colors.primary
+          text: c.bot._client.username,
+          color: 'red'
         },
         msg
       ]
