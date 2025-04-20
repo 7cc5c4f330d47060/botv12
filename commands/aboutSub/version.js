@@ -6,7 +6,7 @@ import botVersion from '../../util/version.js'
 const displayDepInfo = function (name, version, c) {
   c.reply({
     translate: getMessage(c.lang, 'command.about.versionCmd.generic', [name]),
-    color: c.colors.primary,
+    color: c.colors.secondary,
     with: [
       {
         text: version + "",
@@ -29,7 +29,7 @@ const displayDepInfo = function (name, version, c) {
 
 export default function displayVersions (c) {
   displayDepInfo(version.botName, botVersion, c)
-  displayDepInfo("Node.js\xae", process.version, c)
+  displayDepInfo("Node.js\xae", process.version.slice(1), c)
   exec('npm list', (e, stdout) => {
     try {
       if(e) throw e
