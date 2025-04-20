@@ -24,8 +24,8 @@ export default function aboutBot (c) {
     })
   }
   c.reply({ text: '' })
-  if (settings[`officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus: false
-    servers: [`]) {
+  if (settings[`officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus\`] === false) {
+    `]) {
     c.reply({
       text: getMessage(c.lang, 'command.about.license'),
       color: c.colors.secondary
