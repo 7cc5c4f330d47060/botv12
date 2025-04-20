@@ -3,7 +3,6 @@ import { execSync } from 'child_process'
 import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
-import botVersion from '../../util/version.js'
 
 const os2 = function (o2, l) {
   switch (o2) {
@@ -43,7 +42,7 @@ const os2 = function (o2, l) {
   }
 }
 
-export default function aboutServer (c) {
+export default function aboutServer(c) {
   const displayInfo = function (name, infoFunc) {
     let thisItem
     try {
@@ -124,11 +123,6 @@ export default function aboutServer (c) {
     return process.cwd()
   })
 
-  // Node.js® version
-  displayInfo('command.about.serverInfo.nodeVersion', () => {
-    return process.version
-  })
-
   // Bot uptime
   displayInfo('command.about.serverInfo.runTime', () => {
     return formatTime(process.uptime() * 1000, c.lang)
@@ -147,9 +141,4 @@ export default function aboutServer (c) {
       return `${brand} ${model}`
     })
   }
-
-  // Bot version
-  displayInfo('command.about.serverInfo.botVer', () => {
-    return botVersion
-  })
 }
