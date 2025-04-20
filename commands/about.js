@@ -10,6 +10,7 @@
 import aboutServer from './aboutSub/server.js'
 import displayServerList from './aboutSub/serverList.js'
 import displaySettings from './aboutSub/settings.js'
+import displayVersions from './aboutSub/version.js'
 import aboutBot from './aboutSub/aboutBot.js'
 
 const execute = c => {
@@ -18,15 +19,18 @@ const execute = c => {
   if (subcmd === 'servers') subcmd = 'serverlist'
   if (c.cmdName.toLowerCase() === 'serverinfo' || c.cmdName.toLowerCase() === 'specs') subcmd = 'server'
   if (c.cmdName.toLowerCase() === 'serverlist' || c.cmdName.toLowerCase() === 'servers') subcmd = 'serverlist'
+  if (c.cmdName.toLowerCase() === 'version') subcmd = 'version'
   if (subcmd === 'server') {
     aboutServer(c)
   } else if (subcmd === 'serverlist') {
     displayServerList(c)
   } else if (subcmd === 'settings') {
     displaySettings(c)
+  } else if (subcmd === 'version') {
+    displayVersions(c)
   } else {
     aboutBot(c)
   }
 }
-const aliases = ['info', 'serverlist', 'servers', 'serverinfo', 'specs']
+const aliases = ['info', 'serverlist', 'servers', 'serverinfo', 'specs', "version"]
 export { execute, aliases }

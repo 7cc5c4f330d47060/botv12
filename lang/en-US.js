@@ -56,6 +56,7 @@ export default {
   // Command Strings
   'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones',
   'command.about.version': 'Version %s',
+  'command.about.versionCmd.generic': '%s version: %s',
   'command.about.preRelease': "This is a development version - there may be errors, and features may be changed or removed at any time. Please report any errors to the bot's developer.",
   'command.about.sourceCode': 'Source code: %s',
   'command.about.license': 'This bot is free and open-source software and is available under the terms of the MIT license.',
