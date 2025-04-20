@@ -9,11 +9,12 @@ const sortHelp = function sortHelp (c1, c2) {
 
 const printHelp = c => {
   const cmds = registry.listCommands()
+  const keys = Object.keys(cmds).sort()
   const commands = []
-  for (const i in cmds) {
+  for (const key of keys) {
     commands.push({
-      name: i,
-      level: cmds[i].level
+      name: key,
+      level: cmds[key].level
     })
   }
   const sortedCommands = commands.sort(sortHelp)
