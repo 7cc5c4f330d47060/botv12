@@ -1,5 +1,3 @@
-
-
 import aboutServer from './aboutSub/server.js'
 import displayServerList from './aboutSub/serverList.js'
 import displaySettings from './aboutSub/settings.js'
@@ -25,5 +23,5 @@ const execute = c => {
     aboutBot(c)
   }
 }
-const aliases = ['info', 'serverlist', 'servers', 'serverinfo', 'specs', "version"]
+const aliases = ['info', 'serverlist', 'servers', 'serverinfo', 'specs', 'version']
 export { execute, aliases }

@@ -24,7 +24,8 @@ export default function aboutBot (c) {
     })
   }
   c.reply({ text: '' })
-  if (settings.officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus) {
+  if (settings[`officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus: false
+    servers: [`]) {
     c.reply({
       text: getMessage(c.lang, 'command.about.license'),
       color: c.colors.secondary
@@ -52,7 +53,7 @@ export default function aboutBot (c) {
           hoverEvent: {
             action: 'show_text',
             contents: {
-              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+              text: getMessage(c.lang, 'openInBrowser')
             }
           }
         }

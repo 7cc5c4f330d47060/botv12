@@ -9,11 +9,11 @@ const displayDepInfo = function (name, version, c) {
     color: c.colors.secondary,
     with: [
       {
-        text: version + "",
+        text: version + '',
         color: c.colors.primary,
         clickEvent: {
           action: 'copy_to_clipboard',
-          value: version + ""
+          value: version + ''
         },
         hoverEvent: {
           action: 'show_text',
@@ -29,19 +29,19 @@ const displayDepInfo = function (name, version, c) {
 
 export default function displayVersions (c) {
   displayDepInfo(version.botName, botVersion, c)
-  displayDepInfo("Node.js\xae", process.version.slice(1), c)
+  displayDepInfo('Node.js\xae', process.version.slice(1), c)
   exec('npm list', (e, stdout) => {
     try {
-      if(e) throw e
+      if (e) throw e
       const split = stdout.split('\n')
-      for(const i in split){
-        if(!split[i].includes('─')) continue
-        const item = split[i].split("@")
-        const version = item.pop();
-        const dependency = item.join("@").split(" ")[1]
+      for (const i in split) {
+        if (!split[i].includes('─')) continue
+        const item = split[i].split('@')
+        const version = item.pop()
+        const dependency = item.join('@').split(' ')[1]
         displayDepInfo(dependency, version, c)
       }
-    } catch(e) {
+    } catch (e) {
       console.log(e)
     }
   })
