@@ -24,7 +24,7 @@ export default function aboutBot (c) {
     })
   }
   c.reply({ text: '' })
-  if (settings.officialUbotRealFullVersionFreeTwoThousandTwentyOneSafeNoVirusWorkingGenerator) {
+  if (settings.officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus) {
     c.reply({
       text: getMessage(c.lang, 'command.about.license'),
       color: c.colors.secondary
