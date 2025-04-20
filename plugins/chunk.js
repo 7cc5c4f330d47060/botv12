@@ -39,7 +39,6 @@ export default function load (b) {
     }
   })
   b._client.on('position', data => {
-    console.log(data.flags)
     let newX
     let newY
     let newZ
@@ -52,7 +51,6 @@ export default function load (b) {
     b.currentChunk = { x: newX >> 4, z: newZ >> 4 }
     b.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
-    console.log(newY)
     if (newY > 99 || newY < 1) {
       b.sc_tasks.cc_pos.failed = 1
     } else {
