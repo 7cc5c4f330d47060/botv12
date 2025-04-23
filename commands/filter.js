@@ -2,14 +2,11 @@ import { getMessage } from '../util/lang.js'
 const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
-  console.log(subcmd)
-  console.log(c.args)
   switch (subcmd) {
     case 'add': {
       const command = c.args.join(' ')
       let playerName
       let uuid
-      console.log(command)
       if (!/[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/.test(command)) {
         playerName = command
         uuid = c.bot.findUUID(playerName)
