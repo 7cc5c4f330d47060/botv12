@@ -19,7 +19,7 @@ const createBot = function createBot (host, oldId) {
     host: host.host,
     fakeHost: host.fakeHost,
     port: host.port ?? 25565,
-    username: generateUser(host.options.legalName),
+    username: host.options.forceName ?? generateUser(host.options.legalName),
     version: host.version ?? settings.version_mc
   }
 
