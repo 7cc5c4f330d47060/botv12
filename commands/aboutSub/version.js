@@ -3,46 +3,43 @@ import { exec } from 'child_process'
 import version from '../../version.js'
 import botVersion from '../../util/version.js'
 
-const displayDepInfo = function (name, version, c) {
-  c.reply({
-    translate: getMessage(c.lang, 'command.about.versionCmd.generic', [name]),
-    color: c.colors.secondary,
-    with: [
-      {
-        text: version + '',
-        color: c.colors.primary,
-        clickEvent: {
-          action: 'copy_to_clipboard',
-          value: version + ''
-        },
-        hoverEvent: {
-          action: 'show_text',
-          contents: {
-            text: getMessage(c.lang, 'copyText'),
-            color: c.colors.secondary
-          }
-        }
-      }
-    ]
-  })
+const dependencies = [];
+
+const addDepInfo = function (name, version) {
+  dependencies.push({name, version})
 }
 
-export default function displayVersions (c) {
-  displayDepInfo(version.botName, botVersion, c)
-  displayDepInfo('Node.js\xae', process.version.slice(1), c)
-  exec('npm list', (e, stdout) => {
-    try {
-      if (e) throw e
-      const split = stdout.split('\n')
-      for (const i in split) {
-        if (!split[i].includes('─')) continue
-        const item = split[i].split('@')
-        const version = item.pop()
-        const dependency = item.join('@').split(' ')[1]
-        displayDepInfo(dependency, version, c)
-      }
-    } catch (e) {
-      console.log(e)
+// Obtain version information for the software the bot uses
+addDepInfo(version.botName, botVersion)
+addDepInfo('Node.js\xae', process.version.slice(1))
+exec('npm list', (e, stdout) => {
+  try {
+    if (e) throw e
+    const split = stdout.split('\n')
+    for (const i in split) {
+      if (!split[i].includes('─')) continue
+      const item = split[i].split('@')
+      const version = item.pop()
+      const dependency = item.join('@').split(' ')[1]
+      addDepInfo(dependency, version)
     }
-  })
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+export default function displayVersions (c) {
+  if(dependencies.length === 0) return
+  for(const item of dependencies){
+    c.reply({
+      translate: getMessage(c.lang, 'command.about.versionCmd.generic', [item.name]),
+      color: c.colors.secondary,
+      with: [
+        {
+          text: item.version + '',
+          color: c.colors.primary
+        }
+      ]
+    })
+  }
 }
