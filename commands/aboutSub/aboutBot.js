@@ -17,19 +17,39 @@ export default function aboutBot (c) {
       }
     ]
   })
-  if (version.isPreRelease) {
-    c.reply({
-      text: getMessage(c.lang, 'command.about.preRelease'),
-      color: c.colors.secondary
-    })
-  }
-  c.reply({ text: '' })
   if (settings[`officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus\`] === false) {
     `]) {
     c.reply({
-      text: getMessage(c.lang, 'command.about.license'),
-      color: c.colors.secondary
+      translate: getMessage(c.lang, 'command.about.copyright'),
+      color: c.colors.secondary,
+      with: [
+        version.copyrightYear,
+        version.botAuthor,
+        c.prefix
+      ]
     })
+    if (version.sourceURL) {
+      c.reply({
+        translate: getMessage(c.lang, 'command.about.sourceCode'),
+        color: c.colors.secondary,
+        with: [
+          {
+            text: version.sourceURL,
+            color: c.colors.primary,
+            clickEvent: {
+              action: 'open_url',
+              value: version.sourceURL
+            },
+            hoverEvent: {
+              action: 'show_text',
+              contents: {
+                text: getMessage(c.lang, 'openInBrowser')
+              }
+            }
+          }
+        ]
+      })
+    }
   } else {
     c.reply({
       translate: getMessage(c.lang, 'command.about.fork'),
@@ -42,49 +62,30 @@ export default function aboutBot (c) {
         {
           text: version.originalAuthor,
           color: c.colors.primary
-        },
-        {
-          text: version.originalRepo,
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'open_url',
-            value: version.originalRepo
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'openInBrowser')
-            }
-          }
         }
       ]
     })
-  }
-  if (version.sourceURL) {
-    c.reply({
-      translate: getMessage(c.lang, 'command.about.sourceCode'),
-      color: c.colors.secondary,
-      with: [
-        {
-          text: version.sourceURL,
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'open_url',
-            value: version.sourceURL
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+    if (version.originalRepo) {
+      c.reply({
+        translate: getMessage(c.lang, 'command.about.sourceCodeFork'),
+        color: c.colors.secondary,
+        with: [
+          {
+            text: version.originalRepo,
+            color: c.colors.primary,
+            clickEvent: {
+              action: 'open_url',
+              value: version.originalRepo
+            },
+            hoverEvent: {
+              action: 'show_text',
+              contents: {
+                text: getMessage(c.lang, 'openInBrowser')
+              }
             }
           }
-        }
-      ]
-    })
+        ]
+      })
+    }
   }
-  c.reply({ text: '' })
-  c.reply({
-    text: getMessage(c.lang, 'command.about.subcommands'),
-    color: c.colors.secondary
-  })
 }
