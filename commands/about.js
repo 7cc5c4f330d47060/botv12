@@ -5,28 +5,18 @@ import displayVersions from './aboutSub/version.js'
 import license from './aboutSub/license.js'
 import aboutBot from './aboutSub/aboutBot.js'
 
+import SubCommandR from '../util/subcr.js'
+const registry = new SubCommandR();
+
+registry.register("base", aboutBot)
+registry.register("server", aboutServer, ['serverinfo', 'specs'])
+registry.register("serverlist", displayServerList, ['servers'])
+registry.register("settings", displaySettings)
+registry.register("version", displayVersions)
+registry.register("license", license, ['licence'])
+
 const execute = c => {
-  let subcmd
-  if (c.args.length >= 1) subcmd = c.args[0].toLowerCase()
-  if (subcmd === 'licence') subcmd = 'license'
-  if (subcmd === 'servers') subcmd = 'serverlist'
-  if (c.cmdName.toLowerCase() === 'licence' || c.cmdName.toLowerCase() === 'license') subcmd = 'license'
-  if (c.cmdName.toLowerCase() === 'serverinfo' || c.cmdName.toLowerCase() === 'specs') subcmd = 'server'
-  if (c.cmdName.toLowerCase() === 'serverlist' || c.cmdName.toLowerCase() === 'servers') subcmd = 'serverlist'
-  if (c.cmdName.toLowerCase() === 'version') subcmd = 'version'
-  if (subcmd === 'server') {
-    aboutServer(c)
-  } else if (subcmd === 'serverlist') {
-    displayServerList(c)
-  } else if (subcmd === 'settings') {
-    displaySettings(c)
-  } else if (subcmd === 'version') {
-    displayVersions(c)
-  } else if (subcmd === 'license') {
-    license(c)
-  } else {
-    aboutBot(c)
-  }
+  registry.runCommand(c)
 }
-const aliases = ['info', 'serverlist', 'servers', 'serverinfo', 'specs', 'version', 'licence', 'license']
+const aliases = registry.aliases
 export { execute, aliases }
