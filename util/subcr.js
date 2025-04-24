@@ -1,23 +1,20 @@
-import CommandR from './cr.js'
-export default class SubCommandR extends CommandR {
-  constructor () {
-    super()
-    
-    this.aliases = [];
+export default class SubCommandR {
+  constructor (aliases) {
+    this._commands = Object.create(null)
+    this._aliases = Object.create(null) // Internal alias list - used by getCommand
+
+    this.aliases = aliases; // Alias list sent to the top level command
 
     this.runCommand = function (context){
       const args = context.args
-      let subCommand = args[0]
-      const command = this.getCommand(subCommand)
-      if(command) {
-        args.splice(0, 1)[0]
-        context.rewriteCommand(args.join(" "))
-      } else if (this.getCommand(context.cmdName)) {
-        subCommand = context.cmdName
+      let subcommand;
+      if(args.length === 0) {
+        subcommand = context.cmdName
       } else {
-        subCommand = 'base'
+        subcommand = args[0]
       }
-      this.getCommand(subCommand).execute(context)
+      const command = this.getCommand(subcommand)
+      command.execute(context)
     }
 
     this.register = function (name, payload, aliases) {
@@ -30,6 +27,16 @@ export default class SubCommandR extends CommandR {
       }
       command.aliases = aliases
       this._commands[name] = command
+    }
+
+    this.getCommand = function (name) {
+      if (this._commands[name]) {
+        return this._commands[name]
+      } else if (this._aliases[name]) {
+        return this._commands[this._aliases[name]]
+      } else {
+        return this._commands.base
+      }
     }
   }
 }
