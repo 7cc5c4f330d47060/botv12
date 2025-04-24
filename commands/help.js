@@ -68,8 +68,8 @@ const printHelp = c => {
 const printCmdHelp = c => {
   let cmd
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
-  let usage = getMessage(c.lang, `command.${cmd}.usage`).split('||')
-  let desc = getMessage(c.lang, `command.${cmd}.desc`)
+  let usage = getMessage(c.lang, `commands.${cmd}.usage`).split('||')
+  let desc = getMessage(c.lang, `commands.${cmd}.desc`)
   const cmdItem = registry.getCommand(cmd)
   if (!cmdItem) {
     return
