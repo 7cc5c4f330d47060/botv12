@@ -8,7 +8,7 @@ export default function displaySettings (c) {
       color: c.colors.primary,
       with: [
         {
-          text: getMessage(c.lang, `command.about.settings.${name}`),
+          text: name,
           color: c.colors.secondary
         },
         {
