@@ -12,6 +12,8 @@ export default class SubCommandR extends CommandR {
       if(command) {
         args.splice(0, 1)[0]
         context.rewriteCommand(args.join(" "))
+      } else if (context.cmdName) {
+        subCommand = context.cmdName
       } else {
         subCommand = 'base'
       }
