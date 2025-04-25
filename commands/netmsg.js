@@ -1,6 +1,7 @@
 import { bots } from '../index.js'
 import { getMessage } from '../util/lang.js'
 import * as rl from '../util/ratelimit.js'
+import build from '../util/messageParser.js'
 const execute = c => {
   if (!rl.check('netmsg') && c.type !== console) {
     c.reply(getMessage(c.lang, 'command.ratelimit', ['2']))
@@ -8,6 +9,7 @@ const execute = c => {
   } else {
     rl.start('netmsg', 2000)
   }
+
   let host = c.host
   let port = c.port
   if (c.bot.host.options && c.bot.host.options.hidden) {
@@ -16,49 +18,24 @@ const execute = c => {
   } else if (c.bot.host.options && c.bot.host.options.displayAsIPv6) {
     host = `[${host}]`
   }
+  
   let msg = c.args.join(' ').slice(0, 512)
-  msg = msg.replace(/:3/g, '')
+  msg = msg.replace(/:3/g, '') // Block users from sending :3
+
   const json = {
-    translate: '[%s] %s: %s',
+    text: '[%s] %s › %s',
     with: [
+      c.bot.host.options?.name ?? 'console',
+      c.username,
       {
-        text: c.bot.host.options?.name ?? 'console',
-        hoverEvent: {
-          action: 'show_text',
-          value: {
-            translate: '%s: %s:%s',
-            with: [
-              {
-                text: getMessage(c.lang, 'command.netmsg.serverAddress'),
-                color: c.colors.primary
-              },
-              {
-                text: host,
-                color: c.colors.primary
-              },
-              {
-                text: port + '',
-                color: c.colors.primary
-              }
-            ],
-            color: c.colors.secondary
-          }
-        },
-        color: c.colors.primary
-      },
-      {
-        text: c.username,
-        color: c.colors.primary
-      },
-      {
-        text: msg
+        text: msg,
+        color: '$tertiary'
       }
     ],
-    color: c.colors.tertiary
   }
   bots.forEach(item => {
     if (item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
-    item.tellraw('@a', json)
+    item.tellraw('@a', console.log(build(json, c.colors, c.colors.secondary, c.lang)))
   })
 }
 

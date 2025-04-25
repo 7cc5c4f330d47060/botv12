@@ -4,13 +4,10 @@ const execute = c => {
   if (c.args[0] === 'set') {
     const scale = Math.min(Math.max(+c.args[1], 0.0625), 16)
     c.reply({
-      translate: getMessage(c.lang, 'command.scale.set'),
-      color: c.colors.secondary,
+      text: 'command.scale.set',
+      parseLang: true,
       with: [
-        {
-          text: c.args[1],
-          color: c.colors.primary
-        }
+        c.args[1]
       ]
     })
     c.bot.ccq.push(`attribute ${c.uuid} scale base set ${scale}`)
@@ -20,8 +17,8 @@ const execute = c => {
     c.bot.ccq.push(`attribute ${c.uuid} jump_strength base set ${0.42 * scale}`) // Very close to 0.42 normally, so we just round
   } else if (c.args[0] === 'reset') {
     c.reply({
-      translate: getMessage(c.lang, 'command.scale.reset'),
-      color: c.colors.secondary
+      text: 'command.scale.reset',
+      parseLang: true,
     })
     c.bot.ccq.push(`attribute ${c.uuid} scale base reset`)
     c.bot.ccq.push(`attribute ${c.uuid} gravity base reset`)
@@ -30,13 +27,10 @@ const execute = c => {
     c.bot.ccq.push(`attribute ${c.uuid} jump_strength base reset`)
   } else {
     c.reply({
-      translate: getMessage(c.lang, 'command.error.subcommand'),
-      color: c.colors.secondary,
+      text: 'command.error.subcommand',
+      parseLang: true,
       with: [
-        {
-          text: `${c.prefix}help scale`,
-          color: c.colors.primary
-        }
+        `${c.prefix}help scale`
       ]
     })
   }
