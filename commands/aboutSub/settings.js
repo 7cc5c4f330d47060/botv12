@@ -1,4 +1,3 @@
-import { getMessage } from '../../util/lang.js'
 import settings from '../../settings.js'
 
 export default function displaySettings (c) {
@@ -9,7 +8,7 @@ export default function displaySettings (c) {
       with: [
         {
           text: name,
-          color: "$primary"
+          color: '$primary'
         },
         {
           text: item,

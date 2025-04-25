@@ -1,6 +1,5 @@
 import settings from '../settings.js'
 import { getMessage } from '../util/lang.js'
-import version from '../version.js'
 const execute = c => {
   const msg = c.args.join(' ').slice(0, 512)
   if (msg.includes(settings.keyTrusted) && c.verify < 1) {
