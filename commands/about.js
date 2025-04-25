@@ -5,8 +5,8 @@ import displayVersions from './aboutSub/version.js'
 import license from './aboutSub/license.js'
 import aboutBot from './aboutSub/aboutBot.js'
 
-import SubCommandR from '../util/subcr.js'
-const registry = new SubCommandR(['info'])
+import SubCommandRegistry from '../util/SubCommandRegistry.js'
+const registry = new SubCommandRegistry(['info'])
 
 registry.register('base', aboutBot)
 registry.register('server', aboutServer, ['serverinfo', 'specs'])
