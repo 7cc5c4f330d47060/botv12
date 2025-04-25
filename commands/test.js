@@ -1,4 +1,3 @@
-import { getMessage } from '../util/lang.js'
 const reply = function (name, item) {
   return {
     text: 'listItem',

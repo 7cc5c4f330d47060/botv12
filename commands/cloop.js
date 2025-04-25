@@ -50,7 +50,7 @@ const execute = c => {
     case 'clear':
       c.bot.clearCloops()
       c.reply({
-        text: getMessage(c.lang, 'command.cloop.success.clear'),
+        text: getMessage(c.lang, 'command.cloop.success.clear')
       })
       break
     default:

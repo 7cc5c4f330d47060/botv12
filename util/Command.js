@@ -20,7 +20,6 @@ export default class Command {
     this.port = bot?.host.port
     this.bot = bot
 
-
     this.rewriteCommand = newCmd => {
       this.command = newCmd
       this.args = newCmd.split(' ').slice(1)

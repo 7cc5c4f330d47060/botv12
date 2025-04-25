@@ -1,4 +1,3 @@
-import { getMessage } from '../util/lang.js'
 const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
@@ -34,7 +33,7 @@ const execute = c => {
         })
         return
       }
-      
+
       c.reply({
         text: 'command.filter.success.add',
         parseLang: true,
@@ -71,7 +70,8 @@ const execute = c => {
     case 'clear':
       // c.bot.clearCloops()
       c.reply({
-        text: getMessage(c.lang, 'Not implemented')
+        text: 'command.error.notImplemented',
+        parseLang: true
       })
       break
     default:

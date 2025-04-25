@@ -1,5 +1,4 @@
 import * as index from '../index.js' // Not used in the code, but may be used by users of the command
-import { getMessage } from '../util/lang.js'
 import { inspect } from 'node:util'
 import settings from '../settings.js'
 import chatlog from '../util/chatlog.js'

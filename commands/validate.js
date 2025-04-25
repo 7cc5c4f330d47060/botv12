@@ -1,5 +1,3 @@
-import { getMessage } from '../util/lang.js'
-
 const execute = c => {
   c.reply({
     text: 'command.verify.success',

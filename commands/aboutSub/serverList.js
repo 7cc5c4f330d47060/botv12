@@ -1,4 +1,3 @@
-import { getMessage } from '../../util/lang.js'
 import { bots } from '../../index.js'
 
 export default function displayServerList (c) {
