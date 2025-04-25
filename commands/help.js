@@ -39,7 +39,7 @@ const printHelp = c => {
     permListFormat.push({
       text: `command.perms${i}`,
       parseLang: true,
-      color: colorList[i],
+      color: colorList[i]
     })
     if (i !== 2) permListFormat.push(' ')
   }
@@ -69,8 +69,8 @@ const printCmdHelp = c => {
     return
   }
 
-  let usage = getMessage(c.lang, `commands.${cmdItem.name}.usage`).split('||')
-  let desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
+  const usage = getMessage(c.lang, `commands.${cmdItem.name}.usage`).split('||')
+  const desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
   for (const item of usage) {
     c.reply({
       text: 'command.help.commandUsage',

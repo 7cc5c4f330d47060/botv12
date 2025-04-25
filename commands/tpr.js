@@ -1,5 +1,3 @@
-import { getMessage } from '../util/lang.js'
-
 const execute = c => {
   let uuid
   if (c.type === 'console') {

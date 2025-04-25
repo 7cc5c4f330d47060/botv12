@@ -6,14 +6,14 @@ import license from './aboutSub/license.js'
 import aboutBot from './aboutSub/aboutBot.js'
 
 import SubCommandR from '../util/subcr.js'
-const registry = new SubCommandR(['info']);
+const registry = new SubCommandR(['info'])
 
-registry.register("base", aboutBot)
-registry.register("server", aboutServer, ['serverinfo', 'specs'])
-registry.register("serverlist", displayServerList, ['servers'])
-registry.register("settings", displaySettings)
-registry.register("version", displayVersions)
-registry.register("license", license, ['licence'])
+registry.register('base', aboutBot)
+registry.register('server', aboutServer, ['serverinfo', 'specs'])
+registry.register('serverlist', displayServerList, ['servers'])
+registry.register('settings', displaySettings)
+registry.register('version', displayVersions)
+registry.register('license', license, ['licence'])
 
 const execute = c => {
   registry.runCommand(c)

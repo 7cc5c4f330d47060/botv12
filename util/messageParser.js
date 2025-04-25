@@ -1,13 +1,13 @@
 import { getMessage } from './lang.js'
 export default function build (text, colors, defaultColor, lang) {
   const json = {}
-  let textContent = ""
+  let textContent = ''
 
-  if (typeof text.text == 'string') {
+  if (typeof text.text === 'string') {
     textContent = text.text
     json.color = text.color ?? defaultColor
   } else {
-    textContent = text + ""
+    textContent = text + ''
     json.color = colors.primary
   }
 
@@ -23,7 +23,7 @@ export default function build (text, colors, defaultColor, lang) {
     json.hoverEvent = {
       action: 'show_text',
       contents: {
-        text: getMessage(lang, 'copyText'),
+        text: getMessage(lang, 'copyText')
       }
     }
   }
@@ -36,7 +36,7 @@ export default function build (text, colors, defaultColor, lang) {
     json.hoverEvent = {
       action: 'show_text',
       contents: {
-        text: getMessage(lang, 'openInBrowser'),
+        text: getMessage(lang, 'openInBrowser')
       }
     }
   }
@@ -47,13 +47,13 @@ export default function build (text, colors, defaultColor, lang) {
   }
 
   if (text.with) {
-    json.with = [];
-    for(const item of text.with){
+    json.with = []
+    for (const item of text.with) {
       json.with.push(build(item, colors, colors.primary, lang))
     }
-    json.translate = textContent;
+    json.translate = textContent
   } else {
-    json.text = textContent;
+    json.text = textContent
   }
   return json
 }

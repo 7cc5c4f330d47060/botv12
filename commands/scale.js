@@ -1,5 +1,3 @@
-import { getMessage } from '../util/lang.js'
-
 const execute = c => {
   if (c.args[0] === 'set') {
     const scale = Math.min(Math.max(+c.args[1], 0.0625), 16)
@@ -18,7 +16,7 @@ const execute = c => {
   } else if (c.args[0] === 'reset') {
     c.reply({
       text: 'command.scale.reset',
-      parseLang: true,
+      parseLang: true
     })
     c.bot.ccq.push(`attribute ${c.uuid} scale base reset`)
     c.bot.ccq.push(`attribute ${c.uuid} gravity base reset`)

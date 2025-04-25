@@ -1,12 +1,11 @@
-import { getMessage } from '../../util/lang.js'
 import { exec } from 'child_process'
 import version from '../../version.js'
 import botVersion from '../../util/version.js'
 
-const dependencies = [];
+const dependencies = []
 
 const addDepInfo = function (name, version) {
-  dependencies.push({name, version})
+  dependencies.push({ name, version })
 }
 
 // Obtain version information for the software the bot uses
@@ -29,8 +28,8 @@ exec('npm list', (e, stdout) => {
 })
 
 export default function displayVersions (c) {
-  if(dependencies.length === 0) return
-  for(const item of dependencies){
+  if (dependencies.length === 0) return
+  for (const item of dependencies) {
     c.reply({
       text: 'command.about.versionCmd.generic',
       parseLang: true,

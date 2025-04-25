@@ -1,4 +1,3 @@
-
 import version from '../../version.js'
 import settings from '../../settings.js'
 
@@ -45,8 +44,14 @@ export default function aboutBot (c) {
     })
     if (version.originalRepo) {
       c.reply({
-        text: getMessage(c.lang, 'command.about.sourceCodeFork'),
-        linked: true
+        text: 'command.about.sourceCodeFork',
+        parseLang: true,
+        with: [
+          {
+            text: version.originalRepo,
+            linked: true
+          }
+        ]
       })
     }
   }

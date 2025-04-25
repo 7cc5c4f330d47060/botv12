@@ -58,7 +58,7 @@ export default function aboutServer (c) {
       with: [
         {
           text: getMessage(c.lang, name),
-          color: "$primary"
+          color: '$primary'
         },
         {
           text: thisItem,

@@ -3,12 +3,12 @@ export default class SubCommandR {
     this._commands = Object.create(null)
     this._aliases = Object.create(null) // Internal alias list - used by getCommand
 
-    this.aliases = aliases; // Alias list sent to the top level command
+    this.aliases = aliases // Alias list sent to the top level command
 
-    this.runCommand = function (context){
+    this.runCommand = function (context) {
       const args = context.args
-      let subcommand;
-      if(args.length === 0) {
+      let subcommand
+      if (args.length === 0) {
         subcommand = context.cmdName
       } else {
         subcommand = args[0]
@@ -18,12 +18,14 @@ export default class SubCommandR {
     }
 
     this.register = function (name, payload, aliases) {
-      if(name !== 'base') this.aliases.push(name)
+      if (name !== 'base') this.aliases.push(name)
       const command = {}
       command.execute = payload
-      if (aliases) for (const alias of aliases){
-        this._aliases[alias] = name
-        this.aliases.push(alias)
+      if (aliases) {
+        for (const alias of aliases) {
+          this._aliases[alias] = name
+          this.aliases.push(alias)
+        }
       }
       command.aliases = aliases
       this._commands[name] = command
