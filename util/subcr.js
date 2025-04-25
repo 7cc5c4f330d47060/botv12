@@ -30,6 +30,7 @@ export default class SubCommandR {
     }
 
     this.getCommand = function (name) {
+      name = name.toLowerCase()
       if (this._commands[name]) {
         return this._commands[name]
       } else if (this._aliases[name]) {
