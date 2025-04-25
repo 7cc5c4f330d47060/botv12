@@ -1,4 +1,4 @@
-export default class SubCommandR {
+export default class SubCommandRegistry {
   constructor (aliases) {
     this._commands = Object.create(null)
     this._aliases = Object.create(null) // Internal alias list - used by getCommand

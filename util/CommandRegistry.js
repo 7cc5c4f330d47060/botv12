@@ -1,4 +1,4 @@
-export default class CommandR {
+export default class CommandRegistry {
   constructor () {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
