@@ -5,6 +5,7 @@ export default class CommandR {
 
     this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly, blockChipmunkMod) {
       const command = {}
+      command.name = name
       command.execute = payload
       command.level = level
       command.hidden = hidden
