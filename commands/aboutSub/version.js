@@ -32,13 +32,11 @@ export default function displayVersions (c) {
   if(dependencies.length === 0) return
   for(const item of dependencies){
     c.reply({
-      translate: getMessage(c.lang, 'command.about.versionCmd.generic', [item.name]),
-      color: c.colors.secondary,
+      text: 'command.about.versionCmd.generic',
+      parseLang: true,
       with: [
-        {
-          text: item.version + '',
-          color: c.colors.primary
-        }
+        item.name,
+        item.version + ''
       ]
     })
   }

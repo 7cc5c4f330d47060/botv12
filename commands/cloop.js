@@ -14,17 +14,11 @@ const execute = c => {
       }
       c.bot.addCloop(command, rate)
       c.reply({
-        translate: getMessage(c.lang, 'command.cloop.success.add'),
-        color: c.colors.secondary,
+        text: 'command.cloop.success.add',
+        parseLang: true,
         with: [
-          {
-            text: command,
-            color: c.colors.primary
-          },
-          {
-            text: rate + '',
-            color: c.colors.primary
-          }
+          command,
+          rate + ''
         ]
       })
       break
@@ -32,13 +26,10 @@ const execute = c => {
     case 'remove': {
       c.bot.removeCloop(c.args[0])
       c.reply({
-        translate: getMessage(c.lang, 'command.cloop.success.remove'),
-        color: c.colors.secondary,
+        text: 'command.cloop.success.remove',
+        parseLang: true,
         with: [
-          {
-            text: c.args[0],
-            color: c.colors.primary
-          }
+          c.args[0]
         ]
       })
       break
@@ -46,21 +37,12 @@ const execute = c => {
     case 'list':
       c.bot.cloops.forEach((item, i) => {
         c.reply({
-          translate: getMessage(c.lang, 'command.cloop.list'),
-          color: c.colors.secondary,
+          text: 'command.cloop.list',
+          parseLang: true,
           with: [
-            {
-              text: i.toString(),
-              color: c.colors.primary
-            },
-            {
-              text: item.command,
-              color: c.colors.primary
-            },
-            {
-              text: item.rate + '',
-              color: c.colors.primary
-            }
+            i.toString(),
+            item.command,
+            item.rate + ''
           ]
         })
       })
@@ -69,18 +51,14 @@ const execute = c => {
       c.bot.clearCloops()
       c.reply({
         text: getMessage(c.lang, 'command.cloop.success.clear'),
-        color: c.colors.secondary
       })
       break
     default:
       c.reply({
-        translate: getMessage(c.lang, 'command.error.subcommand'),
-        color: c.colors.secondary,
+        text: 'command.error.subcommand',
+        parseLang: true,
         with: [
-          {
-            text: `${c.prefix}help cloop`,
-            color: c.colors.primary
-          }
+          `${c.prefix}help cloop`
         ]
       })
   }

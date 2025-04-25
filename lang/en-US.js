@@ -162,6 +162,7 @@ export default {
   'command.perms2': 'Owner',
 
   // Miscellaneous
+  listItem: '%s: %s',
   copyText: 'Click to copy this item to your clipboard',
   openInBrowser: 'Click to open this link in a browser',
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',

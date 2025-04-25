@@ -1,16 +1,13 @@
 import { getMessage } from '../util/lang.js'
 
 const execute = c => {
-  const permsN = getMessage(c.lang, 'command.help.permsNormal')
-  const permsT = getMessage(c.lang, 'command.help.permsTrusted')
-  const permsO = getMessage(c.lang, 'command.help.permsOwner')
   c.reply({
-    translate: getMessage(c.lang, 'command.verify.success'),
-    color: c.colors.secondary,
+    text: 'command.verify.success',
+    parseLang: true,
     with: [
       {
-        text: [permsN, permsT, permsO][c.verify],
-        color: c.colors.primary
+        text: `command.perms${c.level}`,
+        parseLang: true
       }
     ]
   })

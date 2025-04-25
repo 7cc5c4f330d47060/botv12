@@ -11,27 +11,13 @@ export default function displayServerList (c) {
       host = `[${host}]`
     }
     c.reply({
-      translate: getMessage(c.lang, 'command.about.serverListItem'),
-      color: c.colors.secondary,
+      text: 'command.about.serverListItem',
+      parseLang: true,
       with: [
-        {
-          text: i.toString(),
-          color: c.colors.primary
-        },
+        i.toString(),
         {
           text: `${host}:${port}`,
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'copy_to_clipboard',
-            value: `${host}:${port}`
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'copyText'),
-              color: c.colors.secondary
-            }
-          }
+          copyable: true
         }
       ]
     })

@@ -28,39 +28,35 @@ const printHelp = c => {
     } else {
       cmdColor = colorList[0]
     }
-    commandList.push(
-      {
-        translate: '%s ',
-        color: cmdColor,
-        with: [
-          {
-            text: cmd.name,
-            clickEvent: {
-              action: 'suggest_command',
-              value: `${c.prefix}${cmd.name}`
-            }
-          }
-        ]
-      }
-    )
+    commandList.push({
+      text: `${cmd.name} `,
+      color: cmdColor
+    })
   }
 
   const permListFormat = []
   for (let i = 0; i <= 2; i++) {
     permListFormat.push({
+      text: `command.perms${i}`,
+      parseLang: true,
       color: colorList[i],
-      text: getMessage(c.lang, `command.perms${i}`)
     })
     if (i !== 2) permListFormat.push(' ')
   }
 
   c.reply({
-    translate: '%s (%s) (%s): %s',
+    text: '%s (%s) (%s): %s',
     with: [
       getMessage(c.lang, 'command.help.cmdList'),
       commandList.length + '',
-      permListFormat,
-      commandList
+      {
+        text: '%s'.repeat(permListFormat.length),
+        with: permListFormat
+      },
+      {
+        text: '%s'.repeat(commandList.length),
+        with: commandList
+      }
     ]
   })
 }
@@ -77,7 +73,8 @@ const printCmdHelp = c => {
   let desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
   for (const item of usage) {
     c.reply({
-      translate: getMessage(c.lang, 'command.help.commandUsage'),
+      text: 'command.help.commandUsage',
+      parseLang: true,
       with: [
         cmdItem.name,
         item
@@ -85,7 +82,8 @@ const printCmdHelp = c => {
     })
   }
   c.reply({
-    translate: getMessage(c.lang, 'command.help.commandDesc'),
+    text: 'command.help.commandDesc',
+    parseLang: true,
     with: [
       desc
     ]
@@ -103,18 +101,24 @@ const printCmdHelp = c => {
       })
     }
     c.reply({
-      translate: getMessage(c.lang, 'command.help.commandAliases'),
+      text: 'command.help.commandAliases',
+      parseLang: true,
       with: [
-        aliasList
+        {
+          text: '%s'.repeat(aliasList.length),
+          with: aliasList
+        }
       ]
     })
   }
   const rPerms = cmdItem.level ? cmdItem.level : 0
   c.reply({
-    translate: getMessage(c.lang, 'command.help.commandPerms'),
+    text: 'command.help.commandPerms',
+    parseLang: true,
     with: [
       {
-        text: getMessage(c.lang, `command.perms${rPerms}`),
+        text: `command.perms${rPerms}`,
+        parseLang: true
       }
     ]
   })

@@ -78,7 +78,7 @@ export default function load (b) {
         console.log(e)
         b.tellraw(uuid, {
           text: getMessage(context.lang, 'command.error'),
-          color: context.colors.error,
+          color: settings.colors.error,
           hoverEvent: {
             action: 'show_text',
             value: {

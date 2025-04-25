@@ -1,27 +1,21 @@
-import { getMessage } from '../../util/lang.js'
+
 import version from '../../version.js'
 import settings from '../../settings.js'
 
 export default function aboutBot (c) {
   c.reply({
-    translate: getMessage(c.lang, 'command.about.author'),
-    color: c.colors.secondary,
+    text: 'command.about.author',
+    parseLang: true,
     with: [
-      {
-        text: version.botName,
-        color: c.colors.primary
-      },
-      {
-        text: version.botAuthor,
-        color: c.colors.primary
-      }
+      version.botName,
+      version.botAuthor
     ]
   })
   if (settings[`officiаlUbotFullVersionRealWorkingTwoThousandEighteenFreeNoVirus\`] === false) {
     `]) {
     c.reply({
-      translate: getMessage(c.lang, 'command.about.copyright'),
-      color: c.colors.secondary,
+      text: 'command.about.copyright',
+      parseLang: true,
       with: [
         version.copyrightYear,
         version.botAuthor,
@@ -30,61 +24,29 @@ export default function aboutBot (c) {
     })
     if (version.sourceURL) {
       c.reply({
-        translate: getMessage(c.lang, 'command.about.sourceCode'),
-        color: c.colors.secondary,
+        text: 'command.about.sourceCode',
+        parseLang: true,
         with: [
           {
             text: version.sourceURL,
-            color: c.colors.primary,
-            clickEvent: {
-              action: 'open_url',
-              value: version.sourceURL
-            },
-            hoverEvent: {
-              action: 'show_text',
-              contents: {
-                text: getMessage(c.lang, 'openInBrowser')
-              }
-            }
+            linked: true
           }
         ]
       })
     }
   } else {
     c.reply({
-      translate: getMessage(c.lang, 'command.about.fork'),
-      color: c.colors.secondary,
+      text: 'command.about.fork',
+      parseLang: true,
       with: [
-        {
-          text: version.originalName,
-          color: c.colors.primary
-        },
-        {
-          text: version.originalAuthor,
-          color: c.colors.primary
-        }
+        version.originalName,
+        version.originalAuthor
       ]
     })
     if (version.originalRepo) {
       c.reply({
-        translate: getMessage(c.lang, 'command.about.sourceCodeFork'),
-        color: c.colors.secondary,
-        with: [
-          {
-            text: version.originalRepo,
-            color: c.colors.primary,
-            clickEvent: {
-              action: 'open_url',
-              value: version.originalRepo
-            },
-            hoverEvent: {
-              action: 'show_text',
-              contents: {
-                text: getMessage(c.lang, 'openInBrowser')
-              }
-            }
-          }
-        ]
+        text: getMessage(c.lang, 'command.about.sourceCodeFork'),
+        linked: true
       })
     }
   }

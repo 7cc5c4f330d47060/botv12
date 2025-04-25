@@ -12,7 +12,9 @@ const execute = c => {
         uuid = c.bot.findUUID(playerName)
         if (uuid === '00000000-0000-0000-0000-000000000000') {
           c.reply({
-            text: getMessage(c.lang, 'command.filter.error.notFound')
+            text: 'command.filter.error.notFound',
+            parseLang: true,
+            color: '$error'
           })
           return
         }
@@ -20,27 +22,25 @@ const execute = c => {
         playerName = c.bot.findRealNameFromUUID(command)
         uuid = command
       }
+
       if (!c.bot.isFiltered(command)) {
         playerName = c.bot.findRealNameFromUUID(command)
         c.bot.addFilter(uuid, playerName)
       } else {
         c.reply({
-          text: getMessage(c.lang, 'command.filter.error.filtered')
+          text: 'command.filter.error.filtered',
+          parseLang: true,
+          color: '$error'
         })
         return
       }
+      
       c.reply({
-        translate: getMessage(c.lang, 'command.filter.success.add'),
-        color: c.colors.secondary,
+        text: 'command.filter.success.add',
+        parseLang: true,
         with: [
-          {
-            text: command,
-            color: c.colors.primary
-          },
-          {
-            text: playerName,
-            color: c.colors.primary
-          }
+          command,
+          playerName
         ]
       })
       break
@@ -48,13 +48,10 @@ const execute = c => {
     case 'remove': {
       c.bot.removeFilter(c.args[0])
       c.reply({
-        translate: getMessage(c.lang, 'command.filter.success.remove'),
-        color: c.colors.secondary,
+        text: 'command.filter.success.remove',
+        parseLang: true,
         with: [
-          {
-            text: c.args[0],
-            color: c.colors.primary
-          }
+          c.args[0]
         ]
       })
       break
@@ -62,17 +59,11 @@ const execute = c => {
     case 'list':
       c.bot.filteredPlayers.forEach(item => {
         c.reply({
-          translate: getMessage(c.lang, 'command.filter.list'),
-          color: c.colors.secondary,
+          text: 'command.filter.list',
+          parseLang: true,
           with: [
-            {
-              text: item.username,
-              color: c.colors.primary
-            },
-            {
-              text: item.uuid,
-              color: c.colors.primary
-            }
+            item.username,
+            item.uuid
           ]
         })
       })
@@ -85,13 +76,10 @@ const execute = c => {
       break
     default:
       c.reply({
-        translate: getMessage(c.lang, 'command.error.subcommand'),
-        color: c.colors.secondary,
+        text: 'command.error.subcommand',
+        parseLang: true,
         with: [
-          {
-            text: `${c.prefix}help filter`,
-            color: c.colors.primary
-          }
+          `${c.prefix}help filter`
         ]
       })
   }

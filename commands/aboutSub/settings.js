@@ -4,27 +4,16 @@ import settings from '../../settings.js'
 export default function displaySettings (c) {
   const reply = function (name, item) {
     return {
-      translate: '%s: %s',
-      color: c.colors.primary,
+      text: 'listItem',
+      parseLang: true,
       with: [
         {
           text: name,
-          color: c.colors.secondary
+          color: "$primary"
         },
         {
           text: item,
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'copy_to_clipboard',
-            value: item
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'copyText'),
-              color: c.colors.secondary
-            }
-          }
+          copyable: true
         }
       ]
     }
