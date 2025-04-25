@@ -68,40 +68,26 @@ const printHelp = c => {
 const printCmdHelp = c => {
   let cmd
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
-  let usage = getMessage(c.lang, `commands.${cmd}.usage`).split('||')
-  let desc = getMessage(c.lang, `commands.${cmd}.desc`)
   const cmdItem = registry.getCommand(cmd)
   if (!cmdItem) {
     return
   }
-  if (cmdItem.alias) {
-    usage = getMessage(c.lang, `command.${cmdItem.alias}.usage`).split('||')
-    desc = getMessage(c.lang, 'command.help.alias', [cmdItem.alias])
-  }
+
+  let usage = getMessage(c.lang, `commands.${cmdItem.name}.usage`).split('||')
+  let desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
   for (const item of usage) {
     c.reply({
       translate: getMessage(c.lang, 'command.help.commandUsage'),
-      color: c.colors.secondary,
       with: [
-        {
-          text: cmd,
-          color: c.colors.primary
-        },
-        {
-          text: item,
-          color: c.colors.primary
-        }
+        cmdItem.name,
+        item
       ]
     })
   }
   c.reply({
     translate: getMessage(c.lang, 'command.help.commandDesc'),
-    color: c.colors.secondary,
     with: [
-      {
-        text: desc,
-        color: c.colors.primary
-      }
+      desc
     ]
   })
   if (cmdItem.aliases) {
@@ -109,18 +95,15 @@ const printCmdHelp = c => {
     for (const item of cmdItem.aliases) {
       if (aliasList.length > 0) {
         aliasList.push({
-          text: ', ',
-          color: c.colors.secondary
+          text: ', '
         })
       }
       aliasList.push({
-        text: item,
-        color: c.colors.primary
+        text: item
       })
     }
     c.reply({
       translate: getMessage(c.lang, 'command.help.commandAliases'),
-      color: c.colors.secondary,
       with: [
         aliasList
       ]
@@ -129,11 +112,9 @@ const printCmdHelp = c => {
   const rPerms = cmdItem.level ? cmdItem.level : 0
   c.reply({
     translate: getMessage(c.lang, 'command.help.commandPerms'),
-    color: c.colors.secondary,
     with: [
       {
         text: getMessage(c.lang, `command.perms${rPerms}`),
-        color: c.colors.primary
       }
     ]
   })
