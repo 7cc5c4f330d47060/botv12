@@ -14,25 +14,13 @@ const execute = c => {
   }
   c.reply(
     {
-      translate: getMessage(c.lang, 'command.tpr.success'),
-      color: c.colors.secondary,
+      text: 'command.tpr.success',
+      parseLang: true,
       with: [
-        {
-          text: c.username,
-          color: c.colors.primary
-        },
-        {
-          text: originalPos.x.toString(),
-          color: c.colors.primary
-        },
-        {
-          text: originalPos.y.toString(),
-          color: c.colors.primary
-        },
-        {
-          text: originalPos.z.toString(),
-          color: c.colors.primary
-        }
+        c.username,
+        originalPos.x.toString(),
+        originalPos.y.toString(),
+        originalPos.z.toString()
       ]
     }
   )

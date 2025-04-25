@@ -15,35 +15,7 @@ const execute = c => {
     result = inspect(e)
     if (!settings.disableLogging && !settings.disableEvalLogging) chatlog('eval', `${c.host}:${c.port} ${c.username} (${c.uuid}) Error: ${inspect(e)}`)
   }
-  if (c.type === 'console') {
-    console.log(result)
-  } else {
-    c.reply({
-      translate: '%s: %s',
-      color: c.colors.primary,
-      with: [
-        {
-          text: getMessage(c.lang, 'command.eval.output'),
-          color: c.colors.secondary
-        },
-        {
-          text: result + '',
-          color: c.colors.primary,
-          clickEvent: {
-            action: 'copy_to_clipboard',
-            value: result + ''
-          },
-          hoverEvent: {
-            action: 'show_text',
-            contents: {
-              text: getMessage(c.lang, 'copyText'),
-              color: c.colors.secondary
-            }
-          }
-        }
-      ]
-    })
-  }
+  console.log(result)
 }
 const level = 2
 const consoleOnly = true
