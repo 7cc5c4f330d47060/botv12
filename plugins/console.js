@@ -61,7 +61,7 @@ rl.on('line', (l) => {
         lastServer = +args[0]
         args.splice(0,1)
       }
-      bots[lastServer].chat(args.join(' '))
+      if(args.length > 0) bots[lastServer].chat(args.join(' '))
     }
   } catch (e) {
     console.log(e)
