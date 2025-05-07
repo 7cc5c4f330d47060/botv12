@@ -41,17 +41,17 @@ rl.on('line', (l) => {
         const index2 = args.splice(1, 1)[0]
         if (index2 === '*') {
           for (let i = 0; i < bots.length; i++) {
-            const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+            const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '.', bots[i])
             context.verify = 2
             cmd.execute(context)
           }
         } else {
-          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
+          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '.', bots[+index2])
           context.verify = 2
           cmd.execute(context)
         }
       } else {
-        const context = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
+        const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '.', consoleBotStub)
         context.verify = 2
         cmd.execute(context)
       }
