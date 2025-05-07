@@ -57,7 +57,7 @@ rl.on('line', (l) => {
       }
     } else {
       const args = l.split(' ')
-      if(/\d$/.test(args[0])){
+      if(/^\d+$/.test(args[0])){
         lastServer = +args[0]
         args.splice(0,1)
       }
