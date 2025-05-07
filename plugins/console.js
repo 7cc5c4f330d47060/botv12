@@ -23,34 +23,43 @@ const rl = createInterface({
   output: process.stdout,
   prompt: '\x1b[0m> '
 })
+let lastServer = 0;
 rl.on('line', (l) => {
-  const args = l.split(' ')
-  const cmdName = args[0].toLowerCase()
-
   try {
-    const cmd = registry.getCommand(cmdName)
-    if (!cmd) {
-      rl.prompt(false)
-      return
-    }
+    if(l.startsWith(".")){
+      const args = l.slice(1).split(' ')
+      const cmdName = args[0].toLowerCase()   
+      const cmd = registry.getCommand(cmdName)
+      if (!cmd) {
+        rl.prompt(false)
+        return
+      }
 
-    if (cmd.consoleIndex) {
-      const index2 = args.splice(1, 1)[0]
-      if (index2 === '*') {
-        for (let i = 0; i < bots.length; i++) {
-          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+      if (cmd.consoleIndex) {
+        const index2 = args.splice(1, 1)[0]
+        if (index2 === '*') {
+          for (let i = 0; i < bots.length; i++) {
+            const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+            context.verify = 2
+            cmd.execute(context)
+          }
+        } else {
+          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
           context.verify = 2
           cmd.execute(context)
         }
       } else {
-        const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
+        const context = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
         context.verify = 2
         cmd.execute(context)
       }
     } else {
-      const context = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
-      context.verify = 2
-      cmd.execute(context)
+      const args = l.split(' ')
+      if(/\d$/.test(args[0])){
+        lastServer = +args[0]
+        args.splice(0,1)
+      }
+      bots[lastServer].chat(args.join(' '))
     }
   } catch (e) {
     console.log(e)
