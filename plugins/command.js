@@ -79,7 +79,7 @@ export default function load (b) {
         b.tellraw(uuid, {
           text: getMessage(context.lang, 'command.error'),
           color: settings.colors.error,
-          hoverEvent: {
+          hover_event: {
             action: 'show_text',
             value: {
               text: e.stack

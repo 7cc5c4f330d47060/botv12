@@ -5,7 +5,7 @@ export default function build (text, colors, lang) {
 
   if (typeof text.text === 'string') {
     textContent = text.text
-    json.color = text.color ?? defaultColor
+    if (text.color) json.color = text.color 
   } else {
     textContent = text + ''
   }
@@ -15,11 +15,11 @@ export default function build (text, colors, lang) {
   }
 
   if (text.copyable) {
-    json.clickEvent = {
+    json.click_event = {
       action: 'copy_to_clipboard',
       value: textContent
     }
-    json.hoverEvent = {
+    json.hover_event = {
       action: 'show_text',
       contents: {
         text: getMessage(lang, 'copyText')
@@ -28,11 +28,11 @@ export default function build (text, colors, lang) {
   }
 
   if (text.linked) {
-    json.clickEvent = {
+    json.click_event = {
       action: 'open_url',
       value: textContent
     }
-    json.hoverEvent = {
+    json.hover_event = {
       action: 'show_text',
       contents: {
         text: getMessage(lang, 'openInBrowser')
