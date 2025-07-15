@@ -68,9 +68,9 @@ const execute = c => {
       })
       break
     case 'clear':
-      // c.bot.clearCloops()
+      c.bot.filteredPlayers = [] // Unlike cloop, filters don't use setInterval several times
       c.reply({
-        text: 'command.error.notImplemented',
+        text: 'command.filter.success.clear',
         parseLang: true
       })
       break

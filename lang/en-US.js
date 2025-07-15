@@ -18,15 +18,18 @@ export default {
   'time.secondPlural': ' seconds ',
 
   // Command Info
+  // For commands with multiple usages, || seperates them. Usage should always start with space unless empty.
   'commands.about.usage': '',
   'commands.about.desc': 'About the bot',
   'commands.cb.usage': ' <command>',
   'commands.cb.desc': 'Run a command in a command block',
   'commands.cloop.usage': ' add <rate> <command>|| remove <index>|| list|| clear',
   'commands.cloop.desc': 'Manage command loops',
+  'commands.error.usage': '',
+  'commands.error.desc': 'Test the error handler',
   'commands.eval.usage': ' <code>',
   'commands.eval.desc': 'Run JavaScript code',
-  'commands.filter.usage': ' (syntax not finalized)',
+  'commands.filter.usage': ' add <player|| remove <player>|| list|| clear',
   'commands.filter.desc': 'Manage filtered players',
   'commands.help.usage': ' [cmd]',
   'commands.help.desc': 'Shows command help',
