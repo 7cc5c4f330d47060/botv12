@@ -4,8 +4,8 @@ export default {
   botAuthor: 'owo439895035', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version. Used by the about command to show a warning if set to true.
   copyrightYear: '2024-2025', // Years that the bot was developed in. Should be a string.
-  sourceURL: 'https://code.chipmunk.land/7cc5c4f330d47060/botv12', // Source code repository URL. This is different from the one in package.json.
-  originalRepo: 'https://code.chipmunk.land/7cc5c4f330d47060/botv12',
+  sourceURL: 'https://codeberg.org/7cc5c4f330d47060/botv12', // Source code repository URL. This is different from the one in package.json.
+  originalRepo: 'https://codeberg.org/7cc5c4f330d47060/botv12',
   originalName: 'botv12',
   originalAuthor: 'owo439895035' // These three fields should only be changed in forks of forks, if the original fork is compliant with MIT
 }

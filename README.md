@@ -12,7 +12,7 @@ It supports all Minecraft versions from 1.20.6 to 1.21.4 that are supported by n
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using `git clone https://code.chipmunk.land/7cc5c4f330d47060/botv12`.
+2. Download the latest release, or alternatively, download the latest development version using `git clone https://codeberg.org/7cc5c4f330d47060/botv12`.
 3. Extract the files if necessary.
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
 5. Copy the reference configuration (`settings_example.js` in the root) to `settings.js`, and adjust the settings to fit your needs. The secrets are also contained in this file as well.
@@ -20,4 +20,4 @@ It supports all Minecraft versions from 1.20.6 to 1.21.4 that are supported by n
 
 ## License
 
-This project is licensed under the MIT License. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this bot, you MUST link back to this repository. See the License file for the full terms and conditions.
+This project is licensed under the MIT License. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. See the License file for the full terms and conditions.
