@@ -1,5 +1,5 @@
 import { getMessage } from './lang.js'
-export default function build (text, colors, defaultColor, lang) {
+export default function build (text, colors, lang) {
   const json = {}
   let textContent = ''
 
@@ -8,7 +8,6 @@ export default function build (text, colors, defaultColor, lang) {
     json.color = text.color ?? defaultColor
   } else {
     textContent = text + ''
-    json.color = colors.primary
   }
 
   if (text.parseLang) {
@@ -41,15 +40,11 @@ export default function build (text, colors, defaultColor, lang) {
     }
   }
 
-  if (text.color) {
-    if (text.color.startsWith('$')) json.color = colors[text.color.slice(1)]
-    else text.color = json.color
-  }
 
   if (text.with) {
     json.with = []
     for (const item of text.with) {
-      json.with.push(build(item, colors, colors.primary, lang))
+      json.with.push(build(item, colors, lang))
     }
     json.translate = textContent
   } else {

@@ -98,32 +98,6 @@ export default function load (b) {
 
   // Prefix tablist ads
   if (!b.host.options.isVanilla) {
-    b.adPrefix = {
-      translate: '[%s] %s', // Since the bot aims to have an invisible name, the ad prefix should contain information about the bot.
-      color: settings.colors.tertiary,
-      with: [
-        {
-          translate: '%s: %s',
-          color: settings.colors.secondary,
-          with: [
-            {
-              text: getMessage(settings.defaultLang, 'selfcare.prefix')
-            },
-            {
-              text: settings.prefixes[0],
-              color: settings.colors.primary
-            }
-          ]
-        },
-        {
-          text: version.botName,
-          color: settings.colors.primary
-        }
-      ]
-    }
-    b.add_sc_task('playerlist_ads', () => {
-      // b.chat(`/prefix ${parseMc(b.adPrefix).replaceAll('§', '&')}`)
-    })
     b.on('playerdata', (uuid, displayName) => {
       if (uuid === b._client.uuid && !displayName.startsWith(parsePlain(b.adPrefix))) {
         b.sc_tasks.playerlist_ads.failed = 1
