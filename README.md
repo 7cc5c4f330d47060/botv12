@@ -20,4 +20,4 @@ It supports all Minecraft versions from 1.20.6 to 1.21.4 that are supported by n
 
 ## License
 
-This project is licensed under the MIT License. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. See the LICENSE file for the full terms and conditions.
+This project is licensed under the MIT License. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. See the License file for the full terms and conditions.
