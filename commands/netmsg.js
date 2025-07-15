@@ -1,6 +1,6 @@
 import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
-import build from '../util/messageParser.js'
+import build from '../util/messageBuilder.js'
 const execute = c => {
   if (!rl.check('netmsg') && c.type !== console) {
     c.reply({

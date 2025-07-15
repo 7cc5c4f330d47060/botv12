@@ -1,5 +1,5 @@
 import settings from '../settings.js'
-import build from './messageParser.js'
+import build from './messageBuilder.js'
 export default class Command {
   constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot) {
     this.uuid = uuid
