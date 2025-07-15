@@ -95,19 +95,4 @@ export default function load (b) {
   b.add_sc_task('cc_pos', () => {
     b.chat('/minecraft:tp ~ 40 ~')
   })
-
-  // Prefix tablist ads
-  if (!b.host.options.isVanilla) {
-    b.on('playerdata', (uuid, displayName) => {
-      if (uuid === b._client.uuid && !displayName.startsWith(parsePlain(b.adPrefix))) {
-        b.sc_tasks.playerlist_ads.failed = 1
-      }
-    })
-    b.on('plainchat', (msg) => {
-      if (msg === `You now have the tag: ${parseMc(b.adPrefix).replaceAll('§', '&')}` ||
-          msg === 'Something went wrong while saving the prefix. Please check console.') { // Fix the prefix issue
-        b.sc_tasks.playerlist_ads.failed = 0
-      }
-    })
-  }
 }
