@@ -3,7 +3,7 @@ import build from './messageBuilder.js'
 export default class Command {
   constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot) {
     this.uuid = uuid
-    this.reply = text => bot.tellraw(uuid, build(text, settings.colors, settings.colors.secondary, settings.defaultLang))
+    this.reply = text => bot.tellraw(uuid, build(text, settings.colors, settings.defaultLang))
     this.username = user
     this.nickname = nick
     this.command = cmd
