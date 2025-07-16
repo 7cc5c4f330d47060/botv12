@@ -21,7 +21,7 @@ export default function build (text, colors, lang) {
     }
     json.hover_event = {
       action: 'show_text',
-      contents: {
+      value: {
         text: getMessage(lang, 'copyText')
       }
     }
@@ -34,12 +34,16 @@ export default function build (text, colors, lang) {
     }
     json.hover_event = {
       action: 'show_text',
-      contents: {
+      value: {
         text: getMessage(lang, 'openInBrowser')
       }
     }
   }
 
+  if (text.color) {
+    if (text.color.startsWith('$')) json.color = colors[text.color.slice(1)]
+    else text.color = json.color
+  }
 
   if (text.with) {
     json.with = []

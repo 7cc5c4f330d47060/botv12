@@ -22,8 +22,7 @@ const execute = c => {
       c.bot.host.options?.name ?? 'console',
       c.username,
       {
-        text: msg,
-        color: '$tertiary'
+        text: msg
       }
     ]
   }
