@@ -7,8 +7,7 @@ export default function displaySettings (c) {
       parseLang: true,
       with: [
         {
-          text: name,
-          color: '$primary'
+          text: name
         },
         {
           text: item,
