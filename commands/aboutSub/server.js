@@ -57,8 +57,7 @@ export default function aboutServer (c) {
       parseLang: true,
       with: [
         {
-          text: getMessage(c.lang, name),
-          color: '$primary'
+          text: getMessage(c.lang, name)
         },
         {
           text: thisItem,
