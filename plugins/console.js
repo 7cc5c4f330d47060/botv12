@@ -1,7 +1,7 @@
 import { createInterface, cursorTo, clearLine } from 'node:readline'
 import registry from '../util/commands.js'
 import Command from '../util/Command.js'
-import parse2 from '../util/chatparse_plain.js'
+import parse3 from '../util/chatparse.js'
 import { userInfo } from 'node:os'
 import { bots } from '../index.js'
 import settings from '../settings.js'
@@ -12,7 +12,7 @@ const consoleBotStub = {
     host: 'bot console',
     port: 25565
   },
-  tellraw: (_unused, data) => console.log(parse2(data))
+  tellraw: (_unused, data) => console.log(parse3(data, 'none'))
 }
 const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as

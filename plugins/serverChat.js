@@ -1,6 +1,5 @@
 import settings from '../settings.js'
-import parsePlain from '../util/chatparse_plain.js'
-import parseConsole from '../util/chatparse_console.js'
+import parse3 from '../util/chatparse.js'
 import parse1204 from '../util/parseNBT.js'
 import { getMessage } from '../util/lang.js'
 import { readdirSync } from 'node:fs'
@@ -84,10 +83,10 @@ export default function load (b) {
     for (const i in messageType.style) {
       json[i] = messageType.style[i]
     }
-    const message = parsePlain(parse1204(data.message))
-    const uuid = b.findUUID(parsePlain(parse1204(data.name)))
+    const message = parse3(parse1204(data.message), 'none')
+    const uuid = b.findUUID(parse3(parse1204(data.name)), 'none')
     const nickname = b.findDisplayName(uuid)
-    const username = parsePlain(parse1204(data.name))
+    const username = parse3(parse1204(data.name), 'none')
     b.emit('chat_unparsed', {
       json,
       type: 'profileless',
@@ -129,7 +128,7 @@ export default function load (b) {
       type: 'player',
       uuid: data.senderUuid,
       message: data.plainMessage,
-      nickname: parsePlain(parse1204(data.networkName)),
+      nickname: parse3(parse1204(data.networkName), 'none'),
       username: b.findRealNameFromUUID(data.senderUuid),
       playerChatType: messageType
     })
@@ -172,8 +171,8 @@ export default function load (b) {
 
   b.on('chat', (data) => {
     if (Date.now() < b.chatDisabledUntil) return
-    const msgConsole = parseConsole(data.json)
-    const msgPlain = parsePlain(data.json)
+    const msgConsole = parse3(data.json, settings.terminalMode)
+    const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
     if (msgPlain.startsWith('Command set: ')) return
