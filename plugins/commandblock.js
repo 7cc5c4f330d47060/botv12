@@ -1,6 +1,5 @@
 import uuidToInt from '../util/uuidtoint.js'
-import plainParser from '../util/chatparse_plain.js'
-import mcParser from '../util/chatparse_mc.js'
+import chatParser from '../util/chatparse.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
@@ -154,9 +153,9 @@ export default function load (b) {
     let finalname = ''
     if (b.host.options.useChat) {
       if (b.host.options.useAmpersandColorCodes) {
-        b.chat(mcParser(message).replaceAll('§', '&'))
+        b.chat(chatParser(message, 'mcAmpersand'))
       } else {
-        b.chat(plainParser(message))
+        b.chat(chatParser(message, 'none'))
       }
     } else {
       if (uuid === '@a') {

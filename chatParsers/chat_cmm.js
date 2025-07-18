@@ -1,4 +1,4 @@
-import parsePlain from '../util/chatparse_plain.js'
+import parse3 from '../util/chatparse.js'
 
 const priority = 0
 const parse = (data, b) => {
@@ -6,10 +6,10 @@ const parse = (data, b) => {
     if (data.json.translate === '%s %s › %s' || data.json.translate === '[%s] %s › %s') {
       let subtype = 'chipmunkmod'
       if (data.json.with && data.json.with[1] && data.json.with[2]) {
-        const username = parsePlain(data.json.with[1])
+        const username = parse3(data.json.with[1], 'none')
         const uuid = b.findUUID(username)
         const nickname = b.findDisplayName(uuid)
-        const message = parsePlain(data.json.with[2])
+        const message = parse3(data.json.with[2], 'none')
         return {
           parsed: true,
           json: data.json,
