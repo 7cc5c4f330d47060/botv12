@@ -9,6 +9,13 @@ const execute = c => {
     c.bot.info(getMessage(c.lang, 'command.say.warning.ownerKey'))
     return
   }
+  if(/(uwu|owo|[;:]3|m[er]ow|mr+p|nya)/i.test(msg)){
+    c.reply({
+      text: 'command.disallowed.bannedString',
+      parseLang: true
+    })
+    return
+  }
   if (c.verify < 1) {
     c.bot.tellraw('@a', {
       translate: '%s %s: %s',

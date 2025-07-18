@@ -1,8 +1,5 @@
 import lang from './mc_lang.js'
 import consoleColors from './consoleColors.js'
-import { inspect } from 'node:util'
-
-
 
 const process8bitColorChannel = (value) => {
   if (value < 65) return 0

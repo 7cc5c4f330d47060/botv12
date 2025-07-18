@@ -145,6 +145,7 @@ export default {
   'command.error.subcmd': 'Unknown subcommand, please do %s',
   'command.error.notImplemented': 'This function has not been implemented yet',
   'command.ratelimit': 'This command is rate limited for %s seconds',
+  'command.disallowed.bannedString': 'Commands that display user messages can\'t contain "uwu", "owo", "meow", "mrrp", or ":3".',
 
   // Permission Error
   'command.disallowed.perms.short': 'You do not have permission to run this command.',

@@ -14,7 +14,13 @@ const execute = c => {
   }
 
   let msg = c.args.join(' ').slice(0, 512)
-  msg = msg.replace(/:3/g, '') // Block users from sending :3
+  if(/(uwu|owo|[;:]3|m[er]ow|mr+p|nya)/i.test(msg)){
+    c.reply({
+      text: 'command.disallowed.bannedString',
+      parseLang: true
+    })
+    return
+  }
 
   const json = {
     text: '[%s] %s › %s',
