@@ -1,10 +1,10 @@
-import parsePlain from '../util/chatparse_plain.js'
+import parse3 from '../util/chatparse.js'
 
 const priority = 2
 const parse = (data, b) => {
   if (data.type === 'system') {
     const subtype = 'generic_system'
-    const parsed = parsePlain(data.json)
+    const parsed = parse3(data.json, 'none')
     const split = parsed.split(': ')
     const chatName = split.splice(0, 1)[0]
     const chatNameSplit = chatName.split(' ')

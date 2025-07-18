@@ -1,4 +1,4 @@
-import parse from '../util/chatparse_plain.js'
+import parse3 from '../util/chatparse.js'
 import parseNBT from '../util/parseNBT.js'
 
 export default function load (b) {
@@ -26,11 +26,11 @@ export default function load (b) {
         displayName = '{"text":"[[[[ No display name ]]]]"}'
       }
       if (player.player && player.player.name !== undefined) {
-        buffer2[uuid] = { realName: player.player.name, displayName: parse(parseNBT(displayName)) }
+        buffer2[uuid] = { realName: player.player.name, displayName: parse3(parseNBT(displayName), 'none') }
       } else if (player.name !== undefined) {
-        buffer2[uuid] = { realName: player.name, displayName: parse(parseNBT(displayName)) }
+        buffer2[uuid] = { realName: player.name, displayName: parse3(parseNBT(displayName), 'none') }
       } else if (player.displayName !== undefined) {
-        buffer2[uuid] = { displayName: parse(parseNBT(displayName)) }
+        buffer2[uuid] = { displayName: parse3(parseNBT(displayName), 'none') }
       }
     }
     for (const uuid in buffer2) {
