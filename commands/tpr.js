@@ -26,5 +26,4 @@ const execute = c => {
 }
 const consoleIndex = true
 const aliases = ['rtp']
-
 export { execute, consoleIndex, aliases }

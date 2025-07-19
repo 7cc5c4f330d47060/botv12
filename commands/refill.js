@@ -3,5 +3,4 @@ const execute = c => {
 }
 const consoleIndex = true
 const aliases = ['refillcore', 'rc']
-
 export { execute, consoleIndex, aliases }

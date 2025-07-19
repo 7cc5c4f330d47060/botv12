@@ -18,7 +18,7 @@ const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as
 const nick = user
 
-let lastServer = 0;
+let lastServer = 0
 
 const rl = createInterface({
   input: process.stdin,
@@ -28,9 +28,9 @@ const rl = createInterface({
 
 rl.on('line', (l) => {
   try {
-    if(l.startsWith(".")){
+    if (l.startsWith('.')) {
       const args = l.slice(1).split(' ')
-      const cmdName = args[0].toLowerCase()   
+      const cmdName = args[0].toLowerCase()
       const cmd = registry.getCommand(cmdName)
       if (!cmd) {
         rl.prompt(false)
@@ -57,11 +57,11 @@ rl.on('line', (l) => {
       }
     } else {
       const args = l.split(' ')
-      if(/^\d+$/.test(args[0])){
+      if (/^\d+$/.test(args[0])) {
         lastServer = +args[0]
-        args.splice(0,1)
+        args.splice(0, 1)
       }
-      if(args.length > 0) bots[lastServer].chat(args.join(' '))
+      if (args.length > 0) bots[lastServer].chat(args.join(' '))
     }
   } catch (e) {
     console.log(e)
