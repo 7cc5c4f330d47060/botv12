@@ -12,5 +12,4 @@ const execute = c => {
 }
 const aliases = ['verify']
 const level = 1
-
 export { execute, aliases, level }

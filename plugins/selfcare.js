@@ -49,7 +49,7 @@ export default function load (b) {
   // CommandSpy
   if (!b.host.options.isVanilla) {
     b.add_sc_task('cspy', () => {
-      if(!b.chatqueue.slice(0,5).includes('/cspy on')) b.chat('/cspy on')
+      if (!b.chatqueue.slice(0, 5).includes('/cspy on')) b.chat('/cspy on')
     }, true)
     b.on('plainchat', (msg) => {
       if (msg === 'Successfully disabled CommandSpy') {

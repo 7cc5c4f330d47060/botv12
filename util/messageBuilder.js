@@ -5,7 +5,7 @@ export default function build (text, colors, lang) {
 
   if (typeof text.text === 'string') {
     textContent = text.text
-    if (text.color) json.color = text.color 
+    if (text.color) json.color = text.color
   } else {
     textContent = text + ''
   }

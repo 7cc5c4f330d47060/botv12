@@ -1,4 +1,5 @@
 import { getMessage } from '../util/lang.js'
+
 const execute = c => {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
@@ -65,5 +66,4 @@ const execute = c => {
 }
 const consoleIndex = true
 const level = 1
-
 export { execute, consoleIndex, level }
