@@ -1,6 +1,6 @@
 import settings from '../../settings.js'
 
-export default function displaySettings (c) {
+export default async function displaySettings (c) {
   const reply = function (name, item) {
     return {
       text: 'listItem',
