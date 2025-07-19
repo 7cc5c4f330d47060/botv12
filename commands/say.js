@@ -9,6 +9,7 @@ const execute = c => {
     c.bot.info(getMessage(c.lang, 'command.say.warning.ownerKey'))
     return
   }
+
   if (c.verify < 1) {
     c.bot.tellraw('@a', {
       translate: '%s %s: %s',
