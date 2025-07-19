@@ -1,4 +1,4 @@
-const execute = c => {
+async function execute(c){
   c.reply({
     text: 'command.verify.success',
     parseLang: true,
