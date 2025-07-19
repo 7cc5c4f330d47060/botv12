@@ -1,6 +1,7 @@
 import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
+
 const execute = c => {
   if (!rl.check('netmsg') && c.type !== console) {
     c.reply({
@@ -13,8 +14,8 @@ const execute = c => {
     rl.start('netmsg', 2000)
   }
 
-  let msg = c.args.join(' ').slice(0, 512)
-  if(/(uwu|owo|[;:]3|m[er]ow|mr+p|nya)/i.test(msg)){
+  const msg = c.args.join(' ').slice(0, 512)
+  if (/(uwu|owo|[;:]3|m[er]ow|mr+p|nya)/i.test(msg)) {
     c.reply({
       text: 'command.disallowed.bannedString',
       parseLang: true
@@ -37,6 +38,5 @@ const execute = c => {
     item.tellraw('@a', build(json, c.colors, c.colors.secondary, c.lang))
   })
 }
-
 const blockChipmunkMod = true
 export { execute, blockChipmunkMod }
