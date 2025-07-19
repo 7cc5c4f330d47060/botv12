@@ -3,5 +3,4 @@ const execute = c => {
 }
 const aliases = ['reboot']
 const level = 2
-
 export { execute, aliases, level }
