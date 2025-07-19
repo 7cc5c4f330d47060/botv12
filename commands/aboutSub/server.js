@@ -4,7 +4,7 @@ import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
 
-const os2 = function (o2, l) {
+const os2 = async function (o2, l) {
   switch (o2) {
     case 'win32':
       return `${os.version()}`
@@ -42,7 +42,7 @@ const os2 = function (o2, l) {
   }
 }
 
-export default function aboutServer (c) {
+export default async function aboutServer (c) {
   const displayInfo = function (name, infoFunc) {
     let thisItem
     try {
