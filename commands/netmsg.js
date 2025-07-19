@@ -1,6 +1,7 @@
 import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
+
 const execute = c => {
   if (!rl.check('netmsg') && c.type !== console) {
     c.reply({
@@ -12,9 +13,6 @@ const execute = c => {
   } else {
     rl.start('netmsg', 2000)
   }
-
-  let msg = c.args.join(' ').slice(0, 512)
-  msg = msg.replace(/:3/g, '') // Block users from sending :3
 
   const json = {
     text: '[%s] %s › %s',
@@ -31,6 +29,5 @@ const execute = c => {
     item.tellraw('@a', build(json, c.colors, c.colors.secondary, c.lang))
   })
 }
-
 const blockChipmunkMod = true
 export { execute, blockChipmunkMod }
