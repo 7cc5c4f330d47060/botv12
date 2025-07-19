@@ -3,5 +3,4 @@ const execute = c => {
 }
 const consoleIndex = true
 const level = 2
-
 export { execute, consoleIndex, level }
