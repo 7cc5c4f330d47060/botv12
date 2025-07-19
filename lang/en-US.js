@@ -165,6 +165,10 @@ export default {
   'command.perms1': 'Trusted',
   'command.perms2': 'Owner',
 
+  // Command Errors - Data Base
+  'command.error.db.loading': 'The Database is connecting, please wait',
+  'command.error.db.notConnected': 'The Database is not connected',
+
   // Miscellaneous
   listItem: '%s: %s',
   copyText: 'Click to copy this item to your clipboard',
