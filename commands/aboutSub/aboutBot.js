@@ -1,7 +1,7 @@
 import version from '../../version.js'
 import settings from '../../settings.js'
 
-export default function aboutBot (c) {
+export default async function aboutBot (c) {
   c.reply({
     text: 'command.about.author',
     parseLang: true,
