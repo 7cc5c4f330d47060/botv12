@@ -2,7 +2,7 @@ import uuidToInt from '../util/uuidtoint.js'
 import chatParser from '../util/chatparse.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
-import { loader as loaderData } from 'minecraft-data'
+import { default as loaderData } from 'minecraft-data'
 export default function load (b) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName

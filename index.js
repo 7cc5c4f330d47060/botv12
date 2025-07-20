@@ -4,7 +4,7 @@ import generateUser from './util/usergen.js'
 import { getMessage } from './util/lang.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
-import { loader as registry } from 'prismarine-registry'
+import { default as registry } from 'prismarine-registry'
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
