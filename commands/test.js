@@ -1,4 +1,4 @@
-async function reply (name, item) {
+function reply (name, item) {
   return {
     text: 'listItem',
     parseLang: true,
