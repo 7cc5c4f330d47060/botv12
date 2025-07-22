@@ -2,6 +2,7 @@ import * as index from '../index.js' // Not used in the code, but may be used by
 import { inspect } from 'node:util'
 import settings from '../settings.js'
 import chatlog from '../util/chatlog.js'
+import { default as db } from '../util/database.js'
 
 async function execute(c){
   const payload = c.args.join(' ')
