@@ -5,7 +5,6 @@ import { getMessage } from './util/lang.js'
 import EventEmitter from 'node:events'
 import { readdirSync } from 'node:fs'
 import { default as registry } from 'prismarine-registry'
-import { default as registry2 } from './util/database.js'
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
 const bots = []
