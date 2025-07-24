@@ -15,7 +15,7 @@ registry.register('settings', displaySettings)
 registry.register('version', displayVersions)
 registry.register('license', license, ['licence'])
 
-const execute = c => {
+async function execute(c){
   registry.runCommand(c)
 }
 const aliases = registry.aliases
