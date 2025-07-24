@@ -8,6 +8,15 @@ export default {
     as they can be used to get admin access to the bot, and (in the case of the owner key) access to
     your computer.
   */
+  /*
+    If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
+    Currently, MySQL and MariaDB are supported, with more to come.
+  */
+  dbEnabled: false, 
+  dbHost: '',
+  dbUser: '',
+  dbPassword: '',
+  dbName: '',
   colors: { // All colors the bot uses
     warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
     error: '#FF6688', // Used for errors that are sent to Minecraft chat
