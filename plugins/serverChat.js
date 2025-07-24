@@ -111,7 +111,7 @@ export default function load (b) {
       if (item === 'content') {
         if (messageType.translation_key === '%s') {
           if(!data.unsignedChatContent) json.with[i] = ''
-          json.with[i] = parse1204(data.unsignedChatContent)
+          else json.with[i] = parse1204(data.unsignedChatContent)
         } else {
           json.with[i] = data.plainMessage
         }
