@@ -5,7 +5,7 @@ export default function load (b) {
   b.players = {}
   b._client.on('player_remove', data => {
     for (const item of data.players) {
-      if (!data.players[item]) continue
+      if (!b.players[item]) continue
       delete b.players[item]
       b.emit('playerquit', item)
     }
