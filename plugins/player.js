@@ -3,8 +3,10 @@ import parseNBT from '../util/parseNBT.js'
 import { default as db } from '../util/database.js'
 import settings from '../settings.js'
 
-const connection = await db.pool.getConnection();
-connection.query(`USE ${settings.dbName}`)
+if(settings.dbEnabled){
+  const connection = await db.pool.getConnection();
+  connection.query(`USE ${settings.dbName}`)
+}
 
 export default function load (b) {
   b.players = {}
@@ -13,7 +15,7 @@ export default function load (b) {
       if (!b.players[item]) continue
       delete b.players[item]
       b.emit('playerquit', item)
-      await connection.query(`UPDATE seenPlayers 
+      if(settings.dbEnabled) await connection.query(`UPDATE seenPlayers 
         SET lastSeen = ?,
         lastHost = ?,
         lastPort = ?
@@ -65,7 +67,7 @@ export default function load (b) {
       b.emit('playerdata', uuid, displayName, realName)
       if(settings.dbEnabled) {
         const playerList = await connection.query('SELECT * FROM seenPlayers WHERE uuid = ?', [uuid]);
-        if(playerList.length === 0) await connection.query(`INSERT INTO seenPlayers (
+        if(playerList.length === 0 && settings.dbEnabled) await connection.query(`INSERT INTO seenPlayers (
           firstSeen, 
           firstHost, 
           firstPort, 
@@ -89,7 +91,7 @@ export default function load (b) {
         else {
           let joinCountList = await connection.query('SELECT joinCount FROM seenPlayers WHERE uuid = ?', [uuid]);
           let joinCount = joinCountList[0].joinCount + 1
-          if(realName.length) await connection.query(`UPDATE seenPlayers 
+          if(realName.length && settings.dbEnabled) await connection.query(`UPDATE seenPlayers 
             SET userName = ?,
             joinCount = ?,
             lastSeen = ?,
