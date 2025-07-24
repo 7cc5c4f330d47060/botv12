@@ -26,7 +26,7 @@ export default function load (b) {
           index = index2
         }
       })
-    } else { // Uuid code
+    } else { // Username code
       b.filteredPlayers.forEach((item, index2) => {
         if (item.username === string) {
           console.log(index2)
