@@ -1,5 +1,42 @@
+import { default as db } from '../util/database.js'
+import settings from '../settings.js'
+
+const connection = await db.pool.getConnection();
+connection.query(`USE ${settings.dbName}`)
+
 async function execute(c){
-  c.reply({text:'command.error.notImplemented', parseLang: true})
+  const name = c.args.join(' ')
+  let joinCount;
+  let lastSeen;
+  let userName;
+  let player
+  if (/[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/.test(name)) { // Uuid code
+    player = await connection.query('SELECT * FROM seenPlayers WHERE uuid = ?', [name]);
+  } else { // Username code
+    player = await connection.query('SELECT * FROM seenPlayers WHERE userName = ?', [name]);
+  }
+  if(player.length >= 1){
+    joinCount = player[0].joinCount ?? 0;
+    lastSeen = player[0].lastSeen ?? 0n;
+    userName = player[0].userName ?? '';
+    c.reply({
+      text:'command.seen.success', 
+      parseLang: true, 
+      with: [
+        userName, 
+        Date(Number(lastSeen)), 
+        joinCount
+      ]
+    })
+  } else {
+    c.reply({
+      text:'command.seen.neverSeen', 
+      parseLang: true, 
+      with: [
+        name
+      ]
+    })
+  }
 }
 
 export { execute }

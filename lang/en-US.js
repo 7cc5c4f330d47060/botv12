@@ -118,6 +118,8 @@ export default {
   'command.say.warning.ownerKey': 'This message is blocked because it contains the owner key.',
   'command.scale.set': 'Set player size to %s',
   'command.scale.reset': 'Reset player size',
+  'command.seen.success': '%s was last seen on %s, and has joined %s times.',
+  'command.seen.neverSeen': '%s has never been seen',
   'command.test.uuid': 'UUID',
   'command.test.username': 'Username',
   'command.test.nickname': 'Nickname',
@@ -174,5 +176,6 @@ export default {
   copyText: 'Click to copy this item to your clipboard',
   openInBrowser: 'Click to open this link in a browser',
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
-  'selfcare.prefix': 'Prefix'
+  'selfcare.prefix': 'Prefix',
+  'debug.commandFinished': 'Command successfully executed in %sms'
 }
