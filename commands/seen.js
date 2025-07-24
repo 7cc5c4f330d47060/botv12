@@ -25,7 +25,11 @@ async function execute(c){
       with: [
         userName, 
         Date(Number(lastSeen)), 
-        joinCount
+        joinCount,
+        {
+          text:`command.seen.success.time${(joinCount == 1) ? '' : 'Plural'}`, 
+          parseLang: true, 
+        }
       ]
     })
   } else {
