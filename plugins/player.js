@@ -24,7 +24,6 @@ export default function load (b) {
         b.host.port,
         item
       ])
-      console.log(item)
     }
   })
   b._client.on('player_info', async function (data) {
