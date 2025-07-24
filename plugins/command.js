@@ -13,7 +13,7 @@ export default function load (b) {
       }
     }
   })
-  b.runCommand = function (user, nick, uuid, command, type, subtype, prefix) {
+  b.runCommand = async function (user, nick, uuid, command, type, subtype, prefix) {
     if (uuid === '00000000-0000-0000-0000-000000000000') return
     if (Date.now() - b.lastCmd <= 1000) return
     b.lastCmd = Date.now()
@@ -73,7 +73,14 @@ export default function load (b) {
 
     if (commandItem) {
       try {
-        commandItem.execute(context)
+        const startDate = Date.now();
+        const result = await commandItem.execute(context)
+        const timeSpent = Date.now() - startDate;
+        context.reply({
+          text: 'debug.commandFinished',
+          parseLang: true,
+          with: [ timeSpent ]
+        })
       } catch (e) {
         console.log(e)
         b.tellraw(uuid, {

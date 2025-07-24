@@ -1,4 +1,4 @@
-const reply = function (name, item) {
+function reply (name, item) {
   return {
     text: 'listItem',
     parseLang: true,
@@ -11,7 +11,7 @@ const reply = function (name, item) {
     ]
   }
 }
-const execute = c => {
+async function execute(c){
   c.reply(reply('uuid', c.uuid))
   c.reply(reply('username', c.username))
   c.reply(reply('nickname', c.nickname))

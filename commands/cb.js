@@ -1,4 +1,4 @@
-const execute = c => {
+async function execute(c){
   c.bot.ccq.push(c.args.join(' '))
 }
 const consoleIndex = true
