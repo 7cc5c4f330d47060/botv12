@@ -1,16 +1,33 @@
 import parse3 from '../util/chatparse.js'
 import parseNBT from '../util/parseNBT.js'
+import { default as db } from '../util/database.js'
+import settings from '../settings.js'
+
+const connection = await db.pool.getConnection();
+connection.query(`USE ${settings.dbName}`)
 
 export default function load (b) {
   b.players = {}
-  b._client.on('player_remove', data => {
+  b._client.on('player_remove', async function (data) {
     for (const item of data.players) {
-      if (!data.players[item]) continue
+      if (!b.players[item]) continue
       delete b.players[item]
       b.emit('playerquit', item)
+      await connection.query(`UPDATE seenPlayers 
+        SET lastSeen = ?,
+        lastHost = ?,
+        lastPort = ?
+        WHERE uuid = ?`,
+      [
+        Date.now(),
+        b.host.host,
+        b.host.port,
+        item
+      ])
+      console.log(item)
     }
   })
-  b._client.on('player_info', data => {
+  b._client.on('player_info', async function (data) {
     const buffer2 = {}
     for (const player of data.data) {
       let uuid
@@ -47,6 +64,49 @@ export default function load (b) {
         b.players[uuid].realName = buffer2[uuid].realName
       }
       b.emit('playerdata', uuid, displayName, realName)
+      if(settings.dbEnabled) {
+        const playerList = await connection.query('SELECT * FROM seenPlayers WHERE uuid = ?', [uuid]);
+        if(playerList.length === 0) await connection.query(`INSERT INTO seenPlayers (
+          firstSeen, 
+          firstHost, 
+          firstPort, 
+          lastSeen, 
+          lastHost, 
+          lastPort, 
+          userName, 
+          uuid, 
+          joinCount
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+          Date.now(),
+          b.host.host,
+          b.host.port,
+          Date.now(),
+          b.host.host,
+          b.host.port,
+          realName,
+          uuid,
+          1
+        ])
+        else {
+          let joinCountList = await connection.query('SELECT joinCount FROM seenPlayers WHERE uuid = ?', [uuid]);
+          let joinCount = joinCountList[0].joinCount + 1
+          if(realName.length) await connection.query(`UPDATE seenPlayers 
+            SET userName = ?,
+            joinCount = ?,
+            lastSeen = ?,
+            lastHost = ?,
+            lastPort = ?
+            WHERE uuid = ?`,
+          [
+            realName,
+            joinCount,
+            Date.now(),
+            b.host.host,
+            b.host.port,
+            uuid
+          ])
+        }
+      }
     }
   })
 
