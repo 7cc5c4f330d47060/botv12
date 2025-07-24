@@ -1,8 +1,10 @@
 import { default as db } from '../util/database.js'
 import settings from '../settings.js'
 
-const connection = await db.pool.getConnection();
-connection.query(`USE ${settings.dbName}`)
+if(settings.dbEnabled){
+  const connection = await db.pool.getConnection();
+  connection.query(`USE ${settings.dbName}`)
+}
 
 async function execute(c){
   const name = c.args.join(' ')
