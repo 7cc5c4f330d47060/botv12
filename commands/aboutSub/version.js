@@ -4,7 +4,7 @@ import botVersion from '../../util/version.js'
 
 const dependencies = []
 
-const addDepInfo = function (name, version) {
+const addDepInfo = async function (name, version) {
   dependencies.push({ name, version })
 }
 
@@ -27,7 +27,7 @@ exec('npm list', (e, stdout) => {
   }
 })
 
-export default function displayVersions (c) {
+export default async function displayVersions (c) {
   if (dependencies.length === 0) return
   for (const item of dependencies) {
     c.reply({

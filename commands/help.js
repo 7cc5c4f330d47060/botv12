@@ -7,7 +7,7 @@ const sortHelp = function sortHelp (c1, c2) {
   return level1 - level2
 }
 
-const printHelp = c => {
+function printHelp(c){
   const cmds = registry.listCommands()
   const keys = Object.keys(cmds).sort()
   const commands = []
@@ -61,7 +61,7 @@ const printHelp = c => {
   })
 }
 
-const printCmdHelp = c => {
+function printCmdHelp(c){
   let cmd
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
   const cmdItem = registry.getCommand(cmd)
@@ -124,7 +124,7 @@ const printCmdHelp = c => {
   })
 }
 
-const execute = c => {
+async function execute(c){
   if (c.args.length > 0) {
     printCmdHelp(c)
   } else {

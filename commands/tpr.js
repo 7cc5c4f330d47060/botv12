@@ -1,4 +1,4 @@
-const execute = c => {
+async function execute(c) {
   let uuid
   if (c.type === 'console') {
     uuid = c.bot._client.uuid
