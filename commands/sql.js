@@ -2,8 +2,9 @@ import { default as db } from '../util/database.js'
 import settings from '../settings.js'
 import { inspect } from 'node:util'
 
+let connection;
 if(settings.dbEnabled){
-  const connection = await db.pool.getConnection();
+  connection = await db.pool.getConnection();
   connection.query(`USE ${settings.dbName}`)
 }
 
