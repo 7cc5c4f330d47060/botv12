@@ -31,6 +31,14 @@ export default function load (b) {
     const permsT = getMessage(context.lang, 'command.help.permsTrusted')
     const permsO = getMessage(context.lang, 'command.help.permsOwner')
 
+    // Block running eval in normal mode
+    if (commandItem.debugOnly && !settings.debugMode) {
+      b.tellraw(uuid, {
+        text: getMessage(context.lang, 'command.disabled.debugOnly')
+      })
+      return
+    }
+
     // Block running eval in minecraft
     if (commandItem.consoleOnly) {
       b.tellraw(uuid, {
@@ -76,7 +84,7 @@ export default function load (b) {
         const startDate = Date.now();
         const result = await commandItem.execute(context)
         const timeSpent = Date.now() - startDate;
-        context.reply({
+        if (settings.debugMode) context.reply({
           text: 'debug.commandFinished',
           parseLang: true,
           with: [ timeSpent ]

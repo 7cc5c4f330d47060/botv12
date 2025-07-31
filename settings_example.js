@@ -17,6 +17,7 @@ export default {
   dbUser: '',
   dbPassword: '',
   dbName: '',
+  debugMode: false, // Enable for more debug info, and eval commands.
   colors: { // All colors the bot uses
     warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
     error: '#FF6688', // Used for errors that are sent to Minecraft chat
