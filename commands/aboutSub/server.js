@@ -4,7 +4,7 @@ import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
 
-const os2 = async function (o2, l) {
+const os2 = function (o2, l) {
   switch (o2) {
     case 'win32':
       return `${os.version()}`
@@ -35,6 +35,19 @@ const os2 = async function (o2, l) {
         }
       } else {
         return getMessage(l, `command.about.serverInfo.os.${o2}`)
+      }
+    }
+    case 'darwin':{
+      try {
+        const osrelease = execSync('sw_vers').toString('UTF-8').split('\n')
+        const osrelease2 = {}
+        for (const item of osrelease) {
+          if (!item.includes(':\t')) continue
+          osrelease2[item.split(':\t')[0]] = item.split(':\t')[1]
+        }
+        return getMessage(l, '%s %s (%s)', [osrelease2.ProductName, osrelease2.ProductVersion, osrelease2.BuildVersion])
+      } catch (e) {
+        return getMessage(l, 'command.about.serverInfo.os.macos')
       }
     }
     default:
@@ -69,7 +82,7 @@ export default async function aboutServer (c) {
 
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
-    return os2(process.platform, c.lang)
+    return os2(process.platform, c.lang);
   })
 
   // Kernel version: os.release()
