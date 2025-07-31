@@ -66,6 +66,8 @@ export default function load (b) {
     let messageType
     if (data.type.registryIndex) {
       messageType = b.messageTypes[data.type.registryIndex - 1]
+    } else if (data.type.chatType) {
+      messageType = b.messageTypes[data.type.chatType]
     } else {
       messageType = b.messageTypes[data.type]
     }
@@ -84,7 +86,7 @@ export default function load (b) {
       json[i] = messageType.style[i]
     }
     const message = parse3(parse1204(data.message), 'none')
-    const uuid = b.findUUID(parse3(parse1204(data.name)), 'none')
+    const uuid = b.findUUID(parse3(parse1204(data.name), 'none'))
     const nickname = b.findDisplayName(uuid)
     const username = parse3(parse1204(data.name), 'none')
     b.emit('chat_unparsed', {
@@ -102,6 +104,8 @@ export default function load (b) {
     let messageType
     if (data.type.registryIndex) {
       messageType = b.messageTypes[data.type.registryIndex - 1]
+    } else if (data.type.chatType) {
+      messageType = b.messageTypes[data.type.chatType]
     } else {
       messageType = b.messageTypes[data.type]
     }
@@ -176,7 +180,7 @@ export default function load (b) {
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
-    if (msgPlain.startsWith('Command set: ')) return
+    if (msgPlain.startsWith('Command set: ') && !settings.debugMode) return
     b.messageCount++
     if (b.messageCount >= 100) {
       b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))

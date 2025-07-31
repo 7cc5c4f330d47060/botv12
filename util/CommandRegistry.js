@@ -3,7 +3,7 @@ export default class CommandRegistry {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
 
-    this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly, blockChipmunkMod) {
+    this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly, debugOnly, blockChipmunkMod) {
       const command = {}
       command.name = name
       command.execute = payload
@@ -13,6 +13,7 @@ export default class CommandRegistry {
       command.aliases = aliases
       command.consoleIndex = consoleIndex
       command.consoleOnly = consoleOnly
+      command.debugOnly = debugOnly
       command.blockChipmunkMod = blockChipmunkMod
       this._commands[name] = command
     }
