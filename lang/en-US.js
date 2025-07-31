@@ -162,6 +162,7 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.noConsole': 'This command cannot be run from the console.',
   'command.disabled.consoleOnly': 'This command must be run from the console.',
+  'command.disabled.debugOnly': 'This command must be run with Debug Mode enabled.',
   'command.disabled.chipmunkmod': 'This command cannot be run using a custom chat format.',
 
   // Permission Levels

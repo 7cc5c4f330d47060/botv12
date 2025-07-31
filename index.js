@@ -61,7 +61,7 @@ const createBot = function createBot (host, oldId) {
   }
 
   bot._client.on('error', (err) => {
-    console.log(err)
+    if (settings.debugMode) console.log(err)
   })
 }
 

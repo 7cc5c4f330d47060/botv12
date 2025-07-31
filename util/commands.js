@@ -11,7 +11,7 @@ for (const plugin of bpl) {
   try {
     const commandName = plugin.split('.js')[0]
     import(`../commands/${plugin}`).then((pluginItem) => {
-      registry.register(commandName, pluginItem.execute, pluginItem.level, pluginItem.consoleIndex, pluginItem.hidden, pluginItem.aliases, pluginItem.consoleOnly, pluginItem.blockChipmunkMod)
+      registry.register(commandName, pluginItem.execute, pluginItem.level, pluginItem.consoleIndex, pluginItem.hidden, pluginItem.aliases, pluginItem.consoleOnly, pluginItem.debugOnly, pluginItem.blockChipmunkMod)
     })
   } catch (e) { console.log(e) }
 }

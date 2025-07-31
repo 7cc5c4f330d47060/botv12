@@ -31,8 +31,15 @@ rl.on('line', (l) => {
 
   try {
     const cmd = registry.getCommand(cmdName)
+
     if (!cmd) {
       rl.prompt(false)
+      return
+    }
+
+    // Block running eval in normal mode
+    if (cmd.debugOnly && !settings.debugMode) {
+      console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
       return
     }
 
@@ -74,7 +81,7 @@ export default function load (b) {
     consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, 'console.info')}] ${msg}`)
   }
   b.displayChat = (type, subtype, msg) => {
-    if (settings.displaySubtypesToConsole) {
+    if (settings.debugMode) {
       consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] [${subtype}] ${msg}`)
     } else {
       consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] ${msg}`)

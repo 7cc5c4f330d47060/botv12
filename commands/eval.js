@@ -18,4 +18,5 @@ async function execute(c){
 }
 const level = 2
 const consoleOnly = true
-export { execute, level, consoleOnly }
+const debugOnly = true
+export { execute, level, consoleOnly, debugOnly }
