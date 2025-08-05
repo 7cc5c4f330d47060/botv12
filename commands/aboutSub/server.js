@@ -93,7 +93,7 @@ export default async function aboutServer (c) {
     })
   }
 
- // Processor
+  // Processor
   if (os.cpus()[0]) {
     displayInfo('command.about.serverInfo.processor', () => {
       return os.cpus()[0].model
