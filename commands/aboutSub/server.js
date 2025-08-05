@@ -86,11 +86,14 @@ export default async function aboutServer (c) {
   })
 
   // Kernel version: os.release()
-  displayInfo('command.about.serverInfo.kernelVer', () => {
-    return os.release()
-  })
+  // On FreeBSD, the kernel version is already stated in PRETTY_NAME in /etc/os-release.
+  if (process.platform !== 'freebsd') {
+    displayInfo('command.about.serverInfo.kernelVer', () => {
+      return os.release()
+    })
+  }
 
-  // Processor
+ // Processor
   if (os.cpus()[0]) {
     displayInfo('command.about.serverInfo.processor', () => {
       return os.cpus()[0].model
