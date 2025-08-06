@@ -163,3 +163,7 @@ userPref/
 UBotLogs/
 botvXLogs/
 logs/
+
+plugins/extrasMsg.js
+# ExtrasMsg input
+input.bin
