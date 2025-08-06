@@ -12,19 +12,13 @@ if(settings.dbEnabled){
   })
 }
 
-async function query(c, data, data2) {
-  let result;
-  try {
-    //await c.query(`USE ${settings.dbName};`)
-    result = await c.query(data, data2)
-  } catch (e){
-    throw e;
-  } finally {
-    if(c) c.end()
-    return result
-  }
+async function getConnection() {
+  const connection = await pool.getConnection();
+  connection.query(`USE ${settings.dbName}`)
+  return connection
 }
+
 //const connection = await pool.getConnection();
 //console.log(connection)
 
-export default { pool, query }
+export default { pool, getConnection }

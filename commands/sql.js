@@ -4,8 +4,7 @@ import { inspect } from 'node:util'
 
 let connection;
 if(settings.dbEnabled){
-  connection = await db.pool.getConnection();
-  connection.query(`USE ${settings.dbName}`)
+  connection = await db.getConnection();
 }
 
 async function execute(c){
