@@ -2,8 +2,8 @@ import { default as db } from './database.js'
 import { getMessage } from './lang.js'
 import settings from '../settings.js'
 
-const connection = await db.pool.getConnection();
-connection.query(`USE ${settings.dbName}`)
+const connection = await db.getConnection();
+
 connection.query(`CREATE TABLE seenPlayers (
   userName VARCHAR(255) NOT NULL,
   uuid VARCHAR(255) NOT NULL,
