@@ -166,4 +166,6 @@ logs/
 
 plugins/extrasMsg.js
 # ExtrasMsg input
-input.bin
+/input.bin
+# ExtrasMsg output
+/output.bin
