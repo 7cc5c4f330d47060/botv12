@@ -37,6 +37,9 @@ const os2 = function (o2, l) {
         return getMessage(l, `command.about.serverInfo.os.${o2}`)
       }
     }
+    case 'openbsd':{
+      return getMessage(l, 'command.about.serverInfo.os.openbsd', [os.release()])
+    }
     case 'darwin':{
       try {
         const osrelease = execSync('sw_vers').toString('UTF-8').split('\n')
@@ -86,8 +89,8 @@ export default async function aboutServer (c) {
   })
 
   // Kernel version: os.release()
-  // On FreeBSD, the kernel version is already stated in PRETTY_NAME in /etc/os-release.
-  if (process.platform !== 'freebsd') {
+  // On FreeBSD and OpenBSD, the kernel version is already stated in the result of os2.
+  if (process.platform !== 'freebsd' && process.platform !== 'openbsd') {
     displayInfo('command.about.serverInfo.kernelVer', () => {
       return os.release()
     })
