@@ -66,6 +66,7 @@ export default {
   'command.about.serverInfo.os.android': 'Android %s',
   'command.about.serverInfo.os.android.noVersion': 'Android',
   'command.about.serverInfo.os.freebsd': 'FreeBSD',
+  'command.about.serverInfo.os.openbsd': 'OpenBSD %s',
   'command.about.serverInfo.os.linux': 'Linux',
   'command.about.serverInfo.os.macos': 'macOS',
   'command.about.serverInfo.os.macos_old': 'OS X',
