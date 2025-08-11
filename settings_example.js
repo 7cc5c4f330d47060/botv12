@@ -10,7 +10,7 @@ export default {
   */
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
-    Currently, MySQL and MariaDB are supported, with more to come.
+    Currently, MySQL and MariaDB are supported, SQLite support is planned, with more to come.
   */
   dbEnabled: false, 
   dbHost: '',
