@@ -13,6 +13,7 @@ export default {
     Currently, MySQL and MariaDB are supported, SQLite support is planned, with more to come.
   */
   dbEnabled: false, 
+  dbType: "sqlite", 
   dbHost: '',
   dbUser: '',
   dbPassword: '',
