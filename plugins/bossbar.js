@@ -1,15 +1,34 @@
-export default function load (b) {
-  b.bossbar = {}
-  b.bossbars = {}
-  b.bossbar.create = function (name, display) {
-    b.bossbars[name] = {
-      name: display,
-      maximum: 100,
-      value: 0,
-      style: 'progress',
-      color: 'white'
+class BossBar {
+  constructor (b, name, display, max, initialValue, style, color, players) {
+    this.name = name
+    this.display = display
+    this.max = max // 100
+    this.value = initialValue // 0
+    this.style = style // progress
+    this.color = color // white
+    this.players = players
+    this.namespace = 'ubotv8'
+    
+    this.updatePlayers = function () {
+      b.ccq.push(`/bossbar set ${this.namespace}:${this.name} players ${players}`)
     }
-    b.ccq.push(`/bossbar add ubotv8:${name} ${JSON.stringify(display)}`)
-    b.ccq.push(`/bossbar set ubotv8:${name} players @a`)
+
+    this.delete = function () {
+      b.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
+    }
+
+    this.setValue  = function (value) {
+      this.value = value
+      b.ccq.push(`/bossbar set ${this.namespace}:${this.name} value ${value}`)
+    }
+
+    b.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
+    b.ccq.push(`/bossbar add ${this.namespace}:${this.name} ${JSON.stringify(display)}`)
+  }
+}
+export default function load (b) {
+  b.createBossbar = function (name, display) {
+    const bossbar = new BossBar(b, name, display, 100, 0, 'progress', 'white', '@a')
+    return bossbar
   }
 }
