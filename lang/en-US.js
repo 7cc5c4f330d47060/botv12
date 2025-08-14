@@ -145,6 +145,11 @@ export default {
   'command.tpr.success': 'Teleporting %s to %s, %s, %s',
   'command.verify.success': 'Successfully verified with permission level %s',
 
+  // Music Player
+  'musicPlayer.nowPlaying': 'Now playing %s',
+  'musicPlayer.loadingSong': 'Loading song...',
+  'musicPlayer.stopped': 'Stopped the music',
+
   // Command Errors
   'command.error': 'An error occured (check console for more info)',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
