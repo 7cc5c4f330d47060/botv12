@@ -16,38 +16,42 @@ export default function load (b) {
   b.advanceccq = function () {
     if (b.host.options.useChat) return
     if (b.ccq[0] && b.ccq[0].length !== 0) {
-      const xstart = b.currentChunk.x << 4
-      const zstart = b.currentChunk.z << 4
-      b._client.write('update_command_block', {
-        command: '/',
-        location: {
-          x: xstart + b.blocknoX,
-          y: 55,
-          z: zstart + b.blocknoZ
-        },
-        mode: 2,
-        flags: 1
-      })
-      b._client.write('update_command_block', {
-        command: b.ccq[0].substr(0, 32767),
-        location: {
-          x: xstart + b.blocknoX,
-          y: 55,
-          z: zstart + b.blocknoZ
-        },
-        mode: 2,
-        flags: 5
-      })
-      b.blocknoX++
-      if (b.blocknoX === 16) {
-        b.blocknoZ++
-        b.blocknoX = 0
-        if (b.blocknoZ === 16) {
-          b.blocknoZ = 0
-        }
-      }
+      b.sendCommandNow(b.ccq[0])
     }
     b.ccq.splice(0, 1)
+  }
+
+  b.sendCommandNow = function (command) {
+    const xstart = b.currentChunk.x << 4
+    const zstart = b.currentChunk.z << 4
+    b._client.write('update_command_block', {
+      command: '/',
+      location: {
+        x: xstart + b.blocknoX,
+        y: 55,
+        z: zstart + b.blocknoZ
+      },
+      mode: 2,
+      flags: 1
+    })
+    b._client.write('update_command_block', {
+      command: command.substr(0, 32767),
+      location: {
+        x: xstart + b.blocknoX,
+        y: 55,
+        z: zstart + b.blocknoZ
+      },
+      mode: 2,
+      flags: 5
+    })
+    b.blocknoX++
+    if (b.blocknoX === 16) {
+      b.blocknoZ++
+      b.blocknoX = 0
+      if (b.blocknoZ === 16) {
+        b.blocknoZ = 0
+      }
+    }
   }
 
   b._client.on('login', () => {
@@ -145,7 +149,9 @@ export default function load (b) {
     }
   })
   b.on('ccstart', () => {
-    setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
+    setTimeout(() => { b.interval.ccqi = setInterval(() => {
+      for(let i=0; i<7; i++) b.advanceccq()
+    }, 2) }, 1000)
     b.ccStarted = true
   })
 

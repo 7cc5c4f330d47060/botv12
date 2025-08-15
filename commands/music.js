@@ -1,8 +1,9 @@
+import uuidToInt from "../util/uuidtoint.js"
 async function execute (c) {
-  c.reply({
-    text: 'command.error.notImplemented',
-    parseLang: true
-  })
+  if (c.args[0] == 'test'){
+    c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
+    c.bot.musicPlayer.playSong('songs/ubottest2.mid')
+  }
 }
 const consoleIndex = true
 export { execute, consoleIndex }

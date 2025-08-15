@@ -146,8 +146,8 @@ export default {
   'command.verify.success': 'Successfully verified with permission level %s',
 
   // Music Player
+  'musicPlayer.loadingSong': 'Loading %s',
   'musicPlayer.nowPlaying': 'Now playing %s',
-  'musicPlayer.loadingSong': 'Loading song...',
   'musicPlayer.stopped': 'Stopped the music',
 
   // Command Errors

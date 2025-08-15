@@ -164,8 +164,10 @@ UBotLogs/
 botvXLogs/
 logs/
 
-plugins/extrasMsg.js
 # ExtrasMsg input
 /input.bin
 # ExtrasMsg output
 /output.bin
+
+# Songs for music command
+songs/
