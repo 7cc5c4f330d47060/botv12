@@ -31,7 +31,6 @@ export default function load (b) {
     let uspt = 400;
     file.tracks.forEach((track, id) => {
       b.musicPlayer.queues[id] = new CommandQueue(b);
-      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `μs per tick: ${uspt}`})
       let delta = 0;
       let totalDelta = 0;
       for(const event of track){
