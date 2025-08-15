@@ -39,15 +39,16 @@ export default function load (b) {
     }
   })
   b._client.on('position', data => {
+    console.log(data)
     let newX
     let newY
     let newZ
     newX = data.x
     newY = data.y
     newZ = data.z
-    if (data.flags & 1) newX += b.pos.x
-    if (data.flags & 2) newY += b.pos.y
-    if (data.flags & 4) newZ += b.pos.z
+    if (data.flags.x) newX += b.pos.x
+    if (data.flags.y) newY += b.pos.y
+    if (data.flags.z) newZ += b.pos.z
     b.currentChunk = { x: newX >> 4, z: newZ >> 4 }
     b.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
