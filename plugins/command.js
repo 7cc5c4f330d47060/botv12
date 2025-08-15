@@ -81,14 +81,16 @@ export default function load (b) {
 
     if (commandItem) {
       try {
-        const startDate = Date.now();
-        const result = await commandItem.execute(context)
-        const timeSpent = Date.now() - startDate;
-        if (settings.debugMode) context.reply({
-          text: 'debug.commandFinished',
-          parseLang: true,
-          with: [ timeSpent ]
-        })
+        const startDate = Date.now()
+        await commandItem.execute(context)
+        const timeSpent = Date.now() - startDate
+        if (settings.debugMode) {
+          context.reply({
+            text: 'debug.commandFinished',
+            parseLang: true,
+            with: [timeSpent]
+          })
+        }
       } catch (e) {
         console.log(e)
         b.tellraw(uuid, {

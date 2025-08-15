@@ -1,10 +1,8 @@
-import { default as db } from '../util/database.js'
-import settings from '../settings.js'
+import { getConnection } from '../util/database.js'
 import { inspect } from 'node:util'
 
-
-async function execute(c){
-  const connection = await db.getConnection();
+async function execute (c) {
+  const connection = await getConnection()
   const payload = c.args.join(' ')
   let result
   try {

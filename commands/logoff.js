@@ -1,4 +1,4 @@
-async function execute(c){
+async function execute (c) {
   c.bot._client.end()
 }
 const consoleIndex = true

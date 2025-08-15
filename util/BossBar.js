@@ -8,7 +8,7 @@ export default class BossBar {
     this.color = color // white
     this.players = players
     this.namespace = 'ubotv8'
-    
+
     this.updatePlayers = function () {
       b.ccq.push(`/bossbar set ${this.namespace}:${this.name} players ${players}`)
     }
@@ -17,12 +17,12 @@ export default class BossBar {
       b.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
     }
 
-    this.setValue  = function (value) {
+    this.setValue = function (value) {
       this.value = value
       b.ccq.push(`/bossbar set ${this.namespace}:${this.name} value ${value}`)
     }
 
-    this.setDisplay  = function (value) {
+    this.setDisplay = function (value) {
       console.log(value)
       this.display = value
       b.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
@@ -30,6 +30,6 @@ export default class BossBar {
 
     b.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
     b.ccq.push(`/bossbar add ${this.namespace}:${this.name} ${JSON.stringify(display)}`)
-    if(max !== 100) b.ccq.push(`/bossbar set ${this.namespace}:${this.name} max ${max}`)
+    if (max !== 100) b.ccq.push(`/bossbar set ${this.namespace}:${this.name} max ${max}`)
   }
 }

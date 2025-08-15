@@ -1,5 +1,5 @@
-import { resolve } from "node:path"
-import uuidToInt from "../util/uuidtoint.js"
+import { resolve } from 'node:path'
+import uuidToInt from '../util/uuidtoint.js'
 import { readdirSync } from 'node:fs'
 const songPath = resolve(process.cwd(), 'songs')
 
@@ -9,7 +9,7 @@ async function execute (c) {
   switch (subcmd) {
     case 'play':{
       const file = resolve(songPath, c.args.join(' '))
-      if(!file.startsWith(songPath)){
+      if (!file.startsWith(songPath)) {
         c.reply(songPath)
         return
       }
@@ -18,16 +18,16 @@ async function execute (c) {
       break
     }
     case 'list':{
-      const list = [];
+      const list = []
       const file = resolve(songPath, c.args.join(' '))
-      if(!file.startsWith(songPath)){
+      if (!file.startsWith(songPath)) {
         c.reply(songPath)
         return
       }
-      for(const item of readdirSync(file)){
+      for (const item of readdirSync(file)) {
         list.push({
           text: item,
-          color: Number.isInteger(list.length/2) ? 'white' : 'gray',
+          color: Number.isInteger(list.length / 2) ? 'white' : 'gray',
           command: `${c.prefix}${c.cmdName} play ${item}`
         })
       }

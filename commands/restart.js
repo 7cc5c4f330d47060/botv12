@@ -1,4 +1,4 @@
-async function execute(c){
+async function execute (c) {
   process.exit(0)
 }
 const aliases = ['reboot']
