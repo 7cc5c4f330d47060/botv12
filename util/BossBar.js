@@ -23,7 +23,6 @@ export default class BossBar {
     }
 
     this.setDisplay = function (value) {
-      console.log(value)
       this.display = value
       b.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
     }
