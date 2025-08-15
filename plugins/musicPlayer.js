@@ -28,19 +28,19 @@ export default function load (b) {
     b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Ticks per beat: ${file.header.ticksPerBeat}`})
     let longestTrack;
     let longestDelta = 0;
+    let uspt = 400;
     file.tracks.forEach((track, id) => {
       b.musicPlayer.queues[id] = new CommandQueue(b);
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `μs per tick: ${uspt}`})
       let delta = 0;
       let totalDelta = 0;
-      let uspt = 0;
       for(const event of track){
-        if(event.deltaTime !== 0 && event.type !== 'noteOn') {
+        if(event.deltaTime !== 0) {
           delta += (event.deltaTime * uspt) / 1000
           totalDelta += (event.deltaTime * uspt) / 1000
         }
         if(event.type === 'setTempo') {
           uspt = event.microsecondsPerBeat / file.header.ticksPerBeat
-          b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `μs per tick: ${uspt}`})
         }
         if(event.type === 'noteOn') {
           if(delta !== 0){
@@ -65,17 +65,16 @@ export default function load (b) {
       b.musicPlayer.queues[longestTrack].on('end', () => b.musicPlayer.emit('songEnd'))
       b.musicPlayer.playing = true
       b.musicPlayer.currentSong = location
-      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Now playing ${location}`})
-      for(const noteQueue of b.musicPlayer.queues){
-        noteQueue.createTimeout(10)
-      }
     })
-
-    b.musicPlayer.stopSong = () => {
-      b.musicPlayer.playing = false
-      for(const track of b.musicPlayer.queues){
-        track.stop()
-      }
+    b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Now playing ${location}`})
+    for(const noteQueue of b.musicPlayer.queues){
+      noteQueue.createTimeout(10)
+    }
+  }
+  b.musicPlayer.stopSong = () => {
+    b.musicPlayer.playing = false
+    for(const track of b.musicPlayer.queues){
+      track.stop()
     }
   }
 }
