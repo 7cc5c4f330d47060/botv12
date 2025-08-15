@@ -6,10 +6,17 @@ const twelfthRootOfTwo = 1.05946309436;
 
 export default function load (b) {
   b.musicPlayer = new EventEmitter();
-  b.musicPlayer.queues = []
+  b.musicPlayer.queue = [] // Song queue
+  b.musicPlayer.queues = [] // Command queues of MIDI tracks
   b.musicPlayer.playing = false
+  b.musicPlayer.looping = false
   b.musicPlayer.on('songEnd', () => {
-    b.musicPlayer.playing = false
+    if(b.musicPlayer.looping){
+      b.musicPlayer.playing = false
+      b.musicPlayer.playSong(b.musicPlayer.currentSong)
+    } else {
+      b.musicPlayer.playing = false
+    }
   })
   b.musicPlayer.playSong = (location) => {
     if(b.musicPlayer.playing){
@@ -48,6 +55,10 @@ export default function load (b) {
             longestTrack = id
             longestDelta = totalDelta
           }
+          if(delta !== 0){
+            b.musicPlayer.queues[id].queue.push(`s${delta}`)
+            delta = 0
+          }
           b.musicPlayer.queues[id].queue.push(`e`)
         }
       }
@@ -59,5 +70,12 @@ export default function load (b) {
         noteQueue.createTimeout(10)
       }
     })
+
+    b.musicPlayer.stopSong = () => {
+      b.musicPlayer.playing = false
+      for(const track of b.musicPlayer.queues){
+        track.stop()
+      }
+    }
   }
 }
