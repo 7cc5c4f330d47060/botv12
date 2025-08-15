@@ -2,7 +2,7 @@ import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
 
-async function execute(c){
+async function execute (c) {
   if (!rl.check('netmsg') && c.type !== console) {
     c.reply({
       text: 'command.ratelimit',

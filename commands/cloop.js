@@ -1,6 +1,6 @@
 import { getMessage } from '../util/lang.js'
 
-async function execute(c){
+async function execute (c) {
   let subcmd
   if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
   switch (subcmd) {

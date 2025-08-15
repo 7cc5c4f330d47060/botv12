@@ -114,7 +114,7 @@ export default function load (b) {
     messageType.parameters.forEach((item, i) => {
       if (item === 'content') {
         if (messageType.translation_key === '%s') {
-          if(!data.unsignedChatContent) json.with[i] = ''
+          if (!data.unsignedChatContent) json.with[i] = ''
           else json.with[i] = parse1204(data.unsignedChatContent)
         } else {
           json.with[i] = data.plainMessage
@@ -175,7 +175,7 @@ export default function load (b) {
   })
 
   b.on('chat', (data) => {
-    if(!settings.showCommandSet && data.json.translate == 'advMode.setCommand.success') return
+    if (!settings.showCommandSet && data.json.translate === 'advMode.setCommand.success') return
     if (Date.now() < b.chatDisabledUntil) return
     const msgConsole = parse3(data.json, settings.terminalMode)
     const msgPlain = parse3(data.json, 'none')

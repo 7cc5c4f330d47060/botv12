@@ -11,7 +11,7 @@ function reply (name, item) {
     ]
   }
 }
-async function execute(c){
+async function execute (c) {
   c.reply(reply('uuid', c.uuid))
   c.reply(reply('username', c.username))
   c.reply(reply('nickname', c.nickname))

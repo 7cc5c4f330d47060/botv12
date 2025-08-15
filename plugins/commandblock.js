@@ -149,9 +149,11 @@ export default function load (b) {
     }
   })
   b.on('ccstart', () => {
-    setTimeout(() => { b.interval.ccqi = setInterval(() => {
-      for(let i=0; i<7; i++) b.advanceccq()
-    }, 2) }, 1000)
+    setTimeout(() => {
+      b.interval.ccqi = setInterval(() => {
+        for (let i = 0; i < 7; i++) b.advanceccq()
+      }, 2)
+    }, 1000)
     b.ccStarted = true
   })
 

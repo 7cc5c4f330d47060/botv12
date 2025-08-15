@@ -18,8 +18,6 @@ const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as
 const nick = user
 
-let lastServer = 0
-
 const rl = createInterface({
   input: process.stdin,
   output: process.stdout,

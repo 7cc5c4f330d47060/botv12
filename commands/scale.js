@@ -1,4 +1,4 @@
-async function execute(c){
+async function execute (c) {
   if (c.args[0] === 'set') {
     const scale = Math.min(Math.max(+c.args[1], 0.0625), 16)
     c.reply({

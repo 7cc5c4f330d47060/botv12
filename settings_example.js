@@ -12,8 +12,8 @@ export default {
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
     Currently, MySQL and MariaDB are supported, SQLite support is planned, with more to come.
   */
-  dbEnabled: false, 
-  dbType: "sqlite", 
+  dbEnabled: false,
+  dbType: 'sqlite',
   dbHost: '',
   dbUser: '',
   dbPassword: '',

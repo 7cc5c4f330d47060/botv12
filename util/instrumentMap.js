@@ -47,17 +47,17 @@ const instruments = {
   banjo: {
     center: 66,
     note: 'minecraft:block.note_block.banjo'
-  },
+  }
 }
 class ImItem {
-  constructor (...args){
-    for(const arg of args){
-      this[(arg.center-12) + '-' + (arg.center+12)] = arg
+  constructor (...args) {
+    for (const arg of args) {
+      this[(arg.center - 12) + '-' + (arg.center + 12)] = arg
     }
   }
 }
 class PmItem {
-  constructor (pitch, note){
+  constructor (pitch, note) {
     this.pitch = pitch
     this.note = `block.note_block.${note}`
   }
@@ -103,7 +103,7 @@ const instrumentMap = [
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
-  new ImItem(instruments.bass, instruments.harp,),
+  new ImItem(instruments.bass, instruments.harp),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
@@ -144,7 +144,7 @@ const instrumentMap = [
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
-  
+
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
   new ImItem(instruments.flute, instruments.didgeridoo, instruments.ironXylophone, instruments.bell),
@@ -180,7 +180,7 @@ const instrumentMap = [
   new ImItem(instruments.harp, instruments.bass, instruments.bell),
   new ImItem(instruments.harp, instruments.bass, instruments.bell),
   new ImItem(instruments.harp, instruments.bass, instruments.bell),
-  
+
   new ImItem(instruments.banjo, instruments.bass, instruments.bell),
   new ImItem(instruments.banjo, instruments.bass, instruments.bell),
   new ImItem(instruments.banjo, instruments.bass, instruments.bell),

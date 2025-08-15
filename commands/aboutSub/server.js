@@ -85,7 +85,7 @@ export default async function aboutServer (c) {
 
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
-    return os2(process.platform, c.lang);
+    return os2(process.platform, c.lang)
   })
 
   // Kernel version: os.release()

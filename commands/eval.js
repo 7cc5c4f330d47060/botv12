@@ -3,7 +3,7 @@ import { inspect } from 'node:util'
 import settings from '../settings.js'
 import chatlog from '../util/chatlog.js'
 
-async function execute(c){
+async function execute (c) {
   const payload = c.args.join(' ')
   if (!settings.disableLogging && !settings.disableEvalLogging) chatlog('eval', `${c.host}:${c.port} ${c.username} (${c.uuid}) Payload: ${payload}`)
   let result

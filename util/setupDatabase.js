@@ -1,8 +1,6 @@
-import { default as db } from './database.js'
-import { getMessage } from './lang.js'
-import settings from '../settings.js'
+import * as db from './database.js'
 
-const connection = await db.getConnection();
+const connection = await db.getConnection()
 
 connection.query(`CREATE TABLE seenPlayers (
   userName VARCHAR(255) NOT NULL,
