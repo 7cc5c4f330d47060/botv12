@@ -56,11 +56,9 @@ export default function load (b) {
   b.musicPlayer.playing = false
   b.musicPlayer.looping = false
   b.musicPlayer.on('songEnd', () => {
+    b.musicPlayer.stopSong()
     if(b.musicPlayer.looping){
-      b.musicPlayer.playing = false
       b.musicPlayer.playSong(b.musicPlayer.currentSong)
-    } else {
-      b.musicPlayer.playing = false
     }
   })
   b.musicPlayer.playSong = (location) => {
@@ -120,5 +118,8 @@ export default function load (b) {
   }
   b.musicPlayer.stopSong = () => {
     b.musicPlayer.playing = false
+    b.musicPlayer.startTime = 0
+    b.musicPlayer.time = 0
+    b.musicPlayer.length = 0
   }
 }
