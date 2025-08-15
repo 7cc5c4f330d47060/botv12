@@ -2,8 +2,9 @@ import { parseMidi } from 'midi-file'
 import { readFileSync } from 'node:fs'
 //import CommandQueue from '../util/CommandQueue.js';
 import EventEmitter from 'node:events';
+import BossBar from '../util/BossBar.js';
 import  { instrumentMap, percussionMap } from '../util/instrumentMap.js';
-const twelfthRootOfTwo = 1.05946309436;
+import { formatTime } from '../util/lang.js';
 
 const calculateNote = (event, program) => {
   const note = event.noteNumber
@@ -11,7 +12,7 @@ const calculateNote = (event, program) => {
   for(const item of keys){
     const range = item.split('-')
     if(note >= +range[0] && note <= +range[1]) return {
-      pitch: Math.round(10000*Math.pow(twelfthRootOfTwo, event.noteNumber-instrumentMap[program][item].center))/10000,
+      pitch: Math.round(10000*Math.pow(2, (event.noteNumber-instrumentMap[program][item].center)/12))/10000,
       note: instrumentMap[program][item].note
     }
   }
@@ -23,7 +24,7 @@ const calculateNote = (event, program) => {
 
 const calculatePercussion = (event) => {
   if(percussionMap[event.noteNumber - 35]) return {
-    pitch: Math.round(10000*Math.pow(twelfthRootOfTwo, percussionMap[event.noteNumber - 35].pitch))/10000,
+    pitch: Math.round(10000*Math.pow(2, percussionMap[event.noteNumber - 35].pitch/12))/10000,
     note: percussionMap[event.noteNumber - 35].note
   }
   return {
@@ -47,10 +48,32 @@ export default function load (b) {
       }
     }
   },5)
+  b.interval.advanceMusicBar = setInterval(()=>{
+    if(b.musicPlayer.playing) {
+      b.musicPlayer.bossBar.setValue(Math.ceil(b.musicPlayer.time))
+      let remainingNotes = 0;
+      for(const queue of b.musicPlayer.queues){
+        remainingNotes += queue.length
+      }
+      b.musicPlayer.bossBar.setDisplay({
+        translate: 'UBot Music Bossbar %s/%s %s/%s',
+        with: [
+          b.musicPlayer.totalNotes - remainingNotes,
+          b.musicPlayer.totalNotes,
+          formatTime(b.musicPlayer.time, 'shortTime', true),
+          formatTime(b.musicPlayer.length, 'shortTime', true)
+        ]
+      })
+    } else {
+      b.musicPlayer.bossBar?.delete()
+    }
+  },100)
+
   b.musicPlayer = new EventEmitter();
   b.musicPlayer.startTime = 0
   b.musicPlayer.time = 0 // Time in milliseconds
   b.musicPlayer.length = 0 // Length of longest track
+  b.musicPlayer.totalNotes = 0
   b.musicPlayer.queue = [] // Song queue
   b.musicPlayer.queues = [] // Command queues of MIDI tracks
   b.musicPlayer.playing = false
@@ -62,12 +85,12 @@ export default function load (b) {
     }
   })
   b.musicPlayer.playSong = (location) => {
+    
     if(b.musicPlayer.playing){
       b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Already playing another song`})
       return
     }
     const file = parseMidi(readFileSync(location))
-    console.log(file)
     let longestTrack;
     let longestDelta = 0;
     let uspt = 0;
@@ -102,25 +125,31 @@ export default function load (b) {
           })
         }
         if(event.type === 'endOfTrack') {
-          b.musicPlayer.queues[id].trackLength = totalDelta
+          //b.musicPlayer.queues[id].trackLength = totalDelta
           if(totalDelta > longestDelta){
             longestTrack = id
             longestDelta = totalDelta
           }
         }
       }
-      b.musicPlayer.startTime = Date.now()
-      b.musicPlayer.length = longestDelta
-      b.musicPlayer.playing = true
-      b.musicPlayer.currentSong = location
+      b.musicPlayer.totalNotes += b.musicPlayer.queues[id].length
     })
+    
+    b.musicPlayer.startTime = Date.now()
+    b.musicPlayer.length = longestDelta
+    b.musicPlayer.playing = true
+    b.musicPlayer.currentSong = location
+    b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
+    b.musicPlayer.bossBar.updatePlayers();
     b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Now playing ${location}`})
   }
   b.musicPlayer.stopSong = (looping) => {
     b.musicPlayer.playing = false
+    b.musicPlayer.queues = []
     b.musicPlayer.startTime = 0
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
+    b.musicPlayer.totalNotes = 0
     if(!looping) b.musicPlayer.looping=false
   }
 }

@@ -8,6 +8,10 @@ const instruments = {
     center: 66,
     note: 'minecraft:block.note_block.harp'
   },
+  pling: {
+    center: 66,
+    note: 'minecraft:block.note_block.pling'
+  },
   bell: {
     center: 90,
     note: 'minecraft:block.note_block.bell'

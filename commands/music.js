@@ -27,7 +27,8 @@ async function execute (c) {
       for(const item of readdirSync(file)){
         list.push({
           text: item,
-          color: Number.isInteger(list.length/2) ? 'white' : 'gray'
+          color: Number.isInteger(list.length/2) ? 'white' : 'gray',
+          command: `${c.prefix}${c.cmdName} play ${item}`
         })
       }
       c.reply({
