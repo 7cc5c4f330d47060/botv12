@@ -18,7 +18,12 @@ export default class CommandQueue extends EventEmitter { // botv5-style command 
       }, rate)
     }
 
-    this.advance = function () {
+    this.stop = () => {
+      this.queue = [];
+      clearTimeout(this.timeout)
+    }
+    
+    this.advance = () => {
       if (b.host.options.useChat) return
       while(this.queue[0] && this.queue[0][0] === 'c') { 
         b.sendCommandNow(this.queue[0].slice(1))
