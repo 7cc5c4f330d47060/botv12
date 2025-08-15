@@ -1,4 +1,4 @@
-class BossBar {
+export default class BossBar {
   constructor (b, name, display, max, initialValue, style, color, players) {
     this.name = name
     this.display = display
@@ -22,13 +22,14 @@ class BossBar {
       b.ccq.push(`/bossbar set ${this.namespace}:${this.name} value ${value}`)
     }
 
+    this.setDisplay  = function (value) {
+      console.log(value)
+      this.display = value
+      b.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
+    }
+
     b.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
     b.ccq.push(`/bossbar add ${this.namespace}:${this.name} ${JSON.stringify(display)}`)
-  }
-}
-export default function load (b) {
-  b.createBossbar = function (name, display) {
-    const bossbar = new BossBar(b, name, display, 100, 0, 'progress', 'white', '@a')
-    return bossbar
+    if(max !== 100) b.ccq.push(`/bossbar set ${this.namespace}:${this.name} max ${max}`)
   }
 }

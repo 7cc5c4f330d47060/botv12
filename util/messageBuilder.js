@@ -1,5 +1,6 @@
 import { getMessage } from './lang.js'
-export default function build (text, colors, lang) {
+import uuidToInt from './uuidtoint.js'
+export default function build (text, colors, lang, botuuid) {
   const json = {}
   let textContent = ''
 
@@ -40,6 +41,30 @@ export default function build (text, colors, lang) {
     }
   }
 
+  if (text.command) {
+    console.log(text.command)
+    const fakeCmmFormat = {
+      translate: '%s %s › %s',
+      with: [
+        1,
+        {
+          selector: '@s'
+        },
+        text.command
+      ]
+    }
+    json.click_event = {
+      action: 'run_command',
+      command: `/tellraw @a[nbt={UUID:[I;${uuidToInt(botuuid)}]}] ${JSON.stringify(fakeCmmFormat)}`
+    }
+    json.hover_event = {
+      action: 'show_text',
+      value: {
+        text: getMessage(lang, 'runCommand')
+      }
+    }
+  }
+
   if (text.color) {
     if (text.color.startsWith('$')) json.color = colors[text.color.slice(1)]
     else text.color = json.color
@@ -48,7 +73,7 @@ export default function build (text, colors, lang) {
   if (text.with) {
     json.with = []
     for (const item of text.with) {
-      json.with.push(build(item, colors, lang))
+      json.with.push(build(item, colors, lang, botuuid))
     }
     json.translate = textContent
   } else {
