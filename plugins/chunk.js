@@ -39,7 +39,6 @@ export default function load (b) {
     }
   })
   b._client.on('position', data => {
-    console.log(data)
     let newX
     let newY
     let newZ
