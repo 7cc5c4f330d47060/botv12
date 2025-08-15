@@ -21,4 +21,4 @@ async function getConnection () {
 // const connection = await pool.getConnection();
 // console.log(connection)
 
-export default { pool, getConnection }
+export { pool, getConnection }
