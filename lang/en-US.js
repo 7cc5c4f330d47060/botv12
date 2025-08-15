@@ -151,7 +151,7 @@ export default {
   'musicPlayer.stopped': 'Stopped the music',
 
   // Command Errors
-  'command.error': 'An error occured (check console for more info)',
+  'command.error': 'An error occurred (check console for more info)',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
   'command.error.notImplemented': 'This function has not been implemented yet',
   'command.ratelimit': 'This command is rate limited for %s seconds',
