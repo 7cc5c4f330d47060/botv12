@@ -180,7 +180,7 @@ export default function load (b) {
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
-    if (msgPlain.startsWith('Command set: ') && !settings.debugMode) return
+    if (!settings.showCommandSet && msgPlain.startsWith('Command set: ')) return
     b.messageCount++
     if (b.messageCount >= 100) {
       b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
