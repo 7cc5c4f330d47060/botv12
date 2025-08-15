@@ -22,7 +22,7 @@ const calculateNote = (event, program) => {
 }
 
 const calculatePercussion = (event) => {
-  if(percussionMap[event.noteNumber]) return {
+  if(percussionMap[event.noteNumber - 35]) return {
     pitch: Math.round(10000*Math.pow(twelfthRootOfTwo, percussionMap[event.noteNumber - 35].pitch))/10000,
     note: percussionMap[event.noteNumber - 35].note
   }
@@ -56,7 +56,7 @@ export default function load (b) {
   b.musicPlayer.playing = false
   b.musicPlayer.looping = false
   b.musicPlayer.on('songEnd', () => {
-    b.musicPlayer.stopSong()
+    b.musicPlayer.stopSong(b.musicPlayer.looping)
     if(b.musicPlayer.looping){
       b.musicPlayer.playSong(b.musicPlayer.currentSong)
     }
@@ -116,10 +116,11 @@ export default function load (b) {
     })
     b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {text: `Now playing ${location}`})
   }
-  b.musicPlayer.stopSong = () => {
+  b.musicPlayer.stopSong = (looping) => {
     b.musicPlayer.playing = false
     b.musicPlayer.startTime = 0
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
+    if(!looping) b.musicPlayer.looping=false
   }
 }
