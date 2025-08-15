@@ -175,12 +175,13 @@ export default function load (b) {
   })
 
   b.on('chat', (data) => {
+    if(!settings.showCommandSet && data.json.translate == 'advMode.setCommand.success') return
     if (Date.now() < b.chatDisabledUntil) return
     const msgConsole = parse3(data.json, settings.terminalMode)
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
-    if (!settings.showCommandSet && msgPlain.startsWith('Command set: ')) return
+
     b.messageCount++
     if (b.messageCount >= 100) {
       b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
