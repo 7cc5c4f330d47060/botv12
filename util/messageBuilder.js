@@ -42,7 +42,6 @@ export default function build (text, colors, lang, botuuid) {
   }
 
   if (text.command) {
-    console.log(text.command)
     const fakeCmmFormat = {
       translate: '%s %s › %s',
       with: [
@@ -60,7 +59,7 @@ export default function build (text, colors, lang, botuuid) {
     json.hover_event = {
       action: 'show_text',
       value: {
-        text: getMessage(lang, 'runCommand')
+        text: getMessage(lang, 'runCommand', [text.command])
       }
     }
   }

@@ -8,13 +8,9 @@ async function execute (c) {
   if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
   switch (subcmd) {
     case 'play':{
-      const file = resolve(songPath, c.args.join(' '))
-      if (!file.startsWith(songPath)) {
-        c.reply(songPath)
-        return
-      }
+      const filePath = resolve(songPath, c.args.join(' '))
       c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
-      c.bot.musicPlayer.playSong(file)
+      c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
       break
     }
     case 'list':{
@@ -38,7 +34,7 @@ async function execute (c) {
       break
     }
     case 'stop':{
-      c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
+      //c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
       c.bot.musicPlayer.stopSong()
       break
     }

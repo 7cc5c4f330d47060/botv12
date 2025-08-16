@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import { parseMidi } from 'midi-file'
 import { readFileSync } from 'node:fs'
 // import CommandQueue from '../util/CommandQueue.js';
@@ -5,6 +6,9 @@ import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
 import { formatTime } from '../util/lang.js'
+
+const songPath = resolve(process.cwd(), 'songs')
+const tempPath = resolve(process.cwd(), 'temp')
 
 const calculateNote = (event, program) => {
   const note = event.noteNumber
@@ -50,8 +54,12 @@ export default function load (b) {
       if (b.musicPlayer.time > b.musicPlayer.length) {
         b.musicPlayer.emit('songEnd')
       }
+    } else if (b.musicPlayer.queue.length !== 0){
+      const queueItem = b.musicPlayer.queue.splice(0, 1)[0]
+      b.musicPlayer.downloadSong(queueItem[0], queueItem[1])
     }
   }, 5)
+
   b.interval.advanceMusicBar = setInterval(() => {
     if (b.musicPlayer.playing) {
       b.musicPlayer.bossBar.setValue(Math.ceil(b.musicPlayer.time))
@@ -82,20 +90,35 @@ export default function load (b) {
   b.musicPlayer.queues = [] // Command queues of MIDI tracks
   b.musicPlayer.playing = false
   b.musicPlayer.looping = false
+
   b.musicPlayer.on('songEnd', () => {
     b.musicPlayer.stopSong(b.musicPlayer.looping)
     if (b.musicPlayer.looping) {
       b.musicPlayer.playSong(b.musicPlayer.currentSong)
     }
   })
-  b.musicPlayer.playSong = (location) => {
+
+  b.musicPlayer.downloadSong = (url, name) => {
+    if(url.startsWith('file://')) {
+      b.musicPlayer.playSong(url.slice(7), name)
+    }
+  }
+
+  b.musicPlayer.playSong = (location, name) => {
+    if (!location.startsWith(songPath) && !location.startsWith(tempPath)) {
+      c.reply(songPath)
+      return
+    }
+
     if (b.musicPlayer.playing) {
       b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: 'Already playing another song' })
       return
     }
-    const file = parseMidi(readFileSync(location))
+    
     let longestDelta = 0
     let uspt = 0
+    const file = parseMidi(readFileSync(location))
+
     file.tracks.forEach((track, id) => {
       b.musicPlayer.queues[id] = []
       let program = 0
@@ -144,7 +167,7 @@ export default function load (b) {
     b.musicPlayer.currentSong = location
     b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
     b.musicPlayer.bossBar.updatePlayers()
-    b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${location}` })
+    b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${name}` })
   }
   b.musicPlayer.stopSong = (looping) => {
     b.musicPlayer.playing = false
