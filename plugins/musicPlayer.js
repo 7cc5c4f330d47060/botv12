@@ -17,8 +17,8 @@ const calculateNote = (event, program) => {
     const range = item.split('-')
     if (note >= +range[0] && note <= +range[1]) {
       return {
-        pitch: Math.round(10000 * Math.pow(2, (event.noteNumber - instrumentMap[program][item].center) / 12)) / 10000,
-        note: instrumentMap[program][item].note
+        pitch: Math.round(10000 * Math.pow(2, (note - instrumentMap[program][item].center) / 12)) / 10000,
+        note: event.mcNote ?? instrumentMap[program][item].note
       }
     }
   }
@@ -46,7 +46,12 @@ export default function load (b) {
     if (b.musicPlayer.playing) {
       for (const queue of b.musicPlayer.queues) {
         for (let i = 0; i < queue.length && queue[i].time < b.musicPlayer.time + 5; i++) {
-          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] run playsound ${queue[i].note} master @s ~ ~1000000000 ~ 1000000000000000 ${queue[i].pitch}`)
+          let note
+          if (queue[i].channel === 9) note = calculatePercussion(queue[i]);
+          else note = calculateNote({
+            noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift
+          }, queue[i].program)
+          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ~ ~ ~ ${note.volume ?? 1} ${note.pitch}`)
           queue.splice(0, 1)
         }
       }
@@ -90,6 +95,7 @@ export default function load (b) {
   b.musicPlayer.queues = [] // Command queues of MIDI tracks
   b.musicPlayer.playing = false
   b.musicPlayer.looping = false
+  b.musicPlayer.pitchShift = 0 // In semitones
 
   b.musicPlayer.on('songEnd', () => {
     b.musicPlayer.stopSong(b.musicPlayer.looping)
@@ -99,8 +105,12 @@ export default function load (b) {
   })
 
   b.musicPlayer.downloadSong = (url, name) => {
-    if(url.startsWith('file://')) {
-      b.musicPlayer.playSong(url.slice(7), name)
+    try {
+      if(url.startsWith('file://')) {
+        b.musicPlayer.playSong(url.slice(7), name)
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -139,17 +149,13 @@ export default function load (b) {
           if (delta !== 0) {
             delta = 0
           }
-          let note
-          if (event.channel === 9) note = calculatePercussion(event)
-          else note = calculateNote(event, program)
 
-          if (note.note !== 'ubot:none') {
-            b.musicPlayer.queues[id].push({
-              time: totalDelta,
-              note: note.note,
-              pitch: note.pitch
-            })
-          }
+          b.musicPlayer.queues[id].push({
+            noteNumber: event.noteNumber,
+            channel: event.channel,
+            program: program,
+            time: totalDelta
+          })
         }
         if (event.type === 'endOfTrack') {
           // b.musicPlayer.queues[id].trackLength = totalDelta

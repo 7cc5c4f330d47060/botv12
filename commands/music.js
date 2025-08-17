@@ -43,6 +43,11 @@ async function execute (c) {
       c.reply(c.bot.musicPlayer.looping + '')
       break
     }
+    case 'pitch':{
+      c.bot.musicPlayer.pitchShift = +c.args[0]
+      c.reply(c.bot.musicPlayer.pitchShift + '')
+      break
+    }
   }
 }
 const consoleIndex = true
