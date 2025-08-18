@@ -1,4 +1,5 @@
-// From ChipmunkMod ChomeNS fork (CC0-1.0)
+// From hhhzzzsss' mod SongPlayer (https://github.com/hhhzzzsss/SongPlayer), licensed as MIT.
+// Copied from ChomeNS' ChipmunkMod fork which uses the exact same data.
 const instruments = {
   bass: {
     center: 42,
@@ -103,7 +104,7 @@ const instrumentMap = [
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
   new ImItem(instruments.bass, instruments.harp, instruments.bell),
-  new ImItem(instruments.bass, instruments.harp),
+  new ImItem(instruments.bass, instruments.harp, instruments.bell),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
   new ImItem(instruments.didgeridoo, instruments.bit, instruments.xylophone),
