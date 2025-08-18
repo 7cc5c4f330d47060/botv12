@@ -10,6 +10,17 @@ async function execute (c) {
     case 'play':{
       const filePath = resolve(songPath, c.args.join(' '))
       c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
+      c.send('@a[tag=nomusic,tag=ubotmusic]', {
+        text: 'command.music.noMusicWarning',
+        parseLang: true,
+        color: '$warning',
+        mcCommand: 'tag @s remove nomusic',
+        with: [
+          { 
+            botInfo: 'botName'
+          }
+        ]
+      })
       c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
       break
     }

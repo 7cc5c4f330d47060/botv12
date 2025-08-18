@@ -114,6 +114,7 @@ export default {
   'command.help.noCommand': 'Command does not exist',
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
+  'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
   'command.netmsg.serverAddress': 'Server Address',
   'command.say.warning.trustedKey': 'This message is blocked because it contains the trusted key.',
   'command.say.warning.ownerKey': 'This message is blocked because it contains the owner key.',

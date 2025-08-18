@@ -4,6 +4,7 @@ export default class Command {
   constructor (uuid, user, nick, cmd, senderType, msgType, msgSubtype, prefix, bot) {
     this.uuid = uuid
     this.reply = text => bot.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.send = (user, text) => bot.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
     this.username = user
     this.nickname = nick
     this.command = cmd
