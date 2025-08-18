@@ -1,5 +1,6 @@
 import { getMessage } from './lang.js'
 import uuidToInt from './uuidtoint.js'
+import version from '../version.js'
 export default function build (text, colors, lang, botuuid) {
   const json = {}
   let textContent = ''
@@ -28,6 +29,10 @@ export default function build (text, colors, lang, botuuid) {
     }
   }
 
+  if (text.botInfo) {
+    textContent = version[text.botInfo]
+  }
+  
   if (text.linked) {
     json.click_event = {
       action: 'open_url',
@@ -60,6 +65,19 @@ export default function build (text, colors, lang, botuuid) {
       action: 'show_text',
       value: {
         text: getMessage(lang, 'runCommand', [text.command])
+      }
+    }
+  }
+
+  if (text.mcCommand) {
+    json.click_event = {
+      action: 'run_command',
+      command: text.mcCommand
+    }
+    json.hover_event = {
+      action: 'show_text',
+      value: {
+        text: getMessage(lang, 'runCommand', [text.mcCommand])
       }
     }
   }
