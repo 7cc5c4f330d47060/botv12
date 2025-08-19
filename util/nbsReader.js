@@ -1,0 +1,1 @@
+// Read NBS file and convert it for use in plugins/musicPlayer.js.

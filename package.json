@@ -14,6 +14,7 @@
   "author": "7cc5c4f330d47060",
   "license": "MIT",
   "dependencies": {
+    "@nbsjs/core": "^6.0.0",
     "mariadb": "^3.4.4",
     "midi-file": "^1.2.4",
     "minecraft-data": "^3.85.0",
