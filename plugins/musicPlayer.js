@@ -50,23 +50,39 @@ export default function load (b) {
         remainingNotes += queue.length
       }
       b.musicPlayer.bossBar.setDisplay({
-        translate: '%s %s %s',
+        translate: '%s | %s | %s',
+        color: 'dark_gray',
         with: [
-          "(insert name here)",
+          {
+            text: b.musicPlayer.songName,
+            color: 'white'
+          },
           {
             translate: '%s/%s',
             color: 'gray',
             with: [
-              b.musicPlayer.totalNotes - remainingNotes,
-              b.musicPlayer.totalNotes
+              {
+                text: (b.musicPlayer.totalNotes - remainingNotes) + '',
+                color: 'white'
+              },
+              {
+                text: (b.musicPlayer.totalNotes) + '',
+                color: 'white'
+              }
             ],
           },
           {
             translate: '%s/%s',
             color: 'gray',
             with: [
-              formatTime(b.musicPlayer.time, 'shortTime', true),
-              formatTime(b.musicPlayer.length, 'shortTime', true)
+              {
+                text: formatTime(b.musicPlayer.time, 'shortTime', true),
+                color: 'white'
+              },
+              {
+                text: formatTime(b.musicPlayer.length, 'shortTime', true),
+                color: 'white'
+              }
             ]
           }
         ]
@@ -93,6 +109,7 @@ export default function load (b) {
   b.musicPlayer.queue = [] // Song queue
   b.musicPlayer.queues = [] // Command queues of MIDI tracks
   b.musicPlayer.playing = false
+  b.musicPlayer.songName = ''
   b.musicPlayer.looping = false
   b.musicPlayer.pitchShift = 0 // In semitones
   b.musicPlayer.speedShift = 1
@@ -100,7 +117,7 @@ export default function load (b) {
   b.musicPlayer.on('songEnd', () => {
     b.musicPlayer.stopSong(b.musicPlayer.looping)
     if (b.musicPlayer.looping) {
-      b.musicPlayer.playSong(b.musicPlayer.currentSong)
+      b.musicPlayer.playSong(b.musicPlayer.currentSong, b.musicPlayer.songName)
     }
   })
 
@@ -174,13 +191,16 @@ export default function load (b) {
     b.musicPlayer.currentSong = location
     b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
     b.musicPlayer.bossBar.updatePlayers()
-    b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${name}` })
+    b.musicPlayer.songName = name
+    if(!b.musicPlayer.looping) b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${b.musicPlayer.songName}` })
     b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
+
   }
 
   b.musicPlayer.stopSong = (looping, skip) => {
     b.musicPlayer.playing = false
     b.musicPlayer.queues = []
+    if(!skip) b.musicPlayer.queue = []
     b.musicPlayer.startTime = 0
     b.musicPlayer.lastTime = 0
     b.musicPlayer.time = 0
