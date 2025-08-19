@@ -86,6 +86,7 @@ export default function load (b) {
 
   b.musicPlayer = new EventEmitter()
   b.musicPlayer.startTime = 0
+  b.musicPlayer.lastTime = 0
   b.musicPlayer.time = 0 // Time in milliseconds
   b.musicPlayer.length = 0 // Length of longest track
   b.musicPlayer.totalNotes = 0
@@ -94,7 +95,7 @@ export default function load (b) {
   b.musicPlayer.playing = false
   b.musicPlayer.looping = false
   b.musicPlayer.pitchShift = 0 // In semitones
-  b.musicPlayer.speedShift = 0 // Currently unused
+  b.musicPlayer.speedShift = 1
 
   b.musicPlayer.on('songEnd', () => {
     b.musicPlayer.stopSong(b.musicPlayer.looping)
@@ -167,19 +168,21 @@ export default function load (b) {
     })
 
     b.musicPlayer.startTime = Date.now()
+    b.musicPlayer.lastTime = Date.now()
     b.musicPlayer.length = longestDelta
     b.musicPlayer.playing = true
     b.musicPlayer.currentSong = location
     b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
     b.musicPlayer.bossBar.updatePlayers()
     b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${name}` })
-    b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20)
+    b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
   }
 
   b.musicPlayer.stopSong = (looping, skip) => {
     b.musicPlayer.playing = false
     b.musicPlayer.queues = []
     b.musicPlayer.startTime = 0
+    b.musicPlayer.lastTime = 0
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
     b.musicPlayer.totalNotes = 0
@@ -187,7 +190,7 @@ export default function load (b) {
     if (!looping){
       b.musicPlayer.looping = false
       b.musicPlayer.pitchShift = 0
-      b.musicPlayer.speedShift = 0
+      b.musicPlayer.speedShift = 1
     }
   }
 
@@ -204,10 +207,17 @@ export default function load (b) {
           queue.splice(0, 1)
         }
       }
-      b.musicPlayer.time = Date.now() - b.musicPlayer.startTime
+      b.musicPlayer.time += (Date.now() - b.musicPlayer.lastTime) * b.musicPlayer.speedShift
+      b.musicPlayer.lastTime = Date.now()
+
       if (b.musicPlayer.time > b.musicPlayer.length) {
         b.musicPlayer.emit('songEnd')
       }
     }
+  }
+
+  b.musicPlayer.setSpeed = speed => {
+    if(b.interval.advanceNotes) clearInterval(b.interval.advanceNotes)
+    b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, speed)
   }
 }

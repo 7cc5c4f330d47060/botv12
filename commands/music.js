@@ -59,6 +59,12 @@ async function execute (c) {
       c.reply(c.bot.musicPlayer.pitchShift + '')
       break
     }
+    case 'speed':{
+      c.bot.musicPlayer.speedShift = +c.args[0]
+      c.bot.musicPlayer.setSpeed(20 / +c.args[0])
+      c.reply(c.bot.musicPlayer.speedShift + '')
+      break
+    }
   }
 }
 const consoleIndex = true
