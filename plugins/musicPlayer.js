@@ -6,7 +6,7 @@ import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
 import { formatTime } from '../util/lang.js'
-import nbsReader from '../util/parseNBS.js'
+import parseNBS from '../util/parseNBS.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
