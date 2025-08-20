@@ -6,6 +6,7 @@ import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
 import { formatTime } from '../util/lang.js'
+import nbsReader from '../util/parseNBS.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
@@ -144,7 +145,13 @@ export default function load (b) {
     
     let longestDelta = 0
     let uspt = 0
-    const file = parseMidi(readFileSync(location))
+    let file
+    const extension = location.split('.').reverse()[0].toLowerCase()
+    if (extension === 'mid' || extension === 'midi') {
+      file = parseMidi(readFileSync(location))
+    } else if (extension === 'nbs') {
+      file = parseNBS(readFileSync(location))
+    }
 
     file.tracks.forEach((track, id) => {
       b.musicPlayer.queues[id] = []
