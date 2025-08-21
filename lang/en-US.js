@@ -35,7 +35,7 @@ export default {
   'commands.help.desc': 'Shows command help',
   'commands.logoff.usage': '',
   'commands.logoff.desc': 'Disconnect and reconnect the bot from a server',
-  'commands.music.usage': ' play <file | url>|| list <directory>|| stop|| skip|| loop|| pitch <pitch>|| speed <speed>|| volume <volume>|| goto <time>',
+  'commands.music.usage': ' play <file | url>|| list <directory>|| listen|| stop|| skip|| loop|| pitch <pitch>|| speed <speed>|| volume <volume>|| goto <time>',
   'commands.music.desc': 'Play music using the command core',
   'commands.netmsg.usage': ' <message>',
   'commands.netmsg.desc': 'Send a message to all servers the bot is connected to',
