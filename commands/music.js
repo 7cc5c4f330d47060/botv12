@@ -78,6 +78,10 @@ async function execute (c) {
       }
       break
     }
+    case 'listen':
+    //case 'optin':
+      c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
+      break
     case 'stop':{
       if (!c.bot.musicPlayer.playing) {
         c.reply({

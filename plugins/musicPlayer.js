@@ -99,7 +99,7 @@ export default function load (b) {
         ]
       })
       b.musicPlayer.bossBar.updatePlayers()
-    } else {
+    } else { // TODO: update the old bossbar if it exists instead of recreating it every song
       b.musicPlayer.bossBar?.delete()
       delete b.musicPlayer.bossBar
     }
@@ -267,7 +267,44 @@ export default function load (b) {
     b.musicPlayer.playing = true
     b.musicPlayer.currentSong = location
     if (!settings.disableMusicBar) {
-      b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
+      b.musicPlayer.bossBar = new BossBar(b, 'musicbar', {
+        translate: '%s | %s | %s',
+        color: 'dark_gray',
+        with: [
+          {
+            text: 'UBot Music Bossbar loading...',
+            color: 'white'
+          },
+          {
+            translate: '%s/%s',
+            color: 'gray',
+            with: [
+              {
+                text: '0',
+                color: 'white'
+              },
+              {
+                text: '0',
+                color: 'white'
+              }
+            ]
+          },
+          {
+            translate: '%s/%s',
+            color: 'gray',
+            with: [
+              {
+                text: '0',
+                color: 'white'
+              },
+              {
+                text: '0',
+                color: 'white'
+              }
+            ]
+          }
+        ]
+      }, Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
       b.musicPlayer.bossBar.updatePlayers()
     }
     b.musicPlayer.songName = name
