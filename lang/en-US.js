@@ -115,6 +115,15 @@ export default {
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
   'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
+  'command.music.openDir': 'Click to view songs in %s',
+  'command.music.openFile': 'Click to play %s',
+  'command.music.stop': 'Stopped music',
+  'command.music.skip': 'Skipped song',
+  'command.music.loop.on': 'Enabled looping',
+  'command.music.loop.off': 'Disabled looping',
+  'command.music.pitchShiftSet': 'Set pitch shift to %s semitones',
+  'command.music.speedSet': 'Set speed to %s',
+  'command.music.error.notPlaying': 'Not currently playing',
   'command.netmsg.serverAddress': 'Server Address',
   'command.say.warning.trustedKey': 'This message is blocked because it contains the trusted key.',
   'command.say.warning.ownerKey': 'This message is blocked because it contains the owner key.',
@@ -149,7 +158,10 @@ export default {
   // Music Player
   'musicPlayer.loadingSong': 'Loading %s',
   'musicPlayer.nowPlaying': 'Now playing %s',
-  'musicPlayer.stopped': 'Stopped the music',
+  'musicPlayer.downloading': 'Downloading %s',
+  'musicPlayer.downloading': 'Downloading %s',
+  'musicPlayer.bannedDir': 'This directory is outside of the allowed area',
+  'musicPlayer.alreadyPlaying': 'Another song is already playing',
 
   // Command Errors
   'command.error': 'An error occurred (check console for more info)',
@@ -187,5 +199,6 @@ export default {
   openInBrowser: 'Click to open this link in a browser',
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
   'selfcare.prefix': 'Prefix',
-  'debug.commandFinished': 'Command successfully executed in %sms'
+  'debug.commandFinished': 'Command successfully executed in %sms',
+  'downloader.tooLarge': 'File is too large (max file size: 16MiB)'
 }
