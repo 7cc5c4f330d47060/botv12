@@ -180,7 +180,7 @@ export default function load (b) {
 
     if (b.musicPlayer.playing) {
       b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-        text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying') 
+        text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying')
       })
       return
     }
@@ -246,12 +246,14 @@ export default function load (b) {
       b.musicPlayer.bossBar.updatePlayers()
     }
     b.musicPlayer.songName = name
-    if (!b.musicPlayer.looping) b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-      translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
-      with: [
-        b.musicPlayer.songName
-      ]
-    })
+    if (!b.musicPlayer.looping) {
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
+        with: [
+          b.musicPlayer.songName
+        ]
+      })
+    }
     b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
   }
 

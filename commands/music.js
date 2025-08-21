@@ -81,22 +81,56 @@ async function execute (c) {
     case 'stop':{
       // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
       c.bot.musicPlayer.stopSong()
+      c.reply({
+        text: 'command.music.stop',
+        parseLang: true
+      })
+      break
+    }
+    case 'skip':{
+      // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
+      c.bot.musicPlayer.stopSong(false, true)
+      c.reply({
+        text: 'command.music.skip',
+        parseLang: true
+      })
       break
     }
     case 'loop':{
       c.bot.musicPlayer.looping = !c.bot.musicPlayer.looping
+      if(c.bot.musicPlayer.looping) {
+        c.reply({
+          text: 'command.music.loop.on',
+          parseLang: true
+        })
+      } else {
+        c.reply({
+          text: 'command.music.loop.off',
+          parseLang: true
+        })
+      }
       c.reply(c.bot.musicPlayer.looping + '')
       break
     }
     case 'pitch':{
       c.bot.musicPlayer.pitchShift = +c.args[0]
       c.reply(c.bot.musicPlayer.pitchShift + '')
+      c.bot.musicPlayer.setSpeed(20 / +c.args[0])
+      c.reply({
+        text: 'command.music.pitchShiftSet',
+        parseLang: true,
+        with: [ c.bot.musicPlayer.pitchShift + '' ]
+      })
       break
     }
     case 'speed':{
       c.bot.musicPlayer.speedShift = +c.args[0]
       c.bot.musicPlayer.setSpeed(20 / +c.args[0])
-      c.reply(c.bot.musicPlayer.speedShift + '')
+      c.reply({
+        text: 'command.music.speedSet',
+        parseLang: true,
+        with: [ c.bot.musicPlayer.speedShift + '' ]
+      })
       break
     }
   }
