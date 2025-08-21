@@ -99,9 +99,11 @@ export default function load (b) {
         ]
       })
       b.musicPlayer.bossBar.updatePlayers()
-    } else { // TODO: update the old bossbar if it exists instead of recreating it every song
-      b.musicPlayer.bossBar?.delete()
-      delete b.musicPlayer.bossBar
+    } else { 
+      if(!b.musicPlayer.looping && b.musicPlayer.queue.length === 0){
+        b.musicPlayer.bossBar?.delete()
+        delete b.musicPlayer.bossBar
+      }
     }
   }, 100)
 
@@ -294,11 +296,11 @@ export default function load (b) {
             color: 'gray',
             with: [
               {
-                text: '0',
+                text: '00:00:00',
                 color: 'white'
               },
               {
-                text: '0',
+                text: '00:00:00',
                 color: 'white'
               }
             ]

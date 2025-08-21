@@ -13,6 +13,9 @@ async function execute (c) {
   } else {
     rl.start('netmsg', 2000)
   }
+  
+  let msg = c.args.join(' ').slice(0, 512)
+  msg = msg.replace(/[:;]3+/g, '') // Block users from sending ":3"
 
   const json = {
     text: '[%s] %s › %s',
