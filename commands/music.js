@@ -170,6 +170,22 @@ async function execute (c) {
       })
       break
     }
+    case 'volume':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
+      c.bot.musicPlayer.volume = +c.args[0]
+      c.reply({
+        text: 'command.music.volumeSet',
+        parseLang: true,
+        with: [ c.bot.musicPlayer.volume + '' ]
+      })
+      break
+    }
   }
 }
 const consoleIndex = true

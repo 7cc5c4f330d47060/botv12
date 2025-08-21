@@ -123,6 +123,7 @@ export default {
   'command.music.loop.off': 'Disabled looping',
   'command.music.pitchShiftSet': 'Set pitch shift to %s semitones',
   'command.music.speedSet': 'Set speed to %s',
+  'command.music.volumeSet': 'Set volume to %s',
   'command.music.error.notPlaying': 'Not currently playing',
   'command.netmsg.serverAddress': 'Server Address',
   'command.say.warning.trustedKey': 'This message is blocked because it contains the trusted key.',

@@ -19,8 +19,8 @@ const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.pling'
 ]
 function calculateNoteNbs (note, instruments) {
-  if (standardNotes) return `minecraft:${standardNotes[note]}`
-  else return instruments[note].name
+  if (standardNotes[note]) return `minecraft:${standardNotes[note]}`
+  else return instruments.all[note].name
 }
 export default function nbsReader (buffer) {
   const nbs = fromArrayBuffer(new Uint8Array(buffer).buffer)
@@ -47,11 +47,12 @@ export default function nbsReader (buffer) {
     let lastDelta = 0
     for (const delta in layer.notes.all) {
       const note = layer.notes.all[delta]
+      console.log(calculateNoteNbs(note.instrument, nbs.instruments))
       output.tracks[id].push({
         type: 'noteOn',
         deltaTime: +delta - lastDelta,
         mcNote: calculateNoteNbs(note.instrument, nbs.instruments),
-        noteNumber: note.key + 9,
+        noteNumber: note.key + 9 + (45 - nbs.instruments[note.instrument].key),
         velocity: ((note.velocity * 127) / 100) * (layerVolume / 100),
         nbsStereo: layer.stereo ? (layer.stereo + note.panning) / -100 : note.panning / -50
       })
