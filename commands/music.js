@@ -47,7 +47,8 @@ async function execute (c) {
             command: `${c.prefix}${c.cmdName} list ${resolve(file, item)}`,
             hover: {
               text: 'command.music.openDir',
-              parseLang: true
+              parseLang: true,
+              with: [ item ]
             }
           })
         } else {
@@ -57,7 +58,8 @@ async function execute (c) {
             command: `${c.prefix}${c.cmdName} play ${resolve(file, item)}`,
             hover: {
               text: 'command.music.openFile',
-              parseLang: true
+              parseLang: true,
+              with: [ item ]
             }
           })
         }
@@ -79,6 +81,13 @@ async function execute (c) {
       break
     }
     case 'stop':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
       // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
       c.bot.musicPlayer.stopSong()
       c.reply({
@@ -88,6 +97,13 @@ async function execute (c) {
       break
     }
     case 'skip':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
       // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
       c.bot.musicPlayer.stopSong(false, true)
       c.reply({
@@ -97,6 +113,13 @@ async function execute (c) {
       break
     }
     case 'loop':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
       c.bot.musicPlayer.looping = !c.bot.musicPlayer.looping
       if(c.bot.musicPlayer.looping) {
         c.reply({
@@ -113,6 +136,13 @@ async function execute (c) {
       break
     }
     case 'pitch':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
       c.bot.musicPlayer.pitchShift = +c.args[0]
       c.reply(c.bot.musicPlayer.pitchShift + '')
       c.bot.musicPlayer.setSpeed(20 / +c.args[0])
@@ -124,6 +154,13 @@ async function execute (c) {
       break
     }
     case 'speed':{
+      if(!c.bot.musicPlayer.playing){
+        c.reply({
+          text: 'command.music.error.notPlaying',
+          parseLang: true
+        })
+        return
+      }
       c.bot.musicPlayer.speedShift = +c.args[0]
       c.bot.musicPlayer.setSpeed(20 / +c.args[0])
       c.reply({
