@@ -175,7 +175,7 @@ export default function load (b) {
   })
 
   b.on('chat', (data) => {
-    if (!settings.showCommandSet && data.json.translate === 'advMode.setCommand.success') return
+    if (data.json.translate === 'advMode.setCommand.success') return
     if (Date.now() < b.chatDisabledUntil) return
     const msgConsole = parse3(data.json, settings.terminalMode)
     const msgPlain = parse3(data.json, 'none')

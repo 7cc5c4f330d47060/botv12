@@ -3,6 +3,7 @@ import chatParser from '../util/chatparse.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
+import settings from '../settings.js'
 export default function load (b) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName
@@ -22,6 +23,7 @@ export default function load (b) {
   }
 
   b.sendCommandNow = function (command) {
+    if (settings.showCommandSet) console.log(command)
     const xstart = b.currentChunk.x << 4
     const zstart = b.currentChunk.z << 4
     b._client.write('update_command_block', {
