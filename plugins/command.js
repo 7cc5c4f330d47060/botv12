@@ -15,7 +15,7 @@ export default function load (b) {
   })
   b.runCommand = async function (user, nick, uuid, command, type, subtype, prefix) {
     if (uuid === '00000000-0000-0000-0000-000000000000') return
-    if (Date.now() - b.lastCmd <= 1000) return
+    if (Date.now() - b.lastCmd <= 500) return
     b.lastCmd = Date.now()
 
     const context = new Command(uuid, user, nick, command, 'minecraft', type, subtype, prefix, b)

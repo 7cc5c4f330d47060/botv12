@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { parseMidi } from 'midi-file'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 // import CommandQueue from '../util/CommandQueue.js';
 import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
@@ -114,6 +114,10 @@ export default function load (b) {
 
   b.musicPlayer = new EventEmitter()
   b.musicPlayer.startTime = 0
+  b.musicPlayer.startFrom = 0 // Milliseconds from start
+  b.musicPlayer.nbsLoop = 0 // Ditto
+  b.musicPlayer.useStartFrom = false
+  b.musicPlayer.useNbsLoop = false
   b.musicPlayer.lastTime = 0
   b.musicPlayer.time = 0 // Time in milliseconds
   b.musicPlayer.length = 0 // Length of longest track
@@ -128,16 +132,25 @@ export default function load (b) {
   b.musicPlayer.volume = 1
 
   b.musicPlayer.on('songEnd', () => {
-    b.musicPlayer.stopSong(b.musicPlayer.looping)
+    b.musicPlayer.stopSong(b.musicPlayer.looping, true)
     if (b.musicPlayer.looping) {
       b.musicPlayer.playSong(b.musicPlayer.currentSong, b.musicPlayer.songName)
+    } else if (b.musicPlayer.queue.length === 0) {
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        text: getMessage(settings.defaultLang, 'musicPlayer.finished')
+      })
     }
   })
 
   b.musicPlayer.downloadSong = (url, name) => {
     try {
       if (url.startsWith('file://')) {
-        b.musicPlayer.playSong(url.slice(7), name)
+        let path
+        if (existsSync(url.slice(7))) path = url.slice(7)
+        else if (existsSync(url.slice(7) + '.nbs')) path = url.slice(7) + '.nbs'
+        else if (existsSync(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
+        else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
+        b.musicPlayer.playSong(path, name)
       } else if (url.startsWith('http://') || url.startsWith('https://')) {
         b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
@@ -159,6 +172,7 @@ export default function load (b) {
             b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
               text: err.toString()
             })
+            console.error(err)
           }
           b.musicPlayer.downloadSong(`file://${resolve(tempPath, `temp.${extension}`)}`, name)
         })
@@ -167,6 +181,7 @@ export default function load (b) {
       b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
         text: e.toString()
       })
+      console.error(e)
     }
   }
 
@@ -195,6 +210,10 @@ export default function load (b) {
       file = parseNBS(readFileSync(location))
     }
 
+    if (file.header.nbsLoopEnabled) {
+      b.musicPlayer.nbsLoop = file.header.nbsLoopStart
+      b.musicPlayer.useNbsLoop = true
+    }
     file.tracks.forEach((track, id) => {
       b.musicPlayer.queues[id] = []
       let program = 0
@@ -215,16 +234,19 @@ export default function load (b) {
           if (delta !== 0) {
             delta = 0
           }
-          b.musicPlayer.queues[id].push({
-            noteNumber: event.noteNumber,
-            channel: event.channel,
-            program,
-            mcNote: event.mcNote ?? null,
-            // mcPitch: event.mcPitch ?? null,
-            volume: event.velocity / 127,
-            nbsStereo: event.nbsStereo ?? 0,
-            time: totalDelta
-          })
+
+          if (!(totalDelta < b.musicPlayer.startFrom && b.musicPlayer.useStartFrom) && !(totalDelta < b.musicPlayer.nbsLoop && b.musicPlayer.looping && !b.musicPlayer.useStartFrom)) {
+            b.musicPlayer.queues[id].push({
+              noteNumber: event.noteNumber,
+              channel: event.channel,
+              program,
+              mcNote: event.mcNote ?? null,
+              // mcPitch: event.mcPitch ?? null,
+              volume: event.velocity / 127,
+              nbsStereo: event.nbsStereo ?? 0,
+              time: totalDelta
+            })
+          }
         }
         if (event.type === 'endOfTrack') {
           // b.musicPlayer.queues[id].trackLength = totalDelta
@@ -238,6 +260,9 @@ export default function load (b) {
 
     b.musicPlayer.startTime = Date.now()
     b.musicPlayer.lastTime = Date.now()
+    b.musicPlayer.time = 0
+    if (b.musicPlayer.nbsLoop && b.musicPlayer.looping) b.musicPlayer.time = b.musicPlayer.nbsLoop
+    if (b.musicPlayer.startFrom) b.musicPlayer.time = b.musicPlayer.startFrom
     b.musicPlayer.length = longestDelta
     b.musicPlayer.playing = true
     b.musicPlayer.currentSong = location
@@ -246,7 +271,7 @@ export default function load (b) {
       b.musicPlayer.bossBar.updatePlayers()
     }
     b.musicPlayer.songName = name
-    if (!b.musicPlayer.looping) {
+    if (!b.musicPlayer.looping && !b.musicPlayer.startFrom) {
       b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
         translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
         with: [
@@ -266,11 +291,13 @@ export default function load (b) {
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
     b.musicPlayer.totalNotes = 0
+    b.musicPlayer.startFrom = 0
     clearInterval(b.interval.advanceNotes)
     if (!looping) {
       b.musicPlayer.looping = false
       b.musicPlayer.pitchShift = 0
       b.musicPlayer.speedShift = 1
+      b.musicPlayer.nbsLoop = 0
     }
   }
 

@@ -27,7 +27,9 @@ export default function nbsReader (buffer) {
   const output = {
     tracks: [],
     header: {
-      ticksPerBeat: nbs.getTempo()
+      ticksPerBeat: nbs.getTempo(),
+      nbsLoopEnabled: nbs.loop.enabled,
+      nbsLoopStart: (nbs.loop.startTick * 1000) / nbs.getTempo()
     }
   }
   nbs.layers.all.forEach((layer, id) => {
@@ -52,7 +54,7 @@ export default function nbsReader (buffer) {
         type: 'noteOn',
         deltaTime: +delta - lastDelta,
         mcNote: calculateNoteNbs(note.instrument, nbs.instruments),
-        noteNumber: note.key + 9 + (45 - nbs.instruments[note.instrument].key),
+        noteNumber: note.key + 9 + (45 - nbs.instruments.all[note.instrument].key),
         velocity: ((note.velocity * 127) / 100) * (layerVolume / 100),
         nbsStereo: layer.stereo ? (layer.stereo + note.panning) / -100 : note.panning / -50
       })
