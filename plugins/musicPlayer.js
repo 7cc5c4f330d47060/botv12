@@ -7,19 +7,27 @@ import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
 import { formatTime } from '../util/lang.js'
 import parseNBS from '../util/parseNBS.js'
+import settings from '../settings.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
 
 const calculateNote = (event, program) => {
   const note = event.noteNumber
-  const keys = Object.keys(instrumentMap[program])
-  for (const item of keys) {
-    const range = item.split('-')
-    if (note >= +range[0] && note <= +range[1]) {
-      return {
-        pitch: Math.round(10000 * Math.pow(2, (note - instrumentMap[program][item].center) / 12)) / 10000,
-        note: event.mcNote ?? instrumentMap[program][item].note
+  if(program === 'nbs') {
+    return {
+      pitch: Math.round(10000 * Math.pow(2, (note - 54) / 12)) / 10000,
+      note: event.mcNote
+    }
+  } else {
+    let keys = Object.keys(instrumentMap[program])
+    for (const item of keys) {
+      const range = item.split('-')
+      if (note >= +range[0] && note <= +range[1]) {
+        return {
+          pitch: Math.round(10000 * Math.pow(2, (note - instrumentMap[program][item].center) / 12)) / 10000,
+          note: event.mcNote ?? instrumentMap[program][item].note
+        }
       }
     }
   }
@@ -44,6 +52,7 @@ const calculatePercussion = (event) => {
 
 export default function load (b) {
   b.interval.advanceMusicBar = setInterval(() => {
+    if(settings.disableMusicBar) return
     if (b.musicPlayer.playing) {
       b.musicPlayer.bossBar.setValue(Math.ceil(b.musicPlayer.time))
       let remainingNotes = 0
@@ -91,6 +100,7 @@ export default function load (b) {
       b.musicPlayer.bossBar.updatePlayers()
     } else {
       b.musicPlayer.bossBar?.delete()
+      delete b.musicPlayer.bossBar
     }
   }, 100)
 
@@ -173,11 +183,14 @@ export default function load (b) {
           if (delta !== 0) {
             delta = 0
           }
-
           b.musicPlayer.queues[id].push({
             noteNumber: event.noteNumber,
             channel: event.channel,
             program: program,
+            mcNote: event.mcNote ?? null,
+            //mcPitch: event.mcPitch ?? null,
+            volume: event.velocity / 127,
+            nbsStereo: event.nbsStereo ?? 0,
             time: totalDelta
           })
         }
@@ -196,8 +209,10 @@ export default function load (b) {
     b.musicPlayer.length = longestDelta
     b.musicPlayer.playing = true
     b.musicPlayer.currentSong = location
-    b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
-    b.musicPlayer.bossBar.updatePlayers()
+    if(!settings.disableMusicBar){
+      b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
+      b.musicPlayer.bossBar.updatePlayers()
+    }
     b.musicPlayer.songName = name
     if(!b.musicPlayer.looping) b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${b.musicPlayer.songName}` })
     b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
@@ -228,9 +243,10 @@ export default function load (b) {
           let note
           if (queue[i].channel === 9) note = calculatePercussion(queue[i]);
           else note = calculateNote({
-            noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift
+            noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift,
+            mcNote: queue[i].mcNote
           }, queue[i].program)
-          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ~ ~ ~ ${note.volume ?? 1} ${note.pitch}`)
+          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${queue[i].volume ?? 1} ${note.pitch}`)
           queue.splice(0, 1)
         }
       }

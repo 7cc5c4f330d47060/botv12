@@ -35,7 +35,7 @@ async function execute (c) {
         list.push({
           text: item,
           color: Number.isInteger(list.length / 2) ? 'white' : 'gray',
-          command: `${c.prefix}${c.cmdName} play ${item}`
+          command: `${c.prefix}${c.cmdName} play ${resolve(file, item)}`
         })
       }
       c.reply({
