@@ -286,7 +286,7 @@ export default function load (b) {
               mcNote: queue[i].mcNote
             }, queue[i].program)
           }
-          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${note.pitch}`)
+          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${Math.min(note.pitch, 2)}`)
           queue.splice(0, 1)
         }
       }
