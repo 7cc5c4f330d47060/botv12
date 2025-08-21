@@ -5,8 +5,8 @@ export default function load (b) {
     return
     if (data.channel === 'extras:message') {
       const payload = data.data.toString('latin1').slice(24)
-      const channel = data.data.toString('latin1').slice(0,8)
-      if(channel !== 'ubot:ft\xf0') return
+      const channel = data.data.toString('latin1').slice(0, 8)
+      if (channel !== 'ubot:ft\xf0') return
       const packet = payload.slice(0, 4)
       switch (packet) {
         case 'info':{
@@ -19,9 +19,9 @@ export default function load (b) {
         case 'data':{
           const chunk = parseInt(payload.slice(4, 12), 16)
           if (!b.fileParts.includes(chunk)) b.fileParts.push(chunk)
-            appendFileSync(b.fileName, Buffer.from(payload.slice(12), 'latin1'))
-            console.log(`Received ${chunk + 1}/${b.filePartCount}`)
-            break
+          appendFileSync(b.fileName, Buffer.from(payload.slice(12), 'latin1'))
+          console.log(`Received ${chunk + 1}/${b.filePartCount}`)
+          break
         }
       }
     }

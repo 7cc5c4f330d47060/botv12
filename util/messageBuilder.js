@@ -32,7 +32,7 @@ export default function build (text, colors, lang, botuuid) {
   if (text.botInfo) {
     textContent = version[text.botInfo]
   }
-  
+
   if (text.linked) {
     json.click_event = {
       action: 'open_url',
@@ -79,6 +79,13 @@ export default function build (text, colors, lang, botuuid) {
       value: {
         text: getMessage(lang, 'runCommand', [text.mcCommand])
       }
+    }
+  }
+
+  if (text.hover) {
+    json.hover_event = {
+      action: 'show_text',
+      value: build(text.hover, colors, lang, botuuid)
     }
   }
 

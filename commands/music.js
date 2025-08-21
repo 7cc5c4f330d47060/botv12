@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import uuidToInt from '../util/uuidtoint.js'
-import { readdirSync } from 'node:fs'
+import { readdirSync, statSync } from 'node:fs'
 const songPath = resolve(process.cwd(), 'songs')
 
 async function execute (c) {
@@ -16,36 +16,70 @@ async function execute (c) {
         color: '$warning',
         mcCommand: 'tag @s remove nomusic',
         with: [
-          { 
+          {
             botInfo: 'botName'
           }
         ]
       })
-      c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
+      if (!c.args[0].startsWith('http')) {
+        c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
+      } else {
+        c.bot.musicPlayer.queue.push([c.args.join(' '), c.args.join(' ')])
+      }
+
       break
     }
     case 'list':{
-      const list = []
+      const dirList = []
+      const fileList = []
       const file = resolve(songPath, c.args.join(' '))
       if (!file.startsWith(songPath)) {
         c.reply(songPath)
         return
       }
       for (const item of readdirSync(file)) {
-        list.push({
-          text: item,
-          color: Number.isInteger(list.length / 2) ? 'white' : 'gray',
-          command: `${c.prefix}${c.cmdName} play ${resolve(file, item)}`
-        })
+        console.log(resolve(file, item))
+        const isDir = statSync(resolve(file, item)).isDirectory()
+        if (isDir) {
+          dirList.push({
+            text: `${item}/`,
+            color: Number.isInteger(dirList.length / 2) ? 'green' : 'dark_green',
+            command: `${c.prefix}${c.cmdName} list ${resolve(file, item)}`,
+            hover: {
+              text: 'command.music.openDir',
+              parseLang: true
+            }
+          })
+        } else {
+          fileList.push({
+            text: `${item}`,
+            color: Number.isInteger(fileList.length / 2) ? 'white' : 'gray',
+            command: `${c.prefix}${c.cmdName} play ${resolve(file, item)}`,
+            hover: {
+              text: 'command.music.openFile',
+              parseLang: true
+            }
+          })
+        }
       }
       c.reply({
-        text: '%s '.repeat(list.length),
-        with: list
+        text: '%s%s',
+        with: [
+          {
+            text: '%s '.repeat(dirList.length),
+            with: dirList
+          },
+          {
+            text: '%s '.repeat(fileList.length),
+            with: fileList
+          }
+
+        ]
       })
       break
     }
     case 'stop':{
-      //c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
+      // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
       c.bot.musicPlayer.stopSong()
       break
     }

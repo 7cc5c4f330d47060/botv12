@@ -5,22 +5,23 @@ import { readFileSync } from 'node:fs'
 import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
-import { formatTime } from '../util/lang.js'
+import { formatTime, getMessage } from '../util/lang.js'
 import parseNBS from '../util/parseNBS.js'
 import settings from '../settings.js'
+import download from '../util/downloadFile.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
 
 const calculateNote = (event, program) => {
   const note = event.noteNumber
-  if(program === 'nbs') {
+  if (program === 'nbs') {
     return {
       pitch: Math.round(10000 * Math.pow(2, (note - 54) / 12)) / 10000,
       note: event.mcNote
     }
   } else {
-    let keys = Object.keys(instrumentMap[program])
+    const keys = Object.keys(instrumentMap[program])
     for (const item of keys) {
       const range = item.split('-')
       if (note >= +range[0] && note <= +range[1]) {
@@ -52,7 +53,7 @@ const calculatePercussion = (event) => {
 
 export default function load (b) {
   b.interval.advanceMusicBar = setInterval(() => {
-    if(settings.disableMusicBar) return
+    if (settings.disableMusicBar) return
     if (b.musicPlayer.playing) {
       b.musicPlayer.bossBar.setValue(Math.ceil(b.musicPlayer.time))
       let remainingNotes = 0
@@ -79,7 +80,7 @@ export default function load (b) {
                 text: (b.musicPlayer.totalNotes) + '',
                 color: 'white'
               }
-            ],
+            ]
           },
           {
             translate: '%s/%s',
@@ -105,7 +106,7 @@ export default function load (b) {
   }, 100)
 
   b.interval.advanceMusicQueue = setInterval(() => {
-    if (!b.musicPlayer.playing && b.musicPlayer.queue.length !== 0){
+    if (!b.musicPlayer.playing && b.musicPlayer.queue.length !== 0) {
       const queueItem = b.musicPlayer.queue.splice(0, 1)[0]
       b.musicPlayer.downloadSong(queueItem[0], queueItem[1])
     }
@@ -124,6 +125,7 @@ export default function load (b) {
   b.musicPlayer.looping = false
   b.musicPlayer.pitchShift = 0 // In semitones
   b.musicPlayer.speedShift = 1
+  b.musicPlayer.volume = 1
 
   b.musicPlayer.on('songEnd', () => {
     b.musicPlayer.stopSong(b.musicPlayer.looping)
@@ -134,25 +136,55 @@ export default function load (b) {
 
   b.musicPlayer.downloadSong = (url, name) => {
     try {
-      if(url.startsWith('file://')) {
+      if (url.startsWith('file://')) {
         b.musicPlayer.playSong(url.slice(7), name)
+      } else if (url.startsWith('http://') || url.startsWith('https://')) {
+        b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+          translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
+          with: [url]
+        })
+        const urlExtension = url.split('.').reverse()[0].toLowerCase()
+        let extension
+        if (urlExtension === 'nbs') {
+          extension = 'nbs'
+        } else {
+          extension = 'mid'
+        }
+        download(url, resolve(tempPath, `temp.${extension}`), (err) => {
+          if (err === 'largeFile') {
+            b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+              translate: getMessage(settings.defaultLang, 'downloader.tooLarge')
+            })
+          } else if (err) {
+            b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+              text: err.toString()
+            })
+          }
+          b.musicPlayer.downloadSong(`file://${resolve(tempPath, `temp.${extension}`)}`, name)
+        })
       }
     } catch (e) {
-      console.log(e)
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        text: e.toString()
+      })
     }
   }
 
   b.musicPlayer.playSong = (location, name) => {
     if (!location.startsWith(songPath) && !location.startsWith(tempPath)) {
-      c.reply(songPath)
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        text: getMessage(settings.defaultLang, 'musicPlayer.bannedDir')
+      })
       return
     }
 
     if (b.musicPlayer.playing) {
-      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: 'Already playing another song' })
+      b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying') 
+      })
       return
     }
-    
+
     let longestDelta = 0
     let uspt = 0
     let file
@@ -186,9 +218,9 @@ export default function load (b) {
           b.musicPlayer.queues[id].push({
             noteNumber: event.noteNumber,
             channel: event.channel,
-            program: program,
+            program,
             mcNote: event.mcNote ?? null,
-            //mcPitch: event.mcPitch ?? null,
+            // mcPitch: event.mcPitch ?? null,
             volume: event.velocity / 127,
             nbsStereo: event.nbsStereo ?? 0,
             time: totalDelta
@@ -209,27 +241,31 @@ export default function load (b) {
     b.musicPlayer.length = longestDelta
     b.musicPlayer.playing = true
     b.musicPlayer.currentSong = location
-    if(!settings.disableMusicBar){
+    if (!settings.disableMusicBar) {
       b.musicPlayer.bossBar = new BossBar(b, 'musicbar', 'UBot Music Bossbar [Loading...]', Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
       b.musicPlayer.bossBar.updatePlayers()
     }
     b.musicPlayer.songName = name
-    if(!b.musicPlayer.looping) b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', { text: `Now playing ${b.musicPlayer.songName}` })
+    if (!b.musicPlayer.looping) b.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+      translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
+      with: [
+        b.musicPlayer.songName
+      ]
+    })
     b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
-
   }
 
   b.musicPlayer.stopSong = (looping, skip) => {
     b.musicPlayer.playing = false
     b.musicPlayer.queues = []
-    if(!skip) b.musicPlayer.queue = []
+    if (!skip) b.musicPlayer.queue = []
     b.musicPlayer.startTime = 0
     b.musicPlayer.lastTime = 0
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
     b.musicPlayer.totalNotes = 0
     clearInterval(b.interval.advanceNotes)
-    if (!looping){
+    if (!looping) {
       b.musicPlayer.looping = false
       b.musicPlayer.pitchShift = 0
       b.musicPlayer.speedShift = 1
@@ -241,12 +277,14 @@ export default function load (b) {
       for (const queue of b.musicPlayer.queues) {
         for (let i = 0; i < queue.length && queue[i].time < b.musicPlayer.time + 20; i++) {
           let note
-          if (queue[i].channel === 9) note = calculatePercussion(queue[i]);
-          else note = calculateNote({
-            noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift,
-            mcNote: queue[i].mcNote
-          }, queue[i].program)
-          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${queue[i].volume ?? 1} ${note.pitch}`)
+          if (queue[i].channel === 9) note = calculatePercussion(queue[i])
+          else {
+            note = calculateNote({
+              noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift,
+              mcNote: queue[i].mcNote
+            }, queue[i].program)
+          }
+          b.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${note.pitch}`)
           queue.splice(0, 1)
         }
       }
@@ -260,7 +298,7 @@ export default function load (b) {
   }
 
   b.musicPlayer.setSpeed = speed => {
-    if(b.interval.advanceNotes) clearInterval(b.interval.advanceNotes)
+    if (b.interval.advanceNotes) clearInterval(b.interval.advanceNotes)
     b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, speed)
   }
 }
