@@ -26,7 +26,11 @@ async function execute (c) {
       } else {
         c.bot.musicPlayer.queue.push([c.args.join(' '), c.args.join(' ')])
       }
-
+      c.reply({
+        text: 'command.music.addToQueue',
+        parseLang: true,
+        with: [c.args.join(' ')]
+      })
       break
     }
     case 'list':{
@@ -48,7 +52,7 @@ async function execute (c) {
             hover: {
               text: 'command.music.openDir',
               parseLang: true,
-              with: [ item ]
+              with: [item]
             }
           })
         } else {
@@ -59,7 +63,7 @@ async function execute (c) {
             hover: {
               text: 'command.music.openFile',
               parseLang: true,
-              with: [ item ]
+              with: [item]
             }
           })
         }
@@ -81,10 +85,11 @@ async function execute (c) {
       break
     }
     case 'stop':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
@@ -97,10 +102,11 @@ async function execute (c) {
       break
     }
     case 'skip':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
@@ -113,15 +119,16 @@ async function execute (c) {
       break
     }
     case 'loop':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
       c.bot.musicPlayer.looping = !c.bot.musicPlayer.looping
-      if(c.bot.musicPlayer.looping) {
+      if (c.bot.musicPlayer.looping) {
         c.reply({
           text: 'command.music.loop.on',
           parseLang: true
@@ -132,14 +139,14 @@ async function execute (c) {
           parseLang: true
         })
       }
-      c.reply(c.bot.musicPlayer.looping + '')
       break
     }
     case 'pitch':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
@@ -149,15 +156,16 @@ async function execute (c) {
       c.reply({
         text: 'command.music.pitchShiftSet',
         parseLang: true,
-        with: [ c.bot.musicPlayer.pitchShift + '' ]
+        with: [c.args[0]]
       })
       break
     }
     case 'speed':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
@@ -166,15 +174,16 @@ async function execute (c) {
       c.reply({
         text: 'command.music.speedSet',
         parseLang: true,
-        with: [ c.bot.musicPlayer.speedShift + '' ]
+        with: [c.args[0]]
       })
       break
     }
     case 'volume':{
-      if(!c.bot.musicPlayer.playing){
+      if (!c.bot.musicPlayer.playing) {
         c.reply({
           text: 'command.music.error.notPlaying',
-          parseLang: true
+          parseLang: true,
+          color: '$error'
         })
         return
       }
@@ -182,9 +191,28 @@ async function execute (c) {
       c.reply({
         text: 'command.music.volumeSet',
         parseLang: true,
-        with: [ c.bot.musicPlayer.volume + '' ]
+        with: [c.args[0]]
       })
       break
+    }
+    case 'queue':{
+      c.reply({
+        text: 'command.music.queueIntro',
+        parseLang: true,
+        with: [
+          c.bot.musicPlayer.queue.length + ''
+        ]
+      })
+      c.bot.musicPlayer.queue.forEach((item, id) => {
+        c.reply({
+          text: 'command.music.queueItem',
+          parseLang: true,
+          with: [
+            id,
+            item[1]
+          ]
+        })
+      })
     }
   }
 }
