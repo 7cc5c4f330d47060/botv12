@@ -34,7 +34,7 @@ async function execute (c) {
       break
     }
     case 'list':{
-      const dirList = []
+      const list = []
       const fileList = []
       const file = resolve(songPath, c.args.join(' '))
       if (!file.startsWith(songPath)) {
@@ -45,9 +45,9 @@ async function execute (c) {
         console.log(resolve(file, item))
         const isDir = statSync(resolve(file, item)).isDirectory()
         if (isDir) {
-          dirList.push({
+          list.push({
             text: `${item}/`,
-            color: Number.isInteger(dirList.length / 2) ? 'green' : 'dark_green',
+            color: Number.isInteger(list.length / 2) ? 'green' : 'dark_green',
             command: `${c.prefix}${c.cmdName} list ${resolve(file, item)}`,
             hover: {
               text: 'command.music.openDir',
@@ -68,20 +68,14 @@ async function execute (c) {
           })
         }
       }
-      c.reply({
-        text: '%s%s',
-        with: [
-          {
-            text: '%s '.repeat(dirList.length),
-            with: dirList
-          },
-          {
-            text: '%s '.repeat(fileList.length),
-            with: fileList
-          }
-
-        ]
-      })
+      for (const item of fileList) list.push(item)
+      for (let i=0; i<Math.ceil(list.length/40); i++) {
+        const subList = list.slice(i*40, (i+1)*40)
+        c.reply({
+          text: '%s '.repeat(subList.length),
+          with: subList
+        })
+      }
       break
     }
     case 'stop':{
