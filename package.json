@@ -12,7 +12,7 @@
     "url": "https://codeberg.org/7cc5c4f330d47060/botv12.git"
   },
   "author": "7cc5c4f330d47060",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@nbsjs/core": "^6.0.0",
     "mariadb": "^3.4.4",

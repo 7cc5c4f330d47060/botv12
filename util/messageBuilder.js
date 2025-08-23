@@ -36,7 +36,7 @@ export default function build (text, colors, lang, botuuid) {
   if (text.linked) {
     json.click_event = {
       action: 'open_url',
-      value: textContent
+      url: textContent
     }
     json.hover_event = {
       action: 'show_text',

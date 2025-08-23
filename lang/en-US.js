@@ -63,7 +63,7 @@ export default {
   'command.about.versionCmd.generic': '%s version: %s',
   'command.about.sourceCode': 'Source code: %s',
   'command.about.sourceCodeFork': 'Original source code: %s',
-  'command.about.copyright': 'Copyright © %s %s. This bot is free and open source software; for license terms, run %slicense, or check the repository.\n',
+  'command.about.copyright': 'Copyright © %s %s',
   'command.about.fork': 'This bot is based on %s by %s.',
   'command.about.serverInfo.os.android': 'Android %s',
   'command.about.serverInfo.os.android.noVersion': 'Android',
@@ -161,6 +161,11 @@ export default {
   'command.about.serverListItem.thisServer': 'Server %s - %s (this server)',
   'command.tpr.success': 'Teleporting %s to %s, %s, %s',
   'command.verify.success': 'Successfully verified with permission level %s',
+
+  // AGPL info
+  'command.about.copyright.agpl1': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version\n',
+  'command.about.copyright.agpl2': 'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n',
+  'command.about.copyright.agpl3': 'You should have received a copy of the GNU Affero General Public License along with this program. If not, see <%s>.\n',
 
   // Music Player
   'musicPlayer.loadingSong': 'Loading %s',
