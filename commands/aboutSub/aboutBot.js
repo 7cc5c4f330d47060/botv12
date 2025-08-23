@@ -21,6 +21,24 @@ export default async function aboutBot (c) {
         c.prefix
       ]
     })
+    c.reply({
+      text: 'command.about.copyright.agpl1',
+      parseLang: true
+    })
+    c.reply({
+      text: 'command.about.copyright.agpl2',
+      parseLang: true
+    })
+    c.reply({
+      text: 'command.about.copyright.agpl3',
+      parseLang: true,
+      with: [
+        {
+          text: 'https://www.gnu.org/licenses/',
+          linked: true
+        }
+      ]
+    })
     if (version.sourceURL) {
       c.reply({
         text: 'command.about.sourceCode',
@@ -42,17 +60,5 @@ export default async function aboutBot (c) {
         version.originalAuthor
       ]
     })
-    if (version.originalRepo) {
-      c.reply({
-        text: 'command.about.sourceCodeFork',
-        parseLang: true,
-        with: [
-          {
-            text: version.originalRepo,
-            linked: true
-          }
-        ]
-      })
-    }
   }
 }
