@@ -5,7 +5,7 @@ export default function load (b) {
     for (const i in b.interval) {
       clearInterval(b.interval[i])
     }
-    setTimeout(() => {
+    if(!b.disconnect) setTimeout(() => {
       b.info(`Re-connecting bot ${b.id}`)
       createBot(b.host, b.id)
     }, 5000)
