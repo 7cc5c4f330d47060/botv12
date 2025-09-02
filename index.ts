@@ -2,14 +2,13 @@ import settings from './settings.js'
 import UBotClient from './util/UBotClient.ts'
 import generateUser from './util/usergen.ts'
 //import { getMessage } from './util/lang.js'
-
-//import { readdirSync } from 'node:fs'
+import { readdirSync } from 'node:fs'
 //import { default as registry } from 'prismarine-registry'
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
-const bots = []
-const createBot = function createBot (host: any) {
+const bots: UBotClient[] = []
+const createBot = function createBot (host: any, oldId?: number) {
   const options = {
     host: host.host,
     fakeHost: host.fakeHost,
@@ -19,6 +18,22 @@ const createBot = function createBot (host: any) {
   }
 
   const bot = new UBotClient(options)
+
+  for (const pluginItem of plugins) {
+    if (pluginItem) pluginItem(bot)
+  }
+
+  if (typeof oldId !== 'undefined') {
+    /*for (const i in bots[oldId].interval) {
+      clearInterval(bots[oldId].interval[i])
+    }
+    delete bots[oldId]
+    bot.id = oldId
+    bots[oldId] = bot*/
+  } else {
+    bot.id = bots.length
+    bots.push(bot)
+  }
 }
 
 const init = function () {
@@ -27,7 +42,22 @@ const init = function () {
   }
 }
 
-init()
+const plugins: any[] = []
+const bpl = readdirSync('plugins')
+for (const plugin of bpl) {
+  if (!plugin.endsWith('.ts')) {
+    continue
+  }
+  try {
+    import(`./plugins/${plugin}`).then((pluginItem) => {
+      plugins.push(pluginItem.default) // For rejoining
+      if (plugins.length === bpl.length) {
+        init()
+      }
+    })
+  } catch (e) { console.log(e) }
+}
+
 
 export {
   bots,

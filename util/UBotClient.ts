@@ -4,7 +4,8 @@ import settings from '../settings.js'
 
 export default class UBotClient extends EventEmitter {
   _client: Client
-
+  id: number
+  
   constructor (options?: any) {
     super()
 
