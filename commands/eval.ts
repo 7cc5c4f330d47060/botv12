@@ -1,9 +1,13 @@
-import * as index from '../index.ts' // Not used in the code, but may be used by users of the command
+import { bots, createBot } from '../index.ts' // Not used in the code, but may be used by users of the command
 import { inspect } from 'node:util'
 import settings from '../settings.js'
 //import chatlog from '../util/chatlog.js'
 
 async function execute (c) {
+  const index = { // botvX simulator
+    bots,
+    createBot
+  }
   const payload = c.args.join(' ')
   let result
   try {

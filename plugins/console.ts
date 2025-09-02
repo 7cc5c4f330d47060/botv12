@@ -5,6 +5,7 @@ import parse3 from '../util/chatparse.ts'
 import { userInfo } from 'node:os'
 import { bots } from '../index.ts'
 import settings from '../settings.js'
+import UBotClient from '../util/UBotClient.ts'
 //import { getMessage } from '../util/lang.js'
 
 const consoleBotStub = {
@@ -75,15 +76,15 @@ function consoleWrite (text) {
   rl.prompt(true)
 }
 
-export default function load (b) {
-  /*b.info = (msg) => {
-    consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, 'console.info')}] ${msg}`)
+export default function load (b: UBotClient) {
+  b.info = (msg) => {
+    consoleWrite(`[${b.id}] ['info'] ${msg}`)
   }
   b.displayChat = (type, subtype, msg) => {
     if (settings.debugMode) {
-      consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] [${subtype}] ${msg}`)
+      consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
     } else {
-      consoleWrite(`[${b.id}] [${getMessage(settings.defaultLang, `console.chat.${type}`)}] ${msg}`)
+      consoleWrite(`[${b.id}] [${type}] ${msg}`)
     }
-  }*/
+  }
 }
