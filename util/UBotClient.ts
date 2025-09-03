@@ -13,6 +13,9 @@ export default class UBotClient extends EventEmitter {
 
   // Plugins
   clientChat: any
+  selfCare: any
+  serverChat: any
+
   constructor (options?: any) {
     super()
 
