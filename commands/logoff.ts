@@ -1,4 +1,6 @@
-async function execute (c) {
+import CommandContext from "../util/CommandContext"
+
+async function execute (c: CommandContext) {
   if (c.args[0] == '-n') c.bot.disconnect = true
   c.bot._client.end()
 }

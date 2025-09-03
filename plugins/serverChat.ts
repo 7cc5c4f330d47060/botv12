@@ -3,6 +3,7 @@ import parse3 from '../util/chatparse.ts'
 import parse1204 from '../util/parseNBT.ts'
 import { getMessage } from '../util/lang.js'
 import { readdirSync } from 'node:fs'
+import UBotClient from '../util/UBotClient.ts'
 const convertChatStyleItem = (item) => {
   const output = {}
   for (const i in item) {
@@ -43,33 +44,34 @@ for (const plugin of bpl) {
   } catch (e) { console.log(e) }
 }*/
 
-export default function load (b) {
-  b.messageCount = 0
-  b.chatDisabledUntil = 0
+export default function load (b: UBotClient) {
+  b.serverChat = {}
+  b.serverChat.messageCount = 0
+  b.serverChat.disabledUntil = 0
+  b.serverChat.messageTypes = []
   b.interval.antiSpam = setInterval(() => {
-    b.messageCount = 0
+    b.serverChat.messageCount = 0
   }, 4000)
-  b.messageTypes = []
   b._client.on('registry_data', (data) => {
     if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
       nbtItems.forEach((item, i) => {
-        b.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
+        b.serverChat.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
     } else if (data.entries && data.id === 'minecraft:chat_type') {
       data.entries.forEach((item, i) => {
-        b.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
+        b.serverChat.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }
   })
   b._client.on('profileless_chat', (data) => {
     let messageType
     if (data.type.registryIndex) {
-      messageType = b.messageTypes[data.type.registryIndex - 1]
+      messageType = b.serverChat.messageTypes[data.type.registryIndex - 1]
     } else if (data.type.chatType) {
-      messageType = b.messageTypes[data.type.chatType]
+      messageType = b.serverChat.messageTypes[data.type.chatType]
     } else {
-      messageType = b.messageTypes[data.type]
+      messageType = b.serverChat.messageTypes[data.type]
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: any = { translate: messageType.translation_key, with: [] }
@@ -103,11 +105,11 @@ export default function load (b) {
   b._client.on('player_chat', (data) => {
     let messageType
     if (data.type.registryIndex) {
-      messageType = b.messageTypes[data.type.registryIndex - 1]
+      messageType = b.serverChat.messageTypes[data.type.registryIndex - 1]
     } else if (data.type.chatType) {
-      messageType = b.messageTypes[data.type.chatType]
+      messageType = b.serverChat.messageTypes[data.type.chatType]
     } else {
-      messageType = b.messageTypes[data.type]
+      messageType = b.serverChat.messageTypes[data.type]
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: any = { translate: messageType.translation_key, with: [] }
@@ -176,16 +178,16 @@ export default function load (b) {
 
   b.on('chat', (data) => {
     if (data.json.translate === 'advMode.setCommand.success') return
-    if (Date.now() < b.chatDisabledUntil) return
+    if (Date.now() < b.serverChat.disabledUntil) return
     const msgConsole = parse3(data.json, settings.terminalMode)
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
 
-    b.messageCount++
-    if (b.messageCount >= 100) {
+    b.serverChat.messageCount++
+    if (b.serverChat.messageCount >= 100) {
       b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
-      b.chatDisabledUntil = Date.now() + 20000
+      b.serverChat.disabledUntil = Date.now() + 20000
       return
     }
     b.emit('plainchat', msgPlain, data.type, data.subtype)

@@ -1,6 +1,6 @@
 import { createInterface, cursorTo, clearLine } from 'node:readline'
 import registry from '../util/commands.ts'
-import Command from '../util/Command.ts'
+import CommandContext from '../util/CommandContext.ts'
 import parse3 from '../util/chatparse.ts'
 import { userInfo } from 'node:os'
 import { bots } from '../index.ts'
@@ -47,17 +47,17 @@ rl.on('line', (l: string) => {
       const index2 = args.splice(1, 1)[0]
       if (index2 === '*') {
         for (let i = 0; i < bots.length; i++) {
-          const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+          const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
           context.verify = 2
           cmd.execute(context)
         }
       } else {
-        const context = new Command(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
+        const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
         context.verify = 2
         cmd.execute(context)
       }
     } else {
-      const context = new Command(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
+      const context = new CommandContext(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
       context.verify = 2
       cmd.execute(context)
     }

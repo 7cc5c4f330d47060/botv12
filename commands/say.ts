@@ -1,6 +1,7 @@
 import settings from '../settings.js'
+import CommandContext from '../util/CommandContext'
 //import { getMessage } from '../util/lang.js'
-async function execute (c) {
+async function execute (c: CommandContext) {
   const msg = c.args.join(' ').slice(0, 512)
   if (msg.includes(settings.keyTrusted) && c.verify < 1) {
     //c.bot.info(getMessage(c.lang, 'command.say.warning.trustedKey'))

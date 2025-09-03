@@ -1,6 +1,6 @@
 import settings from '../settings.js'
 import build from './messageBuilder.ts'
-export default class Command {
+export default class CommandContext {
   uuid: string
   reply: any
   username: string

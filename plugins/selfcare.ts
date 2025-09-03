@@ -1,3 +1,5 @@
+import UBotClient from "../util/UBotClient"
+
 class SCTask {
   failTask: any
   failed: boolean
@@ -12,7 +14,7 @@ class SCTask {
   }
 }
 
-export default function load (b) {
+export default function load (b: UBotClient) {
   b.selfCare = {}
   b.selfCare.tasks = {}
   b.selfCare.lastRun = 0
@@ -66,7 +68,7 @@ export default function load (b) {
 
   // Gamemode / end portal bug
   b.selfCare.addTask('gamemode', () => {
-    b.chat('/minecraft:gamemode creative')
+    b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
     if (p.reason === 3 && p.gameMode !== 1) {
@@ -92,6 +94,6 @@ export default function load (b) {
   })
 
   b.selfCare.addTask('cc_pos', () => {
-    b.chat('/minecraft:tp ~ 40 ~')
+    b.clientChat.send('/minecraft:tp ~ 40 ~')
   })
 }
