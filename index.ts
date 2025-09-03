@@ -19,6 +19,8 @@ const createBot = function createBot (host: any, oldId?: number) {
 
   const bot = new UBotClient(options)
 
+  bot.host = host
+  
   for (const pluginItem of plugins) {
     if (pluginItem) pluginItem(bot)
   }

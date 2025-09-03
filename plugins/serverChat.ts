@@ -1,7 +1,7 @@
 import settings from '../settings.js'
 import parse3 from '../util/chatparse.ts'
 import parse1204 from '../util/parseNBT.ts'
-//import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.js'
 import { readdirSync } from 'node:fs'
 const convertChatStyleItem = (item) => {
   const output = {}
@@ -184,7 +184,7 @@ export default function load (b) {
 
     b.messageCount++
     if (b.messageCount >= 100) {
-      //b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
+      b.info(getMessage(settings.defaultLang, 'chat.antiSpamTriggered'))
       b.chatDisabledUntil = Date.now() + 20000
       return
     }

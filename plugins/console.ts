@@ -6,7 +6,7 @@ import { userInfo } from 'node:os'
 import { bots } from '../index.ts'
 import settings from '../settings.js'
 import UBotClient from '../util/UBotClient.ts'
-//import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.js'
 
 const consoleBotStub = {
   host: {
@@ -38,8 +38,8 @@ rl.on('line', (l: string) => {
 
     // Block running eval in normal mode
     if (cmd.debugOnly && !settings.debugMode) {
-      //console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
-      console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
+      console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
+      //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
       return
     }
 
