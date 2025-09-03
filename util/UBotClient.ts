@@ -5,9 +5,11 @@ import settings from '../settings.js'
 export default class UBotClient extends EventEmitter {
   _client: Client
   id: number
+  host: any
   interval: any
   info: any
   displayChat: any
+  entityId: number
 
   // Plugins
   clientChat: any
