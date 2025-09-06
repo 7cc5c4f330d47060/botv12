@@ -1,4 +1,4 @@
-import UBotClient from "../util/UBotClient"
+import UBotClient from "../util/UBotClient.ts"
 
 class SCTask {
   failTask: any

@@ -1,7 +1,7 @@
 import settings from '../settings.js'
 import parse3 from '../util/chatparse.ts'
 import parse1204 from '../util/parseNBT.ts'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.ts'
 import { readdirSync } from 'node:fs'
 import UBotClient from '../util/UBotClient.ts'
 const convertChatStyleItem = (item) => {

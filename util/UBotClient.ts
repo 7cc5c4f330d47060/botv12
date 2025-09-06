@@ -1,6 +1,7 @@
 import { createClient, Client } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
 import settings from '../settings.js'
+import { default as registry } from 'prismarine-registry'
 
 export default class UBotClient extends EventEmitter {
   _client: Client
@@ -10,6 +11,7 @@ export default class UBotClient extends EventEmitter {
   info: any
   displayChat: any
   entityId: number
+  registry: registry.Registry
 
   // Plugins
   clientChat: any
@@ -22,8 +24,11 @@ export default class UBotClient extends EventEmitter {
     this._client = createClient(options)
     this.interval = {}
 
+    this.registry = registry(this._client.version)
+
     this._client.on('error', (err: Error) => {
       if (settings.debugMode) console.log(err)
     })
+
   }
 }
