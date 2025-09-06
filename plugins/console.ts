@@ -6,7 +6,7 @@ import { userInfo } from 'node:os'
 import { bots } from '../index.ts'
 import settings from '../settings.js'
 import UBotClient from '../util/UBotClient.ts'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.ts'
 
 const consoleBotStub = {
   host: {

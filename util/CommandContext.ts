@@ -6,6 +6,7 @@ export default class CommandContext {
   username: string
   command: string
   args: string[]
+  lang: string
   verify: number
   bot: any
 
@@ -23,7 +24,7 @@ export default class CommandContext {
     //this.cmdName = cmd.split(' ')[0]
     //this.prefix = prefix
     //this.colors = settings.colors
-    //this.lang = settings.defaultLang
+    this.lang = settings.defaultLang
     this.verify = 0
     //this.host = bot?.host.host
     //this.port = bot?.host.port
