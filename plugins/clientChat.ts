@@ -11,10 +11,12 @@ export default function load (b) {
   })
   
   b.clientChat.chatqueue = []
-  b.clientChat.send = function chat (msg: string) {
-    if (msg.length === 0) return
-    msg.match(matcherRegex)?.forEach(element => {
-      b.clientChat.chatqueue.push(element)
-    })
+  b.clientChat.send = function chat (...msgs: string[]) {
+    for(const msg of msgs){
+      if (msg.length === 0) return
+      msg.match(matcherRegex)?.forEach(element => {
+        b.clientChat.chatqueue.push(element)
+      })
+    }
   }
 }
