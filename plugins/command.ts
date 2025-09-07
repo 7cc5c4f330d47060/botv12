@@ -6,25 +6,25 @@ import { getMessage } from '../util/lang.js'
 import UBotClient from '../util/UBotClient.js'
 
 export default function load (b: UBotClient) {
+  b.commands = {}
   b.on('chat', (data) => {
     const fullCommand = data.message
     for (const prefix of settings.prefixes) {
       if (fullCommand.startsWith(prefix)) {
         const command = fullCommand.slice(prefix.length)
-        b.runCommand(data.username, data.nickname, data.uuid, command, data.type, data.subtype, prefix)
+        b.commands.runCommand(data.username, data.nickname, data.uuid, command, data.type, data.subtype, prefix)
       }
     }
   })
-  b.runCommand = async function (user, nick, uuid, command, type, subtype, prefix) {
+  b.commands.runCommand = async function (user, nick, uuid, command, type, subtype, prefix) {
     if (uuid === '00000000-0000-0000-0000-000000000000') return
-    if (Date.now() - b.lastCmd <= 500) return
-    b.lastCmd = Date.now()
+    if (Date.now() - b.commands.lastCmd <= 500) return
+    b.commands.lastCmd = Date.now()
 
     const context = new CommandContext(uuid, user, nick, command, 'minecraft', type, subtype, prefix, b)
 
     b.emit('command', context)
     if (context.cancel === true) return
-
     const commandItem = registry.getCommand(context.cmdName)
 
     const cmdsplit = command.split(' ')
@@ -35,7 +35,7 @@ export default function load (b: UBotClient) {
 
     // Block running eval in normal mode
     if (commandItem.debugOnly && !settings.debugMode) {
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.debugOnly')
       })
       return
@@ -43,7 +43,7 @@ export default function load (b: UBotClient) {
 
     // Block running eval in minecraft
     if (commandItem.consoleOnly) {
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.consoleOnly')
       })
       return
@@ -51,7 +51,7 @@ export default function load (b: UBotClient) {
 
     // "Block ChipmunkMod" functionality
     if (commandItem.blockChipmunkMod && subtype !== 'generic_player') {
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.chipmunkmod')
       })
       return
@@ -59,20 +59,20 @@ export default function load (b: UBotClient) {
 
     // Block ChipmunkMod Format in the trusted commands
     if (commandItem && commandItem.level !== undefined && subtype !== 'generic_player') {
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
       })
       return
     }
 
     if (commandItem && commandItem.level !== undefined && commandItem.level > verify) {
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms')
       })
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.yourLevel', [[permsN, permsT, permsO][verify]])
       })
-      b.tellraw(uuid, {
+      b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.cmdLevel', [[permsN, permsT, permsO][commandItem.level]])
       })
       return
@@ -95,7 +95,7 @@ export default function load (b: UBotClient) {
         }
       } catch (e) {
         console.log(e)
-        b.tellraw(uuid, {
+        b.commandCore.tellraw(uuid, {
           text: getMessage(context.lang, 'command.error'),
           color: settings.colors.error,
           hover_event: {

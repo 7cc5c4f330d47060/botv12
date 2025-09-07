@@ -17,6 +17,11 @@ export default class UBotClient extends EventEmitter {
   clientChat: any
   selfCare: any
   serverChat: any
+  playerInfo: any
+  position: any
+  commandCore: any
+  commands: any
+  chunks: any
 
   constructor (options?: any) {
     super()
