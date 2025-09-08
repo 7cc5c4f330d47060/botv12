@@ -1,3 +1,4 @@
+import settings from "../settings.js"
 import UBotClient from "../util/UBotClient.ts"
 
 class SCTask {
@@ -36,6 +37,13 @@ export default function load (b: UBotClient) {
   }
 
   // Self care tasks
+
+  // Operator
+  b.selfCare.addTask('debugMode', () => {
+    b.clientChat.send('Warning: Debug mode is enabled, security is reduced.')
+    b.selfCare.tasks.debugMode.failed = false
+  })
+  b.selfCare.tasks.debugMode.failed = settings.debugMode
 
   // Operator
   b.selfCare.addTask('op', () => {
