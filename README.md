@@ -7,7 +7,7 @@ botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) a
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
-It supports all Minecraft client versions from 1.20.6 to 1.21.4 that are supported by node-minecraft-protocol.
+It supports all Minecraft client versions from 1.20.6 to 1.21.8 that are supported by node-minecraft-protocol.
 
 ## How to install?
 
@@ -17,8 +17,8 @@ It supports all Minecraft client versions from 1.20.6 to 1.21.4 that are support
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
 5. Copy the reference configuration (`settings_example.js` in the root) to `settings.js`, and adjust the settings to fit your needs. The secrets are also contained in this file as well.
 6. (Optional) If you plan to use a database with the bot, set `dbEnabled` in `settings.js` to true and fill in the appropriate fields. Currently, MySQL and MariaDB are supported, with more to come.
-7. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `node index.js` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `node` is not a command, please make sure Node.js is on your PATH.
+7. Run ./launch.sh (macOS, Linux, FreeBSD) or ./launch.cmd (Windows). This will start a bot launcher, which will restart the bot when the process closes. Alternatively, you can run `npx tsx index.ts` to start the bot only once (it will still rejoin when kicked). If it displays an error saying `npx` is not a command, please make sure Node.js is on your PATH.
 
 ## License
 
-This project is free (as in freedom) software licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
+This project is free software licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
