@@ -3,7 +3,7 @@ import version from '../../version.js'
 import botVersion from '../../util/version.js'
 import CommandContext from '../../util/CommandContext.js'
 
-const dependencies = []
+const dependencies: { name: string, version: string }[] = []
 
 const addDepInfo = async function (name, version) {
   dependencies.push({ name, version })

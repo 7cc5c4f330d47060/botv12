@@ -61,12 +61,12 @@ export default function load (b) {
   b.interval.unloadChunks = setInterval(() => {
     for (const i in b.chunks) {
       // X-values
-      if (i > b.position.currentChunk.x + rd || i < b.position.currentChunk.x - rd) {
+      if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
         delete b.chunks[i]
       }
       for (const z in b.chunks[i]) {
         // Z-values
-        if (z > b.position.currentChunk.z + rd || z < b.position.currentChunk.z - rd) {
+        if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
           delete b.chunks[i][z]
         }
       }

@@ -73,36 +73,22 @@ export default function load (b: UBotClient) {
         const xstart = b.position.currentChunk.x << 4
         const zstart = b.position.currentChunk.z << 4
         const item = new Item(itemsByName.command_block.id, 1)
-        const itemSize = new Item(itemsByName.command_block.id, 1)
 
-        // Core filling
-        item.components.push({
-          type: 'block_entity_data',
-          data: {
-            type: 'compound',
-            value: {
-              id: {
-                type: 'string',
-                value: 'minecraft:command_block'
-              },
-              Command: {
-                type: 'string',
-                value: `/fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
-              },
-              auto: {
-                type: 'byte',
-                value: 1
-              }
-            }
-          }
+        b._client.write('set_creative_slot', {
+          slot: 36,
+          item: Item.toNotch(item)
         })
+        // Core filling
+        //`fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
+        //'/gamerule commandModificationBlockLimit 32768'
+
         b._client.write('block_dig', {
           status: 0,
           location: { x: b.position.pos.x, y: b.position.pos.y - 1, z: b.position.pos.z }
         })
-        b._client.write('set_creative_slot', {
-          slot: 36,
-          item: Item.toNotch(item)
+        b._client.write('block_dig', {
+          status: 0,
+          location: { x: b.position.pos.x, y: b.position.pos.y - 2, z: b.position.pos.z }
         })
         b._client.write('block_place', {
           hand: 0,
@@ -112,43 +98,25 @@ export default function load (b: UBotClient) {
           cursorY: 0,
           cursorZ: 0
         })
-
-        // Resizing commandModificationBlockLimit
-        itemSize.components.push({
-          type: 'block_entity_data',
-          data: {
-            type: 'compound',
-            value: {
-              id: {
-                type: 'string',
-                value: 'minecraft:command_block'
-              },
-              Command: {
-                type: 'string',
-                value: '/gamerule commandModificationBlockLimit 32768'
-              },
-              auto: {
-                type: 'byte',
-                value: 1
-              }
-            }
-          }
-        })
-        b._client.write('block_dig', {
-          status: 0,
-          location: { x: b.position.pos.x, y: b.position.pos.y + 3, z: b.position.pos.z }
-        })
-        b._client.write('set_creative_slot', {
-          slot: 36,
-          item: Item.toNotch(itemSize)
-        })
         b._client.write('block_place', {
           hand: 0,
           direction: 0,
-          location: { x: b.position.pos.x, y: b.position.pos.y + 3, z: b.position.pos.z },
+          location: { x: b.position.pos.x, y: b.position.pos.y - 2, z: b.position.pos.z },
           cursorX: 0,
           cursorY: 0,
           cursorZ: 0
+        })
+        b._client.write('update_command_block', {
+          command: `fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`, 
+          location: { x: b.position.pos.x, y: b.position.pos.y - 1, z: b.position.pos.z },
+          mode: 2,
+          flags: 5
+        })
+        b._client.write('update_command_block', {
+          command: '/gamerule commandModificationBlockLimit 32768', 
+          location: { x: b.position.pos.x, y: b.position.pos.y - 2, z: b.position.pos.z },
+          mode: 2,
+          flags: 5
         })
       })
     }
