@@ -9,6 +9,7 @@ import UBotClient from '../util/UBotClient.js'
 export default function load (b: UBotClient) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName
+  if(!b.position) b.position = {}
   b.commandCore = {}
   b.commandCore.ccq = []
   b.commandCore.blocknoX = 0

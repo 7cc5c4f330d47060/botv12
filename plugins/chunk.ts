@@ -5,7 +5,7 @@ const rd = 8
 export default function load (b) {
   const Chunk = loader(b.registry)
   b.chunks = {}
-  b.position = {}
+  if(!b.position) b.position = {}
   b._client.on('map_chunk', data => {
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
