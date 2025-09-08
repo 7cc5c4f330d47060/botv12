@@ -1,6 +1,6 @@
 export default {
   terminalMode: 'blackTerminal_24bit', // Terminal mode. Most modern terminals support 24-bit color
-  version_mc: '1.21.4', // Minecraft version to connect with
+  version_mc: '1.21.8', // Minecraft version to connect with
   defaultLang: 'en-US', // Default language
   /*
     Insert the trusted key (keyTrusted) and owner key (keyOwner) here. Both of these values should
