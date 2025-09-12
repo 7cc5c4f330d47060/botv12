@@ -1,7 +1,7 @@
 @echo off
 
 :botlaunch
-	node index.js
+	npx tsx index.ts
 	call :err_unwrap
 
 	timeout /nobreak /t 5 >NUL

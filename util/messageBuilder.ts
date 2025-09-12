@@ -1,6 +1,6 @@
-//import { getMessage } from './lang.js'
+import { getMessage } from './lang.js'
 //import uuidToInt from './uuidtoint.js'
-//import version from '../version.js'
+import version from '../version.js'
 export default function build (text, colors, lang, botuuid) {
   const json: any = {}
   let textContent = ''
@@ -12,38 +12,38 @@ export default function build (text, colors, lang, botuuid) {
     textContent = text + ''
   }
 
-  /*if (text.parseLang) {
+  if (text.parseLang) {
     textContent = getMessage(lang, textContent)
-  }*/
+  }
 
   if (text.copyable) {
     json.click_event = {
       action: 'copy_to_clipboard',
       value: textContent
     }
-    /*json.hover_event = {
+    json.hover_event = {
       action: 'show_text',
       value: {
         text: getMessage(lang, 'copyText')
       }
-    }*/
+    }
   }
 
-  /*if (text.botInfo) {
+  if (text.botInfo) {
     textContent = version[text.botInfo]
-  }*/
+  }
 
   if (text.linked) {
     json.click_event = {
       action: 'open_url',
       url: textContent
     }
-    /*json.hover_event = {
+    json.hover_event = {
       action: 'show_text',
       value: {
         text: getMessage(lang, 'openInBrowser')
       }
-    }*/
+    }
   }
 
   /*if (text.command) {
@@ -74,12 +74,12 @@ export default function build (text, colors, lang, botuuid) {
       action: 'run_command',
       command: text.mcCommand
     }
-    /*json.hover_event = {
+    json.hover_event = {
       action: 'show_text',
       value: {
         text: getMessage(lang, 'runCommand', [text.mcCommand])
       }
-    }*/
+    }
   }
 
   if (text.hover) {
@@ -95,6 +95,7 @@ export default function build (text, colors, lang, botuuid) {
   }
 
   if (text.with) {
+    console.log(text.with)
     json.with = []
     for (const item of text.with) {
       json.with.push(build(item, colors, lang, botuuid))

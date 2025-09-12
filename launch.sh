@@ -2,6 +2,6 @@
 set -xe
 
 while :; do
-    node index.js
+    npx tsx index.ts
     sleep 5
 done
