@@ -1,9 +1,10 @@
 import settings from '../settings.js'
 import parse3 from '../util/chatparse.ts'
 import parse1204 from '../util/parseNBT.ts'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/lang.ts'
 import { readdirSync } from 'node:fs'
 import UBotClient from '../util/UBotClient.ts'
+import ChatParser from '../util/ChatParser.ts'
 const convertChatStyleItem = (item) => {
   const output = {}
   for (const i in item) {
@@ -31,18 +32,20 @@ const convertChatTypeItem = (item) => {
 // Level 1: server chat format parsers
 // Level 2: generic parsers
 
-const parsers = [[], [], []]
-/*const bpl = readdirSync('chatParsers')
+const parsers: ChatParser[][] = [[], [], []]
+const bpl = readdirSync('chatParsers')
 for (const plugin of bpl) {
-  if (!plugin.endsWith('.js')) {
+      
+  if (!plugin.endsWith('.ts')) {
     continue
   }
   try {
     import(`../chatParsers/${plugin}`).then((pluginItem) => {
-      parsers[pluginItem.priority].push(pluginItem.parse)
+      const parser = new pluginItem.default()
+      parsers[parser.priority].push(parser)
     })
   } catch (e) { console.log(e) }
-}*/
+}
 
 export default function load (b: UBotClient) {
   b.serverChat = {}
@@ -88,8 +91,8 @@ export default function load (b: UBotClient) {
       json[i] = messageType.style[i]
     }
     const message = parse3(parse1204(data.message), 'none')
-    const uuid = '00000000-0000-0000-0000-000000000000' //b.findUUID(parse3(parse1204(data.name), 'none'))
-    const nickname = '' //b.findDisplayName(uuid)
+    const uuid = '00000000-0000-0000-0000-000000000000' //b.playerInfo.findUUID(parse3(parse1204(data.name), 'none'))
+    const nickname = '' //b.playerInfo.findDisplayName(uuid)
     const username = parse3(parse1204(data.name), 'none')
     b.emit('chat_unparsed', {
       json,
@@ -136,7 +139,7 @@ export default function load (b: UBotClient) {
       uuid: data.senderUuid,
       message: data.plainMessage,
       nickname: parse3(parse1204(data.networkName), 'none'),
-      username: '', //b.findRealNameFromUUID(data.senderUuid),
+      username: '', //b.playerInfo.findRealNameFromUUID(data.senderUuid),
       playerChatType: messageType
     })
   })
@@ -154,26 +157,18 @@ export default function load (b: UBotClient) {
     })
   })
 
+  const fallbackParser = new ChatParser()
   b.on('chat_unparsed', (data) => {
-    /*for (const lvl of parsers) {
+    for (const lvl of parsers) {
       for (const item of lvl) {
-        const output = item(data, b)
+        const output = item.parse(data, b)
         if (output.parsed) {
           b.emit('chat', output)
           return
         }
       }
-    }*/
-    b.emit('chat', {
-      parsed: true,
-      json: data.json,
-      type: data.type,
-      subtype: 'fallback',
-      uuid: '00000000-0000-0000-0000-000000000000',
-      message: '',
-      nickname: '',
-      username: ''
-    })
+    }
+    b.emit('chat', fallbackParser.parse(data))
   })
 
   b.on('chat', (data) => {

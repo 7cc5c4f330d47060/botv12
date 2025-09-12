@@ -2,6 +2,7 @@ import { bots, createBot } from '../index.ts' // Not used in the code, but may b
 import { inspect } from 'node:util'
 import settings from '../settings.js'
 import CommandContext from '../util/CommandContext'
+
 //import chatlog from '../util/chatlog.js'
 
 async function execute (c: CommandContext) {

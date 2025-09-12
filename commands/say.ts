@@ -12,7 +12,7 @@ async function execute (c: CommandContext) {
   }
 
   if (c.verify < 1) {
-    c.bot.tellraw('@a', {
+    c.bot.commandCore.tellraw('@a', {
       translate: '%s %s: %s',
       color: 'white',
       with: [
