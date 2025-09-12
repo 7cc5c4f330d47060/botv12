@@ -21,4 +21,4 @@ It supports all Minecraft client versions from 1.20.6 to 1.21.4 that are support
 
 ## License
 
-This project is free (as in freedom) software licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
+Cppyright © 2020-2025 7cc5c4f330d47060. This project is free (as in freedom) software licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
