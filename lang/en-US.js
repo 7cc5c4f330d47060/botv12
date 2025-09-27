@@ -1,3 +1,5 @@
+// The development mode in english is always capitalized as "Debug Mode".
+// This comes from command.disabled.debugOnly, the first string added related to it.
 export default {
   // Console message types
   'console.chat.player': 'player',
