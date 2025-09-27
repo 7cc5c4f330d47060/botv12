@@ -1,5 +1,4 @@
 import version from '../../version.js'
-import settings from '../../settings.js'
 import CommandContext from '../../util/CommandContext.js'
 
 export default async function aboutBot (c: CommandContext) {

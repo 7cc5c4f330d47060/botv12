@@ -1,5 +1,5 @@
 export default {
-  botName: 'botv12 Dev (TypeScript version)', // Name of the bot
+  botName: 'botv12 Dev', // Name of the bot
   botVersion: '12.0.0-alpha.5', // Version of the bot. This is different from the one in package.json, which has to be updated seperately.
   botAuthor: 'owo439895035', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version. Used by the about command to show a warning if set to true.
