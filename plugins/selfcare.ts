@@ -7,7 +7,7 @@ class SCTask {
   failTask: any
   failed: boolean
 
-  constructor (failTask, startFailed = false) {
+  constructor (failTask: any, startFailed = false) {
     /*
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
@@ -34,7 +34,7 @@ export default function load (b: UBotClient) {
       }
     }, 200)
   })
-  b.selfCare.addTask = (name, failTask, startFailed) => {
+  b.selfCare.addTask = (name: string, failTask: any, startFailed: boolean) => {
     b.selfCare.tasks[name] = new SCTask(failTask, startFailed)
   }
 
@@ -42,7 +42,7 @@ export default function load (b: UBotClient) {
 
   // Operator
   b.selfCare.addTask('debugMode', () => {
-    b.clientChat.send(`${version.botName} version ${botVersion} - debug mode enabled`)
+    b.clientChat.send(`${version.botName} version ${botVersion} - Debug Mode enabled`)
     b.selfCare.tasks.debugMode.failed = false
   })
   b.selfCare.tasks.debugMode.failed = settings.debugMode
