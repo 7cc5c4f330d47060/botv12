@@ -5,13 +5,13 @@ import CommandContext from '../../util/CommandContext.js'
 
 const dependencies: { name: string, version: string }[] = []
 
-const addDepInfo = async function (name, version) {
+const addDepInfo = async function (name: string, version: string) {
   dependencies.push({ name, version })
 }
 
 // Obtain version information for the software the bot uses
 addDepInfo(version.botName, botVersion)
-addDepInfo('Node.js\xae', process.version.slice(1))
+addDepInfo('Node.js®', process.version.slice(1))
 exec('npm list', (e, stdout) => {
   try {
     if (e) throw e
@@ -21,6 +21,7 @@ exec('npm list', (e, stdout) => {
       const item = split[i].split('@')
       const version = item.pop()
       const dependency = item.join('@').split(' ')[1]
+      if(version === undefined) continue;
       addDepInfo(dependency, version)
     }
   } catch (e) {
