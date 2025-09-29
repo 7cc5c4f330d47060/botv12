@@ -134,8 +134,6 @@ export default {
   'command.music.queueItem': '%s - %s',
   'command.music.error.notPlaying': 'No song is currently playing',
   'command.netmsg.serverAddress': 'Server Address',
-  'command.say.warning.trustedKey': 'This message is blocked because it contains the trusted key.',
-  'command.say.warning.ownerKey': 'This message is blocked because it contains the owner key.',
   'command.scale.set': 'Set player size to %s',
   'command.scale.reset': 'Reset player size',
   'command.seen.success': '%s was last seen on %s, and has joined %s %s.',
