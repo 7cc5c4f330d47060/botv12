@@ -78,7 +78,7 @@ function consoleWrite (text) {
 
 export default function load (b: UBotClient) {
   b.info = (msg) => {
-    consoleWrite(`[${b.id}] ['info'] ${msg}`)
+    consoleWrite(`[${b.id}] [info] ${msg}`)
   }
   b.displayChat = (type, subtype, msg) => {
     if (settings.debugMode) {

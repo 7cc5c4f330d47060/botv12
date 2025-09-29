@@ -26,12 +26,13 @@ const createBot = function createBot (host: any, oldId?: number) {
   }
 
   if (typeof oldId !== 'undefined') {
-    /*for (const i in bots[oldId].interval) {
+    // Replace old bot with new one
+    for (const i in bots[oldId].interval) {
       clearInterval(bots[oldId].interval[i])
     }
     delete bots[oldId]
     bot.id = oldId
-    bots[oldId] = bot*/
+    bots[oldId] = bot
   } else {
     bot.id = bots.length
     bots.push(bot)

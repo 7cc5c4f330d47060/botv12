@@ -10,7 +10,7 @@ const sortHelp = function sortHelp (c1, c2) {
 function printHelp (c) {
   const cmds = registry.listCommands()
   const keys = Object.keys(cmds).sort()
-  const commands = []
+  const commands: any[] = []
   for (const key of keys) {
     commands.push({
       name: key,
@@ -18,7 +18,7 @@ function printHelp (c) {
     })
   }
   const sortedCommands = commands.sort(sortHelp)
-  const commandList = []
+  const commandList: any[] = []
   const colorList = ['green', 'red', 'dark_red']
 
   for (const cmd of sortedCommands) {
@@ -34,7 +34,7 @@ function printHelp (c) {
     })
   }
 
-  const permListFormat = []
+  const permListFormat: any[] = []
   for (let i = 0; i <= 2; i++) {
     permListFormat.push({
       text: `command.perms${i}`,
@@ -89,7 +89,7 @@ function printCmdHelp (c) {
     ]
   })
   if (cmdItem.aliases) {
-    const aliasList = []
+    const aliasList: any[] = []
     for (const item of cmdItem.aliases) {
       if (aliasList.length > 0) {
         aliasList.push({

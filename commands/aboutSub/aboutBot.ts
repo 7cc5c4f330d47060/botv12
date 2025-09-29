@@ -10,15 +10,17 @@ export default async function aboutBot (c: CommandContext) {
       version.botAuthor
     ]
   })
-  c.reply({
-    text: 'command.about.copyright',
-    parseLang: true,
-    with: [
-      version.copyrightYear,
-      version.botAuthor,
-      c.prefix
-    ]
-  })
+  for(const item of version.newCopyright) {
+    c.reply({
+      text: 'command.about.copyright',
+      parseLang: true,
+      with: [
+        version.date,
+        version.name,
+        c.prefix
+      ]
+    })
+  }
   c.reply({
     text: 'command.about.copyright.agpl1',
     parseLang: true
