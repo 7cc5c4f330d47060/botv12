@@ -25,5 +25,5 @@ const names = [ // From 2017 Metroidvania from Australia
   'Mines_33',
 ]
 export default function generateUser (): string{
-  return `${createHash('sha256').update(names[Math.floor(Math.random()*names.length)]).digest('hex').slice(0,6)}`
+  return `${createHash('sha256').update(names[Math.floor(Math.random()*names.length)]).digest('hex').slice(0,12)}`
 }
