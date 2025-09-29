@@ -10,7 +10,7 @@ export default function load (b) {
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
-    const chunk = new Chunk({x: 0, z: 0})
+    const chunk: any = new Chunk({x: 0, z: 0})
     try {
       chunk.load(data.chunkData)
     } catch (e) {

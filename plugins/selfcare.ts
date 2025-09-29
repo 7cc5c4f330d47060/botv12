@@ -42,7 +42,7 @@ export default function load (b: UBotClient) {
 
   // Operator
   b.selfCare.addTask('debugMode', () => {
-    b.clientChat.send(`${version.botName} version ${botVersion} - Debug Mode enabled`)
+    //b.clientChat.send(`${version.botName} version ${botVersion} - Debug Mode enabled`)
     b.selfCare.tasks.debugMode.failed = false
   })
   b.selfCare.tasks.debugMode.failed = settings.debugMode
