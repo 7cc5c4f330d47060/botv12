@@ -29,9 +29,6 @@ export default function load (b: UBotClient) {
 
     const cmdsplit = command.split(' ')
     const verify = hashcheck(cmdsplit, uuid)
-    const permsN = getMessage(context.lang, 'command.help.permsNormal')
-    const permsT = getMessage(context.lang, 'command.help.permsTrusted')
-    const permsO = getMessage(context.lang, 'command.help.permsOwner')
 
     // Block running eval in normal mode
     if (commandItem.debugOnly && !settings.debugMode) {
@@ -69,11 +66,13 @@ export default function load (b: UBotClient) {
       b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms')
       })
+      const cmdPerms = getMessage(context.lang, `command.perms${commandItem.level}`)
       b.commandCore.tellraw(uuid, {
-        text: getMessage(context.lang, 'command.disallowed.perms.yourLevel', [[permsN, permsT, permsO][verify]])
+        text: getMessage(context.lang, 'command.disallowed.perms.cmdLevel', [cmdPerms])
       })
+      const yourPerms = getMessage(context.lang, `command.perms${verify}`)
       b.commandCore.tellraw(uuid, {
-        text: getMessage(context.lang, 'command.disallowed.perms.cmdLevel', [[permsN, permsT, permsO][commandItem.level]])
+        text: getMessage(context.lang, 'command.disallowed.perms.yourLevel', [yourPerms])
       })
       return
     } else if (verify > 0) {
