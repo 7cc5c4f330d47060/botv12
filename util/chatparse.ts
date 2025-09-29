@@ -55,7 +55,7 @@ const processColor = (col, rcol, mode) => {
 }
 
 const parse = function (_data, l = 0, resetColor = consoleColors.none.fourBit.reset, mode = consoleColors.none) {
-  if (l >= 4) {
+  if (l >= 6) {
     return ''
   }
   let data
