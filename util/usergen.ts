@@ -1,4 +1,5 @@
 import { createHash } from 'crypto'
+import settings from '../settings'
 
 const names = [ // From 2017 Metroidvania from Australia
   // HC
@@ -25,5 +26,5 @@ const names = [ // From 2017 Metroidvania from Australia
   'Mines_33',
 ]
 export default function generateUser (): string{
-  return `${createHash('sha256').update(names[Math.floor(Math.random()*names.length)]).digest('hex').slice(0,12)}`
+  return `${createHash('sha256').update(names[Math.floor(Math.random()*names.length)]).digest('hex').slice(0,10)}${settings.debugMode?'Debug':''}`
 }
