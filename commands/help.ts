@@ -1,13 +1,14 @@
+import CommandContext from '../util/CommandContext.js'
 import registry from '../util/commands.js'
 import { getMessage } from '../util/lang.js'
 
-const sortHelp = function sortHelp (c1, c2) {
+const sortHelp = function sortHelp (c1: any, c2: any) {
   const level1 = c1.level ? c1.level : 0
   const level2 = c2.level ? c2.level : 0
   return level1 - level2
 }
 
-function printHelp (c) {
+function printHelp (c: CommandContext) {
   const cmds = registry.listCommands()
   const keys = Object.keys(cmds).sort()
   const commands: any[] = []
@@ -61,7 +62,7 @@ function printHelp (c) {
   })
 }
 
-function printCmdHelp (c) {
+function printCmdHelp (c: CommandContext) {
   let cmd
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
   const cmdItem = registry.getCommand(cmd)
@@ -124,7 +125,7 @@ function printCmdHelp (c) {
   })
 }
 
-async function execute (c) {
+async function execute (c: CommandContext) {
   if (c.args.length > 0) {
     printCmdHelp(c)
   } else {
