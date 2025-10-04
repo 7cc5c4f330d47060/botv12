@@ -5,14 +5,14 @@ import { getMessage } from '../util/lang.ts'
 import { readdirSync } from 'node:fs'
 import UBotClient from '../util/UBotClient.ts'
 import ChatParser from '../util/ChatParser.ts'
-const convertChatStyleItem = (item) => {
-  const output = {}
+const convertChatStyleItem = (item: any) => {
+  const output: any = {}
   for (const i in item) {
     output[i] = item[i].value
   }
   return output
 }
-const convertChatTypeItem = (item) => {
+const convertChatTypeItem = (item: any) => {
   if (item.style) {
     return {
       translation_key: item.translation_key.value,
@@ -58,11 +58,11 @@ export default function load (b: UBotClient) {
   b._client.on('registry_data', (data) => {
     if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
-      nbtItems.forEach((item, i) => {
+      nbtItems.forEach((item: any, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
     } else if (data.entries && data.id === 'minecraft:chat_type') {
-      data.entries.forEach((item, i) => {
+      data.entries.forEach((item: any, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }
@@ -78,7 +78,7 @@ export default function load (b: UBotClient) {
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: any = { translate: messageType.translation_key, with: [] }
-    messageType.parameters.forEach((item, i) => {
+    messageType.parameters.forEach((item: any, i: number) => {
       if (item === 'content') {
         json.with[i] = parse1204(data.message)
       } else if (item === 'sender') {
@@ -116,7 +116,7 @@ export default function load (b: UBotClient) {
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: any = { translate: messageType.translation_key, with: [] }
-    messageType.parameters.forEach((item, i) => {
+    messageType.parameters.forEach((item: any, i: number) => {
       if (item === 'content') {
         if (messageType.translation_key === '%s') {
           if (!data.unsignedChatContent) json.with[i] = ''
@@ -174,7 +174,7 @@ export default function load (b: UBotClient) {
   b.on('chat', (data) => {
     if (data.json.translate === 'advMode.setCommand.success') return
     if (Date.now() < b.serverChat.disabledUntil) return
-    const msgConsole = parse3(data.json, settings.terminalMode)
+    const msgConsole = parse3(data.json, 'html')
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return
