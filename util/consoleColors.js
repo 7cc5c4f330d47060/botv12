@@ -203,6 +203,31 @@ const consoleColors = {
       enabled: false
     }
   },
+  html: {
+    fourBit: {
+      dark_red: 'dr',
+      red: 'lr',
+      dark_green: 'dg',
+      green: 'lg lmh',
+      gold: 'dy',
+      yellow: 'ly lmh',
+      dark_blue: 'db',
+      blue: 'lb',
+      dark_purple: 'dp',
+      light_purple: 'lp',
+      dark_aqua: 'da',
+      aqua: 'la lmh',
+      black: 'dk dmh',
+      gray: 'lk',
+      dark_gray: 'dw dmh',
+      white: 'lw lmh',
+      reset: 'lw lmh resetColor'
+    },
+    twentyFourBit: {
+      enabled: true
+    },
+    useHtml: true
+  },
   none: {
     fourBit: {
       dark_red: '',
