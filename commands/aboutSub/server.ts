@@ -5,22 +5,22 @@ import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 
-const os2 = function (o2, l) {
+const os2 = function (o2: string, lang: string) {
   switch (o2) {
     case 'win32':
       return `${os.version()}`
     case 'android':{
       try {
-        const version = execSync('getprop ro.build.version.release').toString('UTF-8').split('\n')[0]
-        return getMessage(l, 'command.about.serverInfo.os.android', [version])
+        const version = execSync('getprop ro.build.version.release').toString('utf8').split('\n')[0]
+        return getMessage(lang, 'command.about.serverInfo.os.android', [version])
       } catch (e) {
-        return getMessage(l, 'command.about.serverInfo.os.android.noVersion')
+        return getMessage(lang, 'command.about.serverInfo.os.android.noVersion')
       }
     }
     case 'linux':
     case 'freebsd':{
       if (readdirSync('/etc').includes('os-release')) {
-        const osrelease = readFileSync('/etc/os-release').toString('UTF-8').split('\n')
+        const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
         const osrelease2: any = {}
         for (const item of osrelease) {
           if (!item.includes('=')) continue
@@ -30,28 +30,28 @@ const os2 = function (o2, l) {
         }
 
         if (osrelease2.PRETTY_NAME) {
-          return getMessage(l, '%s', [osrelease2.PRETTY_NAME])
+          return getMessage(lang, '%s', [osrelease2.PRETTY_NAME])
         } else {
-          return getMessage(l, `command.about.serverInfo.os.${o2}`)
+          return getMessage(lang, `command.about.serverInfo.os.${o2}`)
         }
       } else {
-        return getMessage(l, `command.about.serverInfo.os.${o2}`)
+        return getMessage(lang, `command.about.serverInfo.os.${o2}`)
       }
     }
     case 'openbsd':{
-      return getMessage(l, 'command.about.serverInfo.os.openbsd', [os.release()])
+      return getMessage(lang, 'command.about.serverInfo.os.openbsd', [os.release()])
     }
     case 'darwin':{
       try {
-        const osrelease = execSync('sw_vers').toString('UTF-8').split('\n')
+        const osrelease = execSync('sw_vers').toString('utf8').split('\n')
         const osrelease2: any = {}
         for (const item of osrelease) {
           if (!item.includes(':\t')) continue
           osrelease2[item.split(':\t')[0]] = item.split(':\t')[1]
         }
-        return getMessage(l, '%s %s (%s)', [osrelease2.ProductName, osrelease2.ProductVersion, osrelease2.BuildVersion])
+        return getMessage(lang, '%s %s (%s)', [osrelease2.ProductName, osrelease2.ProductVersion, osrelease2.BuildVersion])
       } catch (e) {
-        return getMessage(l, 'command.about.serverInfo.os.macos')
+        return getMessage(lang, 'command.about.serverInfo.os.macos')
       }
     }
     default:
@@ -145,8 +145,8 @@ export default async function aboutServer (c: CommandContext) {
   if (process.platform === 'android') {
     // Device model
     displayInfo('command.about.serverInfo.os.android.model', () => {
-      const brand = execSync('getprop ro.product.brand').toString('UTF-8').split('\n')[0]
-      const model = execSync('getprop ro.product.model').toString('UTF-8').split('\n')[0]
+      const brand = execSync('getprop ro.product.brand').toString('utf8').split('\n')[0]
+      const model = execSync('getprop ro.product.model').toString('utf8').split('\n')[0]
       return `${brand} ${model}`
     })
   }
