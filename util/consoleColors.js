@@ -218,8 +218,8 @@ const consoleColors = {
       dark_aqua: 'da',
       aqua: 'la lmh',
       black: 'dk dmh',
-      gray: 'lk',
-      dark_gray: 'dw dmh',
+      gray: 'dw', // Dark White &7
+      dark_gray: 'lk dmh', // Light Black &8
       white: 'lw lmh',
       reset: 'lw lmh resetColor'
     },
