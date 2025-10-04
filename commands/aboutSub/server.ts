@@ -3,6 +3,7 @@ import { execSync } from 'child_process'
 import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
+import CommandContext from '../../util/CommandContext.js'
 
 const os2 = function (o2, l) {
   switch (o2) {
@@ -20,7 +21,7 @@ const os2 = function (o2, l) {
     case 'freebsd':{
       if (readdirSync('/etc').includes('os-release')) {
         const osrelease = readFileSync('/etc/os-release').toString('UTF-8').split('\n')
-        const osrelease2 = {}
+        const osrelease2: any = {}
         for (const item of osrelease) {
           if (!item.includes('=')) continue
           let osrvalue = item.split('=')[1]
@@ -43,7 +44,7 @@ const os2 = function (o2, l) {
     case 'darwin':{
       try {
         const osrelease = execSync('sw_vers').toString('UTF-8').split('\n')
-        const osrelease2 = {}
+        const osrelease2: any = {}
         for (const item of osrelease) {
           if (!item.includes(':\t')) continue
           osrelease2[item.split(':\t')[0]] = item.split(':\t')[1]
@@ -58,8 +59,8 @@ const os2 = function (o2, l) {
   }
 }
 
-export default async function aboutServer (c) {
-  const displayInfo = function (name, infoFunc) {
+export default async function aboutServer (c: CommandContext) {
+  const displayInfo = function (name: string, infoFunc: any) {
     let thisItem
     try {
       thisItem = infoFunc()
@@ -133,12 +134,12 @@ export default async function aboutServer (c) {
 
   // Bot uptime
   displayInfo('command.about.serverInfo.runTime', () => {
-    return formatTime(process.uptime() * 1000, c.lang)
+    return formatTime(process.uptime() * 1000)
   })
 
   // System uptime
   displayInfo('command.about.serverInfo.upTime', () => {
-    return formatTime(os.uptime() * 1000, c.lang)
+    return formatTime(os.uptime() * 1000)
   })
 
   if (process.platform === 'android') {
