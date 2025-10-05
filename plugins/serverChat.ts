@@ -174,7 +174,7 @@ export default function load (b: UBotClient) {
   b.on('chat', (data) => {
     if (data.json.translate === 'advMode.setCommand.success') return
     if (Date.now() < b.serverChat.disabledUntil) return
-    const msgConsole = parse3(data.json, 'html')
+    const msgConsole = parse3(data.json, settings.terminalMode)
     const msgPlain = parse3(data.json, 'none')
     if (settings.logJSONmessages) console.log(data.json)
     if (msgPlain.endsWith('\n\n\n\n\nThe chat has been cleared')) return

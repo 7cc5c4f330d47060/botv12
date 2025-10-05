@@ -129,8 +129,9 @@ const parse = function (_data: any, l = 0, resetColor = consoleColors.none.fourB
       out += parsed
     }
   }
+  out += resetColor
   if(mode.useHtml && l === 0) out += '</span>'
-  else if(!mode.useHtml) out += resetColor
+  
   
   return out
 }
