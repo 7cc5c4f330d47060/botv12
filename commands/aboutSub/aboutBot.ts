@@ -15,9 +15,8 @@ export default async function aboutBot (c: CommandContext) {
       text: 'command.about.copyright',
       parseLang: true,
       with: [
-        version.date,
-        version.name,
-        c.prefix
+        item.date,
+        item.name
       ]
     })
   }

@@ -11,8 +11,7 @@ export default {
       license: SPDX license identifier
     */
     { date: "2020-2025", name: "7cc5c4f330d47060", license: "AGPL-3.0-or-later" },
-    { date: "2025", name: "amyavi", license: "MIT" }
+    //{ date: "2025", name: "amyavi", license: "MIT" }
   ],
-  copyrightYear: '2020-2025', // Years that the bot was developed in. Should be a string.
   sourceURL: 'https://codeberg.org/7cc5c4f330d47060/botv12' // Source code repository URL (for humans).
 }

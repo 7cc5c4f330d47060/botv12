@@ -1,7 +1,7 @@
 import { getMessage } from './lang.js'
 //import uuidToInt from './uuidtoint.js'
 import version from '../version.js'
-export default function build (text, colors, lang, botuuid) {
+export default function build (text: any, colors: any, lang: string, botuuid: string) {
   const json: any = {}
   let textContent = ''
 
