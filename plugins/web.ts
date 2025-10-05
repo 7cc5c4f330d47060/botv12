@@ -8,7 +8,7 @@ import { bots } from "../index.ts";
 import CommandContext from "../util/CommandContext.ts";
 
 const wss = new WebSocketServer({
-  port: 12345
+  port: 12365
 })
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
