@@ -11,6 +11,14 @@ const wss = new WebSocketServer({
   port: 12365
 })
 
+const sendRaw = (client: any, type: string, data: string) => client.send(JSON.stringify({
+  event: "rawChat",
+  data: {
+    data: parse3(data, 'html'),
+    msgType: type
+  }
+}))
+
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = "Default User"
 const nick = "Default User"
@@ -25,12 +33,7 @@ wss.on('connection', client => {
             name: 'WebSocket Console'
           }
         },
-        commandCore: { tellraw: (_unused: any, data: string) => client.send(JSON.stringify({
-          event: "rawChat",
-          data: {
-            data: parse3(data, 'html')
-          }
-        }))}
+        commandCore: { tellraw: (_unused: any, data: string) => sendRaw(client, 'cmdoutput', data) }
       }
       const json: any = JSON.parse(data.toString('utf8'))
       if(json.event == "command"){
@@ -46,8 +49,14 @@ wss.on('connection', client => {
 
           // Block running eval in normal mode
           if (cmd.debugOnly && !settings.debugMode) {
-            console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
+            sendRaw(client, 'cmderror', getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
             //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
+            return
+          }
+
+          // Block running eval in minecraft
+          if (cmd.consoleOnly) {
+            sendRaw(client, 'cmderror', getMessage(settings.defaultLang, 'command.disabled.consoleOnly.noWs'))
             return
           }
 
