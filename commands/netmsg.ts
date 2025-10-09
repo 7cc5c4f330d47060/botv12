@@ -1,9 +1,10 @@
 import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
+import CommandContext from '../util/CommandContext'
 
-async function execute (c) {
-  if (!rl.check('netmsg') && c.type !== console) {
+async function execute (c: CommandContext) {
+  if (!rl.check('netmsg') && c.type !== 'console') {
     c.reply({
       text: 'command.ratelimit',
       parseLang: true,
@@ -15,7 +16,6 @@ async function execute (c) {
   }
   
   let msg = c.args.join(' ').slice(0, 512)
-  msg = msg.replace(/[:;]3+/g, '') // Block users from sending ":3"
 
   const json = {
     text: '[%s] %s › %s',
