@@ -92,7 +92,8 @@ export default {
   'command.about.serverInfo.os.android.model': 'Device model',
   'command.about.serverInfo.botName': 'Bot name',
   'command.about.serverInfo.botVer': 'Bot version',
-  'command.about.serverListItem': 'Server %s - %s',
+  'command.about.serverList.hidden': ' (hidden)',
+  'command.about.serverListItem': 'Server %s - %s%s',
   'command.cloop.error.tooShort': 'Command loops must have a rate above 20ms.',
   'command.cloop.success.add': 'Added command loop with command %s and rate %s',
   'command.cloop.success.remove': 'Removed command loop %s',
@@ -163,9 +164,9 @@ export default {
   'command.verify.success': 'Successfully verified with permission level %s',
 
   // AGPL info
-  'command.about.copyright.agpl1': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version\n',
-  'command.about.copyright.agpl2': 'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n',
-  'command.about.copyright.agpl3': 'You should have received a copy of the GNU Affero General Public License along with this program. If not, see <%s>.\n',
+  'command.about.copyright.agpl.isFree': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version\n',
+  'command.about.copyright.agpl.warranty': 'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n',
+  'command.about.copyright.agpl.getLicense': 'You should have received a copy of the GNU Affero General Public License along with this program. If not, see <%s>.\n',
 
   // Music Player
   'musicPlayer.loadingSong': 'Loading %s',
