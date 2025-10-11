@@ -21,15 +21,15 @@ export default async function aboutBot (c: CommandContext) {
     })
   }
   c.reply({
-    text: 'command.about.copyright.agpl1',
+    text: 'command.about.copyright.agpl.isFree',
     parseLang: true
   })
   c.reply({
-    text: 'command.about.copyright.agpl2',
+    text: 'command.about.copyright.agpl.warranty',
     parseLang: true
   })
   c.reply({
-    text: 'command.about.copyright.agpl3',
+    text: 'command.about.copyright.agpl.getLicense',
     parseLang: true,
     with: [
       {
