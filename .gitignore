@@ -172,3 +172,5 @@ logs/
 # Songs for music command
 songs/
 temp/
+
+launcher_accounts.json

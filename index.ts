@@ -13,7 +13,7 @@ const createBot = function createBot (host: any, oldId?: number) {
     host: host.host,
     fakeHost: host.fakeHost,
     port: host.port ?? 25565,
-    username: host.options.forceName ?? generateUser(),
+    username: host.options.username ?? generateUser(),
     password: host.options.password ?? null,
     auth: host.options.authServer ? 'mojang' : null,
     authServer: host.options.authServer ?? null,
