@@ -34,7 +34,7 @@ export default function load (b: UBotClient) {
       command: '/',
       location: {
         x: xstart + b.commandCore.blocknoX,
-        y: 55,
+        y: 15,
         z: zstart + b.commandCore.blocknoZ
       },
       mode: 2,
@@ -44,7 +44,7 @@ export default function load (b: UBotClient) {
       command: command.substr(0, 32767), 
       location: {
         x: xstart + b.commandCore.blocknoX,
-        y: 55,
+        y: 15,
         z: zstart + b.commandCore.blocknoZ
       },
       mode: 2,
@@ -108,7 +108,7 @@ export default function load (b: UBotClient) {
           cursorZ: 0
         })
         b._client.write('update_command_block', {
-          command: `fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`, 
+          command: `fill ${xstart} 15 ${zstart} ${xstart + 15} 15 ${zstart + 15} ${refillPayload}`,
           location: { x: b.position.pos.x, y: b.position.pos.y - 1, z: b.position.pos.z },
           mode: 2,
           flags: 5
@@ -164,7 +164,7 @@ export default function load (b: UBotClient) {
     if (b.selfCare.tasks.cc) b.selfCare.tasks.cc.failed = false
     for (let x = 0; x <= 15; x++) {
       for (let z = 0; z <= 15; z++) {
-        const blockName = chunk.getBlock(Vec3(x, 55, z)).name
+        const blockName = chunk.getBlock(Vec3(x, 15, z)).name
         if (blockName !== 'command_block' && blockName !== 'repeating_command_block' && blockName !== 'chain_command_block') {
           cf = true
           if (b.selfCare.tasks.cc) b.selfCare.tasks.cc.failed = true
