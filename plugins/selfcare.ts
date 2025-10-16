@@ -78,6 +78,8 @@ export default function load (b: UBotClient) {
 
   // Gamemode / end portal bug
   b.selfCare.addTask('gamemode', () => {
+    // We will not be adding support for the new gamemode change packet yet.
+    // This is so that support for older versions (<1.21.5) can stay for now.
     b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {

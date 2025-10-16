@@ -1,18 +1,13 @@
 # botv12
 
-botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
+botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones.
 
-- commands (obviously)
-- a self care system
-- a command core, to run commands quickly
-- a hashing system, to enable trusted users to securely run certain commands in chat
-
-It supports all Minecraft server versions from 1.20.6 to 1.21.8 that are supported by node-minecraft-protocol. It is primarily developed using Kaboom or clones, but it should work on other servers with reduced functionality.
+It supports all Minecraft server versions from 1.21.1 to 1.21.8 that are supported by node-minecraft-protocol. It is primarily developed using Kaboom or clones, but it should work on other servers with reduced functionality.
 
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using `git clone https://codeberg.org/7cc5c4f330d47060/botv12`.
+2. Download the latest release, or alternatively, download the latest development version using the latest source archive or running the command `git clone https://codeberg.org/7cc5c4f330d47060/botv12` with Git installed.
 3. Extract the files if necessary.
 4. Run `npm install` in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
 5. Copy the reference configuration (`settings_example.js` in the root) to `settings.js`, and adjust the settings to fit your needs. The secrets are also contained in this file as well.
