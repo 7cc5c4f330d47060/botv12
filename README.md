@@ -16,4 +16,4 @@ It supports all Minecraft server versions from 1.21.1 to 1.21.8 that are support
 
 ## License
 
-Copyright © 2020-2025 7cc5c4f330d47060. This project is [free software](https://www.gnu.org/philosophy/free-sw.html) licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
+Copyright © 2020-2025 7cc5c4f330d47060. This project is [free/libre](https://www.gnu.org/philosophy/free-sw.html) and [open source](https://opensource.org/osd) software licensed under the GNU Affero General Public License, version 3 or later. Using, modifying, and distributing this code is allowed, even for commercial purposes. If you make any copies of this software, you must link back to this repository. If you make any changes to the bot, you must make your changes free as well. See the License file for the full terms and conditions.
