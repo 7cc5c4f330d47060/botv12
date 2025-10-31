@@ -173,4 +173,8 @@ logs/
 songs/
 temp/
 
+# Launcher accounts
 launcher_accounts.json
+
+# Automatically generated metadata from downloader
+/metadata.json
