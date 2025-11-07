@@ -13,7 +13,7 @@ export default function load (b: Botv12Client) {
     }
   })
   b._client.on('player_info', async function (data) {
-    const buffer2 = {}
+    const buffer2: any = {}
     for (const player of data.data) {
       let uuid
       if (player.uuid) {
@@ -52,7 +52,7 @@ export default function load (b: Botv12Client) {
     }
   })
 
-  b.playerInfo.findUUID = name => {
+  b.playerInfo.findUUID = (name: string) => {
     for (const i in b.playerInfo.players) {
       if (b.playerInfo.players[i].realName === name) {
         return i
@@ -60,7 +60,7 @@ export default function load (b: Botv12Client) {
     }
     return '00000000-0000-0000-0000-000000000000'
   }
-  b.playerInfo.findRealName = name => {
+  b.playerInfo.findRealName = (name: string) => {
     for (const i in b.playerInfo.players) {
       if (b.playerInfo.players[i].displayName === name) {
         return b.playerInfo.players[i].realName
@@ -68,14 +68,14 @@ export default function load (b: Botv12Client) {
     }
     return '[[[[ no name ]]]]'
   }
-  b.playerInfo.findRealNameFromUUID = uuid => {
+  b.playerInfo.findRealNameFromUUID = (uuid: string) => {
     if (b.playerInfo.players[uuid]) {
       return b.playerInfo.players[uuid].realName
     } else {
       return uuid
     }
   }
-  b.playerInfo.findDisplayName = uuid => {
+  b.playerInfo.findDisplayName = (uuid: string) => {
     if (b.playerInfo.players[uuid]) {
       const displayName = b.playerInfo.players[uuid].displayName.split(' ')
       return displayName[displayName.length - 1]

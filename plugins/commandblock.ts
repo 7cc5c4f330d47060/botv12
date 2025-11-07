@@ -26,7 +26,7 @@ export default function load (b: Botv12Client) {
     b.commandCore.ccq.splice(0, 1)
   }
 
-  b.commandCore.sendCommandNow = function (command) {
+  b.commandCore.sendCommandNow = function (command: string) {
     if (settings.showCommandSet) console.log(command)
     const xstart = b.position.currentChunk.x << 4
     const zstart = b.position.currentChunk.z << 4
@@ -131,7 +131,7 @@ export default function load (b: Botv12Client) {
     b.commandCore.ccStarted = true
   })
 
-  b.commandCore.tellraw = (uuid, message) => {
+  b.commandCore.tellraw = (uuid: string, message: string) => {
     let finalname = ''
     if (b.host.options.useChat) {
       if (b.host.options.useAmpersandColorCodes) {

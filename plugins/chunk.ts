@@ -1,12 +1,13 @@
 import loader from 'prismarine-chunk'
 import Vec3 from 'vec3'
+import Botv12Client from '../util/Botv12Client.ts'
 const rd = 8
 
-export default function load (b) {
+export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
   b.chunks = {}
   if(!b.position) b.position = {}
-  b._client.on('map_chunk', data => {
+  b._client.on('map_chunk', (data: any) => {
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
@@ -14,12 +15,11 @@ export default function load (b) {
     try {
       chunk.load(data.chunkData)
     } catch (e) {
-      // console.log(data.chunkData.toString('base64'))
-      // if (b.chunks[data.x]) console.log(b.chunks[data.x][data.z])
+
     }
     b.chunks[data.x][data.z] = chunk
   })
-  b._client.on('block_change', data => {
+  b._client.on('block_change', (data: any) => {
     const chunkX = data.location.x >> 4
     const chunkZ = data.location.z >> 4
     const blockX = data.location.x & 15
@@ -28,7 +28,7 @@ export default function load (b) {
       b.chunks[chunkX][chunkZ].setBlockStateId(Vec3(blockX, data.location.y, blockZ), data.type)
     }
   })
-  b._client.on('multi_block_change', data => {
+  b._client.on('multi_block_change', (data: any) => {
     for (const record of data.records) {
       const blockState = record >> 12
       const blockX = record >> 8 & 15
@@ -39,7 +39,7 @@ export default function load (b) {
       }
     }
   })
-  b._client.on('position', data => {
+  b._client.on('position', (data: any) => {
     let newX
     let newY
     let newZ

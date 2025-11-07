@@ -1,6 +1,6 @@
 import { readdirSync } from 'node:fs'
 import settings from '../settings.js'
-const languages = {}
+const languages: any = {}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = () => {

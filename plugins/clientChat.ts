@@ -1,5 +1,7 @@
+import Botv12Client from "../util/Botv12Client"
+
 const matcherRegex = /.{1,255}/g
-export default function load (b) {
+export default function load (b: Botv12Client) {
   b.clientChat = {}
   b._client.on('login', () => {
     b.interval.chatQueue = setInterval(() => {

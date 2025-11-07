@@ -8,7 +8,7 @@ export default class CommandRegistry {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
 
-    this.register = function (name, payload, level, consoleIndex, hidden, aliases, consoleOnly, debugOnly, blockChipmunkMod) {
+    this.register = function (name: string, payload: any, level: number, consoleIndex: number, hidden: boolean, aliases: string[], consoleOnly: boolean, debugOnly: boolean, blockChipmunkMod: boolean) {
       const command: any = {}
       command.name = name
       command.execute = payload
@@ -23,7 +23,7 @@ export default class CommandRegistry {
       this._commands[name] = command
     }
 
-    this.getCommand = function (name) {
+    this.getCommand = function (name: string) {
       if (this._commands[name]) {
         return this._commands[name]
       }
@@ -33,9 +33,9 @@ export default class CommandRegistry {
       return false
     }
 
-    this.listCommands = function (includeHidden) {
+    this.listCommands = function (includeHidden: boolean) {
       if (includeHidden) return this._commands
-      const list = {}
+      const list: any = {}
       for (const item in this._commands) {
         if (!this._commands[item].hidden) list[item] = this._commands[item]
       }
