@@ -1,5 +1,5 @@
 import { WebSocketServer } from "ws"
-import UBotClient from "../util/UBotClient";
+import Botv12Client from "../util/Botv12Client";
 import parse3 from '../util/chatparse.ts'
 import registry from "../util/commands.ts";
 import settings from "../settings.js";
@@ -87,7 +87,7 @@ wss.on('connection', client => {
 })
 
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.on('chat', (data) => {
     if (data.json.translate === 'advMode.setCommand.success') return
     const msgHtml = parse3(data.json, 'html')

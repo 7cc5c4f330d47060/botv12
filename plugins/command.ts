@@ -3,9 +3,9 @@ import settings from '../settings.js'
 import CommandContext from '../util/CommandContext.js'
 import hashcheck from '../util/hashcheck.js'
 import { getMessage } from '../util/lang.js'
-import UBotClient from '../util/UBotClient.js'
+import Botv12Client from '../util/Botv12Client.js'
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.commands = {}
   b.on('chat', (data) => {
     const fullCommand = data.message

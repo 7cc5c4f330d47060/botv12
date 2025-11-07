@@ -1,4 +1,4 @@
-import UBotClient from "./UBotClient";
+import Botv12Client from "./Botv12Client";
 
 export default class ChatParser {
   parse: any
@@ -6,7 +6,7 @@ export default class ChatParser {
 
   constructor () {
     // Fallback parser: does not get player information.
-    this.parse = (data/*: ChatData*/, b?: UBotClient) => {
+    this.parse = (data/*: ChatData*/, b?: Botv12Client) => {
       return {
         parsed: true,
         json: data.json,
