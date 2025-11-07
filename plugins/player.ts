@@ -1,8 +1,8 @@
 import parse3 from '../util/chatparse.js'
 import parseNBT from '../util/parseNBT.js'
-import UBotClient from '../util/UBotClient.js'
+import Botv12Client from '../util/Botv12Client.js'
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.playerInfo = {}
   b.playerInfo.players = {}
   b._client.on('player_remove', async function (data) {

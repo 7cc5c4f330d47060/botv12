@@ -3,7 +3,7 @@ import EventEmitter from 'node:events'
 import settings from '../settings.js'
 import { default as registry } from 'prismarine-registry'
 
-export default class UBotClient extends EventEmitter {
+export default class Botv12Client extends EventEmitter {
   _client: Client
   id: number
   host: any

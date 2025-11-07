@@ -1,12 +1,12 @@
 
 import parse3 from '../util/chatparse.js'
-import UBotClient from "../util/UBotClient.ts";
+import Botv12Client from "../util/Botv12Client.ts";
 import ChatParser from '../util/ChatParser.js';
 
 export default class SystemChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data/*: ChatData*/, b: UBotClient) => {
+    this.parse = (data/*: ChatData*/, b: Botv12Client) => {
       if (data.type === 'system') {
         const subtype = 'generic_system'
         const parsed = parse3(data.json, 'none')

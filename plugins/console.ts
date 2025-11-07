@@ -5,7 +5,7 @@ import parse3 from '../util/chatparse.ts'
 import { userInfo } from 'node:os'
 import { bots } from '../index.ts'
 import settings from '../settings.js'
-import UBotClient from '../util/UBotClient.ts'
+import Botv12Client from '../util/Botv12Client.ts'
 import { getMessage } from '../util/lang.ts'
 
 const consoleBotStub = {
@@ -76,7 +76,7 @@ function consoleWrite (text) {
   rl.prompt(true)
 }
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.info = (msg) => {
     consoleWrite(`[${b.id}] [info] ${msg}`)
   }

@@ -1,7 +1,7 @@
 import settings from "../settings.js"
 import botVersion from "../util/version.ts"
 import version from "../version.js"
-import UBotClient from "../util/UBotClient.ts"
+import Botv12Client from "../util/Botv12Client.ts"
 
 class SCTask {
   failTask: any
@@ -17,7 +17,7 @@ class SCTask {
   }
 }
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.selfCare = {}
   b.selfCare.tasks = {}
   b.selfCare.lastRun = 0

@@ -4,9 +4,9 @@ import Vec3 from 'vec3'
 import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
 import settings from '../settings.js'
-import UBotClient from '../util/UBotClient.js'
+import Botv12Client from '../util/Botv12Client.js'
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName
   if(!b.position) b.position = {}

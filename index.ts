@@ -1,5 +1,5 @@
 import settings from './settings.js'
-import UBotClient from './util/UBotClient.ts'
+import Botv12Client from './util/Botv12Client.ts'
 import generateUser from './util/usergen.ts'
 //import { getMessage } from './util/lang.js'
 import { readdirSync } from 'node:fs'
@@ -7,7 +7,7 @@ import { readdirSync } from 'node:fs'
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
-const bots: UBotClient[] = []
+const bots: Botv12Client[] = []
 const createBot = function createBot (host: any, oldId?: number) {
   const options = {
     host: host.host,
@@ -21,7 +21,7 @@ const createBot = function createBot (host: any, oldId?: number) {
     version: host.version ?? settings.version_mc
   }
 
-  const bot = new UBotClient(options)
+  const bot = new Botv12Client(options)
 
   bot.host = host
   

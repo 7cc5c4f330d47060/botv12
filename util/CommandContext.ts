@@ -1,6 +1,6 @@
 import settings from '../settings.js'
 import build from './messageBuilder.ts'
-import UBotClient from './UBotClient.ts'
+import Botv12Client from './Botv12Client.ts'
 export default class CommandContext {
   uuid: string
   reply: any

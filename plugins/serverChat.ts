@@ -3,7 +3,7 @@ import parse3 from '../util/chatparse.ts'
 import parse1204 from '../util/parseNBT.ts'
 import { getMessage } from '../util/lang.ts'
 import { readdirSync } from 'node:fs'
-import UBotClient from '../util/UBotClient.ts'
+import Botv12Client from '../util/Botv12Client.ts'
 import ChatParser from '../util/ChatParser.ts'
 const convertChatStyleItem = (item: any) => {
   const output: any = {}
@@ -47,7 +47,7 @@ for (const plugin of bpl) {
   } catch (e) { console.log(e) }
 }
 
-export default function load (b: UBotClient) {
+export default function load (b: Botv12Client) {
   b.serverChat = {}
   b.serverChat.messageCount = 0
   b.serverChat.disabledUntil = 0
