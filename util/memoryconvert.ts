@@ -1,7 +1,7 @@
-const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB']
-const THRESHOLD = 1000
+const UNITS = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB']
+const THRESHOLD = 1024
 
-export default function memoryconvert (bytes) {
+export default function memoryconvert (bytes: number) {
   for (let i = 0; i < UNITS.length; i++) {
     const last = i === (UNITS.length - 1)
     const max = THRESHOLD ** (i + 1)

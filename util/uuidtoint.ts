@@ -1,5 +1,10 @@
-export default function uuidToInt (uuid) {
-  const splitUUID = uuid.replace(/[^0-9a-f]/g, '').replace(/.{1,8}/g, a => { return `0x${a}` }).match(/.{1,10}/g)
-  const numUUID = [+splitUUID[0] << 0, +splitUUID[1] << 0, +splitUUID[2] << 0, +splitUUID[3] << 0]
+export default function uuidToInt (uuid: string) {
+  const splitUUID = uuid.replace(/[^0-9a-f]/g, '').replace(/.{1,8}/g, a => { return `0x${a}` })
+  const numUUID = [
+    +splitUUID.slice(0,10) << 0,
+    +splitUUID.slice(10,20) << 0,
+    +splitUUID.slice(20,30) << 0,
+    +splitUUID.slice(30,40) << 0
+  ]
   return numUUID
 }

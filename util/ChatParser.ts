@@ -6,7 +6,7 @@ export default class ChatParser {
 
   constructor () {
     // Fallback parser: does not get player information.
-    this.parse = (data/*: ChatData*/, b?: Botv12Client) => {
+    this.parse = (data: any, b?: Botv12Client) => {
       return {
         parsed: true,
         json: data.json,

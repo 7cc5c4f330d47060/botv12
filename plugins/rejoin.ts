@@ -1,5 +1,6 @@
 import { createBot } from '../index.js'
-export default function load (b) {
+import Botv12Client from '../util/Botv12Client.js'
+export default function load (b: Botv12Client) {
   b._client.on('end', () => {
     b.info(`Bot ${b.id} disconnected`)
     for (const i in b.interval) {

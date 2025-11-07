@@ -16,7 +16,7 @@ export default function load (b: Botv12Client) {
       }
     }
   })
-  b.commands.runCommand = async function (user, nick, uuid, command, type, subtype, prefix) {
+  b.commands.runCommand = async function (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) {
     if (uuid === '00000000-0000-0000-0000-000000000000') return
     if (Date.now() - b.commands.lastCmd <= 500) return
     b.commands.lastCmd = Date.now()
@@ -92,7 +92,7 @@ export default function load (b: Botv12Client) {
             with: [timeSpent]
           })
         }
-      } catch (e) {
+      } catch (e: any) {
         console.log(e)
         b.commandCore.tellraw(uuid, {
           text: getMessage(context.lang, 'command.error'),

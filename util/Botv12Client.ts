@@ -5,13 +5,14 @@ import { default as registry } from 'prismarine-registry'
 
 export default class Botv12Client extends EventEmitter {
   _client: Client
-  id: number
+  id?: number
   host: any
   interval: any
   info: any
   displayChat: any
-  entityId: number
+  entityId?: number
   registry: registry.Registry
+  disconnect?: boolean
 
   // Plugins
   clientChat: any

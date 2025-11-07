@@ -1,15 +1,16 @@
+import CommandContext from "./CommandContext"
 import CommandRegistry from "./CommandRegistry"
 
 export default class SubCommandRegistry extends CommandRegistry {
   aliases: any
   runCommand: any
 
-  constructor (aliases) {
+  constructor (aliases: string[]) {
     super()
 
     this.aliases = aliases // Alias list sent to the top level command
 
-    this.runCommand = function (context) {
+    this.runCommand = function (context: CommandContext) {
       const args = context.args
       let subcommand
       if (args.length === 0) {
@@ -21,7 +22,7 @@ export default class SubCommandRegistry extends CommandRegistry {
       command.execute(context)
     }
 
-    this.register = function (name, payload, aliases) {
+    this.register = function (name: string, payload: any, aliases: string[]) {
       if (name !== 'base') this.aliases.push(name)
       const command: any = {}
       command.execute = payload
@@ -35,7 +36,7 @@ export default class SubCommandRegistry extends CommandRegistry {
       this._commands[name] = command
     }
 
-    this.getCommand = function (name) {
+    this.getCommand = function (name: string) {
       name = name.toLowerCase()
       if (this._commands[name]) {
         return this._commands[name]

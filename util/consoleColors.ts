@@ -1,4 +1,4 @@
-const consoleColors = {
+const consoleColors: any = {
   blackTerminal_24bit: {
     fourBit: {
       dark_red: '\u001B[0;38;2;170;0;0m',
@@ -253,4 +253,5 @@ const consoleColors = {
     }
   }
 }
+
 export default consoleColors
