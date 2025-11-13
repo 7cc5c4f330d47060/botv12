@@ -3,6 +3,7 @@ import settings from '../settings'
 
 const namesHk = [ // From 2017 Metroidvania from Australia.
   'Ancient Basin',
+  'Baldur Shell',
   'City Crest',
   'City of Tears',
   'Cornifer',
@@ -22,9 +23,9 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Lifeblood',
   'Lifeseed',
   'Longnail',
-  'Lurien the Watcher',
   'Mantis Claw',
   'Mantis Lords',
+  'Markoth',
   'Mask Maker',
   'Massive Moss Charger',
   'Monomon the Teacher',
@@ -46,7 +47,6 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Snail Shaman',
   'SOUL', // Capital form
   'Squit',
-  'Tiktik',
   'Uoma',
   'Vengefly',
   'Wayward Compass',
@@ -56,22 +56,22 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
 
 const namesSs = [ // From 2025 Metroidvania from Australia.
   'Bellhart',
-  'Bell Beast',
-  'Bilewater',
+  'Bellhome',
   'Bone Bottom',
   'Citadel',
   'Clawline',
+  'Grand Mother Silk',
   'Greymoor',
   'Halfway Home',
-  'Hornet',
   "Hunter's March",
   'Lace',
   'Moss Grotto',
   'Moss Mother',
   'Needle',
   'Needolin',
+  'Phantom',
   'Pharloom',
-  'Shakra',
+  'Ruined Chapel',
   'Sherma',
   'Shellwood',
   'Wormways'
