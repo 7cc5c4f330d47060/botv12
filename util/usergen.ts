@@ -77,7 +77,7 @@ const namesSs = [ // From 2025 Metroidvania from Australia.
   'Wormways'
 ]
 
-console.log(namesHk.length * namesSs.length)
+//console.log(namesHk.length * namesSs.length)
 
 export default function generateUser (): string{
   let nameItem = namesHk[Math.floor(Math.random()*namesHk.length)]
