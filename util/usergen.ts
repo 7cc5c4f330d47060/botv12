@@ -1,58 +1,89 @@
 import { createHash } from 'crypto'
 import settings from '../settings'
 
-const names = [ // From 2017 and 2025 Metroidvania from Australia. atob = spoilers.
-  // 2017 ("HK") Locations where title appears in large letters upon first entry.
-  "Dirtmouth",
-  "Forgotten Crossroads",
-  atob('SW5mZWN0ZWQgQ3Jvc3Nyb2Fkcw=='),
-  "Greenpath",
-  "Fungal Wastes",
-  "Fog Canyon",
+const namesHk = [ // From 2017 Metroidvania from Australia.
+  'Ancient Basin',
+  'City Crest',
+  'City of Tears',
+  'Cornifer',
+  'Crawlid',
+  'Deepnest',
+  'Dirtmouth',
+  'Dream Nail',
+  'Dreamgate',
+  'Fog Canyon',
+  'Greenpath',
+  'Grubfather',
+  'Gruz Mother',
+  'Hallownest',
+  'Herrah the Beast',
+  'The Last Stag',
+  'Leg Eater',
+  'Lifeblood',
+  'Lifeseed',
+  'Longnail',
+  'Lurien the Watcher',
+  'Mantis Claw',
+  'Mantis Lords',
+  'Mask Maker',
+  'Massive Moss Charger',
+  'Monomon the Teacher',
+  'Mosskin',
+  'Mothwing Cloak',
+  'Mister Mushroom',
+  'Nail',
+  'Ooma',
+  'Pale King',
+  'Primal Aspid',
   "Queen's Gardens",
-  "Deepnest",
-  "Kingdom's Edge",
-  "Royal Waterways",
-  "City of Tears",
-  "Howling Cliffs",
-  "Ancient Basin",
-  "Crystal Peak",
-  "Resting Grounds",
-  atob('VGhlIEFieXNz'),
-  atob('VGhlIEhpdmU='),
-  atob('V2hpdGUgUGFsYWNl'),
-  // 2018 Locations added to 2017
-  atob('R29kaG9tZQ=='),
-  // 2025 ("HK: SS") locations excluding an area with the same name as 2017 from Wiki.
-  "Bellhart",
-  "Bilewater",
-  "Blasted Steps",
-  atob('VGhlIENyYWRsZQ=='),
-  "Deep Docks",
-  "Far Fields",
-  "Greymoor",
-  "Hunter's March",
-  "The Marrow",
-  "Moss Grotto",
-  "Mount Fay",
-  "Putrified Ducts",
-  atob('UmVkIE1lbW9yeQ=='),
-  "Sands of Karak",
-  "Shellwood",
-  "Sinner's Road",
-  "The Slab",
-  "Underworks",
-  "Verdania",
-  atob('V2VhdmVuZXN0IEF0bGE='),
-  "Wisp Thicket",
-  "Wormways",
-  // Kingdom of 2017
-  "Hallownest",
-  // Acts of 2025
-  "Pharloom",
-  atob('Q2l0YWRlbCBvZiBTb25n'),
-  atob('QWJ5c3M=')
+  'The Radiance',
+  'Rancid Egg',
+  'Resting Grounds',
+  'Seer',
+  'Shade',
+  'Shaman Stone',
+  'Sly',
+  'Snail Shaman',
+  'SOUL', // Capital form
+  'Squit',
+  'Tiktik',
+  'Uoma',
+  'Vengefly',
+  'Wayward Compass',
+  'White Palace',
+  'Zote'
 ]
+
+const namesSs = [ // From 2025 Metroidvania from Australia.
+  'Bellhart',
+  'Bell Beast',
+  'Bilewater',
+  'Bone Bottom',
+  'Citadel',
+  'Clawline',
+  'Greymoor',
+  'Halfway Home',
+  'Hornet',
+  "Hunter's March",
+  'Lace',
+  'Moss Grotto',
+  'Moss Mother',
+  'Needle',
+  'Needolin',
+  'Pharloom',
+  'Shakra',
+  'Sherma',
+  'Shellwood',
+  'Wormways'
+]
+
+console.log(namesHk.length * namesSs.length)
+
 export default function generateUser (): string{
-  return `${createHash('sha256').update(names[Math.floor(Math.random()*names.length)]).digest('hex').slice(0,10)}${settings.debugMode?'Debug':''}`
+  let nameItem = namesHk[Math.floor(Math.random()*namesHk.length)]
+  if(settings.debugMode) nameItem += ' Debug'
+  const hashItem = createHash('sha256').update(nameItem).digest('hex').slice(0,6)
+  const nameItemSs = namesSs[Math.floor(Math.random()*namesSs.length)]
+  const hashItemSs = createHash('sha256').update(nameItemSs).digest('hex').slice(0,6)
+  return `${hashItem}${hashItemSs}`
 }
