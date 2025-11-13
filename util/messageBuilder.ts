@@ -1,5 +1,5 @@
 import { getMessage } from './lang.js'
-//import uuidToInt from './uuidtoint.js'
+import uuidToInt from './uuidtoint.js'
 import version from '../version.js'
 export default function build (text: any, colors: any, lang: string, botuuid: string) {
   const json: any = {}
@@ -46,7 +46,7 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
     }
   }
 
-  /*if (text.command) {
+  if (text.command) {
     const fakeCmmFormat = {
       translate: '%s %s › %s',
       with: [
@@ -67,7 +67,7 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
         text: getMessage(lang, 'runCommand', [text.command])
       }
     }
-  }*/
+  }
 
   if (text.mcCommand) {
     json.click_event = {
@@ -104,5 +104,7 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
   } else {
     json.text = textContent
   }
+  
+  if(text.font) json.font = text.font
   return json
 }

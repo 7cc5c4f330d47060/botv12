@@ -207,6 +207,10 @@ export default {
   'command.error.db.loading': 'The Database is connecting, please wait',
   'command.error.db.notConnected': 'The Database is not connected',
 
+  // Text reader
+  'textReader.lastPage': 'Previous',
+  'textReader.nextPage': 'Next',
+  
   // Miscellaneous
   listItem: '%s: %s',
   copyText: 'Click to copy this item to your clipboard',

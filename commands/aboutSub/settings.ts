@@ -1,7 +1,8 @@
 import settings from '../../settings.js'
+import CommandContext from '../../util/CommandContext.js'
 
-export default async function displaySettings (c) {
-  const reply = function (name, item) {
+export default async function displaySettings (c: CommandContext) {
+  const reply = function (name: string, item: string) {
     return {
       text: 'listItem',
       parseLang: true,
@@ -18,8 +19,8 @@ export default async function displaySettings (c) {
   }
   for (const i in settings) {
     const output = settings[i] + ''
-    if (i === 'colors' || i === 'servers') continue
-    if (i === 'keyTrusted' || i === 'keyOwner' || i === 'onlineEmail' || i === 'onlinePass') continue
+    if (i === 'colors' || i === 'servers' || i === 'keyTrusted' ||
+      i === 'keyOwner' || i === 'onlineEmail' || i === 'onlinePass') continue
     c.reply(reply(i, output))
   }
   for (const i in settings.colors) {

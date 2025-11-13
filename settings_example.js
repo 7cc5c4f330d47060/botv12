@@ -41,7 +41,6 @@ export default {
       }
     },
     {
-
       host: 'chipmunk.land',
       port: 25565,
       options: {

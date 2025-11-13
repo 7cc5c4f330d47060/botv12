@@ -10,7 +10,7 @@ export default class SubCommandRegistry extends CommandRegistry {
 
     this.aliases = aliases // Alias list sent to the top level command
 
-    this.runCommand = function (context: CommandContext) {
+    this.runCommand = async function (context: CommandContext) {
       const args = context.args
       let subcommand
       if (args.length === 0) {
@@ -19,7 +19,7 @@ export default class SubCommandRegistry extends CommandRegistry {
         subcommand = args[0]
       }
       const command = this.getCommand(subcommand)
-      command.execute(context)
+      await command.execute(context)
     }
 
     this.register = function (name: string, payload: any, aliases: string[]) {
