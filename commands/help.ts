@@ -20,14 +20,13 @@ function printHelp (c: CommandContext) {
   }
   const sortedCommands = commands.sort(sortHelp)
   const commandList: any[] = []
-  const colorList = ['green', 'red', 'dark_red']
 
   for (const cmd of sortedCommands) {
     let cmdColor
-    if (colorList[cmd.level]) {
-      cmdColor = colorList[cmd.level]
+    if (c.colors[`perms${cmd.level}`]) {
+      cmdColor = c.colors[`perms${cmd.level}`]
     } else {
-      cmdColor = colorList[0]
+      cmdColor = c.colors.perms0
     }
     commandList.push({
       text: `${cmd.name} `,
@@ -40,7 +39,7 @@ function printHelp (c: CommandContext) {
     permListFormat.push({
       text: `command.perms${i}`,
       parseLang: true,
-      color: colorList[i]
+      color: c.colors[`perms${i}`]
     })
     if (i !== 2) permListFormat.push(' ')
   }
