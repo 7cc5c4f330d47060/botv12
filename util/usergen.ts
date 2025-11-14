@@ -28,7 +28,6 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Markoth',
   'Mask Maker',
   'Massive Moss Charger',
-  'Monomon the Teacher',
   'Mosskin',
   'Mothwing Cloak',
   'Mister Mushroom',
@@ -51,29 +50,29 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Vengefly',
   'Wayward Compass',
   'White Palace',
+  'Xero',
   'Zote'
 ]
-
 const namesSs = [ // From 2025 Metroidvania from Australia.
   'Bellhart',
-  'Bellhome',
   'Bone Bottom',
   'Citadel',
   'Clawline',
   'Grand Mother Silk',
   'Greymoor',
   'Halfway Home',
+  'High Halls',
   "Hunter's March",
   'Lace',
-  'Moss Grotto',
   'Moss Mother',
   'Needle',
   'Needolin',
-  'Phantom',
   'Pharloom',
   'Ruined Chapel',
   'Sherma',
   'Shellwood',
+  'Snail Shamans', // Group of three not found in HK2017: Chapel Maid, Caretaker, Bell Hermit
+  'Trobbio',
   'Wormways'
 ]
 
