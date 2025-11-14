@@ -95,7 +95,6 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
   }
 
   if (text.with) {
-    console.log(text.with)
     json.with = []
     for (const item of text.with) {
       json.with.push(build(item, colors, lang, botuuid))
