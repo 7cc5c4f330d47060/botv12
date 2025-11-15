@@ -1,7 +1,8 @@
 #!/bin/sh
 set -xe
+npx tsc
 
 while :; do
-    npx tsx index.ts
+    node dist/index.js
     sleep 5
 done
