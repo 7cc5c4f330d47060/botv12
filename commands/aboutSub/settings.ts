@@ -1,4 +1,4 @@
-import settings from '../../settings.js'
+
 import CommandContext from '../../util/CommandContext.js'
 
 export default async function displaySettings (c: CommandContext) {

@@ -1,4 +1,4 @@
-import lang from './mc_lang.ts'
+import lang from './mc_lang.js'
 import consoleColors from './consoleColors.js'
 
 // List from https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-in-html

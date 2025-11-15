@@ -1,9 +1,20 @@
-import settings from './settings.js'
-import Botv12Client from './util/Botv12Client.ts'
-import generateUser from './util/usergen.ts'
+declare global {
+  var settings: any
+  var codeDir: string
+  var baseDir: string
+}
+import { dirname, resolve } from 'node:path'
+globalThis.codeDir = dirname(process.argv[1])
+globalThis.baseDir = process.cwd()
+
+import Botv12Client from './util/Botv12Client.js'
+import generateUser from './util/usergen.js'
 //import { getMessage } from './util/lang.js'
 import { readdirSync } from 'node:fs'
 //import { default as registry } from 'prismarine-registry'
+
+const settings = (await import(resolve(baseDir, 'settings.js'))).default
+globalThis.settings = settings
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
@@ -50,9 +61,9 @@ const init = function () {
 }
 
 const plugins: any[] = []
-const bpl = readdirSync('plugins')
+const bpl = readdirSync(resolve(codeDir, 'plugins'))
 for (const plugin of bpl) {
-  if (!plugin.endsWith('.ts')) {
+  if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
     continue
   }
   try {

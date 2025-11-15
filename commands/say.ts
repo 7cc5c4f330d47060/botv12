@@ -1,4 +1,4 @@
-import settings from '../settings.js'
+
 import CommandContext from '../util/CommandContext'
 //import { getMessage } from '../util/lang.js'
 async function execute (c: CommandContext) {

@@ -1,16 +1,17 @@
 import { readdirSync } from 'node:fs'
-import settings from '../settings.js'
+import { resolve } from 'node:path'
+
 const languages: any = {}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = () => {
-  const bpl = readdirSync('lang')
+  const bpl = readdirSync(resolve(baseDir, 'lang'))
   for (const plugin of bpl) {
     if (!plugin.endsWith('.js')) {
       continue
     }
     try {
-      import(`../lang/${plugin}`).then(languageFile => {
+      import(resolve(baseDir, 'lang', plugin)).then(languageFile => {
         languages[plugin.split('.')[0]] = languageFile.default
       })
     } catch (e) { console.log(e) }

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import settings from '../settings.js'
+
 
 export default function (cmd: string[], uuid: string) {
   const cmdWithoutHash: string = cmd.slice(0, cmd.length - 1).join(' ')

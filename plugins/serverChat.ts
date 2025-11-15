@@ -1,10 +1,11 @@
-import settings from '../settings.js'
-import parse3 from '../util/chatparse.ts'
-import parse1204 from '../util/parseNBT.ts'
-import { getMessage } from '../util/lang.ts'
+import parse3 from '../util/chatparse.js'
+import parse1204 from '../util/parseNBT.js'
+import { getMessage } from '../util/lang.js'
 import { readdirSync } from 'node:fs'
-import Botv12Client from '../util/Botv12Client.ts'
-import ChatParser from '../util/ChatParser.ts'
+import Botv12Client from '../util/Botv12Client.js'
+import ChatParser from '../util/ChatParser.js'
+import { resolve } from 'node:path'
+
 const convertChatStyleItem = (item: any) => {
   const output: any = {}
   for (const i in item) {
@@ -33,10 +34,10 @@ const convertChatTypeItem = (item: any) => {
 // Level 2: generic parsers
 
 const parsers: ChatParser[][] = [[], [], []]
-const bpl = readdirSync('chatParsers')
+const bpl = readdirSync(resolve(codeDir, 'chatParsers'))
 for (const plugin of bpl) {
       
-  if (!plugin.endsWith('.ts')) {
+  if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
     continue
   }
   try {

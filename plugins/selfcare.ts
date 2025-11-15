@@ -1,7 +1,9 @@
-import settings from "../settings.js"
-import botVersion from "../util/version.ts"
+
+import botVersion from "../util/version\.js"
+
 import version from "../version.js"
-import Botv12Client from "../util/Botv12Client.ts"
+import Botv12Client from "../util/Botv12Client\.js"
+
 
 class SCTask {
   failTask: any

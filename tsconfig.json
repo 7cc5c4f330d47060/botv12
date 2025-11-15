@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": [
+      "es2024"
+    ],
+    "module": "es2022",
+    "target": "es2024",
+    "outDir": "dist",
+    "paths": {
+      "minecraft-data": ["./node_modules/minecraft-data/index.d.ts"],
+      "minecraft-protocol": ["./node_modules/minecraft-protocol/src/index.d.ts"],
+      "prismarine-chat": ["./node_modules/prismarine-chat/index.d.ts"],
+      "prismarine-chunk": ["./node_modules/prismarine-chunk/types/index.d.ts"],
+      "prismarine-item": ["./node_modules/prismarine-item/index.d.ts"],
+      "prismarine-registry": ["./node_modules/prismarine-registry/lib/index.d.ts"],
+      "vec3": ["./node_modules/vec3/index.d.ts"]
+    },
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": [
+    "index.ts",
+    "version.ts",
+    "settings.js",
+    "chatParsers/*",
+    "commands/**/*",
+    "lang/*",
+    "plugins/**/*",
+    "util/**/*",
+  ]
+}

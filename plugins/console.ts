@@ -1,19 +1,19 @@
 import { createInterface, cursorTo, clearLine } from 'node:readline'
-import registry from '../util/commands.ts'
-import CommandContext from '../util/CommandContext.ts'
-import parse3 from '../util/chatparse.ts'
+import registry from '../util/commands.js'
+import CommandContext from '../util/CommandContext.js'
+import parse3 from '../util/chatparse.js'
 import { userInfo } from 'node:os'
-import { bots } from '../index.ts'
-import settings from '../settings.js'
-import Botv12Client from '../util/Botv12Client.ts'
-import { getMessage } from '../util/lang.ts'
+import { bots } from '../index.js'
+
+import Botv12Client from '../util/Botv12Client.js'
+import { getMessage } from '../util/lang.js'
 
 const consoleBotStub = {
   host: {
     host: 'bot console',
     port: 25565
   },
-  commandCore: { tellraw: (_unused, data) => console.log(parse3(data, 'none'))}
+  commandCore: { tellraw: (_unused: string, data: string) => console.log(parse3(data, 'none'))}
 }
 const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as
@@ -69,7 +69,7 @@ rl.on('line', (l: string) => {
 })
 rl.prompt()
 
-function consoleWrite (text) {
+function consoleWrite (text: string) {
   cursorTo(process.stdout, 0)
   clearLine(process.stdout, 0)
   process.stdout.write(text + '\n')
@@ -77,10 +77,10 @@ function consoleWrite (text) {
 }
 
 export default function load (b: Botv12Client) {
-  b.info = (msg) => {
+  b.info = (msg: string) => {
     consoleWrite(`[${b.id}] [info] ${msg}`)
   }
-  b.displayChat = (type, subtype, msg) => {
+  b.displayChat = (type: string, subtype: string, msg: string) => {
     if (settings.debugMode) {
       consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
     } else {
