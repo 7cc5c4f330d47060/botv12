@@ -1,11 +1,15 @@
 import { WebSocketServer } from "ws"
 import Botv12Client from "../util/Botv12Client";
-import parse3 from '../util/chatparse.ts'
-import registry from "../util/commands.ts";
-import settings from "../settings.js";
-import { getMessage } from "../util/lang.ts";
-import { bots } from "../index.ts";
-import CommandContext from "../util/CommandContext.ts";
+import parse3 from '../util/chatparse.js'
+import registry from "../util/commands\.js"
+;
+
+import { getMessage } from "../util/lang\.js"
+;
+import { bots } from "../index\.js"
+;
+import CommandContext from "../util/CommandContext\.js"
+;
 
 const wss = new WebSocketServer({
   port: 12365

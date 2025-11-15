@@ -1,6 +1,6 @@
-import settings from '../settings.js'
-import build from './messageBuilder.ts'
-import Botv12Client from './Botv12Client.ts'
+
+import build from './messageBuilder.js'
+import Botv12Client from './Botv12Client.js'
 export default class CommandContext {
   uuid: string
   reply: any

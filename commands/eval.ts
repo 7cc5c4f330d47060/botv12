@@ -1,4 +1,4 @@
-import { bots, createBot } from '../index.ts'
+import { bots, createBot } from '../index.js'
 import { inspect } from 'node:util'
 import CommandContext from '../util/CommandContext'
 

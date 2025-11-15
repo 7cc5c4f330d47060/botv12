@@ -1,5 +1,5 @@
 import { createHash } from 'crypto'
-import settings from '../settings'
+
 
 const namesHk = [ // From 2017 Metroidvania from Australia.
   'Ancient Basin',

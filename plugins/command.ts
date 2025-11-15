@@ -1,5 +1,5 @@
 import registry from '../util/commands.js'
-import settings from '../settings.js'
+
 import CommandContext from '../util/CommandContext.js'
 import hashcheck from '../util/hashcheck.js'
 import { getMessage } from '../util/lang.js'

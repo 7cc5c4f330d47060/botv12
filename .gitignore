@@ -162,7 +162,7 @@ userPref/
 # botvX log files
 UBotLogs/
 botvXLogs/
-logs/
+# logs/ - already ignored elsewhere
 
 # ExtrasMsg input
 /input.bin
@@ -171,6 +171,8 @@ logs/
 
 # Songs for music command
 songs/
+
+# Temporary files
 temp/
 
 # Launcher accounts

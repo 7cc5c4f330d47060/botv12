@@ -1,6 +1,6 @@
 import { createClient, Client } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
-import settings from '../settings.js'
+
 import { default as registry } from 'prismarine-registry'
 
 export default class Botv12Client extends EventEmitter {

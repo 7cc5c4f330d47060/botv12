@@ -1,5 +1,5 @@
-import CommandContext from "./CommandContext"
-import CommandRegistry from "./CommandRegistry"
+import CommandContext from "./CommandContext.js"
+import CommandRegistry from "./CommandRegistry.js"
 
 export default class SubCommandRegistry extends CommandRegistry {
   aliases: any

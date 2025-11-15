@@ -210,7 +210,7 @@ export default {
   // Text reader
   'textReader.lastPage': 'Previous',
   'textReader.nextPage': 'Next',
-  
+
   // Miscellaneous
   listItem: '%s: %s',
   copyText: 'Click to copy this item to your clipboard',

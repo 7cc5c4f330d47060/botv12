@@ -1,11 +1,12 @@
 import parse3 from '../util/chatparse.js'
-import Botv12Client from "../util/Botv12Client.ts";
+import Botv12Client from "../util/Botv12Client\.js"
+;
 import ChatParser from '../util/ChatParser.js';
 
 export default class ExtrasProfilelessChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data/*: ChatData*/, b: Botv12Client) => {
+    this.parse = (data: any, b: Botv12Client) => {
       if (data.type === 'profileless') {
         if (data.playerChatType.translation_key === '%s') {
           const parsed = parse3(data.json, 'none')
