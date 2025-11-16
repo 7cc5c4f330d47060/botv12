@@ -12,7 +12,6 @@ for (const plugin of bpl) {
   try {
     const ending = plugin.split('.').reverse()[0]
     const commandName = plugin.split(`.${ending}`)[0]
-    console.log(commandName)
     import(`../commands/${plugin}`).then((pluginItem) => {
       registry.register(commandName, pluginItem.execute, pluginItem.level, pluginItem.consoleIndex, pluginItem.hidden, pluginItem.aliases, pluginItem.consoleOnly, pluginItem.debugOnly, pluginItem.blockChipmunkMod)
     })

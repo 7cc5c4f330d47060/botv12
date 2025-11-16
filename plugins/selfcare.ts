@@ -47,7 +47,7 @@ export default function load (b: Botv12Client) {
     //b.clientChat.send(`${version.botName} version ${botVersion} - Debug Mode enabled`)
     b.selfCare.tasks.debugMode.failed = false
   })
-  b.selfCare.tasks.debugMode.failed = settings.debugMode
+  b.selfCare.tasks.debugMode.failed = debugMode
 
   // Operator
   b.selfCare.addTask('op', () => {

@@ -127,9 +127,14 @@ export default async function aboutServer (c: CommandContext) {
     return os.hostname()
   })
 
-  // Current working directory
+  // Current working directory (also baseDir)
   displayInfo('command.about.serverInfo.workingDir', () => {
     return process.cwd()
+  })
+
+  // Directory with code in it
+  displayInfo('command.about.serverInfo.codeDir', () => {
+    return codeDir
   })
 
   // Bot uptime

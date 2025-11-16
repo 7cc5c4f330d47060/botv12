@@ -1,8 +1,7 @@
 #!/bin/sh
-set -xe
-npx tsc
+set -e
 
 while :; do
-    node dist/index.js
+    node dist/index.js $@
     sleep 5
 done
