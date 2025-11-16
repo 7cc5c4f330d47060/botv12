@@ -80,7 +80,7 @@ const namesSs = [ // From 2025 Metroidvania from Australia.
 
 export default function generateUser (): string{
   let nameItem = namesHk[Math.floor(Math.random()*namesHk.length)]
-  if(settings.debugMode) nameItem += ' Debug'
+  if(debugMode) nameItem += ' Debug'
   const hashItem = createHash('sha256').update(nameItem).digest('hex').slice(0,6)
   const nameItemSs = namesSs[Math.floor(Math.random()*namesSs.length)]
   const hashItemSs = createHash('sha256').update(nameItemSs).digest('hex').slice(0,6)

@@ -33,7 +33,7 @@ export default class Botv12Client extends EventEmitter {
     this.registry = registry(this._client.version)
 
     this._client.on('error', (err: Error) => {
-      if (settings.debugMode) console.log(err)
+      if (debugMode) console.log(err)
     })
 
   }

@@ -17,7 +17,8 @@
       "vec3": ["./node_modules/vec3/index.d.ts"]
     },
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "removeComments": true
   },
   "include": [
     "index.ts",

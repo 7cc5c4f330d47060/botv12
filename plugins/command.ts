@@ -31,7 +31,7 @@ export default function load (b: Botv12Client) {
     const verify = hashcheck(cmdsplit, uuid)
 
     // Block running eval in normal mode
-    if (commandItem.debugOnly && !settings.debugMode) {
+    if (commandItem.debugOnly && !debugMode) {
       b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disabled.debugOnly')
       })
@@ -85,7 +85,7 @@ export default function load (b: Botv12Client) {
         const startDate = Date.now()
         await commandItem.execute(context)
         const timeSpent = Date.now() - startDate
-        if (settings.debugMode) {
+        if (debugMode) {
           context.reply({
             text: 'debug.commandFinished',
             parseLang: true,

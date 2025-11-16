@@ -37,7 +37,7 @@ rl.on('line', (l: string) => {
     }
 
     // Block running eval in normal mode
-    if (cmd.debugOnly && !settings.debugMode) {
+    if (cmd.debugOnly && !debugMode) {
       console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
       //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
       return
@@ -81,7 +81,7 @@ export default function load (b: Botv12Client) {
     consoleWrite(`[${b.id}] [info] ${msg}`)
   }
   b.displayChat = (type: string, subtype: string, msg: string) => {
-    if (settings.debugMode) {
+    if (debugMode) {
       consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
     } else {
       consoleWrite(`[${b.id}] [${type}] ${msg}`)

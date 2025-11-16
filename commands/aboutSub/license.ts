@@ -6,7 +6,7 @@ const licenseFile = readFileSync('./LICENSE').toString('utf8').replaceAll('\r', 
 export default async function license (c: CommandContext) {
   let startIndex = 0
   if(c.args[1]) startIndex = +c.args[1]
-  const changeSize = settings.debugMode ? 18 : 19
+  const changeSize = debugMode ? 18 : 19
   const maxSize = licenseFile.length;
   for(let i = startIndex; i < startIndex+changeSize; i++){
     c.reply({

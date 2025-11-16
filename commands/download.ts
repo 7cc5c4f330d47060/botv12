@@ -8,6 +8,8 @@ async function execute (c: CommandContext) {
   
   // Source code downloader, to allow downloading of versions between commits,
   // and without visiting Codeberg/Chipmunk.land/GitHub.
+  // Useful if someone steals the code, but does not use Git® or another version control system to
+  // publish it.
 
   // To include:
   // /chatParsers/
@@ -33,6 +35,7 @@ async function execute (c: CommandContext) {
   // /songs/
   // /temp/ except for generated archive
   // /settings.js
+  // JavaScript code output
   // anything on .gitignore
 
   let metadata: any = {
@@ -59,7 +62,7 @@ async function execute (c: CommandContext) {
     'package.json',
     'README.md',
     'settings_example.js',
-    'version.js',
+    'version.ts',
   ]
 
   const root = 'temp/dl'
