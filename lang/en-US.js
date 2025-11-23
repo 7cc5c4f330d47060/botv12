@@ -197,6 +197,7 @@ export default {
   'command.disabled.consoleOnly.noWs': 'This command must be run from the console. The web panel is not sufficient.',
   'command.disabled.debugOnly': 'This command must be run with Debug Mode enabled.',
   'command.disabled.chipmunkmod': 'This command cannot be run using a custom chat format.',
+  'command.disabled.cli': 'This command has been disabled with a command-line option.',
 
   // Permission Levels
   'command.perms0': 'Public',

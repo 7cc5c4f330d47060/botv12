@@ -4,6 +4,10 @@ import build from '../util/messageBuilder.js'
 import CommandContext from '../util/CommandContext'
 
 async function execute (c: CommandContext) {
+  if(clOptions.disableNetMsg){
+    c.reply({ text: 'command.disabled.cli', parseLang: true })
+    return
+  }
   if (!rl.check('netmsg') && c.type !== 'console') {
     c.reply({
       text: 'command.ratelimit',

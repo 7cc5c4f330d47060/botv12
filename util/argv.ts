@@ -5,6 +5,7 @@ function handleHelp() {
   console.log('  --help\t\t\tdisplay help')
   console.log('  --debug\t\t\tlaunch with debugging features')
   console.log('  --disable-ws\t\t\tdisable WebSocket server')
+  console.log('  --disable-netmsg\t\tdisable netmsg command')
   process.exit(1)
 }
 export default function ha(){
@@ -18,6 +19,8 @@ export default function ha(){
       debugMode = true // Global
     } else if (argv[0] == '--disable-ws') {
       clOptions.disableWsServer = true
+    } else if (argv[0] == '--disable-netmsg') {
+      clOptions.disableNetMsg = true
     }
     argv.splice(0, 1)
   }
