@@ -34,8 +34,8 @@ if (debugMode) console.log('\x1b[33m[warning] Debug Mode is enabled.')
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
-const bots: Botv12Client[] = []
-const createBot = function createBot (host: any, oldId?: number) {
+const bots: any[] = []
+const createBot = function createBot (host: any, oldId?: number, bypassStall?: boolean) {
   const options = {
     host: host.host,
     fakeHost: host.fakeHost,
@@ -47,19 +47,36 @@ const createBot = function createBot (host: any, oldId?: number) {
     sessionServer: host.options.sessionServer ?? null,
     version: host.version ?? settings.version_mc
   }
+  let bot: any;
+  if(host.stall && !bypassStall){
+    const newId = oldId ?? bots.length
+    console.log(`[info] Stalling joining of bot ${newId}`)
+    bot = {
+      ready: false,
+      join: function () {
+        console.log(`[info] Joining stalled bot ${newId}`)
+        createBot(host, newId, true)
+      }
+    }
+  } else {
+    bot = new Botv12Client(options)
 
-  const bot = new Botv12Client(options)
+    bot.host = host
+    
+    for (const pluginItem of plugins) {
+      if (pluginItem) pluginItem(bot)
+    }
 
-  bot.host = host
-  
-  for (const pluginItem of plugins) {
-    if (pluginItem) pluginItem(bot)
+    bot.ready = true
   }
+
 
   if (typeof oldId !== 'undefined') {
     // Replace old bot with new one
-    for (const i in bots[oldId].interval) {
-      clearInterval(bots[oldId].interval[i])
+    if(bots[oldId]?.interval){
+      for (const i in bots[oldId].interval) {
+        clearInterval(bots[oldId].interval[i])
+      }
     }
     delete bots[oldId]
     bot.id = oldId
