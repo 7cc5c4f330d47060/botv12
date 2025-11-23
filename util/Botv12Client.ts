@@ -13,6 +13,7 @@ export default class Botv12Client extends EventEmitter {
   entityId?: number
   registry: registry.Registry
   disconnect?: boolean
+  ready: boolean
 
   // Plugins
   clientChat: any
@@ -27,6 +28,7 @@ export default class Botv12Client extends EventEmitter {
   constructor (options?: any) {
     super()
 
+    this.ready = false
     this._client = createClient(options)
     this.interval = {}
 
