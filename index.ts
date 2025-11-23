@@ -10,11 +10,6 @@ declare global {
 globalThis.codeDir = dirname(process.argv[1])
 globalThis.baseDir = process.cwd()
 
-const settings = (await import(resolve(baseDir, 'settings.js'))).default
-globalThis.settings = settings
-
-globalThis.debugMode = settings.debugMode
-
 globalThis.clOptions = {
   disableWsServer: false
 }
@@ -23,6 +18,11 @@ import { dirname, resolve } from 'node:path'
 
 import ha from './util/argv.js'
 ha()
+
+const settings = (await import(resolve(baseDir, 'settings.js'))).default
+globalThis.settings = settings
+
+globalThis.debugMode = settings.debugMode || globalThis.debugMode
 
 import Botv12Client from './util/Botv12Client.js'
 import generateUser from './util/usergen.js'
