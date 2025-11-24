@@ -132,6 +132,11 @@ export default async function aboutServer (c: CommandContext) {
     return process.cwd()
   })
 
+  // Base directory - directory with TypeScript code, language data, settings, etc. in it
+  displayInfo('command.about.serverInfo.baseDir', () => {
+    return baseDir
+  })
+
   // Directory with code in it
   displayInfo('command.about.serverInfo.codeDir', () => {
     return codeDir

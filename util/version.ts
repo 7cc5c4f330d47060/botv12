@@ -5,8 +5,8 @@ let gitCommit
 let gitBranch
 
 try {
-  gitCommit = execSync('git rev-parse --short HEAD').toString('utf8').split('\n')[0]
-  gitBranch = execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').split('\n')[0]
+  gitCommit = execSync(`git -C ${baseDir} rev-parse --short HEAD`).toString('utf8').split('\n')[0]
+  gitBranch = execSync(`git -C ${baseDir} rev-parse --abbrev-ref HEAD`).toString('utf8').split('\n')[0]
 } catch (e) {
   gitCommit = false
   gitBranch = false
