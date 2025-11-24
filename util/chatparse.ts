@@ -143,7 +143,7 @@ export default function parse2 (_data: any, modeString: string) {
     return parse(_data, 0, resetColor, mode)
   } catch (e) {
     console.error(e)
-    return `\x1B[0m\x1B[38;2;255;85;85mAn error occured while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
+    return `\x1B[0m\x1B[38;2;255;85;85mAn error occurred while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
 
