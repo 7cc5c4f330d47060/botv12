@@ -12,7 +12,7 @@ const addDepInfo = async function (name: string, version: string) {
 // Obtain version information for the software the bot uses
 addDepInfo(version.botName, botVersion)
 addDepInfo('Node.js®', process.version.slice(1))
-exec('npm list', (e, stdout) => {
+exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
   try {
     if (e) throw e
     const split = stdout.split('\n')

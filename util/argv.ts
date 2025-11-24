@@ -3,6 +3,7 @@ function handleHelp() {
   console.log(`${version.botName} version ${version.botVersion}`)
   console.log('\nOptions (can also be passed to launcher):')
   console.log('  --help\t\t\tdisplay help')
+  console.log('  --basedir <directory>\t\tselect baseDir')
   console.log('  --debug\t\t\tlaunch with debugging features')
   console.log('  --disable-ws\t\t\tdisable WebSocket server')
   console.log('  --disable-netmsg\t\tdisable netmsg command')
@@ -21,6 +22,9 @@ export default function ha(){
       clOptions.disableWsServer = true
     } else if (argv[0] == '--disable-netmsg') {
       clOptions.disableNetMsg = true
+    } else if (argv[0] == '--basedir') {
+      baseDir = argv[1]
+      argv.splice(0, 1)[0]
     }
     argv.splice(0, 1)
   }

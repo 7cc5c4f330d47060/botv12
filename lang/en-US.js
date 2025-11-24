@@ -83,6 +83,8 @@ export default {
   'command.about.serverInfo.osUsername': 'Username',
   'command.about.serverInfo.hostName': 'Hostname',
   'command.about.serverInfo.workingDir': 'Working directory',
+  'command.about.serverInfo.baseDir': 'Base directory',
+  'command.about.serverInfo.codeDir': 'Code directory',
   'command.about.serverInfo.runTime': 'Bot uptime',
   'command.about.serverInfo.upTime': 'System uptime',
   'command.about.serverInfo.nodeVersion': 'Node.js version',

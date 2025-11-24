@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext'
+import { resolve } from 'node:path'
 
-const licenseFile = readFileSync('./LICENSE').toString('utf8').replaceAll('\r', '').split('\n')
+const licenseFile = readFileSync(resolve(baseDir, './LICENSE')).toString('utf8').replaceAll('\r', '').split('\n')
 
 export default async function license (c: CommandContext) {
   let startIndex = 0

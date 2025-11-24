@@ -42,6 +42,7 @@ const createBot = function createBot (host: any, oldId?: number, bypassStall?: b
     port: host.port ?? 25565,
     username: host.options.username ?? generateUser(),
     password: host.options.password ?? null,
+    session: host.options.session ?? null,
     auth: host.options.authServer ? 'mojang' : null,
     authServer: host.options.authServer ?? null,
     sessionServer: host.options.sessionServer ?? null,
