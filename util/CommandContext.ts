@@ -3,7 +3,8 @@ import build from './messageBuilder.js'
 import Botv12Client from './Botv12Client.js'
 export default class CommandContext {
   uuid: string
-  reply: any
+  reply: (text: any) => void
+  send: (user: string, text: any) => void
   username: string
   command: string
   type: string
@@ -19,8 +20,8 @@ export default class CommandContext {
 
   constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, bot: any) {
     this.uuid = uuid
-    this.reply = (text: string) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
-    //this.send = (user, text) => bot.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.reply = (text: any) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.send = (user: string, text: any) => bot.commandCore.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
     this.username = user
     //this.nickname = nick
     this.command = cmd

@@ -10,7 +10,7 @@ import CommandContext from '../util/CommandContext.js'
 const registry = new SubCommandRegistry(['info'])
 
 registry.register('base', aboutBot)
-registry.register('server', aboutServer, ['serverinfo', 'specs'])
+registry.register('serverinfo', aboutServer, ['specs'])
 registry.register('serverlist', displayServerList, ['servers'])
 registry.register('settings', displaySettings)
 registry.register('version', displayVersions)

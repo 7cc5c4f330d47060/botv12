@@ -24,6 +24,7 @@ export default class Botv12Client extends EventEmitter {
   commandCore: any
   commands: any
   chunks: any
+  musicPlayer: any
 
   constructor (options?: any) {
     super()
