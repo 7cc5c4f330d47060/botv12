@@ -142,6 +142,11 @@ export default async function aboutServer (c: CommandContext) {
     return codeDir
   })
 
+  // Command line (process.argv)
+  displayInfo('command.about.serverInfo.cmdLine', () => {
+    return process.argv.slice(2)
+  })
+
   // Bot uptime
   displayInfo('command.about.serverInfo.runTime', () => {
     return formatTime(process.uptime() * 1000)
