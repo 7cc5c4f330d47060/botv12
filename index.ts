@@ -26,11 +26,48 @@ globalThis.debugMode = settings.debugMode || globalThis.debugMode
 
 import Botv12Client from './util/Botv12Client.js'
 import generateUser from './util/usergen.js'
+import version from './version.js'
 //import { getMessage } from './util/lang.js'
-import { readdirSync } from 'node:fs'
+import { readdirSync, writeFileSync } from 'node:fs'
+import { createInterface } from 'node:readline'
 //import { default as registry } from 'prismarine-registry'
 
-if (debugMode) console.log('\x1b[33m[warning] Debug Mode is enabled.')
+const awaitLicense = function(callback: any){
+  if(debugMode) console.log('[debug] Checking license...')
+  const rootFileList = readdirSync(baseDir)
+  if(!rootFileList.includes('.license_accepted')){
+    if(debugMode) console.log('[debug] License check failed.')
+      console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later.\n`+
+      `This license requires, among other things, that the source code be made available to anybody \n`+
+      `looking for it, even if you only host a fork of the bot. The bot includes a (currently\n`+
+      `non-functional) download command to download the source. You may also use any publicly available\n`+
+      `version control system, or any other method to distribute the source to those who want it. For more\n`+
+      `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
+      `To accept the license, type 'I accept' below. If you do not accept the license, you may \n`+
+      `not use this software.`)
+    const rl = createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      prompt: '\x1b[0m> '
+    })
+    rl.on('line', (l: string) => {
+      if(l.toLowerCase() == 'i accept'){
+        if(debugMode) console.log('[debug] License accepted, continuing...')
+        writeFileSync(resolve(baseDir, '.license_accepted'), '')
+        rl.close()
+        callback()
+      } else {
+        if(debugMode) console.log('[debug] License declined, exiting...')
+        process.exit(1)
+      }
+    })
+    rl.prompt(false)
+  } else {
+    if(debugMode) console.log('[debug] License check passed, continuing...')
+    callback()
+  }
+}
+if (debugMode) console.log('\x1b[33m[warning] Debug Mode is enabled.\x1b[0m')
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
@@ -95,21 +132,23 @@ const init = function () {
 }
 
 const plugins: any[] = []
-const bpl = readdirSync(resolve(codeDir, 'plugins'))
-for (const plugin of bpl) {
-  if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
-    continue
+const loadPlugins = () => {
+  const bpl = readdirSync(resolve(codeDir, 'plugins'))
+  for (const plugin of bpl) {
+    if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
+      continue
+    }
+    try {
+      import(`./plugins/${plugin}`).then((pluginItem) => {
+        plugins.push(pluginItem.default) // For rejoining
+        if (plugins.length === bpl.length) {
+          init()
+        }
+      })
+    } catch (e) { console.log(e) }
   }
-  try {
-    import(`./plugins/${plugin}`).then((pluginItem) => {
-      plugins.push(pluginItem.default) // For rejoining
-      if (plugins.length === bpl.length) {
-        init()
-      }
-    })
-  } catch (e) { console.log(e) }
 }
-
+awaitLicense(loadPlugins)
 
 export {
   bots,
