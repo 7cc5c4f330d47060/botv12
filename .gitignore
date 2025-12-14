@@ -180,3 +180,6 @@ launcher_accounts.json
 
 # Automatically generated metadata from downloader
 /metadata.json
+
+# License
+.license_accepted
