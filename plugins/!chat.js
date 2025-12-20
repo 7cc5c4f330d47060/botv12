@@ -119,12 +119,12 @@ module.exports = {
 
     b._client.on('system_chat', (data) => {
       const json = parse1204(data.content)
-      if (json.translate === '%s %s › %s') { // ChipmunkMod format
+      if (json.translate === '%s %s › %s' || json.translate === '[%s] %s › %s') { // ChipmunkMod format
         if (json.with && json.with[1] && json.with[2]) {
           const username = parsePlain(json.with[1])
           const uuid = b.findUUID(username)
           const nickname = b.findDisplayName(uuid)
-          const message = parsePlain(json.with[2].extra)
+          const message = parsePlain(json.with[2])
           b.emit('chat', {
             json,
             type: 'system',
