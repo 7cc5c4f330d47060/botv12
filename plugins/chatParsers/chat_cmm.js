@@ -13,7 +13,7 @@ module.exports = {
           const username = parsePlain(data.json.with[1])
           const uuid = b.findUUID(username)
           const nickname = b.findDisplayName(uuid)
-          const message = parsePlain(data.json.with[2].extra)
+          const message = parsePlain(data.json.with[2])
           return {
             parsed: true,
             json: data.json,
