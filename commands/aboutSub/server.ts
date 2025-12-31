@@ -81,7 +81,11 @@ export default async function aboutServer (c: CommandContext) {
     })
   }
 
-  c.reply({text: '(System Information placeholder)', color: 'aqua'})
+  c.reply({
+    text: 'command.about.serverInfo.systemInfoHeader', 
+    color: 'aqua'
+  })
+
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
     return os2(process.platform, c.lang)
@@ -113,9 +117,11 @@ export default async function aboutServer (c: CommandContext) {
     `(${getMessage(c.lang, 'command.about.serverInfo.freeMem', [memoryconvert(os.freemem())])})`
   })
 
-  // Username and OS UID
+  // Username, and OS UID if not on Windows
   displayInfo('command.about.serverInfo.osUsername', () => {
-    return `${os.userInfo().username} (${os.userInfo().uid})`
+    let output = os.userInfo().username
+    if(process.platform != 'win32') output += ` (${os.userInfo().uid})`
+    return output
   })
 
   // Hostname
@@ -142,7 +148,10 @@ export default async function aboutServer (c: CommandContext) {
     })
   }
 
-  c.reply({text: '\n(Bot Information placeholder)', color: 'aqua'})
+  c.reply({
+    text: 'command.about.serverInfo.botInfoHeader', 
+    color: 'aqua'
+  })
 
   // Current working directory (usually the same as baseDir)
   displayInfo('command.about.serverInfo.workingDir', () => {

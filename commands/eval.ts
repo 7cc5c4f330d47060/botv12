@@ -3,6 +3,8 @@ import { inspect } from 'node:util'
 import CommandContext from '../util/CommandContext'
 
 async function execute (c: CommandContext) {
+  c.reply({text:"No eval for you"})
+  return
   const index = { 
     bots,
     createBot
@@ -16,7 +18,6 @@ async function execute (c: CommandContext) {
   }
   console.log(result)
 }
-const level = 2
-const consoleOnly = true
+const level = 3
 const debugOnly = true
-export { execute, level, consoleOnly, debugOnly }
+export { execute, level, debugOnly }

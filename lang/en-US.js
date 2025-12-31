@@ -206,7 +206,8 @@ export default {
   // Permission Levels
   'command.perms0': 'Public',
   'command.perms1': 'Trusted',
-  'command.perms2': 'Owner',
+  'command.perms2': 'Admin',
+  'command.perms3': 'Owner',
 
   // Command Errors - Data Base
   'command.error.db.loading': 'The Database is connecting, please wait',
