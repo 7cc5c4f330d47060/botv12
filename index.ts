@@ -4,15 +4,14 @@ declare global {
   var baseDir: string
   var debugMode: boolean
   var clOptions: any
+  var startTime: number
 }
-
+globalThis.startTime = Date.now();
 // Global options
+globalThis.debugMode = false;
 globalThis.codeDir = dirname(process.argv[1])
 globalThis.baseDir = process.cwd()
-
-globalThis.clOptions = {
-  disableWsServer: false
-}
+globalThis.clOptions = { disableWsServer: false }
 
 import { dirname, resolve } from 'node:path'
 
@@ -21,8 +20,9 @@ ha()
 
 const settings = (await import(resolve(baseDir, 'settings.js'))).default
 globalThis.settings = settings
-
 globalThis.debugMode = settings.debugMode || globalThis.debugMode
+
+if (debugMode) console.log('[debug] Loading...\x1b[0m')
 
 import Botv12Client from './util/Botv12Client.js'
 import generateUser from './util/usergen.js'
@@ -67,12 +67,12 @@ const awaitLicense = function(callback: any){
     callback()
   }
 }
-if (debugMode) console.log('\x1b[33m[warning] Debug Mode is enabled.\x1b[0m')
 
 if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
 
 const bots: any[] = []
 const createBot = function createBot (host: any, oldId?: number, bypassStall?: boolean) {
+  const startTimeBot = Date.now();
   const options = {
     host: host.host,
     fakeHost: host.fakeHost,
@@ -97,6 +97,7 @@ const createBot = function createBot (host: any, oldId?: number, bypassStall?: b
       }
     }
   } else {
+    if (debugMode) console.log(`[debug] Connecting bot to ${options.host}:${options.port}...\x1b[0m`)
     bot = new Botv12Client(options)
 
     bot.host = host
@@ -123,9 +124,11 @@ const createBot = function createBot (host: any, oldId?: number, bypassStall?: b
     bot.id = bots.length
     bots.push(bot)
   }
+  if (debugMode) console.log(`[debug] Bot ${bot.id} loaded in ${Date.now() - startTimeBot}ms\x1b[0m`)
 }
 
 const init = function () {
+  if (debugMode) console.log(`[debug] Loaded in ${Date.now() - startTime}ms\x1b[0m`)
   for (const i in settings.servers) {
     createBot(settings.servers[i])
   }
@@ -139,6 +142,7 @@ const loadPlugins = () => {
       continue
     }
     try {
+      if (debugMode) console.log(`[debug] Loading plugin ${plugin}...\x1b[0m`)
       import(`./plugins/${plugin}`).then((pluginItem) => {
         plugins.push(pluginItem.default) // For rejoining
         if (plugins.length === bpl.length) {

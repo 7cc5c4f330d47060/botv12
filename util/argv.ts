@@ -10,7 +10,8 @@ function handleHelp() {
   process.exit(1)
 }
 export default function ha(){
-  const argv = process.argv;
+  const argv: string[] = [];
+  for(const item of process.argv) argv.push(item)
   argv.splice(0,2)
   let max = argv.length
   for(let i = 0; i < max; i++){
