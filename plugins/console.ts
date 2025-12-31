@@ -13,7 +13,7 @@ const consoleBotStub = {
     host: 'bot console',
     port: 25565
   },
-  commandCore: { tellraw: (_unused: string, data: string) => console.log(parse3(data, 'none'))}
+  commandCore: { tellraw: (_unused: string, data: string) => console.log(parse3(data, settings.terminalMode))}
 }
 const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as

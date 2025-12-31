@@ -1,5 +1,6 @@
 // The development mode in english is always capitalized as "Debug Mode".
-// This comes from command.disabled.debugOnly, the first string added related to it.
+// This comes from command.disabled.debugOnly, the first string added related to it,
+// and because the configuration calls it "debugMode".
 export default {
   // Console message types
   'console.chat.player': 'player',
@@ -94,6 +95,8 @@ export default {
   'command.about.serverInfo.os.android.model': 'Device model',
   'command.about.serverInfo.botName': 'Bot name',
   'command.about.serverInfo.botVer': 'Bot version',
+  'command.about.serverInfo.cmdLine': 'Command line arguments',
+  'command.about.serverInfo.debugMode': 'Debug Mode status',
   'command.about.serverList.hidden': ' (hidden)',
   'command.about.serverListItem': 'Server %s - %s%s',
   'command.cloop.error.tooShort': 'Command loops must have a rate above 20ms.',
@@ -196,7 +199,6 @@ export default {
   'command.disabled.local': 'This command has been disabled on this server.',
   'command.disabled.noConsole': 'This command cannot be run from the console.',
   'command.disabled.consoleOnly': 'This command must be run from the console.',
-  'command.disabled.consoleOnly.noWs': 'This command must be run from the console. The web panel is not sufficient.',
   'command.disabled.debugOnly': 'This command must be run with Debug Mode enabled.',
   'command.disabled.chipmunkmod': 'This command cannot be run using a custom chat format.',
   'command.disabled.cli': 'This command has been disabled with a command-line option.',
@@ -221,5 +223,7 @@ export default {
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
   'selfcare.prefix': 'Prefix',
   'debug.commandFinished': 'Command successfully executed in %sms',
-  'downloader.tooLarge': 'File is too large (max file size: 16MiB)'
+  'downloader.tooLarge': 'File is too large (max file size: 16MiB)',
+  'bf.true1': 'Enabled',
+  'bf.false1': 'Disabled'
 }

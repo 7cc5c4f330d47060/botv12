@@ -43,13 +43,13 @@ const os2 = function (o2: string, lang: string) {
     }
     case 'darwin':{
       try {
-        const osrelease = execSync('sw_vers').toString('utf8').split('\n')
-        const osrelease2: any = {}
-        for (const item of osrelease) {
+        const swvers = execSync('sw_vers').toString('utf8').split('\n')
+        const swvers2: any = {}
+        for (const item of swvers) {
           if (!item.includes(':\t')) continue
-          osrelease2[item.split(':\t')[0]] = item.split(':\t')[1]
+          swvers2[item.split(':\t')[0]] = item.split(':\t')[1]
         }
-        return getMessage(lang, '%s %s (%s)', [osrelease2.ProductName, osrelease2.ProductVersion, osrelease2.BuildVersion])
+        return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
       } catch (e) {
         return getMessage(lang, 'command.about.serverInfo.os.macos')
       }
@@ -76,14 +76,12 @@ export default async function aboutServer (c: CommandContext) {
         {
           text: getMessage(c.lang, name)
         },
-        {
-          text: thisItem,
-          copyable: true
-        }
+        thisItem
       ]
     })
   }
 
+  c.reply({text: '(System Information placeholder)', color: 'aqua'})
   // Operating system
   displayInfo('command.about.serverInfo.os', () => {
     return os2(process.platform, c.lang)
@@ -97,27 +95,25 @@ export default async function aboutServer (c: CommandContext) {
     })
   }
 
-  // Processor
+  // Processor, if it can be determined through Node.js
   if (os.cpus()[0]) {
     displayInfo('command.about.serverInfo.processor', () => {
       return os.cpus()[0].model
     })
   }
 
-  if (os.cpus()[0]) {
-    // Processor architecture
-    displayInfo('command.about.serverInfo.arch', () => {
-      return os.machine()
-    })
-  }
+  // Processor architecture
+  displayInfo('command.about.serverInfo.arch', () => {
+    return os.machine()
+  })
 
-  // System memory (used)
+  // System memory
   displayInfo('command.about.serverInfo.usedMem', () => {
     return `${memoryconvert(os.totalmem() - os.freemem())} / ${memoryconvert(os.totalmem())} ` +
     `(${getMessage(c.lang, 'command.about.serverInfo.freeMem', [memoryconvert(os.freemem())])})`
   })
 
-  // Username and UID
+  // Username and OS UID
   displayInfo('command.about.serverInfo.osUsername', () => {
     return `${os.userInfo().username} (${os.userInfo().uid})`
   })
@@ -125,26 +121,6 @@ export default async function aboutServer (c: CommandContext) {
   // Hostname
   displayInfo('command.about.serverInfo.hostName', () => {
     return os.hostname()
-  })
-
-  // Current working directory (also baseDir)
-  displayInfo('command.about.serverInfo.workingDir', () => {
-    return process.cwd()
-  })
-
-  // Base directory - directory with TypeScript code, language data, settings, etc. in it
-  displayInfo('command.about.serverInfo.baseDir', () => {
-    return baseDir
-  })
-
-  // Directory with code in it
-  displayInfo('command.about.serverInfo.codeDir', () => {
-    return codeDir
-  })
-
-  // Command line (process.argv)
-  displayInfo('command.about.serverInfo.cmdLine', () => {
-    return process.argv.slice(2)
   })
 
   // Bot uptime
@@ -165,4 +141,31 @@ export default async function aboutServer (c: CommandContext) {
       return `${brand} ${model}`
     })
   }
+
+  c.reply({text: '\n(Bot Information placeholder)', color: 'aqua'})
+
+  // Current working directory (usually the same as baseDir)
+  displayInfo('command.about.serverInfo.workingDir', () => {
+    return process.cwd()
+  })
+
+  // Base directory - directory with TypeScript code, language data, settings, etc. in it
+  displayInfo('command.about.serverInfo.baseDir', () => {
+    return baseDir
+  })
+
+  // Directory with compiled JavaScript code in it
+  displayInfo('command.about.serverInfo.codeDir', () => {
+    return codeDir
+  })
+
+  // Command line (process.argv)
+  displayInfo('command.about.serverInfo.cmdLine', () => {
+    return process.argv.join(' ')
+  })
+
+  // Debug Mode Status
+  displayInfo('command.about.serverInfo.debugMode', () => {
+    return {text: `bf.${debugMode}1`, parseLang: true}
+  })
 }
