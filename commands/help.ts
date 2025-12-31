@@ -35,7 +35,7 @@ function printHelp (c: CommandContext) {
   }
 
   const permListFormat: any[] = []
-  for (let i = 0; i <= 2; i++) {
+  for (let i = 0; i <= 3; i++) {
     permListFormat.push({
       text: `command.perms${i}`,
       parseLang: true,

@@ -3,10 +3,10 @@ export default {
   version_mc: '1.21.8', // Minecraft version to connect with
   defaultLang: 'en-US', // Default language
   /*
-    Insert the trusted key (keyTrusted) and owner key (keyOwner) here. Both of these values should
-    be strings, and they should not be identical. Do not tell anyone the keys unless you trust them,
-    as they can be used to get admin access to the bot, and (in the case of the owner key) access to
-    your computer.
+    Insert the hash keys (keyTrusted, keyAdmin and keyOwner) here. All of these values should be
+    strings, and none of them should be identical. Do not tell anyone the keys unless you trust
+    them, as they can be used to get admin access to the bot, and (in the case of the owner key)
+    access to your computer.
   */
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.

@@ -68,7 +68,8 @@ const awaitLicense = function(callback: any){
   }
 }
 
-if (settings.keyTrusted === undefined || settings.keyOwner === undefined) process.exit(1)
+if (settings.keyTrusted === undefined || settings.keyAdmin === undefined || 
+  settings.keyOwner === undefined) process.exit(1)
 
 const bots: any[] = []
 const createBot = function createBot (host: any, oldId?: number, bypassStall?: boolean) {
