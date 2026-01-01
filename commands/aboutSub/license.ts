@@ -15,36 +15,22 @@ export default async function license (c: CommandContext) {
       font: 'uniform'
     })
   }
-  if(startIndex < changeSize){
-    c.reply({
-      text: 'textReader.nextPage', 
-      parseLang: true, 
-      command: `${c.prefix}about license ${startIndex + changeSize}`
-    })
-  } else if(startIndex + changeSize > licenseFile.length) {
-    c.reply({
-      text: 'textReader.lastPage', 
-      parseLang: true, 
-      command: `${c.prefix}about license ${startIndex - changeSize}`
-    })
-  } else {
-    c.reply({
-      text: '%s | %s',
-      color: '#aaaaaa',
-      with: [
-        {
-          text: 'textReader.lastPage',
-          parseLang: true,
-          command: `${c.prefix}about license ${startIndex - changeSize}`,
-          color: 'white'
-        },
-        {
-          text: 'textReader.nextPage',
-          parseLang: true,
-          command: `${c.prefix}about license ${startIndex + changeSize}`,
-          color: 'white'
-        }
-      ]
-    })
-  }
+  c.reply({
+    text: '%s | %s',
+    color: '#aaaaaa',
+    with: [
+      {
+        text: 'textReader.lastPage',
+        parseLang: true,
+        command: `${c.prefix}about license ${startIndex - changeSize}`,
+        color: startIndex < changeSize ? 'dark_gray' : 'white'
+      },
+      {
+        text: 'textReader.nextPage',
+        parseLang: true,
+        command: `${c.prefix}about license ${startIndex + changeSize}`,
+        color:  startIndex + changeSize > licenseFile.length ? 'dark_gray' : 'white'
+      }
+    ]
+  })
 }
