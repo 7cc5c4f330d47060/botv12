@@ -1,6 +1,6 @@
-# owobot
+# botvX
 
-owobot is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
+ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones. It has many of the features that you would expect in a modern Kaboom bot:
 
 - commands (obviously)
 - a self care system
