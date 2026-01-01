@@ -64,6 +64,7 @@ export default {
   // Command Strings
   'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones\n',
   'command.about.versionCmd.generic': '%s version: %s',
+  'command.about.versionCmd.legacy': 'The version command will soon be merged into serverinfo.',
   'command.about.sourceCode': 'Source code: %s',
   'command.about.sourceCodeFork': 'Original source code: %s',
   'command.about.copyright': 'Copyright © %s %s',
@@ -73,8 +74,6 @@ export default {
   'command.about.serverInfo.os.freebsd': 'FreeBSD',
   'command.about.serverInfo.os.openbsd': 'OpenBSD %s',
   'command.about.serverInfo.os.linux': 'Linux',
-  'command.about.serverInfo.os.macos': 'macOS',
-  'command.about.serverInfo.os.macos_old': 'OS X',
   'command.about.serverInfo.os': 'Operating system',
   'command.about.serverInfo.kernelVer': 'Kernel version',
   'command.about.serverInfo.processor': 'CPU',

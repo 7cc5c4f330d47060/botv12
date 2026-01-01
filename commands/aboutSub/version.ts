@@ -30,6 +30,10 @@ exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
 })
 
 export default async function displayVersions (c: CommandContext) {
+  c.reply({
+    text: 'command.about.versionCmd.legacy',
+    parseLang: true
+  })
   if (dependencies.length === 0) return
   for (const item of dependencies) {
     c.reply({
