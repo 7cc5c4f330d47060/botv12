@@ -1,7 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const languages: any = {}
+const languages: Record<string, Record<string, string>> = {}
 const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
 
 const loadplug = () => {
@@ -19,7 +19,7 @@ const loadplug = () => {
 }
 loadplug()
 
-const getMessage = function (l: string, msg: string, with2?: any[]) {
+const getMessage = function (l: string, msg: string, with2?: string[]) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l] && languages[l][message] !== undefined) {
     message = languages[l][message].replace(/%%/g, '\ue123')

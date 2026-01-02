@@ -1,15 +1,27 @@
 import { getMessage } from './lang.js'
 import uuidToInt from './uuidtoint.js'
-import version from '../version.js'
-export default function build (text: any, colors: any, lang: string, botuuid: string) {
+
+interface TextFormat {
+  text?: string
+  color?: string
+  parseLang?: boolean
+  copyable?: boolean
+  linked?: boolean
+  command?: string
+  mcCommand?: string
+  hover?: TextFormat
+  with?: (TextFormat | string)[]
+  font?: string
+}
+
+export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
+  if(typeof text == 'string') return { text }
   const json: any = {}
   let textContent = ''
 
   if (typeof text.text === 'string') {
     textContent = text.text
     if (text.color) json.color = text.color
-  } else {
-    textContent = text + ''
   }
 
   if (text.parseLang) {
@@ -27,10 +39,6 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
         text: getMessage(lang, 'copyText')
       }
     }
-  }
-
-  if (text.botInfo) {
-    textContent = version[text.botInfo]
   }
 
   if (text.linked) {

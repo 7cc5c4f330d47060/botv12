@@ -55,7 +55,7 @@ export default function load (b: Botv12Client) {
     }
 
     // Block ChipmunkMod Format in the trusted commands
-    if (commandItem && commandItem.level !== undefined && subtype !== 'generic_player') {
+    if (commandItem && commandItem.level > 0 && subtype !== 'generic_player') {
       b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
       })
