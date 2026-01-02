@@ -12,7 +12,6 @@ for (const plugin of bpl) {
   }
   try {
     import(`../commands/${plugin}`).then((pluginItem: {default: new () => Command}) => {
-      console.log(pluginItem)
       registry.register(new pluginItem.default())
     })
   } catch (e) { console.log(e) }
