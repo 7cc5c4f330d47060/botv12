@@ -89,7 +89,7 @@ export default function load (b: Botv12Client) {
           context.reply({
             text: 'debug.commandFinished',
             parseLang: true,
-            with: [timeSpent]
+            with: [timeSpent + ""]
           })
         }
       } catch (e: any) {
