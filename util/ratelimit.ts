@@ -1,4 +1,4 @@
-const limits: any = {}
+const limits: Record<string, Rl> = {}
 
 class Rl {
   start: number

@@ -14,7 +14,12 @@ import version from '../version.js'
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
 
-const calculateNote = (event: any, program: any) => {
+interface NoteEvent {
+  mcNote?: string
+  noteNumber: number
+}
+
+const calculateNote = (event: NoteEvent, program: (number | string)) => {
   const note = event.noteNumber
   if (program === 'nbs') {
     return {

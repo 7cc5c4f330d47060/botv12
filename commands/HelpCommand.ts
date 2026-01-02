@@ -1,8 +1,13 @@
+import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
 import registry from '../util/commands.js'
 import { getMessage } from '../util/lang.js'
 
-const sortHelp = function sortHelp (c1: any, c2: any) {
+interface Command2 {
+  name: string
+  level: number
+}
+const sortHelp = function sortHelp (c1: Command2, c2: Command2) {
   const level1 = c1.level ? c1.level : 0
   const level2 = c2.level ? c2.level : 0
   return level1 - level2
@@ -11,7 +16,7 @@ const sortHelp = function sortHelp (c1: any, c2: any) {
 function printHelp (c: CommandContext) {
   const cmds = registry.listCommands()
   const keys = Object.keys(cmds).sort()
-  const commands: any[] = []
+  const commands: Command2[] = []
   for (const key of keys) {
     commands.push({
       name: key,
@@ -19,7 +24,7 @@ function printHelp (c: CommandContext) {
     })
   }
   const sortedCommands = commands.sort(sortHelp)
-  const commandList: any[] = []
+  const commandList: { text: string, color: string }[] = []
 
   for (const cmd of sortedCommands) {
     let cmdColor
@@ -34,7 +39,7 @@ function printHelp (c: CommandContext) {
     })
   }
 
-  const permListFormat: any[] = []
+  const permListFormat: ( { text: string, parseLang: true, color: string } | string )[] = []
   for (let i = 0; i <= 3; i++) {
     permListFormat.push({
       text: `command.perms${i}`,
@@ -62,7 +67,7 @@ function printHelp (c: CommandContext) {
 }
 
 function printCmdHelp (c: CommandContext) {
-  let cmd
+  let cmd = ''
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
   const cmdItem = registry.getCommand(cmd)
   if (!cmdItem) {
@@ -89,7 +94,7 @@ function printCmdHelp (c: CommandContext) {
     ]
   })
   if (cmdItem.aliases) {
-    const aliasList: any[] = []
+    const aliasList: { text: string }[] = []
     for (const item of cmdItem.aliases) {
       if (aliasList.length > 0) {
         aliasList.push({
@@ -124,14 +129,17 @@ function printCmdHelp (c: CommandContext) {
   })
 }
 
-async function execute (c: CommandContext) {
-  if (c.args.length > 0) {
-    printCmdHelp(c)
-  } else {
-    printHelp(c)
+export default class HelpCommand extends Command {
+  constructor () {
+    super()
+    this.name = "help"
+    this.execute = async (c: CommandContext) => {
+      if (c.args.length > 0) {
+        printCmdHelp(c)
+      } else {
+        printHelp(c)
+      }
+    }
+    this.aliases = ['heko'] // Parker2991 request
   }
 }
-const aliases = [
-  'heko' // Parker2991 request
-]
-export { execute, aliases }

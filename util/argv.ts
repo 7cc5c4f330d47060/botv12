@@ -25,7 +25,7 @@ export default function ha(){
       clOptions.disableNetMsg = true
     } else if (argv[0] == '--basedir') {
       baseDir = argv[1]
-      argv.splice(0, 1)[0]
+      argv.splice(0, 1)
     }
     argv.splice(0, 1)
   }

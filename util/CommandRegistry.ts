@@ -1,26 +1,19 @@
+import Command from "./Command.js"
+import UnknownCommand from "./UnknownCommand.js"
+
 export default class CommandRegistry {
-  _commands: any
-  _aliases: any
-  register: any
-  getCommand: any
-  listCommands: any
+  _commands: Record<string, Command>
+  _aliases: Record<string, string>
+  register: (command: Command) => void
+  getCommand: (name: string) => Command
+  listCommands: (includeHidden?: boolean) => Record<string, Command>
   constructor () {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
 
-    this.register = function (name: string, payload: any, level: number, consoleIndex: number, hidden: boolean, aliases: string[], consoleOnly: boolean, debugOnly: boolean, blockChipmunkMod: boolean) {
-      const command: any = {}
-      command.name = name
-      command.execute = payload
-      command.level = level
-      command.hidden = hidden
-      if (aliases) for (const alias of aliases) this._aliases[alias] = name
-      command.aliases = aliases
-      command.consoleIndex = consoleIndex
-      command.consoleOnly = consoleOnly
-      command.debugOnly = debugOnly
-      command.blockChipmunkMod = blockChipmunkMod
-      this._commands[name] = command
+    this.register = function (command: Command) {
+
+      this._commands[command.name] = command
     }
 
     this.getCommand = function (name: string) {
@@ -30,12 +23,12 @@ export default class CommandRegistry {
       if (this._aliases[name]) {
         return this._commands[this._aliases[name]]
       }
-      return false
+      return new UnknownCommand()
     }
 
-    this.listCommands = function (includeHidden: boolean) {
+    this.listCommands = function (includeHidden?: boolean) {
       if (includeHidden) return this._commands
-      const list: any = {}
+      const list: Record<string, Command> = {}
       for (const item in this._commands) {
         if (!this._commands[item].hidden) list[item] = this._commands[item]
       }

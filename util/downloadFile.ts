@@ -1,12 +1,18 @@
 import { appendFileSync, existsSync, unlinkSync } from 'fs'
-import { get as getHttp } from 'http'
+import { get as getHttp, IncomingMessage } from 'http'
 import { get as getHttps } from 'https'
 
 // Download file from Internet. Will only initially support http & https.
-export default function download (url: string, location: string, cb: any) {
+export default function download (url: string, location: string, cb: (error?: string) => void) {
   let err
-  const httpCb = (res: any) => {
-    if (res.headers['content-length'] > 16777216 || typeof res.headers['content-length'] === 'undefined') {
+  const httpCb = (res: IncomingMessage) => {
+    if (typeof res.headers['content-length'] == 'undefined') {
+      err = 'unknownSize'
+      cb(err)
+      res.resume()
+      return
+    }
+    if (+res.headers['content-length'] > 16777216) {
       err = 'largeFile'
       cb(err)
       res.resume()

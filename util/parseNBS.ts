@@ -1,5 +1,5 @@
 // Read NBS file and convert it for use in plugins/musicPlayer.js.
-import { fromArrayBuffer, Layer } from '@nbsjs/core'
+import { fromArrayBuffer, Layer, SongInstruments } from '@nbsjs/core'
 const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.harp',
   'block.note_block.bass',
@@ -18,7 +18,7 @@ const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.banjo',
   'block.note_block.pling'
 ]
-function calculateNoteNbs (note: any, instruments: any): string {
+function calculateNoteNbs (note: number, instruments: SongInstruments): string | undefined {
   if (standardNotes[note]) return `minecraft:${standardNotes[note]}`
   else return instruments.all[note].name
 }

@@ -1,4 +1,4 @@
-import Botv12Client from "./Botv12Client";
+import Botv12Client from "./Botv12Client.js";
 
 export default class ChatParser {
   parse: any

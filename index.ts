@@ -6,6 +6,7 @@ declare global {
   var clOptions: any
   var startTime: number
 }
+
 globalThis.startTime = Date.now();
 // Global options
 globalThis.debugMode = false;
@@ -118,7 +119,6 @@ const createBot = function createBot (host: any, oldId?: number, bypassStall?: b
         clearInterval(bots[oldId].interval[i])
       }
     }
-    delete bots[oldId]
     bot.id = oldId
     bots[oldId] = bot
   } else {
@@ -135,7 +135,7 @@ const init = function () {
   }
 }
 
-const plugins: any[] = []
+const plugins: ((b: Botv12Client) => void)[] = []
 const loadPlugins = () => {
   const bpl = readdirSync(resolve(codeDir, 'plugins'))
   for (const plugin of bpl) {

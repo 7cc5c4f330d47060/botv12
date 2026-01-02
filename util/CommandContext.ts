@@ -14,7 +14,7 @@ export default class CommandContext {
   colors: any
   lang: string
   verify: number
-  bot: any
+  bot: Botv12Client
   cancel: boolean
   rewriteCommand: any
 

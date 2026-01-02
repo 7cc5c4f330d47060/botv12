@@ -1,11 +1,16 @@
 import Botv12Client from '../util/Botv12Client.js'
 import uuidToInt from '../util/uuidtoint.js'
+interface FilteredPlayer {
+  username: string
+  uuid: string
+  method: string
+}
 export default function load (b: Botv12Client) {
   b.filter = {}
   b.filter.filteredPlayers = []
 
   b.interval.deopFiltered = setInterval(() => {
-    b.filter.filteredPlayers.forEach((item: any) => {
+    b.filter.filteredPlayers.forEach((item: FilteredPlayer) => {
       if (b.playerInfo.players[item.uuid] && b.playerInfo.players[item.uuid].here) {
         if(item.method == 'legacy'){
           b.commandCore.ccq.push(`/deop @a[nbt={UUID:[I;${uuidToInt(item.uuid)}]}]`)
@@ -24,7 +29,7 @@ export default function load (b: Botv12Client) {
   }
   b.filter.removeFilter = function (string: string) {
     let index = -1
-    b.filter.filteredPlayers.forEach((item: any, index2: number) => {
+    b.filter.filteredPlayers.forEach((item: FilteredPlayer, index2: number) => {
       if (item.uuid === string || item.username === string) {
         console.log(index2)
         index = index2
@@ -36,7 +41,7 @@ export default function load (b: Botv12Client) {
   }
   b.filter.isFiltered = function (string: string) {
     let playerIsFiltered = false
-    b.filter.filteredPlayers.forEach((item: any) => {
+    b.filter.filteredPlayers.forEach((item: FilteredPlayer) => {
       if (item.uuid === string || item.username === string) {
         playerIsFiltered = true
       }

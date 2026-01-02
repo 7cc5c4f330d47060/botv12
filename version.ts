@@ -1,4 +1,4 @@
-const version: any = {
+const version = {
   botName: 'botv12 Dev', // Name of the bot
   botVersion: '12.0.0-alpha.5', // Version of the bot. Different from package.json.
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
