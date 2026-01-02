@@ -5,9 +5,9 @@ export default function (cmd: string[], uuid: string) {
   const cmdWithoutHash: string = cmd.slice(0, cmd.length - 1).join(' ')
   const _dateString: string = Date.now().toString()
   const dateString: string = _dateString.slice(0, _dateString.length - 4)
-  const hashTrusted: string = `${settings.keyTrusted}:${uuid}:${cmdWithoutHash}:${dateString}`
-  const hashAdmin: string = `${settings.keyAdmin}:${uuid}:${cmdWithoutHash}:${dateString}`
-  const hashOwner: string = `${settings.keyOwner}:${uuid}:${cmdWithoutHash}:${dateString}`
+  const hashTrusted = `${settings.keyTrusted}:${uuid}:${cmdWithoutHash}:${dateString}`
+  const hashAdmin = `${settings.keyAdmin}:${uuid}:${cmdWithoutHash}:${dateString}`
+  const hashOwner = `${settings.keyOwner}:${uuid}:${cmdWithoutHash}:${dateString}`
 
   const hashPart: string = cmd[cmd.length - 1]
   const validhashT: string = createHash('sha256').update(hashTrusted).digest('hex')

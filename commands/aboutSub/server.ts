@@ -60,7 +60,7 @@ const os2 = function (o2: string, lang: string) {
 }
 
 export default async function aboutServer (c: CommandContext) {
-  const displayInfo = function (name: string, infoFunc: any) {
+  const displayInfo = function (name: string, infoFunc: () => any) {
     let thisItem
     try {
       thisItem = infoFunc()

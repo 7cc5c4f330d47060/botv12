@@ -41,7 +41,7 @@ function printHelp (c: CommandContext) {
       parseLang: true,
       color: c.colors[`perms${i}`]
     })
-    if (i !== 2) permListFormat.push(' ')
+    if (i !== 3) permListFormat.push(' ')
   }
 
   c.reply({
