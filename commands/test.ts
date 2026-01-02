@@ -20,11 +20,11 @@ async function execute (c: CommandContext) {
   c.reply(reply('command', c.command.slice(0, 1024)))
   //c.reply(reply('msgType', c.msgType))
   //c.reply(reply('msgSubtype', c.msgSubtype))
-  //c.reply(reply('prefix', c.prefix))
+  c.reply(reply('prefix', c.prefix))
   c.reply(reply('args', c.args.join(', ').slice(0, 1024)))
   c.reply(reply('verify', c.verify.toString()))
   //c.reply(reply('host', c.host))
   //c.reply(reply('port', c.port.toString()))
-  //c.reply(reply('lang', c.lang))
+  c.reply(reply('lang', c.lang))
 }
 export { execute }

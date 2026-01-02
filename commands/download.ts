@@ -38,7 +38,7 @@ async function execute (c: CommandContext) {
   // JavaScript code output
   // anything on .gitignore
 
-  let metadata: any = {
+  const metadata: any = {
     format: 1,
     hashes: {},
     dirList: [],

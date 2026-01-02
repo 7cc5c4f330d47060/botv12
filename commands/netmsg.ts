@@ -19,7 +19,7 @@ async function execute (c: CommandContext) {
     rl.start('netmsg', 2000)
   }
   
-  let msg = c.args.join(' ').slice(0, 512)
+  const msg = c.args.join(' ').slice(0, 512)
 
   const json = {
     text: '[%s] %s › %s',

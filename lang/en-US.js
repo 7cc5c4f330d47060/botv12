@@ -24,6 +24,8 @@ export default {
   // For commands with multiple usages, || seperates them. Usage should always start with space unless empty.
   'commands.about.usage': '',
   'commands.about.desc': 'About the bot',
+  'commands.bedrock.usage': ' <x1> <z1> <x2> <z2> [block]',
+  'commands.bedrock.desc': 'Refill bedrock in a specific area',
   'commands.cb.usage': ' <command>',
   'commands.cb.desc': 'Run a command in a command block',
   'commands.cloop.usage': ' add <rate> <command>|| remove <index>|| list|| clear',
@@ -98,6 +100,8 @@ export default {
   'command.about.serverInfo.debugMode': 'Debug Mode status',
   'command.about.serverList.hidden': ' (hidden)',
   'command.about.serverListItem': 'Server %s - %s%s',
+  'command.brRefill.oversized': 'Can not refill an area larger than 96x96 blocks',
+  'command.brRefill.success': 'Refilling area from %s, %s to %s, %s with bedrock and %s',
   'command.cloop.error.tooShort': 'Command loops must have a rate above 20ms.',
   'command.cloop.success.add': 'Added command loop with command %s and rate %s',
   'command.cloop.success.remove': 'Removed command loop %s',

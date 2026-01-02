@@ -3,8 +3,6 @@ import { inspect } from 'node:util'
 import CommandContext from '../util/CommandContext'
 
 async function execute (c: CommandContext) {
-  c.reply({text:"No eval for you"})
-  return
   const index = { 
     bots,
     createBot

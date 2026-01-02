@@ -15,7 +15,7 @@ export default function load (b: Botv12Client) {
     })
   }, 50)
 
-  b.filter.addFilter = function (uuid: string, username: string, method: string = 'legacy') {
+  b.filter.addFilter = function (uuid: string, username: string, method = 'legacy') {
     b.filter.filteredPlayers.push({
       username,
       uuid,
