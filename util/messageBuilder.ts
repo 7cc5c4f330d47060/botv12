@@ -1,3 +1,4 @@
+import JsonFormat from './JsonFormat.js'
 import { getMessage } from './lang.js'
 import uuidToInt from './uuidtoint.js'
 
@@ -16,7 +17,7 @@ interface TextFormat {
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
   if(typeof text == 'string') return { text }
-  const json: any = {}
+  const json: JsonFormat = {}
   let textContent = ''
 
   if (typeof text.text === 'string') {

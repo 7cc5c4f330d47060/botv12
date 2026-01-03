@@ -51,9 +51,9 @@ const instruments = {
   }
 }
 class ImItem {
-  instruments: any
-  constructor (...args: any[]) {
-    this.instruments = []
+  instruments: Record<string, {center: number, note: string}>
+  constructor (...args: {center: number, note: string}[]) {
+    this.instruments = {}
     for (const arg of args) {
       this.instruments[(arg.center - 12) + '-' + (arg.center + 12)] = arg
     }
@@ -68,7 +68,7 @@ class PmItem {
   }
 }
 
-const instrumentMap: any = [
+const instrumentMap: ImItem[] = [
   new ImItem(instruments.harp, instruments.bass, instruments.bell),
   new ImItem(instruments.harp, instruments.bass, instruments.bell),
   new ImItem(instruments.bit, instruments.didgeridoo, instruments.bell),
@@ -205,7 +205,7 @@ const instrumentMap: any = [
   new ImItem(instruments.ironXylophone, instruments.bass, instruments.xylophone)
 ]
 
-const percussionMap: any = [
+const percussionMap: PmItem[] = [
   new PmItem(-2, 'basedrum'),
   new PmItem(-6, 'basedrum'),
   new PmItem(-6, 'hat'),

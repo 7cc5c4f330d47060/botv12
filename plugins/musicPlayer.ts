@@ -10,18 +10,15 @@ import parseNBS from '../util/parseNBS.js'
 import download from '../util/downloadFile.js'
 import Botv12Client from '../util/Botv12Client.js'
 import version from '../version.js'
+import Note from '../util/Note.js'
+import ParsedNote from '../util/ParsedNote.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 const tempPath = resolve(process.cwd(), 'temp')
 
-interface NoteEvent {
-  mcNote?: string
-  noteNumber: number
-}
-
-const calculateNote = (event: NoteEvent, program: (number | string)) => {
+const calculateNote = (event: {mcNote?: string, noteNumber: number}, program: number) => {
   const note = event.noteNumber
-  if (program === 'nbs') {
+  if (program === -1) {
     return {
       pitch: Math.round(1000000 * Math.pow(2, (note - 54) / 12)) / 1000000,
       note: event.mcNote
@@ -44,8 +41,8 @@ const calculateNote = (event: NoteEvent, program: (number | string)) => {
   }
 }
 
-const calculatePercussion = (event: any) => {
-  if (percussionMap[event.noteNumber - 35]) {
+const calculatePercussion = (event: ParsedNote) => {
+  if (event.noteNumber !== undefined && percussionMap[event.noteNumber - 35]) {
     return {
       pitch: Math.round(1000000 * Math.pow(2, percussionMap[event.noteNumber - 35].pitch / 12)) / 1000000,
       note: percussionMap[event.noteNumber - 35].note
@@ -59,6 +56,12 @@ const calculatePercussion = (event: any) => {
 
 export default function load (b: Botv12Client) {
   b.interval.advanceMusicBar = setInterval(() => {
+    if (!b.musicPlayer) return
+    if (!b.musicPlayer.bossBar) return
+    b.musicPlayer.time = b.musicPlayer.time ?? 0
+    b.musicPlayer.queues = b.musicPlayer.queues ?? []
+    b.musicPlayer.totalNotes = b.musicPlayer.totalNotes ?? 0
+    b.musicPlayer.length = b.musicPlayer.length ?? 0
     if (settings.disableMusicBar) return
     if (b.musicPlayer.playing) {
       b.musicPlayer.bossBar.setValue(Math.ceil(b.musicPlayer.time))
@@ -106,7 +109,7 @@ export default function load (b: Botv12Client) {
       })
       b.musicPlayer.bossBar.updatePlayers()
     } else { 
-      if(!b.musicPlayer.looping && b.musicPlayer.queue.length === 0){
+      if(!b.musicPlayer.looping && b.musicPlayer?.queue?.length === 0){
         b.musicPlayer.bossBar?.delete()
         delete b.musicPlayer.bossBar
       }
@@ -114,6 +117,8 @@ export default function load (b: Botv12Client) {
   }, 100)
 
   b.interval.advanceMusicQueue = setInterval(() => {
+    if(!b.musicPlayer?.queue) return
+    if(!b.musicPlayer?.downloadSong) return
     if (!b.musicPlayer.playing && b.musicPlayer.queue.length !== 0) {
       const queueItem = b.musicPlayer.queue.splice(0, 1)[0]
       b.musicPlayer.downloadSong(queueItem[0], queueItem[1])
@@ -138,12 +143,16 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.pitchShift = 0 // In semitones
   b.musicPlayer.speedShift = 1
   b.musicPlayer.volume = 1
+  b.musicPlayer.storedSong = Buffer.alloc(0)
 
   b.musicPlayer.on('songEnd', () => {
-    b.musicPlayer.stopSong(b.musicPlayer.looping, true)
+    if (!b.musicPlayer?.stopSong) return
+    if (b.musicPlayer.looping !== undefined) b.musicPlayer.stopSong(b.musicPlayer.looping, true)
     if (b.musicPlayer.looping) {
-      b.musicPlayer.playSong(b.musicPlayer.currentSong, b.musicPlayer.songName)
-    } else if (b.musicPlayer.queue.length === 0) {
+      if (b.musicPlayer.playSong) {
+        b.musicPlayer.playSong(b.musicPlayer.songName ?? "")
+      }
+    } else if (b.musicPlayer?.queue?.length === 0) {
       b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
         text: getMessage(settings.defaultLang, 'musicPlayer.finished')
       })
@@ -153,12 +162,26 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.downloadSong = (url: string, name: string) => {
     try {
       if (url.startsWith('file://')) {
-        let path
+        let path = ""
         if (existsSync(url.slice(7))) path = url.slice(7)
         else if (existsSync(url.slice(7) + '.nbs')) path = url.slice(7) + '.nbs'
         else if (existsSync(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
         else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
-        b.musicPlayer.playSong(path, name)
+
+        if (!path.startsWith(songPath) && !path.startsWith(tempPath)) {
+          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+            text: getMessage(settings.defaultLang, 'musicPlayer.bannedDir')
+          })
+          return
+        }
+        try {
+          b.musicPlayer.storedSong = readFileSync(path)
+        } catch (e){
+          
+        }
+        if (b.musicPlayer.playSong) b.musicPlayer.playSong(name)
+      } else if (url.startsWith('ram://')){
+        if (b.musicPlayer.playSong) b.musicPlayer.playSong(name)
       } else if (url.startsWith('http://') || url.startsWith('https://')) {
         b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
@@ -171,18 +194,23 @@ export default function load (b: Botv12Client) {
         } else {
           extension = 'mid'
         }
-        download(url, resolve(tempPath, `temp.${extension}`), (err: any) => {
+        download(url, resolve(tempPath, `temp.${extension}`), (err: string, output: Buffer) => {
           if (err === 'largeFile') {
             b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
               translate: getMessage(settings.defaultLang, 'downloader.tooLarge')
             })
+            return
           } else if (err) {
             b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
               text: err.toString()
             })
             console.error(err)
+          } else {
+            b.musicPlayer.storedSong = output
           }
-          b.musicPlayer.downloadSong(`file://${resolve(tempPath, `temp.${extension}`)}`, name)
+          if(b.musicPlayer.downloadSong) {
+            b.musicPlayer.downloadSong('ram://', name)
+          }
         })
       }
     } catch (e: any) {
@@ -193,13 +221,8 @@ export default function load (b: Botv12Client) {
     }
   }
 
-  b.musicPlayer.playSong = (location: string, name: string) => {
-    if (!location.startsWith(songPath) && !location.startsWith(tempPath)) {
-      b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-        text: getMessage(settings.defaultLang, 'musicPlayer.bannedDir')
-      })
-      return
-    }
+  b.musicPlayer.playSong = (name: string) => {
+    if(!b.musicPlayer) return
 
     if (b.musicPlayer.playing) {
       b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
@@ -211,18 +234,26 @@ export default function load (b: Botv12Client) {
     let longestDelta = 0
     let uspt = 0
     let file: any
-    const extension = location.split('.').reverse()[0].toLowerCase()
-    if (extension === 'mid' || extension === 'midi') {
-      file = parseMidi(readFileSync(location))
-    } else if (extension === 'nbs') {
-      file = parseNBS(readFileSync(location))
+    if(!b.musicPlayer.storedSong) return
+    try {
+      if(b.musicPlayer.storedSong.toString('latin1').slice(0,4).startsWith('MThd')){
+        file = parseMidi(b.musicPlayer.storedSong)
+      } else {
+        file = parseNBS(b.musicPlayer.storedSong)
+      }
+    } catch (e) {
+      console.log(e)
+      return
     }
 
     if (file.header.nbsLoopEnabled) {
       b.musicPlayer.nbsLoop = file.header.nbsLoopStart
       b.musicPlayer.useNbsLoop = true
     }
+    
     file.tracks.forEach((track: any, id: number) => {
+      if(!b.musicPlayer.queues) b.musicPlayer.queues = []
+      b.musicPlayer.totalNotes = b.musicPlayer.totalNotes ?? 0
       b.musicPlayer.queues[id] = []
       let program = 0
       let delta = 0
@@ -243,7 +274,7 @@ export default function load (b: Botv12Client) {
             delta = 0
           }
 
-          if (!(totalDelta < b.musicPlayer.startFrom && b.musicPlayer.useStartFrom) && !(totalDelta < b.musicPlayer.nbsLoop && b.musicPlayer.looping && !b.musicPlayer.useStartFrom)) {
+          if (!(totalDelta < (b.musicPlayer.startFrom ?? 0) && b.musicPlayer.useStartFrom) && !(totalDelta < (b.musicPlayer.nbsLoop ?? 0) && b.musicPlayer.looping && !b.musicPlayer.useStartFrom)) {
             b.musicPlayer.queues[id].push({
               noteNumber: event.noteNumber,
               channel: event.channel,
@@ -273,7 +304,8 @@ export default function load (b: Botv12Client) {
     if (b.musicPlayer.startFrom) b.musicPlayer.time = b.musicPlayer.startFrom
     b.musicPlayer.length = longestDelta
     b.musicPlayer.playing = true
-    b.musicPlayer.currentSong = location
+    //b.musicPlayer.currentSong = location
+    b.musicPlayer.speedShift = b.musicPlayer.speedShift ?? 0
     if (!settings.disableMusicBar) {
       b.musicPlayer.bossBar = new BossBar(b, 'musicbar', {
         translate: '%s',
@@ -296,10 +328,14 @@ export default function load (b: Botv12Client) {
         ]
       })
     }
-    b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
+    if(b.musicPlayer.advanceNotes){
+      b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
+    }
+    
   }
 
-  b.musicPlayer.stopSong = (looping: boolean, skip: boolean) => {
+  b.musicPlayer.stopSong = (looping?: boolean, skip?: boolean) => {
+    if(!b.musicPlayer) return
     b.musicPlayer.playing = false
     b.musicPlayer.queues = []
     if (!skip) b.musicPlayer.queue = []
@@ -319,20 +355,33 @@ export default function load (b: Botv12Client) {
   }
 
   b.musicPlayer.advanceNotes = () => {
+    if(!b.musicPlayer.queues) return
+    b.musicPlayer.time = b.musicPlayer.time ?? 0
+    b.musicPlayer.lastTime = b.musicPlayer.lastTime ?? 0
+    b.musicPlayer.length = b.musicPlayer.length ?? 0
+    b.musicPlayer.pitchShift = b.musicPlayer.pitchShift ?? 0
+    b.musicPlayer.speedShift = b.musicPlayer.speedShift ?? 0
+    b.musicPlayer.volume = b.musicPlayer.volume ?? 0
     if (b.musicPlayer.playing) {
       for (const queue of b.musicPlayer.queues) {
-        for (let i = 0; i < queue.length && queue[i].time < b.musicPlayer.time + 20; i++) {
+        let notesProcessed = 0
+        for (let i = 0; i < queue.length && (queue[i].time ?? 0) < b.musicPlayer.time + 20; i++) {
+
           let note
-          if (queue[i].channel === 9) note = calculatePercussion(queue[i])
-          else {
-            note = calculateNote({
-              noteNumber: queue[i].noteNumber + b.musicPlayer.pitchShift,
-              mcNote: queue[i].mcNote
-            }, queue[i].program)
+
+          if(notesProcessed <= 150){
+            if (queue[i].channel === 9) note = calculatePercussion(queue[i])
+            else {
+              note = calculateNote({
+                noteNumber: (queue[i].noteNumber ?? 0) + b.musicPlayer.pitchShift,
+                mcNote: queue[i].mcNote
+              }, queue[i].program)
+            }
+            b.commandCore.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${Math.min(note.pitch, 2)}`)
           }
-          b.commandCore.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${Math.min(note.pitch, 2)}`)
-          queue.splice(0, 1)
+          notesProcessed++
         }
+        queue.splice(0,notesProcessed)
       }
       b.musicPlayer.time += (Date.now() - b.musicPlayer.lastTime) * b.musicPlayer.speedShift
       b.musicPlayer.lastTime = Date.now()
@@ -345,6 +394,6 @@ export default function load (b: Botv12Client) {
 
   b.musicPlayer.setSpeed = (speed: number) => {
     if (b.interval.advanceNotes) clearInterval(b.interval.advanceNotes)
-    b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, speed)
+    if(b.musicPlayer.advanceNotes) b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, speed)
   }
 }

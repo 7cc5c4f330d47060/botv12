@@ -1,8 +1,10 @@
 import lang from './mc_lang.js'
 import consoleColors from './consoleColors.js'
+import ConsoleColorSetting from './ConsoleColorSetting.js'
+import JsonFormat from './JsonFormat.js'
 
 // List from https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-in-html
-const escapeHtml = (text: any) => {
+const escapeHtml = (text: string) => {
   return (text + "")
   .replaceAll("&","&amp;")
   .replaceAll(">","&gt;")
@@ -20,7 +22,7 @@ const process8bitColorChannel = (value: number) => {
   if (value < 235) return 4
   return 5
 }
-const hexColorParser = (color: string, mode: any) => {
+const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
   if (!mode.twentyFourBit.enabled || mode.twentyFourBit.bit === 4) { // Hex color parsing to the 4 bit mode has not been implemented yet
     return ''
   }
@@ -65,7 +67,7 @@ const hexColorParser = (color: string, mode: any) => {
   }
 }
 
-const processColor = (col: string, rcol: any, mode: any) => {
+const processColor = (col: string, rcol: string, mode: ConsoleColorSetting) => {
   let out
   if (col === 'reset') {
     out = rcol
@@ -79,14 +81,14 @@ const processColor = (col: string, rcol: any, mode: any) => {
   return out
 }
 
-const parse = function (_data: any, l = 0, resetColor = consoleColors.none.fourBit.reset, mode: any = consoleColors.none) {
+const parse = function (_data: JsonFormat | string | number, l = 0, resetColor = consoleColors.none.fourBit.reset, mode: ConsoleColorSetting = consoleColors.none) {
   if (l >= 8) {
     return ''
   }
   let data
   if (typeof _data === 'string') data = { text: _data, color: 'reset' }
   else if (typeof _data === 'number') data = { text: _data + '', color: 'reset' }
-  else if (_data.constructor === Array) data = { extra: _data, color: 'reset' }
+  //else if (_data.constructor === Array) data = { extra: _data, color: 'reset' }
   else if (_data['']) data = { text: _data[''], color: _data.color ?? 'reset' }
   else data = _data
 
@@ -115,7 +117,7 @@ const parse = function (_data: any, l = 0, resetColor = consoleColors.none.fourB
       trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
     }
     if (data.with) {
-      data.with.forEach((item: any, i: number) => {
+      data.with.forEach((item: string | JsonFormat, i: number) => {
         const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
         trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
         trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
@@ -135,9 +137,9 @@ const parse = function (_data: any, l = 0, resetColor = consoleColors.none.fourB
   
   return out
 }
-export default function parse2 (_data: any, modeString: string) {
+export default function parse2 (_data: JsonFormat | string, modeString: string) {
   try {
-    const mode: any = consoleColors[modeString]
+    const mode: ConsoleColorSetting = consoleColors[modeString]
     let resetColor = mode.fourBit.reset
     if(mode.useHtml) resetColor = `</span><span class="${resetColor}">`
     return parse(_data, 0, resetColor, mode)
