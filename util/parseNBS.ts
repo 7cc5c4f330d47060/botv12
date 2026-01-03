@@ -1,5 +1,14 @@
 // Read NBS file and convert it for use in plugins/musicPlayer.js.
 import { fromArrayBuffer, Layer, SongInstruments } from '@nbsjs/core'
+import Note from './Note'
+interface OutputFormat {
+  tracks: Note[][]
+  header: {
+    ticksPerBeat: number
+    nbsLoopEnabled: boolean
+    nbsLoopStart: number
+  }
+}
 const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.harp',
   'block.note_block.bass',
@@ -24,7 +33,7 @@ function calculateNoteNbs (note: number, instruments: SongInstruments): string |
 }
 export default function nbsReader (buffer: Buffer) {
   const nbs = fromArrayBuffer(new Uint8Array(buffer).buffer)
-  const output: any = {
+  const output: OutputFormat = {
     tracks: [],
     header: {
       ticksPerBeat: nbs.getTempo(),
@@ -42,7 +51,7 @@ export default function nbsReader (buffer: Buffer) {
       {
         type: 'programChange',
         deltaTime: 0,
-        programNumber: 'nbs'
+        programNumber: -1
       }
     ]
     const layerVolume = layer.volume

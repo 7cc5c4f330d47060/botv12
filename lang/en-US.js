@@ -227,7 +227,7 @@ export default {
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
   'selfcare.prefix': 'Prefix',
   'debug.commandFinished': 'Command successfully executed in %sms',
-  'downloader.tooLarge': 'File is too large (max file size: 16MiB)',
+  'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
   'bf.true1': 'Enabled',
   'bf.false1': 'Disabled'
 }

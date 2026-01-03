@@ -1,5 +1,6 @@
-import Botv12Client from "./Botv12Client"
+import Botv12Client from "./Botv12Client.js"
 import { randomBytes } from 'crypto'
+import JsonFormat from "./JsonFormat.js"
 
 export default class BossBar {
   name: string
@@ -13,7 +14,7 @@ export default class BossBar {
   updatePlayers: () => void
   delete: () => void
   setValue: (value: number) => void
-  setDisplay: (value: string) => void
+  setDisplay: (value: JsonFormat | string) => void
 
   constructor (b: Botv12Client, name: string, display: any, max: number, initialValue: number, style: string, color: string, players: string) {
     this.name = name
@@ -38,7 +39,7 @@ export default class BossBar {
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} value ${value}`)
     }
 
-    this.setDisplay = function (value) {
+    this.setDisplay = function (value: JsonFormat | string) {
       this.display = value
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
     }

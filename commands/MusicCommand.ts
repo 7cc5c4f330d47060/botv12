@@ -12,6 +12,7 @@ export default class MusicCommand extends Command {
     super()
     this.name = 'music'
     this.execute = async (c: CommandContext) => {
+      if(c.bot.musicPlayer?.queue === undefined) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {
@@ -27,10 +28,12 @@ export default class MusicCommand extends Command {
               version.botName
             ]
           })
-          if (!c.args[0].startsWith('http')) {
-            c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
-          } else {
+          if (c.args[0].startsWith('http://') || c.args[0].startsWith('https://')) {
             c.bot.musicPlayer.queue.push([c.args.join(' '), c.args.join(' ')])
+          } else if (c.args[0].startsWith('ram://')) {
+            c.bot.musicPlayer.queue.push([`ram://`, c.args.join(' ')])
+          } else {
+            c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
           }
           c.reply({
             text: 'command.music.addToQueue',
@@ -98,7 +101,7 @@ export default class MusicCommand extends Command {
             return
           }
           // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
-          c.bot.musicPlayer.stopSong()
+          if(c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong()
           c.reply({
             text: 'command.music.stop',
             parseLang: true
@@ -115,7 +118,7 @@ export default class MusicCommand extends Command {
             return
           }
           // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
-          c.bot.musicPlayer.stopSong(false, true)
+          if(c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong(false, true)
           c.reply({
             text: 'command.music.skip',
             parseLang: true
@@ -156,7 +159,6 @@ export default class MusicCommand extends Command {
           }
           c.bot.musicPlayer.pitchShift = +c.args[0]
           c.reply(c.bot.musicPlayer.pitchShift + '')
-          c.bot.musicPlayer.setSpeed(20 / +c.args[0])
           c.reply({
             text: 'command.music.pitchShiftSet',
             parseLang: true,
@@ -174,7 +176,9 @@ export default class MusicCommand extends Command {
             return
           }
           c.bot.musicPlayer.speedShift = +c.args[0]
-          c.bot.musicPlayer.setSpeed(20 / +c.args[0])
+          if(c.bot.musicPlayer.setSpeed){
+            c.bot.musicPlayer.setSpeed(20 / +c.args[0])
+          }
           c.reply({
             text: 'command.music.speedSet',
             parseLang: true,
