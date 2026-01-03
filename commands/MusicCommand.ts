@@ -57,7 +57,7 @@ export default class MusicCommand extends Command {
               list.push({
                 text: `${item}/`,
                 color: Number.isInteger(list.length / 2) ? 'green' : 'dark_green',
-                command: `${c.prefix}${c.cmdName} list ${resolve(file, item)}`,
+                command: `${c.prefix}${c.cmdName} list ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openDir',
                   parseLang: true,
@@ -68,7 +68,7 @@ export default class MusicCommand extends Command {
               fileList.push({
                 text: `${item}`,
                 color: Number.isInteger(fileList.length / 2) ? 'white' : 'gray',
-                command: `${c.prefix}${c.cmdName} play ${resolve(file, item)}`,
+                command: `${c.prefix}${c.cmdName} play ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openFile',
                   parseLang: true,

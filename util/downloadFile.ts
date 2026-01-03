@@ -3,7 +3,7 @@ import { get as getHttp, IncomingMessage } from 'http'
 import { get as getHttps } from 'https'
 
 // Download file from Internet to RAM. Will only initially support http & https.
-export default function download (url: string, location: string, cb: (error: string, output: Buffer) => void) {
+export default function download (url: string, cb: (error: string, output: Buffer) => void) {
   let err: string
   let output = Buffer.alloc(0)
   const httpCb = (res: IncomingMessage) => {

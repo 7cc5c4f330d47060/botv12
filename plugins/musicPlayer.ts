@@ -14,7 +14,6 @@ import Note from '../util/Note.js'
 import ParsedNote from '../util/ParsedNote.js'
 
 const songPath = resolve(process.cwd(), 'songs')
-const tempPath = resolve(process.cwd(), 'temp')
 
 const calculateNote = (event: {mcNote?: string, noteNumber: number}, program: number) => {
   const note = event.noteNumber
@@ -167,10 +166,16 @@ export default function load (b: Botv12Client) {
         else if (existsSync(url.slice(7) + '.nbs')) path = url.slice(7) + '.nbs'
         else if (existsSync(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
         else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
-
-        if (!path.startsWith(songPath) && !path.startsWith(tempPath)) {
+        else {
           b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-            text: getMessage(settings.defaultLang, 'musicPlayer.bannedDir')
+            text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
+          })
+          return
+        }
+        
+        if (!path.startsWith(songPath)) {
+          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+            text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
           })
           return
         }
@@ -194,7 +199,7 @@ export default function load (b: Botv12Client) {
         } else {
           extension = 'mid'
         }
-        download(url, resolve(tempPath, `temp.${extension}`), (err: string, output: Buffer) => {
+        download(url, (err: string, output: Buffer) => {
           if (err === 'largeFile') {
             b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
               translate: getMessage(settings.defaultLang, 'downloader.tooLarge')

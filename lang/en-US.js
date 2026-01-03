@@ -181,6 +181,7 @@ export default {
   'musicPlayer.nowPlaying': 'Now playing %s',
   'musicPlayer.downloading': 'Downloading %s',
   'musicPlayer.bannedDir': 'This directory is outside of the allowed area',
+  'musicPlayer.notFound': 'File not found',
   'musicPlayer.alreadyPlaying': 'Another song is already playing',
   'musicPlayer.finished': 'Finished playing queue',
 
