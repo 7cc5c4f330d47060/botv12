@@ -6,6 +6,21 @@ import { readdirSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
 
+const parseOSRelease = (): Record<string, string> => {
+  if (readdirSync('/etc').includes('os-release')) {
+    const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
+    const osrelease2: Record<string, string> = {}
+    for (const item of osrelease) {
+      if (!item.includes('=')) continue
+      let osrvalue = item.split('=')[1]
+      if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
+      osrelease2[item.split('=')[0]] = osrvalue
+    }
+    return osrelease2
+  }
+  throw new Error()
+}
+
 const os2 = function (o2: string, lang: string) {
   switch (o2) {
     case 'win32':
@@ -20,22 +35,14 @@ const os2 = function (o2: string, lang: string) {
     }
     case 'linux':
     case 'freebsd':{
-      if (readdirSync('/etc').includes('os-release')) {
-        const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
-        const osrelease2: any = {}
-        for (const item of osrelease) {
-          if (!item.includes('=')) continue
-          let osrvalue = item.split('=')[1]
-          if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
-          osrelease2[item.split('=')[0]] = osrvalue
-        }
-
+      const osrelease2 = parseOSRelease()
+      try {
         if (osrelease2.PRETTY_NAME) {
           return getMessage(lang, '%s', [osrelease2.PRETTY_NAME])
         } else {
           return getMessage(lang, `command.about.serverInfo.os.${o2}`)
         }
-      } else {
+      } catch (e) {
         return getMessage(lang, `command.about.serverInfo.os.${o2}`)
       }
     }
@@ -73,6 +80,7 @@ export default class ServerInfoSubcommand extends Command {
           console.error(e)
           thisItem = 'Error! (check console)'
         }
+        if (thisItem.length === 0) return
 
         c.reply({
           text: 'listItem',
@@ -87,13 +95,27 @@ export default class ServerInfoSubcommand extends Command {
       }
 
       c.reply({
-        text: 'command.about.serverInfo.systemInfoHeader', 
-        color: 'aqua'
+        text: 'command.about.serverInfo.systemInfoHeader',
+        parseLang: true,
+        color: 'aqua' // Aqua is temporary until colors are re-added to settings
       })
 
       // Operating system
       displayInfo('command.about.serverInfo.os', () => {
         return os2(process.platform, c.lang)
+      })
+
+      // Operating system version for some Linux systems, since sometimes PRETTY_NAME excludes
+      // version information.
+      displayInfo('command.about.serverInfo.osVersion', () => {
+        try {
+          const or = parseOSRelease()
+          if (or.VERSION_ID) return or.VERSION_ID
+          else if (or.VERSION) return or.VERSION
+          else return ''
+        } catch (e) {
+          return ''
+        }
       })
 
       // Kernel version: os.release()
@@ -105,11 +127,9 @@ export default class ServerInfoSubcommand extends Command {
       }
 
       // Processor, if it can be determined through Node.js
-      if (os.cpus()[0]) {
-        displayInfo('command.about.serverInfo.processor', () => {
-          return os.cpus()[0].model
-        })
-      }
+      displayInfo('command.about.serverInfo.processor', () => {
+        return os.cpus()[0].model ?? ''
+      })
 
       // Processor architecture
       displayInfo('command.about.serverInfo.arch', () => {
@@ -155,6 +175,7 @@ export default class ServerInfoSubcommand extends Command {
 
       c.reply({
         text: 'command.about.serverInfo.botInfoHeader', 
+        parseLang: true,
         color: 'aqua'
       })
 
