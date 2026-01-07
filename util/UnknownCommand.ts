@@ -5,7 +5,13 @@ export default class UnknownCommand extends Command {
   constructor () {
     super()
     this.execute = async (c: CommandContext) => {
-      c.reply({ text: 'command.error.unknown', parseLang: true })
+      c.reply({
+        text: 'command.error.unknown',
+        parseLang: true,
+        color: '$error',
+        with: [ c.prefix ],
+        command: `${c.prefix}help`
+      })
     }
   }
 }
