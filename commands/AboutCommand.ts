@@ -21,6 +21,7 @@ export default class AboutCommand extends Command {
   constructor () {
     super()
     this.name = "about"
+    this.aliases = ['info']
     this.execute = async (c: CommandContext) => {
       let command = registry.getCommand('base')
       if(c.args.length >= 1){
