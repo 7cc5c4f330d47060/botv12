@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { parseMidi } from 'midi-file'
+import { MidiData, parseMidi } from 'midi-file'
 import { existsSync, readFileSync } from 'node:fs'
 // import CommandQueue from '../util/CommandQueue.js';
 import EventEmitter from 'node:events'
@@ -10,8 +10,9 @@ import parseNBS from '../util/parseNBS.js'
 import download from '../util/downloadFile.js'
 import Botv12Client from '../util/Botv12Client.js'
 import version from '../version.js'
-import Note from '../util/Note.js'
 import ParsedNote from '../util/ParsedNote.js'
+import NbsOutputFormat from '../util/NbsOutputFormat.js'
+import Note from '../util/Note.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 
@@ -182,7 +183,7 @@ export default function load (b: Botv12Client) {
         try {
           b.musicPlayer.storedSong = readFileSync(path)
         } catch (e){
-          
+          console.log (e)
         }
         if (b.musicPlayer.playSong) b.musicPlayer.playSong(name)
       } else if (url.startsWith('ram://')){
@@ -192,13 +193,6 @@ export default function load (b: Botv12Client) {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
           with: [url]
         })
-        const urlExtension = url.split('.').reverse()[0].toLowerCase()
-        let extension
-        if (urlExtension === 'nbs') {
-          extension = 'nbs'
-        } else {
-          extension = 'mid'
-        }
         download(url, (err: string, output: Buffer) => {
           if (err === 'largeFile') {
             b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
@@ -218,9 +212,9 @@ export default function load (b: Botv12Client) {
           }
         })
       }
-    } catch (e: any) {
+    } catch (e) {
       b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-        text: e.toString()
+        text: e + ""
       })
       console.error(e)
     }
@@ -238,25 +232,24 @@ export default function load (b: Botv12Client) {
 
     let longestDelta = 0
     let uspt = 0
-    let file: any
+    let file: MidiData | NbsOutputFormat
     if(!b.musicPlayer.storedSong) return
     try {
       if(b.musicPlayer.storedSong.toString('latin1').slice(0,4).startsWith('MThd')){
         file = parseMidi(b.musicPlayer.storedSong)
       } else {
         file = parseNBS(b.musicPlayer.storedSong)
+        if (file.header.nbsLoopEnabled) {
+          b.musicPlayer.nbsLoop = file.header.nbsLoopStart
+          b.musicPlayer.useNbsLoop = true
+        }
       }
     } catch (e) {
       console.log(e)
       return
     }
 
-    if (file.header.nbsLoopEnabled) {
-      b.musicPlayer.nbsLoop = file.header.nbsLoopStart
-      b.musicPlayer.useNbsLoop = true
-    }
-    
-    file.tracks.forEach((track: any, id: number) => {
+    file.tracks.forEach((track: Note[], id: number) => {
       if(!b.musicPlayer.queues) b.musicPlayer.queues = []
       b.musicPlayer.totalNotes = b.musicPlayer.totalNotes ?? 0
       b.musicPlayer.queues[id] = []
@@ -269,10 +262,11 @@ export default function load (b: Botv12Client) {
           totalDelta += (event.deltaTime * uspt) / 1000
         }
         if (event.type === 'setTempo') {
-          uspt = event.microsecondsPerBeat / file.header.ticksPerBeat
+          uspt = (event.microsecondsPerBeat ?? 1) / (file.header.ticksPerBeat ?? 1)
         }
         if (event.type === 'programChange') {
-          program = event.programNumber
+          if(event?.programNumber) program = +event.programNumber
+          else event.programNumber = 0
         }
         if (event.type === 'noteOn') {
           if (delta !== 0) {
@@ -284,9 +278,9 @@ export default function load (b: Botv12Client) {
               noteNumber: event.noteNumber,
               channel: event.channel,
               program,
-              mcNote: event.mcNote ?? null,
+              mcNote: event.mcNote ?? undefined,
               // mcPitch: event.mcPitch ?? null,
-              volume: event.velocity / 127,
+              volume: (event.velocity ?? 127) / 127,
               nbsStereo: event.nbsStereo ?? 0,
               time: totalDelta
             })
