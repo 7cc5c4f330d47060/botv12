@@ -1,4 +1,4 @@
-import { WebSocketServer } from "ws"
+import { WebSocketServer, WebSocket } from "ws"
 import Botv12Client from "../util/Botv12Client";
 import parse3 from '../util/chatparse.js'
 import registry from "../util/commands.js"
@@ -18,7 +18,7 @@ if(!clOptions.disableWsServer){
     port: 12365
   })
 
-  const sendRaw = (client: any, type: string, data: string) => client.send(JSON.stringify({
+  const sendRaw = (client: WebSocket, type: string, data: string) => client.send(JSON.stringify({
     event: "rawChat",
     data: {
       data: parse3(data, 'html'),
@@ -28,6 +28,7 @@ if(!clOptions.disableWsServer){
 
 
   wss.on('connection', client => {
+    
     client.on('message', data => {
       try {
         const consoleBotStub = {
@@ -38,9 +39,9 @@ if(!clOptions.disableWsServer){
               name: 'WebSocket Console'
             }
           },
-          commandCore: { tellraw: (_unused: any, data: string) => sendRaw(client, 'cmdoutput', data) }
+          commandCore: { tellraw: (_unused: string, data: string) => sendRaw(client, 'cmdoutput', data) }
         }
-        const json: any = JSON.parse(data.toString('utf8'))
+        const json = JSON.parse(data.toString('utf8'))
         if(json.event == "command"){
           const args = json.data.command.split(' ')
           const cmdName = args[0].toLowerCase()
@@ -87,7 +88,7 @@ if(!clOptions.disableWsServer){
             console.log(e)
           }
         }
-      } catch (e) {}
+      } catch (e) { console.log(e) }
     })
   })
 }

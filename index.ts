@@ -72,7 +72,7 @@ const awaitLicense = function(callback: any){
 if (settings.keyTrusted === undefined || settings.keyAdmin === undefined || 
   settings.keyOwner === undefined) process.exit(1)
 
-const bots: any[] = []
+const bots: Botv12Client[] = []
 const createBot = function createBot (host: any, oldId?: number, bypassStall?: boolean) {
   const startTimeBot = Date.now();
   const options = {
