@@ -8,12 +8,11 @@ export default function load (b: Botv12Client) {
   b._client.on('player_remove', async function (data) {
     for (const item of data.players) {
       if (!b.playerInfo.players[item]) continue
-      delete b.playerInfo.players[item]
       b.emit('playerquit', item)
     }
   })
   b._client.on('player_info', async function (data) {
-    const buffer2: any = {}
+    const buffer2: Record<string, { realName?: string, displayName?: string }> = {}
     for (const player of data.data) {
       let uuid
       if (player.uuid) {
