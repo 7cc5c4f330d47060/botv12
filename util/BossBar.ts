@@ -1,10 +1,9 @@
 import Botv12Client from "./Botv12Client.js"
-import { randomBytes } from 'crypto'
 import JsonFormat from "./JsonFormat.js"
 
 export default class BossBar {
   name: string
-  display: any
+  display: JsonFormat | string
   max: number
   value: number
   style: string
@@ -16,7 +15,7 @@ export default class BossBar {
   setValue: (value: number) => void
   setDisplay: (value: JsonFormat | string) => void
 
-  constructor (b: Botv12Client, name: string, display: any, max: number, initialValue: number, style: string, color: string, players: string) {
+  constructor (b: Botv12Client, name: string, display: JsonFormat | string, max: number, initialValue: number, style: string, color: string, players: string) {
     this.name = name
     this.display = display
     this.max = max // 100

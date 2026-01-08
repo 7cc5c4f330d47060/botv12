@@ -1,4 +1,3 @@
-import { appendFileSync, existsSync, unlinkSync } from 'fs'
 import { get as getHttp, IncomingMessage } from 'http'
 import { get as getHttps } from 'https'
 
