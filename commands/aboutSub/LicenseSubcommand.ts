@@ -9,6 +9,7 @@ export default class LicenseSubcommand extends Command {
   constructor () {
     super()
     this.name = "license"
+    this.aliases = [ "licence" ]
     this.execute = async (c: CommandContext) => {
       let startIndex = 0
       if(c.args[1]) startIndex = +c.args[1]

@@ -1,5 +1,4 @@
 import Command from "./Command.js"
-import UnknownCommand from "./UnknownCommand.js"
 
 export default class CommandRegistry {
   _commands: Record<string, Command>
@@ -7,13 +6,14 @@ export default class CommandRegistry {
   register: (command: Command) => void
   getCommand: (name: string) => Command
   listCommands: (includeHidden?: boolean) => Record<string, Command>
-  constructor () {
+  constructor (unknownCommand: Command) {
     this._commands = Object.create(null)
     this._aliases = Object.create(null)
-
     this.register = function (command: Command) {
-
       this._commands[command.name] = command
+      if (command.aliases) {
+        for (const alias of command.aliases) this._aliases[alias] = command.name
+      }
     }
 
     this.getCommand = function (name: string) {
@@ -23,7 +23,7 @@ export default class CommandRegistry {
       if (this._aliases[name]) {
         return this._commands[this._aliases[name]]
       }
-      return new UnknownCommand()
+      return unknownCommand
     }
 
     this.listCommands = function (includeHidden?: boolean) {
