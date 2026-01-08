@@ -39,7 +39,6 @@ rl.on('line', (l: string) => {
     // Block running eval in normal mode
     if (cmd.debugOnly && !debugMode) {
       console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
-      //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
       return
     }
 
@@ -48,17 +47,17 @@ rl.on('line', (l: string) => {
       if (index2 === '*') {
         for (const bot of bots) {
           const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bot)
-          context.verify = 2
+          context.verify = 3
           cmd.execute(context)
         }
       } else {
         const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
-        context.verify = 2
+        context.verify = 3
         cmd.execute(context)
       }
     } else {
       const context = new CommandContext(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
-      context.verify = 2
+      context.verify = 3
       cmd.execute(context)
     }
   } catch (e) {

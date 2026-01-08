@@ -5,7 +5,8 @@ import ChatParser from '../util/ChatParser.js';
 export default class SystemChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data: any, b: Botv12Client) => {
+    this.parse = (data: any, b?: Botv12Client) => {
+      if(!b) return { parsed: false }
       if (data.type === 'system') {
         const subtype = 'generic_system'
         const parsed = parse3(data.json, 'none')

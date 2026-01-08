@@ -69,8 +69,8 @@ if(!clOptions.disableWsServer){
             if (cmd.consoleIndex) {
               const index2 = args.splice(1, 1)[0]
               if (index2 === '*') {
-                for (let i = 0; i < bots.length; i++) {
-                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
+                for (const bot of bots) {
+                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bot)
                   //context.verify = 2
                   cmd.execute(context)
                 }

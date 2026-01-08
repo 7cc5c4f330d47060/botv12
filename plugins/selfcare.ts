@@ -1,7 +1,3 @@
-
-import botVersion from "../util/version\.js"
-
-import version from "../version.js"
 import Botv12Client from "../util/Botv12Client\.js"
 
 

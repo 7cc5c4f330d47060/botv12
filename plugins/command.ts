@@ -92,9 +92,9 @@ export default function load (b: Botv12Client) {
             with: [timeSpent + ""]
           })
         }
-      } catch (e: any) {
+      } catch (e) {
         console.log(e)
-        b.commandCore.tellraw(uuid, {
+        if(e instanceof Error) b.commandCore.tellraw(uuid, {
           text: getMessage(context.lang, 'command.error'),
           color: settings.colors.error,
           hover_event: {

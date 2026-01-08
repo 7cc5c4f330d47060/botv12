@@ -1,19 +1,7 @@
 import JsonFormat from './JsonFormat.js'
 import { getMessage } from './lang.js'
+import TextFormat from './TextFormat.js'
 import uuidToInt from './uuidtoint.js'
-
-interface TextFormat {
-  text?: string
-  color?: string
-  parseLang?: boolean
-  copyable?: boolean
-  linked?: boolean
-  command?: string
-  mcCommand?: string
-  hover?: TextFormat
-  with?: (TextFormat | string)[]
-  font?: string
-}
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
   if(typeof text == 'string') return { text }
