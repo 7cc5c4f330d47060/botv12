@@ -15,7 +15,7 @@ export default function load (b: Botv12Client) {
     try {
       chunk.load(data.chunkData)
     } catch (e) {
-
+      if(debugMode) console.log(e)
     }
     b.chunks[data.x][data.z] = chunk
   })

@@ -14,7 +14,6 @@ export default class LicenseSubcommand extends Command {
       let startIndex = 0
       if(c.args[1]) startIndex = +c.args[1]
       const changeSize = debugMode ? 18 : 19
-      const maxSize = licenseFile.length;
       for(let i = startIndex; i < startIndex+changeSize; i++){
         c.reply({
           text: licenseFile[i],
