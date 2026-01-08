@@ -1,11 +1,11 @@
 import { WebSocketServer } from "ws"
 import Botv12Client from "../util/Botv12Client";
 import parse3 from '../util/chatparse.js'
-import registry from "../util/commands\.js"
+import registry from "../util/commands.js"
 
-import { getMessage } from "../util/lang\.js"
-import { bots } from "../index\.js"
-import CommandContext from "../util/CommandContext\.js"
+import { getMessage } from "../util/lang.js"
+import { bots } from "../index.js"
+import CommandContext from "../util/CommandContext.js"
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = "Default User"
