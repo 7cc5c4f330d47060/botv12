@@ -5,7 +5,8 @@ import ChatParser from '../util/ChatParser.js';
 export default class ExtrasProfilelessChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data: any, b: Botv12Client) => {
+    this.parse = (data: any, b?: Botv12Client) => {
+      if(!b) return { parsed: false }
       if (data.type === 'profileless') {
         if (data.playerChatType.translation_key === '%s') {
           const parsed = parse3(data.json, 'none')

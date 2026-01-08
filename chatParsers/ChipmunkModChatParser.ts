@@ -5,7 +5,8 @@ import ChatParser from '../util/ChatParser.js';
 export default class ChipmunkModChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data: any, b: Botv12Client) => {
+    this.parse = (data: any, b?: Botv12Client) => {
+      if(!b) return { parsed: false }
       if (data.type === 'system') {
         if (data.json.translate === '%s %s › %s' || data.json.translate === '[%s] %s › %s') {
           let subtype = 'chipmunkmod'
