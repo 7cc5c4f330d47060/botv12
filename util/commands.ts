@@ -2,8 +2,9 @@ import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import CommandRegistry from './CommandRegistry.js'
 import Command from './Command.js'
+import UnknownCommand from './UnknownCommand.js'
 
-const registry = new CommandRegistry()
+const registry = new CommandRegistry(new UnknownCommand())
 const bpl = readdirSync(resolve(codeDir, 'commands'))
 
 for (const plugin of bpl) {

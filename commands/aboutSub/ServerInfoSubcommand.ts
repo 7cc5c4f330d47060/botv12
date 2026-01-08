@@ -71,6 +71,7 @@ export default class ServerInfoSubcommand extends Command {
   constructor () {
     super()
     this.name = "server"
+    this.aliases = [ "serverinfo" ]
     this.execute = async (c: CommandContext) => {
       const displayInfo = function (name: string, infoFunc: () => any) {
         let thisItem
