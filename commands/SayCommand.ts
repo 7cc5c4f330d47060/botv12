@@ -31,7 +31,7 @@ export default class SayCommand extends Command {
               ]
             },
             {
-              text: c.bot._client.username,
+              text: c.bot._client?.username ?? '',
               color: 'red'
             },
             msg

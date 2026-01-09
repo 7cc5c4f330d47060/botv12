@@ -1,7 +1,66 @@
 
+import BossBar from './BossBar.js'
+import Botv12Client from './Botv12Client.js'
 import build from './messageBuilder.js'
+import ParsedNote from './ParsedNote.js'
 import TextFormat from './TextFormat.js'
 
+interface ClientStub {
+  _client?: {
+    uuid: string
+    username: string
+    end: () => void
+  }
+  disconnect?: boolean
+  commandCore: {
+    tellraw: (uuid: string, text: string) => void
+  }
+  clientChat?: {
+    send: (message: string) => void
+  }
+  id?: number,
+  host?: {
+    host: string,
+    port: number
+  }
+  musicPlayer?: {
+    queue?: [string, string][]
+    queues?: ParsedNote[][]
+    startTime?: number
+    startFrom?: number
+    nbsLoop?: number
+    useStartFrom?: boolean
+    useNbsLoop?: boolean
+    lastTime?: number
+    time?: number
+    length?: number
+    totalNotes?: number
+    playing?: boolean
+    songName?: string
+    looping?: boolean
+    pitchShift?: number
+    speedShift?: number
+    volume?: number
+    bossBar?: BossBar
+    currentSong?: string
+    storedSong?: Buffer
+    downloadSong?: (url: string, name: string) => void
+    playSong?: (name: string) => void
+    stopSong?: (looping?: boolean, skip?: boolean) => void
+    advanceNotes?: () => void
+    setSpeed?: (speed: number) => void
+  }
+  filter?: {
+    isFiltered: (user: string) => boolean
+    addFilter: (uuid: string, name: string) => boolean
+    removeFilter: (user: string) => void
+  }
+  playerInfo?: {
+    findUUID: (name: string) => string
+    findRealNameFromUUID: (uuid: string) => string
+  }
+
+}
 export default class CommandContext {
   uuid: string
   reply: (text: TextFormat | string) => void
@@ -17,11 +76,11 @@ export default class CommandContext {
   colors: Record<string, string>
   lang: string
   verify: number
-  bot: any
+  bot: Botv12Client | ClientStub
   cancel: boolean
   rewriteCommand: (newCmd: string) => void
 
-  constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, bot: any) {
+  constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, bot: Botv12Client | ClientStub) {
     this.uuid = uuid
     this.reply = (text: TextFormat | string) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
     this.send = (user: string, text: TextFormat | string) => bot.commandCore.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))

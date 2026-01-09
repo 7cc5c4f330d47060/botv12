@@ -8,7 +8,7 @@ export default class ServerListSubcommand extends Command {
     this.name = "serverlist"
     this.execute = async (c: CommandContext) => {
       bots.forEach((item, i) => {
-        if (c.bot.id === i && c.bot.host.options.hideLocally) return
+        if (c.bot.id === i && c.bot.host?.options?.hideLocally) return
         if (item.host.options.hidden && c.verify !== 2 && c.bot.id !== i) return
         let host = item.host.host
         const port = item.host.port
