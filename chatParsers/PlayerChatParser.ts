@@ -5,6 +5,7 @@ export default class PlayerChatParser extends ChatParser {
   constructor () {
     super()
     this.parse = (data: any, b?: Botv12Client) => {
+      if(!b) return { parsed: false }
       if (data.type === 'player' || data.type === 'profileless') {
         return {
           parsed: true,

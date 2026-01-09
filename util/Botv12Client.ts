@@ -1,9 +1,7 @@
 import { createClient, Client } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
-
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
-import Note from './Note.js'
 import ParsedNote from './ParsedNote.js'
 
 interface MusicPlayer extends EventEmitter {
@@ -57,7 +55,7 @@ export default class Botv12Client extends EventEmitter {
   _client: Client
   id?: number
   host: any
-  interval: any
+  interval: Record<string, NodeJS.Timeout>
   info: (msg: string) => void
   displayChat: (type: string, subtype: string, msg: string) => void
   entityId?: number
