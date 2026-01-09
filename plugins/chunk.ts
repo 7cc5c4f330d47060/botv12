@@ -59,6 +59,7 @@ export default function load (b: Botv12Client) {
     }
   })
   b.interval.unloadChunks = setInterval(() => {
+    /* eslint-disable @typescript-eslint/no-dynamic-delete */
     for (const i in b.chunks) {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
@@ -71,5 +72,6 @@ export default function load (b: Botv12Client) {
         }
       }
     }
+    /* eslint-enable @typescript-eslint/no-dynamic-delete */
   }, 1500)
 }
