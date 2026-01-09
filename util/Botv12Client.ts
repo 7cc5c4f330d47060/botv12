@@ -3,6 +3,8 @@ import EventEmitter from 'node:events'
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
 import ParsedNote from './ParsedNote.js'
+import FilteredPlayer from './FilteredPlayer.js'
+import offlineUUID from './offlineUUID.js'
 
 interface MusicPlayer extends EventEmitter {
   /*
@@ -67,32 +69,60 @@ export default class Botv12Client extends EventEmitter {
   clientChat: any
   selfCare: any
   serverChat: any
-  playerInfo: any
   position: any
   commandCore: any
   commands: any
   chunks: any
   musicPlayer: MusicPlayer
-  filter: any
+  filter: {
+    filteredPlayers: { username: string, uuid: string, method: string }[]
+    isFiltered: (user: string) => boolean
+    addFilter: (uuid: string, name: string, method?: string) => void
+    removeFilter: (user: string) => void
+  }
+  playerInfo: {
+    players?: Record<string, { realName: string, displayName: string, here?: boolean }>
+    findUUID: (name: string) => string
+    findRealNameFromUUID: (uuid: string) => string
+    findDisplayName: (uuid: string) => string
+    findRealName: (name: string) => string
+  }
 
   constructor (options?: any) {
     super()
 
+    
     this.ready = false
     this._client = createClient(options)
     this.interval = {}
 
     // Plugins, again...
     this.clientChat = {}
-    this.selfCare = {}
+    this.selfCare = {} 
     this.serverChat = {}
-    this.playerInfo = {}
+    this.playerInfo = {
+      findUUID: (name: string) => { return offlineUUID(name) },
+      findRealNameFromUUID: (uuid: string) => { return uuid },
+      findDisplayName: (uuid: string) => { return uuid },
+      findRealName: (name: string) => { return name }
+    }
     this.position = {}
     this.commandCore = {}
     this.commands = {}
     this.chunks = {}
     this.musicPlayer = new EventEmitter()
-    this.filter = {}
+    this.filter = {
+      filteredPlayers: [],
+      isFiltered: (user: string) => { return user == '' },
+      addFilter: (uuid: string, username: string, method = 'legacy') => {
+        this.filter.filteredPlayers.push({ username, uuid, method })
+      },
+      removeFilter: (user: string) => {
+        this.filter.filteredPlayers.forEach((item: FilteredPlayer, index: number) => {
+          if (item.uuid === user) this.filter.filteredPlayers.splice(index, 1)
+        })
+      }
+    }
 
     this.registry = registry(this._client.version)
 

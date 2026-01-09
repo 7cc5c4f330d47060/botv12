@@ -6,6 +6,7 @@ export default class FilterCommand extends Command {
     super()
     this.name = "filter"
     this.execute = async (c: CommandContext) => {
+      if(!c.bot.playerInfo || !c.bot.filter) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {

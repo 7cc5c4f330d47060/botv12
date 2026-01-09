@@ -51,8 +51,9 @@ interface ClientStub {
     setSpeed?: (speed: number) => void
   }
   filter?: {
+    filteredPlayers: { username: string, uuid: string, method: string }[]
     isFiltered: (user: string) => boolean
-    addFilter: (uuid: string, name: string) => boolean
+    addFilter: (uuid: string, name: string, method?: string) => void
     removeFilter: (user: string) => void
   }
   playerInfo?: {

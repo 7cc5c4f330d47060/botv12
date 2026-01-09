@@ -1,5 +1,4 @@
-import Botv12Client from "../util/Botv12Client\.js"
-
+import Botv12Client from "../util/Botv12Client.js"
 
 class SCTask {
   failTask: any

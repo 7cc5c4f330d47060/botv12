@@ -3,9 +3,9 @@ import parseNBT from '../util/parseNBT.js'
 import Botv12Client from '../util/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
-  b.playerInfo = {}
   b.playerInfo.players = {}
   b._client.on('player_remove', async function (data) {
+    if(!b.playerInfo.players) return
     for (const item of data.players) {
       if (!b.playerInfo.players[item]) continue
       b.emit('playerquit', item)
@@ -35,6 +35,7 @@ export default function load (b: Botv12Client) {
       }
     }
     for (const uuid in buffer2) {
+      if (!b.playerInfo.players) return
       if (!b.playerInfo.players[uuid]) b.playerInfo.players[uuid] = { displayName: '', realName: '' }
       b.playerInfo.players[uuid].here = true
       let displayName = ''
@@ -68,14 +69,14 @@ export default function load (b: Botv12Client) {
     return '[[[[ no name ]]]]'
   }
   b.playerInfo.findRealNameFromUUID = (uuid: string) => {
-    if (b.playerInfo.players[uuid]) {
+    if (b.playerInfo.players && b.playerInfo.players[uuid]) {
       return b.playerInfo.players[uuid].realName
     } else {
       return uuid
     }
   }
   b.playerInfo.findDisplayName = (uuid: string) => {
-    if (b.playerInfo.players[uuid]) {
+    if (b.playerInfo.players && b.playerInfo.players[uuid]) {
       const displayName = b.playerInfo.players[uuid].displayName.split(' ')
       return displayName[displayName.length - 1]
     } else {

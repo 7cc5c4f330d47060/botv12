@@ -26,12 +26,9 @@ const os2 = function (o2: string, lang: string) {
     case 'win32':
       return `${os.version()}`
     case 'android':{
-      try {
-        const version = execSync('getprop ro.build.version.release').toString('utf8').split('\n')[0]
-        return getMessage(lang, 'command.about.serverInfo.os.android', [version])
-      } catch (e) {
-        return getMessage(lang, 'command.about.serverInfo.os.android.noVersion')
-      }
+      // ro.build.version.release and the getprop command have been in Android since Android 1.0.
+      const version = execSync('getprop ro.build.version.release').toString('utf8').split('\n')[0]
+      return getMessage(lang, 'command.about.serverInfo.os.android', [version])
     }
     case 'linux':
     case 'freebsd':{
