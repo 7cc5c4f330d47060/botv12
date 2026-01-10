@@ -1,10 +1,10 @@
 import Botv12Client from "../util/Botv12Client.js"
 
 class SCTask {
-  failTask: any
+  failTask: () => void
   failed: boolean
 
-  constructor (failTask: any, startFailed = false) {
+  constructor (failTask: () => void, startFailed = false) {
     /*
          * failed: Whether to run this task
          * failTask: Command to run when failed is true
@@ -31,7 +31,7 @@ export default function load (b: Botv12Client) {
       }
     }, 200)
   })
-  b.selfCare.addTask = (name: string, failTask: any, startFailed: boolean) => {
+  b.selfCare.addTask = (name: string, failTask: () => void, startFailed: boolean) => {
     b.selfCare.tasks[name] = new SCTask(failTask, startFailed)
   }
 
