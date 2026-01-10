@@ -140,6 +140,7 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.playing = false
   b.musicPlayer.songName = ''
   b.musicPlayer.looping = false
+  b.musicPlayer.restart = false
   b.musicPlayer.pitchShift = 0 // In semitones
   b.musicPlayer.speedShift = 1
   b.musicPlayer.volume = 1
@@ -148,7 +149,8 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.on('songEnd', () => {
     if (!b.musicPlayer?.stopSong) return
     if (b.musicPlayer.looping !== undefined) b.musicPlayer.stopSong(b.musicPlayer.looping, true)
-    if (b.musicPlayer.looping) {
+    if (b.musicPlayer.looping || b.musicPlayer.restart) {
+      if (b.musicPlayer.restart) b.musicPlayer.restart=false
       if (b.musicPlayer.playSong) {
         b.musicPlayer.playSong(b.musicPlayer.songName ?? "")
       }
@@ -337,7 +339,7 @@ export default function load (b: Botv12Client) {
     if(!b.musicPlayer) return
     b.musicPlayer.playing = false
     b.musicPlayer.queues = []
-    if (!skip) b.musicPlayer.queue = []
+    if (!skip && !looping) b.musicPlayer.queue = []
     b.musicPlayer.startTime = 0
     b.musicPlayer.lastTime = 0
     b.musicPlayer.time = 0

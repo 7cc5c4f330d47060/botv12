@@ -125,6 +125,20 @@ export default class MusicCommand extends Command {
           })
           break
         }
+        case 'restart': {
+          if (!c.bot.musicPlayer.playing) {
+            // Add replay here too
+            c.reply({
+              text: 'command.music.error.notPlaying',
+              parseLang: true,
+              color: '$error'
+            })
+            return
+          }
+          c.bot.musicPlayer.restart = true
+          c.bot.musicPlayer.emit('songEnd')
+          break
+        }
         case 'loop':{
           if (!c.bot.musicPlayer.playing) {
             c.reply({

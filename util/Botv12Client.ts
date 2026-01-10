@@ -40,6 +40,7 @@ interface MusicPlayer extends EventEmitter {
   playing?: boolean
   songName?: string
   looping?: boolean
+  restart?: boolean
   pitchShift?: number
   speedShift?: number
   volume?: number
