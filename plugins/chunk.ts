@@ -7,13 +7,13 @@ export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
   b.chunks = {}
   if(!b.position) b.position = {}
-  b._client.on('map_chunk', (data: any) => {
+  b._client.on('map_chunk', (data) => {
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
-    const chunk: any = new Chunk({x: 0, z: 0})
+    const chunk = new Chunk({x: 0, z: 0})
     try {
-      chunk.load(data.chunkData)
+      if('load' in chunk) chunk.load(data.chunkData)
     } catch (e) {
       if(debugMode) console.log(e)
     }
@@ -39,7 +39,7 @@ export default function load (b: Botv12Client) {
       }
     }
   })
-  b._client.on('position', (data: any) => {
+  b._client.on('position', (data: {x: number, y: number, z: number, teleportId: number, flags: {x: boolean, y: boolean, z: boolean}}) => {
     let newX
     let newY
     let newZ
