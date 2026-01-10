@@ -1,10 +1,39 @@
 
+import EventEmitter from 'node:events'
 import BossBar from './BossBar.js'
 import Botv12Client from './Botv12Client.js'
 import build from './messageBuilder.js'
 import ParsedNote from './ParsedNote.js'
 import TextFormat from './TextFormat.js'
 
+interface MusicPlayerStub extends EventEmitter {
+  queue?: [string, string][]
+  queues?: ParsedNote[][]
+  startTime?: number
+  startFrom?: number
+  nbsLoop?: number
+  useStartFrom?: boolean
+  useNbsLoop?: boolean
+  lastTime?: number
+  time?: number
+  length?: number
+  totalNotes?: number
+  playing?: boolean
+  songName?: string
+  looping?: boolean
+  restart?: boolean
+  pitchShift?: number
+  speedShift?: number
+  volume?: number
+  bossBar?: BossBar
+  currentSong?: string
+  storedSong?: Buffer
+  downloadSong?: (url: string, name: string) => void
+  playSong?: (name: string) => void
+  stopSong?: (looping?: boolean, skip?: boolean) => void
+  advanceNotes?: () => void
+  setSpeed?: (speed: number) => void
+}
 interface ClientStub {
   _client?: {
     uuid: string
@@ -23,33 +52,7 @@ interface ClientStub {
     host: string,
     port: number
   }
-  musicPlayer?: {
-    queue?: [string, string][]
-    queues?: ParsedNote[][]
-    startTime?: number
-    startFrom?: number
-    nbsLoop?: number
-    useStartFrom?: boolean
-    useNbsLoop?: boolean
-    lastTime?: number
-    time?: number
-    length?: number
-    totalNotes?: number
-    playing?: boolean
-    songName?: string
-    looping?: boolean
-    pitchShift?: number
-    speedShift?: number
-    volume?: number
-    bossBar?: BossBar
-    currentSong?: string
-    storedSong?: Buffer
-    downloadSong?: (url: string, name: string) => void
-    playSong?: (name: string) => void
-    stopSong?: (looping?: boolean, skip?: boolean) => void
-    advanceNotes?: () => void
-    setSpeed?: (speed: number) => void
-  }
+  musicPlayer?: MusicPlayerStub,
   filter?: {
     filteredPlayers: { username: string, uuid: string, method: string }[]
     isFiltered: (user: string) => boolean
