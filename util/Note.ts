@@ -9,4 +9,5 @@ export default interface Note {
   nbsStereo?: number
   channel?: number
   time?: number
+  text?: string
 }

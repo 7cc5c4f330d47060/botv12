@@ -23,8 +23,16 @@ export default {
   debugMode: false, // Enable for more debug info, and eval commands.
   colors: { // All colors the bot uses
     warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
-    error: '#FF6688', // Used for errors that are sent to Minecraft chat
-    fatalError: '#BB3344' // Used in errorh for crashes
+    error: '#FF5544', // Used for errors that are sent to Minecraft chat
+    fatalError: '#BB0000', // Formerly used in errorh for crashes
+    perms0: '#ff99dd', // Public level commands in help list
+    perms1: '#cc99ff', // Trusted level
+    perms2: '#8899ff', // Admin level
+    perms3: '#00ccee', // Owner level
+    list1: '#ffccee', // Used for odd-numbered list items - set 1
+    list2: '#ff99dd', // Used for even-numbered list items - set 1
+    list3: '#eeccff', // Used for odd-numbered list items - set 2
+    list4: '#dd99ff' // Used for even-numbered list items - set 2
   },
   prefixes: [ // A list of prefixes the bot will respond to in-game
     'ubotesm:',
