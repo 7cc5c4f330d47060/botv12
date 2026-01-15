@@ -16,7 +16,7 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Grubfather',
   'Gruz Mother',
   'Hallownest',
-  'Hornet',
+  'Hornet Protector',
   'Iselda',
   'Junk Pit',
   "King's Pass",
@@ -42,7 +42,7 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Shade',
   'Shaman Stone',
   'Sly',
-  'SOUL', // Capital form
+  'SOUL', // Capital form, acquired and used throughout the game by the Knight
   'Squit',
   "Teacher's Archives",
   'Traitor Lord',
@@ -54,26 +54,42 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Zote the Mighty'
 ]
 const namesSs = [ // From 2025 Metroidvania from Australia.
+  'Alchemist Zylotol',
   'Bellhart',
   'Bone Bottom',
   'Citadel',
   'Clawline',
+  "Drifter's Cloak",
+  'Elegy of the Deep',
+  'Father of the Flame',
+  'Garmond', // Zaza is seperate, since they are technically two characters usually together
   'Grand Mother Silk',
   'Greymoor',
   'Halfway Home',
   'High Halls',
+  'Hornet',
   "Hunter's March",
+  'Imoba',
+  'Jubilana',
+  'Kilik',
   'Lace',
   'Moss Mother',
   'Needle',
-  'Needolin',
+  'Old Church', // Early name for Ruined Chapel in 2019 demo.
   'Pharloom',
+  "Queen's Egg",
   'Ruined Chapel',
   'Sherma',
   'Shellwood',
   'Snail Shamans', // Group of three not found in HK2017: Chapel Maid, Caretaker, Bell Hermit
   'Trobbio',
-  'Wormways'
+  'Underworks',
+  'Varga',
+  'Weavenests', // Several places by Weavers around Pharloom.
+  'Wormways',
+  // No X, for now at least...
+  'Yarnaby',
+  'Zaza'
 ]
 
 //console.log(namesHk.length * namesSs.length)
