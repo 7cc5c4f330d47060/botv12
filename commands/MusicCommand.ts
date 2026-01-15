@@ -12,6 +12,7 @@ export default class MusicCommand extends Command {
     super()
     this.name = 'music'
     this.execute = async (c: CommandContext) => {
+      if(!('musicPlayer' in c.bot)) return
       if(c.bot.musicPlayer?.queue === undefined) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
@@ -56,7 +57,7 @@ export default class MusicCommand extends Command {
             if (isDir) {
               list.push({
                 text: `${item}/`,
-                color: Number.isInteger(list.length / 2) ? 'green' : 'dark_green',
+                color: Number.isInteger(list.length / 2) ? '$list4' : '$list3',
                 command: `${c.prefix}${c.cmdName} list ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openDir',
@@ -67,7 +68,7 @@ export default class MusicCommand extends Command {
             } else {
               fileList.push({
                 text: `${item}`,
-                color: Number.isInteger(fileList.length / 2) ? 'white' : 'gray',
+                color: Number.isInteger(fileList.length / 2) ? '$list2' : '$list1',
                 command: `${c.prefix}${c.cmdName} play ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openFile',
@@ -126,17 +127,30 @@ export default class MusicCommand extends Command {
           break
         }
         case 'restart': {
-          if (!c.bot.musicPlayer.playing) {
-            // Add replay here too
+          
+          if (c.bot.musicPlayer.playing) {
             c.reply({
-              text: 'command.music.error.notPlaying',
-              parseLang: true,
-              color: '$error'
+              text: 'command.music.restartCurrent',
+              parseLang: true
             })
+            c.bot.musicPlayer.restart = true
+            c.bot.musicPlayer.emit('songEnd')
+          } else {
+            if(c.bot.musicPlayer.songName) {
+              c.reply({
+                text: 'command.music.restartPrevious',
+                parseLang: true
+              })
+              c.bot.musicPlayer.queue.push(['ram://', c.bot.musicPlayer.songName])
+            } else {
+              c.reply({
+                text: 'command.music.error.neverPlayed',
+                parseLang: true,
+                color: '$error'
+              })
+            }
             return
           }
-          c.bot.musicPlayer.restart = true
-          c.bot.musicPlayer.emit('songEnd')
           break
         }
         case 'loop':{

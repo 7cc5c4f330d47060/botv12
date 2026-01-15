@@ -24,7 +24,9 @@ const calculateNote = (event: {mcNote?: string, noteNumber: number}, program: nu
       note: event.mcNote
     }
   } else {
-    const keys = Object.keys(instrumentMap[program].instruments)
+    let programFix = program;
+    if(!instrumentMap[program]) programFix = 0
+    const keys = Object.keys(instrumentMap[programFix].instruments)
     for (const item of keys) {
       const range = item.split('-')
       if (note >= +range[0] && note <= +range[1]) {
@@ -251,6 +253,8 @@ export default function load (b: Botv12Client) {
       return
     }
 
+    let msmFile = false;
+
     file.tracks.forEach((track: Note[], id: number) => {
       if(!b.musicPlayer.queues) b.musicPlayer.queues = []
       b.musicPlayer.totalNotes = b.musicPlayer.totalNotes ?? 0
@@ -259,6 +263,15 @@ export default function load (b: Botv12Client) {
       let delta = 0
       let totalDelta = 0
       for (const event of track) {
+        if (event.type == 'trackName' && event.text && event.text.endsWith('_Monster') && !msmFile) {
+          // MSM world*.mid files are not in the General MIDI format, and would require large
+          // amounts of extra code to make functional (i.e. to play roughly what is in MSM)
+          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+            translate: getMessage(settings.defaultLang, 'musicPlayer.warning.msm'),
+            color: settings.colors.warning ?? 'gold'
+          })
+          msmFile = true;
+        }
         if (event.deltaTime !== 0) {
           delta += (event.deltaTime * uspt) / 1000
           totalDelta += (event.deltaTime * uspt) / 1000

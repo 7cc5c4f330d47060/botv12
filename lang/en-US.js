@@ -111,7 +111,7 @@ export default {
   'command.cloop.success.clear': 'Cleared all command loops',
   'command.cloop.list': '%s: Command: %s Rate: %s',
   'command.eval.output': 'Output',
-  'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
+  //'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
   'command.filter.error.notFound': 'Could not find player information',
   'command.filter.error.filtered': 'The player is already in the filter list.',
   'command.filter.success.add': 'Filtered player %2$s',
@@ -130,6 +130,7 @@ export default {
   'command.help.noCommand': 'Command does not exist',
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
+  'command.list.ss22': 'This command is being worked on and will be added soon.', // Song of Silk 2.2
   'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
   'command.music.openDir': 'Click to view songs in %s',
   'command.music.openFile': 'Click to play %s',
@@ -145,6 +146,8 @@ export default {
   'command.music.queueIntro': 'Queue (%s)',
   'command.music.queueItem': '%s - %s',
   'command.music.error.notPlaying': 'No song is currently playing',
+  'command.music.restartCurrent': 'Restarting current track',
+  'command.music.restartPrevious': 'Restarting previous track',
   'command.netmsg.serverAddress': 'Server Address',
   'command.scale.set': 'Set player size to %s',
   'command.scale.reset': 'Reset player size',
@@ -187,6 +190,7 @@ export default {
   'musicPlayer.notFound': 'File not found',
   'musicPlayer.alreadyPlaying': 'Another song is already playing',
   'musicPlayer.finished': 'Finished playing queue',
+  'musicPlayer.warning.msm': 'MIDI file from My Singing Monsters detected. This song will not play correctly.',
 
   // Command Errors
   'command.error': 'An error occurred (check console for more info)',
