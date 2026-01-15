@@ -66,6 +66,30 @@ function printHelp (c: CommandContext) {
   })
 }
 
+function printHelpConsole (c: CommandContext) {
+  const cmds = registry.listCommands()
+  const keys = Object.keys(cmds).sort()
+  const commands: Command2[] = []
+  for (const key of keys) {
+    commands.push({
+      name: key,
+      level: cmds[key].level
+    })
+  }
+
+  for (const cmd of commands) {
+    const cmdItem = registry.getCommand(cmd.name)
+    c.reply({
+      text: `%s - %s`,
+      with: [
+        { text: cmd.name, color: '$primary' },
+        { text: `commands.${cmdItem.name}.desc`, parseLang: true, color: '$primary' },
+      ],
+      color: '$secondary'
+    })
+  }
+}
+
 function printCmdHelp (c: CommandContext) {
   let cmd = ''
   if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
@@ -137,7 +161,8 @@ export default class HelpCommand extends Command {
       if (c.args.length > 0) {
         printCmdHelp(c)
       } else {
-        printHelp(c)
+        if(c.type == 'console') printHelpConsole(c)
+        else printHelp(c)
       }
     }
     this.aliases = ['heko'] // Parker2991 request

@@ -38,17 +38,17 @@ export default function load (b: Botv12Client) {
   // Self care tasks
 
   // Operator
-  b.selfCare.addTask('debugMode', () => {
-    //b.clientChat.send(`${version.botName} version ${botVersion} - Debug Mode enabled`)
-    b.selfCare.tasks.debugMode.failed = false
-  })
-  b.selfCare.tasks.debugMode.failed = debugMode
-
-  // Operator
   b.selfCare.addTask('op', () => {
     b.clientChat.send('/op @s[type=player]')
   })
   b._client.on('login', (p) => {
+    if(p.gameMode !== 1 && 'gameMode' in p) {
+      b.selfCare.tasks.gamemode.failed = true
+    }
+    if(p.worldState?.gamemode !== 'creative' && 'worldState' in p) {
+      b.selfCare.tasks.gamemode.failed = true
+    }
+
     b.entityId = p.entityId
   })
   b._client.on('entity_status', (p) => {
@@ -73,18 +73,17 @@ export default function load (b: Botv12Client) {
     })
   }
 
-  // Gamemode / end portal bug
+  // Gamemode / old end portal bug
   b.selfCare.addTask('gamemode', () => {
-    // We will not be adding support for the new gamemode change packet yet.
-    // This is so that support for older versions (<1.21.5) can stay for now.
-    b.clientChat.send('/minecraft:gamemode creative')
+    if((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
+    else b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
-    if (p.reason === 3 && p.gameMode !== 1) {
+    if ((p.reason === 3 || p.reason == 'change_game_mode') && p.gameMode !== 1) {
       b.selfCare.tasks.gamemode.failed = true
-    } else if (p.reason === 3 && p.gameMode === 1) {
+    } else if ((p.reason === 3 || p.reason == 'change_game_mode')  && p.gameMode === 1) {
       b.selfCare.tasks.gamemode.failed = false
-    } else if (p.reason === 4) {
+    } else if (p.reason === 4 || p.reason == 'win_game') {
       b.selfCare.tasks.respawn.failed = true
     }
   })

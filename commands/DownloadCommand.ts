@@ -68,6 +68,8 @@ export default class DownloadCommand extends Command {
         'version.ts',
       ]
 
+      c.reply({ text: 'command.download.gathering', parseLang: true })
+
       const root = 'temp/dl'
       if(!fs.existsSync('temp')) fs.mkdirSync('temp')
       if(!fs.existsSync(root)) fs.mkdirSync(root)
@@ -101,6 +103,8 @@ export default class DownloadCommand extends Command {
         metadata.fileList.push(item)
         fs.copyFileSync(item, resolve(root, item))
       }
+
+      c.reply({ text: 'command.download.writingMetadata', parseLang: true })
 
       fs.writeFileSync(resolve(root, 'metadata.json'), JSON.stringify(metadata, null, 4))
     }

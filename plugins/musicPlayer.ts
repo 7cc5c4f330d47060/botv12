@@ -383,7 +383,7 @@ export default function load (b: Botv12Client) {
 
           let note
 
-          if(notesProcessed <= 150){
+          if(notesProcessed <= (b.host.options.musicNoteLimit ?? 150)){
             if (queue[i].channel === 9) note = calculatePercussion(queue[i])
             else {
               note = calculateNote({

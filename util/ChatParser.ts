@@ -1,5 +1,6 @@
 import Botv12Client from "./Botv12Client.js"
 import JsonFormat from "./JsonFormat.js"
+import UnparsedMessage from "./UnparsedMessage.js"
 
 interface ParsedMessage {
   parsed: boolean,
@@ -11,19 +12,20 @@ interface ParsedMessage {
   nickname?: string,
   username?: string
 }
+
 export default class ChatParser {
-  parse: (data: any, b?: Botv12Client) => ParsedMessage
+  parse: (data: UnparsedMessage, b?: Botv12Client) => ParsedMessage
   priority: number
 
   constructor () {
     // Fallback parser: does not get player information.
-    this.parse = (data: any, b?: Botv12Client) => {
+    this.parse = (data: UnparsedMessage) => {
       return {
         parsed: true,
         json: data.json,
         type: data.type,
         subtype: 'fallback',
-        uuid: b?._client.uuid + '',
+        uuid: '00000000-0000-0000-0000-000000000000',
         message: '',
         nickname: '',
         username: ''

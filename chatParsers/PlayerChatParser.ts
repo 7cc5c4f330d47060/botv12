@@ -1,11 +1,10 @@
-import Botv12Client from '../util/Botv12Client.js';
 import ChatParser from '../util/ChatParser.js';
+import UnparsedMessage from '../util/UnparsedMessage.js';
 
 export default class PlayerChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data: any, b?: Botv12Client) => {
-      if(!b) return { parsed: false }
+    this.parse = (data: UnparsedMessage) => {
       if (data.type === 'player' || data.type === 'profileless') {
         return {
           parsed: true,
