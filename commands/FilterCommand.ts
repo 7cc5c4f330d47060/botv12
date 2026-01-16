@@ -64,7 +64,7 @@ export default class FilterCommand extends Command {
           break
         }
         case 'list':
-          c.bot.filter.filteredPlayers.forEach((item: any) => {
+          c.bot.filter.filteredPlayers.forEach((item) => {
             c.reply({
               text: 'command.filter.list',
               parseLang: true,

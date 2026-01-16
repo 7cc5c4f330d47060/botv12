@@ -3,12 +3,31 @@ import * as fs from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash } from "node:crypto"
 import Command from "../util/Command.js"
-
+import { BlobWriter, Uint8ArrayReader, ZipWriter } from "@zip.js/zip.js"
+import { request } from 'node:https'
+interface Metadata12 {
+  format: number,
+  hashes: Record<string, string>
+  dirList: string[],
+  fileList: string[]
+}
+let sourceLink = ''
 export default class DownloadCommand extends Command {
   constructor () {
     super()
     this.name = "download"
     this.execute = async (c: CommandContext) => {
+      if(sourceLink){
+        c.reply({
+          text: 'command.download.already',
+          parseLang: true
+        })
+        c.reply({
+          text: sourceLink,
+          linked: true
+        })
+        return
+      }
       // Source code downloader, to allow downloading of versions between commits,
       // and without visiting Codeberg/Chipmunk.land/GitHub.
       // Useful if someone steals the code, but does not use Git® or another version control system to
@@ -41,7 +60,7 @@ export default class DownloadCommand extends Command {
       // JavaScript code output
       // anything on .gitignore
 
-      const metadata: any = {
+      const metadata: Metadata12 = {
         format: 1,
         hashes: {},
         dirList: [],
@@ -67,9 +86,6 @@ export default class DownloadCommand extends Command {
         'settings_example.js',
         'version.ts',
       ]
-
-      c.reply({ text: 'command.download.gathering', parseLang: true })
-
       const root = 'temp/dl'
       if(!fs.existsSync('temp')) fs.mkdirSync('temp')
       if(!fs.existsSync(root)) fs.mkdirSync(root)
@@ -104,9 +120,53 @@ export default class DownloadCommand extends Command {
         fs.copyFileSync(item, resolve(root, item))
       }
 
-      c.reply({ text: 'command.download.writingMetadata', parseLang: true })
+      metadata.fileList.push('metadata.json')
 
       fs.writeFileSync(resolve(root, 'metadata.json'), JSON.stringify(metadata, null, 4))
+
+      const zfw = new BlobWriter();
+      const zipWriter = new ZipWriter(zfw);
+      for(const item of metadata.fileList) {
+        const itemPath = resolve(baseDir, root, item)
+        const fileBuffer = fs.readFileSync(itemPath)
+        await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(fileBuffer)))
+      }
+      await zipWriter.close()
+
+      const zip = await zfw.getData()
+      const bytes = await zip.bytes()
+      fs.writeFileSync(resolve(baseDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+      console.log(bytes)
+          
+      const r = request({
+        hostname: 'files.chipmunk.land',
+        port: 443,
+        path: '/upload/botv12.zip',
+        method: 'PUT',
+        headers: {
+          "content-length": bytes.length,
+          'Linx-Randomize': 'yes'
+        }
+      }, res => {
+        res.setEncoding('latin1')
+        res.on('data', (content) => {
+          console.log(Buffer.from(content))
+          if(content.startsWith('https://files.chipmunk.land')){
+            sourceLink = content.slice(0, content.length-1)
+            c.reply({
+              text: 'command.download.success',
+              parseLang: true
+            })
+            c.reply({
+              text: sourceLink,
+              linked: true
+            })
+          } 
+        })
+      })
+      r.write(Buffer.from(bytes))
+      r.end()
     }
+
   }
 }

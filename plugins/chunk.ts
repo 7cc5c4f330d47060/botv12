@@ -19,7 +19,7 @@ export default function load (b: Botv12Client) {
     }
     b.chunks[data.x][data.z] = chunk
   })
-  b._client.on('block_change', (data: any) => {
+  b._client.on('block_change', (data) => {
     const chunkX = data.location.x >> 4
     const chunkZ = data.location.z >> 4
     const blockX = data.location.x & 15
@@ -28,7 +28,7 @@ export default function load (b: Botv12Client) {
       b.chunks[chunkX][chunkZ].setBlockStateId(Vec3(blockX, data.location.y, blockZ), data.type)
     }
   })
-  b._client.on('multi_block_change', (data: any) => {
+  b._client.on('multi_block_change', (data) => {
     for (const record of data.records) {
       const blockState = record >> 12
       const blockX = record >> 8 & 15

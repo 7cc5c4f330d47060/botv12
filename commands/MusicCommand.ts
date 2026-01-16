@@ -239,12 +239,12 @@ export default class MusicCommand extends Command {
               c.bot.musicPlayer.queue.length + ''
             ]
           })
-          c.bot.musicPlayer.queue.forEach((item: any, id: number) => {
+          c.bot.musicPlayer.queue.forEach((item: [string, string], id: number) => {
             c.reply({
               text: 'command.music.queueItem',
               parseLang: true,
               with: [
-                id,
+                id + '',
                 item[1]
               ]
             })

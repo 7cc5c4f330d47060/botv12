@@ -1,4 +1,3 @@
-import { bots } from '../index.js'
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
 import CommandContext from '../util/CommandContext'
