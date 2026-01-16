@@ -51,11 +51,18 @@ const os2 = function (o2: string, lang: string) {
     case 'darwin':{
       try {
         const swvers = execSync('sw_vers').toString('utf8').split('\n')
-        const swvers2: any = {}
+        const swvers2: {
+          ProductName?: string,
+          ProductVersion?: string,
+          BuildVersion?: string
+        } = {}
         for (const item of swvers) {
           if (!item.includes(':\t')) continue
-          swvers2[item.split(':\t')[0]] = item.split(':\t')[1]
+          const key = item.split(':\t')[0]
+          if(key !== 'ProductName' && key !== 'ProductVersion' && key !== 'BuildVersion') continue
+          swvers2[key] = item.split(':\t')[1]
         }
+        if(!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
         return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
       } catch (e) {
         if(debugMode) console.log(e)

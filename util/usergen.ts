@@ -89,7 +89,7 @@ const namesSs = [ // From 2025 Metroidvania from Australia.
   'Wormways',
   // No X, for now at least...
   'Yarnaby',
-  'Zaza'
+  'Zaza' // Garmond is seperate, since they are technically two characters usually together
 ]
 
 //console.log(namesHk.length * namesSs.length)

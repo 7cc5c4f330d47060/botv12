@@ -1,10 +1,18 @@
+import Botv12Client from './util/Botv12Client.js'
+import SettingsType from './util/SettingsType.js'
+
 declare global {
-  var settings: any
+  var settings: SettingsType
   var codeDir: string
   var baseDir: string
   var debugMode: boolean
-  var clOptions: any
+  var clOptions: {
+    disableWsServer?: boolean
+    disableNetMsg?: boolean
+  }
   var startTime: number
+  var bots: Botv12Client[]
+  var createBot: (host: any, oldId?: number, bypassStall?: boolean) => void
 }
 
 globalThis.startTime = Date.now();
@@ -25,7 +33,6 @@ globalThis.debugMode = settings.debugMode || globalThis.debugMode
 
 if (debugMode) console.log('[debug] Loading...\x1b[0m')
 
-import Botv12Client from './util/Botv12Client.js'
 import generateUser from './util/usergen.js'
 import version from './version.js'
 //import { getMessage } from './util/lang.js'
@@ -40,8 +47,8 @@ const awaitLicense = function(callback: any){
     if(debugMode) console.log('[debug] License check failed.')
       console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later.\n`+
       `This license requires, among other things, that the source code be made available to anybody \n`+
-      `looking for it, even if you only host a fork of the bot. The bot includes a (currently\n`+
-      `non-functional) download command to download the source. You may also use any publicly available\n`+
+      `looking for it, even if you only host a fork of the bot. The bot includes a\n`+
+      `) download command to download the source. You may also use any publicly available\n`+
       `version control system, or any other method to distribute the source to those who want it. For more\n`+
       `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
       `To accept the license, type 'I accept' below. If you do not accept the license, you may \n`+
@@ -154,8 +161,3 @@ const loadPlugins = () => {
   }
 }
 awaitLicense(loadPlugins)
-
-export {
-  bots,
-  createBot
-}

@@ -15,6 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@nbsjs/core": "^6.0.0",
+    "@zip.js/zip.js": "^2.8.15",
     "mariadb": "^3.4.4",
     "midi-file": "^1.2.4",
     "minecraft-data": "^3.85.0",

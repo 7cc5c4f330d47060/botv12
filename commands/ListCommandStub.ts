@@ -6,7 +6,7 @@ export default class ListCommandStub extends Command {
     super()
     this.name = 'list'
     this.execute = async (c: CommandContext) => {
-      c.reply({text: 'command.list.ss22', parseLang: true})
+      c.reply({text: 'command.error.2.2', parseLang: true})
       //Lists unvanished players. Vanished support will come later.
     }
     this.hidden = true

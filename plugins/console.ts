@@ -3,7 +3,6 @@ import registry from '../util/commands.js'
 import CommandContext from '../util/CommandContext.js'
 import parse3 from '../util/chatparse.js'
 import { userInfo } from 'node:os'
-import { bots } from '../index.js'
 
 import Botv12Client from '../util/Botv12Client.js'
 import { getMessage } from '../util/lang.js'

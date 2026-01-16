@@ -1,4 +1,3 @@
-import { bots, createBot } from '../index.js'
 import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
 

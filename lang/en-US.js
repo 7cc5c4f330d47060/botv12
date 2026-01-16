@@ -110,6 +110,8 @@ export default {
   'command.cloop.success.remove': 'Removed command loop %s',
   'command.cloop.success.clear': 'Cleared all command loops',
   'command.cloop.list': '%s: Command: %s Rate: %s',
+  'command.download.success': 'Source code has been uploaded',
+  'command.download.already': 'Source code has already been uploaded',
   'command.eval.output': 'Output',
   //'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
   'command.filter.error.notFound': 'Could not find player information',
@@ -130,7 +132,6 @@ export default {
   'command.help.noCommand': 'Command does not exist',
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
-  'command.list.ss22': 'This command is being worked on and will be added soon.', // Song of Silk 2.2
   'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
   'command.music.openDir': 'Click to view songs in %s',
   'command.music.openFile': 'Click to play %s',
@@ -173,6 +174,7 @@ export default {
   'command.test.colorWarning': 'Warning color',
   'command.test.colorError': 'Error color',
   'command.test.colorFatalError': 'Fatal error color',
+  'command.username': "The bot's username on this server is %s",
   'command.about.serverListItem.thisServer': 'Server %s - %s (this server)',
   'command.tpr.success': 'Teleporting %s to %s, %s, %s',
   'command.verify.success': 'Successfully verified with permission level %s',
@@ -197,6 +199,7 @@ export default {
   'command.error.unknown': 'Unknown command, run %shelp for a list of commands',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
   'command.error.notImplemented': 'This function has not been implemented yet',
+  'command.error.2.2': 'This command is being worked on and will be added soon.',
   'command.ratelimit': 'This command is rate limited for %s seconds',
 
   // Permission Error

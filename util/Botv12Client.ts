@@ -137,7 +137,7 @@ export default class Botv12Client extends EventEmitter {
     }
 
     this.displayChat = (type: string, subtype: string, msg: string) => {
-      if (settings.displaySubtypesToConsole) {
+      if (debugMode) {
         console.log(`[${this.id}] [${type}] [${subtype}] ${msg}`)
       } else {
         console.log(`[${this.id}] [${type}] ${msg}`)

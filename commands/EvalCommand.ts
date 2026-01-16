@@ -1,4 +1,3 @@
-import { bots, createBot } from '../index.js'
 import { inspect } from 'node:util'
 import CommandContext from '../util/CommandContext'
 import Command from '../util/Command.js'
@@ -8,10 +7,6 @@ export default class EvalCommand extends Command {
     super()
     this.name = "eval"
     this.execute = async (c: CommandContext) => {
-      const index = { 
-        bots,
-        createBot
-      }
       const payload = c.args.join(' ')
       let result
       try {
