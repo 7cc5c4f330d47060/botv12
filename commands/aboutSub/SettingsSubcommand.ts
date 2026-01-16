@@ -23,7 +23,7 @@ export default class SettingsSubcommand extends Command {
       }
       for (const i in settings) {
         const output = settings[i] + ''
-        if (i === 'colors' || i === 'servers' || i === 'keyTrusted' ||
+        if (i === 'colors' || i === 'servers' || i === 'keyTrusted' || i === 'keyAdmin' ||
           i === 'keyOwner' || i === 'onlineEmail' || i === 'onlinePass') continue
         c.reply(reply(i, output))
       }
