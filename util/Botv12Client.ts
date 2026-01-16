@@ -5,6 +5,8 @@ import BossBar from './BossBar.js'
 import ParsedNote from './ParsedNote.js'
 import FilteredPlayer from './FilteredPlayer.js'
 import offlineUUID from './offlineUUID.js'
+import SCTask from './SCTask.js'
+import console from 'node:console'
 
 interface MusicPlayer extends EventEmitter {
   /*
@@ -67,12 +69,22 @@ export default class Botv12Client extends EventEmitter {
   ready: boolean
 
   // Plugins
-  clientChat: any
-  selfCare: any
+  clientChat: {
+    chatqueue: string[]
+    send: (...msgs: string[]) => void
+  }
+  selfCare: {
+    tasks: Record<string, SCTask>
+    lastRun: number
+    addTask: (name: string, failTask: () => void, startFailed?: boolean) => void
+  }
   serverChat: any
   position: any
   commandCore: any
-  commands: any
+  commands: {
+    lastCmd: number
+    runCommand: (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) => void
+  }
   chunks: any
   musicPlayer: MusicPlayer
   filter: {
@@ -92,14 +104,22 @@ export default class Botv12Client extends EventEmitter {
   constructor (options?: any) {
     super()
 
-    
     this.ready = false
     this._client = createClient(options)
     this.interval = {}
 
     // Plugins, again...
-    this.clientChat = {}
-    this.selfCare = {} 
+    this.clientChat = {
+      chatqueue: [],
+      send: (...msgs: string[]) => { for(const msg of msgs) this._client.chat(msg) }
+    }
+    this.selfCare = {
+      tasks: {},
+      lastRun: 0,
+      addTask: (name: string, failTask: () => void, startFailed?: boolean) => {
+        this.selfCare.tasks[name] = new SCTask(failTask, startFailed)
+      }
+    } 
     this.serverChat = {}
     this.playerInfo = {
       findUUID: (name: string) => { return offlineUUID(name) },
@@ -109,7 +129,10 @@ export default class Botv12Client extends EventEmitter {
     }
     this.position = {}
     this.commandCore = {}
-    this.commands = {}
+    this.commands = {
+      lastCmd: 0,
+      runCommand: () => console.log("Command plugin is not loaded")
+    }
     this.chunks = {}
     this.musicPlayer = new EventEmitter()
     this.filter = {

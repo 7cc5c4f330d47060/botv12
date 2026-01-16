@@ -7,6 +7,7 @@ export default class SayCommand extends Command {
     super()
     this.name = 'say'
     this.execute = async (c: CommandContext) => {
+      if(!('clientChat' in c.bot)) return
       const msg = c.args.join(' ').slice(0, 512)
       if (msg.includes(settings.keyTrusted) && c.verify < 1) {
         return

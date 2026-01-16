@@ -11,6 +11,32 @@ export default class LicenseSubcommand extends Command {
     this.name = "license"
     this.aliases = [ "licence" ]
     this.execute = async (c: CommandContext) => {
+      if(c.args[1] === '--info') {
+        c.reply({
+          text: 'command.about.copyright.agpl.isFree',
+          parseLang: true
+        })
+        c.reply({
+          text: 'command.about.copyright.agpl.warranty',
+          parseLang: true
+        })
+        c.reply({
+          text: 'command.about.copyright.agpl.getLicense',
+          parseLang: true,
+          with: [
+            {
+              text: 'https://www.gnu.org/licenses/',
+              linked: true
+            }
+          ]
+        })
+        c.reply({
+          text: 'command.about.copyright.readLicense',
+          parseLang: true,
+          command: `${c.prefix}about license`
+        })
+        return
+      }
       let startIndex = 0
       if(c.args[1]) startIndex = +c.args[1]
       const changeSize = debugMode ? 18 : 19
