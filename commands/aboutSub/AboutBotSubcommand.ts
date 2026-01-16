@@ -1,4 +1,5 @@
 import version from '../../version.js'
+import versionUtil from '../../util/version.js'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
 
@@ -15,6 +16,13 @@ export default class AboutBotSubcommand extends Command {
           version.botAuthor
         ]
       })
+      c.reply({
+        text: 'command.about.version',
+        parseLang: true,
+        with: [
+          versionUtil
+        ]
+      })
       for(const item of version.newCopyright) {
         c.reply({
           text: 'command.about.copyright',
@@ -26,23 +34,17 @@ export default class AboutBotSubcommand extends Command {
         })
       }
       c.reply({
-        text: 'command.about.copyright.agpl.isFree',
-        parseLang: true
-      })
-      c.reply({
-        text: 'command.about.copyright.agpl.warranty',
-        parseLang: true
-      })
-      c.reply({
-        text: 'command.about.copyright.agpl.getLicense',
+        text: 'command.about.copyright.agpl',
         parseLang: true,
         with: [
           {
-            text: 'https://www.gnu.org/licenses/',
-            linked: true
+            text: 'clickHere',
+            parseLang: true,
+            command: `${c.prefix}about license --info`
           }
         ]
       })
+      /**/
       if (version.sourceURL) {
         c.reply({
           text: 'command.about.sourceCode',

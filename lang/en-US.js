@@ -65,6 +65,7 @@ export default {
 
   // Command Strings
   'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones\n',
+  'command.about.version': 'Version %s',
   'command.about.versionCmd.generic': '%s version: %s',
   'command.about.versionCmd.legacy': 'The version command will soon be merged into serverinfo.',
   'command.about.sourceCode': 'Source code: %s',
@@ -180,7 +181,9 @@ export default {
   'command.verify.success': 'Successfully verified with permission level %s',
 
   // AGPL info
-  'command.about.copyright.agpl.isFree': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version\n',
+  'command.about.copyright.readLicense': 'Click here to read the full license terms.',
+  'command.about.copyright.agpl': 'This program is free software licensed under the terms of the GNU Affero General Public License as published by the Free Software Foundation, version 3 or later. For more information, %s.\n',
+  'command.about.copyright.agpl.isFree': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n',
   'command.about.copyright.agpl.warranty': 'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n',
   'command.about.copyright.agpl.getLicense': 'You should have received a copy of the GNU Affero General Public License along with this program. If not, see <%s>.\n',
 
@@ -233,9 +236,13 @@ export default {
   'textReader.nextPage': 'Next',
 
   // Miscellaneous
+  clickHere: 'click here',
+  //clickHere2: 'Click here',
+  //clickHere3: 'Click Here',
   listItem: '%s: %s',
   copyText: 'Click to copy this item to your clipboard',
   openInBrowser: 'Click to open this link in a browser',
+  runCommand: 'Click to run command (1.11+): %s',
   'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
   'selfcare.prefix': 'Prefix',
   'debug.commandFinished': 'Command successfully executed in %sms',

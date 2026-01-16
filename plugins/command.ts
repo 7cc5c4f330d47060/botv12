@@ -6,7 +6,6 @@ import { getMessage } from '../util/lang.js'
 import Botv12Client from '../util/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
-  b.commands = {}
   b.on('chat', (data) => {
     const fullCommand = data.message
     for (const prefix of settings.prefixes) {

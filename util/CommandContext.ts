@@ -12,9 +12,6 @@ interface ClientStub {
   commandCore: {
     tellraw: (uuid: string, text: string) => void
   }
-  clientChat?: {
-    send: (message: string) => void
-  }
   id?: number,
   host?: {
     host: string,

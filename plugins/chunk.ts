@@ -53,9 +53,9 @@ export default function load (b: Botv12Client) {
     b.position.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
     if (newY > 99 || newY < 1) {
-      b.selfCare.tasks.cc_pos.failed = 1
+      b.selfCare.tasks.cc_pos.failed = true
     } else {
-      b.selfCare.tasks.cc_pos.failed = 0
+      b.selfCare.tasks.cc_pos.failed = false
     }
   })
   b.interval.unloadChunks = setInterval(() => {
