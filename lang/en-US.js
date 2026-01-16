@@ -64,8 +64,8 @@ export default {
   'commands.validate.desc': 'Check the hashing system',
 
   // Command Strings
-  'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones\n',
-  'command.about.version': 'Version %s',
+  'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones',
+  'command.about.version': 'Version %s\n',
   'command.about.versionCmd.generic': '%s version: %s',
   'command.about.versionCmd.legacy': 'The version command will soon be merged into serverinfo.',
   'command.about.sourceCode': 'Source code: %s',
