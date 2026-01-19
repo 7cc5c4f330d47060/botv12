@@ -5,6 +5,7 @@ import registry from "../util/commands.js"
 
 import { getMessage } from "../util/lang.js"
 import CommandContext from "../util/CommandContext.js"
+import JsonFormat from "../util/JsonFormat.js";
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = "Default User"
@@ -17,7 +18,7 @@ if(!clOptions.disableWsServer){
     port: 12365
   })
 
-  const sendRaw = (client: WebSocket, type: string, data: string) => client.send(JSON.stringify({
+  const sendRaw = (client: WebSocket, type: string, data: JsonFormat | string) => client.send(JSON.stringify({
     event: "rawChat",
     data: {
       data: parse3(data, 'html'),
@@ -38,7 +39,7 @@ if(!clOptions.disableWsServer){
               name: 'WebSocket Console'
             }
           },
-          commandCore: { tellraw: (_unused: string, data: string) => sendRaw(client, 'cmdoutput', data) }
+          commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => sendRaw(client, 'cmdoutput', data) }
         }
         const json = JSON.parse(data.toString('utf8'))
         if(json.event == "command"){

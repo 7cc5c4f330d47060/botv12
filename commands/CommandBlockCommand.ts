@@ -6,6 +6,7 @@ export default class CommandBlockCommand extends Command {
     super()
     this.name = 'cb'
     this.execute = async (c: CommandContext) => {
+      if(!('isBot' in c.bot)) return
       c.bot.commandCore.ccq.push(c.args.join(' '))
     }
     this.consoleIndex = true

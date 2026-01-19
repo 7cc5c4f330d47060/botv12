@@ -1,4 +1,5 @@
 import Botv12Client from './Botv12Client.js'
+import JsonFormat from './JsonFormat.js'
 import build from './messageBuilder.js'
 import TextFormat from './TextFormat.js'
 
@@ -10,7 +11,7 @@ interface ClientStub {
   }
   disconnect?: boolean
   commandCore: {
-    tellraw: (uuid: string, text: string) => void
+    tellraw: (uuid: string, text: JsonFormat | string) => void
   }
   id?: number,
   host?: {

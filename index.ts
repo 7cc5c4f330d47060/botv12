@@ -39,6 +39,7 @@ import version from './version.js'
 //import { getMessage } from './util/lang.js'
 import { readdirSync, writeFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
+import { ClientOptions } from 'minecraft-protocol'
 //import { default as registry } from 'prismarine-registry'
 
 const awaitLicense = function(callback: () => void){
@@ -83,16 +84,16 @@ if (settings.keyTrusted === undefined || settings.keyAdmin === undefined ||
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   const startTimeBot = Date.now();
-  const options = {
+  const options: ClientOptions = {
     host: host.host,
     fakeHost: host.fakeHost,
     port: host.port ?? 25565,
     username: host.options.username ?? generateUser(),
-    password: host.options.password ?? null,
-    session: host.options.session ?? null,
-    auth: host.options.authServer ? 'mojang' : null,
-    authServer: host.options.authServer ?? null,
-    sessionServer: host.options.sessionServer ?? null,
+    password: host.options.password ?? undefined,
+    session: host.options.session ?? undefined,
+    auth: host.options.authServer ? 'mojang' : 'offline',
+    authServer: host.options.authServer ?? undefined,
+    sessionServer: host.options.sessionServer ?? undefined,
     version: host.version ?? settings.version_mc
   }
 

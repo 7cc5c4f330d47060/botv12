@@ -7,6 +7,7 @@ export default class BedrockCommand extends Command {
     super()
     this.name = "bedrock"
     this.execute = async (c: CommandContext) => {
+      if(!('isBot' in c.bot)) return
       const commandQueue: string[] = []
       // Refill bedrock floor in specific area.
       if (!rl.check('bedrock') && c.type !== 'console') {

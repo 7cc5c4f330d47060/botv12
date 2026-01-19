@@ -9,7 +9,7 @@ import JsonFormat from '../util/JsonFormat.js'
 
 interface ChatTypeItem {
   translation_key: {value: string},
-  parameters: { value: { value: object } },
+  parameters: { value: { value: string[] } },
   style: { value: Record<string, { value: string }> }
 }
 
@@ -61,7 +61,6 @@ for (const plugin of bpl) {
 }
 
 export default function load (b: Botv12Client) {
-  b.serverChat = {}
   b.serverChat.messageCount = 0
   b.serverChat.disabledUntil = 0
   b.serverChat.messageTypes = []

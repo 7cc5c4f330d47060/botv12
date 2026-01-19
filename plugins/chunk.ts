@@ -1,4 +1,4 @@
-import loader from 'prismarine-chunk'
+import loader, { PCChunk } from 'prismarine-chunk'
 import Vec3 from 'vec3'
 import Botv12Client from '../util/Botv12Client.js'
 const rd = 8
@@ -6,7 +6,6 @@ const rd = 8
 export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
   b.chunks = []
-  if(!b.position) b.position = {}
   b._client.on('map_chunk', (data) => {
     
     if (!b.chunks[data.x]) {
@@ -62,18 +61,18 @@ export default function load (b: Botv12Client) {
   })
   b.interval.unloadChunks = setInterval(() => {
     /* eslint-disable @typescript-eslint/no-dynamic-delete */
-    for (const i in b.chunks) {
+    b.chunks.forEach((chunkList: PCChunk[], i: number) => {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
         delete b.chunks[i]
       }
-      for (const z in b.chunks[i]) {
+      chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
           delete b.chunks[i][z]
         }
-      }
-    }
+      })
+    })
     /* eslint-enable @typescript-eslint/no-dynamic-delete */
   }, 1500)
 }
