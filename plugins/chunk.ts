@@ -7,7 +7,6 @@ export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
   b.chunks = []
   b._client.on('map_chunk', (data) => {
-    
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
@@ -16,7 +15,7 @@ export default function load (b: Botv12Client) {
     try {
       chunk.load(data.chunkData)
     } catch (e) {
-      if(debugMode) console.log(e)
+      if(settings.showErrors) console.log(e)
     }
     b.chunks[data.x][data.z] = chunk
   })
@@ -65,7 +64,9 @@ export default function load (b: Botv12Client) {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
         delete b.chunks[i]
+        return
       }
+      
       chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {

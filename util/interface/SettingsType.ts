@@ -20,6 +20,7 @@ export default interface SettingsType {
   //displaySubtypesToConsole?: boolean
   showCommandSet?: boolean
   disableMusicBar?: boolean
+  showErrors?: boolean
   prefixes: string[]
   servers: HostOptions[]
 }
