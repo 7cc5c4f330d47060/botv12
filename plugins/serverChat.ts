@@ -7,6 +7,16 @@ import ChatParser from '../util/ChatParser.js'
 import { resolve } from 'node:path'
 import JsonFormat from '../util/JsonFormat.js'
 
+interface ChatTypeItem {
+  translation_key: {value: string},
+  parameters: { value: { value: object } },
+  style: { value: Record<string, { value: string }> }
+}
+
+interface ChatTypeItemRoot {
+  element: { value: { chat: { value: ChatTypeItem }}}
+}
+
 const convertChatStyleItem = (item: Record<string, { value: string }>) => {
   const output: Record<string, string> = {}
   for (const i in item) {
@@ -14,7 +24,8 @@ const convertChatStyleItem = (item: Record<string, { value: string }>) => {
   }
   return output
 }
-const convertChatTypeItem = (item: any) => {
+
+const convertChatTypeItem = (item: ChatTypeItem) => {
   if (item.style) {
     return {
       translation_key: item.translation_key.value,
@@ -60,11 +71,11 @@ export default function load (b: Botv12Client) {
   b._client.on('registry_data', (data) => {
     if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
-      nbtItems.forEach((item: any, i: number) => {
+      nbtItems.forEach((item: ChatTypeItemRoot, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
     } else if (data.entries && data.id === 'minecraft:chat_type') {
-      data.entries.forEach((item: any, i: number) => {
+      data.entries.forEach((item: object, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }

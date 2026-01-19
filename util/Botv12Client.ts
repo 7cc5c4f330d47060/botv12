@@ -8,6 +8,7 @@ import offlineUUID from './offlineUUID.js'
 import SCTask from './SCTask.js'
 import console from 'node:console'
 import HostOptions from './HostOptions.js'
+import { PCChunk } from 'prismarine-chunk'
 
 interface MusicPlayer extends EventEmitter {
   /*
@@ -86,7 +87,7 @@ export default class Botv12Client extends EventEmitter {
     lastCmd: number
     runCommand: (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) => void
   }
-  chunks: any
+  chunks: PCChunk[][]
   musicPlayer: MusicPlayer
   filter: {
     filteredPlayers: { username: string, uuid: string, method: string }[]
@@ -142,7 +143,7 @@ export default class Botv12Client extends EventEmitter {
       lastCmd: 0,
       runCommand: () => console.log("Command plugin is not loaded")
     }
-    this.chunks = {}
+    this.chunks = []
     this.musicPlayer = new EventEmitter()
     this.filter = {
       filteredPlayers: [],
