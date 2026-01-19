@@ -8,7 +8,7 @@ export default class JoinCommand extends Command {
     this.execute = async (c: CommandContext) => {
       const options = {
         host: c.args[0],
-        port: c.args[1],
+        port: +c.args[1],
         options: {
           name: `temp_${Date.now()}`
         }

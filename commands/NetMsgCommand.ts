@@ -28,7 +28,7 @@ export default class NetMsgCommand extends Command {
       const json: {text: string, with: [string, string, {text: string}]} = {
         text: '[%s] %s › %s',
         with: [
-          c.bot.host.options?.name ?? 'console',
+          c.bot.host?.options.name ?? 'console',
           c.username,
           {
             text: msg

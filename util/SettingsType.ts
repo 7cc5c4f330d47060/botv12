@@ -1,3 +1,5 @@
+import HostOptions from "./HostOptions.js"
+
 export default interface SettingsType {
   terminalMode: string
   version_mc: string
@@ -19,11 +21,5 @@ export default interface SettingsType {
   showCommandSet?: boolean
   disableMusicBar?: boolean
   prefixes: string[]
-  servers: {
-    host: string,
-    port?: number,
-    options: {
-      name: string
-    }
-  }[]
+  servers: HostOptions[]
 }

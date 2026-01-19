@@ -15,7 +15,10 @@ interface ClientStub {
   id?: number,
   host?: {
     host: string,
-    port: number
+    port: number,
+    options: {
+      name: string
+    }
   }
   filter?: {
     filteredPlayers: { username: string, uuid: string, method: string }[]
@@ -27,7 +30,6 @@ interface ClientStub {
     findUUID: (name: string) => string
     findRealNameFromUUID: (uuid: string) => string
   }
-
 }
 export default class CommandContext {
   uuid: string

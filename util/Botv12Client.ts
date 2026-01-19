@@ -7,6 +7,7 @@ import FilteredPlayer from './FilteredPlayer.js'
 import offlineUUID from './offlineUUID.js'
 import SCTask from './SCTask.js'
 import console from 'node:console'
+import HostOptions from './HostOptions.js'
 
 interface MusicPlayer extends EventEmitter {
   /*
@@ -59,7 +60,7 @@ interface MusicPlayer extends EventEmitter {
 export default class Botv12Client extends EventEmitter {
   _client: Client
   id?: number
-  host: any
+  host: HostOptions
   interval: Record<string, NodeJS.Timeout>
   info: (msg: string) => void
   displayChat: (type: string, subtype: string, msg: string) => void
@@ -107,6 +108,14 @@ export default class Botv12Client extends EventEmitter {
     this.ready = false
     this._client = createClient(options)
     this.interval = {}
+
+    this.host = {
+      host: options.host,
+      port: options.port,
+      options: {
+        name: '(server name not set)'
+      }
+    }
 
     // Plugins, again...
     this.clientChat = {
