@@ -9,14 +9,15 @@ botvX is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) an
 - a command core, to run commands quickly
 - a hashing system, to enable trusted users to securely run certain commands in chat
 
+### Information about botvX_mjs
 This is a fork from commit 4efbf43edb with support for using ECMAScript modules (import/export) rather than CommonJS modules (require/module.exports). All plugins have been converted to be ECMAScript modules, but the v11 API has not been finalized, and there will be API breaks before this version is released. Due to differences in how Node.js operates in these two modes, this version is not compatible with plugins, commands, etc. from version 10 without modifying them in some way, and as such, this branch has major version number 11.
 
-This codebase will most likely not be used unless Node.js deprecates CommonJS.
+[botv12](https://codeberg.org/7cc5c4f330d47060/botv12) is the official successor to botvX and botvX_mjs, started with a similar goal to botvX_mjs: to replace CommonJS with ECMAScript modules. Older versions are similar to botvX_mjs in that they use ECMAScript modules instead of CommonJS, with a few differences between their API - some code from this version was used in the earliest versions of botv12. The newest versions are now additionally being rewritten in [TypeScript](https://www.typescriptlang.org/).
 
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
-2. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX/</code>.
+2. Download the latest release, or alternatively, download the latest development version using <code>git clone https://code.chipmunk.land/7cc5c4f330d47060/botvX_mjs/</code>.
 3. Extract the files if necessary.
 4. Run <code>npm install</code> in the bot's directory. If it doesn't work, try using the Node.js command prompt, or adding Node.js to your PATH.
 5. Copy <code>settings_example.json</code> to <code>settings.json</code> , and adjust the settings to fit your needs. Do not forget to also create a secrets file. An example secrets file is provided as <code>secret_example.json</code>. Do not forget, if you use the secrets template, to change the keys (the ones in there are public after all!).
