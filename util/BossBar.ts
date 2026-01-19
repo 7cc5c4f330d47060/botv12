@@ -1,5 +1,5 @@
 import Botv12Client from "./Botv12Client.js"
-import JsonFormat from "./JsonFormat.js"
+import JsonFormat from "./interface/JsonFormat.js"
 
 export default class BossBar {
   name: string

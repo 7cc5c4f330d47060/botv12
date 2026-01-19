@@ -1,6 +1,6 @@
-import JsonFormat from './JsonFormat.js'
+import JsonFormat from './interface/JsonFormat.js'
 import { getMessage } from './lang.js'
-import TextFormat from './TextFormat.js'
+import TextFormat from './interface/TextFormat.js'
 import uuidToInt from './uuidtoint.js'
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {

@@ -5,7 +5,7 @@ import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
 
 import Botv12Client from '../util/Botv12Client.js'
-import JsonFormat from '../util/JsonFormat.js'
+import JsonFormat from '../util/interface/JsonFormat.js'
 
 export default function load (b: Botv12Client) {
   const Item = loader(b.registry)

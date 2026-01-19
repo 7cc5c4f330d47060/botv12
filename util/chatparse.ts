@@ -1,7 +1,7 @@
 import lang from './mc_lang.js'
 import consoleColors from './consoleColors.js'
 import ConsoleColorSetting from './ConsoleColorSetting.js'
-import JsonFormat from './JsonFormat.js'
+import JsonFormat from './interface/JsonFormat.js'
 
 // List from https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-in-html
 const escapeHtml = (text: string) => {

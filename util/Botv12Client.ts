@@ -3,13 +3,13 @@ import EventEmitter from 'node:events'
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
 import ParsedNote from './ParsedNote.js'
-import FilteredPlayer from './FilteredPlayer.js'
+import FilteredPlayer from './interface/FilteredPlayer.js'
 import offlineUUID from './offlineUUID.js'
 import SCTask from './SCTask.js'
 import console from 'node:console'
-import HostOptions from './HostOptions.js'
+import HostOptions from './interface/HostOptions.js'
 import { PCChunk } from 'prismarine-chunk'
-import JsonFormat from './JsonFormat.js'
+import JsonFormat from './interface/JsonFormat.js'
 
 interface MusicPlayer extends EventEmitter {
   /*
