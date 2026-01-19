@@ -5,15 +5,17 @@ const rd = 8
 
 export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
-  b.chunks = {}
+  b.chunks = []
   if(!b.position) b.position = {}
   b._client.on('map_chunk', (data) => {
+    
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
     const chunk = new Chunk({x: 0, z: 0})
+    if(!('load' in chunk)) return
     try {
-      if('load' in chunk) chunk.load(data.chunkData)
+      chunk.load(data.chunkData)
     } catch (e) {
       if(debugMode) console.log(e)
     }
