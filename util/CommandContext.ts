@@ -21,16 +21,6 @@ interface ClientStub {
       name: string
     }
   }
-  filter?: {
-    filteredPlayers: { username: string, uuid: string, method: string }[]
-    isFiltered: (user: string) => boolean
-    addFilter: (uuid: string, name: string, method?: string) => void
-    removeFilter: (user: string) => void
-  }
-  playerInfo?: {
-    findUUID: (name: string) => string
-    findRealNameFromUUID: (uuid: string) => string
-  }
 }
 export default class CommandContext {
   uuid: string
