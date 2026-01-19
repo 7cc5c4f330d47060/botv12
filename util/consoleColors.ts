@@ -1,4 +1,4 @@
-import ConsoleColorSetting from "./ConsoleColorSetting"
+import ConsoleColorSetting from "./interface/ConsoleColorSetting"
 
 const consoleColors: Record<string, ConsoleColorSetting> = {
   blackTerminal_24bit: {

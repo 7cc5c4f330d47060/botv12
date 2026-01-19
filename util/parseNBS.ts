@@ -1,6 +1,6 @@
 // Read NBS file and convert it for use in plugins/musicPlayer.js.
 import { fromArrayBuffer, Layer, SongInstruments } from '@nbsjs/core'
-import NbsOutputFormat from './NbsOutputFormat.js'
+import NbsOutputFormat from './interface/NbsOutputFormat.js'
 
 const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.harp',
