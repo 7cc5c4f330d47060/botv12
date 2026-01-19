@@ -7,8 +7,8 @@ import ChatParser from '../util/ChatParser.js'
 import { resolve } from 'node:path'
 import JsonFormat from '../util/JsonFormat.js'
 
-const convertChatStyleItem = (item: any) => {
-  const output: any = {}
+const convertChatStyleItem = (item: Record<string, { value: string }>) => {
+  const output: Record<string, string> = {}
   for (const i in item) {
     output[i] = item[i].value
   }

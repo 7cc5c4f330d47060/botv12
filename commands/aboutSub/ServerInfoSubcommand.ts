@@ -5,6 +5,7 @@ import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
+import TextFormat from '../../util/TextFormat.js'
 
 const parseOSRelease = (): Record<string, string> => {
   if (readdirSync('/etc').includes('os-release')) {
@@ -80,7 +81,7 @@ export default class ServerInfoSubcommand extends Command {
     this.name = "server"
     this.aliases = [ "serverinfo" ]
     this.execute = async (c: CommandContext) => {
-      const displayInfo = function (name: string, infoFunc: () => any) {
+      const displayInfo = function (name: string, infoFunc: () => string | TextFormat) {
         let thisItem
         try {
           thisItem = infoFunc()
@@ -88,7 +89,7 @@ export default class ServerInfoSubcommand extends Command {
           console.error(e)
           thisItem = 'Error! (check console)'
         }
-        if (thisItem.length === 0) return
+        if (typeof thisItem === 'string' && thisItem.length === 0) return
 
         c.reply({
           text: 'listItem',

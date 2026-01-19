@@ -10,7 +10,10 @@ import { getMessage } from '../util/lang.js'
 const consoleBotStub = {
   host: {
     host: 'bot console',
-    port: 25565
+    port: 25565,
+    options: {
+      name: 'Steam Deck\u2122'
+    }
   },
   commandCore: { tellraw: (_unused: string, data: string) => console.log(parse3(data, settings.terminalMode))}
 }

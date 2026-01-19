@@ -1,5 +1,6 @@
 import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/SettingsType.js'
+import HostOptions from './util/HostOptions.js'
 
 declare global {
   var settings: SettingsType
@@ -12,7 +13,7 @@ declare global {
   }
   var startTime: number
   var bots: Botv12Client[]
-  var createBot: (host: any, oldId?: number, bypassStall?: boolean) => void
+  var createBot: (host: HostOptions, oldId?: number, bypassStall?: boolean) => void
 }
 
 globalThis.startTime = Date.now();
@@ -40,7 +41,7 @@ import { readdirSync, writeFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 //import { default as registry } from 'prismarine-registry'
 
-const awaitLicense = function(callback: any){
+const awaitLicense = function(callback: () => void){
   if(debugMode) console.log('[debug] Checking license...')
   const rootFileList = readdirSync(baseDir)
   if(!rootFileList.includes('.license_accepted')){
@@ -80,7 +81,7 @@ if (settings.keyTrusted === undefined || settings.keyAdmin === undefined ||
   settings.keyOwner === undefined) process.exit(1)
 
 globalThis.bots = []
-globalThis.createBot = function createBot (host: any, oldId?: number, bypassStall?: boolean) {
+globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   const startTimeBot = Date.now();
   const options = {
     host: host.host,
@@ -94,30 +95,17 @@ globalThis.createBot = function createBot (host: any, oldId?: number, bypassStal
     sessionServer: host.options.sessionServer ?? null,
     version: host.version ?? settings.version_mc
   }
-  let bot: any;
-  if(host.stall && !bypassStall){
-    const newId = oldId ?? bots.length
-    console.log(`[info] Stalling joining of bot ${newId}`)
-    bot = {
-      ready: false,
-      join: function () {
-        console.log(`[info] Joining stalled bot ${newId}`)
-        createBot(host, newId, true)
-      }
-    }
-  } else {
-    if (debugMode) console.log(`[debug] Connecting bot to ${options.host}:${options.port}...\x1b[0m`)
-    bot = new Botv12Client(options)
 
-    bot.host = host
+  if (debugMode) console.log(`[debug] Connecting bot to ${options.host}:${options.port}...\x1b[0m`)
+  const bot = new Botv12Client(options)
+
+  bot.host = host
     
-    for (const pluginItem of plugins) {
-      if (pluginItem) pluginItem(bot)
-    }
-
-    bot.ready = true
+  for (const pluginItem of plugins) {
+    if (pluginItem) pluginItem(bot)
   }
 
+  bot.ready = true
 
   if (typeof oldId !== 'undefined') {
     // Replace old bot with new one
