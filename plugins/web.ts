@@ -5,7 +5,7 @@ import registry from "../util/commands.js"
 
 import { getMessage } from "../util/lang.js"
 import CommandContext from "../util/CommandContext.js"
-import JsonFormat from "../util/JsonFormat.js";
+import JsonFormat from "../util/interface/JsonFormat.js";
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = "Default User"

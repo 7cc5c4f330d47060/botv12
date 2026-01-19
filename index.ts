@@ -1,6 +1,6 @@
 import Botv12Client from './util/Botv12Client.js'
-import SettingsType from './util/SettingsType.js'
-import HostOptions from './util/HostOptions.js'
+import SettingsType from './util/interface/SettingsType.js'
+import HostOptions from './util/interface/HostOptions.js'
 
 declare global {
   var settings: SettingsType

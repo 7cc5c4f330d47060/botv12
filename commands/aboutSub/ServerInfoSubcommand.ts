@@ -5,7 +5,7 @@ import memoryconvert from '../../util/memoryconvert.js'
 import { readdirSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
-import TextFormat from '../../util/TextFormat.js'
+import TextFormat from '../../util/interface/TextFormat.js'
 
 const parseOSRelease = (): Record<string, string> => {
   if (readdirSync('/etc').includes('os-release')) {

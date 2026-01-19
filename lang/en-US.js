@@ -199,6 +199,7 @@ export default {
 
   // Command Errors
   'command.error': 'An error occurred (check console for more info)',
+  'command.error.nonMcBot': '(Placeholder) This must be run using a valid instance of Botv12Client',
   'command.error.unknown': 'Unknown command, run %shelp for a list of commands',
   'command.error.subcmd': 'Unknown subcommand, please do %s',
   'command.error.notImplemented': 'This function has not been implemented yet',

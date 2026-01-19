@@ -1,5 +1,5 @@
 import ChatParser from '../util/ChatParser.js';
-import UnparsedMessage from '../util/UnparsedMessage.js';
+import UnparsedMessage from '../util/interface/UnparsedMessage.js';
 
 export default class PlayerChatParser extends ChatParser {
   constructor () {

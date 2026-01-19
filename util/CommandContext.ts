@@ -1,7 +1,7 @@
 import Botv12Client from './Botv12Client.js'
-import JsonFormat from './JsonFormat.js'
+import JsonFormat from './interface/JsonFormat.js'
 import build from './messageBuilder.js'
-import TextFormat from './TextFormat.js'
+import TextFormat from './interface/TextFormat.js'
 
 interface ClientStub {
   _client?: {
