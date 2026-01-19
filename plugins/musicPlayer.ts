@@ -10,9 +10,9 @@ import parseNBS from '../util/parseNBS.js'
 import download from '../util/downloadFile.js'
 import Botv12Client from '../util/Botv12Client.js'
 import version from '../version.js'
-import ParsedNote from '../util/ParsedNote.js'
-import NbsOutputFormat from '../util/NbsOutputFormat.js'
-import Note from '../util/Note.js'
+import ParsedNote from '../util/interface/ParsedNote.js'
+import NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
+import Note from '../util/interface/Note.js'
 
 const songPath = resolve(process.cwd(), 'songs')
 
