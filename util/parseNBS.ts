@@ -1,28 +1,33 @@
 // Read NBS file and convert it for use in plugins/musicPlayer.js.
 import { fromArrayBuffer, Layer, SongInstruments } from '@nbsjs/core'
 import NbsOutputFormat from './interface/NbsOutputFormat.js'
+import instrumentMapNbs from './instrumentMapNbs.js'
 
-const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
-  'block.note_block.harp',
-  'block.note_block.bass',
-  'block.note_block.basedrum',
-  'block.note_block.snare',
-  'block.note_block.hat',
-  'block.note_block.guitar',
-  'block.note_block.flute',
-  'block.note_block.bell',
-  'block.note_block.chime',
-  'block.note_block.xylophone',
-  'block.note_block.iron_xylophone',
-  'block.note_block.cow_bell',
-  'block.note_block.didgeridoo',
-  'block.note_block.bit',
-  'block.note_block.banjo',
-  'block.note_block.pling'
-]
-function calculateNoteNbs (note: number, instruments: SongInstruments): string | undefined {
-  if (standardNotes[note]) return `minecraft:${standardNotes[note]}`
-  else return instruments.all[note].name
+interface CalculatedNote {
+  mcNote: string
+  pitch: number
+}
+
+function calculateNoteNbs (note: number, pitch: number, instruments: SongInstruments): CalculatedNote {
+  const output = {
+    mcNote: 'block.note_block.harp',
+    pitch
+  }
+  if (instrumentMapNbs[note]) {
+    const imItem = instrumentMapNbs[note]
+    const pitchOffset = imItem.baseInstrument.center - 66
+    const pitchAdjusted = pitch - pitchOffset
+    for(const note of imItem.instruments){
+      if(pitchAdjusted >= note.center - 24 && pitchAdjusted <= note.center) {
+        output.mcNote = note.note
+        const pitchOffset2 = note.center - 66
+        output.pitch = pitch - pitchOffset2
+        break;
+      }
+    }
+  }
+  else output.mcNote = instruments.all[note]?.name ?? 'block.note_block.harp'
+  return output
 }
 export default function nbsReader (buffer: Buffer) {
   const nbs = fromArrayBuffer(new Uint8Array(buffer).buffer)
@@ -49,13 +54,18 @@ export default function nbsReader (buffer: Buffer) {
     ]
     const layerVolume = layer.volume
     let lastDelta = 0
+    // 0 = 54 = F#3
+    // 12 = 66 = F#4
+    // 24 = 78 = F#5, presumably
     for (const delta in layer.notes.all) {
       const note = layer.notes.all[delta]
+      const pitchMidi = note.key + 9 + (45 - nbs.instruments.all[note.instrument].key)
+      const calculatedNote = calculateNoteNbs(note.instrument, pitchMidi, nbs.instruments)
       output.tracks[id].push({
         type: 'noteOn',
         deltaTime: +delta - lastDelta,
-        mcNote: calculateNoteNbs(note.instrument, nbs.instruments),
-        noteNumber: note.key + 9 + (45 - nbs.instruments.all[note.instrument].key),
+        mcNote: calculatedNote.mcNote,
+        noteNumber: calculatedNote.pitch,
         velocity: ((note.velocity * 127) / 100) * (layerVolume / 100),
         nbsStereo: layer.stereo ? (layer.stereo + note.panning) / -100 : note.panning / -50
       })
