@@ -5,12 +5,11 @@ import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
 
 import Botv12Client from '../util/Botv12Client.js'
+import JsonFormat from '../util/JsonFormat.js'
 
 export default function load (b: Botv12Client) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName
-  if(!b.position) b.position = {}
-  b.commandCore = {}
   b.commandCore.ccq = []
   b.commandCore.ccqv2 = {
     bedrock: { commands: [], count: 4 }
@@ -150,7 +149,7 @@ export default function load (b: Botv12Client) {
     b.commandCore.ccStarted = true
   })
 
-  b.commandCore.tellraw = (uuid: string, message: string) => {
+  b.commandCore.tellraw = (uuid: string, message: JsonFormat | string) => {
     let finalname = ''
     if (b.host.options.useChat) {
       if (b.host.options.useAmpersandColorCodes) {

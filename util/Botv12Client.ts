@@ -1,4 +1,4 @@
-import { createClient, Client } from 'minecraft-protocol'
+import { createClient, Client, ClientOptions } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
@@ -9,6 +9,7 @@ import SCTask from './SCTask.js'
 import console from 'node:console'
 import HostOptions from './HostOptions.js'
 import { PCChunk } from 'prismarine-chunk'
+import JsonFormat from './JsonFormat.js'
 
 interface MusicPlayer extends EventEmitter {
   /*
@@ -58,6 +59,7 @@ interface MusicPlayer extends EventEmitter {
   setSpeed?: (speed: number) => void
 }
 
+
 export default class Botv12Client extends EventEmitter {
   _client: Client
   id?: number
@@ -69,6 +71,7 @@ export default class Botv12Client extends EventEmitter {
   registry: registry.Registry
   disconnect?: boolean
   ready: boolean
+  isBot: true
 
   // Plugins
   clientChat: {
@@ -80,9 +83,31 @@ export default class Botv12Client extends EventEmitter {
     lastRun: number
     addTask: (name: string, failTask: () => void, startFailed?: boolean) => void
   }
-  serverChat: any
-  position: any
-  commandCore: any
+  
+  serverChat: {
+    messageTypes: {
+      translation_key: string;
+      parameters: string[];
+      style: Record<string, string>;
+    }[]
+    messageCount: number
+    disabledUntil: number
+  }
+  position: {
+    currentChunk: {x: number, z: number}
+    pos: {x: number, y: number, z: number}
+  }
+  commandCore: {
+    ccq: string[]
+    ccqv2: Record<string,  { commands: string[], count: number }>
+    blocknoX: number
+    blocknoY: number
+    blocknoZ: number
+    ccStarted: boolean
+    tellraw: (uuid: string, text: JsonFormat | string) => void
+    sendCommandNow: (text: string) => void
+    advanceccq: () => void
+  }
   commands: {
     lastCmd: number
     runCommand: (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) => void
@@ -103,15 +128,16 @@ export default class Botv12Client extends EventEmitter {
     findRealName: (name: string) => string
   }
 
-  constructor (options?: any) {
+  constructor (options: ClientOptions) {
     super()
 
     this.ready = false
+    this.isBot = true
     this._client = createClient(options)
     this.interval = {}
 
     this.host = {
-      host: options.host,
+      host: options.host ?? 'localhost',
       port: options.port,
       options: {
         name: '(server name not set)'
@@ -130,15 +156,32 @@ export default class Botv12Client extends EventEmitter {
         this.selfCare.tasks[name] = new SCTask(failTask, startFailed)
       }
     } 
-    this.serverChat = {}
+    this.serverChat = {
+      messageTypes: [],
+      disabledUntil: 0,
+      messageCount: 0
+    }
     this.playerInfo = {
       findUUID: (name: string) => { return offlineUUID(name) },
       findRealNameFromUUID: (uuid: string) => { return uuid },
       findDisplayName: (uuid: string) => { return uuid },
       findRealName: (name: string) => { return name }
     }
-    this.position = {}
-    this.commandCore = {}
+    this.position = {
+      currentChunk: {x: 0, z: 0},
+      pos: {x: 0, y: 0, z: 0}
+    }
+    this.commandCore = {
+      ccq: [],
+      ccqv2: {},
+      blocknoX: 0,
+      blocknoY: 0,
+      blocknoZ: 0,
+      ccStarted: false,
+      tellraw: () => {console.log('Command core not loaded')},
+      sendCommandNow: () => {console.log('Command core not loaded')},
+      advanceccq: () => {this.commandCore.ccq.splice(0,1)}
+    }
     this.commands = {
       lastCmd: 0,
       runCommand: () => console.log("Command plugin is not loaded")

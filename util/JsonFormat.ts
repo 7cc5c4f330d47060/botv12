@@ -15,6 +15,7 @@ export default interface JsonFormat {
     value: JsonFormat
   }
   fallback?: JsonFormat | string
+  bold?: boolean
   extra?: (JsonFormat | string)[]
   ''?: string // Because the prismarinejs nbt parser kinda sucks.
 }
