@@ -50,7 +50,7 @@ export default {
     },
     {
       host: 'chipmunk.land',
-      port: 25565,
+      port: 17891,
       options: {
         name: 'chipmunk'
       }
