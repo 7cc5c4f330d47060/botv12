@@ -17,7 +17,7 @@ export default function load (b: Botv12Client) {
   })
   b.commands.runCommand = async function (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) {
     if (uuid === '00000000-0000-0000-0000-000000000000') return
-    if (Date.now() - b.commands.lastCmd <= 500) return
+    if (Date.now() - b.commands.lastCmd <= 250) return
     b.commands.lastCmd = Date.now()
 
     const context = new CommandContext(uuid, user, nick, command, 'minecraft', type, subtype, prefix, b)
