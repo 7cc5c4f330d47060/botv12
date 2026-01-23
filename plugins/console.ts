@@ -28,7 +28,7 @@ const rl = createInterface({
   output: process.stdout,
   prompt: '\x1b[0m> '
 })
-rl.on('line', (l: string) => {
+rl.on('line', async (l: string) => {
   const args = l.split(' ')
   const cmdName = args[0].toLowerCase()
 
@@ -52,17 +52,17 @@ rl.on('line', (l: string) => {
         for (const bot of bots) {
           const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bot)
           context.verify = 3
-          cmd.execute(context)
+          await cmd.execute(context)
         }
       } else {
         const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
         context.verify = 3
-        cmd.execute(context)
+        await cmd.execute(context)
       }
     } else {
       const context = new CommandContext(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
       context.verify = 3
-      cmd.execute(context)
+      await cmd.execute(context)
     }
   } catch (e) {
     console.log(e)
