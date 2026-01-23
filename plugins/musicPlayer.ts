@@ -208,6 +208,7 @@ export default function load (b: Botv12Client) {
               text: err.toString()
             })
             console.error(err)
+            return
           } else {
             b.musicPlayer.storedSong = output
           }
