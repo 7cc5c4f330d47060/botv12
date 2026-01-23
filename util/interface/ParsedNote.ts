@@ -6,5 +6,5 @@ export default interface ParsedNote {
   volume?: number
   nbsStereo?: number
   channel?: number
-  time?: number
+  time: number
 }

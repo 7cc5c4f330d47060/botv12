@@ -127,7 +127,6 @@ export default class MusicCommand extends Command {
           break
         }
         case 'restart': {
-          
           if (c.bot.musicPlayer.playing) {
             c.reply({
               text: 'command.music.restartCurrent',
@@ -249,6 +248,35 @@ export default class MusicCommand extends Command {
               ]
             })
           })
+          break
+        }
+        case 'goto':{
+          if (c.bot.musicPlayer.playing) {
+            c.reply({
+              text: 'command.music.gotoTime',
+              parseLang: true
+            })
+            c.bot.musicPlayer.restart = true
+            let gotoTime = 0;
+            if(c.args[0].includes(':')) {
+              const times = c.args[0].split(':')
+              if(times.length === 3) { // H:M:S
+                gotoTime = +times[0] * 3600000
+                gotoTime += +times[1] * 60000
+                gotoTime += +times[2] * 1000
+              } else { // M:S
+                gotoTime = +times[0] * 60000
+                gotoTime += +times[1] * 1000
+              }
+            } else {
+              gotoTime = (+c.args[0]) * 1000
+            }
+            c.bot.musicPlayer.startFrom = gotoTime
+            console.log(c.bot.musicPlayer.startFrom)
+            c.bot.musicPlayer.emit('songEnd')
+            console.log(c.bot.musicPlayer.startFrom)
+          }
+          break
         }
       }
     }

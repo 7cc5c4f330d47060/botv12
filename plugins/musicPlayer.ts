@@ -131,7 +131,6 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.startTime = 0
   b.musicPlayer.startFrom = 0 // Milliseconds from start
   b.musicPlayer.nbsLoop = 0 // Ditto
-  b.musicPlayer.useStartFrom = false
   b.musicPlayer.useNbsLoop = false
   b.musicPlayer.lastTime = 0
   b.musicPlayer.time = 0 // Time in milliseconds
@@ -289,7 +288,7 @@ export default function load (b: Botv12Client) {
             delta = 0
           }
 
-          if (!(totalDelta < (b.musicPlayer.startFrom ?? 0) && b.musicPlayer.useStartFrom) && !(totalDelta < (b.musicPlayer.nbsLoop ?? 0) && b.musicPlayer.looping && !b.musicPlayer.useStartFrom)) {
+          if (!(totalDelta < (b.musicPlayer.nbsLoop ?? 0) && b.musicPlayer.looping && !b.musicPlayer.useStartFrom)) {
             b.musicPlayer.queues[id].push({
               noteNumber: event.noteNumber,
               channel: event.channel,
@@ -359,13 +358,14 @@ export default function load (b: Botv12Client) {
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
     b.musicPlayer.totalNotes = 0
-    b.musicPlayer.startFrom = 0
     clearInterval(b.interval.advanceNotes)
+    if(!b.musicPlayer.restart) b.musicPlayer.startFrom = 0
     if (!looping) {
       b.musicPlayer.looping = false
       b.musicPlayer.pitchShift = 0
       b.musicPlayer.speedShift = 1
       b.musicPlayer.nbsLoop = 0
+      
     }
   }
 
@@ -384,7 +384,8 @@ export default function load (b: Botv12Client) {
 
           let note
 
-          if(notesProcessed <= (b.host.options.musicNoteLimit ?? 150)){
+          if(notesProcessed <= (b.host.options.musicNoteLimit ?? 150) &&
+            queue[i].time >= (b.musicPlayer.startFrom ?? 0)){
             if (queue[i].channel === 9) note = calculatePercussion(queue[i])
             else {
               note = calculateNote({
