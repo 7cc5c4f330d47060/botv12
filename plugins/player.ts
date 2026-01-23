@@ -5,11 +5,14 @@ import Botv12Client from '../util/Botv12Client.js'
 export default function load (b: Botv12Client) {
   b.playerInfo.players = {}
   b._client.on('player_remove', async function (data) {
+    /* eslint-disable @typescript-eslint/no-dynamic-delete */
     if(!b.playerInfo.players) return
     for (const item of data.players) {
       if (!b.playerInfo.players[item]) continue
       b.emit('playerquit', item)
+      delete b.playerInfo.players[item]
     }
+    /* eslint-enable @typescript-eslint/no-dynamic-delete */
   })
   b._client.on('player_info', async function (data) {
     const buffer2: Record<string, { realName?: string, displayName?: string }> = {}
