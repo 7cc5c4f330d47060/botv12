@@ -276,9 +276,7 @@ export default class MusicCommand extends Command {
               with: [ formatTime(gotoTime) ]
             })
             c.bot.musicPlayer.startFrom = gotoTime
-            console.log(c.bot.musicPlayer.startFrom)
             c.bot.musicPlayer.emit('songEnd')
-            console.log(c.bot.musicPlayer.startFrom)
           }
           break
         }
