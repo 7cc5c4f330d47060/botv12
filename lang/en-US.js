@@ -152,7 +152,7 @@ export default {
   'command.music.pitchShiftSet': 'Set pitch shift to %s semitones',
   'command.music.speedSet': 'Set speed to %s',
   'command.music.volumeSet': 'Set volume to %s',
-  'command.music.goTo': 'Set time to %ss',
+  'command.music.gotoTime': 'Set time to %s',
   'command.music.queueIntro': 'Queue (%s)',
   'command.music.queueItem': '%s - %s',
   'command.music.error.notPlaying': 'No song is currently playing',

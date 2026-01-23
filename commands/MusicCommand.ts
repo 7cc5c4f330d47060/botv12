@@ -4,6 +4,7 @@ import { readdirSync, statSync } from 'node:fs'
 import CommandContext from '../util/CommandContext.js'
 import version from '../version.js'
 import Command from '../util/Command.js'
+import { formatTime } from '../util/lang.js'
 
 const songPath = resolve(baseDir, 'songs')
 
@@ -127,6 +128,7 @@ export default class MusicCommand extends Command {
           break
         }
         case 'restart': {
+          c.bot.musicPlayer.startFrom = 0
           if (c.bot.musicPlayer.playing) {
             c.reply({
               text: 'command.music.restartCurrent',
@@ -252,10 +254,7 @@ export default class MusicCommand extends Command {
         }
         case 'goto':{
           if (c.bot.musicPlayer.playing) {
-            c.reply({
-              text: 'command.music.gotoTime',
-              parseLang: true
-            })
+            
             c.bot.musicPlayer.restart = true
             let gotoTime = 0;
             if(c.args[0].includes(':')) {
@@ -271,6 +270,11 @@ export default class MusicCommand extends Command {
             } else {
               gotoTime = (+c.args[0]) * 1000
             }
+            c.reply({
+              text: 'command.music.gotoTime',
+              parseLang: true,
+              with: [ formatTime(gotoTime) ]
+            })
             c.bot.musicPlayer.startFrom = gotoTime
             console.log(c.bot.musicPlayer.startFrom)
             c.bot.musicPlayer.emit('songEnd')
