@@ -133,6 +133,7 @@ export default {
   'command.help.noCommand': 'Command does not exist',
   'command.help.alias': 'Alias to %s',
   'command.help.copyAlias': 'Click to copy this alias to your clipboard',
+  'command.list.item': 'Player %s, with UUID %s',
   'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
   'command.music.openDir': 'Click to view songs in %s',
   'command.music.openFile': 'Click to play %s',
