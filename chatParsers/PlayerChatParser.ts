@@ -1,10 +1,15 @@
+import Botv12Client from '../util/Botv12Client.js';
 import ChatParser from '../util/ChatParser.js';
 import UnparsedMessage from '../util/interface/UnparsedMessage.js';
 
 export default class PlayerChatParser extends ChatParser {
   constructor () {
     super()
-    this.parse = (data: UnparsedMessage) => {
+    this.parse = (data: UnparsedMessage, b?: Botv12Client) => {
+      if(!b) return {
+        parsed: false
+      }
+      
       if (data.type === 'player' || data.type === 'profileless') {
         return {
           parsed: true,
@@ -14,7 +19,7 @@ export default class PlayerChatParser extends ChatParser {
           uuid: data.uuid,
           message: data.message,
           nickname: data.nickname,
-          username: data.username
+          username: b.playerInfo.findRealNameFromUUID(data.uuid)
         }
       }
       return {
