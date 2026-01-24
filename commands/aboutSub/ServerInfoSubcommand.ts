@@ -164,10 +164,30 @@ export default class ServerInfoSubcommand extends Command {
         return os.hostname()
       })
 
-      // Bot uptime
-      displayInfo('command.about.serverInfo.runTime', () => {
-        return formatTime(process.uptime() * 1000)
-      })
+      // SELinux enforcement status
+      if (process.platform === 'linux' || process.platform === 'android') {
+        // Device model
+        let outKey = ''
+        const filesFs = readdirSync('/sys/fs/')
+        if(filesFs.includes('selinux')) {
+          const filesSelinux = readdirSync('/sys/fs/selinux/')
+          if(filesSelinux.includes('enforce')) {
+            const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
+            if(status == '1') outKey = 'enforcing'
+            else outKey = 'permissive'
+          } else {
+            outKey = 'na'
+          }
+        } else {
+          outKey = 'na'
+        }
+        displayInfo('command.about.serverInfo.seLinuxStatus', () => {
+          return {
+            text: `command.about.serverInfo.seLinux.${outKey}`,
+            parseLang: true
+          }
+        })
+      }
 
       // System uptime
       displayInfo('command.about.serverInfo.upTime', () => {
@@ -187,6 +207,11 @@ export default class ServerInfoSubcommand extends Command {
         text: 'command.about.serverInfo.botInfoHeader', 
         parseLang: true,
         color: '$secondary'
+      })
+
+      // Bot uptime
+      displayInfo('command.about.serverInfo.runTime', () => {
+        return formatTime(process.uptime() * 1000)
       })
 
       // Current working directory (usually the same as baseDir)

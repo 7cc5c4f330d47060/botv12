@@ -12,7 +12,7 @@ export default class Command {
   blockChipmunkMod: boolean
 
   constructor () {
-    this.name = 'command'
+    this.name = ''
     this.execute = async (c: CommandContext) => { c.reply("Testing") }
     this.level = 0
     this.hidden = false
