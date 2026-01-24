@@ -51,6 +51,7 @@ export default function nbsReader (buffer: Buffer) {
     let lastDelta = 0
     for (const delta in layer.notes.all) {
       const note = layer.notes.all[delta]
+      // For later rewriting: 54 is center (F#4). Normal range 42-66 inclusive.
       output.tracks[id].push({
         type: 'noteOn',
         deltaTime: +delta - lastDelta,
