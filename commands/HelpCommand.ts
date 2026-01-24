@@ -98,6 +98,17 @@ function printCmdHelp (c: CommandContext) {
     return
   }
 
+  if(cmdItem.name === '') {
+    c.reply({
+      text: 'command.error.unknown',
+      parseLang: true,
+      color: '$error',
+      with: [ c.prefix ],
+      command: `${c.prefix}help`
+    })
+    return
+  }
+
   const usage = getMessage(c.lang, `commands.${cmdItem.name}.usage`).split('||')
   const desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
   for (const item of usage) {

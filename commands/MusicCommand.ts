@@ -304,6 +304,17 @@ export default class MusicCommand extends Command {
             })
           c.bot.musicPlayer.paused = !c.bot.musicPlayer.paused
         }
+        default:{
+          c.reply({
+            text: 'command.error.subcmd',
+            parseLang: true,
+            with: [
+              `${c.prefix}help music`
+            ],
+            color: '$error'
+          })
+          break
+        }
       }
     }
     this.consoleIndex = true

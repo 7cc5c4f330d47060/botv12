@@ -89,7 +89,6 @@ export default function build (text: TextFormat | string, colors: Record<string,
 
   if (text.color) {
     json.color = resolveColor(text.color, colors)
-    console.log(json.color)
   }
 
   if (text.with) {
