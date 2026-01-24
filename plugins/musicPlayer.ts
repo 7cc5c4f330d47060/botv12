@@ -322,7 +322,7 @@ export default function load (b: Botv12Client) {
     //b.musicPlayer.currentSong = location
     b.musicPlayer.speedShift = b.musicPlayer.speedShift ?? 0
     if (!settings.disableMusicBar) {
-    if(!b.musicPlayer.bossBar) b.musicPlayer.bossBar = new BossBar(b, 'musicbar', {
+      if(!b.musicPlayer.bossBar) b.musicPlayer.bossBar = new BossBar(b, 'musicbar', {
         translate: '%s',
         color: 'dark_gray',
         with: [
