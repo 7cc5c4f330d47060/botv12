@@ -51,6 +51,7 @@ interface MusicPlayer extends EventEmitter {
   volume?: number
   bossBar?: BossBar
   currentSong?: string
+  paused?: boolean
   storedSong?: Buffer
   downloadSong?: (url: string, name: string) => void
   playSong?: (name: string) => void

@@ -280,6 +280,30 @@ export default class MusicCommand extends Command {
           }
           break
         }
+        case 'pause':
+        case 'unpause':
+        {
+          if (!c.bot.musicPlayer.playing) {
+            c.reply({
+              text: 'command.music.error.notPlaying',
+              parseLang: true,
+              color: '$error'
+            })
+            return
+          }
+          let replyMessage = ''
+          c.bot.musicPlayer.lastTime = Date.now()
+          if(c.bot.musicPlayer.paused) {
+            replyMessage = 'command.music.unpaused'
+          } else {
+            replyMessage = 'command.music.paused'
+          }
+          c.reply({
+              text: replyMessage,
+              parseLang: true
+            })
+          c.bot.musicPlayer.paused = !c.bot.musicPlayer.paused
+        }
       }
     }
     this.consoleIndex = true
