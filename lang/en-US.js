@@ -30,6 +30,8 @@ export default {
   'commands.cb.desc': 'Run a command in a command block',
   'commands.cloop.usage': ' add <rate> <command>|| remove <index>|| list|| clear',
   'commands.cloop.desc': 'Manage command loops',
+  'commands.download.usage': '',
+  'commands.download.desc': "Download the bot's source code",
   'commands.error.usage': '',
   'commands.error.desc': 'Test the error handler',
   'commands.eval.usage': ' <code>',
