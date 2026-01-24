@@ -146,6 +146,7 @@ export default function load (b: Botv12Client) {
   b.musicPlayer.speedShift = 1
   b.musicPlayer.volume = 1
   b.musicPlayer.storedSong = Buffer.alloc(0)
+  b.musicPlayer.paused = false
 
   b.musicPlayer.on('songEnd', () => {
     if (!b.musicPlayer?.stopSong) return
@@ -358,6 +359,7 @@ export default function load (b: Botv12Client) {
     b.musicPlayer.time = 0
     b.musicPlayer.length = 0
     b.musicPlayer.totalNotes = 0
+    b.musicPlayer.paused = false
     clearInterval(b.interval.advanceNotes)
     if(!b.musicPlayer.restart) b.musicPlayer.startFrom = 0
     if (!looping) {
@@ -377,7 +379,7 @@ export default function load (b: Botv12Client) {
     b.musicPlayer.pitchShift = b.musicPlayer.pitchShift ?? 0
     b.musicPlayer.speedShift = b.musicPlayer.speedShift ?? 0
     b.musicPlayer.volume = b.musicPlayer.volume ?? 0
-    if (b.musicPlayer.playing) {
+    if (b.musicPlayer.playing && !b.musicPlayer.paused) {
       for (const queue of b.musicPlayer.queues) {
         let notesProcessed = 0
         for (let i = 0; i < queue.length && (queue[i].time ?? 0) < b.musicPlayer.time + 20; i++) {
