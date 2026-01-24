@@ -2,6 +2,7 @@ import JsonFormat from './interface/JsonFormat.js'
 import { getMessage } from './lang.js'
 import TextFormat from './interface/TextFormat.js'
 import uuidToInt from './uuidtoint.js'
+import resolveColor from './resolveColor.js'
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
   if(typeof text == 'string') return { text }
@@ -87,8 +88,8 @@ export default function build (text: TextFormat | string, colors: Record<string,
   }
 
   if (text.color) {
-    if (text.color.startsWith('$')) json.color = colors[text.color.slice(1)]
-    else text.color = json.color
+    json.color = resolveColor(text.color, colors)
+    console.log(json.color)
   }
 
   if (text.with) {
