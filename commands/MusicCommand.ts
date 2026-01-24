@@ -33,7 +33,7 @@ export default class MusicCommand extends Command {
           if (c.args[0].startsWith('http://') || c.args[0].startsWith('https://')) {
             c.bot.musicPlayer.queue.push([c.args.join(' '), c.args.join(' ')])
           } else if (c.args[0].startsWith('ram://')) {
-            if(debugMode) c.bot.musicPlayer.queue.push([`ram://`, c.args.join(' ')])
+            c.bot.musicPlayer.queue.push([`ram://`, c.args.join(' ')])
           } else {
             c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
           }

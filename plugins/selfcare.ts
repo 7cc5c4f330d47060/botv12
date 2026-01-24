@@ -1,8 +1,7 @@
 import Botv12Client from "../util/Botv12Client.js"
 
 export default function load (b: Botv12Client) {
-  b._client.on('login', (d) => {
-    console.log(d)
+  b._client.on('login', () => {
     b.interval.sc = setInterval(() => {
       if (Date.now() - b.selfCare.lastRun <= 600) {
         return

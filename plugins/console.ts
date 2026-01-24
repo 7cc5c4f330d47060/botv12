@@ -7,14 +7,13 @@ import { userInfo } from 'node:os'
 import Botv12Client from '../util/Botv12Client.js'
 import { getMessage } from '../util/lang.js'
 import JsonFormat from '../util/interface/JsonFormat.js'
-import version from '../version.js'
 
 const consoleBotStub = {
   host: {
     host: 'bot console',
     port: 25565,
     options: {
-      name: version.botName
+      name: 'Steam Deck\u2122'
     }
   },
   commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => console.log(parse3(data, settings.terminalMode))}
