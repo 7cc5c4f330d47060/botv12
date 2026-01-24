@@ -64,12 +64,12 @@ export default function load (b: Botv12Client) {
     b.chunks.forEach((chunkList: PCChunk[], i: number) => {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
-        delete b.chunks[i]
+        if(b.chunks[i]) delete b.chunks[i]
       }
       chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
-          delete b.chunks[i][z]
+          if(b.chunks[i][z]) delete b.chunks[i][z]
         }
       })
     })
