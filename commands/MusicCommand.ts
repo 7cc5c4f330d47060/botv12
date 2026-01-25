@@ -303,6 +303,7 @@ export default class MusicCommand extends Command {
               parseLang: true
             })
           c.bot.musicPlayer.paused = !c.bot.musicPlayer.paused
+          break
         }
         default:{
           c.reply({
