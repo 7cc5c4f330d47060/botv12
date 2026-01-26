@@ -147,6 +147,8 @@ export default {
   'command.list.item.realName': 'Player name',
   'command.list.item.displayName': 'Display name',
   'command.list.item.uuid': 'UUID',
+  'command.loginv2.invalidHash': 'Invalid hash', 
+  'command.loginv2.success': 'Successfully logged in as user %s with permission level %s',
   'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
   'command.music.openDir': 'Click to view songs in %s',
   'command.music.openFile': 'Click to play %s',
@@ -212,6 +214,7 @@ export default {
   'musicPlayer.alreadyPlaying': 'Another song is already playing',
   'musicPlayer.finished': 'Finished playing queue',
   'musicPlayer.warning.msm': 'MIDI file from My Singing Monsters detected. This song will not play correctly.',
+  'musicPlayer.imyWip': 'iMelody ringtone support is currently being worked on.',
 
   // Command Errors
   'command.error': 'An error occurred (check console for more info)',
@@ -224,7 +227,7 @@ export default {
 
   // Permission Error
   'command.disallowed.perms.short': 'You do not have permission to run this command.',
-  'command.disallowed.perms': 'You do not have permission to run this command. If you do have permission, please make sure you put the command hash at the end, or ran the command through the hashing system of your client or proxy.',
+  'command.disallowed.perms': 'You do not have permission to run this command. If you do have permission, please make sure you have run the login command with the correct hash at the end.',
   'command.disallowed.perms.yourLevel': 'Your permission level: %s',
   'command.disallowed.perms.cmdLevel': 'Command requires: %s',
   'command.disallowed.perms.chipmunkmod': 'Commands requiring trusted permissions cannot be run through custom chat mods. Please bypass custom chat to run this command.',
