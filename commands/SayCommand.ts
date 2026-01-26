@@ -10,11 +10,6 @@ export default class SayCommand extends Command {
       
       if(!('clientChat' in c.bot)) return
       const msg = c.args.join(' ').slice(0, 512)
-      if (msg.includes(settings.keyTrusted) && c.verify < 1) {
-        return
-      } else if (msg.includes(settings.keyOwner) && c.verify < 2) {
-        return
-      }
 
       if (c.verify < 1) {
         c.bot.commandCore.tellraw('@a', {
