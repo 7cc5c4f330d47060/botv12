@@ -183,3 +183,6 @@ launcher_accounts.json
 
 # License
 .license_accepted
+
+# User login/authentication keys
+/userkeys.json

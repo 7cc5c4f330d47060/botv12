@@ -78,9 +78,6 @@ const awaitLicense = function(callback: () => void){
   }
 }
 
-if (settings.keyTrusted === undefined || settings.keyAdmin === undefined || 
-  settings.keyOwner === undefined) process.exit(1)
-
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   const startTimeBot = Date.now();

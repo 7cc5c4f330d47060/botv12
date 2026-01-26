@@ -1,7 +1,6 @@
 import registry from '../util/commands.js'
 
 import CommandContext from '../util/CommandContext.js'
-import hashcheck from '../util/hashcheck.js'
 import { getMessage } from '../util/lang.js'
 import Botv12Client from '../util/Botv12Client.js'
 
@@ -25,9 +24,6 @@ export default function load (b: Botv12Client) {
     b.emit('command', context)
     if (context.cancel === true) return
     const commandItem = registry.getCommand(context.cmdName)
-
-    const cmdsplit = command.split(' ')
-    const verify = hashcheck(cmdsplit, uuid)
 
     // Block running eval in normal mode
     if (commandItem.debugOnly && !debugMode) {
@@ -54,29 +50,24 @@ export default function load (b: Botv12Client) {
     }
 
     // Block ChipmunkMod Format in the trusted commands
-    if (commandItem && commandItem.level > 0 && subtype !== 'generic_player') {
+    if (commandItem.level > 0 && subtype !== 'generic_player') {
       b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms.chipmunkmod')
       })
       return
     }
 
-    if (commandItem && commandItem.level !== undefined && commandItem.level > verify) {
+    let verify = 0
+    if(b.playerInfo?.players && b.playerInfo.players[uuid] && subtype === 'generic_player') {
+      verify = b.playerInfo.players[uuid].verifyv2 ?? 0
+    }
+    context.verify = verify
+
+    if (commandItem.level !== undefined && commandItem.level > verify) {
       b.commandCore.tellraw(uuid, {
         text: getMessage(context.lang, 'command.disallowed.perms')
       })
-      const cmdPerms = getMessage(context.lang, `command.perms${commandItem.level}`)
-      b.commandCore.tellraw(uuid, {
-        text: getMessage(context.lang, 'command.disallowed.perms.cmdLevel', [cmdPerms])
-      })
-      const yourPerms = getMessage(context.lang, `command.perms${verify}`)
-      b.commandCore.tellraw(uuid, {
-        text: getMessage(context.lang, 'command.disallowed.perms.yourLevel', [yourPerms])
-      })
       return
-    } else if (verify > 0) {
-      context.rewriteCommand(cmdsplit.slice(0, cmdsplit.length - 1).join(' '))
-      context.verify = verify
     }
 
     if (commandItem) {

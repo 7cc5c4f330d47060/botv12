@@ -122,7 +122,12 @@ export default class Botv12Client extends EventEmitter {
     removeFilter: (user: string) => void
   }
   playerInfo: {
-    players?: Record<string, { realName: string, displayName: string, here?: boolean }>
+    players?: Record<string, {
+      realName: string,
+      displayName: string,
+      here?: boolean,
+      verifyv2?: number
+    }>
     findUUID: (name: string) => string
     findRealNameFromUUID: (uuid: string) => string
     findDisplayName: (uuid: string) => string

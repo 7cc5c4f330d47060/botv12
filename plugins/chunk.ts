@@ -69,7 +69,7 @@ export default function load (b: Botv12Client) {
       chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
-          if(b.chunks[i][z]) delete b.chunks[i][z]
+          if(b.chunks[i] && b.chunks[i][z]) delete b.chunks[i][z]
         }
       })
     })
