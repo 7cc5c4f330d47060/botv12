@@ -4,9 +4,6 @@ export default interface SettingsType {
   terminalMode: string
   version_mc: string
   defaultLang: string
-  keyTrusted: string
-  keyAdmin: string
-  keyOwner: string
   dbEnabled: boolean
   dbType: string
   dbHost: string
