@@ -154,6 +154,7 @@ export default class ServerInfoSubcommand extends Command {
 
       // Username, and OS UID if not on Windows
       displayInfo('command.about.serverInfo.osUsername', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         let output = os.userInfo().username
         if(process.platform != 'win32') output += ` (${os.userInfo().uid})`
         return output
@@ -161,6 +162,7 @@ export default class ServerInfoSubcommand extends Command {
 
       // Hostname
       displayInfo('command.about.serverInfo.hostName', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         return os.hostname()
       })
 
@@ -216,21 +218,25 @@ export default class ServerInfoSubcommand extends Command {
 
       // Current working directory (usually the same as baseDir)
       displayInfo('command.about.serverInfo.workingDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         return process.cwd()
       })
 
       // Base directory - directory with TypeScript code, language data, settings, etc. in it
       displayInfo('command.about.serverInfo.baseDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         return baseDir
       })
 
       // Directory with compiled JavaScript code in it
       displayInfo('command.about.serverInfo.codeDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         return codeDir
       })
 
       // Command line (process.argv)
       displayInfo('command.about.serverInfo.cmdLine', () => {
+        if(!settings.serverInfoShowSensitive) return ''
         return process.argv.join(' ')
       })
 
