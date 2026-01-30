@@ -19,4 +19,5 @@ export default interface SettingsType {
   disableMusicBar?: boolean
   prefixes: string[]
   servers: HostOptions[]
+  serverInfoShowSensitive?: boolean
 }
