@@ -136,7 +136,6 @@ export default class DownloadCommand extends Command {
       const zip = await zfw.getData()
       const bytes = await zip.bytes()
       fs.writeFileSync(resolve(baseDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
-      console.log(bytes)
           
       const r = request({
         hostname: 'files.chipmunk.land',
@@ -150,7 +149,6 @@ export default class DownloadCommand extends Command {
       }, res => {
         res.setEncoding('latin1')
         res.on('data', (content) => {
-          console.log(Buffer.from(content))
           if(content.startsWith('https://files.chipmunk.land')){
             sourceLink = content.slice(0, content.length-1)
             c.reply({
