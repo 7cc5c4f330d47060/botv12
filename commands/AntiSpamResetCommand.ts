@@ -11,5 +11,6 @@ export default class AntiSpamResetCommand extends Command {
     }
     this.consoleOnly = true
     this.consoleIndex = true
+    this.hidden = true
   }
 }

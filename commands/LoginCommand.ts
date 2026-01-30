@@ -1,7 +1,7 @@
 import Command from "../util/Command.js"
 import CommandContext from "../util/CommandContext.js"
 import { createHash } from 'node:crypto'
-import { readFileSync } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 
 let userKeys: Record<string, {key: string, level: number}> = {}
@@ -10,6 +10,7 @@ try {
   userKeys = JSON.parse(fileContent)
 } catch (e) {
   if(debugMode) console.log(e)
+  writeFileSync(resolve(baseDir, 'userkeys.json'), '{}')
 }
 
 export default class LoginCommand extends Command {
