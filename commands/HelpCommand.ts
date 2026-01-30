@@ -176,6 +176,6 @@ export default class HelpCommand extends Command {
         else printHelp(c)
       }
     }
-    this.aliases = ['heko'] // Parker2991 request
+    this.aliases = ['heko'] // Parker2991 request from botvX era, may be removed soon
   }
 }
