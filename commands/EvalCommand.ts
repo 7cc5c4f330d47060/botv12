@@ -14,7 +14,7 @@ export default class EvalCommand extends Command {
       } catch (e) {
         result = inspect(e)
       }
-      console.log(result)
+      c.reply(inspect(result))
     }
     this.level = 3
     this.debugOnly = true
