@@ -134,7 +134,16 @@ export default class Botv12Client extends EventEmitter {
     findRealName: (name: string) => string
     findRealNameFromNickname: (name: string) => string
   }
-
+  cloopManager: {
+    cloops: {
+      command: string
+      rate: number
+      interval: NodeJS.Timeout
+    }[]
+    addCloop?: (command: string, rate: number) => void
+    removeCloop?: (index: number) => void
+    clearCloops?: () => void
+  }
   constructor (options: ClientOptions) {
     super()
 
@@ -193,6 +202,9 @@ export default class Botv12Client extends EventEmitter {
     this.commands = {
       lastCmd: 0,
       runCommand: () => console.log("Command plugin is not loaded")
+    }
+    this.cloopManager = {
+      cloops: []
     }
     this.chunks = []
     this.musicPlayer = new EventEmitter()
