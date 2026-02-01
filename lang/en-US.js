@@ -256,7 +256,9 @@ export default {
 
     // Command Errors - Data Base
     'command.error.db.loading': 'The Database is connecting, please wait',
-    'command.error.db.notConnected': 'The Database is not connected',
+    'command.error.db.notConnected': 'The database is not connected',
+    'command.error.db.disabled': 'Database support is disabled in the settings file.',
+    'command.error.db.disabledAdmin': 'To enable database support, open the settings file, set dbEnabled to true, and fill out the appropriate fields.',
 
     // Text reader
     'textReader.lastPage': 'Previous',

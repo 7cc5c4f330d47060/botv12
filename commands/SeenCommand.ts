@@ -8,6 +8,11 @@ export default class SeenCommand extends Command {
     this.name = 'seen'
     this.execute = async (c: CommandContext) => {
       if (!settings.dbEnabled) {
+        c.reply({
+          text: 'command.error.db.disabled',
+          parseLang: true,
+          color: '$error'
+        })
         return
       }
       try {
