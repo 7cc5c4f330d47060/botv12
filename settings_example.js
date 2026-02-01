@@ -49,5 +49,7 @@ export default {
         name: 'chipmunk'
       }
     }
-  ]
+  ],
+
+  format: 1
 }

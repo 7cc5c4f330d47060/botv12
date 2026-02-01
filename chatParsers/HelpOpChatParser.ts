@@ -15,7 +15,7 @@ export default class ChipmunkModChatParser extends ChatParser {
             if (typeof data.json.extra[2] === 'string') return { parsed: false }
             if (data.json.extra[2] && data.json.extra[2].extra && data.json.extra[3]) {
               const nickname = parse3(data.json.extra[2].extra[0] ?? '', 'none')
-              const username = b.playerInfo.findRealName(nickname)
+              const username = b.playerInfo.findRealNameFromNickname(nickname)
               const uuid = b.playerInfo.findUUID(username)
               const message = parse3(data.json.extra[3], 'none').slice(1)
               return {
