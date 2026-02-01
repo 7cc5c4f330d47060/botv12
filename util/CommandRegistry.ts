@@ -30,7 +30,9 @@ export default class CommandRegistry {
       if (includeHidden) return this._commands
       const list: Record<string, Command> = {}
       for (const item in this._commands) {
-        if (!this._commands[item].hidden) list[item] = this._commands[item]
+        if (!this._commands[item].hidden && !(this._commands[item].debugOnly && !debugMode)) {
+          list[item] = this._commands[item]
+        }
       }
       return list
     }
