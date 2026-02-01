@@ -33,7 +33,6 @@ export default class AboutCommand extends Command {
       let command = registry.getCommand(c.cmdName)
       if(c.args.length >= 1){
         command = registry.getCommand(c.args[0])
-        console.log(registry._aliases)
       }
       command.execute(c)
     }
