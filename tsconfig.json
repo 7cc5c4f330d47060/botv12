@@ -8,6 +8,7 @@
     "target": "es2024",
     "outDir": "dist",
     "paths": {
+      "mariadb": ["./node_modules/mariadb/types/index.d.ts"],
       "minecraft-data": ["./node_modules/minecraft-data/index.d.ts"],
       "minecraft-protocol": ["./node_modules/minecraft-protocol/src/index.d.ts"],
       "prismarine-chat": ["./node_modules/prismarine-chat/index.d.ts"],
