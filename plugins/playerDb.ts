@@ -52,7 +52,7 @@ export default function load (b: Botv12Client) {
       }
       connection.end()
     } catch (e) {
-
+      if(debugMode) console.error(e)
     }
   })
   b.emit('playerquit', async function (item: string) {
@@ -71,7 +71,7 @@ export default function load (b: Botv12Client) {
       ])
       connection.end()
     } catch (e) {
-
+      if(debugMode) console.error(e)
     }
   })
 }
