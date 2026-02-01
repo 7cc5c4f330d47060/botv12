@@ -9,7 +9,7 @@ try {
   const fileContent = readFileSync(resolve(baseDir, 'userkeys.json')).toString("utf8")
   userKeys = JSON.parse(fileContent)
 } catch (e) {
-  if(debugMode) console.log(e)
+  if (debugMode) console.error(e)
   writeFileSync(resolve(baseDir, 'userkeys.json'), '{}')
 }
 

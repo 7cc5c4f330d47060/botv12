@@ -1,6 +1,7 @@
 import HostOptions from "./HostOptions.js"
 
 export default interface SettingsType {
+  format: number
   terminalMode: string
   version_mc: string
   defaultLang: string
@@ -12,7 +13,6 @@ export default interface SettingsType {
   dbName: string
   debugMode: boolean
   colors: Record<string, string>
-  fallbackLocale?: string
   logJSONmessages?: boolean
   //displaySubtypesToConsole?: boolean
   showCommandSet?: boolean

@@ -42,7 +42,7 @@ const os2 = function (o2: string, lang: string) {
           return getMessage(lang, `command.about.serverInfo.os.${o2}`)
         }
       } catch (e) {
-        if(debugMode) console.log(e)
+        if (debugMode) console.error(e)
         return getMessage(lang, `command.about.serverInfo.os.${o2}`)
       }
     }
@@ -66,7 +66,7 @@ const os2 = function (o2: string, lang: string) {
         if(!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
         return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
       } catch (e) {
-        if(debugMode) console.log(e)
+        if (debugMode) console.error(e)
         return getMessage(lang, 'command.about.serverInfo.os.macos')
       }
     }
@@ -123,7 +123,7 @@ export default class ServerInfoSubcommand extends Command {
           else if (or.VERSION) return or.VERSION
           else return ''
         } catch (e) {
-          if(debugMode) console.log(e)
+          if (debugMode) console.debug(e)
           return ''
         }
       })

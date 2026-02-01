@@ -132,6 +132,7 @@ export default class Botv12Client extends EventEmitter {
     findRealNameFromUUID: (uuid: string) => string
     findDisplayName: (uuid: string) => string
     findRealName: (name: string) => string
+    findRealNameFromNickname: (name: string) => string
   }
 
   constructor (options: ClientOptions) {
@@ -171,7 +172,8 @@ export default class Botv12Client extends EventEmitter {
       findUUID: (name: string) => { return offlineUUID(name) },
       findRealNameFromUUID: (uuid: string) => { return uuid },
       findDisplayName: (uuid: string) => { return uuid },
-      findRealName: (name: string) => { return name }
+      findRealName: (name: string) => { return name },
+      findRealNameFromNickname: (name: string) => { return name }
     }
     this.position = {
       currentChunk: {x: 0, z: 0},
@@ -210,7 +212,7 @@ export default class Botv12Client extends EventEmitter {
     this.registry = registry(this._client.version)
 
     this._client.on('error', (err: Error) => {
-      if (debugMode) console.log(err)
+      if (debugMode) console.error(err)
     })
 
     // Functions directly from botvX

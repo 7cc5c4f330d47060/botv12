@@ -1,8 +1,11 @@
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const languages: Record<string, Record<string, string>> = {}
-const fallbackLocale = settings.fallbackLocale ? settings.fallbackLocale : 'en-US'
+interface LanguageData {
+  fallbackList: string[],
+  strings: Record<string, string>
+}
+const languages: Record<string, LanguageData> = {}
 
 const loadplug = () => {
   const bpl = readdirSync(resolve(baseDir, 'lang'))
@@ -21,10 +24,14 @@ loadplug()
 
 const getMessage = function (l: string, msg: string, with2?: string[]) {
   let message = msg.replace(/%%/g, '\ue123')
-  if (languages[l] && languages[l][message] !== undefined) {
-    message = languages[l][message].replace(/%%/g, '\ue123')
-  } else if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
-    message = languages[fallbackLocale][message].replace(/%%/g, '\ue123')
+  if (languages[l]?.strings && languages[l].strings[message] !== undefined) {
+    message = languages[l].strings[message].replace(/%%/g, '\ue123')
+  } else {//if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
+    for(const fb of languages[l].fallbackList) {
+      if (languages[fb]?.strings && languages[fb].strings[message] !== undefined) {
+        message = languages[fb].strings[message].replace(/%%/g, '\ue123')
+      }
+    }
   }
   if (with2) {
     with2.forEach((withItem, i) => {
