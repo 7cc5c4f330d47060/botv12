@@ -55,7 +55,7 @@ export default class SeenCommand extends Command {
         }
         connection.end()
       } catch (e) {
-
+        if(debugMode) console.error(e)
       }
     }
   }
