@@ -18,6 +18,11 @@ export default class UserNameCommand extends Command {
             text: c.bot._client?.username,
             copyable: true,
             color: '$primary'
+          },
+          {
+            text: c.bot._client?.uuid,
+            copyable: true,
+            color: '$primary'
           }
         ]
       })

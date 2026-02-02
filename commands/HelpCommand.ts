@@ -67,7 +67,7 @@ function printHelp (c: CommandContext) {
 }
 
 function printHelpConsole (c: CommandContext) {
-  const cmds = registry.listCommands()
+  const cmds = registry.listCommands(true)
   const keys = Object.keys(cmds).sort()
   const commands: Command2[] = []
   for (const key of keys) {
@@ -117,6 +117,7 @@ function printCmdHelp (c: CommandContext) {
       parseLang: true,
       with: [
         cmdItem.name,
+        cmdItem.consoleIndex && c.type === 'console' ? ' <bot ID>' : '',
         item
       ]
     })
