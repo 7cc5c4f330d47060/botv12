@@ -6,6 +6,35 @@ import { readdirSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
 import TextFormat from '../../util/interface/TextFormat.js'
+import version from '../../version.js'
+import botVersion from '../../util/version.js'
+import { exec } from 'node:child_process'
+
+const dependencies: { name: string, version: string }[] = []
+
+const addDepInfo = async function (name: string, version: string) {
+  dependencies.push({ name, version })
+}
+
+// Obtain version information for the software the bot uses
+addDepInfo(version.botName, botVersion)
+addDepInfo('Node.js®', process.version.slice(1))
+exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
+  try {
+    if (e) throw e
+    const split = stdout.split('\n')
+    for (const i in split) {
+      if (!split[i].includes('─')) continue
+      const item = split[i].split('@')
+      const version = item.pop()
+      const dependency = item.join('@').split(' ')[1]
+      if(version === undefined) continue;
+      addDepInfo(dependency, version)
+    }
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 const parseOSRelease = (): Record<string, string> => {
   if (readdirSync('/etc').includes('os-release')) {
@@ -244,6 +273,24 @@ export default class ServerInfoSubcommand extends Command {
       displayInfo('command.about.serverInfo.debugMode', () => {
         return {text: `bf.${debugMode}1`, parseLang: true}
       })
+
+      c.reply({
+        text: 'command.about.serverInfo.versionHeader', 
+        parseLang: true,
+        color: '$secondary'
+      })
+
+      if (dependencies.length === 0) return
+      for (const item of dependencies) {
+        c.reply({
+          text: 'command.about.versionCmd.generic',
+          parseLang: true,
+          with: [
+            item.name,
+            item.version + ''
+          ]
+        })
+      }
     }
   }
 }
