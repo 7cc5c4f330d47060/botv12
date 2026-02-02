@@ -1,17 +1,19 @@
 import { readdirSync } from 'node:fs'
-import CommandRegistry from './CommandRegistry.ts'
+import { resolve } from 'node:path'
+import CommandRegistry from './CommandRegistry.js'
+import Command from './Command.js'
+import UnknownCommand from './UnknownCommand.js'
 
-const registry = new CommandRegistry()
-const bpl = readdirSync('commands')
+const registry = new CommandRegistry(new UnknownCommand())
+const bpl = readdirSync(resolve(codeDir, 'commands'))
 
 for (const plugin of bpl) {
-  if (!plugin.endsWith('.ts')) {
+  if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
     continue
   }
   try {
-    const commandName = plugin.split('.ts')[0]
-    import(`../commands/${plugin}`).then((pluginItem) => {
-      registry.register(commandName, pluginItem.execute, pluginItem.level, pluginItem.consoleIndex, pluginItem.hidden, pluginItem.aliases, pluginItem.consoleOnly, pluginItem.debugOnly, pluginItem.blockChipmunkMod)
+    import(`../commands/${plugin}`).then((pluginItem: {default: new () => Command}) => {
+      registry.register(new pluginItem.default())
     })
   } catch (e) { console.log(e) }
 }

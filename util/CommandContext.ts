@@ -1,32 +1,56 @@
-import settings from '../settings.js'
-import build from './messageBuilder.ts'
-import Botv12Client from './Botv12Client.ts'
+import Botv12Client from './Botv12Client.js'
+import JsonFormat from './interface/JsonFormat.js'
+import build from './messageBuilder.js'
+import TextFormat from './interface/TextFormat.js'
+
+interface ClientStub {
+  _client?: {
+    uuid: string
+    username: string
+    end: () => void
+  }
+  disconnect?: boolean
+  commandCore: {
+    tellraw: (uuid: string, text: JsonFormat | string) => void
+  }
+  id?: number,
+  host?: {
+    host: string,
+    port: number,
+    options: {
+      name: string
+    }
+  }
+}
 export default class CommandContext {
   uuid: string
-  reply: any
+  reply: (text: TextFormat | string) => void
+  send: (user: string, text: TextFormat | string) => void
   username: string
   command: string
   type: string
+  msgType: string
+  msgSubtype: string
   args: string[]
   cmdName: string
   prefix: string
-  colors: any
+  colors: Record<string, string>
   lang: string
   verify: number
-  bot: any
+  bot: Botv12Client | ClientStub
   cancel: boolean
-  rewriteCommand: any
+  rewriteCommand: (newCmd: string) => void
 
-  constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, bot: any) {
+  constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, bot: Botv12Client | ClientStub) {
     this.uuid = uuid
-    this.reply = (text: string) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
-    //this.send = (user, text) => bot.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.reply = (text: TextFormat | string) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.send = (user: string, text: TextFormat | string) => bot.commandCore.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
     this.username = user
     //this.nickname = nick
     this.command = cmd
     this.type = senderType
-    //this.msgType = msgType
-    //this.msgSubtype = msgSubtype
+    this.msgType = msgType
+    this.msgSubtype = msgSubtype
     this.args = cmd.split(' ').slice(1)
     this.cmdName = cmd.split(' ')[0]
     this.prefix = prefix

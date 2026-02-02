@@ -1,0 +1,249 @@
+import os from 'node:os'
+import { execSync } from 'child_process'
+import { getMessage, formatTime } from '../../util/lang.js'
+import memoryconvert from '../../util/memoryconvert.js'
+import { readdirSync, readFileSync } from 'node:fs'
+import CommandContext from '../../util/CommandContext.js'
+import Command from '../../util/Command.js'
+import TextFormat from '../../util/interface/TextFormat.js'
+
+const parseOSRelease = (): Record<string, string> => {
+  if (readdirSync('/etc').includes('os-release')) {
+    const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
+    const osrelease2: Record<string, string> = {}
+    for (const item of osrelease) {
+      if (!item.includes('=')) continue
+      let osrvalue = item.split('=')[1]
+      if (osrvalue.startsWith('"') && osrvalue.endsWith('"')) { osrvalue = osrvalue.slice(1, osrvalue.length - 1) };
+      osrelease2[item.split('=')[0]] = osrvalue
+    }
+    return osrelease2
+  }
+  return {}
+}
+
+const os2 = function (o2: string, lang: string) {
+  switch (o2) {
+    case 'win32':
+      return `${os.version()}`
+    case 'android':{
+      // ro.build.version.release and the getprop command have been in Android since Android 1.0,
+      // likely since the release of the T-Mobile G1 (HTC Dream).
+      const version = execSync('getprop ro.build.version.release').toString('utf8').split('\n')[0]
+      return getMessage(lang, 'command.about.serverInfo.os.android', [version])
+    }
+    case 'linux':
+    case 'freebsd':{
+      const osrelease2 = parseOSRelease()
+      try {
+        if (osrelease2.PRETTY_NAME) {
+          return getMessage(lang, '%s', [osrelease2.PRETTY_NAME])
+        } else {
+          return getMessage(lang, `command.about.serverInfo.os.${o2}`)
+        }
+      } catch (e) {
+        if (debugMode) console.error(e)
+        return getMessage(lang, `command.about.serverInfo.os.${o2}`)
+      }
+    }
+    case 'openbsd':{
+      return getMessage(lang, 'command.about.serverInfo.os.openbsd', [os.release()])
+    }
+    case 'darwin':{
+      try {
+        const swvers = execSync('sw_vers').toString('utf8').split('\n')
+        const swvers2: {
+          ProductName?: string,
+          ProductVersion?: string,
+          BuildVersion?: string
+        } = {}
+        for (const item of swvers) {
+          if (!item.includes(':\t')) continue
+          const key = item.split(':\t')[0]
+          if(key !== 'ProductName' && key !== 'ProductVersion' && key !== 'BuildVersion') continue
+          swvers2[key] = item.split(':\t')[1]
+        }
+        if(!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
+        return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
+      } catch (e) {
+        if (debugMode) console.error(e)
+        return getMessage(lang, 'command.about.serverInfo.os.macos')
+      }
+    }
+    default:
+      return o2
+  }
+}
+
+export default class ServerInfoSubcommand extends Command {
+  constructor () {
+    super()
+    this.name = "server"
+    this.aliases = [ "serverinfo" ]
+    this.execute = async (c: CommandContext) => {
+      const displayInfo = function (name: string, infoFunc: () => string | TextFormat) {
+        let thisItem
+        try {
+          thisItem = infoFunc()
+        } catch (e) {
+          console.error(e)
+          thisItem = 'Error! (check console)'
+        }
+        if (typeof thisItem === 'string' && thisItem.length === 0) return
+
+        c.reply({
+          text: 'listItem',
+          parseLang: true,
+          with: [
+            {
+              text: getMessage(c.lang, name)
+            },
+            thisItem
+          ]
+        })
+      }
+
+      c.reply({
+        text: 'command.about.serverInfo.systemInfoHeader',
+        parseLang: true,
+        color: '$secondary' // Aqua is temporary until colors are re-added to settings
+      })
+
+      // Operating system
+      displayInfo('command.about.serverInfo.os', () => {
+        return os2(process.platform, c.lang)
+      })
+
+      // Operating system version for some Linux systems, since sometimes PRETTY_NAME excludes
+      // version information.
+      displayInfo('command.about.serverInfo.osVersion', () => {
+        try {
+          const or = parseOSRelease()
+          if (or.VERSION_ID) return or.VERSION_ID
+          else if (or.VERSION) return or.VERSION
+          else return ''
+        } catch (e) {
+          if (debugMode) console.debug(e)
+          return ''
+        }
+      })
+
+      // Kernel version: os.release()
+      // On FreeBSD and OpenBSD, the kernel version is already stated in the result of os2.
+      if (process.platform !== 'freebsd' && process.platform !== 'openbsd') {
+        displayInfo('command.about.serverInfo.kernelVer', () => {
+          return os.release()
+        })
+      }
+
+      // Processor, if it can be determined through Node.js
+      displayInfo('command.about.serverInfo.processor', () => {
+        return os.cpus()[0].model ?? ''
+      })
+
+      // Processor architecture
+      displayInfo('command.about.serverInfo.arch', () => {
+        return os.machine()
+      })
+
+      // System memory
+      displayInfo('command.about.serverInfo.usedMem', () => {
+        return `${memoryconvert(os.totalmem() - os.freemem())} / ${memoryconvert(os.totalmem())} ` +
+        `(${getMessage(c.lang, 'command.about.serverInfo.freeMem', [memoryconvert(os.freemem())])})`
+      })
+
+      // Username, and OS UID if not on Windows
+      displayInfo('command.about.serverInfo.osUsername', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        let output = os.userInfo().username
+        if(process.platform != 'win32') output += ` (${os.userInfo().uid})`
+        return output
+      })
+
+      // Hostname
+      displayInfo('command.about.serverInfo.hostName', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return os.hostname()
+      })
+
+      // SELinux enforcement status
+      if (process.platform === 'linux' || process.platform === 'android') {
+        // Device model
+        let outKey = ''
+        const filesFs = readdirSync('/sys/fs/')
+        if(filesFs.includes('selinux')) {
+          const filesSelinux = readdirSync('/sys/fs/selinux/')
+          if(filesSelinux.includes('enforce')) {
+            const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
+            if(status == '1') outKey = 'enforcing'
+            else outKey = 'permissive'
+          } else {
+            outKey = 'na'
+          }
+        } else {
+          outKey = 'na'
+        }
+        displayInfo('command.about.serverInfo.seLinuxStatus', () => {
+          return {
+            text: `command.about.serverInfo.seLinux.${outKey}`,
+            parseLang: true
+          }
+        })
+      }
+
+      // System uptime
+      displayInfo('command.about.serverInfo.upTime', () => {
+        return formatTime(os.uptime() * 1000)
+      })
+
+      if (process.platform === 'android') {
+        // Device model
+        displayInfo('command.about.serverInfo.os.android.model', () => {
+          const brand = execSync('getprop ro.product.brand').toString('utf8').split('\n')[0]
+          const model = execSync('getprop ro.product.model').toString('utf8').split('\n')[0]
+          return `${brand} ${model}`
+        })
+      }
+
+      c.reply({
+        text: 'command.about.serverInfo.botInfoHeader', 
+        parseLang: true,
+        color: '$secondary'
+      })
+
+      // Bot uptime
+      displayInfo('command.about.serverInfo.runTime', () => {
+        return formatTime(process.uptime() * 1000)
+      })
+
+      // Current working directory (usually the same as baseDir)
+      displayInfo('command.about.serverInfo.workingDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return process.cwd()
+      })
+
+      // Base directory - directory with TypeScript code, language data, settings, etc. in it
+      displayInfo('command.about.serverInfo.baseDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return baseDir
+      })
+
+      // Directory with compiled JavaScript code in it
+      displayInfo('command.about.serverInfo.codeDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return codeDir
+      })
+
+      // Command line (process.argv)
+      displayInfo('command.about.serverInfo.cmdLine', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return process.argv.join(' ')
+      })
+
+      // Debug Mode Status
+      displayInfo('command.about.serverInfo.debugMode', () => {
+        return {text: `bf.${debugMode}1`, parseLang: true}
+      })
+    }
+  }
+}

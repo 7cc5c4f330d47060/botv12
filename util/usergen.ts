@@ -1,11 +1,10 @@
 import { createHash } from 'crypto'
-import settings from '../settings'
+
 
 const namesHk = [ // From 2017 Metroidvania from Australia.
   'Ancient Basin',
   'Baldur Shell',
   'City Crest',
-  'City of Tears',
   'Cornifer',
   'Crawlid',
   'Deepnest',
@@ -17,71 +16,87 @@ const namesHk = [ // From 2017 Metroidvania from Australia.
   'Grubfather',
   'Gruz Mother',
   'Hallownest',
-  'Herrah the Beast',
+  'Hornet Protector',
+  'Iselda',
+  'Junk Pit',
+  "King's Pass",
   'The Last Stag',
   'Leg Eater',
   'Lifeblood',
-  'Lifeseed',
   'Longnail',
   'Mantis Claw',
-  'Mantis Lords',
   'Markoth',
-  'Mask Maker',
   'Massive Moss Charger',
-  'Monomon the Teacher',
+  'Monarch Wings',
   'Mosskin',
-  'Mothwing Cloak',
   'Mister Mushroom',
-  'Nail',
+  'Nosk',
   'Ooma',
-  'Pale King',
   'Primal Aspid',
   "Queen's Gardens",
   'The Radiance',
   'Rancid Egg',
   'Resting Grounds',
+  'Royal Waterways',
   'Seer',
   'Shade',
   'Shaman Stone',
   'Sly',
-  'Snail Shaman',
-  'SOUL', // Capital form
+  'SOUL', // Capital form, acquired and used throughout the game by the Knight
   'Squit',
-  'Uoma',
-  'Vengefly',
+  "Teacher's Archives",
+  'Traitor Lord',
+  'Uumuu',
+  'Vengefly King',
   'Wayward Compass',
-  'White Palace',
-  'Zote'
+  'Xero',
+  'You Can Not Breathe Water', // Precept 44 because nothing else starts with "Y".
+  'Zote the Mighty'
 ]
-
 const namesSs = [ // From 2025 Metroidvania from Australia.
+  'Alchemist Zylotol',
   'Bellhart',
-  'Bellhome',
   'Bone Bottom',
   'Citadel',
   'Clawline',
+  "Drifter's Cloak",
+  'Elegy of the Deep',
+  'Father of the Flame',
+  'Garmond', // Zaza is seperate, since they are technically two characters usually together
   'Grand Mother Silk',
   'Greymoor',
   'Halfway Home',
+  'High Halls',
+  'Hornet',
   "Hunter's March",
+  'Imoba',
+  'Jubilana',
+  'Kilik',
   'Lace',
-  'Moss Grotto',
   'Moss Mother',
   'Needle',
-  'Needolin',
-  'Phantom',
+  'Old Church', // Early name for Ruined Chapel in 2019 demo.
   'Pharloom',
+  "Queen's Egg",
   'Ruined Chapel',
   'Sherma',
   'Shellwood',
-  'Wormways'
+  'Snail Shamans', // Group of three not found in HK2017: Chapel Maid, Caretaker, Bell Hermit
+  'Trobbio',
+  'Underworks',
+  'Varga',
+  'Weavenests', // Several places by Weavers around Pharloom.
+  'Wormways',
+  // No X, for now at least...
+  'Yarnaby',
+  'Zaza' // Garmond is seperate, since they are technically two characters usually together
 ]
 
 //console.log(namesHk.length * namesSs.length)
 
 export default function generateUser (): string{
   let nameItem = namesHk[Math.floor(Math.random()*namesHk.length)]
-  if(settings.debugMode) nameItem += ' Debug'
+  if(debugMode) nameItem += ' Debug'
   const hashItem = createHash('sha256').update(nameItem).digest('hex').slice(0,6)
   const nameItemSs = namesSs[Math.floor(Math.random()*namesSs.length)]
   const hashItemSs = createHash('sha256').update(nameItemSs).digest('hex').slice(0,6)

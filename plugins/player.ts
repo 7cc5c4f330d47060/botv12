@@ -3,17 +3,19 @@ import parseNBT from '../util/parseNBT.js'
 import Botv12Client from '../util/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
-  b.playerInfo = {}
   b.playerInfo.players = {}
   b._client.on('player_remove', async function (data) {
+    /* eslint-disable @typescript-eslint/no-dynamic-delete */
+    if(!b.playerInfo.players) return
     for (const item of data.players) {
       if (!b.playerInfo.players[item]) continue
-      delete b.playerInfo.players[item]
       b.emit('playerquit', item)
+      delete b.playerInfo.players[item]
     }
+    /* eslint-enable @typescript-eslint/no-dynamic-delete */
   })
   b._client.on('player_info', async function (data) {
-    const buffer2: any = {}
+    const buffer2: Record<string, { realName?: string, displayName?: string }> = {}
     for (const player of data.data) {
       let uuid
       if (player.uuid) {
@@ -36,6 +38,7 @@ export default function load (b: Botv12Client) {
       }
     }
     for (const uuid in buffer2) {
+      if (!b.playerInfo.players) return
       if (!b.playerInfo.players[uuid]) b.playerInfo.players[uuid] = { displayName: '', realName: '' }
       b.playerInfo.players[uuid].here = true
       let displayName = ''
@@ -68,15 +71,23 @@ export default function load (b: Botv12Client) {
     }
     return '[[[[ no name ]]]]'
   }
+  b.playerInfo.findRealNameFromNickname = (name: string) => {
+    for (const i in b.playerInfo.players) {
+      if (b.playerInfo.players[i].displayName.endsWith(` ${name}`) || b.playerInfo.players[i].displayName == name) {
+        return b.playerInfo.players[i].realName
+      }
+    }
+    return '[[[[ no name ]]]]'
+  }
   b.playerInfo.findRealNameFromUUID = (uuid: string) => {
-    if (b.playerInfo.players[uuid]) {
+    if (b.playerInfo.players && b.playerInfo.players[uuid]) {
       return b.playerInfo.players[uuid].realName
     } else {
       return uuid
     }
   }
   b.playerInfo.findDisplayName = (uuid: string) => {
-    if (b.playerInfo.players[uuid]) {
+    if (b.playerInfo.players && b.playerInfo.players[uuid]) {
       const displayName = b.playerInfo.players[uuid].displayName.split(' ')
       return displayName[displayName.length - 1]
     } else {
