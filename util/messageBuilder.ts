@@ -1,15 +1,17 @@
+import JsonFormat from './interface/JsonFormat.js'
 import { getMessage } from './lang.js'
+import TextFormat from './interface/TextFormat.js'
 import uuidToInt from './uuidtoint.js'
-import version from '../version.js'
-export default function build (text: any, colors: any, lang: string, botuuid: string) {
-  const json: any = {}
+import resolveColor from './resolveColor.js'
+
+export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
+  if(typeof text == 'string') return { text }
+  const json: JsonFormat = {}
   let textContent = ''
 
   if (typeof text.text === 'string') {
     textContent = text.text
     if (text.color) json.color = text.color
-  } else {
-    textContent = text + ''
   }
 
   if (text.parseLang) {
@@ -27,10 +29,6 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
         text: getMessage(lang, 'copyText')
       }
     }
-  }
-
-  if (text.botInfo) {
-    textContent = version[text.botInfo]
   }
 
   if (text.linked) {
@@ -90,12 +88,12 @@ export default function build (text: any, colors: any, lang: string, botuuid: st
   }
 
   if (text.color) {
-    if (text.color.startsWith('$')) json.color = colors[text.color.slice(1)]
-    else text.color = json.color
+    const color = resolveColor(text.color, colors)
+    if(color.length > 0) json.color = color
+    else json.color = 'white'
   }
 
   if (text.with) {
-    console.log(text.with)
     json.with = []
     for (const item of text.with) {
       json.with.push(build(item, colors, lang, botuuid))

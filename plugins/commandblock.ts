@@ -3,27 +3,41 @@ import chatParser from '../util/chatparse.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
-import settings from '../settings.js'
+
 import Botv12Client from '../util/Botv12Client.js'
+import JsonFormat from '../util/interface/JsonFormat.js'
 
 export default function load (b: Botv12Client) {
   const Item = loader(b.registry)
   const itemsByName = loaderData(b._client.version).itemsByName
-  if(!b.position) b.position = {}
-  b.commandCore = {}
   b.commandCore.ccq = []
+  b.commandCore.ccqv2 = {
+    bedrock: { commands: [], count: 4 }
+  } // {queue: {commands: [], count: 1}}
   b.commandCore.blocknoX = 0
+  b.commandCore.blocknoY = 0
   b.commandCore.blocknoZ = 0
   b.commandCore.ccStarted = false
   b.position.pos = { x: 0, y: 0, z: 0 }
-  const refillPayload = 'command_block'
 
   b.commandCore.advanceccq = function () {
     if (b.host.options.useChat) return
-    if (b.commandCore.ccq[0] && b.commandCore.ccq[0].length !== 0) {
-      b.commandCore.sendCommandNow(b.commandCore.ccq[0])
+    for(let i=0; i<=7; i++){
+      if (b.commandCore.ccq[0] && b.commandCore.ccq[0].length !== 0) {
+        b.commandCore.sendCommandNow(b.commandCore.ccq[0])
+        
+      }
+      b.commandCore.ccq.splice(0, 1)
     }
-    b.commandCore.ccq.splice(0, 1)
+    for(const queue in b.commandCore.ccqv2){
+      for(let i=0; i < b.commandCore.ccqv2[queue].count; i++){
+        if (b.commandCore.ccqv2[queue].commands[0] && b.commandCore.ccqv2[queue].commands[0].length !== 0) {
+          b.commandCore.sendCommandNow(b.commandCore.ccqv2[queue].commands[0])
+          
+        }
+        b.commandCore.ccqv2[queue].commands.splice(0, 1)
+      }
+    }
   }
 
   b.commandCore.sendCommandNow = function (command: string) {
@@ -34,7 +48,7 @@ export default function load (b: Botv12Client) {
       command: '/',
       location: {
         x: xstart + b.commandCore.blocknoX,
-        y: 15,
+        y: 15 + b.commandCore.blocknoY,
         z: zstart + b.commandCore.blocknoZ
       },
       mode: 2,
@@ -44,7 +58,7 @@ export default function load (b: Botv12Client) {
       command: command.substr(0, 32767), 
       location: {
         x: xstart + b.commandCore.blocknoX,
-        y: 15,
+        y: 15 + b.commandCore.blocknoY,
         z: zstart + b.commandCore.blocknoZ
       },
       mode: 2,
@@ -52,10 +66,14 @@ export default function load (b: Botv12Client) {
     })
     b.commandCore.blocknoX++
     if (b.commandCore.blocknoX === 16) {
-      b.commandCore.blocknoZ++
+      b.commandCore.blocknoY++
       b.commandCore.blocknoX = 0
-      if (b.commandCore.blocknoZ === 16) {
-        b.commandCore.blocknoZ = 0
+      if (b.commandCore.blocknoY === 2) {
+        b.commandCore.blocknoZ++
+        b.commandCore.blocknoY = 0
+        if (b.commandCore.blocknoZ === 16) {
+          b.commandCore.blocknoZ = 0
+        }
       }
     }
   }
@@ -108,7 +126,7 @@ export default function load (b: Botv12Client) {
           cursorZ: 0
         })
         b._client.write('update_command_block', {
-          command: `fill ${xstart} 15 ${zstart} ${xstart + 15} 15 ${zstart + 15} ${refillPayload}`,
+          command: `fill ${xstart} 15 ${zstart} ${xstart + 15} 16 ${zstart + 15} command_block`,
           location: { x: b.position.pos.x, y: b.position.pos.y - 1, z: b.position.pos.z },
           mode: 2,
           flags: 5
@@ -125,13 +143,13 @@ export default function load (b: Botv12Client) {
   b.on('ccstart', () => {
     setTimeout(() => {
       b.interval.ccqi = setInterval(() => {
-        for (let i = 0; i < 7; i++) b.commandCore.advanceccq()
+        b.commandCore.advanceccq()
       }, 2)
     }, 1000)
     b.commandCore.ccStarted = true
   })
 
-  b.commandCore.tellraw = (uuid: string, message: string) => {
+  b.commandCore.tellraw = (uuid: string, message: JsonFormat | string) => {
     let finalname = ''
     if (b.host.options.useChat) {
       if (b.host.options.useAmpersandColorCodes) {
@@ -163,13 +181,16 @@ export default function load (b: Botv12Client) {
     const chunk = b.chunks[b.position.currentChunk.x][b.position.currentChunk.z]
     if (b.selfCare.tasks.cc) b.selfCare.tasks.cc.failed = false
     for (let x = 0; x <= 15; x++) {
-      for (let z = 0; z <= 15; z++) {
-        const blockName = chunk.getBlock(Vec3(x, 15, z)).name
-        if (blockName !== 'command_block' && blockName !== 'repeating_command_block' && blockName !== 'chain_command_block') {
-          cf = true
-          if (b.selfCare.tasks.cc) b.selfCare.tasks.cc.failed = true
-          break
+      for (let y = 15; y <= 16; y++) {
+        for (let z = 0; z <= 15; z++) {
+          const blockName = chunk.getBlock(Vec3(x, y, z)).name
+          if (blockName !== 'command_block' && blockName !== 'repeating_command_block' && blockName !== 'chain_command_block') {
+            cf = true
+            if (b.selfCare.tasks.cc) b.selfCare.tasks.cc.failed = true
+            break
+          }
         }
+        if (cf) break
       }
       if (cf) break
     }

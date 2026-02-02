@@ -1,19 +1,22 @@
 import { createInterface, cursorTo, clearLine } from 'node:readline'
-import registry from '../util/commands.ts'
-import CommandContext from '../util/CommandContext.ts'
-import parse3 from '../util/chatparse.ts'
+import registry from '../util/commands.js'
+import CommandContext from '../util/CommandContext.js'
+import parse3 from '../util/chatparse.js'
 import { userInfo } from 'node:os'
-import { bots } from '../index.ts'
-import settings from '../settings.js'
-import Botv12Client from '../util/Botv12Client.ts'
-import { getMessage } from '../util/lang.ts'
+
+import Botv12Client from '../util/Botv12Client.js'
+import { getMessage } from '../util/lang.js'
+import JsonFormat from '../util/interface/JsonFormat.js'
 
 const consoleBotStub = {
   host: {
     host: 'bot console',
-    port: 25565
+    port: 25565,
+    options: {
+      name: 'Steam Deck\u2122'
+    }
   },
-  commandCore: { tellraw: (_unused, data) => console.log(parse3(data, 'none'))}
+  commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => console.log(parse3(data, settings.terminalMode))}
 }
 const uuid = '01234567-89ab-cdef-0123-456789abcdef'
 const user = userInfo().username // OS user the bot is running as
@@ -24,7 +27,7 @@ const rl = createInterface({
   output: process.stdout,
   prompt: '\x1b[0m> '
 })
-rl.on('line', (l: string) => {
+rl.on('line', async (l: string) => {
   const args = l.split(' ')
   const cmdName = args[0].toLowerCase()
 
@@ -37,29 +40,28 @@ rl.on('line', (l: string) => {
     }
 
     // Block running eval in normal mode
-    if (cmd.debugOnly && !settings.debugMode) {
+    if (cmd.debugOnly && !debugMode) {
       console.log(getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
-      //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
       return
     }
 
     if (cmd.consoleIndex) {
       const index2 = args.splice(1, 1)[0]
       if (index2 === '*') {
-        for (let i = 0; i < bots.length; i++) {
-          const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[i])
-          context.verify = 2
-          cmd.execute(context)
+        for (const bot of bots) {
+          const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bot)
+          context.verify = 3
+          await cmd.execute(context)
         }
       } else {
         const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
-        context.verify = 2
-        cmd.execute(context)
+        context.verify = 3
+        await cmd.execute(context)
       }
     } else {
       const context = new CommandContext(uuid, user, nick, l, 'console', 'console', 'console', '', consoleBotStub)
-      context.verify = 2
-      cmd.execute(context)
+      context.verify = 3
+      await cmd.execute(context)
     }
   } catch (e) {
     console.log(e)
@@ -69,7 +71,7 @@ rl.on('line', (l: string) => {
 })
 rl.prompt()
 
-function consoleWrite (text) {
+function consoleWrite (text: string) {
   cursorTo(process.stdout, 0)
   clearLine(process.stdout, 0)
   process.stdout.write(text + '\n')
@@ -77,11 +79,11 @@ function consoleWrite (text) {
 }
 
 export default function load (b: Botv12Client) {
-  b.info = (msg) => {
+  b.info = (msg: string) => {
     consoleWrite(`[${b.id}] [info] ${msg}`)
   }
-  b.displayChat = (type, subtype, msg) => {
-    if (settings.debugMode) {
+  b.displayChat = (type: string, subtype: string, msg: string) => {
+    if (debugMode) {
       consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
     } else {
       consoleWrite(`[${b.id}] [${type}] ${msg}`)

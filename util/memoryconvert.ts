@@ -13,4 +13,5 @@ export default function memoryconvert (bytes: number) {
     const div = bytes / divisor
     return `${+div.toFixed(2)} ${unit}`
   }
+  return ''
 }
