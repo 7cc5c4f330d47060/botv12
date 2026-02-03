@@ -1,12 +1,25 @@
-import Botv12Client from "./Botv12Client";
+import Botv12Client from "./Botv12Client.js"
+import JsonFormat from "./interface/JsonFormat.js"
+import UnparsedMessage from "./interface/UnparsedMessage.js"
+
+interface ParsedMessage {
+  parsed: boolean,
+  json?: JsonFormat,
+  type?: string,
+  subtype?: string,
+  uuid?: string,
+  message?: string,
+  nickname?: string,
+  username?: string
+}
 
 export default class ChatParser {
-  parse: any
+  parse: (data: UnparsedMessage, b?: Botv12Client) => ParsedMessage
   priority: number
 
   constructor () {
     // Fallback parser: does not get player information.
-    this.parse = (data: any, b?: Botv12Client) => {
+    this.parse = (data: UnparsedMessage) => {
       return {
         parsed: true,
         json: data.json,

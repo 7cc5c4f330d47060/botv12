@@ -3,12 +3,6 @@ export default {
   version_mc: '1.21.8', // Minecraft version to connect with
   defaultLang: 'en-US', // Default language
   /*
-    Insert the trusted key (keyTrusted) and owner key (keyOwner) here. Both of these values should
-    be strings, and they should not be identical. Do not tell anyone the keys unless you trust them,
-    as they can be used to get admin access to the bot, and (in the case of the owner key) access to
-    your computer.
-  */
-  /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
     In the TypeScript version, databases are not supported yet. When support is re-added, MySQL and
     MariaDB, and likely SQLite will be supported, with more to come.
@@ -23,8 +17,16 @@ export default {
   debugMode: false, // Enable for more debug info, and eval commands.
   colors: { // All colors the bot uses
     warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
-    error: '#FF6688', // Used for errors that are sent to Minecraft chat
-    fatalError: '#BB3344' // Used in errorh for crashes
+    error: '#FF5544', // Used for errors that are sent to Minecraft chat
+    fatalError: '#BB0000', // Formerly used in errorh for crashes
+    perms0: '#ff99dd', // Public level commands in help list
+    perms1: '#cc99ff', // Trusted level
+    perms2: '#8899ff', // Admin level
+    perms3: '#00ccee', // Owner level
+    list1: '#ffccee', // Used for odd-numbered list items - set 1
+    list2: '#ff99dd', // Used for even-numbered list items - set 1
+    list3: '#eeccff', // Used for odd-numbered list items - set 2
+    list4: '#dd99ff' // Used for even-numbered list items - set 2
   },
   prefixes: [ // A list of prefixes the bot will respond to in-game
     'ubotesm:',
@@ -42,10 +44,12 @@ export default {
     },
     {
       host: 'chipmunk.land',
-      port: 25565,
+      port: 17891,
       options: {
         name: 'chipmunk'
       }
     }
-  ]
+  ],
+
+  format: 1
 }

@@ -162,7 +162,7 @@ userPref/
 # botvX log files
 UBotLogs/
 botvXLogs/
-logs/
+# logs/ - already ignored elsewhere
 
 # ExtrasMsg input
 /input.bin
@@ -171,6 +171,8 @@ logs/
 
 # Songs for music command
 songs/
+
+# Temporary files
 temp/
 
 # Launcher accounts
@@ -181,3 +183,6 @@ launcher_accounts.json
 
 # License
 .license_accepted
+
+# User login/authentication keys
+/userkeys.json

@@ -1,4 +1,3 @@
-import { createBot } from '../index.js'
 import Botv12Client from '../util/Botv12Client.js'
 export default function load (b: Botv12Client) {
   b._client.on('end', () => {

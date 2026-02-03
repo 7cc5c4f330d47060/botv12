@@ -1,25 +1,26 @@
-import loader from 'prismarine-chunk'
+import loader, { PCChunk } from 'prismarine-chunk'
 import Vec3 from 'vec3'
-import Botv12Client from '../util/Botv12Client.ts'
+import Botv12Client from '../util/Botv12Client.js'
 const rd = 8
 
 export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
-  b.chunks = {}
-  if(!b.position) b.position = {}
-  b._client.on('map_chunk', (data: any) => {
+  b.chunks = []
+  b._client.on('map_chunk', (data) => {
+    
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
-    const chunk: any = new Chunk({x: 0, z: 0})
+    const chunk = new Chunk({x: 0, z: 0})
+    if(!('load' in chunk)) return
     try {
       chunk.load(data.chunkData)
     } catch (e) {
-
+      if (debugMode) console.error(e)
     }
     b.chunks[data.x][data.z] = chunk
   })
-  b._client.on('block_change', (data: any) => {
+  b._client.on('block_change', (data) => {
     const chunkX = data.location.x >> 4
     const chunkZ = data.location.z >> 4
     const blockX = data.location.x & 15
@@ -28,7 +29,7 @@ export default function load (b: Botv12Client) {
       b.chunks[chunkX][chunkZ].setBlockStateId(Vec3(blockX, data.location.y, blockZ), data.type)
     }
   })
-  b._client.on('multi_block_change', (data: any) => {
+  b._client.on('multi_block_change', (data) => {
     for (const record of data.records) {
       const blockState = record >> 12
       const blockX = record >> 8 & 15
@@ -39,7 +40,7 @@ export default function load (b: Botv12Client) {
       }
     }
   })
-  b._client.on('position', (data: any) => {
+  b._client.on('position', (data: {x: number, y: number, z: number, teleportId: number, flags: {x: boolean, y: boolean, z: boolean}}) => {
     let newX
     let newY
     let newZ
@@ -53,23 +54,25 @@ export default function load (b: Botv12Client) {
     b.position.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
     if (newY > 99 || newY < 1) {
-      b.selfCare.tasks.cc_pos.failed = 1
+      b.selfCare.tasks.cc_pos.failed = true
     } else {
-      b.selfCare.tasks.cc_pos.failed = 0
+      b.selfCare.tasks.cc_pos.failed = false
     }
   })
   b.interval.unloadChunks = setInterval(() => {
-    for (const i in b.chunks) {
+    /* eslint-disable @typescript-eslint/no-dynamic-delete */
+    b.chunks.forEach((chunkList: PCChunk[], i: number) => {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
-        delete b.chunks[i]
+        if(b.chunks[i]) delete b.chunks[i]
       }
-      for (const z in b.chunks[i]) {
+      chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
-          delete b.chunks[i][z]
+          if(b.chunks[i] && b.chunks[i][z]) delete b.chunks[i][z]
         }
-      }
-    }
+      })
+    })
+    /* eslint-enable @typescript-eslint/no-dynamic-delete */
   }, 1500)
 }
