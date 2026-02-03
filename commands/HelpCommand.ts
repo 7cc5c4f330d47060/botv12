@@ -1,0 +1,182 @@
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
+import registry from '../util/commands.js'
+import { getMessage } from '../util/lang.js'
+
+interface Command2 {
+  name: string
+  level: number
+}
+const sortHelp = function sortHelp (c1: Command2, c2: Command2) {
+  const level1 = c1.level ? c1.level : 0
+  const level2 = c2.level ? c2.level : 0
+  return level1 - level2
+}
+
+function printHelp (c: CommandContext) {
+  const cmds = registry.listCommands()
+  const keys = Object.keys(cmds).sort()
+  const commands: Command2[] = []
+  for (const key of keys) {
+    commands.push({
+      name: key,
+      level: cmds[key].level
+    })
+  }
+  const sortedCommands = commands.sort(sortHelp)
+  const commandList: { text: string, color: string }[] = []
+
+  for (const cmd of sortedCommands) {
+    let cmdColor
+    if (c.colors[`perms${cmd.level}`]) {
+      cmdColor = c.colors[`perms${cmd.level}`]
+    } else {
+      cmdColor = c.colors.perms0
+    }
+    commandList.push({
+      text: `${cmd.name} `,
+      color: cmdColor
+    })
+  }
+
+  const permListFormat: ( { text: string, parseLang: true, color: string } | string )[] = []
+  for (let i = 0; i <= 3; i++) {
+    permListFormat.push({
+      text: `command.perms${i}`,
+      parseLang: true,
+      color: c.colors[`perms${i}`]
+    })
+    if (i !== 3) permListFormat.push(' ')
+  }
+
+  c.reply({
+    text: '%s (%s) (%s): %s',
+    with: [
+      getMessage(c.lang, 'command.help.cmdList'),
+      commandList.length + '',
+      {
+        text: '%s'.repeat(permListFormat.length),
+        with: permListFormat
+      },
+      {
+        text: '%s'.repeat(commandList.length),
+        with: commandList
+      }
+    ]
+  })
+}
+
+function printHelpConsole (c: CommandContext) {
+  const cmds = registry.listCommands(true)
+  const keys = Object.keys(cmds).sort()
+  const commands: Command2[] = []
+  for (const key of keys) {
+    commands.push({
+      name: key,
+      level: cmds[key].level
+    })
+  }
+
+  for (const cmd of commands) {
+    const cmdItem = registry.getCommand(cmd.name)
+    c.reply({
+      text: `%s - %s`,
+      with: [
+        { text: cmd.name, color: '$primary' },
+        { text: `commands.${cmdItem.name}.desc`, parseLang: true, color: '$primary' },
+      ],
+      color: '$secondary'
+    })
+  }
+}
+
+function printCmdHelp (c: CommandContext) {
+  let cmd = ''
+  if (c.args.length >= 1) cmd = c.args[0].toLowerCase()
+  const cmdItem = registry.getCommand(cmd)
+  if (!cmdItem) {
+    return
+  }
+
+  if(cmdItem.name === '') {
+    c.reply({
+      text: 'command.error.unknown',
+      parseLang: true,
+      color: '$error',
+      with: [ c.prefix ],
+      command: `${c.prefix}help`
+    })
+    return
+  }
+
+  const usage = getMessage(c.lang, `commands.${cmdItem.name}.usage`).split('||')
+  const desc = getMessage(c.lang, `commands.${cmdItem.name}.desc`)
+  for (const item of usage) {
+    c.reply({
+      text: 'command.help.commandUsage',
+      parseLang: true,
+      with: [
+        cmdItem.name,
+        cmdItem.consoleIndex && c.type === 'console' ? ' <bot ID>' : '',
+        item
+      ]
+    })
+  }
+  c.reply({
+    text: 'command.help.commandDesc',
+    parseLang: true,
+    with: [
+      desc
+    ]
+  })
+  if (cmdItem.aliases) {
+    const aliasList: { text: string }[] = []
+    for (const item of cmdItem.aliases) {
+      if (aliasList.length > 0) {
+        aliasList.push({
+          text: ', '
+        })
+      }
+      aliasList.push({
+        text: item
+      })
+    }
+    c.reply({
+      text: 'command.help.commandAliases',
+      parseLang: true,
+      with: [
+        {
+          text: '%s'.repeat(aliasList.length),
+          with: aliasList
+        }
+      ]
+    })
+  }
+  const rPerms = cmdItem.level ? cmdItem.level : 0
+  c.reply({
+    text: 'command.help.commandPerms',
+    parseLang: true,
+    with: [
+      {
+        text: `command.perms${rPerms}`,
+        parseLang: true
+      }
+    ]
+  })
+}
+
+export default class HelpCommand extends Command {
+  constructor () {
+    super()
+    this.name = "help"
+    this.execute = async (c: CommandContext) => {
+      if (c.args.length > 0) {
+        printCmdHelp(c)
+      } else {
+        if(c.type == 'console') printHelpConsole(c)
+        else printHelp(c)
+      }
+    }
+    this.aliases = ['heko'] // Parker2991 request from botvX era, may be removed soon
+  }
+}

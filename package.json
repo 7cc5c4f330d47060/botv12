@@ -1,6 +1,6 @@
 {
   "name": "botv12",
-  "version": "12.0.0-alpha.4",
+  "version": "12.0.0-alpha.5",
   "description": "Minecraft bot for the Kaboom server",
   "main": "index.js",
   "type": "module",
@@ -15,6 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@nbsjs/core": "^6.0.0",
+    "@zip.js/zip.js": "^2.8.15",
     "mariadb": "^3.4.4",
     "midi-file": "^1.2.4",
     "minecraft-data": "^3.85.0",
@@ -23,11 +24,14 @@
     "prismarine-chunk": "^1.38.1",
     "prismarine-item": "^1.16.0",
     "prismarine-registry": "^1.11.0",
-    "tsx": "^4.20.5",
     "vec3": "^0.1.10",
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "@types/ws": "^8.18.1"
+    "@eslint/js": "^9.39.2",
+    "@types/ws": "^8.18.1",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0"
   }
 }

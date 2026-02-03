@@ -1,18 +1,31 @@
-import settings from '../settings.js'
-import parse3 from '../util/chatparse.ts'
-import parse1204 from '../util/parseNBT.ts'
-import { getMessage } from '../util/lang.ts'
+import parse3 from '../util/chatparse.js'
+import parse1204 from '../util/parseNBT.js'
+import { getMessage } from '../util/lang.js'
 import { readdirSync } from 'node:fs'
-import Botv12Client from '../util/Botv12Client.ts'
-import ChatParser from '../util/ChatParser.ts'
-const convertChatStyleItem = (item: any) => {
-  const output: any = {}
+import Botv12Client from '../util/Botv12Client.js'
+import ChatParser from '../util/ChatParser.js'
+import { resolve } from 'node:path'
+import JsonFormat from '../util/interface/JsonFormat.js'
+
+interface ChatTypeItem {
+  translation_key: {value: string},
+  parameters: { value: { value: string[] } },
+  style: { value: Record<string, { value: string }> }
+}
+
+interface ChatTypeItemRoot {
+  element: { value: { chat: { value: ChatTypeItem }}}
+}
+
+const convertChatStyleItem = (item: Record<string, { value: string }>) => {
+  const output: Record<string, string> = {}
   for (const i in item) {
     output[i] = item[i].value
   }
   return output
 }
-const convertChatTypeItem = (item: any) => {
+
+const convertChatTypeItem = (item: ChatTypeItem) => {
   if (item.style) {
     return {
       translation_key: item.translation_key.value,
@@ -33,10 +46,10 @@ const convertChatTypeItem = (item: any) => {
 // Level 2: generic parsers
 
 const parsers: ChatParser[][] = [[], [], []]
-const bpl = readdirSync('chatParsers')
+const bpl = readdirSync(resolve(codeDir, 'chatParsers'))
 for (const plugin of bpl) {
       
-  if (!plugin.endsWith('.ts')) {
+  if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
     continue
   }
   try {
@@ -48,7 +61,6 @@ for (const plugin of bpl) {
 }
 
 export default function load (b: Botv12Client) {
-  b.serverChat = {}
   b.serverChat.messageCount = 0
   b.serverChat.disabledUntil = 0
   b.serverChat.messageTypes = []
@@ -58,11 +70,11 @@ export default function load (b: Botv12Client) {
   b._client.on('registry_data', (data) => {
     if (data.codec && data.codec.value['minecraft:chat_type']) {
       const nbtItems = data.codec.value['minecraft:chat_type'].value.value.value.value
-      nbtItems.forEach((item: any, i: number) => {
+      nbtItems.forEach((item: ChatTypeItemRoot, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(item.element.value.chat.value)
       })
     } else if (data.entries && data.id === 'minecraft:chat_type') {
-      data.entries.forEach((item: any, i: number) => {
+      data.entries.forEach((item: object, i: number) => {
         b.serverChat.messageTypes[i] = convertChatTypeItem(data.entries[i].value.value.chat.value)
       })
     }
@@ -77,8 +89,9 @@ export default function load (b: Botv12Client) {
       messageType = b.serverChat.messageTypes[data.type]
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
-    const json: any = { translate: messageType.translation_key, with: [] }
-    messageType.parameters.forEach((item: any, i: number) => {
+    const json: JsonFormat = { translate: messageType.translation_key }
+    messageType.parameters.forEach((item: string, i: number) => {
+      if(!json.with) json.with = []
       if (item === 'content') {
         json.with[i] = parse1204(data.message)
       } else if (item === 'sender') {
@@ -88,7 +101,9 @@ export default function load (b: Botv12Client) {
       }
     })
     for (const i in messageType.style) {
-      json[i] = messageType.style[i]
+      if(i === 'color') {
+        json[i] = messageType.style[i]
+      }
     }
     const message = parse3(parse1204(data.message), 'none')
     const uuid = '00000000-0000-0000-0000-000000000000' //b.playerInfo.findUUID(parse3(parse1204(data.name), 'none'))
@@ -115,8 +130,9 @@ export default function load (b: Botv12Client) {
       messageType = b.serverChat.messageTypes[data.type]
     }
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
-    const json: any = { translate: messageType.translation_key, with: [] }
-    messageType.parameters.forEach((item: any, i: number) => {
+    const json: JsonFormat = { translate: messageType.translation_key }
+    messageType.parameters.forEach((item: string, i: number) => {
+      if(!json.with) json.with = []
       if (item === 'content') {
         if (messageType.translation_key === '%s') {
           if (!data.unsignedChatContent) json.with[i] = ''
@@ -131,7 +147,9 @@ export default function load (b: Botv12Client) {
       }
     })
     for (const i in messageType.style) {
-      json[i] = messageType.style[i]
+      if(i === 'color') {
+        json[i] = messageType.style[i]
+      }
     }
     b.emit('chat_unparsed', {
       json,
