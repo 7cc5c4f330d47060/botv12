@@ -11,22 +11,25 @@ export default class AboutBotSubcommand extends Command {
       c.reply({
         text: 'command.about.author',
         parseLang: true,
+        color: '$secondary',
         with: [
-          version.botName,
-          version.botAuthor
+          { text: version.botName, color: '$primary' },
+          { text: version.botAuthor, color: '$primary' }
         ]
       })
       c.reply({
         text: 'command.about.version',
         parseLang: true,
+        color: '$secondary',
         with: [
-          versionUtil
+          { text: versionUtil, color: '$primary' }
         ]
       })
       for(const item of version.newCopyright) {
         c.reply({
           text: 'command.about.copyright',
           parseLang: true,
+          color: '$secondary',
           with: [
             item.date,
             item.name
@@ -36,10 +39,12 @@ export default class AboutBotSubcommand extends Command {
       c.reply({
         text: 'command.about.copyright.agpl',
         parseLang: true,
+        color: '$secondary',
         with: [
           {
             text: 'clickHere',
             parseLang: true,
+            color: '$primary',
             command: `${c.prefix}about license --info`
           }
         ]
@@ -52,11 +57,12 @@ export default class AboutBotSubcommand extends Command {
           with: [
             {
               text: version.sourceURL,
-              linked: true
+              linked: true,
+              color: '$primary'
             }
           ]
         })
-      }
+      } else process.exit(1)
     }
   }
 }

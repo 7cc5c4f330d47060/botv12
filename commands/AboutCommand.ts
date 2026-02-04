@@ -1,7 +1,6 @@
 import ServerInfoSubcommand from './aboutSub/ServerInfoSubcommand.js'
 import ServerListSubcommand from './aboutSub/ServerListSubcommand.js'
 import SettingsSubcommand from './aboutSub/SettingsSubcommand.js'
-import VersionSubcommand from './aboutSub/VersionSubcommand.js'
 import LicenseSubcommand from './aboutSub/LicenseSubcommand.js'
 import AboutBotSubcommand from './aboutSub/AboutBotSubcommand.js'
 
@@ -13,7 +12,6 @@ const registry = new CommandRegistry(new AboutBotSubcommand())
 registry.register(new ServerInfoSubcommand())
 registry.register(new ServerListSubcommand())
 registry.register(new SettingsSubcommand())
-registry.register(new VersionSubcommand())
 registry.register(new LicenseSubcommand())
 registry.register(new AboutBotSubcommand())
 

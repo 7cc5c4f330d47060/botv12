@@ -123,11 +123,17 @@ export default class ServerInfoSubcommand extends Command {
         c.reply({
           text: 'listItem',
           parseLang: true,
+          color: '$secondary',
           with: [
             {
               text: getMessage(c.lang, name)
             },
-            thisItem
+            {
+              text: '%s',
+              color: '$primary',
+              with: [thisItem]
+            }
+            
           ]
         })
       }

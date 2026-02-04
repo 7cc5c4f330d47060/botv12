@@ -79,7 +79,8 @@ export default function load (b: Botv12Client) {
           context.reply({
             text: 'debug.commandFinished',
             parseLang: true,
-            with: [timeSpent + ""]
+            color: '$success',
+            with: [{ text: timeSpent + "", color: '$success' }]
           })
         }
       } catch (e) {

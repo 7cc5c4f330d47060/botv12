@@ -2,8 +2,9 @@
 
 botv12 is a Minecraft bot originally designed for [Kaboom](https://kaboom.pw/) and its clones.
 
-It supports all Minecraft server versions from 1.20 to 1.21.10 that are supported by node-minecraft-protocol. It is primarily developed using Kaboom or clones, but it should work on other servers with reduced functionality.
+It supports all Minecraft server versions from 1.20 to 1.21.11* that are supported by node-minecraft-protocol. It is primarily developed using Kaboom or clones, but it should work on other servers with reduced functionality.
 
+<small>*1.21.11 support requires patches to minecraft-data and node-minecraft-protocol, since 1.21.11 support hasn't been released yet.</small>
 ## How to install?
 
 1. Install [Node.js](https://nodejs.org/) for your operating system.
