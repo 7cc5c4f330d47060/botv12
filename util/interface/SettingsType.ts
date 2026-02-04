@@ -7,10 +7,10 @@ export default interface SettingsType {
   defaultLang: string
   dbEnabled: boolean
   dbType: string
-  dbHost: string
-  dbUser: string
-  dbPassword: string
-  dbName: string
+  dbHost?: string
+  dbUser?: string
+  dbPassword?: string
+  dbName?: string
   debugMode: boolean
   colors: Record<string, string>
   logJSONmessages?: boolean
@@ -20,4 +20,7 @@ export default interface SettingsType {
   prefixes: string[]
   servers: HostOptions[]
   serverInfoShowSensitive?: boolean
+  disableLogging?: boolean
+  disableChatLogging?: boolean
+  disableCommandLogging?: boolean
 }

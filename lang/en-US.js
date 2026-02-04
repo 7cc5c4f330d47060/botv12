@@ -212,7 +212,7 @@ export default {
     'command.test.colorWarning': 'Warning color',
     'command.test.colorError': 'Error color',
     'command.test.colorFatalError': 'Fatal error color',
-    'command.username': "The bot's username on this server is %s",
+    'command.username': "The bot's username on this server is %s, with UUID %s.",
     'command.about.serverListItem.thisServer': 'Server %s - %s (this server)',
     'command.tpr.success': 'Teleporting %s to %s, %s, %s',
     'command.verify.success': 'Successfully verified with permission level %s',
