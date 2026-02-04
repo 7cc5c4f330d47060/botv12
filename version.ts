@@ -1,5 +1,6 @@
 const version = {
   botName: 'botv12 Dev', // Name of the bot
+  botCodename: 'botv12',
   botVersion: '12.0.0-alpha.5', // Version of the bot. Different from package.json.
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version.
