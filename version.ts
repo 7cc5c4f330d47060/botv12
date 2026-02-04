@@ -4,7 +4,7 @@ const version = {
   botVersion: '12.0.0-alpha.5', // Version of the bot. Different from package.json.
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version.
-  settingsFormat: 1,
+  settingsFormat: 2,
   // TODO: Overhaul copyright info
   newCopyright: [
     /*
