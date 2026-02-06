@@ -7,7 +7,7 @@ import { resolve } from 'node:path'
 const checkLog = () => {
   if (settings.disableLogging) return
   try {
-    if (!readdirSync('.').includes(resolve(baseDir, 'logs'))) mkdirSync(resolve(baseDir, 'logs'))
+    if (!readdirSync(baseDir).includes('logs')) mkdirSync(resolve(baseDir, 'logs'))
     const dateToday = new Date(Date.now())
     const dateTomorrow = new Date(Date.now() + 86400000)
     const monthToday = (dateToday.getUTCMonth() + 1).toString().padStart(2, '0')
