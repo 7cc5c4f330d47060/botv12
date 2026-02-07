@@ -6,6 +6,7 @@ declare global {
   var settings: SettingsType
   var codeDir: string
   var baseDir: string
+  var dbEnabled: boolean
   var debugMode: boolean
   var clOptions: {
     disableWsServer?: boolean
@@ -18,6 +19,7 @@ declare global {
 
 globalThis.startTime = Date.now();
 // Global options
+globalThis.dbEnabled = false;
 globalThis.debugMode = false;
 globalThis.codeDir = dirname(process.argv[1])
 globalThis.baseDir = process.cwd()

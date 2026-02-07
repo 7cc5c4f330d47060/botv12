@@ -8,6 +8,7 @@ export default class SqlEvalCommand extends Command {
     super()
     this.name = 'sql'
     this.execute = async (c: CommandContext) => {
+      if(!dbEnabled) return
       const connection = await getConnection()
       const payload = c.args.join(' ')
       let result
