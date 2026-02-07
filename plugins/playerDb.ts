@@ -55,7 +55,7 @@ export default function load (b: Botv12Client) {
       if(debugMode) console.error(e)
     }
   })
-  b.emit('playerquit', async function (item: string) {
+  b.on('playerquit', async function (item: string) {
     try {
       const connection = await getConnection()
       await connection.query(`UPDATE seenPlayers
