@@ -2,7 +2,7 @@ import { getConnection } from '../util/database.js'
 import Botv12Client from '../util/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
-  if (!settings.dbEnabled) return
+  if (!dbEnabled) return
   b.on('playerdata', async function (uuid: string, displayName: string, realName: string) {
     try {
       const connection = await getConnection()

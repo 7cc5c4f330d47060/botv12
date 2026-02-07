@@ -3,12 +3,17 @@ import * as mariadb from 'mariadb'
 let pool: mariadb.Pool
 
 if (settings.dbEnabled) {
-  pool = await mariadb.createPool({
-    host: settings.dbHost,
-    user: settings.dbUser,
-    password: settings.dbPassword,
-    connectionLimit: 10
-  })
+  if(settings.dbType == 'mysql' || settings.dbType == 'mariadb') {
+    pool = await mariadb.createPool({
+      host: settings.dbHost,
+      user: settings.dbUser,
+      password: settings.dbPassword,
+      connectionLimit: 10
+    })
+    dbEnabled = true
+  } else {
+    if(debugMode) console.warn(`[warning] Unknown database type: ${settings.dbType}`)
+  }
 }
 
 async function getConnection () {
