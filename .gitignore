@@ -188,4 +188,4 @@ launcher_accounts.json
 /userkeys.json
 
 # Default SQLite database file
-# (to be determined)
+/botv12.sqlite3

@@ -4,13 +4,15 @@ export default {
   defaultLang: 'en-US', // Default language
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
-    In the TypeScript version, databases are not supported yet. When support is re-added, MySQL and
-    MariaDB, and likely SQLite will be supported, with more to come.
-    For SQLite, dbHost will point to the database file.
+    In the TypeScript version, MySQL, MariaDB and SQLite are currently supported, with more to
+    come. SQLite support uses the experimental node:sqlite library and is not recommended for
+    production usage.
+    For SQLite, dbHost points to the database file.
+    To use a MySQL or MariaDB database, set dbType to 'mariadb'.
   */
-  dbEnabled: false,
+  dbEnabled: true,
   dbType: 'sqlite',
-  dbHost: '',
+  dbHost: 'botv12.sqlite3',
   dbUser: '',
   dbPassword: '',
   dbName: '',

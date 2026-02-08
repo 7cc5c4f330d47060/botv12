@@ -6,6 +6,8 @@ export default function load (b: Botv12Client) {
   b.on('playerdata', async function (uuid: string, displayName: string, realName: string) {
     try {
       const connection = await getConnection()
+      if(!connection) return
+
       const playerList = await connection.query('SELECT * FROM seenPlayers WHERE uuid = ?', [uuid])
       if (playerList.length === 0) {
         await connection.query(`INSERT INTO seenPlayers (
@@ -50,7 +52,7 @@ export default function load (b: Botv12Client) {
           ])
         }
       }
-      connection.end()
+      if('end' in connection) connection.end()
     } catch (e) {
       if(debugMode) console.error(e)
     }
@@ -58,6 +60,7 @@ export default function load (b: Botv12Client) {
   b.on('playerquit', async function (item: string) {
     try {
       const connection = await getConnection()
+      if(!connection) return
       await connection.query(`UPDATE seenPlayers
         SET lastSeen = ?,
         lastHost = ?,
@@ -69,7 +72,7 @@ export default function load (b: Botv12Client) {
         b.host.port,
         item
       ])
-      connection.end()
+      if('end' in connection) connection.end()
     } catch (e) {
       if(debugMode) console.error(e)
     }
