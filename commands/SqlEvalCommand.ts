@@ -10,10 +10,12 @@ export default class SqlEvalCommand extends Command {
     this.execute = async (c: CommandContext) => {
       if(!dbEnabled) return
       const connection = await getConnection()
+      if(!connection) return
       const payload = c.args.join(' ')
       let result
       try {
         result = await connection.query(payload)
+        if('end' in connection) connection.end()
       } catch (e) {
         result = e
       }

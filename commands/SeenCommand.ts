@@ -17,6 +17,7 @@ export default class SeenCommand extends Command {
       }
       try {
         const connection = await getConnection()
+        if(!connection) return
         const name = c.args.join(' ')
         let joinCount
         let lastSeen
@@ -27,6 +28,7 @@ export default class SeenCommand extends Command {
         } else { // Username code
           player = await connection.query('SELECT * FROM seenPlayers WHERE userName = ?', [name])
         }
+        console.log(player)
         if (player.length >= 1) {
           joinCount = player[0].joinCount ?? 0
           lastSeen = player[0].lastSeen ?? 0n
@@ -53,7 +55,7 @@ export default class SeenCommand extends Command {
             ]
           })
         }
-        connection.end()
+        if('end' in connection) connection.end()
       } catch (e) {
         if(debugMode) console.error(e)
       }
