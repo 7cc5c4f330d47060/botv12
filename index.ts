@@ -49,14 +49,14 @@ const awaitLicense = function(callback: () => void){
   const rootFileList = readdirSync(baseDir)
   if(!rootFileList.includes('.license_accepted')){
     if (debugMode) console.debug('[debug] License check failed.')
-      console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later.\n`+
-      `This license requires, among other things, that the source code be made available to anybody \n`+
-      `looking for it, even if you only host a fork of the bot. The bot includes a\n`+
-      `) download command to download the source. You may also use any publicly available\n`+
-      `version control system, or any other method to distribute the source to those who want it. For more\n`+
-      `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
-      `To accept the license, type 'I accept' below. If you do not accept the license, you may \n`+
-      `not use this software.`)
+    console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. `+
+    `This license requires, among other things, that the source code be made available to anybody `+
+    `looking for it, even if you only host a fork of the bot. The bot includes a `+
+    `download command to download the source. You may also use any public `+
+    `version control system, or any other method to distribute the source to those who want it. For more `+
+    `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
+    `To accept the license, type 'I accept' below. If you do not accept the license, you may `+
+    `not use this software.`)
     const rl = createInterface({
       input: process.stdin,
       output: process.stdout,
