@@ -189,3 +189,6 @@ launcher_accounts.json
 
 # Default SQLite database file
 /botv12.sqlite3
+
+# Data folder, from future versions
+/data/

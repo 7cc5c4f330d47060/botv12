@@ -14,7 +14,7 @@ import ParsedNote from '../util/interface/ParsedNote.js'
 import NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
 import Note from '../util/interface/Note.js'
 
-const songPath = resolve(process.cwd(), 'songs')
+const songPath = resolve(baseDir, 'songs')
 
 const calculateNote = (event: {mcNote?: string, noteNumber: number}, program: number) => {
   const note = event.noteNumber
