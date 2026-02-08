@@ -22,14 +22,16 @@ export default {
     warning: '#FFAA33', // Used for warnings that are sent to Minecraft chat
     error: '#FF5544', // Used for errors that are sent to Minecraft chat
     fatalError: '#BB0000', // Formerly used in errorh for crashes
-    perms0: '#ff99dd', // Public level commands in help list
-    perms1: '#cc99ff', // Trusted level
-    perms2: '#8899ff', // Admin level
-    perms3: '#00ccee', // Owner level
-    list1: '#ffccee', // Used for odd-numbered list items - set 1
-    list2: '#ff99dd', // Used for even-numbered list items - set 1
-    list3: '#eeccff', // Used for odd-numbered list items - set 2
-    list4: '#dd99ff' // Used for even-numbered list items - set 2
+    perms0: '#88ff77', // Public level commands in help list
+    perms1: '#ffee55', // Trusted level
+    perms2: '#ffbb77', // Admin level
+    perms3: '#ff8888', // Owner level
+    list1: '#aaffaa', // Used for odd-numbered list items - set 1
+    list1: '#55ff55', // Used for even-numbered list items - set 1
+    list3: '#ccccff', // Used for odd-numbered list items - set 2
+    list4: '#9999ff', // Used for even-numbered list items - set 2
+    primary: 'white', // Used for main items in some commands
+    secondary: 'gray' // Used for other text, in the same commands
   },
   prefixes: [ // A list of prefixes the bot will respond to in-game
     'ubotesm:',
