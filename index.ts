@@ -28,12 +28,21 @@ globalThis.baseDir = process.cwd()
 globalThis.dataDir = resolve(baseDir, 'data')
 globalThis.clOptions = { disableWsServer: false }
 
-
-
 import ha from './util/argv.js'
 ha()
 
-const settings = (await import(resolve(baseDir, 'settings.js'))).default
+if(!existsSync(dataDir)) mkdirSync(dataDir)
+/* Migrations to data in alpha 6 */
+if(existsSync(resolve(baseDir, 'settings.js'))) 
+  renameSync(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js'))
+
+if(existsSync(resolve(baseDir, 'logs'))) 
+  renameSync(resolve(baseDir, 'logs'), resolve(dataDir, 'logs'))
+
+if(existsSync(resolve(baseDir, 'songs'))) 
+  renameSync(resolve(baseDir, 'songs'), resolve(dataDir, 'songs'))
+
+const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
 globalThis.debugMode = settings.debugMode || globalThis.debugMode
 
@@ -42,7 +51,7 @@ if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 import generateUser from './util/usergen.js'
 import version from './version.js'
 //import { getMessage } from './util/lang.js'
-import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from 'node:fs'
+import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
 //import { default as registry } from 'prismarine-registry'
@@ -86,8 +95,6 @@ const awaitLicense = function(callback: () => void){
     callback()
   }
 }
-
-if(!existsSync(dataDir)) mkdirSync(dataDir)
 
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
