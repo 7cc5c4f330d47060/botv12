@@ -86,8 +86,8 @@ export default class DownloadCommand extends Command {
         'settings_example.js',
         'version.ts',
       ]
-      const root = 'temp/dl'
-      if(!fs.existsSync('temp')) fs.mkdirSync('temp')
+      const root = resolve(baseDir,'temp', 'dl')
+      if(!fs.existsSync(resolve(baseDir,'temp'))) fs.mkdirSync(resolve(baseDir,'temp'))
       if(!fs.existsSync(root)) fs.mkdirSync(root)
       
       for(const item of dirs){
