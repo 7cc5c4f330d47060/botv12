@@ -31,8 +31,8 @@ const calculateNote = (event: {mcNote?: string, noteNumber: number}, program: nu
       const range = item.split('-')
       if (note >= +range[0] && note <= +range[1]) {
         return {
-          pitch: Math.round(1000000 * Math.pow(2, (note - instrumentMap[program].instruments[item].center) / 12)) / 1000000,
-          note: event.mcNote ?? instrumentMap[program].instruments[item].note
+          pitch: Math.round(1000000 * Math.pow(2, (note - instrumentMap[programFix].instruments[item].center) / 12)) / 1000000,
+          note: event.mcNote ?? instrumentMap[programFix].instruments[item].note
         }
       }
     }
