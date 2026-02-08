@@ -1,6 +1,6 @@
 export default {
   terminalMode: 'blackTerminal_24bit', // Terminal mode. Most modern terminals support 24-bit color
-  version_mc: '1.21.8', // Minecraft version to connect with
+  version_mc: '1.21.10', // Minecraft version to connect with
   defaultLang: 'en-US', // Default language
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
@@ -27,7 +27,7 @@ export default {
     perms2: '#ffbb77', // Admin level
     perms3: '#ff8888', // Owner level
     list1: '#aaffaa', // Used for odd-numbered list items - set 1
-    list1: '#55ff55', // Used for even-numbered list items - set 1
+    list2: '#55ff55', // Used for even-numbered list items - set 1
     list3: '#ccccff', // Used for odd-numbered list items - set 2
     list4: '#9999ff', // Used for even-numbered list items - set 2
     primary: 'white', // Used for main items in some commands
