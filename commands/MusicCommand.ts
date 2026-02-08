@@ -19,6 +19,22 @@ export default class MusicCommand extends Command {
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {
         case 'play':{
+          if ((!c.args[0] || c.args[0].length === 0)){
+            if (c.bot.musicPlayer.songName) {
+              c.reply({
+                text: 'command.music.restartPrevious',
+                parseLang: true
+              })
+              c.bot.musicPlayer.queue.push(['ram://', c.bot.musicPlayer.songName])
+            } else {
+              c.reply({
+                text: 'command.music.error.neverPlayed',
+                parseLang: true,
+                color: '$error'
+              })
+            }
+            return
+          }
           const filePath = resolve(songPath, c.args.join(' '))
           c.bot.commandCore.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
           c.send('@a[tag=nomusic,tag=ubotmusic]', {

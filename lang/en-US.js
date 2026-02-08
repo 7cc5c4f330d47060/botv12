@@ -185,6 +185,7 @@ export default {
     'command.music.queueIntro': 'Queue (%s)',
     'command.music.queueItem': '%s - %s',
     'command.music.error.notPlaying': 'No song is currently playing',
+    'command.music.error.neverPlayed': 'No songs have been played in this session',
     'command.music.restartCurrent': 'Restarting current track',
     'command.music.restartPrevious': 'Restarting previous track',
     'command.music.paused': 'The music is now paused',
