@@ -26,7 +26,7 @@ async function getConnection () {
     return connection
   } else if(settings.dbType == 'sqlite') {
     if(typeof settings.dbHost !== 'string') return
-    const database = new DatabaseSync(resolve(baseDir, settings.dbHost));
+    const database = new DatabaseSync(resolve(dataDir, settings.dbHost));
     return {
       query: async function (a: string, d: (number | string)[] = []) {
         return database.prepare(a).all(...d)

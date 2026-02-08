@@ -6,7 +6,7 @@ import version from '../version.js'
 import Command from '../util/Command.js'
 import { formatTime } from '../util/lang.js'
 
-const songPath = resolve(baseDir, 'songs')
+const songPath = resolve(dataDir, 'songs')
 
 export default class MusicCommand extends Command {
   constructor () {

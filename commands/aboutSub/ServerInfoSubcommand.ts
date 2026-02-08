@@ -269,6 +269,12 @@ export default class ServerInfoSubcommand extends Command {
         return codeDir
       })
 
+      // Directory with compiled JavaScript code in it
+      displayInfo('command.about.serverInfo.dataDir', () => {
+        if(!settings.serverInfoShowSensitive) return ''
+        return dataDir
+      })
+
       // Command line (process.argv)
       displayInfo('command.about.serverInfo.cmdLine', () => {
         if(!settings.serverInfoShowSensitive) return ''

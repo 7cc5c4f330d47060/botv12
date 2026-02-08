@@ -6,11 +6,11 @@ import { resolve } from "node:path"
 
 let userKeys: Record<string, {key: string, level: number}> = {}
 try {
-  const fileContent = readFileSync(resolve(baseDir, 'userkeys.json')).toString("utf8")
+  const fileContent = readFileSync(resolve(dataDir, 'userkeys.json')).toString("utf8")
   userKeys = JSON.parse(fileContent)
 } catch (e) {
   if (debugMode) console.error(e)
-  writeFileSync(resolve(baseDir, 'userkeys.json'), '{}')
+  writeFileSync(resolve(dataDir, 'userkeys.json'), '{}')
 }
 
 export default class LoginCommand extends Command {

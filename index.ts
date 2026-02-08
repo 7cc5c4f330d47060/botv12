@@ -1,11 +1,13 @@
 import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/interface/SettingsType.js'
 import HostOptions from './util/interface/HostOptions.js'
+import { dirname, resolve } from 'node:path'
 
 declare global {
   var settings: SettingsType
   var codeDir: string
   var baseDir: string
+  var dataDir: string
   var dbEnabled: boolean
   var debugMode: boolean
   var clOptions: {
@@ -23,9 +25,10 @@ globalThis.dbEnabled = false;
 globalThis.debugMode = false;
 globalThis.codeDir = dirname(process.argv[1])
 globalThis.baseDir = process.cwd()
+globalThis.dataDir = resolve(baseDir, 'data')
 globalThis.clOptions = { disableWsServer: false }
 
-import { dirname, resolve } from 'node:path'
+
 
 import ha from './util/argv.js'
 ha()
@@ -39,7 +42,7 @@ if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 import generateUser from './util/usergen.js'
 import version from './version.js'
 //import { getMessage } from './util/lang.js'
-import { readdirSync, writeFileSync } from 'node:fs'
+import { readdirSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
 //import { default as registry } from 'prismarine-registry'
@@ -79,6 +82,8 @@ const awaitLicense = function(callback: () => void){
     callback()
   }
 }
+
+if(!existsSync(dataDir)) mkdirSync(dataDir)
 
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {

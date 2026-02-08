@@ -7,7 +7,7 @@ import { resolve } from 'node:path'
 const checkLog = () => {
   if (settings.disableLogging) return
   try {
-    if (!readdirSync(baseDir).includes('logs')) mkdirSync(resolve(baseDir, 'logs'))
+    if (!readdirSync(dataDir).includes('logs')) mkdirSync(resolve(dataDir, 'logs'))
     const dateToday = new Date(Date.now())
     const dateTomorrow = new Date(Date.now() + 86400000)
     const monthToday = (dateToday.getUTCMonth() + 1).toString().padStart(2, '0')
@@ -18,8 +18,8 @@ const checkLog = () => {
     const yearTomorrow = dateTomorrow.getUTCFullYear().toString().padStart(4, '0')
     const filenameToday = `${yearToday}-${monthToday}-${dayToday}`
     const filenameTomorrow = `${yearTomorrow}-${monthTomorrow}-${dayTomorrow}`
-    if (!readdirSync(resolve(baseDir, 'logs')).includes(filenameToday)) mkdirSync(resolve(baseDir, 'logs', filenameToday))
-    if (!readdirSync(resolve(baseDir, 'logs')).includes(filenameTomorrow)) mkdirSync(resolve(baseDir, 'logs', filenameTomorrow)) // Create tomorrow's log directory early
+    if (!readdirSync(resolve(dataDir, 'logs')).includes(filenameToday)) mkdirSync(resolve(dataDir, 'logs', filenameToday))
+    if (!readdirSync(resolve(dataDir, 'logs')).includes(filenameTomorrow)) mkdirSync(resolve(dataDir, 'logs', filenameTomorrow)) // Create tomorrow's log directory early
   } catch (e) {
     console.log(e) // Prevents some crashes when there is no space remaining on the storage medium the bot is on or when the permissions are incorrect
   }
