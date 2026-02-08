@@ -42,4 +42,4 @@ async function getConnection () {
   }
 }
 
-export { getConnection }
+export { pool, getConnection }
