@@ -18,7 +18,7 @@ async function run () {
 
   const connection = await db.getConnection()
   if(!connection) return
-  
+
   connection.query(`CREATE TABLE seenPlayers (
     userName VARCHAR(255) NOT NULL,
     uuid VARCHAR(255) NOT NULL,
@@ -30,5 +30,5 @@ async function run () {
     lastPort SMALLINT UNSIGNED NOT NULL,
     joinCount INT UNSIGNED NOT NULL
   )`)
-  //db.pool.end()
+  if(db.pool) db.pool.end()
 }
