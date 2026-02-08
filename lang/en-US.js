@@ -126,6 +126,7 @@ export default {
     'command.about.serverInfo.debugMode': 'Debug Mode status',
     'command.about.serverInfo.systemInfoHeader': '-- System information --',
     'command.about.serverInfo.botInfoHeader': '\n-- Bot instance information --',
+    'command.about.serverInfo.versionHeader': '\n-- Version information --',
     'command.about.serverList.hidden': ' (hidden)',
     'command.about.serverListItem': 'Server %s - %s%s',
     'command.brRefill.oversized': 'Can not refill an area larger than 96x96 blocks',

@@ -291,9 +291,10 @@ export default class ServerInfoSubcommand extends Command {
         c.reply({
           text: 'command.about.versionCmd.generic',
           parseLang: true,
+          color: '$secondary',
           with: [
-            item.name,
-            item.version + ''
+            { text: item.name, color: '$secondary' },
+            { text: item.version + '', color: '$primary' }
           ]
         })
       }
