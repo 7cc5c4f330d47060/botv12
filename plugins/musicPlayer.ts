@@ -244,12 +244,6 @@ export default function load (b: Botv12Client) {
       console.log(songData)
       if(songData.slice(0,4).startsWith('MThd')){
         file = parseMidi(b.musicPlayer.storedSong)
-      } else if(songData.slice(0,13).startsWith('BEGIN:IMELODY')){
-        //file = parseIMelody(b.musicPlayer.storedSong)
-        b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-          text: getMessage(settings.defaultLang, 'musicPlayer.imyWip')
-        })
-        return
       } else {
         file = parseNBS(b.musicPlayer.storedSong)
         if (file.header.nbsLoopEnabled) {

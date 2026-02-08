@@ -234,7 +234,6 @@ export default {
     'musicPlayer.alreadyPlaying': 'Another song is already playing',
     'musicPlayer.finished': 'Finished playing queue',
     'musicPlayer.warning.msm': 'MIDI file from My Singing Monsters detected. This song will not play correctly.',
-    'musicPlayer.imyWip': 'iMelody ringtone support is currently being worked on.',
 
     // Command Errors
     'command.error': 'An error occurred (check console for more info)',
@@ -290,14 +289,6 @@ export default {
     'debug.commandFinished': 'Command successfully executed in %sms',
     'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
     'bf.true1': 'Enabled',
-    'bf.false1': 'Disabled',
-
-    'hka.hn': 'Hallownest',
-    'hka.place.dirtmouth': 'Dirtmouth',
-    'hka.place.crossroads': 'Crossroads',
-    'hka.place.fogCanyon': 'Fog Canyon',
-    'hka.place.cityOfTears': 'City of Tears (placeholder)',
-    'hka.place.rg': 'Resting Grounds',
-    'hka.place.abyss': 'Ancient Basin',
+    'bf.false1': 'Disabled'
   }
 }
