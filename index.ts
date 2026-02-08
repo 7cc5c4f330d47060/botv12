@@ -42,6 +42,9 @@ if(existsSync(resolve(baseDir, 'logs')))
 if(existsSync(resolve(baseDir, 'songs'))) 
   renameSync(resolve(baseDir, 'songs'), resolve(dataDir, 'songs'))
 
+if(existsSync(resolve(baseDir, 'userkeys.json'))) 
+  renameSync(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json'))
+
 const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
 globalThis.debugMode = settings.debugMode || globalThis.debugMode
