@@ -269,7 +269,7 @@ export default class ServerInfoSubcommand extends Command {
         return codeDir
       })
 
-      // Directory with compiled JavaScript code in it
+      // Directory with instance-specific data in it
       displayInfo('command.about.serverInfo.dataDir', () => {
         if(!settings.serverInfoShowSensitive) return ''
         return dataDir
@@ -297,9 +297,10 @@ export default class ServerInfoSubcommand extends Command {
         c.reply({
           text: 'command.about.versionCmd.generic',
           parseLang: true,
+          color: '$secondary',
           with: [
-            item.name,
-            item.version + ''
+            { text: item.name, color: '$secondary' },
+            { text: item.version + '', color: '$primary' }
           ]
         })
       }
