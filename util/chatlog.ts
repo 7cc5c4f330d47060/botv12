@@ -1,4 +1,5 @@
 import { appendFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 export default function chatlog (fileName: string, item: string) {
   if (settings.disableLogging) return
@@ -12,5 +13,6 @@ export default function chatlog (fileName: string, item: string) {
   const UTCMilliSeconds = dateToday.getUTCMilliseconds().toString().padStart(3, '0')
   const filenameToday = `${UTCYears}-${UTCMonths}-${UTCDays}`
   const logDate = `${UTCYears}-${UTCMonths}-${UTCDays}T${UTCHours}:${UTCMinutes}:${UTCSeconds}.${UTCMilliSeconds}Z`
-  appendFileSync(`logs/${filenameToday}/${fileName}.txt`, `[${logDate}] ${item}\n`)
+  
+  appendFileSync(resolve(baseDir, 'logs', filenameToday, `${fileName}.txt`), `[${logDate}] ${item}\n`)
 }
