@@ -203,22 +203,21 @@ export default class ServerInfoSubcommand extends Command {
 
       // SELinux enforcement status
       if (process.platform === 'linux' || process.platform === 'android') {
-        // Device model
-        let outKey = ''
-        const filesFs = readdirSync('/sys/fs/')
-        if(filesFs.includes('selinux')) {
-          const filesSelinux = readdirSync('/sys/fs/selinux/')
-          if(filesSelinux.includes('enforce')) {
-            const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
-            if(status == '1') outKey = 'enforcing'
-            else outKey = 'permissive'
+        displayInfo('command.about.serverInfo.seLinuxStatus', () => {
+          let outKey = ''
+          const filesFs = readdirSync('/sys/fs/')
+          if(filesFs.includes('selinux')) {
+            const filesSelinux = readdirSync('/sys/fs/selinux/')
+            if(filesSelinux.includes('enforce')) {
+              const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
+              if(status == '1') outKey = 'enforcing'
+              else outKey = 'permissive'
+            } else {
+              outKey = 'na'
+            }
           } else {
             outKey = 'na'
           }
-        } else {
-          outKey = 'na'
-        }
-        displayInfo('command.about.serverInfo.seLinuxStatus', () => {
           return {
             text: `command.about.serverInfo.seLinux.${outKey}`,
             parseLang: true
