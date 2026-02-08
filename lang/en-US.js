@@ -291,14 +291,6 @@ export default {
     'debug.commandFinished': 'Command successfully executed in %sms',
     'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
     'bf.true1': 'Enabled',
-    'bf.false1': 'Disabled',
-
-    'hka.hn': 'Hallownest',
-    'hka.place.dirtmouth': 'Dirtmouth',
-    'hka.place.crossroads': 'Crossroads',
-    'hka.place.fogCanyon': 'Fog Canyon',
-    'hka.place.cityOfTears': 'City of Tears (placeholder)',
-    'hka.place.rg': 'Resting Grounds',
-    'hka.place.abyss': 'Ancient Basin',
+    'bf.false1': 'Disabled'
   }
 }
