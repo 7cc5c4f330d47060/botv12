@@ -56,5 +56,5 @@ export default {
     }
   ],
 
-  format: 1
+  format: 2
 }
