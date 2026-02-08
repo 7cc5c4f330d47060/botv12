@@ -42,24 +42,28 @@ if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 import generateUser from './util/usergen.js'
 import version from './version.js'
 //import { getMessage } from './util/lang.js'
-import { readdirSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
+import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
 //import { default as registry } from 'prismarine-registry'
 
 const awaitLicense = function(callback: () => void){
   if (debugMode) console.debug('[debug] Checking license...')
-  const rootFileList = readdirSync(baseDir)
-  if(!rootFileList.includes('.license_accepted')){
+  if(existsSync(resolve(baseDir, '.license_accepted'))) {
+    if (debugMode) console.debug('[debug] Migrating license to new location...')
+    writeFileSync(resolve(dataDir, '.license_accepted'), '')
+    unlinkSync(resolve(baseDir, '.license_accepted'))
+  }
+  if(!existsSync(resolve(dataDir, '.license_accepted'))){
     if (debugMode) console.debug('[debug] License check failed.')
-      console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later.\n`+
-      `This license requires, among other things, that the source code be made available to anybody \n`+
-      `looking for it, even if you only host a fork of the bot. The bot includes a\n`+
-      `) download command to download the source. You may also use any publicly available\n`+
-      `version control system, or any other method to distribute the source to those who want it. For more\n`+
-      `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
-      `To accept the license, type 'I accept' below. If you do not accept the license, you may \n`+
-      `not use this software.`)
+    console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. `+
+    `This license requires, among other things, that the source code be made available to anybody `+
+    `looking for it, even if you only host a fork of the bot. The bot includes a `+
+    `download command to download the source. You may also use any public `+
+    `version control system, or any other method to distribute the source to those who want it. For more `+
+    `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
+    `To accept the license, type 'I accept' below. If you do not accept the license, you may `+
+    `not use this software.`)
     const rl = createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -68,7 +72,7 @@ const awaitLicense = function(callback: () => void){
     rl.on('line', (l: string) => {
       if(l.toLowerCase() == 'i accept'){
         if (debugMode) console.debug('[debug] License accepted, continuing...')
-        writeFileSync(resolve(baseDir, '.license_accepted'), '')
+        writeFileSync(resolve(dataDir, '.license_accepted'), '')
         rl.close()
         callback()
       } else {
