@@ -53,7 +53,6 @@ export default class MusicCommand extends Command {
             return
           }
           for (const item of readdirSync(file)) {
-            console.log(resolve(file, item))
             const isDir = statSync(resolve(file, item)).isDirectory()
             if (isDir) {
               list.push({

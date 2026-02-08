@@ -241,7 +241,6 @@ export default function load (b: Botv12Client) {
     if(!b.musicPlayer.storedSong) return
     try {
       const songData = b.musicPlayer.storedSong.toString('latin1')
-      console.log(songData)
       if(songData.slice(0,4).startsWith('MThd')){
         file = parseMidi(b.musicPlayer.storedSong)
       } else {
