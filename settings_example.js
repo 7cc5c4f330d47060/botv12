@@ -1,6 +1,6 @@
 export default {
   terminalMode: 'blackTerminal_24bit', // Terminal mode. Most modern terminals support 24-bit color
-  version_mc: '1.21.10', // Minecraft version to connect with
+  version_mc: '1.21.11', // Minecraft version to connect with
   defaultLang: 'en-US', // Default language
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
