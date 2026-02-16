@@ -70,17 +70,17 @@ if(!clOptions.disableWsServer){
               const index2 = args.splice(1, 1)[0]
               if (index2 === '*') {
                 for (const bot of bots) {
-                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bot)
+                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bot)
                   //context.verify = 2
                   cmd.execute(context)
                 }
               } else {
-                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', bots[+index2])
+                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bots[+index2])
                 //context.verify = 2
                 cmd.execute(context)
               }
             } else {
-              const context = new CommandContext(uuid, user, nick, json.data.command, 'console', 'console', 'console', '', consoleBotStub)
+              const context = new CommandContext(uuid, user, nick, json.data.command, 'console', 'console', 'console', '', cmd.argsFormat, consoleBotStub)
               //context.verify = 2
               cmd.execute(context)
             }

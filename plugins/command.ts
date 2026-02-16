@@ -19,11 +19,13 @@ export default function load (b: Botv12Client) {
     if (Date.now() - b.commands.lastCmd <= 250) return
     b.commands.lastCmd = Date.now()
 
-    const context = new CommandContext(uuid, user, nick, command, 'minecraft', type, subtype, prefix, b)
+    const commandName = command.split(' ')[0]
+    const commandItem = registry.getCommand(commandName)
+
+    const context = new CommandContext(uuid, user, nick, command, 'minecraft', type, subtype, prefix, commandItem.argsFormat, b)
 
     b.emit('command', context)
     if (context.cancel === true) return
-    const commandItem = registry.getCommand(context.cmdName)
 
     // Block running eval in normal mode
     if (commandItem.debugOnly && !debugMode) {

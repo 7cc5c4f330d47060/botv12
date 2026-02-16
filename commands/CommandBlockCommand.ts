@@ -7,9 +7,14 @@ export default class CommandBlockCommand extends Command {
     this.name = 'cb'
     this.execute = async (c: CommandContext) => {
       if(!('isBot' in c.bot)) return
-      c.bot.commandCore.ccq.push(c.args.join(' '))
+
+      const command = c.argsv2.command.value + ''
+      c.bot.commandCore.ccq.push(command)
     }
     this.consoleIndex = true
     this.aliases = ['commandblock', 'cmdblock']
+    this.argsFormat = [
+      { name: 'command', type: 'string', required: true, finish: true }
+    ]
   }
 }

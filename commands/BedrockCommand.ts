@@ -21,8 +21,13 @@ export default class BedrockCommand extends Command {
         rl.start('bedrock', 30000)
       }
         
-      const pos1 = [+c.args[0], +c.args[1]]
-      const pos2 = [+c.args[2], +c.args[3]]
+      const x1 = c.argsv2.x1.value ?? 0
+      const x2 = c.argsv2.x2.value ?? 0
+      const z1 = c.argsv2.z1.value ?? 0
+      const z2 = c.argsv2.z2.value ?? 0
+
+      const pos1 = [+x1, +z1]
+      const pos2 = [+x2, +z2]
       const block = c.args[4] ?? 'minecraft:deepslate'
 
       const rPos1: number[] = []
@@ -35,7 +40,7 @@ export default class BedrockCommand extends Command {
         rPos1.push(pos1[0])
         rPos2.push(pos2[0])
       }
-
+      
       if(pos1[1] > pos2[1]){
         rPos1.push(pos2[1])
         rPos2.push(pos1[1])
@@ -78,5 +83,11 @@ export default class BedrockCommand extends Command {
       c.bot.commandCore.ccqv2.bedrock.commands = commandQueue
     }
     this.consoleIndex = true
+    this.argsFormat = [
+      { name: 'x1', type: 'number', required: true },
+      { name: 'z1', type: 'number', required: true },
+      { name: 'x2', type: 'number', required: true },
+      { name: 'z2', type: 'number', required: true },
+    ]
   }
 }

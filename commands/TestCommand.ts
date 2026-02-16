@@ -28,9 +28,17 @@ export default class TestCommand extends Command {
       c.reply(reply('msgSubtype', c.msgSubtype))
       c.reply(reply('prefix', c.prefix))
       c.reply(reply('args', c.args.join(', ').slice(0, 1024)))
+      c.reply(reply('argsv2', JSON.stringify(c.argsv2)))
       c.reply(reply('verify', c.verify.toString()))
       c.reply(reply('lang', c.lang))
     }
     this.debugOnly = true
+    this.argsFormat = [
+      {
+        name: 'test1',
+        type: 'number',
+        required: true
+      }
+    ]
   }
 }

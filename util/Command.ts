@@ -1,4 +1,5 @@
 import CommandContext from "./CommandContext";
+import NewArgumentFormat from "./interface/NewArgumentFormat";
 
 export default class Command {
   name: string
@@ -10,6 +11,7 @@ export default class Command {
   consoleOnly: boolean
   debugOnly: boolean
   blockChipmunkMod: boolean
+  argsFormat: NewArgumentFormat[]
 
   constructor () {
     this.name = ''
@@ -21,7 +23,7 @@ export default class Command {
     this.consoleOnly = false
     this.debugOnly = false
     this.blockChipmunkMod = false
-
+    this.argsFormat = []
           /*
       command.name = name
       command.execute = payload
