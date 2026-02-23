@@ -151,14 +151,38 @@ dist
 
 # Bot Settings
 settings.json
+/settings.js
 
-# Default secret file
+# Legacy secret file for version 10
 secret.json
 
-# botvX user settings
+# botvX / owobot user settings
 userPref/
 
 # botvX log files
 UBotLogs/
 botvXLogs/
-logs/
+
+# Songs for music command (old versions of botv12)
+songs/
+
+# Temporary files (old versions of botv12)
+temp/
+
+# Launcher accounts
+launcher_accounts.json
+
+# Automatically generated metadata from downloader (botv12 only)
+/metadata.json
+
+# License
+.license_accepted
+
+# User login/authentication keys (old versions of botv12)
+/userkeys.json
+
+# Default SQLite database file (old versions of botv12)
+/botv12.sqlite3
+
+# New instance data folder (botv12 only)
+/data/
