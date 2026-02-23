@@ -2,7 +2,7 @@ const version = {
   botName: 'botv12 Dev', // Name of the bot
   botCodename: 'botv12',
   botVersion: {
-    major: 1,
+    major: 12,
     minor: 0,
     patch: 0,
     //prMajor: 0,
