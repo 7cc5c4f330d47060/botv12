@@ -16,7 +16,8 @@ declare global {
   }
   var startTime: number
   var bots: Botv12Client[]
-  var createBot: (host: HostOptions, oldId?: number, bypassStall?: boolean) => void
+  var Deno: {version: Record<string, string>} // Allow serverinfo to work on deno, unused on node
+  var createBot: (host: HostOptions, oldId?: number) => void
 }
 
 globalThis.startTime = Date.now();
