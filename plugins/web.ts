@@ -28,7 +28,6 @@ if(!clOptions.disableWsServer){
 
 
   wss.on('connection', client => {
-    
     client.on('message', data => {
       try {
         const consoleBotStub = {
@@ -56,7 +55,6 @@ if(!clOptions.disableWsServer){
             // Block running eval in normal mode
             if (cmd.debugOnly && !debugMode) {
               sendRaw(client, 'cmderror', getMessage(settings.defaultLang, 'command.disabled.debugOnly'))
-              //console.log('This command must be run with Debug Mode enabled.') // Hard-coded until language is readded
               return
             }
 

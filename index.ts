@@ -99,6 +99,8 @@ const awaitLicense = function(callback: () => void){
   }
 }
 
+if ('Deno' in globalThis) console.warn('[warning] Deno runtime may not work correctly.')
+
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   const startTimeBot = Date.now();
