@@ -100,7 +100,8 @@ module.exports = {
       messageType.parameters.forEach((item, i) => {
         if (item === 'content') {
           if (messageType.translation_key === '%s') {
-            json.with[i] = parse1204(data.unsignedChatContent)
+            if (!data.unsignedChatContent) json.with[i] = ''
+            else json.with[i] = parse1204(data.unsignedChatContent)
           } else {
             json.with[i] = data.plainMessage
           }
