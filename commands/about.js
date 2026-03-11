@@ -34,7 +34,7 @@ const aboutBot = function (c) {
     color: c.colors.secondary
   })
   c.reply({
-    translate: getMessage(c.lang, 'command.about.sourceCode'),
+    translate: getMessage(c.lang, 'command.about.sourceCode.botv12'),
     color: c.colors.secondary,
     with: [
       {
@@ -51,6 +51,23 @@ const aboutBot = function (c) {
           },
           value: { // Added twice for backwards compatibility
             text: getMessage(c.lang, 'command.about.sourceCode.openInBrowser')
+          }
+        }
+      },
+      {
+        text: 'botvX',
+        color: c.colors.primary,
+        clickEvent: {
+          action: 'copy_to_clipboard',
+          value: 'botvX'
+        },
+        hoverEvent: {
+          action: 'show_text',
+          contents: {
+            text: getMessage(c.lang, 'copyText')
+          },
+          value: { // Added twice for backwards compatibility
+            text: getMessage(c.lang, 'copyText')
           }
         }
       }
