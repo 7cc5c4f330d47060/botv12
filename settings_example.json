@@ -1,5 +1,5 @@
 {
-    "version_mc": "1.20.4",
+    "version_mc": "1.20.6",
     "defaultLang": "en-US",
     "terminalMode": "blackTerminal_24bit",
     "colors": {
@@ -7,8 +7,7 @@
         "secondary": "#FF99DD"
     },
     "prefix":[
-        "bot:",
-        "\""
+        "d\""
     ],
     "servers":[
         {
@@ -16,6 +15,13 @@
             "port": 25565,
             "options":{
                 "name": "kaboom"
+            }
+        },
+        {
+            "host": "chipmunk.land",
+            "port": 17891,
+            "options":{
+                "name": "chipmunk"
             }
         }
     ]
