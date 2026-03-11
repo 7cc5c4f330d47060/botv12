@@ -63,7 +63,14 @@ module.exports = {
       }
     })
     b._client.on('profileless_chat', (data) => {
-      let messageType = b.messageTypes[data.type]
+      let messageType
+      if (data.type.registryIndex) {
+        messageType = b.messageTypes[data.type.registryIndex - 1]
+      } else if (data.type.chatType) {
+        messageType = b.messageTypes[data.type.chatType]
+      } else {
+        messageType = b.messageTypes[data.type]
+      }
       if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {
@@ -94,7 +101,14 @@ module.exports = {
     })
 
     b._client.on('player_chat', (data) => {
-      let messageType = b.messageTypes[data.type]
+      let messageType
+      if (data.type.registryIndex) {
+        messageType = b.messageTypes[data.type.registryIndex - 1]
+      } else if (data.type.chatType) {
+        messageType = b.messageTypes[data.type.chatType]
+      } else {
+        messageType = b.messageTypes[data.type]
+      }
       if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
       const json = { translate: messageType.translation_key, with: [] }
       messageType.parameters.forEach((item, i) => {

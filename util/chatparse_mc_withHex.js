@@ -69,6 +69,9 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
     }
+    else if (data.fallback) {
+      trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor) : resetColor);
+    }
     if (data.with) {
       data.with.forEach((item, i) => {
         const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
