@@ -1,5 +1,5 @@
-import version from "../version.js";
-function handleHelp() {
+import version from '../version.js'
+function handleHelp () {
   console.log(`${version.botName} version ${version.botVersion}`)
   console.log('\nOptions (can also be passed to launcher):')
   console.log('  --help\t\t\tdisplay help')
@@ -9,14 +9,14 @@ function handleHelp() {
   console.log('  --disable-netmsg\t\tdisable netmsg command')
   process.exit(1)
 }
-export default function ha(){
-  const argv: string[] = [];
-  for(const item of process.argv) argv.push(item)
-  argv.splice(0,2)
+export default function ha () {
+  const argv: string[] = []
+  for (const item of process.argv) argv.push(item)
+  argv.splice(0, 2)
   const max = argv.length
-  for(let i = 0; i < max; i++){
+  for (let i = 0; i < max; i++) {
     if (argv[0] == '--help') {
-      handleHelp();
+      handleHelp()
     } else if (argv[0] == '--debug') {
       debugMode = true // Global
     } else if (argv[0] == '--disable-ws') {

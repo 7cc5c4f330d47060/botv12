@@ -1,5 +1,5 @@
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class ValidateCommand extends Command {
   constructor () {

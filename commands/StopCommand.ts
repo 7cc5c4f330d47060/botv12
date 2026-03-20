@@ -1,4 +1,4 @@
-import Command from "../util/Command.js"
+import Command from '../util/Command.js'
 
 export default class StopCommand extends Command {
   constructor () {

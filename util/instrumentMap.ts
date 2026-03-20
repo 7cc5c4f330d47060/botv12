@@ -51,8 +51,8 @@ const instruments = {
   }
 }
 class ImItem {
-  instruments: Record<string, {center: number, note: string}>
-  constructor (...args: {center: number, note: string}[]) {
+  instruments: Record<string, { center: number, note: string }>
+  constructor (...args: { center: number, note: string }[]) {
     this.instruments = {}
     for (const arg of args) {
       this.instruments[(arg.center - 12) + '-' + (arg.center + 12)] = arg

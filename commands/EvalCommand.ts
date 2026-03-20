@@ -5,7 +5,7 @@ import Command from '../util/Command.js'
 export default class EvalCommand extends Command {
   constructor () {
     super()
-    this.name = "eval"
+    this.name = 'eval'
     this.execute = async (c: CommandContext) => {
       const payload = c.args.join(' ')
       let result

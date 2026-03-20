@@ -8,7 +8,7 @@ export default class NetMsgCommand extends Command {
     super()
     this.name = 'netmsg'
     this.execute = async (c: CommandContext) => {
-      if(clOptions.disableNetMsg){
+      if (clOptions.disableNetMsg) {
         c.reply({ text: 'command.disabled.cli', parseLang: true })
         return
       }
@@ -22,10 +22,10 @@ export default class NetMsgCommand extends Command {
       } else {
         rl.start('netmsg', 2000)
       }
-      
+
       const msg = c.args.join(' ').slice(0, 512)
 
-      const json: {text: string, with: [string, string, {text: string}]} = {
+      const json: { text: string, with: [string, string, { text: string }] } = {
         text: '[%s] %s › %s',
         with: [
           c.bot.host?.options.name ?? 'console',
@@ -37,7 +37,7 @@ export default class NetMsgCommand extends Command {
       }
       bots.forEach(item => {
         if (item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
-        item.commandCore.tellraw('@a', build(json, c.colors, "white", c.lang))
+        item.commandCore.tellraw('@a', build(json, c.colors, 'white', c.lang))
       })
     }
     this.blockChipmunkMod = true

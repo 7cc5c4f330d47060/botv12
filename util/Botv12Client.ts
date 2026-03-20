@@ -60,7 +60,6 @@ interface MusicPlayer extends EventEmitter {
   setSpeed?: (speed: number) => void
 }
 
-
 export default class Botv12Client extends EventEmitter {
   _client: Client
   id?: number
@@ -79,12 +78,13 @@ export default class Botv12Client extends EventEmitter {
     chatqueue: string[]
     send: (...msgs: string[]) => void
   }
+
   selfCare: {
     tasks: Record<string, SCTask>
     lastRun: number
     addTask: (name: string, failTask: () => void, startFailed?: boolean) => void
   }
-  
+
   serverChat: {
     messageTypes: {
       translation_key: string;
@@ -94,13 +94,15 @@ export default class Botv12Client extends EventEmitter {
     messageCount: number
     disabledUntil: number
   }
+
   position: {
-    currentChunk: {x: number, z: number}
-    pos: {x: number, y: number, z: number}
+    currentChunk: { x: number, z: number }
+    pos: { x: number, y: number, z: number }
   }
+
   commandCore: {
     ccq: string[]
-    ccqv2: Record<string,  { commands: string[], count: number }>
+    ccqv2: Record<string, { commands: string[], count: number }>
     blocknoX: number
     blocknoY: number
     blocknoZ: number
@@ -109,10 +111,12 @@ export default class Botv12Client extends EventEmitter {
     sendCommandNow: (text: string) => void
     advanceccq: () => void
   }
+
   commands: {
     lastCmd: number
     runCommand: (user: string, nick: string, uuid: string, command: string, type: string, subtype: string, prefix: string) => void
   }
+
   chunks: PCChunk[][]
   musicPlayer: MusicPlayer
   filter: {
@@ -121,6 +125,7 @@ export default class Botv12Client extends EventEmitter {
     addFilter: (uuid: string, name: string, method?: string) => void
     removeFilter: (user: string) => void
   }
+
   playerInfo: {
     players?: Record<string, {
       realName: string,
@@ -134,6 +139,7 @@ export default class Botv12Client extends EventEmitter {
     findRealName: (name: string) => string
     findRealNameFromNickname: (name: string) => string
   }
+
   cloopManager: {
     cloops: {
       command: string
@@ -144,6 +150,7 @@ export default class Botv12Client extends EventEmitter {
     removeCloop?: (index: number) => void
     clearCloops?: () => void
   }
+
   constructor (options: ClientOptions) {
     super()
 
@@ -163,7 +170,7 @@ export default class Botv12Client extends EventEmitter {
     // Plugins, again...
     this.clientChat = {
       chatqueue: [],
-      send: (...msgs: string[]) => { for(const msg of msgs) this._client.chat(msg) }
+      send: (...msgs: string[]) => { for (const msg of msgs) this._client.chat(msg) }
     }
     this.selfCare = {
       tasks: {},
@@ -171,7 +178,7 @@ export default class Botv12Client extends EventEmitter {
       addTask: (name: string, failTask: () => void, startFailed?: boolean) => {
         this.selfCare.tasks[name] = new SCTask(failTask, startFailed)
       }
-    } 
+    }
     this.serverChat = {
       messageTypes: [],
       disabledUntil: 0,
@@ -185,8 +192,8 @@ export default class Botv12Client extends EventEmitter {
       findRealNameFromNickname: (name: string) => { return name }
     }
     this.position = {
-      currentChunk: {x: 0, z: 0},
-      pos: {x: 0, y: 0, z: 0}
+      currentChunk: { x: 0, z: 0 },
+      pos: { x: 0, y: 0, z: 0 }
     }
     this.commandCore = {
       ccq: [],
@@ -195,13 +202,13 @@ export default class Botv12Client extends EventEmitter {
       blocknoY: 0,
       blocknoZ: 0,
       ccStarted: false,
-      tellraw: () => {console.log('Command core not loaded')},
-      sendCommandNow: () => {console.log('Command core not loaded')},
-      advanceccq: () => {this.commandCore.ccq.splice(0,1)}
+      tellraw: () => { console.log('Command core not loaded') },
+      sendCommandNow: () => { console.log('Command core not loaded') },
+      advanceccq: () => { this.commandCore.ccq.splice(0, 1) }
     }
     this.commands = {
       lastCmd: 0,
-      runCommand: () => console.log("Command plugin is not loaded")
+      runCommand: () => console.log('Command plugin is not loaded')
     }
     this.cloopManager = {
       cloops: []

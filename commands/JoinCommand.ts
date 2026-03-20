@@ -4,7 +4,7 @@ import CommandContext from '../util/CommandContext.js'
 export default class JoinCommand extends Command {
   constructor () {
     super()
-    this.name = "join"
+    this.name = 'join'
     this.execute = async (c: CommandContext) => {
       const options = {
         host: c.args[0],

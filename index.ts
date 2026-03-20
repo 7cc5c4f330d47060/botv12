@@ -16,14 +16,14 @@ declare global {
   }
   var startTime: number
   var bots: Botv12Client[]
-  var Deno: {version: Record<string, string>} // Allow serverinfo to work on deno, unused on node
+  var Deno: { version: Record<string, string> } // Allow serverinfo to work on deno, unused on node
   var createBot: (host: HostOptions, oldId?: number) => void
 }
 
-globalThis.startTime = Date.now();
+globalThis.startTime = Date.now()
 // Global options
-globalThis.dbEnabled = false;
-globalThis.debugMode = false;
+globalThis.dbEnabled = false
+globalThis.debugMode = false
 globalThis.codeDir = dirname(process.argv[1])
 globalThis.baseDir = process.cwd()
 globalThis.dataDir = resolve(baseDir, 'data')
@@ -32,19 +32,15 @@ globalThis.clOptions = { disableWsServer: false }
 import ha from './util/argv.js'
 ha()
 
-if(!existsSync(dataDir)) mkdirSync(dataDir)
+if (!existsSync(dataDir)) mkdirSync(dataDir)
 /* Migrations to data in alpha 6 */
-if(existsSync(resolve(baseDir, 'settings.js'))) 
-  renameSync(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js'))
+if (existsSync(resolve(baseDir, 'settings.js'))) { renameSync(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js')) }
 
-if(existsSync(resolve(baseDir, 'logs'))) 
-  renameSync(resolve(baseDir, 'logs'), resolve(dataDir, 'logs'))
+if (existsSync(resolve(baseDir, 'logs'))) { renameSync(resolve(baseDir, 'logs'), resolve(dataDir, 'logs')) }
 
-if(existsSync(resolve(baseDir, 'songs'))) 
-  renameSync(resolve(baseDir, 'songs'), resolve(dataDir, 'songs'))
+if (existsSync(resolve(baseDir, 'songs'))) { renameSync(resolve(baseDir, 'songs'), resolve(dataDir, 'songs')) }
 
-if(existsSync(resolve(baseDir, 'userkeys.json'))) 
-  renameSync(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json'))
+if (existsSync(resolve(baseDir, 'userkeys.json'))) { renameSync(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json')) }
 
 const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
@@ -54,36 +50,36 @@ if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 
 import generateUser from './util/usergen.js'
 import version from './version.js'
-//import { getMessage } from './util/lang.js'
+// import { getMessage } from './util/lang.js'
 import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
-//import { default as registry } from 'prismarine-registry'
+// import { default as registry } from 'prismarine-registry'
 
-const awaitLicense = function(callback: () => void){
+const awaitLicense = function (callback: () => void) {
   if (debugMode) console.debug('[debug] Checking license...')
-  if(existsSync(resolve(baseDir, '.license_accepted'))) {
+  if (existsSync(resolve(baseDir, '.license_accepted'))) {
     if (debugMode) console.debug('[debug] Migrating license to new location...')
     writeFileSync(resolve(dataDir, '.license_accepted'), '')
     unlinkSync(resolve(baseDir, '.license_accepted'))
   }
-  if(!existsSync(resolve(dataDir, '.license_accepted'))){
+  if (!existsSync(resolve(dataDir, '.license_accepted'))) {
     if (debugMode) console.debug('[debug] License check failed.')
-    console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. `+
-    `This license requires, among other things, that the source code be made available to anybody `+
-    `looking for it, even if you only host a fork of the bot. The bot includes a `+
-    `download command to download the source. You may also use any public `+
-    `version control system, or any other method to distribute the source to those who want it. For more `+
-    `information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n`+
-    `To accept the license, type 'I accept' below. If you do not accept the license, you may `+
-    `not use this software.`)
+    console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. ` +
+    'This license requires, among other things, that the source code be made available to anybody ' +
+    'looking for it, even if you only host a fork of the bot. The bot includes a ' +
+    'download command to download the source. You may also use any public ' +
+    'version control system, or any other method to distribute the source to those who want it. For more ' +
+    'information on licensing, check the "LICENSE" file in the root folder (same folder as index.ts).\n\n' +
+    'To accept the license, type \'I accept\' below. If you do not accept the license, you may ' +
+    'not use this software.')
     const rl = createInterface({
       input: process.stdin,
       output: process.stdout,
       prompt: '\x1b[0m> '
     })
     rl.on('line', (l: string) => {
-      if(l.toLowerCase() == 'i accept'){
+      if (l.toLowerCase() == 'i accept') {
         if (debugMode) console.debug('[debug] License accepted, continuing...')
         writeFileSync(resolve(dataDir, '.license_accepted'), '')
         rl.close()
@@ -104,7 +100,7 @@ if ('Deno' in globalThis) console.warn('[warning] Deno runtime may not work corr
 
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
-  const startTimeBot = Date.now();
+  const startTimeBot = Date.now()
   const options: ClientOptions = {
     host: host.host,
     fakeHost: host.fakeHost,
@@ -122,7 +118,7 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   const bot = new Botv12Client(options)
 
   bot.host = host
-    
+
   for (const pluginItem of plugins) {
     if (pluginItem) pluginItem(bot)
   }
@@ -131,7 +127,7 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
 
   if (typeof oldId !== 'undefined') {
     // Replace old bot with new one
-    if(bots[oldId]?.interval){
+    if (bots[oldId]?.interval) {
       for (const i in bots[oldId].interval) {
         clearInterval(bots[oldId].interval[i])
       }
@@ -147,14 +143,13 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
 
 const init = function () {
   if (debugMode) console.debug(`[debug] Loaded in ${Date.now() - startTime}ms\x1b[0m`)
-  if(settings.format !== version.settingsFormat){
+  if (settings.format !== version.settingsFormat) {
     console.warn(`[warning] The settings file is using a different major format version (${settings.format}) than this version of ${version.botName} expects (${version.settingsFormat}). Unexpected issues and/or crashes may occur.`)
   }
   for (const i in settings.servers) {
     createBot(settings.servers[i])
   }
 }
-
 
 const plugins: ((b: Botv12Client) => void)[] = []
 const loadPlugins = () => {

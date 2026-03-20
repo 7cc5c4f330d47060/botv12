@@ -1,18 +1,18 @@
 import { getMessage } from '../util/lang.js'
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class CommandLoopCommand extends Command {
   constructor () {
     super()
     this.name = 'cloop'
     this.execute = (c: CommandContext) => {
-      if(!('isBot' in c.bot)) return
+      if (!('isBot' in c.bot)) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {
         case 'add': {
-          if(!c.bot.cloopManager.addCloop) return
+          if (!c.bot.cloopManager.addCloop) return
           const rate = +(c.args.splice(0, 1)[0])
           const command = c.args.join(' ')
           if (rate < 20) {
@@ -33,7 +33,7 @@ export default class CommandLoopCommand extends Command {
           break
         }
         case 'remove': {
-          if(!c.bot.cloopManager.removeCloop) return
+          if (!c.bot.cloopManager.removeCloop) return
           c.bot.cloopManager.removeCloop(+c.args[0])
           c.reply({
             text: 'command.cloop.success.remove',
@@ -58,7 +58,7 @@ export default class CommandLoopCommand extends Command {
           })
           break
         case 'clear':
-          if(!c.bot.cloopManager.clearCloops) return
+          if (!c.bot.cloopManager.clearCloops) return
           c.bot.cloopManager.clearCloops()
           c.reply({
             text: getMessage(c.lang, 'command.cloop.success.clear')

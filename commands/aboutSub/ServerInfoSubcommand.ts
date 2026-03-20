@@ -32,7 +32,7 @@ exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
       const item = split[i].split('@')
       const version = item.pop()
       const dependency = item.join('@').split(' ')[1]
-      if(version === undefined) continue;
+      if (version === undefined) continue
       addDepInfo(dependency, version)
     }
   } catch (e) {
@@ -93,10 +93,10 @@ const os2 = function (o2: string, lang: string) {
         for (const item of swvers) {
           if (!item.includes(':\t')) continue
           const key = item.split(':\t')[0]
-          if(key !== 'ProductName' && key !== 'ProductVersion' && key !== 'BuildVersion') continue
+          if (key !== 'ProductName' && key !== 'ProductVersion' && key !== 'BuildVersion') continue
           swvers2[key] = item.split(':\t')[1]
         }
-        if(!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
+        if (!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
         return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
       } catch (e) {
         if (debugMode) console.error(e)
@@ -111,8 +111,8 @@ const os2 = function (o2: string, lang: string) {
 export default class ServerInfoSubcommand extends Command {
   constructor () {
     super()
-    this.name = "server"
-    this.aliases = [ "serverinfo" ]
+    this.name = 'server'
+    this.aliases = ['serverinfo']
     this.execute = async (c: CommandContext) => {
       const displayInfo = function (name: string, infoFunc: () => string | TextFormat) {
         let thisItem
@@ -137,7 +137,7 @@ export default class ServerInfoSubcommand extends Command {
               color: '$primary',
               with: [thisItem]
             }
-            
+
           ]
         })
       }
@@ -193,15 +193,15 @@ export default class ServerInfoSubcommand extends Command {
 
       // Username, and OS UID if not on Windows
       displayInfo('command.about.serverInfo.osUsername', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         let output = os.userInfo().username
-        if(process.platform != 'win32') output += ` (${os.userInfo().uid})`
+        if (process.platform != 'win32') output += ` (${os.userInfo().uid})`
         return output
       })
 
       // Hostname
       displayInfo('command.about.serverInfo.hostName', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return os.hostname()
       })
 
@@ -210,11 +210,11 @@ export default class ServerInfoSubcommand extends Command {
         displayInfo('command.about.serverInfo.seLinuxStatus', () => {
           let outKey = ''
           const filesFs = readdirSync('/sys/fs/')
-          if(filesFs.includes('selinux')) {
+          if (filesFs.includes('selinux')) {
             const filesSelinux = readdirSync('/sys/fs/selinux/')
-            if(filesSelinux.includes('enforce')) {
+            if (filesSelinux.includes('enforce')) {
               const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
-              if(status == '1') outKey = 'enforcing'
+              if (status == '1') outKey = 'enforcing'
               else outKey = 'permissive'
             } else {
               outKey = 'na'
@@ -244,7 +244,7 @@ export default class ServerInfoSubcommand extends Command {
       }
 
       c.reply({
-        text: 'command.about.serverInfo.botInfoHeader', 
+        text: 'command.about.serverInfo.botInfoHeader',
         parseLang: true,
         color: '$secondary'
       })
@@ -256,41 +256,41 @@ export default class ServerInfoSubcommand extends Command {
 
       // Current working directory (usually the same as baseDir)
       displayInfo('command.about.serverInfo.workingDir', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return process.cwd()
       })
 
       // Base directory - directory with TypeScript code, language data, settings, etc. in it
       displayInfo('command.about.serverInfo.baseDir', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return baseDir
       })
 
       // Directory with compiled JavaScript code in it
       displayInfo('command.about.serverInfo.codeDir', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return codeDir
       })
 
       // Directory with instance-specific data in it
       displayInfo('command.about.serverInfo.dataDir', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return dataDir
       })
 
       // Command line (process.argv)
       displayInfo('command.about.serverInfo.cmdLine', () => {
-        if(!settings.serverInfoShowSensitive) return ''
+        if (!settings.serverInfoShowSensitive) return ''
         return process.argv.join(' ')
       })
 
       // Debug Mode Status
       displayInfo('command.about.serverInfo.debugMode', () => {
-        return {text: `bf.${debugMode}1`, parseLang: true}
+        return { text: `bf.${debugMode}1`, parseLang: true }
       })
 
       c.reply({
-        text: 'command.about.serverInfo.versionHeader', 
+        text: 'command.about.serverInfo.versionHeader',
         parseLang: true,
         color: '$secondary'
       })

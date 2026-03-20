@@ -26,8 +26,8 @@ const getMessage = function (l: string, msg: string, with2?: string[]) {
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l]?.strings && languages[l].strings[message] !== undefined) {
     message = languages[l].strings[message].replace(/%%/g, '\ue123')
-  } else {//if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
-    for(const fb of languages[l].fallbackList) {
+  } else { // if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
+    for (const fb of languages[l].fallbackList) {
       if (languages[fb]?.strings && languages[fb].strings[message] !== undefined) {
         message = languages[fb].strings[message].replace(/%%/g, '\ue123')
       }

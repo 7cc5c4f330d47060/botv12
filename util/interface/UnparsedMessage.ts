@@ -1,4 +1,4 @@
-import JsonFormat from "./JsonFormat.js";
+import JsonFormat from './JsonFormat.js'
 
 export default interface UnparsedMessage {
   json: JsonFormat,

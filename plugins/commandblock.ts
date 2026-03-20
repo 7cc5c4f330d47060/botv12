@@ -22,18 +22,16 @@ export default function load (b: Botv12Client) {
 
   b.commandCore.advanceccq = function () {
     if (b.host.options.useChat) return
-    for(let i=0; i<=7; i++){
+    for (let i = 0; i <= 7; i++) {
       if (b.commandCore.ccq[0] && b.commandCore.ccq[0].length !== 0) {
         b.commandCore.sendCommandNow(b.commandCore.ccq[0])
-        
       }
       b.commandCore.ccq.splice(0, 1)
     }
-    for(const queue in b.commandCore.ccqv2){
-      for(let i=0; i < b.commandCore.ccqv2[queue].count; i++){
+    for (const queue in b.commandCore.ccqv2) {
+      for (let i = 0; i < b.commandCore.ccqv2[queue].count; i++) {
         if (b.commandCore.ccqv2[queue].commands[0] && b.commandCore.ccqv2[queue].commands[0].length !== 0) {
           b.commandCore.sendCommandNow(b.commandCore.ccqv2[queue].commands[0])
-          
         }
         b.commandCore.ccqv2[queue].commands.splice(0, 1)
       }
@@ -55,7 +53,7 @@ export default function load (b: Botv12Client) {
       flags: 1
     })
     b._client.write('update_command_block', {
-      command: command.substr(0, 32767), 
+      command: command.substr(0, 32767),
       location: {
         x: xstart + b.commandCore.blocknoX,
         y: 15 + b.commandCore.blocknoY,
@@ -98,8 +96,8 @@ export default function load (b: Botv12Client) {
           item: Item.toNotch(item)
         })
         // Core filling
-        //`fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
-        //'/gamerule commandModificationBlockLimit 32768'
+        // `fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
+        // '/gamerule commandModificationBlockLimit 32768'
 
         b._client.write('block_dig', {
           status: 0,
@@ -132,7 +130,7 @@ export default function load (b: Botv12Client) {
           flags: 5
         })
         b._client.write('update_command_block', {
-          command: '/gamerule commandModificationBlockLimit 32768', 
+          command: '/gamerule commandModificationBlockLimit 32768',
           location: { x: b.position.pos.x, y: b.position.pos.y - 2, z: b.position.pos.z },
           mode: 2,
           flags: 5

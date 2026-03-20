@@ -8,10 +8,10 @@ const licenseFile = readFileSync(resolve(baseDir, './LICENSE')).toString('utf8')
 export default class LicenseSubcommand extends Command {
   constructor () {
     super()
-    this.name = "license"
-    this.aliases = [ "licence" ]
+    this.name = 'license'
+    this.aliases = ['licence']
     this.execute = async (c: CommandContext) => {
-      if(c.args[1] === '--info') {
+      if (c.args[1] === '--info') {
         c.reply({
           text: 'command.about.copyright.agpl.isFree',
           parseLang: true
@@ -38,9 +38,9 @@ export default class LicenseSubcommand extends Command {
         return
       }
       let startIndex = 0
-      if(c.args[1]) startIndex = +c.args[1]
+      if (c.args[1]) startIndex = +c.args[1]
       const changeSize = debugMode ? 18 : 19
-      for(let i = startIndex; i < startIndex+changeSize; i++){
+      for (let i = startIndex; i < startIndex + changeSize; i++) {
         c.reply({
           text: licenseFile[i],
           font: 'uniform'
@@ -60,7 +60,7 @@ export default class LicenseSubcommand extends Command {
             text: 'textReader.nextPage',
             parseLang: true,
             command: `${c.prefix}about license ${startIndex + changeSize}`,
-            color:  startIndex + changeSize > licenseFile.length ? 'dark_gray' : 'white'
+            color: startIndex + changeSize > licenseFile.length ? 'dark_gray' : 'white'
           }
         ]
       })

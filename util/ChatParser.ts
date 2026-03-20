@@ -1,6 +1,6 @@
-import Botv12Client from "./Botv12Client.js"
-import JsonFormat from "./interface/JsonFormat.js"
-import UnparsedMessage from "./interface/UnparsedMessage.js"
+import Botv12Client from './Botv12Client.js'
+import JsonFormat from './interface/JsonFormat.js'
+import UnparsedMessage from './interface/UnparsedMessage.js'
 
 interface ParsedMessage {
   parsed: boolean,

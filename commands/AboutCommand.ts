@@ -18,18 +18,18 @@ registry.register(new AboutBotSubcommand())
 export default class AboutCommand extends Command {
   constructor () {
     super()
-    this.name = "about"
+    this.name = 'about'
     const aliases = ['info']
-    for(const item of Object.keys(registry._commands)){
-      if(item !== 'base') aliases.push(item)
+    for (const item of Object.keys(registry._commands)) {
+      if (item !== 'base') aliases.push(item)
     }
-    for(const item of Object.keys(registry._aliases)){
+    for (const item of Object.keys(registry._aliases)) {
       aliases.push(item)
     }
     this.aliases = aliases
     this.execute = async (c: CommandContext) => {
       let command = registry.getCommand(c.cmdName)
-      if(c.args.length >= 1){
+      if (c.args.length >= 1) {
         command = registry.getCommand(c.args[0])
       }
       command.execute(c)

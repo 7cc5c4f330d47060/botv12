@@ -1,4 +1,4 @@
-import Botv12Client from "../util/Botv12Client.js"
+import Botv12Client from '../util/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
   b._client.on('login', () => {
@@ -22,10 +22,10 @@ export default function load (b: Botv12Client) {
     b.clientChat.send('/op @s[type=player]')
   })
   b._client.on('login', (p) => {
-    if(p.gameMode !== 1 && 'gameMode' in p) {
+    if (p.gameMode !== 1 && 'gameMode' in p) {
       b.selfCare.tasks.gamemode.failed = true
     }
-    if(p.worldState?.gamemode !== 'creative' && 'worldState' in p) {
+    if (p.worldState?.gamemode !== 'creative' && 'worldState' in p) {
       b.selfCare.tasks.gamemode.failed = true
     }
 
@@ -55,13 +55,13 @@ export default function load (b: Botv12Client) {
 
   // Gamemode / old end portal bug
   b.selfCare.addTask('gamemode', () => {
-    if((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
+    if ((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
     else b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
     if ((p.reason === 3 || p.reason == 'change_game_mode') && p.gameMode !== 1) {
       b.selfCare.tasks.gamemode.failed = true
-    } else if ((p.reason === 3 || p.reason == 'change_game_mode')  && p.gameMode === 1) {
+    } else if ((p.reason === 3 || p.reason == 'change_game_mode') && p.gameMode === 1) {
       b.selfCare.tasks.gamemode.failed = false
     } else if (p.reason === 4 || p.reason == 'win_game') {
       b.selfCare.tasks.respawn.failed = true

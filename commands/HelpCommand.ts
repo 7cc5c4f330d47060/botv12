@@ -39,7 +39,7 @@ function printHelp (c: CommandContext) {
     })
   }
 
-  const permListFormat: ( { text: string, parseLang: true, color: string } | string )[] = []
+  const permListFormat: ({ text: string, parseLang: true, color: string } | string)[] = []
   for (let i = 0; i <= 3; i++) {
     permListFormat.push({
       text: `command.perms${i}`,
@@ -80,7 +80,7 @@ function printHelpConsole (c: CommandContext) {
   for (const cmd of commands) {
     const cmdItem = registry.getCommand(cmd.name)
     c.reply({
-      text: `%s - %s`,
+      text: '%s - %s',
       with: [
         { text: cmd.name, color: '$primary' },
         { text: `commands.${cmdItem.name}.desc`, parseLang: true, color: '$primary' },
@@ -98,12 +98,12 @@ function printCmdHelp (c: CommandContext) {
     return
   }
 
-  if(cmdItem.name === '') {
+  if (cmdItem.name === '') {
     c.reply({
       text: 'command.error.unknown',
       parseLang: true,
       color: '$error',
-      with: [ c.prefix ],
+      with: [c.prefix],
       command: `${c.prefix}help`
     })
     return
@@ -168,12 +168,12 @@ function printCmdHelp (c: CommandContext) {
 export default class HelpCommand extends Command {
   constructor () {
     super()
-    this.name = "help"
+    this.name = 'help'
     this.execute = async (c: CommandContext) => {
       if (c.args.length > 0) {
         printCmdHelp(c)
       } else {
-        if(c.type == 'console') printHelpConsole(c)
+        if (c.type == 'console') printHelpConsole(c)
         else printHelp(c)
       }
     }

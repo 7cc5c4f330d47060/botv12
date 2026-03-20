@@ -1,21 +1,21 @@
 import { getConnection } from '../util/database.js'
 import { inspect } from 'node:util'
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class SqlEvalCommand extends Command {
   constructor () {
     super()
     this.name = 'sql'
     this.execute = async (c: CommandContext) => {
-      if(!dbEnabled) return
+      if (!dbEnabled) return
       const connection = await getConnection()
-      if(!connection) return
+      if (!connection) return
       const payload = c.args.join(' ')
       let result
       try {
         result = await connection.query(payload)
-        if('end' in connection) connection.end()
+        if ('end' in connection) connection.end()
       } catch (e) {
         result = e
       }

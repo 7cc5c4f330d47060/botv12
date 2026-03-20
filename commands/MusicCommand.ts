@@ -13,13 +13,13 @@ export default class MusicCommand extends Command {
     super()
     this.name = 'music'
     this.execute = async (c: CommandContext) => {
-      if(!('musicPlayer' in c.bot)) return
-      if(c.bot.musicPlayer?.queue === undefined) return
+      if (!('musicPlayer' in c.bot)) return
+      if (c.bot.musicPlayer?.queue === undefined) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {
         case 'play':{
-          if ((!c.args[0] || c.args[0].length === 0)){
+          if ((!c.args[0] || c.args[0].length === 0)) {
             if (c.bot.musicPlayer.songName) {
               c.reply({
                 text: 'command.music.restartPrevious',
@@ -49,7 +49,7 @@ export default class MusicCommand extends Command {
           if (c.args[0].startsWith('http://') || c.args[0].startsWith('https://')) {
             c.bot.musicPlayer.queue.push([c.args.join(' '), c.args.join(' ')])
           } else if (c.args[0].startsWith('ram://')) {
-            c.bot.musicPlayer.queue.push([`ram://`, c.args.join(' ')])
+            c.bot.musicPlayer.queue.push(['ram://', c.args.join(' ')])
           } else {
             c.bot.musicPlayer.queue.push([`file://${filePath}`, c.args.join(' ')])
           }
@@ -95,8 +95,8 @@ export default class MusicCommand extends Command {
             }
           }
           for (const item of fileList) list.push(item)
-          for (let i=0; i<Math.ceil(list.length/40); i++) {
-            const subList = list.slice(i*40, (i+1)*40)
+          for (let i = 0; i < Math.ceil(list.length / 40); i++) {
+            const subList = list.slice(i * 40, (i + 1) * 40)
             c.reply({
               text: '%s '.repeat(subList.length),
               with: subList
@@ -105,7 +105,7 @@ export default class MusicCommand extends Command {
           break
         }
         case 'listen':
-        //case 'optin':
+        // case 'optin':
           c.bot.commandCore.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] add ubotmusic`)
           break
         case 'stop':{
@@ -118,7 +118,7 @@ export default class MusicCommand extends Command {
             return
           }
           // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
-          if(c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong()
+          if (c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong()
           c.reply({
             text: 'command.music.stop',
             parseLang: true
@@ -135,7 +135,7 @@ export default class MusicCommand extends Command {
             return
           }
           // c.bot.ccq.push(`/tag @a[nbt={UUID:[I;${uuidToInt(c.uuid)}]}] remove ubotmusic`)
-          if(c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong(false, true)
+          if (c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong(false, true)
           c.reply({
             text: 'command.music.skip',
             parseLang: true
@@ -152,7 +152,7 @@ export default class MusicCommand extends Command {
             c.bot.musicPlayer.restart = true
             c.bot.musicPlayer.emit('songEnd')
           } else {
-            if(c.bot.musicPlayer.songName) {
+            if (c.bot.musicPlayer.songName) {
               c.reply({
                 text: 'command.music.restartPrevious',
                 parseLang: true
@@ -165,7 +165,6 @@ export default class MusicCommand extends Command {
                 color: '$error'
               })
             }
-            return
           }
           break
         }
@@ -220,7 +219,7 @@ export default class MusicCommand extends Command {
             return
           }
           c.bot.musicPlayer.speedShift = +c.args[0]
-          if(c.bot.musicPlayer.setSpeed){
+          if (c.bot.musicPlayer.setSpeed) {
             c.bot.musicPlayer.setSpeed(20 / +c.args[0])
           }
           c.reply({
@@ -269,12 +268,11 @@ export default class MusicCommand extends Command {
         }
         case 'goto':{
           if (c.bot.musicPlayer.playing) {
-            
             c.bot.musicPlayer.restart = true
-            let gotoTime = 0;
-            if(c.args[0].includes(':')) {
+            let gotoTime = 0
+            if (c.args[0].includes(':')) {
               const times = c.args[0].split(':')
-              if(times.length === 3) { // H:M:S
+              if (times.length === 3) { // H:M:S
                 gotoTime = +times[0] * 3600000
                 gotoTime += +times[1] * 60000
                 gotoTime += +times[2] * 1000
@@ -288,7 +286,7 @@ export default class MusicCommand extends Command {
             c.reply({
               text: 'command.music.gotoTime',
               parseLang: true,
-              with: [ formatTime(gotoTime) ]
+              with: [formatTime(gotoTime)]
             })
             c.bot.musicPlayer.startFrom = gotoTime
             c.bot.musicPlayer.emit('songEnd')
@@ -308,15 +306,15 @@ export default class MusicCommand extends Command {
           }
           let replyMessage = ''
           c.bot.musicPlayer.lastTime = Date.now()
-          if(c.bot.musicPlayer.paused) {
+          if (c.bot.musicPlayer.paused) {
             replyMessage = 'command.music.unpaused'
           } else {
             replyMessage = 'command.music.paused'
           }
           c.reply({
-              text: replyMessage,
-              parseLang: true
-            })
+            text: replyMessage,
+            parseLang: true
+          })
           c.bot.musicPlayer.paused = !c.bot.musicPlayer.paused
           break
         }

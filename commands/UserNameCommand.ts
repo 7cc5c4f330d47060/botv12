@@ -1,6 +1,5 @@
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
-
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class UserNameCommand extends Command {
   constructor () {
@@ -8,7 +7,7 @@ export default class UserNameCommand extends Command {
     this.name = 'username'
     this.hidden = true
     this.execute = async (c: CommandContext) => {
-      if(!c.bot._client) return
+      if (!c.bot._client) return
       c.reply({
         text: 'command.username',
         parseLang: true,

@@ -1,4 +1,4 @@
-import Command from "./Command.js"
+import Command from './Command.js'
 
 export default class CommandRegistry {
   _commands: Record<string, Command>

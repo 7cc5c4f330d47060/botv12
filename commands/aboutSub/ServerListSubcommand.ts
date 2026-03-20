@@ -4,7 +4,7 @@ import Command from '../../util/Command.js'
 export default class ServerListSubcommand extends Command {
   constructor () {
     super()
-    this.name = "serverlist"
+    this.name = 'serverlist'
     this.execute = async (c: CommandContext) => {
       bots.forEach((item, i) => {
         if (c.bot.id === i && item.host?.options.hideLocally) return
@@ -23,8 +23,9 @@ export default class ServerListSubcommand extends Command {
               text: `${host}:${port ?? 25565}`,
               copyable: true
             },
-            item.host.options.hidden ? 
-              { text: 'command.about.serverList.hidden', parseLang: true } : ''
+            item.host.options.hidden
+              ? { text: 'command.about.serverList.hidden', parseLang: true }
+              : ''
           ]
         })
       })

@@ -6,19 +6,19 @@ export default function download (url: string, cb: (error: string, output: Buffe
   let err: string
   let output = Buffer.alloc(0)
   const httpCb = (res: IncomingMessage) => {
-    let cancel = false;
+    let cancel = false
     res.setEncoding('latin1')
     res.on('data', (data: string) => {
-      if(!cancel) output = Buffer.concat([output,Buffer.from(data,'latin1')])
+      if (!cancel) output = Buffer.concat([output, Buffer.from(data, 'latin1')])
       if (output.length > 67108864 && !cancel) {
-        err='largeFile'
+        err = 'largeFile'
         cb(err, output)
         res.resume()
         cancel = true
       }
     })
     res.on('end', () => {
-      if(!cancel) cb('', output)
+      if (!cancel) cb('', output)
     })
   }
   if (url.startsWith('http://')) {

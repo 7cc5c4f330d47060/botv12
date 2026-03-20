@@ -1,12 +1,12 @@
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class RandomTpCommand extends Command {
   constructor () {
     super()
     this.name = 'rtp'
     this.execute = async (c: CommandContext) => {
-      if(!('isBot' in c.bot)) return
+      if (!('isBot' in c.bot)) return
       let uuid
       if (c.type === 'console') {
         uuid = c.bot._client.uuid

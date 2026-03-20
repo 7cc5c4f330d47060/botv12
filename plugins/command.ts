@@ -60,7 +60,7 @@ export default function load (b: Botv12Client) {
     }
 
     let verify = 0
-    if(b.playerInfo?.players && b.playerInfo.players[uuid] && subtype === 'generic_player') {
+    if (b.playerInfo?.players && b.playerInfo.players[uuid] && subtype === 'generic_player') {
       verify = b.playerInfo.players[uuid].verifyv2 ?? 0
     }
     context.verify = verify
@@ -82,21 +82,23 @@ export default function load (b: Botv12Client) {
             text: 'debug.commandFinished',
             parseLang: true,
             color: '$success',
-            with: [{ text: timeSpent + "", color: '$success' }]
+            with: [{ text: timeSpent + '', color: '$success' }]
           })
         }
       } catch (e) {
         console.log(e)
-        if(e instanceof Error) b.commandCore.tellraw(uuid, {
-          text: getMessage(context.lang, 'command.error'),
-          color: settings.colors.error,
-          hover_event: {
-            action: 'show_text',
-            value: {
-              text: e.stack
+        if (e instanceof Error) {
+          b.commandCore.tellraw(uuid, {
+            text: getMessage(context.lang, 'command.error'),
+            color: settings.colors.error,
+            hover_event: {
+              action: 'show_text',
+              value: {
+                text: e.stack
+              }
             }
-          }
-        })
+          })
+        }
       }
     }
   }

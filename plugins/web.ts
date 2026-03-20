@@ -1,28 +1,28 @@
-import { WebSocketServer, WebSocket } from "ws"
-import Botv12Client from "../util/Botv12Client";
+import { WebSocketServer, WebSocket } from 'ws'
+import Botv12Client from '../util/Botv12Client'
 import parse3 from '../util/chatparse.js'
-import registry from "../util/commands.js"
-import { createServer, Server } from "node:http";
-import { resolve } from "node:path";
-import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { getMessage } from "../util/lang.js"
-import CommandContext from "../util/CommandContext.js"
-import JsonFormat from "../util/interface/JsonFormat.js";
+import registry from '../util/commands.js'
+import { createServer, Server } from 'node:http'
+import { resolve } from 'node:path'
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { getMessage } from '../util/lang.js'
+import CommandContext from '../util/CommandContext.js'
+import JsonFormat from '../util/interface/JsonFormat.js'
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
-const user = "Default User"
-const nick = "Default User"
+const user = 'Default User'
+const nick = 'Default User'
 
-let wss: WebSocketServer;
-let httpServer: Server;
+let wss: WebSocketServer
+let httpServer: Server
 
-if(!clOptions.disableWsServer){
+if (!clOptions.disableWsServer) {
   wss = new WebSocketServer({
     port: settings.wsPort ?? 12365
   })
 
-  httpServer = createServer((req, res)=>{
-    if(typeof req.url == 'undefined') return
+  httpServer = createServer((req, res) => {
+    if (typeof req.url === 'undefined') return
     const partialUrl = req.url.slice(1)
     if (partialUrl === 'config.json') {
       res.writeHead(200)
@@ -31,27 +31,26 @@ if(!clOptions.disableWsServer){
       }))
     }
     const fullUrl = resolve(baseDir, 'util/ubot-panel', partialUrl)
-    if(existsSync(fullUrl)){
+    if (existsSync(fullUrl)) {
       res.writeHead(200)
       res.end(readFileSync(fullUrl))
     }
   })
   httpServer.listen(settings.httpPort ?? 12376)
   const sendRaw = (client: WebSocket, type: string, data: JsonFormat | string) => client.send(JSON.stringify({
-    event: "rawChat",
+    event: 'rawChat',
     data: {
       data: parse3(data, 'html'),
       msgType: type
     }
   }))
 
-
   wss.on('connection', client => {
     const serverList = []
     for (const bot of bots) {
-      serverList.push({id: bot.id, host: bot.host.host, port: bot.host.port})
+      serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port })
       client.send(JSON.stringify({
-        event: "playerInfo",
+        event: 'playerInfo',
         data: {
           server: bot.id,
           data: bot.playerInfo.players
@@ -71,7 +70,7 @@ if(!clOptions.disableWsServer){
           commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => sendRaw(client, 'cmdoutput', data) }
         }
         const json = JSON.parse(data.toString('utf8'))
-        if(json.event == "command"){
+        if (json.event == 'command') {
           const args = json.data.command.split(' ')
           const cmdName = args[0].toLowerCase()
 
@@ -99,17 +98,17 @@ if(!clOptions.disableWsServer){
               if (index2 === '*') {
                 for (const bot of bots) {
                   const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bot)
-                  //context.verify = 2
+                  // context.verify = 2
                   cmd.execute(context)
                 }
               } else {
                 const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bots[+index2])
-                //context.verify = 2
+                // context.verify = 2
                 cmd.execute(context)
               }
             } else {
               const context = new CommandContext(uuid, user, nick, json.data.command, 'console', 'console', 'ws_console', '', cmd.argsFormat, consoleBotStub)
-              //context.verify = 2
+              // context.verify = 2
               cmd.execute(context)
             }
           } catch (e) {
@@ -122,13 +121,13 @@ if(!clOptions.disableWsServer){
 }
 
 export default function load (b: Botv12Client) {
-  if(clOptions.disableWsServer) return
+  if (clOptions.disableWsServer) return
   b.on('chat', (data) => {
     if (data.json.translate === 'advMode.setCommand.success') return
     const msgHtml = parse3(data.json, 'html')
     wss.clients.forEach(client => {
       client.send(JSON.stringify({
-        event: "serverChat",
+        event: 'serverChat',
         data: {
           server: b.id,
           type: data.type,

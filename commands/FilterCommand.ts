@@ -1,13 +1,13 @@
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class FilterCommand extends Command {
   constructor () {
     super()
-    this.name = "filter"
+    this.name = 'filter'
     this.execute = async (c: CommandContext) => {
-      if(!('isBot' in c.bot)) return
-      if(!c.bot.playerInfo || !c.bot.filter) return
+      if (!('isBot' in c.bot)) return
+      if (!c.bot.playerInfo || !c.bot.filter) return
       let subcmd
       if (c.args.length >= 1) subcmd = c.args.splice(0, 1)[0].toLowerCase()
       switch (subcmd) {

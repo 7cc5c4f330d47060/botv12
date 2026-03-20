@@ -5,7 +5,7 @@ import uuidToInt from './uuidtoint.js'
 import resolveColor from './resolveColor.js'
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
-  if(typeof text == 'string') return { text }
+  if (typeof text === 'string') return { text }
   const json: JsonFormat = {}
   let textContent = ''
 
@@ -89,7 +89,7 @@ export default function build (text: TextFormat | string, colors: Record<string,
 
   if (text.color) {
     const color = resolveColor(text.color, colors)
-    if(color.length > 0) json.color = color
+    if (color.length > 0) json.color = color
     else json.color = 'white'
   }
 
@@ -102,7 +102,7 @@ export default function build (text: TextFormat | string, colors: Record<string,
   } else {
     json.text = textContent
   }
-  
-  if(text.font) json.font = text.font
+
+  if (text.font) json.font = text.font
   return json
 }

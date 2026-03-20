@@ -6,7 +6,7 @@ export default class CommandBlockCommand extends Command {
     super()
     this.name = 'cb'
     this.execute = async (c: CommandContext) => {
-      if(!('isBot' in c.bot)) return
+      if (!('isBot' in c.bot)) return
 
       const command = c.argsv2.command.value + ''
       c.bot.commandCore.ccq.push(command)

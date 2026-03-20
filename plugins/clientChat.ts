@@ -1,4 +1,4 @@
-import Botv12Client from "../util/Botv12Client"
+import Botv12Client from '../util/Botv12Client'
 
 const matcherRegex = /.{1,255}/g
 export default function load (b: Botv12Client) {
@@ -10,10 +10,10 @@ export default function load (b: Botv12Client) {
       }
     }, 100)
   })
-  
+
   b.clientChat.chatqueue = []
   b.clientChat.send = function chat (...msgs: string[]) {
-    for(const msg of msgs){
+    for (const msg of msgs) {
       if (msg.length === 0) return
       msg.match(matcherRegex)?.forEach(element => {
         b.clientChat.chatqueue.push(element)

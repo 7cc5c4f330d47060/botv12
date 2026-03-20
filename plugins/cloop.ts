@@ -1,4 +1,4 @@
-import Botv12Client from "../util/Botv12Client"
+import Botv12Client from '../util/Botv12Client'
 
 export default function load (b: Botv12Client) {
   b.cloopManager.cloops = []

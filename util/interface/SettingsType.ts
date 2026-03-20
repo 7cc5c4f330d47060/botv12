@@ -1,4 +1,4 @@
-import HostOptions from "./HostOptions.js"
+import HostOptions from './HostOptions.js'
 
 export default interface SettingsType {
   format: number
@@ -14,7 +14,7 @@ export default interface SettingsType {
   debugMode: boolean
   colors: Record<string, string>
   logJSONmessages?: boolean
-  //displaySubtypesToConsole?: boolean
+  // displaySubtypesToConsole?: boolean
   showCommandSet?: boolean
   disableMusicBar?: boolean
   prefixes: string[]

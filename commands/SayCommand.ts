@@ -1,14 +1,12 @@
-
 import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
-//import { getMessage } from '../util/lang.js'
+// import { getMessage } from '../util/lang.js'
 export default class SayCommand extends Command {
   constructor () {
     super()
     this.name = 'say'
     this.execute = async (c: CommandContext) => {
-      
-      if(!('clientChat' in c.bot)) return
+      if (!('clientChat' in c.bot)) return
       const msg = c.args.join(' ').slice(0, 512)
 
       if (c.verify < 1) {

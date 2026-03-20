@@ -1,5 +1,5 @@
-import Command from "./Command.js";
-import CommandContext from "./CommandContext.js";
+import Command from './Command.js'
+import CommandContext from './CommandContext.js'
 
 export default class UnknownCommand extends Command {
   constructor () {
@@ -9,7 +9,7 @@ export default class UnknownCommand extends Command {
         text: 'command.error.unknown',
         parseLang: true,
         color: '$error',
-        with: [ c.prefix ],
+        with: [c.prefix],
         command: `${c.prefix}help`
       })
     }

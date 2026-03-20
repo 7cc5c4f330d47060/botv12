@@ -7,12 +7,11 @@ export default function load (b: Botv12Client) {
   const Chunk = loader(b.registry)
   b.chunks = []
   b._client.on('map_chunk', (data) => {
-    
     if (!b.chunks[data.x]) {
       b.chunks[data.x] = []
     }
-    const chunk = new Chunk({x: 0, z: 0})
-    if(!('load' in chunk)) return
+    const chunk = new Chunk({ x: 0, z: 0 })
+    if (!('load' in chunk)) return
     try {
       chunk.load(data.chunkData)
     } catch (e) {
@@ -40,7 +39,7 @@ export default function load (b: Botv12Client) {
       }
     }
   })
-  b._client.on('position', (data: {x: number, y: number, z: number, teleportId: number, flags: {x: boolean, y: boolean, z: boolean}}) => {
+  b._client.on('position', (data: { x: number, y: number, z: number, teleportId: number, flags: { x: boolean, y: boolean, z: boolean } }) => {
     let newX
     let newY
     let newZ
@@ -60,19 +59,17 @@ export default function load (b: Botv12Client) {
     }
   })
   b.interval.unloadChunks = setInterval(() => {
-    /* eslint-disable @typescript-eslint/no-dynamic-delete */
     b.chunks.forEach((chunkList: PCChunk[], i: number) => {
       // X-values
       if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
-        if(b.chunks[i]) delete b.chunks[i]
+        if (b.chunks[i]) delete b.chunks[i]
       }
       chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
-          if(b.chunks[i] && b.chunks[i][z]) delete b.chunks[i][z]
+          if (b.chunks[i] && b.chunks[i][z]) delete b.chunks[i][z]
         }
       })
     })
-    /* eslint-enable @typescript-eslint/no-dynamic-delete */
   }, 1500)
 }

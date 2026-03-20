@@ -1,6 +1,6 @@
 import { getConnection } from '../util/database.js'
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class SeenCommand extends Command {
   constructor () {
@@ -17,7 +17,7 @@ export default class SeenCommand extends Command {
       }
       try {
         const connection = await getConnection()
-        if(!connection) return
+        if (!connection) return
         const name = c.args.join(' ')
         let joinCount
         let lastSeen
@@ -37,8 +37,8 @@ export default class SeenCommand extends Command {
             parseLang: true,
             with: [
               userName,
-              new Date(Number(lastSeen)) + "",
-              joinCount + "",
+              new Date(Number(lastSeen)) + '',
+              joinCount + '',
               {
                 text: `command.seen.success.time${(joinCount === 1) ? '' : 'Plural'}`,
                 parseLang: true
@@ -54,9 +54,9 @@ export default class SeenCommand extends Command {
             ]
           })
         }
-        if('end' in connection) connection.end()
+        if ('end' in connection) connection.end()
       } catch (e) {
-        if(debugMode) console.error(e)
+        if (debugMode) console.error(e)
       }
     }
   }

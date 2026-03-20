@@ -1,6 +1,5 @@
 import { createHash } from 'node:crypto'
 
-
 const namesHk = [ // From 2017 Metroidvania from Australia.
   'Ancient Basin',
   'Baldur Shell',
@@ -92,13 +91,13 @@ const namesSs = [ // From 2025 Metroidvania from Australia.
   'Zaza' // Garmond is seperate, since they are technically two characters usually together
 ]
 
-//console.log(namesHk.length * namesSs.length)
+// console.log(namesHk.length * namesSs.length)
 
-export default function generateUser (): string{
-  let nameItem = namesHk[Math.floor(Math.random()*namesHk.length)]
-  if(debugMode) nameItem += ' Debug'
-  const hashItem = createHash('sha256').update(nameItem).digest('hex').slice(0,6)
-  const nameItemSs = namesSs[Math.floor(Math.random()*namesSs.length)]
-  const hashItemSs = createHash('sha256').update(nameItemSs).digest('hex').slice(0,6)
+export default function generateUser (): string {
+  let nameItem = namesHk[Math.floor(Math.random() * namesHk.length)]
+  if (debugMode) nameItem += ' Debug'
+  const hashItem = createHash('sha256').update(nameItem).digest('hex').slice(0, 6)
+  const nameItemSs = namesSs[Math.floor(Math.random() * namesSs.length)]
+  const hashItemSs = createHash('sha256').update(nameItemSs).digest('hex').slice(0, 6)
   return `${hashItem}${hashItemSs}`
 }

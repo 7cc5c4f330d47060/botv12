@@ -1,12 +1,12 @@
-import Command from "../util/Command.js"
-import CommandContext from "../util/CommandContext.js"
+import Command from '../util/Command.js'
+import CommandContext from '../util/CommandContext.js'
 
 export default class ScaleCommand extends Command {
   constructor () {
     super()
     this.name = 'scale'
     this.execute = async (c: CommandContext) => {
-      if(!('isBot' in c.bot)) return
+      if (!('isBot' in c.bot)) return
       if (c.args[0] === 'set') {
         const scale = Math.min(Math.max(+c.args[1], 0.0625), 16)
         c.reply({

@@ -6,7 +6,7 @@ import Command from '../../util/Command.js'
 export default class AboutBotSubcommand extends Command {
   constructor () {
     super()
-    this.name = "base"
+    this.name = 'base'
     this.execute = async (c: CommandContext) => {
       c.reply({
         text: 'command.about.author',
@@ -25,7 +25,7 @@ export default class AboutBotSubcommand extends Command {
           { text: versionUtil, color: '$primary' }
         ]
       })
-      for(const item of version.newCopyright) {
+      for (const item of version.newCopyright) {
         c.reply({
           text: 'command.about.copyright',
           parseLang: true,

@@ -8,13 +8,13 @@ import { resolve } from 'node:path'
 import JsonFormat from '../util/interface/JsonFormat.js'
 
 interface ChatTypeItem {
-  translation_key: {value: string},
+  translation_key: { value: string },
   parameters: { value: { value: string[] } },
   style: { value: Record<string, { value: string }> }
 }
 
 interface ChatTypeItemRoot {
-  element: { value: { chat: { value: ChatTypeItem }}}
+  element: { value: { chat: { value: ChatTypeItem } } }
 }
 
 const convertChatStyleItem = (item: Record<string, { value: string }>) => {
@@ -48,7 +48,6 @@ const convertChatTypeItem = (item: ChatTypeItem) => {
 const parsers: ChatParser[][] = [[], [], []]
 const bpl = readdirSync(resolve(codeDir, 'chatParsers'))
 for (const plugin of bpl) {
-      
   if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
     continue
   }
@@ -91,7 +90,7 @@ export default function load (b: Botv12Client) {
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: JsonFormat = { translate: messageType.translation_key }
     messageType.parameters.forEach((item: string, i: number) => {
-      if(!json.with) json.with = []
+      if (!json.with) json.with = []
       if (item === 'content') {
         json.with[i] = parse1204(data.message)
       } else if (item === 'sender') {
@@ -101,13 +100,13 @@ export default function load (b: Botv12Client) {
       }
     })
     for (const i in messageType.style) {
-      if(i === 'color') {
+      if (i === 'color') {
         json[i] = messageType.style[i]
       }
     }
     const message = parse3(parse1204(data.message), 'none')
-    const uuid = '00000000-0000-0000-0000-000000000000' //b.playerInfo.findUUID(parse3(parse1204(data.name), 'none'))
-    const nickname = '' //b.playerInfo.findDisplayName(uuid)
+    const uuid = '00000000-0000-0000-0000-000000000000' // b.playerInfo.findUUID(parse3(parse1204(data.name), 'none'))
+    const nickname = '' // b.playerInfo.findDisplayName(uuid)
     const username = parse3(parse1204(data.name), 'none')
     b.emit('chat_unparsed', {
       json,
@@ -132,7 +131,7 @@ export default function load (b: Botv12Client) {
     if (messageType === undefined) messageType = { translation_key: '%s', parameters: ['content'] }
     const json: JsonFormat = { translate: messageType.translation_key }
     messageType.parameters.forEach((item: string, i: number) => {
-      if(!json.with) json.with = []
+      if (!json.with) json.with = []
       if (item === 'content') {
         if (messageType.translation_key === '%s') {
           if (!data.unsignedChatContent) json.with[i] = ''
@@ -147,7 +146,7 @@ export default function load (b: Botv12Client) {
       }
     })
     for (const i in messageType.style) {
-      if(i === 'color') {
+      if (i === 'color') {
         json[i] = messageType.style[i]
       }
     }
@@ -157,7 +156,7 @@ export default function load (b: Botv12Client) {
       uuid: data.senderUuid,
       message: data.plainMessage,
       nickname: parse3(parse1204(data.networkName), 'none'),
-      username: '', //b.playerInfo.findRealNameFromUUID(data.senderUuid),
+      username: '', // b.playerInfo.findRealNameFromUUID(data.senderUuid),
       playerChatType: messageType
     })
   })

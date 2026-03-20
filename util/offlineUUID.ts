@@ -13,5 +13,5 @@ function javaUUID (s: string) {
 export default function (name: string): string {
   const uuidBuffer = javaUUID('OfflinePlayer:' + name)
   const uuidString = uuidBuffer.toString('hex')
-  return `${uuidString.slice(0,8)}-${uuidString.slice(8,12)}-${uuidString.slice(12,16)}-${uuidString.slice(16,20)}-${uuidString.slice(20,32)}`
+  return `${uuidString.slice(0, 8)}-${uuidString.slice(8, 12)}-${uuidString.slice(12, 16)}-${uuidString.slice(16, 20)}-${uuidString.slice(20, 32)}`
 }

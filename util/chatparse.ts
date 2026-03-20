@@ -5,13 +5,13 @@ import JsonFormat from './interface/JsonFormat.js'
 
 // List from https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-in-html
 const escapeHtml = (text: string) => {
-  return (text + "")
-  .replaceAll("&","&amp;")
-  .replaceAll(">","&gt;")
-  .replaceAll("<","&lt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#39;")
-  .replaceAll("\n","<br>")
+  return (text + '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+    .replaceAll('\n', '<br>')
 }
 
 const process8bitColorChannel = (value: number) => {
@@ -88,12 +88,12 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
   let data
   if (typeof _data === 'string') data = { text: _data, color: 'reset' }
   else if (typeof _data === 'number') data = { text: _data + '', color: 'reset' }
-  //else if (_data.constructor === Array) data = { extra: _data, color: 'reset' }
+  // else if (_data.constructor === Array) data = { extra: _data, color: 'reset' }
   else if (_data['']) data = { text: _data[''], color: _data.color ?? 'reset' }
   else data = _data
 
   let out = ''
-  if(mode.useHtml && l === 0) out += '<span class="lw lmh resetColor startColor">'
+  if (mode.useHtml && l === 0) out += '<span class="lw lmh resetColor startColor">'
   if (data.color) {
     out += processColor(data.color, resetColor, mode)
   } else {
@@ -104,16 +104,16 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
     if (typeof _text === 'number') {
       _text = _text.toString()
     }
-    if(mode.useHtml) _text = escapeHtml(_text)
+    if (mode.useHtml) _text = escapeHtml(_text)
     out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '')
   }
   if (data.translate) {
     let trans = data.translate.replaceAll('%%', '\ud900\ud801').replaceAll('\x1b', '').replaceAll('\x0e', '')
-    if(mode.useHtml) trans = escapeHtml(trans)
+    if (mode.useHtml) trans = escapeHtml(trans)
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
-      if(mode.useHtml) trans = escapeHtml(trans)
-    } else if(data.fallback){
+      if (mode.useHtml) trans = escapeHtml(trans)
+    } else if (data.fallback) {
       trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
     }
     if (data.with) {
@@ -132,20 +132,18 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
     }
   }
   out += resetColor
-  if(mode.useHtml && l === 0) out += '</span>'
-  
-  
+  if (mode.useHtml && l === 0) out += '</span>'
+
   return out
 }
 export default function parse2 (_data: JsonFormat | string, modeString: string) {
   try {
     const mode: ConsoleColorSetting = consoleColors[modeString]
     let resetColor = mode.fourBit.reset
-    if(mode.useHtml) resetColor = `</span><span class="${resetColor}">`
+    if (mode.useHtml) resetColor = `</span><span class="${resetColor}">`
     return parse(_data, 0, resetColor, mode)
   } catch (e) {
     console.error(e)
     return `\x1B[0m\x1B[38;2;255;85;85mAn error occurred while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`
   }
 }
-

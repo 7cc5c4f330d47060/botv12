@@ -1,16 +1,16 @@
-import CommandContext from "../util/CommandContext"
-import Command from "../util/Command.js";
+import CommandContext from '../util/CommandContext'
+import Command from '../util/Command.js'
 
 export default class ListCommand extends Command {
   constructor () {
     super()
     this.name = 'list'
     this.execute = async (c: CommandContext) => {
-      if(!('isBot' in c.bot)){
+      if (!('isBot' in c.bot)) {
         // Console list function here... (bypass consoleIndex)
-        const server = +c.args[0];
+        const server = +c.args[0]
         const b = bots[server]
-        if(!b.playerInfo.players) return
+        if (!b.playerInfo.players) return
         const keys = Object.keys(b.playerInfo.players)
         c.reply({
           text: 'command.list.intro',
@@ -32,20 +32,20 @@ export default class ListCommand extends Command {
             }
           ]
         })
-        for(const uuid in b.playerInfo.players){
+        for (const uuid in b.playerInfo.players) {
           const playerItem = b.playerInfo.players[uuid]
           c.reply({
             text: 'command.list.item',
             parseLang: true,
             with: [
               playerItem.realName,
-              uuid 
+              uuid
             ]
           })
         }
         return
       }
-      if(!c.bot.playerInfo.players) return
+      if (!c.bot.playerInfo.players) return
       const keys = Object.keys(c.bot.playerInfo.players)
       c.reply({
         text: 'command.list.intro',
@@ -67,14 +67,14 @@ export default class ListCommand extends Command {
           }
         ]
       })
-      for(const uuid in c.bot.playerInfo.players){
+      for (const uuid in c.bot.playerInfo.players) {
         const playerItem = c.bot.playerInfo.players[uuid]
         c.reply({
           text: 'command.list.item',
           parseLang: true,
           with: [
-            {text: playerItem.realName, copyable: true},
-            {text: uuid, copyable: true} 
+            { text: playerItem.realName, copyable: true },
+            { text: uuid, copyable: true }
           ]
         })
       }

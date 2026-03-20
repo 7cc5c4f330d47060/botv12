@@ -1,5 +1,5 @@
-import CommandContext from "./CommandContext";
-import NewArgumentFormat from "./interface/NewArgumentFormat";
+import CommandContext from './CommandContext'
+import NewArgumentFormat from './interface/NewArgumentFormat'
 
 export default class Command {
   name: string
@@ -15,7 +15,7 @@ export default class Command {
 
   constructor () {
     this.name = ''
-    this.execute = async (c: CommandContext) => { c.reply("Testing") }
+    this.execute = async (c: CommandContext) => { c.reply('Testing') }
     this.level = 0
     this.hidden = false
     this.aliases = []
@@ -24,7 +24,7 @@ export default class Command {
     this.debugOnly = false
     this.blockChipmunkMod = false
     this.argsFormat = []
-          /*
+    /*
       command.name = name
       command.execute = payload
       command.level = level
