@@ -6,7 +6,7 @@ export default function load (b: Botv12Client) {
   b.interval.deopFiltered = setInterval(() => {
     b.filter.filteredPlayers.forEach((item: FilteredPlayer) => {
       if (b.playerInfo.players && b.playerInfo.players[item.uuid] && b.playerInfo.players[item.uuid].here) {
-        if (item.method == 'legacy') {
+        if (item.method === 'legacy') {
           b.commandCore.ccq.push(`/deop @a[nbt={UUID:[I;${uuidToInt(item.uuid)}]}]`)
           b.commandCore.ccq.push(`/gamemode spectator @a[nbt={UUID:[I;${uuidToInt(item.uuid)}]}]`)
         }

@@ -29,7 +29,7 @@
 					</div>
 					<div id="chatContent"></div>
 					<div id="chatInputContainer">
-						<input id="chatInput" type="text" placeholder="Type commands or messages here..." onkeydown="if(event.key == 'Enter') sendCommand()">
+						<input id="chatInput" type="text" placeholder="Type commands or messages here..." onkeydown="if(event.key === 'Enter') sendCommand()">
 						<button onclick="sendCommand()">Send</button>
 					</div>
 				</div>

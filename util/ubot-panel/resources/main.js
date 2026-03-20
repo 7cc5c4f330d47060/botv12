@@ -36,11 +36,11 @@ const startWs = function () {
   })
   ws.addEventListener('message', payload => {
     const json = JSON.parse(payload.data)
-    if (json.event == 'serverChat') {
+    if (json.event === 'serverChat') {
       addMessage(`<span class="msginfo lw lmh">[${json.data.server}] [${json.data.type}] </span>${json.data.data}`, 'message-chat')
-    } else if (json.event == 'rawChat') {
+    } else if (json.event === 'rawChat') {
       addMessage(json.data.data, `message-${json.data.msgType}`)
-    } if (json.event == 'playerInfo') {
+    } if (json.event === 'playerInfo') {
       for (const player in json.data.data) {
         playerCount++
         document.getElementById('playerCount').innerHTML = playerCount

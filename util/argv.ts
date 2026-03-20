@@ -15,15 +15,15 @@ export default function ha () {
   argv.splice(0, 2)
   const max = argv.length
   for (let i = 0; i < max; i++) {
-    if (argv[0] == '--help') {
+    if (argv[0] === '--help') {
       handleHelp()
-    } else if (argv[0] == '--debug') {
+    } else if (argv[0] === '--debug') {
       debugMode = true // Global
-    } else if (argv[0] == '--disable-ws') {
+    } else if (argv[0] === '--disable-ws') {
       clOptions.disableWsServer = true
-    } else if (argv[0] == '--disable-netmsg') {
+    } else if (argv[0] === '--disable-netmsg') {
       clOptions.disableNetMsg = true
-    } else if (argv[0] == '--basedir') {
+    } else if (argv[0] === '--basedir') {
       baseDir = argv[1]
       argv.splice(0, 1)
     }

@@ -173,7 +173,7 @@ export default class HelpCommand extends Command {
       if (c.args.length > 0) {
         printCmdHelp(c)
       } else {
-        if (c.type == 'console') printHelpConsole(c)
+        if (c.type === 'console') printHelpConsole(c)
         else printHelp(c)
       }
     }

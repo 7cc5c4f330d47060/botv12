@@ -217,7 +217,7 @@ export default class Botv12Client extends EventEmitter {
     this.musicPlayer = new EventEmitter()
     this.filter = {
       filteredPlayers: [],
-      isFiltered: (user: string) => { return user == '' },
+      isFiltered: (user: string) => { return user === '' },
       addFilter: (uuid: string, username: string, method = 'legacy') => {
         this.filter.filteredPlayers.push({ username, uuid, method })
       },

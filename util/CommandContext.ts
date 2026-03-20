@@ -37,7 +37,7 @@ function processArgumentList (format: NewArgumentFormat[], args: string[]): Reco
     let argument = ''
     let fail = false
     let failType = ''
-    if (args.length == 0) {
+    if (args.length === 0) {
       fail = true
       failType = 'missingArgument'
     } else {

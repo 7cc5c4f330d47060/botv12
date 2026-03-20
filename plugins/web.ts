@@ -70,7 +70,7 @@ if (!clOptions.disableWsServer) {
           commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => sendRaw(client, 'cmdoutput', data) }
         }
         const json = JSON.parse(data.toString('utf8'))
-        if (json.event == 'command') {
+        if (json.event === 'command') {
           const args = json.data.command.split(' ')
           const cmdName = args[0].toLowerCase()
 

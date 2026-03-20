@@ -271,7 +271,7 @@ export default function load (b: Botv12Client) {
       let delta = 0
       let totalDelta = 0
       for (const event of track) {
-        if (event.type == 'trackName' && event.text && event.text.endsWith('_Monster') && !msmFile) {
+        if (event.type === 'trackName' && event.text && event.text.endsWith('_Monster') && !msmFile) {
           // MSM world*.mid files are not in the General MIDI format, and would require large
           // amounts of extra code to make functional (i.e. to play roughly what is in MSM)
           b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {

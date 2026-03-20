@@ -79,7 +79,7 @@ const awaitLicense = function (callback: () => void) {
       prompt: '\x1b[0m> '
     })
     rl.on('line', (l: string) => {
-      if (l.toLowerCase() == 'i accept') {
+      if (l.toLowerCase() === 'i accept') {
         if (debugMode) console.debug('[debug] License accepted, continuing...')
         writeFileSync(resolve(dataDir, '.license_accepted'), '')
         rl.close()

@@ -71,7 +71,7 @@ export default function load (b: Botv12Client) {
   }
   b.playerInfo.findRealNameFromNickname = (name: string) => {
     for (const i in b.playerInfo.players) {
-      if (b.playerInfo.players[i].displayName.endsWith(` ${name}`) || b.playerInfo.players[i].displayName == name) {
+      if (b.playerInfo.players[i].displayName.endsWith(` ${name}`) || b.playerInfo.players[i].displayName === name) {
         return b.playerInfo.players[i].realName
       }
     }

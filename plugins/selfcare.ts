@@ -59,11 +59,11 @@ export default function load (b: Botv12Client) {
     else b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
-    if ((p.reason === 3 || p.reason == 'change_game_mode') && p.gameMode !== 1) {
+    if ((p.reason === 3 || p.reason === 'change_game_mode') && p.gameMode !== 1) {
       b.selfCare.tasks.gamemode.failed = true
-    } else if ((p.reason === 3 || p.reason == 'change_game_mode') && p.gameMode === 1) {
+    } else if ((p.reason === 3 || p.reason === 'change_game_mode') && p.gameMode === 1) {
       b.selfCare.tasks.gamemode.failed = false
-    } else if (p.reason === 4 || p.reason == 'win_game') {
+    } else if (p.reason === 4 || p.reason === 'win_game') {
       b.selfCare.tasks.respawn.failed = true
     }
   })

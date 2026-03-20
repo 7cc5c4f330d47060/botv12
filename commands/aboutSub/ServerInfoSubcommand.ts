@@ -214,7 +214,7 @@ export default class ServerInfoSubcommand extends Command {
             const filesSelinux = readdirSync('/sys/fs/selinux/')
             if (filesSelinux.includes('enforce')) {
               const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
-              if (status == '1') outKey = 'enforcing'
+              if (status === '1') outKey = 'enforcing'
               else outKey = 'permissive'
             } else {
               outKey = 'na'

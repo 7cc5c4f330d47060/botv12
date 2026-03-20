@@ -6,7 +6,7 @@ export default class LogoffCommand extends Command {
     super()
     this.name = 'logoff'
     this.execute = async (c: CommandContext) => {
-      if (c.args[0] == '-n') c.bot.disconnect = true
+      if (c.args[0] === '-n') c.bot.disconnect = true
       c.bot._client?.end()
     }
     this.consoleIndex = true

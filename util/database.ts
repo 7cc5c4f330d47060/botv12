@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 let pool: mariadb.Pool
 
 if (settings.dbEnabled) {
-  if (settings.dbType == 'mysql' || settings.dbType == 'mariadb') {
+  if (settings.dbType === 'mysql' || settings.dbType === 'mariadb') {
     pool = await mariadb.createPool({
       host: settings.dbHost,
       user: settings.dbUser,
@@ -12,7 +12,7 @@ if (settings.dbEnabled) {
       connectionLimit: 10
     })
     dbEnabled = true
-  } else if (settings.dbType == 'sqlite') {
+  } else if (settings.dbType === 'sqlite') {
     dbEnabled = true
   } else {
     console.warn(`[warning] Unknown database type: ${settings.dbType}`)
@@ -20,11 +20,11 @@ if (settings.dbEnabled) {
 }
 
 async function getConnection () {
-  if (settings.dbType == 'mysql' || settings.dbType == 'mariadb') {
+  if (settings.dbType === 'mysql' || settings.dbType === 'mariadb') {
     const connection = await pool.getConnection()
     connection.query(`USE ${settings.dbName}`)
     return connection
-  } else if (settings.dbType == 'sqlite') {
+  } else if (settings.dbType === 'sqlite') {
     if (typeof settings.dbHost !== 'string') return
     const database = new DatabaseSync(resolve(dataDir, settings.dbHost))
     return {

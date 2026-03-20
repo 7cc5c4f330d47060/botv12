@@ -17,7 +17,7 @@ export default class ListCommand extends Command {
           parseLang: true,
           with: [
             {
-              text: `command.list.intro.${keys.length == 1 ? 'one' : 'many'}`,
+              text: `command.list.intro.${keys.length === 1 ? 'one' : 'many'}`,
               parseLang: true,
               with: [
                 keys.length + ''
@@ -52,7 +52,7 @@ export default class ListCommand extends Command {
         parseLang: true,
         with: [
           {
-            text: `command.list.intro.${keys.length == 1 ? 'one' : 'many'}`,
+            text: `command.list.intro.${keys.length === 1 ? 'one' : 'many'}`,
             parseLang: true,
             with: [
               keys.length + ''
