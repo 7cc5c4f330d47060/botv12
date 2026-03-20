@@ -4,11 +4,13 @@ declare global {
   var settings: SettingsType
   var dbEnabled: boolean
   var baseDir: string
+  var dataDir: string
 }
 globalThis.baseDir = process.cwd()
+globalThis.dataDir = resolve(baseDir, 'data')
 globalThis.dbEnabled = false
 
-import(resolve(baseDir, 'settings.js')).then(async settingsFile => {
+import(resolve(dataDir, 'settings.js')).then(async settingsFile => {
   globalThis.settings = settingsFile.default
   run()
 })

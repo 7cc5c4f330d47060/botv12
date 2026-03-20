@@ -23,7 +23,6 @@ if(!clOptions.disableWsServer){
 
   httpServer = createServer((req, res)=>{
     if(typeof req.url == 'undefined') return
-    console.log(resolve(baseDir, 'util/ubot-panel', req.url.slice(1)))
     const partialUrl = req.url.slice(1)
     if (partialUrl === 'config.json') {
       res.writeHead(200)
@@ -48,6 +47,17 @@ if(!clOptions.disableWsServer){
 
 
   wss.on('connection', client => {
+    const serverList = []
+    for (const bot of bots) {
+      serverList.push({id: bot.id, host: bot.host.host, port: bot.host.port})
+      client.send(JSON.stringify({
+        event: "playerInfo",
+        data: {
+          server: bot.id,
+          data: bot.playerInfo.players
+        }
+      }))
+    }
     client.on('message', data => {
       try {
         const consoleBotStub = {

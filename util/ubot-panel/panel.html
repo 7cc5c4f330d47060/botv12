@@ -4,12 +4,12 @@
 		<link rel="stylesheet" href="resources/style.css"></link>
 		<script src="resources/main.js"></script>
 	</head>
-	<body class="panelui">
+	<body class="panelui" onload="startWs()">
 		<div id="container">
 			<div id="header">
 				<div class="headerRight">
 					<select name="serverList" id="serverList" class="headeritem" value="all">
-						<option value="all">All Servers</option>
+						<option value="all">All Servers (NOT FUNCTIONAL)</option>
 						<option value="0">Server 0 (kaboom.pw:25565)</option>
 						<option value="1">Server 1 (chipmunk.land:17891)</option>
 					</select>
@@ -29,17 +29,12 @@
 					</div>
 					<div id="chatContent"></div>
 					<div id="chatInputContainer">
-						<input id="chatInput" type="text" placeholder="Type commands or messages here..." onkeydown="
-							if(event.key == 'Enter') {
-								ws.send(JSON.stringify({event:'command',data:{command:event.target.value}}));
-								event.target.value = '' 
-							}
-						">
-						<button onclick="">Send</button>
+						<input id="chatInput" type="text" placeholder="Type commands or messages here..." onkeydown="if(event.key == 'Enter') sendCommand()">
+						<button onclick="sendCommand()">Send</button>
 					</div>
 				</div>
 				<div class="section" style="width: 20%; margin: 20px 20px 20px 10px">
-					<div class="sectionHeader">Players (100)</div>
+					<div class="sectionHeader">Players (<span id="playerCount">0</span>)</div>
 					<div id="playerContent"></div>
 				</div>
 			</div>
