@@ -53,7 +53,8 @@ for (const plugin of bpl) {
   }
   try {
     import(`../chatParsers/${plugin}`).then((pluginItem) => {
-      const parser = new pluginItem.default()
+      const ParserItem = pluginItem.default
+      const parser = new ParserItem()
       parsers[parser.priority].push(parser)
     })
   } catch (e) { console.log(e) }

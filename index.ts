@@ -2,6 +2,7 @@ import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/interface/SettingsType.js'
 import HostOptions from './util/interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
+import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs'
 
 declare global {
   var settings: SettingsType
@@ -51,7 +52,6 @@ if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 import generateUser from './util/usergen.js'
 import version from './version.js'
 // import { getMessage } from './util/lang.js'
-import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
 // import { default as registry } from 'prismarine-registry'

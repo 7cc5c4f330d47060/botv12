@@ -197,7 +197,7 @@ export default function load (b: Botv12Client) {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
           with: [url]
         })
-        download(url, (err: string, output: Buffer) => {
+        download(url, (output: Buffer, err?: string) => {
           if (err === 'largeFile') {
             b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
               translate: getMessage(settings.defaultLang, 'downloader.tooLarge')

@@ -195,7 +195,7 @@ export default class ServerInfoSubcommand extends Command {
       displayInfo('command.about.serverInfo.osUsername', () => {
         if (!settings.serverInfoShowSensitive) return ''
         let output = os.userInfo().username
-        if (process.platform != 'win32') output += ` (${os.userInfo().uid})`
+        if (process.platform !== 'win32') output += ` (${os.userInfo().uid})`
         return output
       })
 
