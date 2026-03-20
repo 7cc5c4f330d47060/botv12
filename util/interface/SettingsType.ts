@@ -23,4 +23,6 @@ export default interface SettingsType {
   disableLogging?: boolean
   disableChatLogging?: boolean
   disableCommandLogging?: boolean
+  wsPort?: number
+  httpPort?: number
 }

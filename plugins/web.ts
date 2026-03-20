@@ -2,7 +2,9 @@ import { WebSocketServer, WebSocket } from "ws"
 import Botv12Client from "../util/Botv12Client";
 import parse3 from '../util/chatparse.js'
 import registry from "../util/commands.js"
-
+import { createServer, Server } from "node:http";
+import { resolve } from "node:path";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { getMessage } from "../util/lang.js"
 import CommandContext from "../util/CommandContext.js"
 import JsonFormat from "../util/interface/JsonFormat.js";
@@ -12,12 +14,30 @@ const user = "Default User"
 const nick = "Default User"
 
 let wss: WebSocketServer;
+let httpServer: Server;
 
 if(!clOptions.disableWsServer){
   wss = new WebSocketServer({
-    port: 12365
+    port: settings.wsPort ?? 12365
   })
 
+  httpServer = createServer((req, res)=>{
+    if(typeof req.url == 'undefined') return
+    console.log(resolve(baseDir, 'util/ubot-panel', req.url.slice(1)))
+    const partialUrl = req.url.slice(1)
+    if (partialUrl === 'config.json') {
+      res.writeHead(200)
+      res.end(JSON.stringify({
+
+      }))
+    }
+    const fullUrl = resolve(baseDir, 'util/ubot-panel', partialUrl)
+    if(existsSync(fullUrl)){
+      res.writeHead(200)
+      res.end(readFileSync(fullUrl))
+    }
+  })
+  httpServer.listen(settings.httpPort ?? 12376)
   const sendRaw = (client: WebSocket, type: string, data: JsonFormat | string) => client.send(JSON.stringify({
     event: "rawChat",
     data: {
@@ -68,17 +88,17 @@ if(!clOptions.disableWsServer){
               const index2 = args.splice(1, 1)[0]
               if (index2 === '*') {
                 for (const bot of bots) {
-                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bot)
+                  const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bot)
                   //context.verify = 2
                   cmd.execute(context)
                 }
               } else {
-                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bots[+index2])
+                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bots[+index2])
                 //context.verify = 2
                 cmd.execute(context)
               }
             } else {
-              const context = new CommandContext(uuid, user, nick, json.data.command, 'console', 'console', 'console', '', cmd.argsFormat, consoleBotStub)
+              const context = new CommandContext(uuid, user, nick, json.data.command, 'console', 'console', 'ws_console', '', cmd.argsFormat, consoleBotStub)
               //context.verify = 2
               cmd.execute(context)
             }

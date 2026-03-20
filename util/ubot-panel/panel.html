@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="resources/style.css"></link>
+		<script src="resources/main.js"></script>
+	</head>
+	<body class="panelui">
+		<div id="container">
+			<div id="header">
+				<div class="headerRight">
+					<select name="serverList" id="serverList" class="headeritem" value="all">
+						<option value="all">All Servers</option>
+						<option value="0">Server 0 (kaboom.pw:25565)</option>
+						<option value="1">Server 1 (chipmunk.land:17891)</option>
+					</select>
+					<button class="headeritem">Log Out</a>
+				</div>
+				
+			</div>
+			<div id="content">
+				<div class="section" style="width: 80%; margin: 20px 10px 20px 20px">
+					<div class="sectionHeader">
+						<span>Server Chat</span>
+						<div class="headerRight sectionHeaderRight">
+							<input type="checkbox" checked="true" onchange="autoScroll=event.target.checked">
+							<input type="number" value="250" onchange="maxMessages=+event.target.value">
+							<button onclick="document.getElementById('chatContent').innerHTML=''">Clear</button>
+						</div>
+					</div>
+					<div id="chatContent"></div>
+					<div id="chatInputContainer">
+						<input id="chatInput" type="text" placeholder="Type commands or messages here..." onkeydown="
+							if(event.key == 'Enter') {
+								ws.send(JSON.stringify({event:'command',data:{command:event.target.value}}));
+								event.target.value = '' 
+							}
+						">
+						<button onclick="">Send</button>
+					</div>
+				</div>
+				<div class="section" style="width: 20%; margin: 20px 20px 20px 10px">
+					<div class="sectionHeader">Players (100)</div>
+					<div id="playerContent"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

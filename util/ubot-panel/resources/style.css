@@ -1,0 +1,188 @@
+/*@import url(style2015.css);*/
+body {
+	min-height: 100vh;
+	margin: 0;
+	font-family: sans-serif;
+	background-color: white;
+}
+input:focus {
+	outline: none
+}
+#container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+#header {
+	width: 100%;
+	height: 50px;
+	background-color: dimgray;
+	font-size: 16pt;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.headeritem {
+	height: 50px;
+	border-radius: 0;
+	border: 0;
+	background-color: dimgray;
+}
+.headeritem:hover {
+	background-color: gray;
+}
+.headeritem:active {
+	background-color: darkgray;
+}
+.headerRight {
+	position: absolute;
+	right: 0px;
+	height: 100%;
+}
+#content {
+	width: 100%;
+	display: flex;
+}
+.section {
+	height: calc(100vh - 90px);
+	display: flex;
+	flex-direction: column; 
+}
+.sectionHeader {
+	width: calc(100% - 10px);
+	height: 30px;
+	display: flex;
+	align-items: center;
+	background-color: #aaaaaa;
+	position: relative;
+	padding: 0 5px;
+}
+.sectionHeader button {
+	height: 100%;
+	margin: 0;
+	min-width: 50px;
+	border: 0;
+}
+/* Chat screen */
+#chatInput {
+	height: 30px;
+	background-color: dimgray;
+	color: white;
+	border: 0
+}
+#chatContent {
+	width: calc(100% - 10px);
+	height: calc(100% - 60px);
+	background-color: #606060;
+	overflow-y: scroll;
+	padding: 0 5px;
+}
+#chatContent p.message-cmderror {
+	background-color: #702020;
+}
+#chatContent p.message-cmdwarn {
+	background-color: #604020;
+}
+#chatContent p.message-cmdsuccess {
+	background-color: #205020;
+}
+#chatContent p.message-cmdoutput {
+	background-color: #204050;
+}
+#chatContent p.message-chat {
+	background-color: #303030;
+}
+#chatContent p {
+	margin: 0
+}
+#chatContent p .dk { color: black }
+#chatContent p .db { color: #00a }
+#chatContent p .dg { color: #0a0 }
+#chatContent p .da { color: #0aa }
+#chatContent p .dr { color: #a00 }
+#chatContent p .dp { color: #a0a }
+#chatContent p .dy { color: #fa0 }
+#chatContent p .dw { color: #aaa }
+#chatContent p .lk { color: #555 }
+#chatContent p .lb { color: #55f }
+#chatContent p .lg { color: #5f5 }
+#chatContent p .la { color: #5ff }
+#chatContent p .lr { color: #f55 }
+#chatContent p .lp { color: #f5f }
+#chatContent p .ly { color: #ff5 }
+#chatContent p .lw { color: white }
+#chatInputContainer {
+	width: 100%;
+	position: relative;
+	display: flex;
+}
+#chatInput {
+	width: calc(100% - 50px);
+	position: relative;
+}
+#chatInputContainer button {
+	height: 100%;
+	margin: 0;
+	min-width: 50px;
+	border: 0;
+}
+/* Players screen */
+#playerContent {
+	width: 100%;
+	height: calc(100% - 30px);
+	background-color: #505050;
+}
+/* Login screen */
+#loginPanelContent {
+	width: 100%;
+	height: calc(100% - 30px);
+	background-color: #bbbbbb;
+}
+.loginPage {
+	align-items: center;
+	justify-content: center;
+	height: 100vh
+}
+.loginScreen {
+	align-items: center;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.loginScreen input {
+	width: 238px;
+	height: 38px;
+	margin: 10px;
+	padding: 5px;
+	border: 1px solid darkgray
+}
+.loginScreen button {
+	width: 250px;
+	height: 50px;
+	margin: 10px;
+	padding: 5px;
+	border: 1px solid darkgray
+}
+#loginSection {
+	height: 500px;
+	width: 450px;
+}
+input, button, select {
+	font-family: sans-serif;
+}
+@media screen and (max-width: 600px) {
+	#loginSection {
+		height: calc(100vh - 20px);
+		width: calc(100vw - 20px);
+	}
+	body.panelui::after {
+		content: "UBot Web UI is not supported in browsers with narrow viewports yet, such as on a phone or tablet. To use the panel, turn your phone or tablet to landscape, or widen the window.";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100vh;
+		background: white;
+	}
+}

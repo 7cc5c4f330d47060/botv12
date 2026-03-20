@@ -1,0 +1,16 @@
+/* Not made in 2015 */
+body {
+	background-color: #f5f5f5 !important;
+}
+.sectionHeader button {
+  background-image: linear-gradient(#eee, #ddd);
+}
+.sectionHeader button:hover {
+	background-image: linear-gradient(#ccc, #999);
+}
+.sectionHeader button:active {
+	background-image: linear-gradient(#aaa, #777);
+}
+.sectionHeader {
+  background-image: linear-gradient(#bbb, #888);
+}

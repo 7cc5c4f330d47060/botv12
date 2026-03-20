@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1">
+		<link rel="stylesheet" href="resources/style.css"></link>
+		<script>
+
+			
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="content" class="loginPage">
+				<div id="loginSection" class="section">
+					<span class="sectionHeader">Login</span>
+					<div id="loginLogo">
+
+					</div>
+					<div id="loginPanelContent">
+						<div id="startScreen" class="loginScreen">
+							<button onclick="showAccountScreen()" disabled="true">Account Login</button>
+							<button onclick="loginTemp()">Anonymous Login</button>
+						</div>
+						<div id="anonLoginScreen" class="loginScreen" style="display: none">
+							<input type="text" placeholder="Display Name">
+							<input class="inputFiller" type="text" placeholder="(filler)" disabled="on">
+							<button onclick="showAccountScreen()"></button>
+						</div>
+						<div id="accountScreen" class="loginScreen" style="display: none">
+							<input type="text" placeholder="Username">
+							<input type="password" placeholder="Password">
+							<button onclick="showAccountScreen()"></button>
+						</div>
+					</div>
+					<input type="text" placeholder="UBot WebSocket URL" value="ws://127.0.0.1:20001"></input>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
