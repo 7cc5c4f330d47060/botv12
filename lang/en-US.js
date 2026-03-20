@@ -138,7 +138,7 @@ export default {
     'command.download.success': 'Source code has been uploaded',
     'command.download.already': 'Source code has already been uploaded',
     'command.eval.output': 'Output',
-    //'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
+    // 'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
     'command.filter.error.notFound': 'Could not find player information',
     'command.filter.error.filtered': 'The player is already in the filter list.',
     'command.filter.success.add': 'Filtered player %2$s',
@@ -166,7 +166,7 @@ export default {
     'command.list.item.realName': 'Player name',
     'command.list.item.displayName': 'Display name',
     'command.list.item.uuid': 'UUID',
-    'command.loginv2.invalidHash': 'Invalid hash', 
+    'command.loginv2.invalidHash': 'Invalid hash',
     'command.loginv2.success': 'Successfully logged in as user %s with permission level %s',
     'command.music.noMusicWarning': 'You have the nomusic tag. You will not be able to hear the music from %s. Click here to remove.',
     'command.music.openDir': 'Click to view songs in %s',
@@ -279,8 +279,8 @@ export default {
 
     // Miscellaneous
     clickHere: 'click here',
-    //clickHere2: 'Click here',
-    //clickHere3: 'Click Here',
+    // clickHere2: 'Click here',
+    // clickHere3: 'Click Here',
     listItem: '%s: %s',
     copyText: 'Click to copy this item to your clipboard',
     openInBrowser: 'Click to open this link in a browser',
