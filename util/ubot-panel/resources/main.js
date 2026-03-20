@@ -1,5 +1,5 @@
-const autoScroll = true
-const maxMessages = 250
+let autoScroll = true
+let maxMessages = 250
 let playerCount = 0
 function sendCommand () {
   ws.send(JSON.stringify({ event: 'command', data: { command: document.getElementById('chatInput').value } }))
@@ -40,7 +40,7 @@ const startWs = function () {
       addMessage(`<span class="msginfo lw lmh">[${json.data.server}] [${json.data.type}] </span>${json.data.data}`, 'message-chat')
     } else if (json.event === 'rawChat') {
       addMessage(json.data.data, `message-${json.data.msgType}`)
-    } if (json.event === 'playerInfo') {
+    } else if (json.event === 'playerInfo') {
       for (const player in json.data.data) {
         playerCount++
         document.getElementById('playerCount').innerHTML = playerCount
@@ -49,6 +49,10 @@ const startWs = function () {
         element.onclick = () => { alert(json.data.data[player].realName) }
         element.innerHTML = `S${json.data.server} ${json.data.data[player].realName}`
         document.getElementById('playerContent').appendChild(element)
+      }
+    } else if (json.event === 'serverList') {
+      for (const server of json.data.data) {
+        console.log(`${server.host}:${server.port ?? 25565}`)
       }
     }
   })

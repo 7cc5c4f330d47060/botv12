@@ -113,6 +113,7 @@ input:focus {
 #chatContent p .lp { color: #f5f }
 #chatContent p .ly { color: #ff5 }
 #chatContent p .lw { color: white }
+#chatContent p .dmh { background-color: #bbb; }
 #chatInputContainer {
 	width: 100%;
 	position: relative;

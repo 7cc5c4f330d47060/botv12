@@ -57,6 +57,12 @@ if (!clOptions.disableWsServer) {
         }
       }))
     }
+    client.send(JSON.stringify({
+      event: 'serverList',
+      data: {
+        data: serverList
+      }
+    }))
     client.on('message', data => {
       try {
         const consoleBotStub = {
