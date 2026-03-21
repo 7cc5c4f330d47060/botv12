@@ -81,6 +81,20 @@ export default function load (b: Botv12Client) {
     }
   })
 
+  // Vanish
+  b.selfCare.addTask('vanish', () => {
+    if(b.host.options.useChat) b.clientChat.send("/essentials:vanish on")
+    else if(b.commandCore.ccStarted) b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
+  }, true)
+
+  b.on('plainchat', (msg) => {
+    if (msg === `Vanish for ${b._client.username}: enabled`){
+      b.selfCare.tasks.vanish.failed = false
+    } else if (msg === `Vanish for ${b._client.username}: disabled`){
+      b.selfCare.tasks.vanish.failed = true
+    }
+  })
+
   b.selfCare.addTask('cc_pos', () => {
     b.clientChat.send('/minecraft:tp ~ 40 ~')
   })
