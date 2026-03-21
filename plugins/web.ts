@@ -4,10 +4,11 @@ import parse3 from '../util/chatparse.js'
 import registry from '../util/commands.js'
 import { createServer, Server } from 'node:http'
 import { resolve } from 'node:path'
-import { readFileSync, existsSync } from 'node:fs'
+import { readFileSync, existsSync, statSync } from 'node:fs'
 import { getMessage } from '../util/lang.js'
 import CommandContext from '../util/CommandContext.js'
 import JsonFormat from '../util/interface/JsonFormat.js'
+import { inspect } from 'node:util'
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = 'Default User'
@@ -22,19 +23,39 @@ if (!clOptions.disableWsServer) {
   })
 
   httpServer = createServer((req, res) => {
-    if (typeof req.url === 'undefined') return
-    const partialUrl = req.url.slice(1)
-    if (partialUrl === 'config.json') {
-      res.writeHead(200)
-      res.end(JSON.stringify({
+    let output: Buffer | string = "";
+    let statusCode = 500
+    try {
+      if (typeof req.url === 'undefined') return
+      const partialUrl = req.url.slice(1)
+      if (partialUrl === 'config.json') {
+        output = JSON.stringify({
 
-      }))
+        })
+      }
+      const fullUrl = resolve(baseDir, 'util', 'ubot-panel', partialUrl)
+      if (existsSync(fullUrl)) {
+        const isDir = statSync(fullUrl).isDirectory()
+        if (isDir) {
+          if (statusCode === 500) statusCode = 501
+        } else {
+          output = readFileSync(fullUrl)
+        }
+      } else {
+        if (statusCode === 500) statusCode = 404
+        const four04Path = resolve(baseDir, 'util', 'ubot-panel', '404.html')
+        if (existsSync(four04Path)) {
+          output = readFileSync(four04Path)
+        } else {
+          output = "The file was not found"
+        }
+      }
+      if (statusCode === 500) statusCode = 200
+    } catch (e) {
+      if (debugMode) output = inspect(e)
     }
-    const fullUrl = resolve(baseDir, 'util/ubot-panel', partialUrl)
-    if (existsSync(fullUrl)) {
-      res.writeHead(200)
-      res.end(readFileSync(fullUrl))
-    }
+    res.writeHead(statusCode)
+    res.end(output)
   })
   httpServer.listen(settings.httpPort ?? 12376)
   const sendRaw = (client: WebSocket, type: string, data: JsonFormat | string) => client.send(JSON.stringify({
@@ -47,6 +68,7 @@ if (!clOptions.disableWsServer) {
 
   wss.on('connection', client => {
     const serverList = []
+    let verify = 0
     for (const bot of bots) {
       serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port })
       client.send(JSON.stringify({
@@ -99,6 +121,10 @@ if (!clOptions.disableWsServer) {
               return
             }
 
+            if (cmd.level !== undefined && cmd.level > verify) {
+              sendRaw(client, 'cmderror', getMessage(settings.defaultLang, 'command.disallowed.perms'))
+              return
+            }
             if (cmd.consoleIndex) {
               const index2 = args.splice(1, 1)[0]
               if (index2 === '*') {

@@ -134,6 +134,7 @@ input:focus {
 	width: 100%;
 	height: calc(100% - 30px);
 	background-color: #505050;
+	overflow: scroll;
 }
 .playerItem {
 	color: white;
