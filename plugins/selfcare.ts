@@ -56,6 +56,7 @@ export default function load (b: Botv12Client) {
   // Gamemode / old end portal bug
   b.selfCare.addTask('gamemode', () => {
     if ((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
+    else if(b.host.options.isVanilla) b.clientChat.send('/gamemode creative')
     else b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
@@ -97,6 +98,7 @@ export default function load (b: Botv12Client) {
   })
 
   b.selfCare.addTask('cc_pos', () => {
-    b.clientChat.send('/minecraft:tp ~ 40 ~')
+    if(b.host.options.isVanilla) b.clientChat.send('/tp ~ 40 ~')
+    else b.clientChat.send('/minecraft:tp ~ 40 ~')
   })
 }
