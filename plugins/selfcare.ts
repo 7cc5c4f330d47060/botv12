@@ -83,8 +83,9 @@ export default function load (b: Botv12Client) {
 
   // Vanish
   b.selfCare.addTask('vanish', () => {
-    if(b.host.options.useChat) b.clientChat.send("/essentials:vanish on")
-    else if(b.commandCore.ccStarted) b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
+    if (b.host.options.isVanilla) return
+    if (b.host.options.useChat) b.clientChat.send("/essentials:vanish on")
+    else if (b.commandCore.ccStarted) b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
   }, true)
 
   b.on('plainchat', (msg) => {
