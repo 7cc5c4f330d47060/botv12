@@ -7,6 +7,7 @@ import BossBar from '../util/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/instrumentMap.js'
 import { formatTime, getMessage } from '../util/lang.js'
 import parseNBS from '../util/parseNBS.js'
+import parseIMelody from '../util/parseIMelody.js'
 import download from '../util/downloadFile.js'
 import Botv12Client from '../util/Botv12Client.js'
 import version from '../version.js'
@@ -244,11 +245,7 @@ export default function load (b: Botv12Client) {
       if (songData.slice(0, 4).startsWith('MThd')) {
         file = parseMidi(b.musicPlayer.storedSong)
       } else if (songData.slice(0, 13).startsWith('BEGIN:IMELODY')) {
-        // file = parseIMelody(b.musicPlayer.storedSong)
-        b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
-          text: getMessage(settings.defaultLang, 'musicPlayer.imyWip')
-        })
-        return
+        file = parseIMelody(b.musicPlayer.storedSong)
       } else {
         file = parseNBS(b.musicPlayer.storedSong)
         if (file.header.nbsLoopEnabled) {
@@ -353,7 +350,7 @@ export default function load (b: Botv12Client) {
       })
     }
     if (b.musicPlayer.advanceNotes) {
-      b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 20 / b.musicPlayer.speedShift)
+      b.interval.advanceNotes = setInterval(b.musicPlayer.advanceNotes, 50 / b.musicPlayer.speedShift)
     }
   }
 

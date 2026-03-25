@@ -220,7 +220,7 @@ export default class MusicCommand extends Command {
           }
           c.bot.musicPlayer.speedShift = +c.args[0]
           if (c.bot.musicPlayer.setSpeed) {
-            c.bot.musicPlayer.setSpeed(20 / +c.args[0])
+            c.bot.musicPlayer.setSpeed(50 / +c.args[0])
           }
           c.reply({
             text: 'command.music.speedSet',
