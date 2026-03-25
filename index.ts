@@ -111,7 +111,7 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
     auth: host.options.authServer ? 'mojang' : 'offline',
     authServer: host.options.authServer ?? undefined,
     sessionServer: host.options.sessionServer ?? undefined,
-    version: host.version ?? settings.version_mc
+    version: host.version ?? settings.minecraftVersion
   }
 
   if (debugMode) console.debug(`[debug] Connecting bot to ${options.host}:${options.port}...\x1b[0m`)

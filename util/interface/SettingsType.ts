@@ -3,7 +3,7 @@ import HostOptions from './HostOptions.js'
 export default interface SettingsType {
   format: number
   terminalMode: string
-  version_mc: string
+  minecraftVersion: string
   defaultLang: string
   dbEnabled: boolean
   dbType: string
