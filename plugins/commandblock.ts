@@ -87,6 +87,7 @@ export default function load (b: Botv12Client) {
     })
     if (!b.host.options.useChat) {
       b.selfCare.addTask('cc', () => {
+        if (b.selfCare.tasks.op.failed) return
         const xstart = b.position.currentChunk.x << 4
         const zstart = b.position.currentChunk.z << 4
         const item = new Item(itemsByName.command_block.id, 1)

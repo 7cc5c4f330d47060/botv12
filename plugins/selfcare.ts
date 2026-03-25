@@ -1,4 +1,5 @@
 import Botv12Client from '../util/Botv12Client.js'
+import { getMessage } from '../util/lang.js'
 
 export default function load (b: Botv12Client) {
   b._client.on('login', () => {
@@ -18,8 +19,16 @@ export default function load (b: Botv12Client) {
   // Self care tasks
 
   // Operator
+  let vanillaOp = false
   b.selfCare.addTask('op', () => {
-    b.clientChat.send('/op @s[type=player]')
+    if (b.host.options.isVanilla) {
+      if(!vanillaOp) {
+        b.clientChat.send(getMessage(settings.defaultLang, 'selfcare.op.vanilla', [b._client.username]))
+        vanillaOp = true
+      }
+    } else {
+      b.clientChat.send('/op @s[type=player]')
+    }
   })
   b._client.on('login', (p) => {
     if (p.gameMode !== 1 && 'gameMode' in p) {
@@ -33,6 +42,7 @@ export default function load (b: Botv12Client) {
   })
   b._client.on('entity_status', (p) => {
     if (p.entityId === b.entityId && p.entityStatus === 24) {
+      vanillaOp = false
       b.selfCare.tasks.op.failed = true
     } else if (p.entityId === b.entityId && p.entityStatus === 28) {
       b.selfCare.tasks.op.failed = false
@@ -55,6 +65,7 @@ export default function load (b: Botv12Client) {
 
   // Gamemode / old end portal bug
   b.selfCare.addTask('gamemode', () => {
+    if (b.selfCare.tasks.op.failed) return
     if ((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
     else if(b.host.options.isVanilla) b.clientChat.send('/gamemode creative')
     else b.clientChat.send('/minecraft:gamemode creative')
