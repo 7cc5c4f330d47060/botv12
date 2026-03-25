@@ -122,9 +122,9 @@ export default function load (b: Botv12Client) {
 
   b._client.on('player_chat', (data) => {
     let messageType
-    if (data.type.registryIndex) {
+    if (data.type.registryIndex !== undefined) {
       messageType = b.serverChat.messageTypes[data.type.registryIndex - 1]
-    } else if (data.type.chatType) {
+    } else if (data.type.chatType !== undefined) {
       messageType = b.serverChat.messageTypes[data.type.chatType]
     } else {
       messageType = b.serverChat.messageTypes[data.type]
