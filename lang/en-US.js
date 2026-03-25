@@ -287,6 +287,7 @@ export default {
     runCommand: 'Click to run command (1.11+): %s',
     'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
     'selfcare.prefix': 'Prefix',
+    'selfcare.op.vanilla': 'The bot does not have operator status on this server. Please run /op %s',
     'debug.commandFinished': 'Command successfully executed in %sms',
     'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
     'bf.true1': 'Enabled',
