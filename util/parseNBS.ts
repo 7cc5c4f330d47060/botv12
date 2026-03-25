@@ -52,12 +52,12 @@ export default function nbsReader (buffer: Buffer) {
     for (const delta in layer.notes.all) {
       const note = layer.notes.all[delta]
       // For later rewriting: 54 is center (F#4). Normal range 42-66 inclusive.
-      if(typeof note.key === 'undefined') continue
-      if(typeof note.velocity === 'undefined') continue
-      if(typeof note.panning === 'undefined') continue
-      if(typeof layer.volume === 'undefined') continue
+      if (typeof note.key === 'undefined') continue
+      if (typeof note.velocity === 'undefined') continue
+      if (typeof note.panning === 'undefined') continue
+      if (typeof layer.volume === 'undefined') continue
       const ni = nbs.instruments.all[note.instrument]
-      if(typeof ni.key === 'undefined') continue
+      if (typeof ni.key === 'undefined') continue
       output.tracks[id].push({
         type: 'noteOn',
         deltaTime: +delta - lastDelta,

@@ -22,7 +22,7 @@ export default function load (b: Botv12Client) {
   let vanillaOp = false
   b.selfCare.addTask('op', () => {
     if (b.host.options.isVanilla) {
-      if(!vanillaOp) {
+      if (!vanillaOp) {
         b.clientChat.send(getMessage(settings.defaultLang, 'selfcare.op.vanilla', [b._client.username]))
         vanillaOp = true
       }
@@ -52,7 +52,13 @@ export default function load (b: Botv12Client) {
   // CommandSpy
   if (!b.host.options.isVanilla) {
     b.selfCare.addTask('cspy', () => {
-      if (!b.clientChat.chatqueue.slice(0, 5).includes('/cspy on')) b.clientChat.send('/cspy on')
+      if (b.host.options.useChat) {
+        if (!b.clientChat.chatqueue.slice(0, 5).includes('/cspy on')) b.clientChat.send('/cspy on')
+      } else {
+        if (!b.commandCore.ccq.slice(0, 5).includes(`/cspy ${b._client.uuid} on`)) {
+          b.commandCore.ccq.push(`/cspy ${b._client.uuid} on`)
+        }
+      }
     }, true)
     b.on('plainchat', (msg) => {
       if (msg === 'Successfully disabled CommandSpy') {
@@ -67,7 +73,7 @@ export default function load (b: Botv12Client) {
   b.selfCare.addTask('gamemode', () => {
     if (b.selfCare.tasks.op.failed) return
     if ((b.registry.version.version ?? 0) >= 770) b._client.write('change_gamemode', { mode: 'creative' })
-    else if(b.host.options.isVanilla) b.clientChat.send('/gamemode creative')
+    else if (b.host.options.isVanilla) b.clientChat.send('/gamemode creative')
     else b.clientChat.send('/minecraft:gamemode creative')
   })
   b._client.on('game_state_change', (p) => {
@@ -96,20 +102,20 @@ export default function load (b: Botv12Client) {
   // Vanish
   b.selfCare.addTask('vanish', () => {
     if (b.host.options.isVanilla) return
-    if (b.host.options.useChat) b.clientChat.send("/essentials:vanish on")
+    if (b.host.options.useChat) b.clientChat.send('/essentials:vanish on')
     else if (b.commandCore.ccStarted) b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
   }, true)
 
   b.on('plainchat', (msg) => {
-    if (msg === `Vanish for ${b._client.username}: enabled`){
+    if (msg === `Vanish for ${b._client.username}: enabled`) {
       b.selfCare.tasks.vanish.failed = false
-    } else if (msg === `Vanish for ${b._client.username}: disabled`){
+    } else if (msg === `Vanish for ${b._client.username}: disabled`) {
       b.selfCare.tasks.vanish.failed = true
     }
   })
 
   b.selfCare.addTask('cc_pos', () => {
-    if(b.host.options.isVanilla) b.clientChat.send('/tp ~ 40 ~')
+    if (b.host.options.isVanilla) b.clientChat.send('/tp ~ 40 ~')
     else b.clientChat.send('/minecraft:tp ~ 40 ~')
   })
 }

@@ -1,5 +1,5 @@
 // Read IMY file and convert it for use in plugins/musicPlayer.js.
-import NbsOutputFormat from "./interface/NbsOutputFormat.js";
+import NbsOutputFormat from './interface/NbsOutputFormat.js'
 
 export default function imyReader (buffer: Buffer) {
   const output: NbsOutputFormat = {

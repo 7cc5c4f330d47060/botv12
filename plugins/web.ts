@@ -23,7 +23,7 @@ if (!clOptions.disableWsServer) {
   })
 
   httpServer = createServer((req, res) => {
-    let output: Buffer | string = "";
+    let output: Buffer | string = ''
     let statusCode = 500
     try {
       if (typeof req.url === 'undefined') return
@@ -47,7 +47,7 @@ if (!clOptions.disableWsServer) {
         if (existsSync(four04Path)) {
           output = readFileSync(four04Path)
         } else {
-          output = "The file was not found"
+          output = 'The file was not found'
         }
       }
       if (statusCode === 500) statusCode = 200
@@ -68,7 +68,7 @@ if (!clOptions.disableWsServer) {
 
   wss.on('connection', client => {
     const serverList = []
-    let verify = 0
+    const verify = 0
     for (const bot of bots) {
       serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port })
       client.send(JSON.stringify({
