@@ -25,10 +25,10 @@ export default function load (b: Botv12Client) {
           uuid,
           Date.now(),
           b.host.host,
-          b.host.port,
+          b.host.port ?? 25565,
           Date.now(),
           b.host.host,
-          b.host.port,
+          b.host.port ?? 25565,
           1
         ])
       } else {
@@ -47,7 +47,7 @@ export default function load (b: Botv12Client) {
             joinCount,
             Date.now(),
             b.host.host,
-            b.host.port,
+            b.host.port ?? 25565,
             uuid
           ])
         }
@@ -69,7 +69,7 @@ export default function load (b: Botv12Client) {
       [
         Date.now(),
         b.host.host,
-        b.host.port,
+        b.host.port ?? 25565,
         item
       ])
       if ('end' in connection) connection.end()
