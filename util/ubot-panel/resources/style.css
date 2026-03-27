@@ -187,7 +187,7 @@ input, button, select {
 		width: calc(100vw - 20px);
 	}
 	body.panelui::after {
-		content: "UBot Web UI is not supported in browsers with narrow viewports yet, such as on a phone or tablet. To use the panel, turn your phone or tablet to landscape, or widen the window.";
+		content: "UBot Web UI is not supported in browsers with narrow viewports yet, such as on a phone or small tablet. To use the panel, turn your phone or tablet to landscape, or widen the window.";
 		position: absolute;
 		left: 0;
 		top: 0;

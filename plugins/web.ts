@@ -17,6 +17,12 @@ const nick = 'Default User'
 let wss: WebSocketServer
 let httpServer: Server
 
+const fileFormats: Record<string, string> = {
+  'html': 'text/html; charset=utf-8',
+  'htm': 'text/html; charset=utf-8',
+  'css': 'text/css; charset=utf-8',
+  '_other': 'application/octet-stream'
+}
 if (!clOptions.disableWsServer) {
   wss = new WebSocketServer({
     port: settings.wsPort ?? 12365
@@ -25,6 +31,7 @@ if (!clOptions.disableWsServer) {
   httpServer = createServer((req, res) => {
     let output: Buffer | string = ''
     let statusCode = 500
+    let fileType: string = 'application/octet-stream'
     try {
       if (typeof req.url === 'undefined') return
       const partialUrl = req.url.slice(1)
@@ -40,12 +47,15 @@ if (!clOptions.disableWsServer) {
           if (statusCode === 500) statusCode = 501
         } else {
           output = readFileSync(fullUrl)
+          const extension = partialUrl.split('.').reverse()[0]
+          fileType = fileFormats[extension] ?? fileFormats['_other']
         }
       } else {
         if (statusCode === 500) statusCode = 404
         const four04Path = resolve(baseDir, 'util', 'ubot-panel', '404.html')
         if (existsSync(four04Path)) {
           output = readFileSync(four04Path)
+          fileType = fileFormats['html']
         } else {
           output = 'The file was not found'
         }
@@ -54,7 +64,9 @@ if (!clOptions.disableWsServer) {
     } catch (e) {
       if (debugMode) output = inspect(e)
     }
-    res.writeHead(statusCode)
+    res.writeHead(statusCode, {
+      'content-type': fileType
+    })
     res.end(output)
   })
   httpServer.listen(settings.httpPort ?? 12376)
