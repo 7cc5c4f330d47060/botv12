@@ -1,0 +1,42 @@
+@import url('../bs_original.css');
+.theme_main_normal .windowButton {
+    width: 16px;
+    height: 16px;
+    border-width: 0px;
+    position: relative;
+    z-index: 1;
+    margin-left: 2px;
+}
+.theme_main_normal .windowButton_real {
+    height: 16px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+}
+.theme_main_normal .buttons {
+    position: absolute;
+    right: 9px;
+    border-width: 0px 1px 1px 1px;
+    display: flex;
+    top: 9px;
+    font-size: 16px;
+    line-height: 1;
+    font-family: sans-serif;
+    right: 1px;
+    top: 2px;
+}
+.theme_main_normal .buttonClose {
+    background-color: #ffffff;
+}
+.theme_main_normal .buttonClose:hover {
+    background-color: #eee;
+}
+.theme_main_normal .buttonClose:active {
+    background-color: #ddd;
+}
+.theme_main_normal .buttonMin, .theme_main_normal .buttonMax {
+    display: none;
+}

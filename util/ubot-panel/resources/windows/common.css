@@ -1,0 +1,87 @@
+body {
+    background-size: 100% 100%;
+    margin: 0px;
+    font-family: 'Segoe UI', 'Noto Sans', sans-serif;
+    min-height: 100vh;
+}
+body.fastMode * {
+    backdrop-filter: none !important
+}
+.window_background {
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+.window_background.modal {
+    background-color: #0000007f;
+    pointer-events: auto;
+    z-index: 1000000000;
+}
+.window_background.modalStart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overcb_cc {
+    position: absolute;
+    pointer-events:none;
+}
+.overcb_c {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    pointer-events: auto;
+    z-index: 40;
+}
+.overcb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
+}
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    z-index: 40;
+}
+.content {
+    position: relative;
+    width: 100%;
+}
+.content_real {
+    width: 100%;
+    height: 100%;
+}
+.content_real2 {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+.title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    user-select: none;
+}
+.title_content {
+    pointer-events: none
+}
+.windowButton_real {
+    user-select: none;
+}
+.debug {
+    /*font-family: "Halogen"*/
+}
+iframe {
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    display: flex;
+}

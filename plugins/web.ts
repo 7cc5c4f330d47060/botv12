@@ -180,4 +180,39 @@ export default function load (b: Botv12Client) {
       }))
     })
   })
+  b.on('playerquit', uuid => {
+    wss.clients.forEach(client => {
+      client.send(JSON.stringify({
+        event: 'playerQuit',
+        data: {
+          server: b.id,
+          uuid
+        }
+      }))
+    })
+  })
+  //b.emit('playerdata', uuid, displayName, realName)
+  b.on('playerdata', (uuid, displayName, realName) => {
+    wss.clients.forEach(client => {
+      client.send(JSON.stringify({
+        event: 'playerAdd',
+        data: {
+          server: b.id,
+          uuid,
+          displayName,
+          realName
+        }
+      }))
+    })
+  })
+  b._client.on('end', () => {
+    wss.clients.forEach(client => {
+      client.send(JSON.stringify({
+        event: 'playerClear',
+        data: {
+          server: b.id
+        }
+      }))
+    })
+  })
 }

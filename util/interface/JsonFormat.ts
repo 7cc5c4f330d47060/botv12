@@ -16,6 +16,10 @@ export default interface JsonFormat {
   }
   fallback?: JsonFormat | string
   bold?: boolean
+  italic?: boolean
+  underlined?: boolean
+  strikethrough?: boolean
+  obfuscated?: boolean
   extra?: (JsonFormat | string)[]
   ''?: string // Because the prismarinejs nbt parser kinda sucks.
 }

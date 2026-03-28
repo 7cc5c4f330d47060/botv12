@@ -25,6 +25,89 @@ const addMessage = function (content, type) {
   if (chatField.children.length > maxMessages) chatField.children[0].remove()
   if (autoScroll) chatField.scrollTo(0, chatField.scrollHeight)
 }
+const openContextMenu = (data, e) => {
+  const cm = document.getElementById("contextMenu2")
+  cm.style.display = "block"
+  cm.innerHTML = ""
+  for (const item of data) {
+    const button = document.createElement('button')
+    button.classList.add('contextMenu2Item')
+    button.innerHTML = item.text
+    button.onclick = item.click
+    cm.appendChild(button)
+  }
+  let posX = e.clientX
+  if (posX + cm.offsetWidth > innerWidth) posX -= cm.offsetWidth
+  let posY = e.clientY
+  if (posY + cm.offsetHeight > innerHeight) posY -= cm.offsetHeight
+  cm.style.left = `${posX}px`
+  cm.style.top = `${posY}px`
+}
+const closeContextMenu = (data, e) => {
+  document.getElementById('contextMenu2').style.display="none"
+}
+onload = () => {
+  startWs()
+  initWindow(false)
+  document.body.onmousedown = (e) => {
+    if(!document.getElementById('contextMenu2').contains(e.target)) {
+      closeContextMenu()
+    }
+  }
+}
+
+function addPlayer (server, uuid, data) {
+  if(!serverElements[server]) {
+    const element2 = document.createElement('div')
+    element2.id=`playerList_s${server}`
+    element2.classList.add('playerList_server')
+    // list
+    const elementsc = document.createElement('div')
+    elementsc.classList.add('playerListContent')
+    // header
+    const elementh = document.createElement('p')
+    elementsc.classList.add('playerListHeader')
+    elementh.innerHTML="(server name)"
+    element2.appendChild(elementh)
+    element2.appendChild(elementsc)
+    document.getElementById('playerContent').appendChild(element2)
+    serverElements[server]=element2
+  }
+  playerCount++
+  document.getElementById('playerCount').innerHTML = playerCount
+  const element = document.createElement('div')
+  element.id=`playerListItem_s${server}_u${uuid}`
+  element.classList.add('playerItem')
+  element.oncontextmenu = (e) => {
+    console.log(e)
+    openContextMenu([
+      {
+        text: 'Info',
+        click: () => {
+          alert("Not supported yet.")
+          closeContextMenu()
+        }
+      },
+      {
+        text: 'Copy Username',
+        click: () => {
+          navigator.clipboard.writeText(data.realName)
+          closeContextMenu()
+        }
+      },
+      {
+        text: 'Copy UUID',
+        click: () => {
+          navigator.clipboard.writeText(uuid)
+          closeContextMenu()
+        }
+      }
+    ],e)
+    e.preventDefault()
+  }
+  element.innerHTML = `S${server} ${data.realName}`
+  serverElements[server].getElementsByClassName('playerListContent')[0].appendChild(element)
+}
 const startWs = function () {
   addMessage('Attempting to reconnect', 'message-cmdoutput')
   ws = new WebSocket('ws://localhost:12365')
@@ -43,39 +126,20 @@ const startWs = function () {
       addMessage(json.data.data, `message-${json.data.msgType}`)
     } else if (json.event === 'playerInfo') {
       for (const player in json.data.data) {
-        const server = json.data.server
-        if(!serverElements[server]) {
-          const element2 = document.createElement('div')
-          element2.id=`playerList_s${server}`
-          element2.classList.add('playerList_server')
-
-          // list
-          const elementsc = document.createElement('div')
-          elementsc.classList.add('playerListContent')
-
-          // header
-          const elementh = document.createElement('p')
-          elementsc.classList.add('playerListHeader')
-          elementh.innerHTML="(server name)"
-
-          element2.appendChild(elementh)
-          element2.appendChild(elementsc)
-          document.getElementById('playerContent').appendChild(element2)
-          serverElements[server]=element2
-        }
-        playerCount++
-        document.getElementById('playerCount').innerHTML = playerCount
-        const element = document.createElement('div')
-        element.id=`playerListItem_s${server}_u${player}`
-        element.classList.add('playerItem')
-        element.onclick = () => { alert(json.data.data[player].realName) }
-        element.innerHTML = `S${json.data.server} ${json.data.data[player].realName}`
-        serverElements[server].getElementsByClassName('playerListContent')[0].appendChild(element)
+        addPlayer(json.data.server, player, json.data.data[player])
       }
     } else if (json.event === 'serverList') {
       for (const server of json.data.data) {
         console.log(`${server.host}:${server.port ?? 25565}`)
       }
+    } else if (json.event === 'playerQuit') {
+      const element = document.getElementById(`playerListItem_s${json.data.server}_u${json.data.uuid}`)
+      if(!element) return;
+      element.remove()
+    } else if (json.event === 'playerAdd') {
+      addPlayer(json.data.server, json.data.uuid, json.data)
+    } else if (json.event === 'playerClear') {
+      serverElements[json.data.server].getElementsByClassName('playerListContent')[0].innerHTML=''
     }
   })
 }

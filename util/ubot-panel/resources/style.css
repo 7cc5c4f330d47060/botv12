@@ -113,6 +113,11 @@ input:focus {
 #chatContent p .lp { color: #f5f }
 #chatContent p .ly { color: #ff5 }
 #chatContent p .lw { color: white }
+#chatContent p .chat_bold { font-weight: 800; }
+#chatContent p .chat_italic { font-style: oblique; }
+#chatContent p .chat_ul { text-decoration-line: underline; }
+#chatContent p .chat_st { text-decoration-line: line-through; }
+#chatContent p .chat_st.chat_ul { text-decoration-line: line-through underline; }
 #chatContent p .dmh { background-color: #bbb; }
 #chatInputContainer {
 	width: 100%;
@@ -180,6 +185,18 @@ input:focus {
 }
 input, button, select {
 	font-family: sans-serif;
+}
+#contextMenu2 {
+	width: 200px;
+	background-color: #aaa6;
+	position: absolute;
+	z-index: 1000;
+}
+.contextMenu2Item {
+	border: 0px;
+	width: 100%;
+	text-align: left;
+	height: 30px
 }
 @media screen and (max-width: 600px) {
 	#loginSection {

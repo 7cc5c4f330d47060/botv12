@@ -57,31 +57,51 @@ const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
     const redChannel = Number(`0x${color.slice(1, 3)}`)
     const greenChannel = Number(`0x${color.slice(3, 5)}`)
     const blueChannel = Number(`0x${color.slice(5, 7)}`)
+    out += ' class="'
     if (redChannel < 65 && greenChannel < 65 && blueChannel < 65) {
-      out += ' class="dmh"'
+      out += 'dmh '
     } else if (mode.twentyFourBit.lightMode && ((redChannel > 194 && greenChannel > 194 && blueChannel > 194) || greenChannel > 154)) {
-      out += ' class="lmh"'
+      out += 'lmh '
     }
-    out += '>'
     return out
   }
+  return ""
 }
 
-const processColor = (col: string, rcol: string, mode: ConsoleColorSetting) => {
-  let out
-  if (col === 'reset') {
+const processColor = (col: string, rcol: string, format: Record<string, boolean>, mode: ConsoleColorSetting) => {
+  let out = ""
+  if (mode.useHtml) {
+    if (col === 'reset') {
+      out = rcol
+    } else if (col.startsWith('#')) {
+      out = hexColorParser(col, mode)
+    } else {
+      out = `</span><span class="${mode.fourBit[col]} `
+    }
+    if (format.bold) out += 'chat_bold '
+    if (format.italic) out += 'chat_italic '
+    if (format.underlined) out += 'chat_ul '
+    if (format.strikethrough) out += 'chat_st '
+    if (out.slice(-1) === ' ') out = out?.slice(0, out.length-1)
+    out += '">'
+  } else if (col === 'reset') {
     out = rcol
   } else if (col.startsWith('#')) {
     out = hexColorParser(col, mode)
-  } else if (mode.useHtml) {
-    out = `</span><span class="${mode.fourBit[col]}">`
   } else {
     out = mode.fourBit[col]
   }
   return out
 }
 
-const parse = function (_data: JsonFormat | string | number, l = 0, resetColor = consoleColors.none.fourBit.reset, mode: ConsoleColorSetting = consoleColors.none) {
+const defaultFormat = {
+  bold: false,
+  italic: false,
+  underlined: false,
+  strikethrough: false
+}
+
+const parse = function (_data: JsonFormat | string | number, l = 0, resetColor = consoleColors.none.fourBit.reset, resetFormat = defaultFormat, mode: ConsoleColorSetting = consoleColors.none) {
   if (l >= 8) {
     return ''
   }
@@ -94,10 +114,16 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
 
   let out = ''
   if (mode.useHtml && l === 0) out += '<span class="lw lmh resetColor startColor">'
+  const formatSettings = {
+    bold: data.bold ?? resetFormat.bold,
+    italic: data.italic ?? resetFormat.italic,
+    underlined: data.underlined ?? resetFormat.underlined,
+    strikethrough: data.strikethrough ?? resetFormat.strikethrough
+  }
   if (data.color) {
-    out += processColor(data.color, resetColor, mode)
+    out += processColor(data.color, resetColor, formatSettings, mode)
   } else {
-    out += processColor('reset', resetColor, mode)
+    out += processColor('reset', resetColor, formatSettings, mode)
   }
   if (data.text) {
     let _text = data.text
@@ -108,17 +134,27 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
     out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '')
   }
   if (data.translate) {
+    let color = "";
+    if (data.color) {
+      color = processColor(data.color, resetColor, formatSettings, mode)
+      if (mode.useHtml){
+        color = color.slice(0, -2)
+        if (!(color.slice(-7) === 'class="')) color += ' '
+      }
+    } else color = resetColor
+
     let trans = data.translate.replaceAll('%%', '\ud900\ud801').replaceAll('\x1b', '').replaceAll('\x0e', '')
     if (mode.useHtml) trans = escapeHtml(trans)
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
       if (mode.useHtml) trans = escapeHtml(trans)
     } else if (data.fallback) {
-      trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
+      trans = parse(data.fallback, l + 1, color, formatSettings, mode)
     }
+      
     if (data.with) {
       data.with.forEach((item: string | JsonFormat, i: number) => {
-        const j2 = parse(item, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
+        const j2 = parse(item, l + 1, color, formatSettings, mode)
         trans = trans.replace(/%s/, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
         trans = trans.replaceAll(`%${+i + 1}$s`, j2.replaceAll('%s', '\ud900\ud804').replaceAll('$s', '\ud900\ud805'))
       })
@@ -127,11 +163,21 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
   }
   if (data.extra) {
     for (const item of data.extra) {
-      const parsed = parse(item, l + 1, data.color ? processColor(data.color, resetColor, mode) : resetColor, mode)
+      let color = "";
+      if (data.color) {
+        color = processColor(data.color, resetColor, formatSettings, mode)
+        if (mode.useHtml){
+          color = color.slice(0, -2)
+          if (!(color.slice(-7) === 'class="')) color += ' '
+        }
+      } else color = resetColor
+
+      const parsed = parse(item, l + 1, color, formatSettings, mode)
       out += parsed
     }
   }
   out += resetColor
+  if (mode.useHtml) out += '">'
   if (mode.useHtml && l === 0) out += '</span>'
 
   return out
@@ -140,8 +186,8 @@ export default function parse2 (_data: JsonFormat | string, modeString: string) 
   try {
     const mode: ConsoleColorSetting = consoleColors[modeString]
     let resetColor = mode.fourBit.reset
-    if (mode.useHtml) resetColor = `</span><span class="${resetColor}">`
-    return parse(_data, 0, resetColor, mode)
+    if (mode.useHtml) resetColor = `</span><span class="${resetColor} `
+    return parse(_data, 0, resetColor, defaultFormat, mode)
   } catch (e) {
     console.error(e)
     return `\x1B[0m\x1B[38;2;255;85;85mAn error occurred while parsing a message. See console for more information.\nJSON that caused the error: ${JSON.stringify(_data)}`

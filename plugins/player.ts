@@ -49,6 +49,7 @@ export default function load (b: Botv12Client) {
         realName = buffer2[uuid].realName
         b.playerInfo.players[uuid].realName = buffer2[uuid].realName
       }
+      if (realName === '') return
       b.emit('playerdata', uuid, displayName, realName)
     }
   })
