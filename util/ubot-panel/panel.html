@@ -3,7 +3,8 @@
 	<head>
 		<link rel="stylesheet" href="/resources/style.css"></link>
 		<script src="/resources/main.js"></script>
-		<script src="/resources/windows/script.js"></script>
+		<script src="/resources/windows/window.js"></script>
+		<meta name="viewport" content="initial-scale=1">
 	</head>
 	<body class="panelui">
 		<div id="contextMenu2" style="display: none;"></div>
@@ -17,10 +18,9 @@
 					</select>
 					<button class="headeritem">Log Out</a>
 				</div>
-				
 			</div>
 			<div id="content">
-				<div class="section" style="width: 80%; margin: 20px 10px 20px 20px">
+				<div id="chatSection" class="section">
 					<div class="sectionHeader">
 						<span>Server Chat</span>
 						<div class="headerRight sectionHeaderRight">
@@ -35,7 +35,7 @@
 						<button onclick="sendCommand()">Send</button>
 					</div>
 				</div>
-				<div class="section" style="width: 20%; margin: 20px 20px 20px 10px">
+				<div id="playerSection" class="section">
 					<div class="sectionHeader">Players (<span id="playerCount">0</span>)</div>
 					<div id="playerContent"></div>
 				</div>

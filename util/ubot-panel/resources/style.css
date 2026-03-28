@@ -203,12 +203,22 @@ input, button, select {
 		height: calc(100vh - 20px);
 		width: calc(100vw - 20px);
 	}
-	body.panelui::after {
-		content: "UBot Web UI is not supported in browsers with narrow viewports yet, such as on a phone or small tablet. To use the panel, turn your phone or tablet to landscape, or widen the window.";
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 100vh;
-		background: white;
+	#playerSection {
+		display: none;
 	}
+	.section {
+		width: 100%
+	}
+	/*.section:not(.mobileView) { display: none }*/
+}
+@media screen and (min-width: 601px) {
+	#playerSection {
+		width: 20%;
+		margin: 20px 20px 20px 10px
+	}
+	#chatSection {
+		width: 80%;
+		margin: 20px 10px 20px 20px
+	}
+	/*.section:not(.mobileView) { display: none }*/
 }

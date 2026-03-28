@@ -2,7 +2,18 @@ let autoScroll = true
 let maxMessages = 250
 let playerCount = 0
 function sendCommand () {
-  ws.send(JSON.stringify({ event: 'command', data: { command: document.getElementById('chatInput').value } }))
+  const command = document.getElementById('chatInput').value
+  const commandArgs = command.split(' ')
+  if(commandArgs[0] === '.setip') {
+    socketIp=commandArgs[1]
+    addMessage(`Set socket IP to ${socketIp}`)
+    ws.close()
+    clearInterval(reloadTimer)
+    ws.removeEventListener('close', closeFunction) 
+    startWs()
+  } else {
+    ws.send(JSON.stringify({ event: 'command', data: { command } }))
+  }
   document.getElementById('chatInput').value = ''
 }
 const serverElements = []
@@ -46,9 +57,11 @@ const openContextMenu = (data, e) => {
 const closeContextMenu = (data, e) => {
   document.getElementById('contextMenu2').style.display="none"
 }
+
 onload = () => {
   startWs()
   initWindow(false)
+  //createWindow('base', 'main_normal', 1000, 500, 'Test Window for N3CL WM', '')
   document.body.onmousedown = (e) => {
     if(!document.getElementById('contextMenu2').contains(e.target)) {
       closeContextMenu()
@@ -108,13 +121,16 @@ function addPlayer (server, uuid, data) {
   element.innerHTML = `S${server} ${data.realName}`
   serverElements[server].getElementsByClassName('playerListContent')[0].appendChild(element)
 }
+function closeFunction ()  {
+  addMessage('Connection lost. Reconnecting in 2.5s', 'message-cmdwarn')
+  reloadTimer = setTimeout(startWs, 2500)
+}
+let reloadTimer
+let socketIp ='ws://localhost:12365'
 const startWs = function () {
   addMessage('Attempting to reconnect', 'message-cmdoutput')
-  ws = new WebSocket('ws://localhost:12365')
-  ws.addEventListener('close', () => {
-    addMessage('Connection lost. Reconnecting in 2.5s', 'message-cmdwarn')
-    setTimeout(startWs, 2500)
-  })
+  ws = new WebSocket(socketIp)
+  ws.addEventListener('close', closeFunction)
   ws.addEventListener('open', () => {
     addMessage('Connected', 'message-cmdsuccess')
   })

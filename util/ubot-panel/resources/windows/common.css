@@ -1,12 +1,3 @@
-body {
-    background-size: 100% 100%;
-    margin: 0px;
-    font-family: 'Segoe UI', 'Noto Sans', sans-serif;
-    min-height: 100vh;
-}
-body.fastMode * {
-    backdrop-filter: none !important
-}
 .window_background {
     min-width: 100vw;
     min-height: 100vh;
@@ -15,13 +6,9 @@ body.fastMode * {
     left: 0;
     top: 0;
     pointer-events: none;
-}
-.window_background.modal {
     background-color: #0000007f;
     pointer-events: auto;
     z-index: 1000000000;
-}
-.window_background.modalStart {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,6 +16,7 @@ body.fastMode * {
 .overcb_cc {
     position: absolute;
     pointer-events:none;
+    max-width: 100%;
 }
 .overcb_c {
     width: 100%;
@@ -75,9 +63,6 @@ body.fastMode * {
 }
 .windowButton_real {
     user-select: none;
-}
-.debug {
-    /*font-family: "Halogen"*/
 }
 iframe {
     width: 100%;
