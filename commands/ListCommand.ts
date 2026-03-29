@@ -10,7 +10,7 @@ export default class ListCommand extends Command {
         // Console list function here... (bypass consoleIndex)
         const server = +c.args[0]
         const b = bots[server]
-        if (!b.playerInfo.players) return
+        if (!b?.playerInfo?.players) return
         const keys = Object.keys(b.playerInfo.players)
         c.reply({
           text: 'command.list.intro',
