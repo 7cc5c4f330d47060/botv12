@@ -5,19 +5,31 @@
 		<script src="/resources/main.js"></script>
 		<script src="/resources/windows/window.js"></script>
 		<meta name="viewport" content="initial-scale=1">
+		<title>botv12 Web Panel (ALPHA)</title>
 	</head>
 	<body class="panelui">
+		<noscript>
+			JavaScript must be enabled to use the botv12 panel.
+		</noscript>
 		<div id="contextMenu2" style="display: none;"></div>
 		<div id="container">
 			<div id="header">
+				<div class="headerLeft">
+					<button class="headeritem desktopHide" onclick="openSidebar()">HamBurger</button>
+				</div>
 				<div class="headerRight">
 					<select name="serverList" id="serverList" class="headeritem" value="all">
 						<option value="all">All Servers (NOT FUNCTIONAL)</option>
 						<option value="0">Server 0 (kaboom.pw:25565)</option>
 						<option value="1">Server 1 (chipmunk.land:17891)</option>
 					</select>
-					<button class="headeritem">Log Out</a>
+					<button class="headeritem">Log Out</button>
 				</div>
+			</div>
+			<div id="sidebar" class="sbHidden">
+				<button class="sidebar-tab" onclick="closeSidebar()">HamBurger Back</button>
+				<button class="sidebar-tab" onclick="showSection('chat', true)">Show chatSection</button>
+				<button class="sidebar-tab" onclick="showSection('player', true)">Show playerSection</button>
 			</div>
 			<div id="content">
 				<div id="chatSection" class="section">
@@ -35,7 +47,7 @@
 						<button onclick="sendCommand()">Send</button>
 					</div>
 				</div>
-				<div id="playerSection" class="section">
+				<div id="playerSection" class="section mobileHide">
 					<div class="sectionHeader">Players (<span id="playerCount">0</span>)</div>
 					<div id="playerContent"></div>
 				</div>

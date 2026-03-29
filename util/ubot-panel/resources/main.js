@@ -16,7 +16,7 @@ function sendCommand () {
   }
   document.getElementById('chatInput').value = ''
 }
-const serverElements = []
+let serverElements = []
 // List from https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-in-html
 const escapeHtml = (text) => {
   return (text + '')
@@ -97,8 +97,7 @@ function addPlayer (server, uuid, data) {
       {
         text: 'Info',
         click: () => {
-          alert("Not supported yet.")
-          closeContextMenu()
+          createWindow("infoDialog", "main_normal", 500, 300, "title", document.createElement("div"))
         }
       },
       {
@@ -121,9 +120,27 @@ function addPlayer (server, uuid, data) {
   element.innerHTML = `S${server} ${data.realName}`
   serverElements[server].getElementsByClassName('playerListContent')[0].appendChild(element)
 }
+
 function closeFunction ()  {
   addMessage('Connection lost. Reconnecting in 2.5s', 'message-cmdwarn')
+  
   reloadTimer = setTimeout(startWs, 2500)
+}
+
+function closeSidebar () {
+  document.getElementById('sidebar').classList.add('sbHidden')
+}
+function openSidebar () {
+  document.getElementById('sidebar').classList.remove('sbHidden')
+}
+function showSection (name, mobile){
+  const elements = document.getElementsByClassName('section')
+  for (const element of elements) {
+    console.log(element)
+    if(!element.classList.contains('mobileHide')) element.classList.add('mobileHide')
+  }
+  document.getElementById(`${name}Section`).classList.remove('mobileHide')
+  closeSidebar()
 }
 let reloadTimer
 let socketIp ='ws://localhost:12365'
@@ -132,6 +149,9 @@ const startWs = function () {
   ws = new WebSocket(socketIp)
   ws.addEventListener('close', closeFunction)
   ws.addEventListener('open', () => {
+    document.getElementById('playerContent').innerHTML=''
+    for (item of serverElements) item.remove
+    serverElements = []
     addMessage('Connected', 'message-cmdsuccess')
   })
   ws.addEventListener('message', payload => {
@@ -141,6 +161,7 @@ const startWs = function () {
     } else if (json.event === 'rawChat') {
       addMessage(json.data.data, `message-${json.data.msgType}`)
     } else if (json.event === 'playerInfo') {
+      
       for (const player in json.data.data) {
         addPlayer(json.data.server, player, json.data.data[player])
       }
@@ -152,6 +173,8 @@ const startWs = function () {
       const element = document.getElementById(`playerListItem_s${json.data.server}_u${json.data.uuid}`)
       if(!element) return;
       element.remove()
+      playerCount--
+      document.getElementById('playerCount').innerHTML = playerCount
     } else if (json.event === 'playerAdd') {
       addPlayer(json.data.server, json.data.uuid, json.data)
     } else if (json.event === 'playerClear') {

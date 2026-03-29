@@ -1,0 +1,70 @@
+:root {
+	--font: black;
+	--bg: white;
+	--lightModeHighlight: #000000;
+	--darkModeHighlight: #00000000;
+	--header: #eee;
+	--headerItem: #eee;
+	--headerItemH: #ddd;
+	--headerItemA: #ccc;
+	--sectionHeader: #ddd;
+	--chatBg: #eee;
+	--chatBgError: #f0b0b0;
+	--chatBgWarning: #f0d0b0;
+	--chatBgSuccess: #c0f0c0;
+	--chatBgOutput: #b0d0f0;
+	--chatBgMessage: #eee;
+	--playerBg: var(--chatBg);
+	--playerBgHover: #0002;
+	--sidebarBg: #ccc;
+	--chatInput: var(--buttonBg);
+
+	--sidebarFont: var(--buttonFont);
+	--sidebarFontH: var(--buttonFontH);
+	--sidebarFontA: var(--buttonFontA);
+	--sidebarButtonBg: var(--buttonBg);
+	--sidebarButtonBgH: var(--buttonBgH);
+	--sidebarButtonBgA: var(--buttonBgA);
+	--sendButtonFont: var(--buttonFont);
+	--sendButtonFontH: var(--buttonFontH);
+	--sendButtonFontA: var(--buttonFontA);
+	--sendButtonBg: var(--buttonBg);
+	--sendButtonBgH: var(--buttonBgH);
+	--sendButtonBgA: var(--buttonBgA);
+	--sectionHeaderButtonFont: var(--buttonFont);
+	--sectionHeaderButtonFontH: var(--buttonFontH);
+	--sectionHeaderButtonFontA: var(--buttonFontA);
+	--sectionHeaderButtonBg: var(--buttonBg);
+	--sectionHeaderButtonBgH: var(--buttonBgH);
+	--sectionHeaderButtonBgA: var(--buttonBgA);
+	--contextMenuFont: var(--buttonFont);
+	--contextMenuFontH: var(--buttonFontH);
+	--contextMenuFontA: var(--buttonFontA);
+	--contextMenuBg: var(--buttonBg);
+	--contextMenuBgH: var(--buttonBgH);
+	--contextMenuBgA: var(--buttonBgA);
+
+	--buttonFont: var(--font);
+	--buttonFontH: var(--font);
+	--buttonFontA: var(--font);
+	--buttonBg: #eee;
+	--buttonBgH: #ddd;
+	--buttonBgA: #ccc;
+	/*
+	#chatContent p.message-cmderror {
+	background-color: #702020;
+}
+#chatContent p.message-cmdwarn {
+	background-color: #604020;
+}
+#chatContent p.message-cmdsuccess {
+	background-color: #205020;
+}
+#chatContent p.message-cmdoutput {
+	background-color: #204050;
+}
+#chatContent p.message-chat {
+	background-color: #303030;
+}
+	*/
+}

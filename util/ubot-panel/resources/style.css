@@ -1,9 +1,11 @@
-/*@import url(style2015.css);*/
+@import url(theme-test.css);
 body {
 	min-height: 100vh;
 	margin: 0;
 	font-family: sans-serif;
 	background-color: white;
+	color: var(--font);
+	background-color: var(--bg);
 }
 input:focus {
 	outline: none
@@ -17,7 +19,7 @@ input:focus {
 #header {
 	width: 100%;
 	height: 50px;
-	background-color: dimgray;
+	background-color: var(--header);
 	font-size: 16pt;
 	display: flex;
 	align-items: center;
@@ -27,13 +29,14 @@ input:focus {
 	height: 50px;
 	border-radius: 0;
 	border: 0;
-	background-color: dimgray;
+	background-color: var(--headerItem);
 }
-.headeritem:hover {
-	background-color: gray;
-}
-.headeritem:active {
-	background-color: darkgray;
+.headeritem:hover { background-color: var(--headerItemH); }
+.headeritem:active { background-color: var(--headerItemA); }
+.headerLeft {
+	position: absolute;
+	left: 0px;
+	height: 100%;
 }
 .headerRight {
 	position: absolute;
@@ -54,7 +57,7 @@ input:focus {
 	height: 30px;
 	display: flex;
 	align-items: center;
-	background-color: #aaaaaa;
+	background-color: var(--sectionHeader);
 	position: relative;
 	padding: 0 5px;
 }
@@ -63,36 +66,45 @@ input:focus {
 	margin: 0;
 	min-width: 50px;
 	border: 0;
+	color: var(--sectionHeaderButtonFont);
+	background-color: var(--sectionHeaderButtonBg);
+}
+.sectionHeader button:hover {
+	color: var(--sectionHeaderButtonFontH);
+	background-color: var(--sectionHeaderButtonBgH);
+}
+.sectionHeader button:active {
+	color: var(--sectionHeaderButtonFontA);
+	background-color: var(--sectionHeaderButtonBgA);
 }
 /* Chat screen */
 #chatInput {
 	height: 30px;
-	background-color: dimgray;
-	color: white;
+	background-color: var(--chatInput);
+	color: var(--chatInputFont);
 	border: 0
 }
 #chatContent {
 	width: calc(100% - 10px);
-	height: calc(100% - 60px);
-	background-color: #606060;
+	background-color: var(--chatBg);
 	overflow-y: scroll;
 	padding: 0 5px;
-	color: white;
+	color: var(--chatFont);
 }
 #chatContent p.message-cmderror {
-	background-color: #702020;
+	background-color: var(--chatBgError);
 }
 #chatContent p.message-cmdwarn {
-	background-color: #604020;
+	background-color: var(--chatBgWarning);
 }
 #chatContent p.message-cmdsuccess {
-	background-color: #205020;
+	background-color: var(--chatBgSuccess);
 }
 #chatContent p.message-cmdoutput {
-	background-color: #204050;
+	background-color: var(--chatBgOutput);
 }
 #chatContent p.message-chat {
-	background-color: #303030;
+	background-color: var(--chatBgMessage);
 }
 #chatContent p {
 	margin: 0
@@ -118,7 +130,8 @@ input:focus {
 #chatContent p .chat_ul { text-decoration-line: underline; }
 #chatContent p .chat_st { text-decoration-line: line-through; }
 #chatContent p .chat_st.chat_ul { text-decoration-line: line-through underline; }
-#chatContent p .dmh { background-color: #bbb; }
+#chatContent p .dmh { background-color: var(--darkModeHighlight); }
+#chatContent p .lmh { background-color: var(--lightModeHighlight); }
 #chatInputContainer {
 	width: 100%;
 	position: relative;
@@ -133,19 +146,28 @@ input:focus {
 	margin: 0;
 	min-width: 50px;
 	border: 0;
+	color: var(--sendButtonFont);
+	background-color: var(--sendButtonBg);
+}
+#chatInputContainer button:hover {
+	color: var(--sendButtonFontH);
+	background-color: var(--sendButtonBgH);
+}
+#chatInputContainer button:active {
+	color: var(--sendButtonFontA);
+	background-color: var(--sendButtonBgA);
 }
 /* Players screen */
 #playerContent {
 	width: 100%;
-	height: calc(100% - 30px);
-	background-color: #505050;
+	background-color: var(--playerBg);
 	overflow: scroll;
 }
 .playerItem {
-	color: white;
+	color: var(--playerFont);
 }
 .playerItem:hover {
-	background-color: #707070;
+	background-color: var(--playerBgHover);
 }
 /* Login screen */
 #loginPanelContent {
@@ -196,29 +218,95 @@ input, button, select {
 	border: 0px;
 	width: 100%;
 	text-align: left;
-	height: 30px
+	height: 30px;
+	color: var(--contextMenuFont);
+	background-color: var(--contextMenuBg);
+}
+.contextMenu2Item:hover {
+	color: var(--contextMenuFontH);
+	background-color: var(--contextMenuBgH);
+}
+.contextMenu2Itemactive {
+	color: var(--contextMenuFontA);
+	background-color: var(--contextMenuBgA);
+}
+
+
+/* Sidebar */
+#sidebar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 250px;
+	background-color: var(--sidebarBg);;
+	height: 100%;
+	z-index: 999;
+}
+#sidebar.sbHidden {
+	display: none;
+}
+#sidebar button.sidebar-tab {
+	width: 100%;
+	height: 50px;
+	border: 0;
+}
+#sidebar button {
+	color: var(--sidebarFont);
+	background-color: var(--sidebarButtonBg);
+}
+#sidebar button:hover {
+	color: var(--sidebarFontH);
+	background-color: var(--sidebarButtonBgH);
+}
+#sidebar button:active {
+	color: var(--sidebarFontA);
+	background-color: var(--sidebarButtonBgA);
 }
 @media screen and (max-width: 600px) {
 	#loginSection {
 		height: calc(100vh - 20px);
 		width: calc(100vw - 20px);
 	}
-	#playerSection {
+	.mobileHide {
 		display: none;
 	}
+	#playerContent {
+		height: 100%;
+	}
+	#chatContent {
+		height: calc(100% - 30px);
+	}
 	.section {
-		width: 100%
+		width: 100%;
+		height: calc(100vh - 50px);
 	}
 	/*.section:not(.mobileView) { display: none }*/
+}
+
+noscript {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2147483647;
+	background-color: #fff;
 }
 @media screen and (min-width: 601px) {
 	#playerSection {
 		width: 20%;
-		margin: 20px 20px 20px 10px
+		margin: 20px 20px 20px 10px;
+	}
+	.desktopHide {
+		display: none;
+	}
+	#playerContent {
+		height: calc(100% - 30px);
 	}
 	#chatSection {
 		width: 80%;
-		margin: 20px 10px 20px 20px
+		margin: 20px 10px 20px 20px;
+	}
+	#chatContent {
+		height: calc(100% - 60px);
 	}
 	/*.section:not(.mobileView) { display: none }*/
 }

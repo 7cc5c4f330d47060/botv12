@@ -71,10 +71,6 @@ const createWindow=function (name, theme, sizeX, sizeY, title, htmlContent){
   /* Element parameters */
   overcbBG.classList.add("window_background")
   overcbBG.classList.add(`theme_${theme}`)
-  if(modal){
-    overcbBG.classList.add("modal");
-    overcbBG.classList.add("modalStart");
-  }
   overcbCC.classList.add("overcb_cc")
   overcbC.classList.add("overcb_c")
   overcb.classList.add("overcb")
@@ -98,7 +94,7 @@ const createWindow=function (name, theme, sizeX, sizeY, title, htmlContent){
 
   windowTitleContent.innerHTML = title
 
-  windowContent.appendChild("")
+  windowContent.appendChild(htmlContent)
   windowContentInnerContainer.appendChild(windowContent)
 
   windowContentOuterContainer.appendChild(windowContentInnerContainer)
