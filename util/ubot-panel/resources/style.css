@@ -1,4 +1,4 @@
-@import url(theme-test.css);
+@import url(theme-dark.css);
 body {
 	min-height: 100vh;
 	margin: 0;
@@ -30,6 +30,7 @@ input:focus {
 	border-radius: 0;
 	border: 0;
 	background-color: var(--headerItem);
+	color: var(--headerFont)
 }
 .headeritem:hover { background-color: var(--headerItemH); }
 .headeritem:active { background-color: var(--headerItemA); }
@@ -238,11 +239,18 @@ input, button, select {
 	left: 0;
 	top: 0;
 	width: 250px;
-	background-color: var(--sidebarBg);;
+	background-color: var(--sidebarBg);
 	height: 100%;
 	z-index: 999;
 }
-#sidebar.sbHidden {
+#sidebarc {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: var(--sidebarBgOuter);
+	z-index: 1000;
+}
+#sidebarc.sbHidden {
 	display: none;
 }
 #sidebar button.sidebar-tab {

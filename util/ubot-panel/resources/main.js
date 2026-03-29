@@ -128,10 +128,10 @@ function closeFunction ()  {
 }
 
 function closeSidebar () {
-  document.getElementById('sidebar').classList.add('sbHidden')
+  document.getElementById('sidebarc').classList.add('sbHidden')
 }
 function openSidebar () {
-  document.getElementById('sidebar').classList.remove('sbHidden')
+  document.getElementById('sidebarc').classList.remove('sbHidden')
 }
 function showSection (name, mobile){
   const elements = document.getElementsByClassName('section')
@@ -150,6 +150,8 @@ const startWs = function () {
   ws.addEventListener('close', closeFunction)
   ws.addEventListener('open', () => {
     document.getElementById('playerContent').innerHTML=''
+    playerCount = 0
+    document.getElementById('playerCount').innerHTML = playerCount
     for (item of serverElements) item.remove
     serverElements = []
     addMessage('Connected', 'message-cmdsuccess')
@@ -178,7 +180,11 @@ const startWs = function () {
     } else if (json.event === 'playerAdd') {
       addPlayer(json.data.server, json.data.uuid, json.data)
     } else if (json.event === 'playerClear') {
-      serverElements[json.data.server].getElementsByClassName('playerListContent')[0].innerHTML=''
+      const count = serverElements[json.data.server].getElementsByClassName('playerListContent')[0].childElementCount
+      playerCount -= count
+      document.getElementById('playerCount').innerHTML = playerCount
+      serverElements[json.data.server].remove()
+      delete serverElements[json.data.server]
     }
   })
 }

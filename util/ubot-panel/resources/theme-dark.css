@@ -1,0 +1,55 @@
+:root {
+	--font: white;
+	--bg: black;
+	--lightModeHighlight: #00000000;
+	--darkModeHighlight: #ddd0;
+	--header: #333;
+	--headerFont: var(--font);
+	--headerItem: #333;
+	--headerItemH: #444;
+	--headerItemA: #555;
+	--sectionHeader: #333;
+	--chatBg: #222;
+	--chatBgError: #400000;
+	--chatBgWarning: #402000;
+	--chatBgSuccess: #004000;
+	--chatBgOutput: #002040;
+	--chatBgMessage: #222;
+	--playerBg: var(--chatBg);
+	--playerBgHover: #0002;
+	--sidebarBg: #333;
+	--sidebarBgOuter: #0000007f;
+	--chatInput: var(--buttonBg);
+
+	--sidebarFont: var(--buttonFont);
+	--sidebarFontH: var(--buttonFontH);
+	--sidebarFontA: var(--buttonFontA);
+	--sidebarButtonBg: var(--buttonBg);
+	--sidebarButtonBgH: var(--buttonBgH);
+	--sidebarButtonBgA: var(--buttonBgA);
+	--sendButtonFont: var(--buttonFont);
+	--sendButtonFontH: var(--buttonFontH);
+	--sendButtonFontA: var(--buttonFontA);
+	--sendButtonBg: var(--buttonBg);
+	--sendButtonBgH: var(--buttonBgH);
+	--sendButtonBgA: var(--buttonBgA);
+	--sectionHeaderButtonFont: var(--buttonFont);
+	--sectionHeaderButtonFontH: var(--buttonFontH);
+	--sectionHeaderButtonFontA: var(--buttonFontA);
+	--sectionHeaderButtonBg: var(--buttonBg);
+	--sectionHeaderButtonBgH: var(--buttonBgH);
+	--sectionHeaderButtonBgA: var(--buttonBgA);
+	--contextMenuFont: var(--buttonFont);
+	--contextMenuFontH: var(--buttonFontH);
+	--contextMenuFontA: var(--buttonFontA);
+	--contextMenuBg: var(--buttonBg);
+	--contextMenuBgH: var(--buttonBgH);
+	--contextMenuBgA: var(--buttonBgA);
+
+	--buttonFont: var(--font);
+	--buttonFontH: var(--font);
+	--buttonFontA: var(--font);
+	--buttonBg: #333;
+	--buttonBgH: #444;
+	--buttonBgA: #555;
+}
