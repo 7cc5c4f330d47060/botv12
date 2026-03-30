@@ -1,5 +1,6 @@
 // uwu version similar to that that some botvX alphas had. Remake for botv12.
 // lr -> w, na -> nya, add :3 / uwu / owo to some
+// Stuttering in text is BANNED in this file. Do not submit Pull Requests with any.
 export default {
   fallbackList: [
     'en-US',
