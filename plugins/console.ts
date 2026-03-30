@@ -84,9 +84,9 @@ export default function load (b: Botv12Client) {
   }
   b.displayChat = (type: string, subtype: string, msg: string) => {
     if (debugMode) {
-      consoleWrite(`[${b.id}] [${type}] [${subtype}] ${msg}`)
+      consoleWrite(`[${b.host.options.name} (ID ${b.id})] [${type}] [${subtype}] ${msg}`)
     } else {
-      consoleWrite(`[${b.id}] [${type}] ${msg}`)
+      consoleWrite(`[${b.host.options.name} (ID ${b.id})] [${type}] ${msg}`)
     }
   }
 }

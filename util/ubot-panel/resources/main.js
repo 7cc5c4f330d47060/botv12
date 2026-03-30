@@ -143,7 +143,7 @@ function showSection (name, mobile){
   closeSidebar()
 }
 let reloadTimer
-let socketIp ='ws://localhost:12365'
+let socketIp =`ws://${location.host.split(':')[0]}:12365`
 const startWs = function () {
   addMessage('Attempting to reconnect', 'message-cmdoutput')
   ws = new WebSocket(socketIp)
@@ -159,7 +159,7 @@ const startWs = function () {
   ws.addEventListener('message', payload => {
     const json = JSON.parse(payload.data)
     if (json.event === 'serverChat') {
-      addMessage(`<span class="msginfo lw lmh">[${json.data.server}] [${json.data.type}] </span>${json.data.data}`, 'message-chat')
+      addMessage(`<span class="msginfo lw lmh">[${json.data.serverName} (ID ${json.data.server})] [${json.data.type}] </span>${json.data.data}`, 'message-chat')
     } else if (json.event === 'rawChat') {
       addMessage(json.data.data, `message-${json.data.msgType}`)
     } else if (json.event === 'playerInfo') {

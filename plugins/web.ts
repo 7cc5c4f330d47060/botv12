@@ -174,6 +174,7 @@ export default function load (b: Botv12Client) {
         event: 'serverChat',
         data: {
           server: b.id,
+          serverName: b.host.options.name,
           type: data.type,
           data: msgHtml
         }

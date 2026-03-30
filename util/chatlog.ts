@@ -11,8 +11,7 @@ export default function chatlog (fileName: string, item: string) {
   const UTCMinutes = dateToday.getUTCMinutes().toString().padStart(2, '0')
   const UTCSeconds = dateToday.getUTCSeconds().toString().padStart(2, '0')
   const UTCMilliSeconds = dateToday.getUTCMilliseconds().toString().padStart(3, '0')
-  const filenameToday = `${UTCYears}-${UTCMonths}-${UTCDays}`
   const logDate = `${UTCYears}-${UTCMonths}-${UTCDays}T${UTCHours}:${UTCMinutes}:${UTCSeconds}.${UTCMilliSeconds}Z`
 
-  appendFileSync(resolve(dataDir, 'logs', filenameToday, `${fileName}.txt`), `[${logDate}] ${item}\n`)
+  appendFileSync(resolve(dataDir, 'logs', logFileName, `${fileName}.txt`), `[${logDate}] ${item}\n`)
 }

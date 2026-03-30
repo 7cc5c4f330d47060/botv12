@@ -16,6 +16,7 @@ declare global {
     disableNetMsg?: boolean
   }
   var startTime: number
+  var logFileName: string
   var bots: Botv12Client[]
   var Deno: { version: Record<string, string> } // Allow serverinfo to work on deno, unused on node
   var createBot: (host: HostOptions, oldId?: number) => void
