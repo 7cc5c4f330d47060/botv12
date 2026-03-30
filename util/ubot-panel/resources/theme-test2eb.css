@@ -1,0 +1,56 @@
+/* Basic pink color theme, based on testing light theme. */
+/* File Name means Test 2: Electric Boogaloo */
+:root {
+	--font: black;
+	--bg: white;
+	--lightModeHighlight: #303;
+	--darkModeHighlight: #00000000;
+	--header: #fde;
+	--headerItem: #fde;
+	--headerItemH: #fbd;
+	--headerItemA: #ffa7d3;
+	--sectionHeader: #fbd;
+	--chatBg: #fde;
+	--chatBgError: #f0b0b0;
+	--chatBgWarning: #f0d0b0;
+	--chatBgSuccess: #c0f0c0;
+	--chatBgOutput: #b0d0f0;
+	--chatBgMessage: #fde;
+	--playerBg: var(--chatBg);
+	--playerBgHover: #0002;
+	--sidebarBg: #fce;
+	--sidebarBgOuter: #ffffff7f;
+	--chatInput: var(--buttonBg);
+
+	--sidebarFont: var(--buttonFont);
+	--sidebarFontH: var(--buttonFontH);
+	--sidebarFontA: var(--buttonFontA);
+	--sidebarButtonBg: var(--buttonBg);
+	--sidebarButtonBgH: var(--buttonBgH);
+	--sidebarButtonBgA: var(--buttonBgA);
+	--sendButtonFont: var(--buttonFont);
+	--sendButtonFontH: var(--buttonFontH);
+	--sendButtonFontA: var(--buttonFontA);
+	--sendButtonBg: var(--buttonBg);
+	--sendButtonBgH: var(--buttonBgH);
+	--sendButtonBgA: var(--buttonBgA);
+	--sectionHeaderButtonFont: var(--buttonFont);
+	--sectionHeaderButtonFontH: var(--buttonFontH);
+	--sectionHeaderButtonFontA: var(--buttonFontA);
+	--sectionHeaderButtonBg: var(--buttonBg);
+	--sectionHeaderButtonBgH: var(--buttonBgH);
+	--sectionHeaderButtonBgA: var(--buttonBgA);
+	--contextMenuFont: var(--buttonFont);
+	--contextMenuFontH: var(--buttonFontH);
+	--contextMenuFontA: var(--buttonFontA);
+	--contextMenuBg: var(--buttonBg);
+	--contextMenuBgH: var(--buttonBgH);
+	--contextMenuBgA: var(--buttonBgA);
+
+	--buttonFont: var(--font);
+	--buttonFontH: var(--font);
+	--buttonFontA: var(--font);
+	--buttonBg: #fde;
+	--buttonBgH: #fbd;
+	--buttonBgA: #ffa7d3;
+}

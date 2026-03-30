@@ -25,4 +25,5 @@ export default interface SettingsType {
   disableCommandLogging?: boolean
   wsPort?: number
   httpPort?: number
+  kawaiiMode?: boolean
 }
