@@ -167,6 +167,13 @@ export default class Botv12Client extends EventEmitter {
       }
     }
 
+    this._client.on('add_resource_pack', (payload) => {
+      this._client.write('resource_pack_receive', {
+        uuid: payload.uuid,
+        result: 1 // Decline
+      })
+    })
+    
     // Plugins, again...
     this.clientChat = {
       chatqueue: [],
