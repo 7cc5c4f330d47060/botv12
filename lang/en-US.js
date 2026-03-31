@@ -138,7 +138,6 @@ export default {
     'command.download.success': 'Source code has been uploaded',
     'command.download.already': 'Source code has already been uploaded',
     'command.eval.output': 'Output',
-    // 'command.filter.error.notUuid': 'You must pass a UUID to the command, not a username',
     'command.filter.error.notFound': 'Could not find player information',
     'command.filter.error.filtered': 'The player is already in the filter list.',
     'command.filter.success.add': 'Filtered player %2$s',
