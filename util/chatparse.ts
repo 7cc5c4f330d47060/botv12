@@ -33,7 +33,7 @@ const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
     const blueChannel = Number(`0x${color.slice(5, 7)}`)
     if (!mode.twentyFourBit.lightMode && redChannel < 64 && greenChannel < 64 && blueChannel < 64) {
       out += '48;2;220;220;220;'
-    } else if (mode.twentyFourBit.lightMode && ((redChannel > 192 && greenChannel > 192 && blueChannel > 192) || greenChannel > 160)) {
+    } else if (mode.twentyFourBit.lightMode && ((redChannel > 160 && greenChannel > 160 && blueChannel > 160) || greenChannel > 140)) {
       out += '48;2;0;0;0;'
     }
     return out + `38;2;${redChannel};${greenChannel};${blueChannel}m`
@@ -44,7 +44,7 @@ const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
     const blueChannel = Number(`0x${color.slice(5, 7)}`)
     if (!mode.twentyFourBit.lightMode && redChannel < 65 && greenChannel < 65 && blueChannel < 65) {
       out += '48;5;253;'
-    } else if (mode.twentyFourBit.lightMode && ((redChannel > 194 && greenChannel > 194 && blueChannel > 194) || greenChannel > 154)) {
+    } else if (mode.twentyFourBit.lightMode && ((redChannel > 160 && greenChannel > 160 && blueChannel > 160) || greenChannel > 140)) {
       out += '48;5;16;'
     }
     const redOut = process8bitColorChannel(redChannel)
@@ -60,7 +60,7 @@ const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
     out += ' class="'
     if (redChannel < 65 && greenChannel < 65 && blueChannel < 65) {
       out += 'dmh '
-    } else if (mode.twentyFourBit.lightMode && ((redChannel > 194 && greenChannel > 194 && blueChannel > 194) || greenChannel > 154)) {
+    } else if ((redChannel > 160 && greenChannel > 160 && blueChannel > 160) || greenChannel > 140) {
       out += 'lmh '
     }
     return out

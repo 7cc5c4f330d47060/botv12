@@ -20,6 +20,7 @@
 	--sidebarBg: #333;
 	--sidebarBgOuter: #0000007f;
 	--chatInput: var(--buttonBg);
+	--chatFont: var(--font);
 
 	--sidebarFont: var(--buttonFont);
 	--sidebarFontH: var(--buttonFontH);
