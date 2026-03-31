@@ -2,6 +2,7 @@ import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
 import CommandContext from '../util/CommandContext'
 import Command from '../util/Command.js'
+import uwuText from '../util/botv8-uwu.js'
 
 export default class NetMsgCommand extends Command {
   constructor () {
@@ -23,7 +24,8 @@ export default class NetMsgCommand extends Command {
         rl.start('netmsg', 2000)
       }
 
-      const msg = c.args.join(' ').slice(0, 512)
+      let msg = c.args.join(' ').slice(0, 512)
+      if (settings.kawaiiMode) msg = uwuText(msg)
 
       const json: { text: string, with: [string, string, { text: string }] } = {
         text: '[%s] %s › %s',
