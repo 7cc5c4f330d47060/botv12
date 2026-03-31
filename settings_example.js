@@ -1,7 +1,6 @@
 export default {
   terminalMode: 'blackTerminal_24bit', // Terminal mode. Most modern terminals support 24-bit color
   minecraftVersion: '1.21.11', // Minecraft version to connect with
-  defaultLang: 'en-US_uwu', // Default language
   /*
     If you plan to use a database with the bot, set dbEnabled to true and fill in the below fields.
     In the TypeScript version, MySQL, MariaDB and SQLite are currently supported, with more to
@@ -58,6 +57,7 @@ export default {
 
   // AF26 setup
   kawaiiMode: true,
+  defaultLang: 'en-US_uwu', // Default language
 
   format: 3
 }
