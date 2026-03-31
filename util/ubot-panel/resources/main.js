@@ -159,7 +159,7 @@ const startWs = function () {
   ws.addEventListener('message', payload => {
     const json = JSON.parse(payload.data)
     if (json.event === 'serverChat') {
-      addMessage(`<span class="msginfo">[${json.data.serverName} (ID ${json.data.server})] [${json.data.type}] </span>${json.data.data}`, 'message-chat')
+      addMessage(`<span class="msginfo">[${json.data.serverName} (ID ${json.data.server})] [${json.data.type}]<span class="chat_uuid"> [${json.data.uuid}]</span> </span>${json.data.data}`, 'message-chat')
     } else if (json.event === 'rawChat') {
       addMessage(json.data.data, `message-${json.data.msgType}`)
     } else if (json.event === 'playerInfo') {

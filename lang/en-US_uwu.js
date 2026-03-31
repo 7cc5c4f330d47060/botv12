@@ -9,9 +9,9 @@ export default {
   strings: {
     // Console message types
     'console.chat.player': 'pwayew :3',
-    //'console.chat.system': 'system',
+    // 'console.chat.system': 'system',
     'console.chat.profileless': 'pwofiwewess', // May be adjusted
-    //'console.info': 'info',
+    // 'console.info': 'info',
 
     // Time
     // Should not have added prefixes or suffixes.
@@ -20,7 +20,7 @@ export default {
     'time.weekPlural': ' weeks ',
     'time.day': ' day ',
     'time.dayPlural': ' days ',
-    'time.hour': ' hour ', 
+    'time.hour': ' hour ',
     'time.hourPlural': ' hours ',
     'time.minute': ' minute ',
     'time.minutePlural': ' minutes ',
@@ -171,7 +171,7 @@ export default {
     'command.list.item.displayName': 'Dispway name',
     'command.list.item.uuid': 'UUID',
     'command.loginv2.invalidHash': 'Invawid hash',
-    'command.loginv2.success': 'Successfuwwy wogged in as usew %s with pewmission wevew %s', 
+    'command.loginv2.success': 'Successfuwwy wogged in as usew %s with pewmission wevew %s',
     'command.music.noMusicWarning': 'You have the nomusic tag. You wiww not be abwe to heaw the music fwom %s. Cwick hewe to wemove.',
     'command.music.openDir': 'Cwick to view songs in %s',
     'command.music.openFile': 'Cwick to pway %s',
@@ -223,7 +223,7 @@ export default {
     'command.verify.success': 'Successfuwwy vewified with pewmission wevew %s',
 
     // AGPL info
-    'command.about.copyright.readLicense': 'Cwick hewe to wead the fuww wicense tewms.', //Complete until
+    'command.about.copyright.readLicense': 'Cwick hewe to wead the fuww wicense tewms.', // Complete until
     'command.about.copyright.agpl': 'This program is free software licensed under the terms of the GNU Affero General Public License as published by the Free Software Foundation, version 3 or later. For more information, %s.\n',
     'command.about.copyright.agpl.isFree': 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n',
     'command.about.copyright.agpl.warranty': 'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.\n',

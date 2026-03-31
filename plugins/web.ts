@@ -18,10 +18,10 @@ let wss: WebSocketServer
 let httpServer: Server
 
 const fileFormats: Record<string, string> = {
-  'html': 'text/html; charset=utf-8',
-  'htm': 'text/html; charset=utf-8',
-  'css': 'text/css; charset=utf-8',
-  '_other': 'application/octet-stream'
+  html: 'text/html; charset=utf-8',
+  htm: 'text/html; charset=utf-8',
+  css: 'text/css; charset=utf-8',
+  _other: 'application/octet-stream'
 }
 if (!clOptions.disableWsServer) {
   wss = new WebSocketServer({
@@ -176,6 +176,7 @@ export default function load (b: Botv12Client) {
           server: b.id,
           serverName: b.host.options.name,
           type: data.type,
+          uuid: data.uuid,
           data: msgHtml
         }
       }))
@@ -192,7 +193,7 @@ export default function load (b: Botv12Client) {
       }))
     })
   })
-  //b.emit('playerdata', uuid, displayName, realName)
+  // b.emit('playerdata', uuid, displayName, realName)
   b.on('playerdata', (uuid, displayName, realName) => {
     wss.clients.forEach(client => {
       client.send(JSON.stringify({

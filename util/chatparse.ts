@@ -65,11 +65,11 @@ const hexColorParser = (color: string, mode: ConsoleColorSetting) => {
     }
     return out
   }
-  return ""
+  return ''
 }
 
 const processColor = (col: string, rcol: string, format: Record<string, boolean>, mode: ConsoleColorSetting) => {
-  let out = ""
+  let out = ''
   if (mode.useHtml) {
     if (col === 'reset') {
       out = rcol
@@ -82,7 +82,7 @@ const processColor = (col: string, rcol: string, format: Record<string, boolean>
     if (format.italic) out += 'chat_italic '
     if (format.underlined) out += 'chat_ul '
     if (format.strikethrough) out += 'chat_st '
-    if (out.slice(-1) === ' ') out = out?.slice(0, out.length-1)
+    if (out.slice(-1) === ' ') out = out?.slice(0, out.length - 1)
     out += '">'
   } else if (col === 'reset') {
     out = rcol
@@ -134,10 +134,10 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
     out += _text.replaceAll('\x1b', '').replaceAll('\x0e', '')
   }
   if (data.translate) {
-    let color = "";
+    let color = ''
     if (data.color) {
       color = processColor(data.color, resetColor, formatSettings, mode)
-      if (mode.useHtml){
+      if (mode.useHtml) {
         color = color.slice(0, -2)
         if (!(color.slice(-7) === 'class="')) color += ' '
       }
@@ -151,7 +151,7 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
     } else if (data.fallback) {
       trans = parse(data.fallback, l + 1, color, formatSettings, mode)
     }
-      
+
     if (data.with) {
       data.with.forEach((item: string | JsonFormat, i: number) => {
         const j2 = parse(item, l + 1, color, formatSettings, mode)
@@ -163,10 +163,10 @@ const parse = function (_data: JsonFormat | string | number, l = 0, resetColor =
   }
   if (data.extra) {
     for (const item of data.extra) {
-      let color = "";
+      let color = ''
       if (data.color) {
         color = processColor(data.color, resetColor, formatSettings, mode)
-        if (mode.useHtml){
+        if (mode.useHtml) {
           color = color.slice(0, -2)
           if (!(color.slice(-7) === 'class="')) color += ' '
         }

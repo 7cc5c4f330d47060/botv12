@@ -3,9 +3,9 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import CommandContext from '../util/CommandContext.js'
 import Botv12Client from '../util/Botv12Client.js'
 import { resolve } from 'node:path'
-//import { Worker } from 'node:worker_threads'
+// import { Worker } from 'node:worker_threads'
 
-globalThis.logFileName = ""
+globalThis.logFileName = ''
 
 const checkLog = () => {
   if (settings.disableLogging) return
@@ -13,12 +13,12 @@ const checkLog = () => {
   const year = startDate.getUTCFullYear()
   const month = startDate.getUTCMonth() + 1
   const day = startDate.getUTCDate()
-  if(existsSync(resolve(dataDir, 'logs', 'lastDir.txt'))) {
+  if (existsSync(resolve(dataDir, 'logs', 'lastDir.txt'))) {
     const jsonData = readFileSync(resolve(dataDir, 'logs', 'lastDir.txt')).toString('utf8')
     let id = +jsonData.split('_')[1]
     const date = jsonData.split('_')[0]
     let dateParts = date.split('-')
-    if(+dateParts[0] === year &&
+    if (+dateParts[0] === year &&
       +dateParts[1] === month &&
       +dateParts[2] === day
     ) {
@@ -37,7 +37,7 @@ const checkLog = () => {
   writeFileSync(resolve(dataDir, 'logs', 'lastDir.txt'), logFileName)
 }
 
-//setInterval(checkLog, 7200000) // Runs once every two hours,
+// setInterval(checkLog, 7200000) // Runs once every two hours,
 checkLog() // and at bot startup.
 
 export default function load (b: Botv12Client) {

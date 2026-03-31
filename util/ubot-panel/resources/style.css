@@ -133,6 +133,7 @@ input:focus {
 #chatContent p .chat_st.chat_ul { text-decoration-line: line-through underline; }
 #chatContent p .dmh { background-color: var(--darkModeHighlight); }
 #chatContent p .lmh { background-color: var(--lightModeHighlight); }
+#chatContent p .chat_uuid { display: none; }
 #chatInputContainer {
 	width: 100%;
 	position: relative;
@@ -227,7 +228,7 @@ input, button, select {
 	color: var(--contextMenuFontH);
 	background-color: var(--contextMenuBgH);
 }
-.contextMenu2Itemactive {
+.contextMenu2Item:active {
 	color: var(--contextMenuFontA);
 	background-color: var(--contextMenuBgA);
 }

@@ -50,7 +50,7 @@
 	--buttonFont: var(--font);
 	--buttonFontH: var(--font);
 	--buttonFontA: var(--font);
-	--buttonBg: #fde;
-	--buttonBgH: #fbd;
-	--buttonBgA: #ffa7d3;
+	--buttonBg: #fbd;
+	--buttonBgH: #ffa7d3;
+	--buttonBgA: #ff99cc;
 }
