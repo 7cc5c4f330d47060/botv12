@@ -42,7 +42,7 @@ export default {
     'commands.error.desc': 'Test the error handler',
     'commands.eval.usage': ' <code>',
     'commands.eval.desc': 'Run JavaScript code',
-    'commands.filter.usage': ' add <player|| remove <player>|| list|| clear',
+    'commands.filter.usage': ' add <player>|| remove <player>|| list|| clear',
     'commands.filter.desc': 'Manage filtered players',
     'commands.help.usage': ' [cmd]',
     'commands.help.desc': 'Shows command help',

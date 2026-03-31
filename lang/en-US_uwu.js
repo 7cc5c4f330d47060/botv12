@@ -29,7 +29,8 @@ export default {
 
     // Command Info
     // For commands with multiple usages, || seperates them. Usage should always start with space unless empty.
-    // Do not change usages except for existing letters.
+    // Do not change usages except for existing letters, and only in arguments that should be
+    // changed by the user.
     'commands.about.usage': '',
     'commands.about.desc': 'About the bot :3',
     'commands.asr.usage': '',
@@ -37,55 +38,55 @@ export default {
     'commands.bedrock.usage': ' <x1> <z1> <x2> <z2> [bwock]',
     'commands.bedrock.desc': 'Wefiww bedwock in a specific awea',
     'commands.cb.usage': ' <command>',
-    'commands.cb.desc': 'Wun a command in a command bwock :3', // Complete until
-    'commands.cloop.usage': ' add <rate> <command>|| remove <index>|| list|| clear',
-    'commands.cloop.desc': 'Manage command loops',
+    'commands.cb.desc': 'Wun a command in a command bwock :3',
+    'commands.cloop.usage': ' add <wate> <command>|| remove <index>|| list|| clear',
+    'commands.cloop.desc': 'Manage command woops', // "woop"?
     'commands.download.usage': '',
-    'commands.download.desc': "Download the bot's source code",
+    'commands.download.desc': "Downwoad the bot's souwce code",
     'commands.error.usage': '',
-    'commands.error.desc': 'Test the error handler',
+    'commands.error.desc': 'Test the ewwow handwer', // add something to end
     'commands.eval.usage': ' <code>',
-    'commands.eval.desc': 'Run JavaScript code',
-    'commands.filter.usage': ' add <player|| remove <player>|| list|| clear',
-    'commands.filter.desc': 'Manage filtered players',
+    'commands.eval.desc': 'Wun JavaScwipt code',
+    'commands.filter.usage': ' add <pwayew>|| remove <pwayew>|| list|| clear',
+    'commands.filter.desc': 'Manyage fiwtewed pwayews',
     'commands.help.usage': ' [cmd]',
-    'commands.help.desc': 'Shows command help',
+    'commands.help.desc': 'Shows command hewp',
     'commands.join.usage': ' <host> <port>',
-    'commands.join.desc': 'Join the bot to a server temporarily',
+    'commands.join.desc': 'Join the bot to a sewvew tempowawiwy',
     'commands.list.usage': '',
-    'commands.list.desc': 'Shows player list',
+    'commands.list.desc': 'Shows pwayew wist :3',
     'commands.login.usage': ' <hash>',
-    'commands.login.desc': 'Login to the bot and enable trusted command access',
+    'commands.login.desc': 'Wogin to the bot and enabwe twusted command access',
     'commands.logoff.usage': '',
-    'commands.logoff.desc': 'Disconnect and reconnect the bot from a server',
-    'commands.music.usage': ' play <file | url>|| list <directory>|| listen|| pause|| stop|| skip|| restart|| loop|| pitch <pitch>|| speed <speed>|| volume <volume>|| goto <time>',
-    'commands.music.desc': 'Play music using the command core',
+    'commands.logoff.desc': 'Disconnect and weconnect the bot fwom a sewvew',
+    'commands.music.usage': ' play <file | url>|| list <diwectowy>|| listen|| pause|| stop|| skip|| restart|| loop|| pitch <pitch>|| speed <speed>|| volume <vowume>|| goto <time>',
+    'commands.music.desc': 'Pway music using the command core',
     'commands.netmsg.usage': ' <message>',
-    'commands.netmsg.desc': 'Send a message to all servers the bot is connected to',
+    'commands.netmsg.desc': 'Send a message to aww sewvews the bot is connected to',
     'commands.refill.usage': '',
-    'commands.refill.desc': 'Refill core',
+    'commands.refill.desc': 'Wefiww cowe',
     'commands.restart.usage': '',
-    'commands.restart.desc': 'Restart bot',
+    'commands.restart.desc': 'Westawt bot',
     'commands.rtp.usage': '',
-    'commands.rtp.desc': 'Teleport to a random location',
+    'commands.rtp.desc': 'Tewepowt to a wandom wocation',
     'commands.say.usage': ' <message>',
     'commands.say.desc': 'Sends a message to chat',
     'commands.scale.usage': ' set <size>|| reset',
-    'commands.scale.desc': 'Change player size',
-    'commands.seen.usage': ' <player>',
-    'commands.seen.desc': 'Check when a player last joined the server',
+    'commands.scale.desc': 'Change pwayew size',
+    'commands.seen.usage': ' <pwayew>',
+    'commands.seen.desc': 'Check when a pwayew wast joined the sewvew',
     'commands.sql.usage': ' <code>',
-    'commands.sql.desc': 'Run SQL code on the database',
+    'commands.sql.desc': 'Wun SQL code on the database', // SQW? I'm not sure
     'commands.stop.usage': '',
     'commands.stop.desc': 'Stop bot',
-    'commands.template.usage': ' <required> [optional]',
+    'commands.template.usage': ' <required> [optional]', // Unused since alpha 2.
     'commands.template.desc': 'Does nothing',
-    'commands.test.usage': ' [args...]',
-    'commands.test.desc': 'Chat parsing debugger command',
-    'commands.validate.usage': ' [args...]',
-    'commands.validate.desc': 'Check the Login system',
+    'commands.test.usage': ' [awgs...]',
+    'commands.test.desc': 'Chat pawsing debuggew command',
+    'commands.validate.usage': ' [awgs...]',
+    'commands.validate.desc': 'Check the Wogin system',
     'commands.validate_v9.usage': ' [text]',
-    'commands.validate_v9.desc': '(botv9 port) Check if the command verification system is working',
+    'commands.validate_v9.desc': '(botv9 powt) Check if the command vewification system is wowking', // Complete until
 
     // Command Strings
     'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones',
@@ -257,44 +258,44 @@ export default {
     'command.disallowed.perms.chipmunkmod': 'Commands requiring trusted permissions cannot be run through custom chat mods. Please bypass custom chat to run this command.',
 
     // Disabled Commands
-    'command.disabled.generic': 'This command has been disabled.',
-    'command.disabled.local': 'This command has been disabled on this server.',
-    'command.disabled.noConsole': 'This command cannot be run from the console.',
-    'command.disabled.consoleOnly': 'This command must be run from the console.',
-    'command.disabled.debugOnly': 'This command must be run with Debug Mode enabled.',
-    'command.disabled.chipmunkmod': 'This command cannot be run using a custom chat format.',
-    'command.disabled.cli': 'This command has been disabled with a command-line option.',
+    'command.disabled.generic': 'This command has been disabwed.', // Complete from
+    'command.disabled.local': 'This command has been disabwed on this sewvew.',
+    'command.disabled.noConsole': 'This command cannot be wun fwom the consowe.',
+    'command.disabled.consoleOnly': 'This command must be wun fwom the consowe.',
+    'command.disabled.debugOnly': 'This command must be wun with Debug Mode enabwed.',
+    'command.disabled.chipmunkmod': 'This command cannot be wun using a custom chat fowmat.',
+    'command.disabled.cli': 'This command has been disabwed with a command-wine option.', // Yes, line -> wine, because L becomes W.
 
     // Permission Levels
-    'command.perms0': 'Public',
-    'command.perms1': 'Trusted',
+    'command.perms0': 'Pubwic',
+    'command.perms1': 'Twusted',
     'command.perms2': 'Admin',
-    'command.perms3': 'Owner',
+    'command.perms3': 'Ownew :3',
 
     // Command Errors - Data Base
     'command.error.db.loading': 'The Database is connecting, please wait',
     'command.error.db.notConnected': 'The database is not connected',
-    'command.error.db.disabled': 'Database support is disabled in the settings file.',
+    'command.error.db.disabled': 'Database suppowt is disabwed in the settings fiwe.', // Only supported one currently.
     'command.error.db.disabledAdmin': 'To enable database support, open the settings file, set dbEnabled to true, and fill out the appropriate fields.',
 
     // Text reader
-    'textReader.lastPage': 'Previous',
+    'textReader.lastPage': 'Pwevious',
     'textReader.nextPage': 'Next',
 
     // Miscellaneous
-    clickHere: 'click here',
+    clickHere: 'cwick hewe',
     // clickHere2: 'Click here',
     // clickHere3: 'Click Here',
     listItem: '%s: %s',
-    copyText: 'Click to copy this item to your clipboard',
-    openInBrowser: 'Click to open this link in a browser',
-    runCommand: 'Click to run command (1.11+): %s',
-    'chat.antiSpamTriggered': 'Anti-spam has been triggered for this server.',
-    'selfcare.prefix': 'Prefix',
-    'selfcare.op.vanilla': 'The bot does not have operator status on this server. Please run /op %s',
-    'debug.commandFinished': 'Command successfully executed in %sms',
-    'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
-    'bf.true1': 'Enabled',
-    'bf.false1': 'Disabled'
+    copyText: 'Cwick to copy this item to youw cwipboawd :3',
+    openInBrowser: 'Cwick to open this wink in a bwowsew :3',
+    runCommand: 'Cwick to wun command (1.11+): %s', // Don't run %s through uwu filter.
+    'chat.antiSpamTriggered': 'Anti-spam has been twiggewed fow this sewvew.',
+    'selfcare.prefix': 'Pwefix',
+    'selfcare.op.vanilla': 'The bot does not have opewatow status on this sewvew. Pwease wun /op %s',
+    'debug.commandFinished': 'Command successfuwwy executed in %sms',
+    'downloader.tooLarge': 'Fiwe is too wawge (max fiwe size: 64MiB)',
+    'bf.true1': 'Enabwed',
+    'bf.false1': 'Disabwed'
   }
 }
