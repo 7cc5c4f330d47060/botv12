@@ -24,6 +24,7 @@ const checkLog = () => {
     ) {
       id += 1
     } else {
+      id = 1
       dateParts = [(year + '').padStart(4, '0'), (month + '').padStart(2, '0'), (day + '').padStart(2, '0')]
     }
     logFileName = `${dateParts.join('-')}_${id}`
