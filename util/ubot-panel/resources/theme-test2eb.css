@@ -1,5 +1,4 @@
 /* Basic pink color theme, based on testing light theme. */
-/* File Name means Test 2: Electric Boogaloo */
 :root {
 	--font: black;
 	--bg: white;
@@ -18,7 +17,7 @@
 	--chatBgMessage: #fde;
 	--playerBg: var(--chatBg);
 	--playerBgHover: #0002;
-	--sidebarBg: #fce;
+	--sidebarBg: #fde;
 	--sidebarBgOuter: #ffffff7f;
 	--chatInput: var(--buttonBg);
 

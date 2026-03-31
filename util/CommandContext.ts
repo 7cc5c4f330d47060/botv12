@@ -3,6 +3,7 @@ import JsonFormat from './interface/JsonFormat.js'
 import build from './messageBuilder.js'
 import TextFormat from './interface/TextFormat.js'
 import NewArgumentFormat from './interface/NewArgumentFormat.js'
+import chatparse from './chatparse.js'
 
 interface ClientStub {
   _client?: {
@@ -93,7 +94,14 @@ export default class CommandContext {
 
   constructor (uuid: string, user: string, nick: string, cmd: string, senderType: string, msgType: string, msgSubtype: string, prefix: string, argsv2: NewArgumentFormat[], bot: Botv12Client | ClientStub) {
     this.uuid = uuid
-    this.reply = (text: TextFormat | string) => bot.commandCore.tellraw(uuid, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
+    this.reply = (text: TextFormat | string) => {
+      const json = build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid)
+      if (msgSubtype === 'console') {
+        console.log(chatparse(json, settings.terminalMode))
+      } else {
+        bot.commandCore.tellraw(uuid, json)
+      }
+    }
     this.send = (user: string, text: TextFormat | string) => bot.commandCore.tellraw(user, build(text, settings.colors, settings.defaultLang, bot._client?.uuid ?? uuid))
     this.username = user
     // this.nickname = nick
