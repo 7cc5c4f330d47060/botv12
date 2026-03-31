@@ -82,7 +82,11 @@ if (!clOptions.disableWsServer) {
     const serverList = []
     const verify = 0
     for (const bot of bots) {
-      serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port })
+      if(bot.host.options.hidden) {
+        serverList.push({ id: bot.id, host: 'hidden', port: 25565 })
+      } else {
+        serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port ?? 25565 })
+      }
       client.send(JSON.stringify({
         event: 'playerInfo',
         data: {
