@@ -218,7 +218,7 @@ export default {
     'command.test.colorError': 'Error color',
     'command.test.colorFatalError': 'Fatal error color',
     'command.username': "The bot's usewname on this sewvew is %s, with UUID %s.",
-    'command.about.serverListItem.thisServer': 'Sewvew %s - %s (this sewvew)',
+    'command.about.serverListItem.thisServer': 'Sewvew %s - %s (this sewvew :3)',
     'command.tpr.success': 'Tewepowting %s to %s, %s, %s',
     'command.verify.success': 'Successfuwwy vewified with pewmission wevew %s',
 
