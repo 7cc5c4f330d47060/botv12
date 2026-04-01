@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { MidiData, parseMidi } from 'midi-file'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 // import CommandQueue from '../util/CommandQueue.js';
 import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
@@ -16,6 +16,7 @@ import NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
 import Note from '../util/interface/Note.js'
 
 const songPath = resolve(dataDir, 'songs')
+if (!existsSync(songPath)) mkdirSync(songPath)
 
 const calculateNote = (event: { mcNote?: string, noteNumber: number }, program: number) => {
   const note = event.noteNumber
@@ -158,7 +159,7 @@ export default function load (b: Botv12Client) {
         b.musicPlayer.playSong(b.musicPlayer.songName ?? '')
       }
     } else if (b.musicPlayer?.queue?.length === 0) {
-      b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+      b.commandCore.tellraw('@a[tag=ubotmusic]', {
         text: getMessage(settings.defaultLang, 'musicPlayer.finished')
       })
     }
@@ -173,14 +174,14 @@ export default function load (b: Botv12Client) {
         else if (existsSync(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
         else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
         else {
-          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+          b.commandCore.tellraw('@a[tag=ubotmusic]', {
             text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
           })
           return
         }
 
         if (!path.startsWith(songPath)) {
-          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+          b.commandCore.tellraw('@a[tag=ubotmusic]', {
             text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
           })
           return
@@ -194,18 +195,18 @@ export default function load (b: Botv12Client) {
       } else if (url.startsWith('ram://')) {
         if (b.musicPlayer.playSong) b.musicPlayer.playSong(name)
       } else if (url.startsWith('http://') || url.startsWith('https://')) {
-        b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+        b.commandCore.tellraw('@a[tag=ubotmusic]', {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
           with: [url]
         })
         download(url, (output: Buffer, err?: string) => {
           if (err === 'largeFile') {
-            b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+            b.commandCore.tellraw('@a[tag=ubotmusic]', {
               translate: getMessage(settings.defaultLang, 'downloader.tooLarge')
             })
             return
           } else if (err) {
-            b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+            b.commandCore.tellraw('@a[tag=ubotmusic]', {
               text: err.toString()
             })
             console.error(err)
@@ -219,7 +220,7 @@ export default function load (b: Botv12Client) {
         })
       }
     } catch (e) {
-      b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+      b.commandCore.tellraw('@a[tag=ubotmusic]', {
         text: e + ''
       })
       console.error(e)
@@ -230,7 +231,7 @@ export default function load (b: Botv12Client) {
     if (!b.musicPlayer) return
 
     if (b.musicPlayer.playing) {
-      b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+      b.commandCore.tellraw('@a[tag=ubotmusic]', {
         text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying')
       })
       return
@@ -271,7 +272,7 @@ export default function load (b: Botv12Client) {
         if (event.type === 'trackName' && event.text && event.text.endsWith('_Monster') && !msmFile) {
           // MSM world*.mid files are not in the General MIDI format, and would require large
           // amounts of extra code to make functional (i.e. to play roughly what is in MSM)
-          b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+          b.commandCore.tellraw('@a[tag=ubotmusic]', {
             translate: getMessage(settings.defaultLang, 'musicPlayer.warning.msm'),
             color: settings.colors.warning ?? 'gold'
           })
@@ -336,13 +337,13 @@ export default function load (b: Botv12Client) {
               color: 'white'
             }
           ]
-        }, Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic,tag=!nomusic]')
+        }, Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic]')
       }
       b.musicPlayer.bossBar.updatePlayers()
     }
     b.musicPlayer.songName = name
     if (!b.musicPlayer.looping && !b.musicPlayer.startFrom) {
-      b.commandCore.tellraw('@a[tag=ubotmusic,tag=!nomusic]', {
+      b.commandCore.tellraw('@a[tag=ubotmusic]', {
         translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
         with: [
           b.musicPlayer.songName
@@ -398,7 +399,7 @@ export default function load (b: Botv12Client) {
                 mcNote: queue[i].mcNote
               }, queue[i].program)
             }
-            b.commandCore.sendCommandNow(`/execute as @a[tag=ubotmusic,tag=!nomusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${Math.min(note.pitch, 2)}`)
+            b.commandCore.sendCommandNow(`/execute as @a[tag=ubotmusic] at @s run playsound ${note.note} record @s ^${queue[i].nbsStereo} ^ ^ ${(queue[i].volume ?? 1) * b.musicPlayer.volume} ${Math.min(note.pitch, 2)}`)
           }
           notesProcessed++
         }
