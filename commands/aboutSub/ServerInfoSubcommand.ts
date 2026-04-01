@@ -9,6 +9,7 @@ import TextFormat from '../../util/interface/TextFormat.js'
 import version from '../../version.js'
 import botVersion from '../../util/version.js'
 import { exec } from 'node:child_process'
+import uwuText from '../../util/botv8-uwu.js'
 
 const dependencies: { name: string, version: string }[] = []
 
@@ -124,6 +125,8 @@ export default class ServerInfoSubcommand extends Command {
         }
         if (typeof thisItem === 'string' && thisItem.length === 0) return
 
+        const thisItemOld = thisItem
+        if (settings.kawaiiMode && typeof thisItem == 'string') thisItem = uwuText(thisItem)
         c.reply({
           text: 'listItem',
           parseLang: true,
