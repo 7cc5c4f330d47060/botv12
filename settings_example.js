@@ -16,6 +16,12 @@ export default {
   dbUser: '',
   dbPassword: '',
   dbName: '',
+  /*
+    By default, botv12 will run an HTTP and WebSocket server. The below settings can be used to
+    configure whether they will be started, and on which ports it will listen.
+  */
+  // wsPort: 12365,
+  // httpPort: 12376,
   debugMode: false, // Enable for more debug info, and eval commands.
   colors: { // All colors the bot uses
     success: '#88FF55', // Used in Debug Mode for successful command executions.

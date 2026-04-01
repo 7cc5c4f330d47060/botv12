@@ -7,6 +7,7 @@ import { userInfo } from 'node:os'
 import Botv12Client from '../util/Botv12Client.js'
 import { getMessage } from '../util/lang.js'
 import JsonFormat from '../util/interface/JsonFormat.js'
+import botByName from '../util/botByName.js'
 
 const consoleBotStub = {
   host: {
@@ -54,7 +55,10 @@ rl.on('line', async (l: string) => {
           await cmd.execute(context)
         }
       } else {
-        const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bots[+index2])
+        let index3: string | number = index2
+        const bbn = botByName(index2)
+        if(typeof bbn !== 'undefined') index3 = bbn
+        const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bots[+index3])
         context.verify = 3
         await cmd.execute(context)
       }
