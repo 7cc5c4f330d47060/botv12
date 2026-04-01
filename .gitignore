@@ -149,40 +149,31 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Bot Settings
-settings.json
-/settings.js
+# Old botv9 files (Added in 2026 to enable usage of one gitignore.)
+/servers.json
 
-# Legacy secret file for version 10
-secret.json
-
-# botvX / owobot user settings
+# Old botvX files
+/settings.json
+/secret.json
 userPref/
-
-# botvX log files
 UBotLogs/
 botvXLogs/
 
-# Songs for music command (old versions)
-songs/
+# Old botv12 files
+/songs/
+/temp/
+/botv12.sqlite3
+/userkeys.json
+/.license_accepted
 
-# Temporary files (old versions)
-temp/
+# Bot Settings
+/settings.js
 
 # Launcher accounts
 launcher_accounts.json
 
 # Automatically generated metadata from downloader
 /metadata.json
-
-# License
-.license_accepted
-
-# User login/authentication keys (old versions)
-/userkeys.json
-
-# Default SQLite database file (old versions)
-/botv12.sqlite3
 
 # New instance data folder
 /data/
