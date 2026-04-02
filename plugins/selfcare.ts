@@ -115,7 +115,7 @@ export default function load (b: Botv12Client) {
   })
 
   b.selfCare.addTask('cc_pos', () => {
-    if (b.host.options.isVanilla) b.clientChat.send('/tp ~ 40 ~')
-    else b.clientChat.send('/minecraft:tp ~ 40 ~')
+    if (b.host.options.isVanilla) b.commandCore.ccq.push(`/tp ${b._client.uuid} ~ 40 ~`)
+    else b.commandCore.ccq.push(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)
   })
 }
