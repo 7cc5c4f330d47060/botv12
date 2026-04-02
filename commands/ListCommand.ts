@@ -6,49 +6,7 @@ export default class ListCommand extends Command {
     super()
     this.name = 'list'
     this.execute = async (c: CommandContext) => {
-      if (!('isBot' in c.bot)) {
-        // Console list function here... (bypass consoleIndex)
-        const server = +c.args[0]
-        const b = bots[server]
-        if (!b?.playerInfo?.players) return
-        const keys = Object.keys(b.playerInfo.players)
-        c.reply({
-          text: 'command.list.intro',
-          parseLang: true,
-          color: '$secondary',
-          with: [
-            {
-              text: `command.list.intro.${keys.length === 1 ? 'one' : 'many'}`,
-              color: '$secondary',
-              parseLang: true,
-              with: [
-                { text: keys.length + '', color: '$primary' }
-              ]
-            },
-            {
-              text: '%s:%s',
-              color: '$primary',
-              with: [
-                { text: b.host.fakeHost ?? b.host.host, color: '$primary' },
-                { text: b.host.port ? b.host.port + '' : '25565', color: '$primary' }
-              ]
-            }
-          ]
-        })
-        for (const uuid in b.playerInfo.players) {
-          const playerItem = b.playerInfo.players[uuid]
-          c.reply({
-            text: 'command.list.item',
-            color: '$secondary',
-            parseLang: true,
-            with: [
-              playerItem.realName,
-              uuid
-            ]
-          })
-        }
-        return
-      }
+      if (!('isBot' in c.bot)) return
       if (!c.bot.playerInfo.players) return
       const keys = Object.keys(c.bot.playerInfo.players)
       c.reply({
@@ -84,6 +42,8 @@ export default class ListCommand extends Command {
           ]
         })
       }
+      if (c.type === 'console') c.reply('')
     }
+    this.consoleIndex = true
   }
 }

@@ -46,7 +46,7 @@ if (existsSync(resolve(baseDir, 'userkeys.json'))) { renameSync(resolve(baseDir,
 
 if (!existsSync(resolve(dataDir, 'settings.js'))) {
   console.log('[info] Settings file is missing, using defaults.')
-  copyFileSync(resolve(baseDir, 'settings_example.js'),resolve(dataDir, 'settings.js'))
+  copyFileSync(resolve(baseDir, 'settings_example.js'), resolve(dataDir, 'settings.js'))
 }
 const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
