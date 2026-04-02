@@ -2,7 +2,7 @@ import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/interface/SettingsType.js'
 import HostOptions from './util/interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
-import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs'
+import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync, copyFileSync } from 'node:fs'
 
 declare global {
   var settings: SettingsType
@@ -44,6 +44,10 @@ if (existsSync(resolve(baseDir, 'songs'))) { renameSync(resolve(baseDir, 'songs'
 
 if (existsSync(resolve(baseDir, 'userkeys.json'))) { renameSync(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json')) }
 
+if (!existsSync(resolve(dataDir, 'settings.js'))) {
+  console.log('[info] Settings file is missing, using defaults.')
+  copyFileSync(resolve(baseDir, 'settings_example.js'),resolve(dataDir, 'settings.js'))
+}
 const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
 globalThis.debugMode = settings.debugMode || globalThis.debugMode
