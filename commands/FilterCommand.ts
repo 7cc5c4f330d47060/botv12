@@ -45,10 +45,11 @@ export default class FilterCommand extends Command {
 
           c.reply({
             text: 'command.filter.success.add',
+            color: '$secondary',
             parseLang: true,
             with: [
-              command,
-              playerName
+              { text: command, color: '$primary' },
+              { text: playerName, color: '$primary' }
             ]
           })
           break
@@ -57,9 +58,10 @@ export default class FilterCommand extends Command {
           c.bot.filter.removeFilter(c.args[0])
           c.reply({
             text: 'command.filter.success.remove',
+            color: '$secondary',
             parseLang: true,
             with: [
-              c.args[0]
+              { text: c.args[0], color: '$primary' }
             ]
           })
           break
@@ -68,10 +70,11 @@ export default class FilterCommand extends Command {
           c.bot.filter.filteredPlayers.forEach((item) => {
             c.reply({
               text: 'command.filter.list',
+              color: '$secondary',
               parseLang: true,
               with: [
-                item.username,
-                item.uuid
+                { text: item.username, color: '$primary' },
+                { text: item.uuid, color: '$primary' }
               ]
             })
           })
@@ -80,15 +83,17 @@ export default class FilterCommand extends Command {
           c.bot.filter.filteredPlayers = [] // Unlike cloop, filters don't use setInterval several times
           c.reply({
             text: 'command.filter.success.clear',
+            color: '$secondary',
             parseLang: true
           })
           break
         default:
           c.reply({
             text: 'command.error.subcommand',
+            color: '$secondary',
             parseLang: true,
             with: [
-              `${c.prefix}help filter`
+              { text: `${c.prefix}help filter`, color: '$primary' }
             ]
           })
       }

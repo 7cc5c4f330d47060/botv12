@@ -2,13 +2,12 @@ import { WebSocketServer, WebSocket } from 'ws'
 import Botv12Client from '../util/Botv12Client'
 import parse3 from '../util/chatparse.js'
 import registry from '../util/commands.js'
-import { createServer, Server } from 'node:http'
-import { resolve } from 'node:path'
-import { readFileSync, existsSync, statSync } from 'node:fs'
+import { Server } from 'node:http'
 import { getMessage } from '../util/lang.js'
 import CommandContext from '../util/CommandContext.js'
 import JsonFormat from '../util/interface/JsonFormat.js'
-import { inspect } from 'node:util'
+import createServer2 from '../util/webServer.js'
+import botByName from '../util/botByName.js'
 
 const uuid = '21234569-89ab-cdef-0123-412789a42def'
 const user = 'Default User'
@@ -17,59 +16,14 @@ const nick = 'Default User'
 let wss: WebSocketServer
 let httpServer: Server
 
-const fileFormats: Record<string, string> = {
-  html: 'text/html; charset=utf-8',
-  htm: 'text/html; charset=utf-8',
-  css: 'text/css; charset=utf-8',
-  _other: 'application/octet-stream'
-}
 if (!clOptions.disableWsServer) {
   wss = new WebSocketServer({
     port: settings.wsPort ?? 12365
   })
 
-  httpServer = createServer((req, res) => {
-    let output: Buffer | string = ''
-    let statusCode = 500
-    let fileType: string = 'application/octet-stream'
-    try {
-      if (typeof req.url === 'undefined') return
-      const partialUrl = req.url.slice(1)
-      if (partialUrl === 'config.json') {
-        output = JSON.stringify({
-
-        })
-      }
-      const fullUrl = resolve(baseDir, 'util', 'ubot-panel', partialUrl)
-      if (existsSync(fullUrl)) {
-        const isDir = statSync(fullUrl).isDirectory()
-        if (isDir) {
-          if (statusCode === 500) statusCode = 501
-        } else {
-          output = readFileSync(fullUrl)
-          const extension = partialUrl.split('.').reverse()[0]
-          fileType = fileFormats[extension] ?? fileFormats['_other']
-        }
-      } else {
-        if (statusCode === 500) statusCode = 404
-        const four04Path = resolve(baseDir, 'util', 'ubot-panel', '404.html')
-        if (existsSync(four04Path)) {
-          output = readFileSync(four04Path)
-          fileType = fileFormats['html']
-        } else {
-          output = 'The file was not found'
-        }
-      }
-      if (statusCode === 500) statusCode = 200
-    } catch (e) {
-      if (debugMode) output = inspect(e)
-    }
-    res.writeHead(statusCode, {
-      'content-type': fileType
-    })
-    res.end(output)
-  })
+  httpServer = createServer2()
   httpServer.listen(settings.httpPort ?? 12376)
+
   const sendRaw = (client: WebSocket, type: string, data: JsonFormat | string) => client.send(JSON.stringify({
     event: 'rawChat',
     data: {
@@ -82,7 +36,7 @@ if (!clOptions.disableWsServer) {
     const serverList = []
     const verify = 0
     for (const bot of bots) {
-      if(bot.host.options.hidden) {
+      if (bot.host.options.hidden) {
         serverList.push({ id: bot.id, host: 'hidden', port: 25565 })
       } else {
         serverList.push({ id: bot.id, host: bot.host.host, port: bot.host.port ?? 25565 })
@@ -150,7 +104,10 @@ if (!clOptions.disableWsServer) {
                   cmd.execute(context)
                 }
               } else {
-                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bots[+index2])
+                let index3: string | number = index2
+                const bbn = botByName(index2)
+                if (typeof bbn !== 'undefined') index3 = bbn
+                const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'ws_console', '', cmd.argsFormat, bots[+index3])
                 // context.verify = 2
                 cmd.execute(context)
               }

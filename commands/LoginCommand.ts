@@ -34,8 +34,8 @@ export default class LoginCommand extends Command {
             text: 'command.loginv2.success',
             parseLang: true,
             with: [
-              i,
-              userKeys[i].level + ''
+              { text: i, color: '$primary' },
+              { text: userKeys[i].level + '', color: '$primary' }
             ]
           })
         } else {

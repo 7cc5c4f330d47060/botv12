@@ -97,7 +97,27 @@ function addPlayer (server, uuid, data) {
       {
         text: 'Info',
         click: () => {
-          createWindow("infoDialog", "main_normal", 500, 300, "title", document.createElement("div"))
+          const element2 = document.createElement("div")
+          const elementButton = document.createElement("button")
+          elementButton.innerHTML = "OK"
+          elementButton.onclick = () => {document.getElementById('window_infoDialog_bg').remove()}
+          elementButton.style.position = 'absolute';
+          elementButton.style.right = "10px";
+          elementButton.style.bottom = "10px";
+          elementButton.style.width = "100px";
+          elementButton.style.height = "30px";
+          elementButton.style.border = "0";
+          elementButton.innerHTML = "OK"
+          element2.appendChild(elementButton)
+          const elementSpan = document.createElement("span")
+          elementSpan.style.position = 'absolute';
+          elementSpan.style.top = "30px";
+          elementSpan.style.left = "20px";
+          elementSpan.innerHTML = "The info section is being worked on."
+          elementSpan
+          element2.appendChild(elementSpan)
+          createWindow("infoDialog", "main_normal", 400, 150, "title", element2)
+          closeContextMenu()
         }
       },
       {

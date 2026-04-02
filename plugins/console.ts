@@ -57,7 +57,7 @@ rl.on('line', async (l: string) => {
       } else {
         let index3: string | number = index2
         const bbn = botByName(index2)
-        if(typeof bbn !== 'undefined') index3 = bbn
+        if (typeof bbn !== 'undefined') index3 = bbn
         const context = new CommandContext(uuid, user, nick, args.join(' '), 'console', 'console', 'console', '', cmd.argsFormat, bots[+index3])
         context.verify = 3
         await cmd.execute(context)

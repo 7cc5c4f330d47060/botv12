@@ -17,7 +17,8 @@ export default class CommandLoopCommand extends Command {
           const command = c.args.join(' ')
           if (rate < 20) {
             c.reply({
-              text: getMessage(c.lang, 'command.cloop.error.tooShort')
+              text: getMessage(c.lang, 'command.cloop.error.tooShort'),
+              color: '$error',
             })
             return
           }
@@ -25,9 +26,10 @@ export default class CommandLoopCommand extends Command {
           c.reply({
             text: 'command.cloop.success.add',
             parseLang: true,
+            color: '$secondary',
             with: [
-              command,
-              rate + ''
+              { text: command, color: '$primary' },
+              { text: rate + '', color: '$primary' }
             ]
           })
           break
@@ -38,8 +40,9 @@ export default class CommandLoopCommand extends Command {
           c.reply({
             text: 'command.cloop.success.remove',
             parseLang: true,
+            color: '$secondary',
             with: [
-              c.args[0]
+              { text: c.args[0], color: '$primary' }
             ]
           })
           break
@@ -49,10 +52,11 @@ export default class CommandLoopCommand extends Command {
             c.reply({
               text: 'command.cloop.list',
               parseLang: true,
+              color: '$secondary',
               with: [
-                i.toString(),
-                item.command,
-                item.rate + ''
+                { text: i.toString(), color: '$primary' },
+                { text: item.command, color: '$primary' },
+                { text: item.rate + '', color: '$primary' }
               ]
             })
           })
@@ -61,13 +65,15 @@ export default class CommandLoopCommand extends Command {
           if (!c.bot.cloopManager.clearCloops) return
           c.bot.cloopManager.clearCloops()
           c.reply({
-            text: getMessage(c.lang, 'command.cloop.success.clear')
+            text: getMessage(c.lang, 'command.cloop.success.clear'),
+            color: '$secondary'
           })
           break
         default:
           c.reply({
             text: 'command.error.subcommand',
             parseLang: true,
+            color: '$error',
             with: [
               `${c.prefix}help cloop`
             ]

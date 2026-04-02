@@ -153,10 +153,12 @@ export default class DownloadCommand extends Command {
             sourceLink = content.slice(0, content.length - 1)
             c.reply({
               text: 'command.download.success',
+              color: '$secondary',
               parseLang: true
             })
             c.reply({
               text: sourceLink,
+              color: '$primary',
               linked: true
             })
           }

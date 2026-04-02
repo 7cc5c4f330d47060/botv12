@@ -15,19 +15,22 @@ export default class ListCommand extends Command {
         c.reply({
           text: 'command.list.intro',
           parseLang: true,
+          color: '$secondary',
           with: [
             {
               text: `command.list.intro.${keys.length === 1 ? 'one' : 'many'}`,
+              color: '$secondary',
               parseLang: true,
               with: [
-                keys.length + ''
+                { text: keys.length + '', color: '$primary' }
               ]
             },
             {
               text: '%s:%s',
+              color: '$primary',
               with: [
-                b.host.fakeHost ?? b.host.host,
-                b.host.port ? b.host.port + '' : '25565'
+                { text: b.host.fakeHost ?? b.host.host, color: '$primary' },
+                { text: b.host.port ? b.host.port + '' : '25565', color: '$primary' }
               ]
             }
           ]
@@ -36,6 +39,7 @@ export default class ListCommand extends Command {
           const playerItem = b.playerInfo.players[uuid]
           c.reply({
             text: 'command.list.item',
+            color: '$secondary',
             parseLang: true,
             with: [
               playerItem.realName,
@@ -53,16 +57,17 @@ export default class ListCommand extends Command {
         with: [
           {
             text: `command.list.intro.${keys.length === 1 ? 'one' : 'many'}`,
+            color: '$secondary',
             parseLang: true,
             with: [
-              keys.length + ''
+              { text: keys.length + '', color: '$primary' }
             ]
           },
           {
             text: '%s:%s',
             with: [
-              c.bot.host.fakeHost ?? c.bot.host.host,
-              c.bot.host.port ? c.bot.host.port + '' : '25565'
+              { text: c.bot.host.fakeHost ?? c.bot.host.host, color: '$primary' },
+              { text: c.bot.host.port ? c.bot.host.port + '' : '25565', color: '$primary' }
             ]
           }
         ]
@@ -71,10 +76,11 @@ export default class ListCommand extends Command {
         const playerItem = c.bot.playerInfo.players[uuid]
         c.reply({
           text: 'command.list.item',
+          color: '$secondary',
           parseLang: true,
           with: [
-            { text: playerItem.realName, copyable: true },
-            { text: uuid, copyable: true }
+            { text: playerItem.realName, copyable: true, color: '$primary' },
+            { text: uuid, copyable: true, color: '$primary' }
           ]
         })
       }

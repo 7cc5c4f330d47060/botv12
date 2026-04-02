@@ -13,7 +13,7 @@ export default class ScaleCommand extends Command {
           text: 'command.scale.set',
           parseLang: true,
           with: [
-            c.args[1]
+            { text: c.args[1], color: '$primary' }
           ]
         })
         c.bot.commandCore.ccq.push(`attribute ${c.uuid} scale base set ${scale}`)

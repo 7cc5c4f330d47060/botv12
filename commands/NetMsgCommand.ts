@@ -3,6 +3,7 @@ import build from '../util/messageBuilder.js'
 import CommandContext from '../util/CommandContext'
 import Command from '../util/Command.js'
 import uwuText from '../util/botv8-uwu.js'
+import TextFormat from '../util/interface/TextFormat.js'
 
 export default class NetMsgCommand extends Command {
   constructor () {
@@ -27,14 +28,12 @@ export default class NetMsgCommand extends Command {
       let msg = c.args.join(' ').slice(0, 512)
       if (settings.kawaiiMode) msg = uwuText(msg)
 
-      const json: { text: string, with: [string, string, { text: string }] } = {
+      const json: TextFormat = {
         text: '[%s] %s › %s',
         with: [
-          c.bot.host?.options.name ?? 'console',
-          c.username,
-          {
-            text: msg
-          }
+          { text: c.bot.host?.options.name ?? 'console', color: '$primary' },
+          { text: c.username, color: '$primary' },
+          { text: msg, color: '$tertiary' }
         ]
       }
       bots.forEach(item => {

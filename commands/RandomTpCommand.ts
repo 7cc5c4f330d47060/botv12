@@ -23,10 +23,10 @@ export default class RandomTpCommand extends Command {
           text: 'command.tpr.success',
           parseLang: true,
           with: [
-            c.username,
-            originalPos.x.toString(),
-            originalPos.y.toString(),
-            originalPos.z.toString()
+            { text: c.username, color: '$primary' },
+            { text: originalPos.x.toString(), color: '$primary' },
+            { text: originalPos.y.toString(), color: '$primary' },
+            { text: originalPos.z.toString(), color: '$primary' }
           ]
         }
       )

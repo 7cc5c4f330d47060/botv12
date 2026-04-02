@@ -1,4 +1,4 @@
-@import url(theme-dark.css);
+@import url(theme-default.css);
 body {
 	min-height: 100vh;
 	margin: 0;
@@ -298,6 +298,18 @@ noscript {
 	height: 100%;
 	z-index: 2147483647;
 	background-color: #fff;
+}
+button {
+	color: var(--buttonFont);
+	background-color: var(--buttonBg);
+}
+button:hover {
+	color: var(--buttonFontH);
+	background-color: var(--buttonBgH);
+}
+button:active {
+	color: var(--buttonFontA);
+	background-color: var(--buttonBgA);
 }
 @media screen and (min-width: 601px) {
 	#playerSection {

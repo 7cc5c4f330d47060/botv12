@@ -14,7 +14,8 @@ export default class BedrockCommand extends Command {
         c.reply({
           text: 'command.ratelimit',
           parseLang: true,
-          with: ['30']
+          color: '$secondary',
+          with: [{ text: '30', color: '$primary' }]
         })
         return
       } else {
@@ -60,11 +61,12 @@ export default class BedrockCommand extends Command {
       c.reply({
         text: 'command.brRefill.success',
         parseLang: true,
+        color: '$secondary',
         with: [
-          rPos1[0] + '',
-          rPos1[1] + '',
-          rPos2[0] + '',
-          rPos2[1] + '',
+          { text: rPos1[0] + '', color: '$primary' },
+          { text: rPos1[1] + '', color: '$primary' },
+          { text: rPos2[0] + '', color: '$primary' },
+          { text: rPos2[1] + '', color: '$primary' },
           block
         ]
       })

@@ -115,7 +115,7 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
     version: host.version ?? settings.minecraftVersion
   }
 
-  if (debugMode) console.debug(`[debug] Connecting bot to ${host.options.hidden ? "hidden" : options.host}:${options.port}...\x1b[0m`)
+  if (debugMode) console.debug(`[debug] Connecting bot to ${host.options.hidden ? 'hidden' : options.host}:${options.port}...\x1b[0m`)
   const bot = new Botv12Client(options)
 
   bot.host = host

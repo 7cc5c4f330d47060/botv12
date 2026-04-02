@@ -113,7 +113,7 @@ export default class ServerInfoSubcommand extends Command {
   constructor () {
     super()
     this.name = 'server'
-    this.aliases = ['serverinfo']
+    this.aliases = ['serverinfo', 'specs']
     this.execute = async (c: CommandContext) => {
       const displayInfo = function (name: string, infoFunc: () => string | TextFormat) {
         let thisItem
@@ -126,7 +126,7 @@ export default class ServerInfoSubcommand extends Command {
         if (typeof thisItem === 'string' && thisItem.length === 0) return
 
         const thisItemOld = thisItem
-        if (settings.kawaiiMode && typeof thisItem == 'string') thisItem = uwuText(thisItem)
+        if (settings.kawaiiMode && typeof thisItem === 'string') thisItem = uwuText(thisItem)
         c.reply({
           text: 'listItem',
           parseLang: true,

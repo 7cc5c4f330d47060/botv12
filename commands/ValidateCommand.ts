@@ -12,7 +12,8 @@ export default class ValidateCommand extends Command {
         with: [
           {
             text: `command.perms${c.verify}`,
-            parseLang: true
+            parseLang: true,
+            color: '$primary'
           }
         ]
       })

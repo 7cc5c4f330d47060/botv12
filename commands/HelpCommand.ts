@@ -1,6 +1,7 @@
 import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
 import registry from '../util/commands.js'
+import TextFormat from '../util/interface/TextFormat.js'
 import { getMessage } from '../util/lang.js'
 
 interface Command2 {
@@ -114,23 +115,25 @@ function printCmdHelp (c: CommandContext) {
   for (const item of usage) {
     c.reply({
       text: 'command.help.commandUsage',
+      color: '$secondary',
       parseLang: true,
       with: [
-        cmdItem.name,
-        cmdItem.consoleIndex && c.type === 'console' ? ' <bot ID>' : '',
-        item
+        { text: cmdItem.name, color: '$primary' },
+        { text: cmdItem.consoleIndex && c.type === 'console' ? ' <bot ID>' : '', color: '$primary' },
+        { text: item, color: '$primary' }
       ]
     })
   }
   c.reply({
     text: 'command.help.commandDesc',
+    color: '$secondary',
     parseLang: true,
     with: [
-      desc
+      { text: desc, color: '$primary' }
     ]
   })
   if (cmdItem.aliases) {
-    const aliasList: { text: string }[] = []
+    const aliasList: TextFormat[] = []
     for (const item of cmdItem.aliases) {
       if (aliasList.length > 0) {
         aliasList.push({
@@ -138,12 +141,14 @@ function printCmdHelp (c: CommandContext) {
         })
       }
       aliasList.push({
-        text: item
+        text: item,
+        color: '$primary'
       })
     }
     c.reply({
       text: 'command.help.commandAliases',
       parseLang: true,
+      color: '$secondary',
       with: [
         {
           text: '%s'.repeat(aliasList.length),
@@ -155,6 +160,7 @@ function printCmdHelp (c: CommandContext) {
   const rPerms = cmdItem.level ? cmdItem.level : 0
   c.reply({
     text: 'command.help.commandPerms',
+    color: '$secondary',
     parseLang: true,
     with: [
       {

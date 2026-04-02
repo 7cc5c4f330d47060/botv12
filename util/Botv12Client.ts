@@ -173,7 +173,7 @@ export default class Botv12Client extends EventEmitter {
         result: 1 // Decline
       })
     })
-    
+
     // Plugins, again...
     this.clientChat = {
       chatqueue: [],
