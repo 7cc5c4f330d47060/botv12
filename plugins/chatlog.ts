@@ -13,6 +13,7 @@ const checkLog = () => {
   const year = startDate.getUTCFullYear()
   const month = startDate.getUTCMonth() + 1
   const day = startDate.getUTCDate()
+  if (!existsSync(resolve(dataDir, 'logs'))) mkdirSync(resolve(dataDir, 'logs'))
   if (existsSync(resolve(dataDir, 'logs', 'lastDir.txt'))) {
     const jsonData = readFileSync(resolve(dataDir, 'logs', 'lastDir.txt')).toString('utf8')
     let id = +jsonData.split('_')[1]

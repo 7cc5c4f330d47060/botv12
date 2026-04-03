@@ -287,7 +287,7 @@ export default function load (b: Botv12Client) {
         }
         if (event.type === 'programChange') {
           if (event?.programNumber) program = +event.programNumber
-          else event.programNumber = 0
+          else program = 0
         }
         if (event.type === 'noteOn') {
           if (delta !== 0) {

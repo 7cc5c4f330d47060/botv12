@@ -4,6 +4,15 @@ import Botv12Client from '../util/Botv12Client.js'
 const rd = 8
 
 export default function load (b: Botv12Client) {
+  function updatePosition (x: number, y: number, z: number) {
+    b.position.currentChunk = { x: x >> 4, z: z >> 4 }
+    b.position.pos = { x: x, y: y, z: z }
+    if (y > 99 || y < 1) {
+      b.selfCare.tasks.cc_pos.failed = true
+    } else {
+      b.selfCare.tasks.cc_pos.failed = false
+    }
+  }
   const Chunk = loader(b.registry)
   b.chunks = []
   b._client.on('map_chunk', (data) => {
@@ -39,24 +48,15 @@ export default function load (b: Botv12Client) {
       }
     }
   })
-  b._client.on('position', (data: { x: number, y: number, z: number, teleportId: number, flags: { x: boolean, y: boolean, z: boolean } }) => {
-    let newX
-    let newY
-    let newZ
-    newX = data.x
-    newY = data.y
-    newZ = data.z
+  b._client.on('position', data => {
+    let newX = data.x
+    let newY = data.y
+    let newZ = data.z
     if (data.flags.x) newX += b.position.pos.x
     if (data.flags.y) newY += b.position.pos.y
     if (data.flags.z) newZ += b.position.pos.z
-    b.position.currentChunk = { x: newX >> 4, z: newZ >> 4 }
-    b.position.pos = { x: newX, y: newY, z: newZ }
     b._client.write('teleport_confirm', { teleportId: data.teleportId })
-    if (newY > 99 || newY < 1) {
-      b.selfCare.tasks.cc_pos.failed = true
-    } else {
-      b.selfCare.tasks.cc_pos.failed = false
-    }
+    updatePosition(newX, newY, newZ)
   })
   b.interval.unloadChunks = setInterval(() => {
     b.chunks.forEach((chunkList: PCChunk[], i: number) => {
