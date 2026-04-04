@@ -22,12 +22,15 @@ export default function load (b: Botv12Client) {
   let vanillaOp = false
   b.selfCare.addTask('op', () => {
     if (b.host.options.isVanilla) {
+      const op2 = getMessage(settings.defaultLang, 'selfcare.op.vanilla', [b._client.username])
       if (!vanillaOp) {
-        b.clientChat.send(getMessage(settings.defaultLang, 'selfcare.op.vanilla', [b._client.username]))
+        if (!b.clientChat.chatqueue.slice(0, 5).includes(op2)) b.clientChat.send(op2)
         vanillaOp = true
       }
     } else {
-      b.clientChat.send('/op @s[type=player]')
+      if (!b.clientChat.chatqueue.slice(0, 5).includes('/op @s[type=player]')) {
+        b.clientChat.send('/op @s[type=player]')
+      }
     }
   })
   b._client.on('login', (p) => {
@@ -102,8 +105,16 @@ export default function load (b: Botv12Client) {
   // Vanish
   b.selfCare.addTask('vanish', () => {
     if (b.host.options.isVanilla) return
-    if (b.host.options.useChat) b.clientChat.send('/essentials:vanish on')
-    else if (b.commandCore.ccStarted) b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
+    if (b.host.options.useChat) { 
+      if(!b.clientChat.chatqueue.slice(0,5).includes('/essentials:vanish on')) {
+        b.clientChat.send('/essentials:vanish on')
+      }
+    }
+    else if (b.commandCore.ccStarted) {
+      if(!b.commandCore.ccq.slice(0,5).includes('/essentials:vanish on')) {
+        b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
+      }
+    }
   }, true)
 
   b.on('plainchat', (msg) => {
@@ -115,6 +126,8 @@ export default function load (b: Botv12Client) {
   })
 
   b.selfCare.addTask('cc_pos', () => {
+  if(!b.commandCore.ccq.slice(0,5).includes(`/tp ${b._client.uuid} ~ 40 ~`)
+  && !b.commandCore.ccq.slice(0,5).includes(`/minecraft:tp ${b._client.uuid} ~ 40 ~`))
     if (b.host.options.isVanilla) b.commandCore.ccq.push(`/tp ${b._client.uuid} ~ 40 ~`)
     else b.commandCore.ccq.push(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)
   })
