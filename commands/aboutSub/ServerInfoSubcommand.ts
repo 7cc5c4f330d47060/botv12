@@ -2,7 +2,7 @@ import os from 'node:os'
 import { execSync } from 'node:child_process'
 import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
 import TextFormat from '../../util/interface/TextFormat.js'
@@ -42,7 +42,7 @@ exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
 })
 
 const parseOSRelease = (): Record<string, string> => {
-  if (readdirSync('/etc').includes('os-release')) {
+  if (existsSync('/etc/os-release')) {
     const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
     const osrelease2: Record<string, string> = {}
     for (const item of osrelease) {
@@ -211,16 +211,10 @@ export default class ServerInfoSubcommand extends Command {
       if (process.platform === 'linux' || process.platform === 'android') {
         displayInfo('command.about.serverInfo.seLinuxStatus', () => {
           let outKey = ''
-          const filesFs = readdirSync('/sys/fs/')
-          if (filesFs.includes('selinux')) {
-            const filesSelinux = readdirSync('/sys/fs/selinux/')
-            if (filesSelinux.includes('enforce')) {
-              const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
-              if (status === '1') outKey = 'enforcing'
-              else outKey = 'permissive'
-            } else {
-              outKey = 'na'
-            }
+          if (existsSync('/sys/fs/selinux/enforce')) {
+            const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
+            if (status === '1') outKey = 'enforcing'
+            else outKey = 'permissive'
           } else {
             outKey = 'na'
           }

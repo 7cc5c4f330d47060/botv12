@@ -26,5 +26,6 @@ export default interface SettingsType {
   wsPort?: number
   httpPort?: number
   kawaiiMode?: boolean
-  webTheme?: boolean
+  webTheme?: string
+  musicBarColor?: string
 }

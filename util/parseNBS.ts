@@ -18,7 +18,11 @@ const standardNotes = [ // Data from hhhzzzsss' SongPlayer, licensed as MIT.
   'block.note_block.didgeridoo',
   'block.note_block.bit',
   'block.note_block.banjo',
-  'block.note_block.pling'
+  'block.note_block.pling',
+  'block.note_block.trumpet', // Added in 26.1.
+  'block.note_block.trumpet_exposed', // Added in 26.1.
+  'block.note_block.trumpet_weathered', // Added in 26.1.
+  'block.note_block.trumpet_oxidized', // Added in 26.1.
 ]
 function calculateNoteNbs (note: number, instruments: SongInstruments): string | undefined {
   if (standardNotes[note]) return `minecraft:${standardNotes[note]}`

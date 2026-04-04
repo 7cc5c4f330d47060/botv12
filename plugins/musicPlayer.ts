@@ -14,6 +14,7 @@ import version from '../version.js'
 import ParsedNote from '../util/interface/ParsedNote.js'
 import NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
 import Note from '../util/interface/Note.js'
+import resolveColor from '../util/resolveColor.js'
 
 const songPath = resolve(dataDir, 'songs')
 if (!existsSync(songPath)) mkdirSync(songPath)
@@ -75,37 +76,37 @@ export default function load (b: Botv12Client) {
       }
       b.musicPlayer.bossBar.setDisplay({
         translate: '%s | %s | %s',
-        color: 'dark_gray',
+        color: resolveColor(settings.colors.secondaryDark, settings.colors),
         with: [
           {
             text: b.musicPlayer.songName,
-            color: 'white'
+            color: resolveColor(settings.colors.primary, settings.colors)
           },
           {
             translate: '%s/%s',
-            color: 'gray',
+            color: resolveColor(settings.colors.secondary, settings.colors),
             with: [
               {
                 text: (b.musicPlayer.totalNotes - remainingNotes) + '',
-                color: 'white'
+                color: resolveColor(settings.colors.primary, settings.colors)
               },
               {
                 text: (b.musicPlayer.totalNotes) + '',
-                color: 'white'
+                color: resolveColor(settings.colors.primary, settings.colors)
               }
             ]
           },
           {
             translate: '%s/%s',
-            color: 'gray',
+            color: resolveColor(settings.colors.secondary, settings.colors),
             with: [
               {
                 text: formatTime(b.musicPlayer.time),
-                color: 'white'
+                color: resolveColor(settings.colors.primary, settings.colors)
               },
               {
                 text: formatTime(b.musicPlayer.length),
-                color: 'white'
+                color: resolveColor(settings.colors.primary, settings.colors)
               }
             ]
           }
@@ -160,7 +161,8 @@ export default function load (b: Botv12Client) {
       }
     } else if (b.musicPlayer?.queue?.length === 0) {
       b.commandCore.tellraw('@a[tag=ubotmusic]', {
-        text: getMessage(settings.defaultLang, 'musicPlayer.finished')
+        text: getMessage(settings.defaultLang, 'musicPlayer.finished'),
+        color: resolveColor(settings.colors.secondary, settings.colors)
       })
     }
   })
@@ -175,14 +177,16 @@ export default function load (b: Botv12Client) {
         else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
         else {
           b.commandCore.tellraw('@a[tag=ubotmusic]', {
-            text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
+            text: getMessage(settings.defaultLang, 'musicPlayer.notFound'),
+            color: resolveColor(settings.colors.secondary, settings.colors)
           })
           return
         }
 
         if (!path.startsWith(songPath)) {
           b.commandCore.tellraw('@a[tag=ubotmusic]', {
-            text: getMessage(settings.defaultLang, 'musicPlayer.notFound')
+            text: getMessage(settings.defaultLang, 'musicPlayer.notFound'),
+            color: resolveColor(settings.colors.secondary, settings.colors)
           })
           return
         }
@@ -197,17 +201,23 @@ export default function load (b: Botv12Client) {
       } else if (url.startsWith('http://') || url.startsWith('https://')) {
         b.commandCore.tellraw('@a[tag=ubotmusic]', {
           translate: getMessage(settings.defaultLang, 'musicPlayer.downloading'),
-          with: [url]
+          color: resolveColor(settings.colors.secondary, settings.colors),
+          with: [{
+            text: url,
+            color: resolveColor(settings.colors.primary, settings.colors)
+          }]
         })
         download(url, (output: Buffer, err?: string) => {
           if (err === 'largeFile') {
             b.commandCore.tellraw('@a[tag=ubotmusic]', {
-              translate: getMessage(settings.defaultLang, 'downloader.tooLarge')
+              translate: getMessage(settings.defaultLang, 'downloader.tooLarge'),
+              color: resolveColor(settings.colors.error, settings.colors)
             })
             return
           } else if (err) {
             b.commandCore.tellraw('@a[tag=ubotmusic]', {
-              text: err.toString()
+              text: err.toString(),
+              color: resolveColor(settings.colors.error, settings.colors)
             })
             console.error(err)
             return
@@ -221,7 +231,8 @@ export default function load (b: Botv12Client) {
       }
     } catch (e) {
       b.commandCore.tellraw('@a[tag=ubotmusic]', {
-        text: e + ''
+        text: e + '',
+        color: resolveColor(settings.colors.error, settings.colors)
       })
       console.error(e)
     }
@@ -232,7 +243,8 @@ export default function load (b: Botv12Client) {
 
     if (b.musicPlayer.playing) {
       b.commandCore.tellraw('@a[tag=ubotmusic]', {
-        text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying')
+        text: getMessage(settings.defaultLang, 'musicPlayer.alreadyPlaying'),
+        color: resolveColor(settings.colors.error, settings.colors)
       })
       return
     }
@@ -274,7 +286,7 @@ export default function load (b: Botv12Client) {
           // amounts of extra code to make functional (i.e. to play roughly what is in MSM)
           b.commandCore.tellraw('@a[tag=ubotmusic]', {
             translate: getMessage(settings.defaultLang, 'musicPlayer.warning.msm'),
-            color: settings.colors.warning ?? 'gold'
+            color: resolveColor(settings.colors.warning, settings.colors)
           })
           msmFile = true
         }
@@ -337,7 +349,7 @@ export default function load (b: Botv12Client) {
               color: 'white'
             }
           ]
-        }, Math.ceil(b.musicPlayer.length), 0, 'progress', 'white', '@a[tag=ubotmusic]')
+        }, Math.ceil(b.musicPlayer.length), 0, 'progress', settings.musicBarColor ?? 'white', '@a[tag=ubotmusic]')
       }
       b.musicPlayer.bossBar.updatePlayers()
     }
@@ -345,8 +357,12 @@ export default function load (b: Botv12Client) {
     if (!b.musicPlayer.looping && !b.musicPlayer.startFrom) {
       b.commandCore.tellraw('@a[tag=ubotmusic]', {
         translate: getMessage(settings.defaultLang, 'musicPlayer.nowPlaying'),
+        color: resolveColor(settings.colors.secondary, settings.colors),
         with: [
-          b.musicPlayer.songName
+          {
+            text: b.musicPlayer.songName,
+            color: resolveColor(settings.colors.primary, settings.colors)
+          }
         ]
       })
     }

@@ -13,6 +13,7 @@ export default class BossBar {
   updatePlayers: () => void
   delete: () => void
   setValue: (value: number) => void
+  setColor: (value: string) => void
   setDisplay: (value: JsonFormat | string) => void
 
   constructor (b: Botv12Client, name: string, display: JsonFormat | string, max: number, initialValue: number, style: string, color: string, players: string) {
@@ -23,7 +24,7 @@ export default class BossBar {
     this.style = style // progress
     this.color = color // white
     this.players = players
-    this.namespace = 'botv12_temp' // '_' + randomBytes(4).toString('hex')
+    this.namespace = 'botv12' // '_' + randomBytes(4).toString('hex')
 
     this.updatePlayers = function () {
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} players ${players}`)
@@ -42,9 +43,15 @@ export default class BossBar {
       this.display = value
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
     }
+    
+    this.setColor = function (value: string) {
+      this.color = value
+      b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} color ${color}`)
+    }
 
     b.commandCore.ccq.push(`/bossbar remove ${this.namespace}:${this.name}`)
     b.commandCore.ccq.push(`/bossbar add ${this.namespace}:${this.name} ${JSON.stringify(display)}`)
+    if (color !== 'white') b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} color ${color}`)
     if (max !== 100) b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} max ${max}`)
   }
 }

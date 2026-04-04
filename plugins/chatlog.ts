@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import CommandContext from '../util/CommandContext.js'
 import Botv12Client from '../util/Botv12Client.js'
 import { resolve } from 'node:path'
+import { Worker } from 'node:worker_threads'
 // import { Worker } from 'node:worker_threads'
 
 globalThis.logFileName = ''
@@ -29,7 +30,9 @@ const checkLog = () => {
       dateParts = [(year + '').padStart(4, '0'), (month + '').padStart(2, '0'), (day + '').padStart(2, '0')]
     }
     logFileName = `${dateParts.join('-')}_${id}`
-    // Call worker here. jsonData is old name.
+    new Worker(resolve(codeDir, 'util', 'chatlog_compress'), {
+      workerData: resolve(dataDir, 'logs', jsonData)
+    })
   } else {
     const dateParts = [(year + '').padStart(4, '0'), (month + '').padStart(2, '0'), (day + '').padStart(2, '0')]
     logFileName = `${dateParts.join('-')}_1`

@@ -37,7 +37,8 @@ export default {
     list3: '#ccccff', // Used for odd-numbered list items - set 2
     list4: '#9999ff', // Used for even-numbered list items - set 2
     primary: 'white', // Used for main items in some commands
-    secondary: 'gray' // Used for other text, in the same commands
+    secondary: 'gray', // Used for other text, in the same commands
+    secondaryDark: 'dark_gray' // Darker version of secondary
   },
   prefixes: [ // A list of prefixes the bot will respond to in-game
     'ubotesm:',

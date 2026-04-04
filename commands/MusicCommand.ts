@@ -78,7 +78,7 @@ export default class MusicCommand extends Command {
                 hover: {
                   text: 'command.music.openDir',
                   parseLang: true,
-                  with: [item]
+                  with: [{text: item, color: '$primary' }]
                 }
               })
             } else {
@@ -89,7 +89,7 @@ export default class MusicCommand extends Command {
                 hover: {
                   text: 'command.music.openFile',
                   parseLang: true,
-                  with: [item]
+                  with: [{text: item, color: '$primary' }]
                 }
               })
             }
@@ -121,6 +121,7 @@ export default class MusicCommand extends Command {
           if (c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong()
           c.reply({
             text: 'command.music.stop',
+              color: '$secondary',
             parseLang: true
           })
           break
@@ -138,6 +139,7 @@ export default class MusicCommand extends Command {
           if (c.bot.musicPlayer.stopSong) c.bot.musicPlayer.stopSong(false, true)
           c.reply({
             text: 'command.music.skip',
+              color: '$secondary',
             parseLang: true
           })
           break
@@ -181,11 +183,13 @@ export default class MusicCommand extends Command {
           if (c.bot.musicPlayer.looping) {
             c.reply({
               text: 'command.music.loop.on',
+              color: '$secondary',
               parseLang: true
             })
           } else {
             c.reply({
               text: 'command.music.loop.off',
+              color: '$secondary',
               parseLang: true
             })
           }
@@ -204,8 +208,9 @@ export default class MusicCommand extends Command {
           c.reply(c.bot.musicPlayer.pitchShift + '')
           c.reply({
             text: 'command.music.pitchShiftSet',
+              color: '$secondary',
             parseLang: true,
-            with: [c.args[0]]
+            with: [{text: c.args[0], color: '$primary' }]
           })
           break
         }
@@ -224,8 +229,9 @@ export default class MusicCommand extends Command {
           }
           c.reply({
             text: 'command.music.speedSet',
+              color: '$secondary',
             parseLang: true,
-            with: [c.args[0]]
+            with: [{text: c.args[0], color: '$primary' }]
           })
           break
         }
@@ -242,7 +248,8 @@ export default class MusicCommand extends Command {
           c.reply({
             text: 'command.music.volumeSet',
             parseLang: true,
-            with: [c.args[0]]
+              color: '$secondary',
+            with: [{text: c.args[0], color: '$primary' }]
           })
           break
         }
@@ -250,6 +257,7 @@ export default class MusicCommand extends Command {
           c.reply({
             text: 'command.music.queueIntro',
             parseLang: true,
+              color: '$secondary',
             with: [
               c.bot.musicPlayer.queue.length + ''
             ]
@@ -258,9 +266,10 @@ export default class MusicCommand extends Command {
             c.reply({
               text: 'command.music.queueItem',
               parseLang: true,
+              color: '$secondary',
               with: [
-                id + '',
-                item[1]
+                {text: id + '', color: '$primary' },
+                {text: item[1], color: '$primary' }
               ]
             })
           })
@@ -286,7 +295,15 @@ export default class MusicCommand extends Command {
             c.reply({
               text: 'command.music.gotoTime',
               parseLang: true,
-              with: [formatTime(gotoTime)]
+              color: '$secondary',
+              with: [
+                {
+                  text: formatTime(gotoTime),
+                  color: '$primary'
+                
+
+                }
+              ]
             })
             c.bot.musicPlayer.startFrom = gotoTime
             c.bot.musicPlayer.emit('songEnd')
@@ -313,7 +330,8 @@ export default class MusicCommand extends Command {
           }
           c.reply({
             text: replyMessage,
-            parseLang: true
+            parseLang: true,
+            color: '$secondary'
           })
           c.bot.musicPlayer.paused = !c.bot.musicPlayer.paused
           break
