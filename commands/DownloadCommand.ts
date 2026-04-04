@@ -1,5 +1,5 @@
 import CommandContext from '../util/CommandContext.js'
-import * as fs from 'node:fs'
+import fs from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash } from 'node:crypto'
 import Command from '../util/Command.js'

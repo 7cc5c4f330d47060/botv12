@@ -2,8 +2,16 @@ import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/interface/SettingsType.js'
 import HostOptions from './util/interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
-import { readdirSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync, copyFileSync } from 'node:fs'
+import { readdir, writeFile, mkdir, unlink, rename, copyFile, access, constants } from 'node:fs/promises'
 
+async function exists (fileName: string) {
+  try {
+    await access(fileName, constants.F_OK)
+    return true
+  } catch {
+    return false
+  }
+}
 declare global {
   var settings: SettingsType
   var codeDir: string
@@ -34,19 +42,19 @@ globalThis.clOptions = { disableWsServer: false }
 import ha from './util/argv.js'
 ha()
 
-if (!existsSync(dataDir)) mkdirSync(dataDir)
+if (!exists(dataDir)) mkdir(dataDir)
 /* Migrations to data in alpha 6 */
-if (existsSync(resolve(baseDir, 'settings.js'))) { renameSync(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js')) }
+if (await exists(resolve(baseDir, 'settings.js'))) { rename(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js')) }
 
-if (existsSync(resolve(baseDir, 'logs'))) { renameSync(resolve(baseDir, 'logs'), resolve(dataDir, 'logs')) }
+if (await exists(resolve(baseDir, 'logs'))) { rename(resolve(baseDir, 'logs'), resolve(dataDir, 'logs')) }
 
-if (existsSync(resolve(baseDir, 'songs'))) { renameSync(resolve(baseDir, 'songs'), resolve(dataDir, 'songs')) }
+if (await exists(resolve(baseDir, 'songs'))) { rename(resolve(baseDir, 'songs'), resolve(dataDir, 'songs')) }
 
-if (existsSync(resolve(baseDir, 'userkeys.json'))) { renameSync(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json')) }
+if (await exists(resolve(baseDir, 'userkeys.json'))) { rename(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json')) }
 
-if (!existsSync(resolve(dataDir, 'settings.js'))) {
+if (!exists(resolve(dataDir, 'settings.js'))) {
   console.log('[info] Settings file is missing, using defaults.')
-  copyFileSync(resolve(baseDir, 'settings_example.js'), resolve(dataDir, 'settings.js'))
+  copyFile(resolve(baseDir, 'settings_example.js'), resolve(dataDir, 'settings.js'))
 }
 const settings = (await import(resolve(dataDir, 'settings.js'))).default
 globalThis.settings = settings
@@ -61,14 +69,14 @@ import { createInterface } from 'node:readline'
 import { ClientOptions } from 'minecraft-protocol'
 // import { default as registry } from 'prismarine-registry'
 
-const awaitLicense = function (callback: () => void) {
+const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
   if (debugMode) console.debug('[debug] Checking license...')
-  if (existsSync(resolve(baseDir, '.license_accepted'))) {
+  if (await exists(resolve(baseDir, '.license_accepted'))) {
     if (debugMode) console.debug('[debug] Migrating license to new location...')
-    writeFileSync(resolve(dataDir, '.license_accepted'), '')
-    unlinkSync(resolve(baseDir, '.license_accepted'))
+    writeFile(resolve(dataDir, '.license_accepted'), '')
+    unlink(resolve(baseDir, '.license_accepted'))
   }
-  if (!existsSync(resolve(dataDir, '.license_accepted'))) {
+  if (true /*!exists(resolve(dataDir, '.license_accepted'))*/) {
     if (debugMode) console.debug('[debug] License check failed.')
     console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. ` +
     'This license requires, among other things, that the source code be made available to anybody ' +
@@ -86,18 +94,18 @@ const awaitLicense = function (callback: () => void) {
     rl.on('line', (l: string) => {
       if (l.toLowerCase() === 'i accept') {
         if (debugMode) console.debug('[debug] License accepted, continuing...')
-        writeFileSync(resolve(dataDir, '.license_accepted'), '')
+        writeFile(resolve(dataDir, '.license_accepted'), '')
         rl.close()
-        callback()
+        a()
       } else {
         if (debugMode) console.debug('[debug] License declined, exiting...')
-        process.exit(1)
+        b()
       }
     })
     rl.prompt(false)
   } else {
     if (debugMode) console.debug('[debug] License check passed, continuing...')
-    callback()
+    a()
   }
 }
 
@@ -157,8 +165,8 @@ const init = function () {
 }
 
 const plugins: ((b: Botv12Client) => void)[] = []
-const loadPlugins = () => {
-  const bpl = readdirSync(resolve(codeDir, 'plugins'))
+const loadPlugins = async () => {
+  const bpl = await readdir(resolve(codeDir, 'plugins'))
   for (const plugin of bpl) {
     if (!plugin.endsWith('.ts') && !plugin.endsWith('.js') && !plugin.endsWith('.mjs')) {
       continue
@@ -174,4 +182,7 @@ const loadPlugins = () => {
     } catch (e) { console.log(e) }
   }
 }
-awaitLicense(loadPlugins)
+
+const a = new Promise(_awaitLicense)
+await a
+await loadPlugins()
