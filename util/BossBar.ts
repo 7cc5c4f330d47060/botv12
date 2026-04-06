@@ -43,7 +43,7 @@ export default class BossBar {
       this.display = value
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} name ${JSON.stringify(value)}`)
     }
-    
+
     this.setColor = function (value: string) {
       this.color = value
       b.commandCore.ccq.push(`/bossbar set ${this.namespace}:${this.name} color ${color}`)
