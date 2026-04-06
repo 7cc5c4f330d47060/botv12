@@ -17,14 +17,14 @@ const notesArray = [
   'b'
 ]
 const styles = [
-  21/20,
+  21 / 20,
   1,
   2
 ]
 export default function imyReader (buffer: Buffer) {
-  const string = buffer.toString('utf-8').replace(/\r/g, '').split("\n")
+  const string = buffer.toString('utf-8').replace(/\r/g, '').split('\n')
   const parsed: Record<string, string> = {}
-  let lastKey = '';
+  let lastKey = ''
   for (const item of string) {
     if (!item.includes(':')) {
       lastKey += item
@@ -35,16 +35,16 @@ export default function imyReader (buffer: Buffer) {
   }
   console.log(JSON.stringify(parsed))
   let bpm = 120
-  if(parsed.BEAT) {
+  if (parsed.BEAT) {
     bpm = +parsed.BEAT
   }
-  /*let phoneVolume = 7
+  /* let phoneVolume = 7
   if(parsed.VOLUME) {
     phoneVolume = +(parsed.VOLUME.slice(1))
-  }*/
+  } */
   let style = 0
-  if(parsed.STYLE) {
-    if(parsed.STYLE.startsWith('V')) style = +(parsed.STYLE.slice(1))
+  if (parsed.STYLE) {
+    if (parsed.STYLE.startsWith('V')) style = +(parsed.STYLE.slice(1))
     else style = +parsed.STYLE
   }
 
@@ -79,53 +79,55 @@ export default function imyReader (buffer: Buffer) {
   const testString = parsed.MELODY
   // const testString = 'r2vibeonvibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2vibeonr2ledonr2vibeonr2vibeon'
   const notes = testString.match(imyRegex)
-  let fullDelta = 0
-  
+  // let fullDelta = 0
+
   let deltaTime = 0
 
-  if(notes) for(let note of notes){
+  if (notes) {
+    for (let note of notes) {
     // botv12 is not a mobile phone and can't use these features.
-    if(note.startsWith('vibe') || note.startsWith('back') || note.startsWith('led')) continue
+      if (note.startsWith('vibe') || note.startsWith('back') || note.startsWith('led')) continue
 
-    if(note.startsWith('r')) {
-      deltaTime += (32 / (2 ** +note[1])) * styles[style]
-      continue
+      if (note.startsWith('r')) {
+        deltaTime += (32 / (2 ** +note[1])) * styles[style]
+        continue
+      }
+      let octave = 4
+      if (note.startsWith('*')) {
+        octave = +note[1]
+        note = note.slice(2)
+      }
+      let nnl = 1
+      if (note.startsWith('#')) nnl = 2
+      const noteItem = note.slice(0, nnl)
+      const noteNumber = notesArray.indexOf(noteItem) + (octave * 12) + 12
+      note = note.slice(nnl)
+      let length = 32 / (2 ** +note)
+      note = note.slice(1)
+      if (note === '.') length *= 1.5
+      else if (note === ':') length *= 1.75
+      else if (note === ';') length *= 2 / 3
+      output.tracks[0].push({
+        type: 'noteOn',
+        channel: 0,
+        deltaTime,
+        noteNumber,
+        velocity: 100
+      })
+      output.tracks[0].push({
+        type: 'noteOff',
+        channel: 0,
+        deltaTime: length * styles[style],
+        noteNumber,
+        velocity: 100
+      })
+      deltaTime = 0
+      // fullDelta += length
     }
-    let octave = 4
-    if(note.startsWith('*')) {
-      octave = +note[1]
-      note = note.slice(2)
-    }
-    let nnl = 1
-    if(note.startsWith('#')) nnl=2
-    const noteItem = note.slice(0,nnl)
-    const noteNumber = notesArray.indexOf(noteItem) + (octave * 12) + 12
-    note = note.slice(nnl)
-    let length = 32 / (2 ** +note)
-    note = note.slice(1)
-    if (note === '.') length *= 1.5
-    else if (note === ':') length *= 1.75
-    else if (note === ';') length *= 2/3
-    output.tracks[0].push({
-      type: 'noteOn',
-      channel: 0,
-      deltaTime,
-      noteNumber,
-      velocity: 100
-    })
-    output.tracks[0].push({
-      type: 'noteOff',
-      channel: 0,
-      deltaTime: length * styles[style],
-      noteNumber,
-      velocity: 100
-    })
-    deltaTime = 0
-    fullDelta += length
   }
   output.tracks[0].push({
-      type: 'endOfTrack',
-      deltaTime: 0
+    type: 'endOfTrack',
+    deltaTime: 0
   })
   return output
 }

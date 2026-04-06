@@ -76,7 +76,8 @@ const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
     writeFile(resolve(dataDir, '.license_accepted'), '')
     unlink(resolve(baseDir, '.license_accepted'))
   }
-  if (true /*!exists(resolve(dataDir, '.license_accepted'))*/) {
+
+  if (!await exists(resolve(dataDir, '.license_accepted'))) {
     if (debugMode) console.debug('[debug] License check failed.')
     console.log(`${version.botName} is licensed under the GNU Affero General Public License, version 3 or later. ` +
     'This license requires, among other things, that the source code be made available to anybody ' +
@@ -109,7 +110,11 @@ const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
   }
 }
 
-if ('Deno' in globalThis) console.warn('[warning] Deno runtime may not work correctly.')
+if ('Deno' in globalThis) {
+  console.warn('[warning] Deno\xae runtime may not work correctly.')
+  console.warn(`It is strongly recommended to use the Node.js\xae runtime to use ` +
+    `${version.botName}. For more information check https://nodejs.org/.`)
+}
 
 globalThis.bots = []
 globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {

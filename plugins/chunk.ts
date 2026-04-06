@@ -6,7 +6,7 @@ const rd = 8
 export default function load (b: Botv12Client) {
   function updatePosition (x: number, y: number, z: number) {
     b.position.currentChunk = { x: x >> 4, z: z >> 4 }
-    b.position.pos = { x: x, y: y, z: z }
+    b.position.pos = { x, y, z }
     if (y > 99 || y < 1) {
       b.selfCare.tasks.cc_pos.failed = true
     } else {

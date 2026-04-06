@@ -105,13 +105,12 @@ export default function load (b: Botv12Client) {
   // Vanish
   b.selfCare.addTask('vanish', () => {
     if (b.host.options.isVanilla) return
-    if (b.host.options.useChat) { 
-      if(!b.clientChat.chatqueue.slice(0,5).includes('/essentials:vanish on')) {
+    if (b.host.options.useChat) {
+      if (!b.clientChat.chatqueue.slice(0, 5).includes('/essentials:vanish on')) {
         b.clientChat.send('/essentials:vanish on')
       }
-    }
-    else if (b.commandCore.ccStarted) {
-      if(!b.commandCore.ccq.slice(0,5).includes('/essentials:vanish on')) {
+    } else if (b.commandCore.ccStarted) {
+      if (!b.commandCore.ccq.slice(0, 5).includes('/essentials:vanish on')) {
         b.commandCore.ccq.push(`/essentials:vanish ${b._client.username} on`)
       }
     }
@@ -126,9 +125,10 @@ export default function load (b: Botv12Client) {
   })
 
   b.selfCare.addTask('cc_pos', () => {
-  if(!b.commandCore.ccq.slice(0,5).includes(`/tp ${b._client.uuid} ~ 40 ~`)
-  && !b.commandCore.ccq.slice(0,5).includes(`/minecraft:tp ${b._client.uuid} ~ 40 ~`))
-    if (b.host.options.isVanilla) b.commandCore.ccq.push(`/tp ${b._client.uuid} ~ 40 ~`)
-    else b.commandCore.ccq.push(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)
+    if (!b.commandCore.ccq.slice(0, 5).includes(`/tp ${b._client.uuid} ~ 40 ~`) &&
+  !b.commandCore.ccq.slice(0, 5).includes(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)) {
+      if (b.host.options.isVanilla) b.commandCore.ccq.push(`/tp ${b._client.uuid} ~ 40 ~`)
+      else b.commandCore.ccq.push(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)
+    }
   })
 }
