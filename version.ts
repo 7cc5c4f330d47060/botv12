@@ -9,7 +9,7 @@ const version = {
     prMinor: 6,
     prPatch: 0,
     prType: 'alpha',
-    isMainLine: true
+    isMainLine: false
   },
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version.
