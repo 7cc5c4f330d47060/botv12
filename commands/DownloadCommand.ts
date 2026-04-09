@@ -19,14 +19,16 @@ export default class DownloadCommand extends Command {
     this.name = 'download'
     this.execute = async (c: CommandContext) => {
       if (sourceLink) {
+ 	      c.reply({
+	        text: 'command.download.already',
+	        color: '$secondary',
+	        parseLang: true
+	      })
         c.reply({
-          text: 'command.download.already',
-          parseLang: true
-        })
-        c.reply({
-          text: sourceLink,
-          linked: true
-        })
+	        text: sourceLink,
+	        color: '$primary',
+	        linked: true
+	      })
         return
       }
       // Source code downloader, to allow downloading of versions between commits,
