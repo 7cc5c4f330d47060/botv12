@@ -1,16 +1,15 @@
 import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
 import { createHash } from 'node:crypto'
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
 let userKeys: Record<string, { key: string, level: number }> = {}
 try {
-  const fileContent = readFileSync(resolve(dataDir, 'userkeys.json')).toString('utf8')
+  const fileContent = (await readFile(resolve(dataDir, 'userkeys.json'))).toString('utf8')
   userKeys = JSON.parse(fileContent)
-} catch (e) {
-  if (debugMode) console.error(e)
-  writeFileSync(resolve(dataDir, 'userkeys.json'), '{}')
+} catch {
+  writeFile(resolve(dataDir, 'userkeys.json'), '{}')
 }
 
 export default class LoginCommand extends Command {

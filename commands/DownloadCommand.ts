@@ -32,7 +32,7 @@ export default class DownloadCommand extends Command {
         return
       }
       // Source code downloader, to allow downloading of versions between commits,
-      // and without visiting Codeberg/Chipmunk.land/GitHub.
+      // and without visiting Codeberg/Chipmunk.land code/GitHub.
       // Useful if someone steals the code, but does not use Git® or another version control system to
       // publish it.
 

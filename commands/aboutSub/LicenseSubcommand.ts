@@ -1,9 +1,9 @@
-import { readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import CommandContext from '../../util/CommandContext'
 import { resolve } from 'node:path'
 import Command from '../../util/Command.js'
 
-const licenseFile = readFileSync(resolve(baseDir, './LICENSE')).toString('utf8').replaceAll('\r', '').split('\n')
+const licenseFile = (await readFile(resolve(baseDir, './LICENSE'))).toString('utf8').replaceAll('\r', '').split('\n')
 
 export default class LicenseSubcommand extends Command {
   constructor () {

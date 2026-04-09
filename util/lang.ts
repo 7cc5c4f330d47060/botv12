@@ -1,4 +1,4 @@
-import { readdirSync } from 'node:fs'
+import { readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
 interface LanguageData {
@@ -7,8 +7,8 @@ interface LanguageData {
 }
 const languages: Record<string, LanguageData> = {}
 
-const loadplug = () => {
-  const bpl = readdirSync(resolve(baseDir, 'lang'))
+const loadplug = async () => {
+  const bpl = await readdir(resolve(baseDir, 'lang'))
   for (const plugin of bpl) {
     if (!plugin.endsWith('.js')) {
       continue

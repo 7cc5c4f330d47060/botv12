@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs'
+import { appendFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
 export default function chatlog (fileName: string, item: string) {
@@ -13,5 +13,5 @@ export default function chatlog (fileName: string, item: string) {
   const UTCMilliSeconds = dateToday.getUTCMilliseconds().toString().padStart(3, '0')
   const logDate = `${UTCYears}-${UTCMonths}-${UTCDays}T${UTCHours}:${UTCMinutes}:${UTCSeconds}.${UTCMilliSeconds}Z`
 
-  appendFileSync(resolve(dataDir, 'logs', logFileName, `${fileName}.txt`), `[${logDate}] ${item}\n`)
+  appendFile(resolve(dataDir, 'logs', logFileName, `${fileName}.txt`), `[${logDate}] ${item}\n`)
 }

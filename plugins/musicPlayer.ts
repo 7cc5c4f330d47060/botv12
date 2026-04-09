@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { MidiData, parseMidi } from 'midi-file'
-import { existsSync, mkdirSync, readFileSync } from 'node:fs'
+import { mkdir, readFile } from 'node:fs/promises'
 // import CommandQueue from '../util/CommandQueue.js';
 import EventEmitter from 'node:events'
 import BossBar from '../util/BossBar.js'
@@ -15,9 +15,10 @@ import ParsedNote from '../util/interface/ParsedNote.js'
 import NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
 import Note from '../util/interface/Note.js'
 import resolveColor from '../util/resolveColor.js'
+import exists from '../util/existsAsync.js'
 
 const songPath = resolve(dataDir, 'songs')
-if (!existsSync(songPath)) mkdirSync(songPath)
+if (!await exists(songPath)) mkdir(songPath)
 
 const calculateNote = (event: { mcNote?: string, noteNumber: number }, program: number) => {
   const note = event.noteNumber
@@ -167,14 +168,14 @@ export default function load (b: Botv12Client) {
     }
   })
 
-  b.musicPlayer.downloadSong = (url: string, name: string) => {
+  b.musicPlayer.downloadSong = async (url: string, name: string) => {
     try {
       if (url.startsWith('file://')) {
         let path = ''
-        if (existsSync(url.slice(7))) path = url.slice(7)
-        else if (existsSync(url.slice(7) + '.nbs')) path = url.slice(7) + '.nbs'
-        else if (existsSync(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
-        else if (existsSync(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
+        if (await exists(url.slice(7))) path = url.slice(7)
+        else if (await exists(url.slice(7) + '.nbs')) path = url.slice(7) + '.nbs'
+        else if (await exists(url.slice(7) + '.mid')) path = url.slice(7) + '.mid'
+        else if (await exists(url.slice(7) + '.midi')) path = url.slice(7) + '.midi'
         else {
           b.commandCore.tellraw('@a[tag=ubotmusic]', {
             text: getMessage(settings.defaultLang, 'musicPlayer.notFound'),
@@ -191,7 +192,7 @@ export default function load (b: Botv12Client) {
           return
         }
         try {
-          b.musicPlayer.storedSong = readFileSync(path)
+          b.musicPlayer.storedSong = await readFile(path)
         } catch (e) {
           console.log(e)
         }

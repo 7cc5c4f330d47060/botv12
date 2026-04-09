@@ -2,7 +2,7 @@ import os from 'node:os'
 import { execSync } from 'node:child_process'
 import { getMessage, formatTime } from '../../util/lang.js'
 import memoryconvert from '../../util/memoryconvert.js'
-import { existsSync, readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import CommandContext from '../../util/CommandContext.js'
 import Command from '../../util/Command.js'
 import TextFormat from '../../util/interface/TextFormat.js'
@@ -10,6 +10,7 @@ import version from '../../version.js'
 import botVersion from '../../util/version.js'
 import { exec } from 'node:child_process'
 import uwuText from '../../util/botv8-uwu.js'
+import exists from '../../util/existsAsync.js'
 
 const dependencies: { name: string, version: string }[] = []
 
@@ -41,9 +42,9 @@ exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
   }
 })
 
-const parseOSRelease = (): Record<string, string> => {
-  if (existsSync('/etc/os-release')) {
-    const osrelease = readFileSync('/etc/os-release').toString('utf8').split('\n')
+const parseOSRelease = async (): Promise<Record<string, string>> => {
+  if (await exists('/etc/os-release')) {
+    const osrelease = (await readFile('/etc/os-release')).toString('utf8').split('\n')
     const osrelease2: Record<string, string> = {}
     for (const item of osrelease) {
       if (!item.includes('=')) continue
@@ -56,7 +57,7 @@ const parseOSRelease = (): Record<string, string> => {
   return {}
 }
 
-const os2 = function (o2: string, lang: string) {
+const os2 = async function (o2: string, lang: string) {
   switch (o2) {
     case 'win32':
       return `${os.version()}`
@@ -68,7 +69,7 @@ const os2 = function (o2: string, lang: string) {
     }
     case 'linux':
     case 'freebsd':{
-      const osrelease2 = parseOSRelease()
+      const osrelease2 = await parseOSRelease()
       try {
         if (osrelease2.PRETTY_NAME) {
           return getMessage(lang, '%s', [osrelease2.PRETTY_NAME])
@@ -115,10 +116,10 @@ export default class ServerInfoSubcommand extends Command {
     this.name = 'server'
     this.aliases = ['serverinfo', 'specs']
     this.execute = async (c: CommandContext) => {
-      const displayInfo = function (name: string, infoFunc: () => string | TextFormat) {
+      const displayInfo = async function (name: string, infoFunc: () => string | TextFormat | Promise<string | TextFormat>) {
         let thisItem
         try {
-          thisItem = infoFunc()
+          thisItem = await infoFunc()
         } catch (e) {
           console.error(e)
           thisItem = 'Error! (check console)'
@@ -151,15 +152,15 @@ export default class ServerInfoSubcommand extends Command {
       })
 
       // Operating system
-      displayInfo('command.about.serverInfo.os', () => {
-        return os2(process.platform, c.lang)
+      await displayInfo('command.about.serverInfo.os', async () => {
+        return await os2(process.platform, c.lang)
       })
 
       // Operating system version for some Linux systems, since sometimes PRETTY_NAME excludes
       // version information.
-      displayInfo('command.about.serverInfo.osVersion', () => {
+      await displayInfo('command.about.serverInfo.osVersion', async () => {
         try {
-          const or = parseOSRelease()
+          const or = await parseOSRelease()
           if (or.VERSION_ID) return or.VERSION_ID
           else if (or.VERSION) return or.VERSION
           else return ''
@@ -172,29 +173,29 @@ export default class ServerInfoSubcommand extends Command {
       // Kernel version: os.release()
       // On FreeBSD and OpenBSD, the kernel version is already stated in the result of os2.
       if (process.platform !== 'freebsd' && process.platform !== 'openbsd') {
-        displayInfo('command.about.serverInfo.kernelVer', () => {
+        await displayInfo('command.about.serverInfo.kernelVer', () => {
           return os.release()
         })
       }
 
       // Processor, if it can be determined through Node.js
-      displayInfo('command.about.serverInfo.processor', () => {
+      await displayInfo('command.about.serverInfo.processor', () => {
         return os.cpus()[0].model ?? ''
       })
 
       // Processor architecture
-      displayInfo('command.about.serverInfo.arch', () => {
+      await displayInfo('command.about.serverInfo.arch', () => {
         return os.machine()
       })
 
       // System memory
-      displayInfo('command.about.serverInfo.usedMem', () => {
+      await displayInfo('command.about.serverInfo.usedMem', () => {
         return `${memoryconvert(os.totalmem() - os.freemem())} / ${memoryconvert(os.totalmem())} ` +
         `(${getMessage(c.lang, 'command.about.serverInfo.freeMem', [memoryconvert(os.freemem())])})`
       })
 
       // Username, and OS UID if not on Windows
-      displayInfo('command.about.serverInfo.osUsername', () => {
+      await displayInfo('command.about.serverInfo.osUsername', () => {
         if (!settings.serverInfoShowSensitive) return ''
         let output = os.userInfo().username
         if (process.platform !== 'win32') output += ` (${os.userInfo().uid})`
@@ -202,17 +203,17 @@ export default class ServerInfoSubcommand extends Command {
       })
 
       // Hostname
-      displayInfo('command.about.serverInfo.hostName', () => {
+      await displayInfo('command.about.serverInfo.hostName', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return os.hostname()
       })
 
       // SELinux enforcement status
       if (process.platform === 'linux' || process.platform === 'android') {
-        displayInfo('command.about.serverInfo.seLinuxStatus', () => {
+        await displayInfo('command.about.serverInfo.seLinuxStatus', async () => {
           let outKey = ''
-          if (existsSync('/sys/fs/selinux/enforce')) {
-            const status = readFileSync('/sys/fs/selinux/enforce').toString('utf8')
+          if (await exists('/sys/fs/selinux/enforce')) {
+            const status = (await readFile('/sys/fs/selinux/enforce')).toString('utf8')
             if (status === '1') outKey = 'enforcing'
             else outKey = 'permissive'
           } else {
@@ -226,13 +227,13 @@ export default class ServerInfoSubcommand extends Command {
       }
 
       // System uptime
-      displayInfo('command.about.serverInfo.upTime', () => {
+      await displayInfo('command.about.serverInfo.upTime', () => {
         return formatTime(os.uptime() * 1000)
       })
 
       if (process.platform === 'android') {
         // Device model
-        displayInfo('command.about.serverInfo.os.android.model', () => {
+        await displayInfo('command.about.serverInfo.os.android.model', () => {
           const brand = execSync('getprop ro.product.brand').toString('utf8').split('\n')[0]
           const model = execSync('getprop ro.product.model').toString('utf8').split('\n')[0]
           return `${brand} ${model}`
@@ -246,42 +247,42 @@ export default class ServerInfoSubcommand extends Command {
       })
 
       // Bot uptime
-      displayInfo('command.about.serverInfo.runTime', () => {
+      await displayInfo('command.about.serverInfo.runTime', () => {
         return formatTime(process.uptime() * 1000)
       })
 
       // Current working directory (usually the same as baseDir)
-      displayInfo('command.about.serverInfo.workingDir', () => {
+      await displayInfo('command.about.serverInfo.workingDir', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return process.cwd()
       })
 
       // Base directory - directory with TypeScript code, language data, settings, etc. in it
-      displayInfo('command.about.serverInfo.baseDir', () => {
+      await displayInfo('command.about.serverInfo.baseDir', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return baseDir
       })
 
       // Directory with compiled JavaScript code in it
-      displayInfo('command.about.serverInfo.codeDir', () => {
+      await displayInfo('command.about.serverInfo.codeDir', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return codeDir
       })
 
       // Directory with instance-specific data in it
-      displayInfo('command.about.serverInfo.dataDir', () => {
+      await displayInfo('command.about.serverInfo.dataDir', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return dataDir
       })
 
       // Command line (process.argv)
-      displayInfo('command.about.serverInfo.cmdLine', () => {
+      await displayInfo('command.about.serverInfo.cmdLine', () => {
         if (!settings.serverInfoShowSensitive) return ''
         return process.argv.join(' ')
       })
 
       // Debug Mode Status
-      displayInfo('command.about.serverInfo.debugMode', () => {
+      await displayInfo('command.about.serverInfo.debugMode', () => {
         return { text: `bf.${debugMode}1`, parseLang: true }
       })
 

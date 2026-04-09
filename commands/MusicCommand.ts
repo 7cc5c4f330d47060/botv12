@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import uuidToInt from '../util/uuidtoint.js'
-import { readdirSync, statSync } from 'node:fs'
+import { readdir, stat } from 'node:fs/promises'
 import CommandContext from '../util/CommandContext.js'
 import version from '../version.js'
 import Command from '../util/Command.js'
@@ -68,8 +68,9 @@ export default class MusicCommand extends Command {
             c.reply(songPath)
             return
           }
-          for (const item of readdirSync(file)) {
-            const isDir = statSync(resolve(file, item)).isDirectory()
+          const fileList0 = await readdir(file)
+          for (const item of fileList0) {
+            const isDir = (await stat(resolve(file, item))).isDirectory()
             if (isDir) {
               list.push({
                 text: `${item}/`,
