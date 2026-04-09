@@ -7,7 +7,7 @@ const version = {
     patch: 0,
     // prMajor: 0,
     prMinor: 6,
-    prPatch: 0,
+    prPatch: 1,
     prType: 'alpha',
     isMainLine: false
   },

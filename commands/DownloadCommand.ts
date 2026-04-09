@@ -20,10 +20,12 @@ export default class DownloadCommand extends Command {
       if (sourceLink) {
         c.reply({
           text: 'command.download.already',
+          color: '$secondary',
           parseLang: true
         })
         c.reply({
           text: sourceLink,
+          color: '$primary',
           linked: true
         })
         return
@@ -135,7 +137,7 @@ export default class DownloadCommand extends Command {
 
       const zip = await zfw.getData()
       const bytes = await zip.bytes()
-      fs.writeFileSync(resolve(baseDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+      fs.writeFileSync(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
 
       const r = request({
         hostname: 'files.chipmunk.land',
