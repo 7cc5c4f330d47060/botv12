@@ -2,16 +2,9 @@ import Botv12Client from './util/Botv12Client.js'
 import SettingsType from './util/interface/SettingsType.js'
 import HostOptions from './util/interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
-import { readdir, writeFile, mkdir, unlink, rename, copyFile, access, constants } from 'node:fs/promises'
+import { readdir, writeFile, mkdir, unlink, rename, copyFile } from 'node:fs/promises'
+import exists from './util/existsAsync.js'
 
-async function exists (fileName: string) {
-  try {
-    await access(fileName, constants.F_OK)
-    return true
-  } catch {
-    return false
-  }
-}
 declare global {
   var settings: SettingsType
   var codeDir: string

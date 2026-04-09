@@ -1,10 +1,11 @@
 import CommandContext from '../util/CommandContext.js'
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { createHash } from 'node:crypto'
 import Command from '../util/Command.js'
 import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
+import exists from '../util/existsAsync.js'
 interface Metadata12 {
   format: number,
   hashes: Record<string, string>
@@ -87,55 +88,57 @@ export default class DownloadCommand extends Command {
         'version.ts',
       ]
       const root = resolve(dataDir, 'temp', 'dl')
-      if (!fs.existsSync(resolve(dataDir, 'temp'))) fs.mkdirSync(resolve(dataDir, 'temp'))
-      if (!fs.existsSync(root)) fs.mkdirSync(root)
+      if (!await exists(resolve(dataDir, 'temp'))) fs.mkdir(resolve(dataDir, 'temp'))
+      if (!await exists(root)) fs.mkdir(root)
 
       for (const item of dirs) {
         metadata.dirList.push(item)
-        if (!fs.existsSync(resolve(root, item))) fs.mkdirSync(resolve(root, item))
-        const fileList = fs.readdirSync(item, { recursive: true })
+        if (!await exists(resolve(root, item))) fs.mkdir(resolve(root, item))
+        const fileList = await fs.readdir(item, { recursive: true })
         for (const file of fileList) {
-          const fileStats = fs.statSync(resolve(item, file.toString())) // Stupid Hack
+          const fileStats = await fs.stat(resolve(item, file.toString())) // Stupid Hack
           if (fileStats.isDirectory()) { // Directories
-            if (fs.existsSync(resolve(root, item, file.toString()))) fs.rmSync(resolve(root, item, file.toString()), { recursive: true })
-            fs.mkdirSync(resolve(root, item, file.toString()))
+            if (await exists(resolve(root, item, file.toString()))) {
+              await fs.rm(resolve(root, item, file.toString()), { recursive: true })
+            }
+            await fs.mkdir(resolve(root, item, file.toString()))
             metadata.dirList.push(`${item}/${file.toString()}`)
           } else { // Files
-            if (fs.existsSync(resolve(root, item, file.toString()))) fs.rmSync(resolve(root, item, file.toString()))
-            const data = fs.readFileSync(resolve(item, file.toString()))
+            if (await exists(resolve(root, item, file.toString()))) fs.rm(resolve(root, item, file.toString()))
+            const data = await fs.readFile(resolve(item, file.toString()))
             const hash = createHash('sha256').update(data).digest('hex')
             metadata.hashes[`${item}/${file.toString()}`] = hash
             metadata.fileList.push(`${item}/${file.toString()}`)
-            fs.copyFileSync(resolve(item, file.toString()), resolve(root, item, file.toString()))
+            await fs.copyFile(resolve(item, file.toString()), resolve(root, item, file.toString()))
           }
         }
       }
 
       for (const item of files) {
-        if (fs.existsSync(resolve(root, item))) fs.rmSync(resolve(root, item))
-        const data = fs.readFileSync(item)
+        if (await exists(resolve(root, item))) fs.rm(resolve(root, item))
+        const data = await fs.readFile(item)
         const hash = createHash('sha256').update(data).digest('hex')
         metadata.hashes[item] = hash
         metadata.fileList.push(item)
-        fs.copyFileSync(item, resolve(root, item))
+        fs.copyFile(item, resolve(root, item))
       }
 
       metadata.fileList.push('metadata.json')
 
-      fs.writeFileSync(resolve(root, 'metadata.json'), JSON.stringify(metadata, null, 4))
+      await fs.writeFile(resolve(root, 'metadata.json'), JSON.stringify(metadata, null, 4))
 
       const zfw = new BlobWriter()
       const zipWriter = new ZipWriter(zfw)
       for (const item of metadata.fileList) {
         const itemPath = resolve(baseDir, root, item)
-        const fileBuffer = fs.readFileSync(itemPath)
+        const fileBuffer = await fs.readFile(itemPath)
         await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(fileBuffer)))
       }
       await zipWriter.close()
 
       const zip = await zfw.getData()
       const bytes = await zip.bytes()
-      fs.writeFileSync(resolve(baseDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+      await fs.writeFile(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
 
       const r = request({
         hostname: 'files.chipmunk.land',
