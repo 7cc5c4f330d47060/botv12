@@ -4,7 +4,7 @@ const { getMessage } = require('../util/lang.js')
 const cmds = require('../util/commands.js')
 const fs = require('fs')
 
-if (!fs.readdirSync('.').includes('userPref') && !settings.disableUserSettings) fs.mkdirSync('userPref')
+if (!fs.existsSync('./userPref') && !settings.disableUserSettings) fs.mkdirSync('userPref')
 
 const loadSettings = function (uuid) {
   try {

@@ -49,7 +49,6 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     if (!data.color) data.color = 'reset'
   }
 
-
   let out = ''
   if (data.color) {
     out += processColor(data.color, resetColor)
@@ -67,9 +66,8 @@ const parse = function (_data, l = 0, resetColor = consoleColors.reset) {
     let trans = data.translate.replaceAll('%%', '\ud900\ud801').replaceAll('\x1b', '').replaceAll('\x0e', '')
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
-    }
-    else if (data.fallback) {
-      trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor) : resetColor);
+    } else if (data.fallback) {
+      trans = parse(data.fallback, l + 1, data.color ? processColor(data.color, resetColor) : resetColor)
     }
     if (data.with) {
       data.with.forEach((item, i) => {

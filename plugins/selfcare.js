@@ -33,7 +33,7 @@ module.exports = {
       b.sc_tasks[name] = new SCTask(failTask, startFailed)
     }
 
-    // Self care tasks
+    // Self care tasks, name from chromens?
 
     // Operator
     b.add_sc_task('op', () => {
@@ -131,5 +131,21 @@ module.exports = {
         }
       })
     }
+
+    // botv12 command core position
+    b.add_sc_task('cc_pos', () => {
+      let command = `/minecraft:tp ${b._client.uuid} ~ 40 ~`
+      if (b.host.options.isVanilla) command = `tp ${b._client.uuid} ~ 40 ~`
+
+      if (!b.ccq.slice(0, 5).includes(`/tp ${b._client.uuid} ~ 40 ~`) &&
+      !b.ccq.slice(0, 5).includes(`/minecraft:tp ${b._client.uuid} ~ 40 ~`) &&
+      !b.chatqueue.slice(0, 5).includes(`/tp ${b._client.uuid} ~ 40 ~`) &&
+      !b.chatqueue.slice(0, 5).includes(`/minecraft:tp ${b._client.uuid} ~ 40 ~`)) {
+        console.log(9)
+
+        if (b.sc_tasks.cc.failed) b.chat(command)
+        else b.ccq.push(command)
+      }
+    })
   }
 }

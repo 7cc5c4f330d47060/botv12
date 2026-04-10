@@ -28,9 +28,8 @@ const parse = function (_data, l = 0) {
     let trans = data.translate.replace(/%%/g, '\ue123')
     if (lang[trans] !== undefined) {
       trans = lang[trans].replace(/%%/g, '\ue123')
-    }
-    else if (data.fallback) {
-      trans = parse(data.fallback, l + 1);
+    } else if (data.fallback) {
+      trans = parse(data.fallback, l + 1)
     }
     if (data.with) {
       data.with.forEach((item, i) => {

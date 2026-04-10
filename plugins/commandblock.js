@@ -1,6 +1,11 @@
 const uuidToInt = require('../util/uuidtoint.js')
 const plainParser = require('../util/chatparse_plain.js')
 const mcParser = require('../util/chatparse_mc.js')
+const loader = require('prismarine-item')
+const loaderData = require('minecraft-data')
+const settings = require('../settings.json')
+const Vec3 = require('vec3')
+
 const cs = {
   x: 4,
   y: 6,
@@ -8,53 +13,64 @@ const cs = {
 }
 module.exports = {
   load: function (b) {
+    const Item = loader(b._client.version)
+    const itemsByName = loaderData(b._client.version).itemsByName
     b.interval.commandFill = setInterval(() => { if (b.sc_tasks.cc) b.sc_tasks.cc.failed = 1 }, 150000)
     b.ccq = []
     b.blocknoX = 0
+    b.blocknoY = 0
     b.blocknoZ = 0
     b.ccStarted = false
-    b.blocknoY = 0
     b.pos = { x: 0, y: 0, z: 0 }
 
     b.refillCoreCmd = `/fill ~ 55 ~ ~${cs.x - 1} ${54 + cs.y} ~${cs.z - 1} command_block{CustomName:'{"translate":"%s %s","with":[{"translate":"entity.minecraft.ender_dragon"},{"translate":"language.region"}],"color":"#FFAAEE"}'}`
 
     b.advanceccq = function () {
       if (b.host.options.useChat) return
-      if (b.ccq[0] && b.ccq[0].length !== 0) {
-        b._client.write('update_command_block', {
-          command: '/',
-          location: {
-            x: b.commandPos.x + b.blocknoX,
-            y: b.commandPos.y + b.blocknoY,
-            z: b.commandPos.z + b.blocknoZ
-          },
-          mode: 2,
-          flags: 1
-        })
-        b._client.write('update_command_block', {
-          command: b.ccq[0].substr(0, 32767),
-          location: {
-            x: b.commandPos.x + b.blocknoX,
-            y: b.commandPos.y + b.blocknoY,
-            z: b.commandPos.z + b.blocknoZ
-          },
-          mode: 2,
-          flags: 5
-        })
-        b.blocknoX++
-        if (b.blocknoX === cs.x) {
-          b.blocknoY++
-          b.blocknoX = 0
-          if (b.blocknoY === cs.y) {
-            b.blocknoZ++
-            b.blocknoY = 0
-            if (b.blocknoZ === cs.z) {
-              b.blocknoZ = 0
-            }
+      for (let i = 0; i <= 7; i++) {
+        if (b.ccq[0] && b.ccq[0].length !== 0) {
+          b.sendCommandNow(b.ccq[0])
+        }
+        b.ccq.splice(0, 1)
+      }
+    }
+
+    b.sendCommandNow = function (command) {
+      if (settings.showCommandSet) console.log(command)
+      const xstart = b.currentChunk.x << 4
+      const zstart = b.currentChunk.z << 4
+      b._client.write('update_command_block', {
+        command: '/',
+        location: {
+          x: xstart + b.blocknoX,
+          y: 15 + b.blocknoY,
+          z: zstart + b.blocknoZ
+        },
+        mode: 2,
+        flags: 1
+      })
+      b._client.write('update_command_block', {
+        command: command.substr(0, 32767),
+        location: {
+          x: xstart + b.blocknoX,
+          y: 15 + b.blocknoY,
+          z: zstart + b.blocknoZ
+        },
+        mode: 2,
+        flags: 5
+      })
+      b.blocknoX++
+      if (b.blocknoX === 16) {
+        b.blocknoY++
+        b.blocknoX = 0
+        if (b.blocknoY === 2) {
+          b.blocknoZ++
+          b.blocknoY = 0
+          if (b.blocknoZ === 16) {
+            b.blocknoZ = 0
           }
         }
       }
-      b.ccq.splice(0, 1)
     }
 
     b._client.on('login', () => {
@@ -68,8 +84,56 @@ module.exports = {
       })
       if (!b.host.options.useChat) {
         b.add_sc_task('cc', () => {
-          b.chat(b.refillCoreCmd)
-        }, true)
+          if (b.sc_tasks.op.failed) return
+          const xstart = b.currentChunk.x << 4
+          const zstart = b.currentChunk.z << 4
+          const item = new Item(itemsByName.command_block.id, 1)
+
+          b._client.write('set_creative_slot', {
+            slot: 36,
+            item: Item.toNotch(item)
+          })
+          // Core filling
+          // `fill ${xstart} 55 ${zstart} ${xstart + 15} 55 ${zstart + 15} ${refillPayload}`
+          // '/gamerule commandModificationBlockLimit 32768'
+
+          b._client.write('block_dig', {
+            status: 0,
+            location: { x: b.pos.x, y: b.pos.y - 1, z: b.pos.z }
+          })
+          b._client.write('block_dig', {
+            status: 0,
+            location: { x: b.pos.x, y: b.pos.y - 2, z: b.pos.z }
+          })
+          b._client.write('block_place', {
+            hand: 0,
+            direction: 0,
+            location: { x: b.pos.x, y: b.pos.y - 1, z: b.pos.z },
+            cursorX: 0,
+            cursorY: 0,
+            cursorZ: 0
+          })
+          b._client.write('block_place', {
+            hand: 0,
+            direction: 0,
+            location: { x: b.pos.x, y: b.pos.y - 2, z: b.pos.z },
+            cursorX: 0,
+            cursorY: 0,
+            cursorZ: 0
+          })
+          b._client.write('update_command_block', {
+            command: `fill ${xstart} 15 ${zstart} ${xstart + 15} 16 ${zstart + 15} command_block`,
+            location: { x: b.pos.x, y: b.pos.y - 1, z: b.pos.z },
+            mode: 2,
+            flags: 5
+          })
+          b._client.write('update_command_block', {
+            command: '/gamerule commandModificationBlockLimit 32768',
+            location: { x: b.pos.x, y: b.pos.y - 2, z: b.pos.z },
+            mode: 2,
+            flags: 5
+          })
+        })
         b.add_sc_task('cc_size', () => {
           b.chat('/gamerule commandModificationBlockLimit 32768')
         })
@@ -78,36 +142,6 @@ module.exports = {
     b.on('ccstart', () => {
       setTimeout(() => { b.interval.ccqi = setInterval(b.advanceccq, 2) }, 1000)
       b.ccStarted = true
-    })
-    b.on('chat_unparsed', (data) => {
-      if (data.json.translate === 'commands.fill.failed' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.failed') ||
-            data.json.translate === 'commands.fill.success' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.success')) {
-        if (!b.ccStarted) {
-          b.emit('ccstart')
-        }
-        b.sc_tasks.cc.failed = 0
-        b.sc_tasks.cc_size.failed = 0
-      } else if (data.json.translate === 'commands.fill.toobig' || (data.json.extra && data.json.extra[0] && data.json.extra[0].translate === 'commands.fill.toobig')) {
-        b.sc_tasks.cc_size.failed = 1
-      }
-    })
-    b._client.on('position', function (a) {
-      if (!b.ccStarted) {
-        b.original_pos = { x: a.x, y: a.y, z: a.z }
-        b.pos = { x: a.x, y: a.y, z: a.z }
-      } else {
-        b.pos = { x: a.x, y: a.y, z: a.z }
-        if (a.x !== b.original_pos.x || a.z !== b.original_pos.z) {
-          b.original_pos = { x: a.x, y: a.y, z: a.z }
-          b.sc_tasks.cc.failed = 1
-        }
-      }
-      b.commandPos = {
-        x: Math.floor(a.x),
-        z: Math.floor(a.z),
-        y: 55
-      }
-      b._client.write('teleport_confirm', { teleportId: a.teleportId })
     })
 
     b.tellraw = (uuid, message) => {
@@ -135,5 +169,28 @@ module.exports = {
         b.ccq.push(`/${tellrawCommand} ${finalname} ${JSON.stringify(message)}`)
       }
     }
+    b.interval.coreCheck = setInterval(() => {
+      let cf = false
+      if (!b.currentChunk || !b.chunks[b.currentChunk.x] || !b.chunks[b.currentChunk.x][b.currentChunk.z]) return
+      const chunk = b.chunks[b.currentChunk.x][b.currentChunk.z]
+      if (b.sc_tasks.cc) b.sc_tasks.cc.failed = false
+      for (let x = 0; x <= 15; x++) {
+        for (let y = 15; y <= 16; y++) {
+          for (let z = 0; z <= 15; z++) {
+            const blockName = chunk.getBlock(Vec3(x, y, z)).name
+            if (blockName !== 'command_block' && blockName !== 'repeating_command_block' && blockName !== 'chain_command_block') {
+              cf = true
+              if (b.sc_tasks.cc) b.sc_tasks.cc.failed = true
+              break
+            }
+          }
+          if (cf) break
+        }
+        if (cf) break
+      }
+      if (!cf && !b.ccStarted) {
+        b.emit('ccstart')
+      }
+    }, 500)
   }
 }

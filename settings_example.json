@@ -3,8 +3,8 @@
     "defaultLang": "en-US",
     "terminalMode": "blackTerminal_24bit",
     "colors": {
-        "primary": "#FFCCEE",
-        "secondary": "#FF99DD"
+        "primary": "white",
+        "secondary": "gray"
     },
     "prefix":[
         "d\""

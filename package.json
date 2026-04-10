@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "minecraft-protocol": "^1.64.0",
-    "prismarine-chat": "^1.10.0"
+    "prismarine-chat": "^1.10.0",
+    "prismarine-chunk": "^1.40.0"
   },
   "name": "botv11",
   "version": "11.0.0-alpha.2",
@@ -11,5 +12,8 @@
   },
   "author": "",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
 }
