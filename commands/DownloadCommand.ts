@@ -5,7 +5,6 @@ import { createHash } from 'node:crypto'
 import Command from '../util/Command.js'
 import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
-import exists from '../util/existsAsync.js'
 interface Metadata12 {
   format: number,
   hashes: Record<string, string>
@@ -18,7 +17,7 @@ export default class DownloadCommand extends Command {
     super()
     this.name = 'download'
     this.execute = async (c: CommandContext) => {
-      if (sourceLink) {
+      if (sourceLink && !c.args.includes('--force-reupload')) {
  	      c.reply({
 	        text: 'command.download.already',
 	        color: '$secondary',
@@ -31,6 +30,7 @@ export default class DownloadCommand extends Command {
 	      })
         return
       }
+
       // Source code downloader, to allow downloading of versions between commits,
       // and without visiting Codeberg/Chipmunk.land code/GitHub.
       // Useful if someone steals the code, but does not use Git® or another version control system to
@@ -89,61 +89,51 @@ export default class DownloadCommand extends Command {
         'settings_example.js',
         'version.ts',
       ]
-      const root = resolve(dataDir, 'temp', 'dl')
-      if (!await exists(resolve(dataDir, 'temp'))) fs.mkdir(resolve(dataDir, 'temp'))
-      if (!await exists(root)) fs.mkdir(root)
+
+      const zfw = new BlobWriter()
+      const zipWriter = new ZipWriter(zfw)
 
       for (const item of dirs) {
         metadata.dirList.push(item)
-        if (!await exists(resolve(root, item))) fs.mkdir(resolve(root, item))
-        const fileList = await fs.readdir(item, { recursive: true })
+        const fileList = await fs.readdir(resolve(baseDir, item), { recursive: true })
         for (const file of fileList) {
-          const fileStats = await fs.stat(resolve(item, file.toString())) // Stupid Hack
+          const fileStats = await fs.stat(resolve(baseDir, item, file.toString())) // Stupid Hack
           if (fileStats.isDirectory()) { // Directories
-            if (await exists(resolve(root, item, file.toString()))) {
-              await fs.rm(resolve(root, item, file.toString()), { recursive: true })
-            }
-            await fs.mkdir(resolve(root, item, file.toString()))
             metadata.dirList.push(`${item}/${file.toString()}`)
           } else { // Files
-            if (await exists(resolve(root, item, file.toString()))) fs.rm(resolve(root, item, file.toString()))
             const data = await fs.readFile(resolve(item, file.toString()))
-            const hash = createHash('sha256').update(data).digest('hex')
-            metadata.hashes[`${item}/${file.toString()}`] = hash
+            const hashSha256 = createHash('sha256').update(data).digest('hex')
+            metadata.hashes[`${item}/${file.toString()}`] = hashSha256
             metadata.fileList.push(`${item}/${file.toString()}`)
-            await fs.copyFile(resolve(item, file.toString()), resolve(root, item, file.toString()))
+            await zipWriter.add(`${item}/${file.toString()}`, new Uint8ArrayReader(new Uint8Array(data)))
           }
         }
       }
 
       for (const item of files) {
-        if (await exists(resolve(root, item))) fs.rm(resolve(root, item))
         const data = await fs.readFile(item)
-        const hash = createHash('sha256').update(data).digest('hex')
-        metadata.hashes[item] = hash
+        const hashSha256 = createHash('sha256').update(data).digest('hex')
+        metadata.hashes[item] = hashSha256
         metadata.fileList.push(item)
-        fs.copyFile(item, resolve(root, item))
+        await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(data)))
       }
 
       metadata.fileList.push('metadata.json')
+      await zipWriter.add('metadata.json', new Uint8ArrayReader(new Uint8Array(Buffer.from(JSON.stringify(metadata, null, 4)))))
 
-      await fs.writeFile(resolve(root, 'metadata.json'), JSON.stringify(metadata, null, 4))
-
-      const zfw = new BlobWriter()
-      const zipWriter = new ZipWriter(zfw)
-      for (const item of metadata.fileList) {
-        const itemPath = resolve(baseDir, root, item)
-        const fileBuffer = await fs.readFile(itemPath)
-        await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(fileBuffer)))
-      }
       await zipWriter.close()
 
       const zip = await zfw.getData()
       const bytes = await zip.bytes()
-      await fs.writeFile(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+      //await fs.writeFile(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+
+      let ep = 'files.chipmunk.land'
+      if (settings.downloadEndPoint && !c.args.includes('--force-fcl')) {
+        ep = settings.downloadEndPoint
+      }
 
       const r = request({
-        hostname: 'files.chipmunk.land',
+        hostname: ep,
         port: 443,
         path: '/upload/botv12.zip',
         method: 'PUT',
@@ -154,7 +144,7 @@ export default class DownloadCommand extends Command {
       }, res => {
         res.setEncoding('latin1')
         res.on('data', (content) => {
-          if (content.startsWith('https://files.chipmunk.land')) {
+          if (content.startsWith(`https://${ep}`)) {
             sourceLink = content.slice(0, content.length - 1)
             c.reply({
               text: 'command.download.success',

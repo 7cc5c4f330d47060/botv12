@@ -28,4 +28,5 @@ export default interface SettingsType {
   kawaiiMode?: boolean
   webTheme?: string
   musicBarColor?: string
+  downloadEndPoint?: string
 }
