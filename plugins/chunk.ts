@@ -59,15 +59,15 @@ export default function load (b: Botv12Client) {
     updatePosition(newX, newY, newZ)
   })
   b.interval.unloadChunks = setInterval(() => {
-    b.chunks.forEach((chunkList: PCChunk[], i: number) => {
+    b.chunks.forEach((chunkList: PCChunk[], x: number) => {
       // X-values
-      if (i > b.position.currentChunk.x + rd || +i < b.position.currentChunk.x - rd) {
-        if (b.chunks[i]) delete b.chunks[i]
+      if (x > b.position.currentChunk.x + rd || +x < b.position.currentChunk.x - rd) {
+        if (b.chunks[x]) delete b.chunks[x]
       }
       chunkList.forEach((chunk: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
-          if (b.chunks[i] && b.chunks[i][z]) delete b.chunks[i][z]
+          if (b.chunks[x] && b.chunks[x][z]) delete b.chunks[x][z]
         }
       })
     })
