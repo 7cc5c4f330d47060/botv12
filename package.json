@@ -16,6 +16,8 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@nbsjs/core": "^6.0.0",
+    "@types/tar-stream": "^3.1.4",
+    "@types/ws": "^8.18.1",
     "@zip.js/zip.js": "^2.8.15",
     "mariadb": "^3.4.4",
     "midi-file": "^1.2.4",
@@ -25,12 +27,12 @@
     "prismarine-chunk": "^1.38.1",
     "prismarine-item": "^1.16.0",
     "prismarine-registry": "^1.11.0",
+    "tar-stream": "^3.1.8",
     "vec3": "^0.1.10",
     "ws": "^8.18.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/ws": "^8.18.1",
     "eslint": "^9.39.4",
     "neostandard": "^0.13.0",
     "typescript": "^5.9.3",
