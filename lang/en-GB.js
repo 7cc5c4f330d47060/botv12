@@ -1,7 +1,8 @@
 // Testing for UK / International English
 export default {
   fallbackList: [
-    'en-US' // US English provides strings without British/American specific spelling.
+    'en-US',
+    'common' // US English provides strings without British/American specific spelling.
   ],
   strings: {
     // These strings are currently unused, but may be used in the future, along with the other

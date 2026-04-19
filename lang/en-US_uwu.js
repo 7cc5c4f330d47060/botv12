@@ -4,7 +4,8 @@
 export default {
   fallbackList: [
     'en-US',
-    'en-GB'
+    'en-GB',
+    'common'
   ],
   strings: {
     // Console message types

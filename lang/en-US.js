@@ -3,7 +3,8 @@
 // and because the configuration calls it "debugMode".
 export default {
   fallbackList: [
-    'en-GB'
+    'en-GB',
+    'common'
   ],
   strings: {
     // Console message types
@@ -180,7 +181,6 @@ export default {
     'command.music.volumeSet': 'Set volume to %s',
     'command.music.gotoTime': 'Set time to %s',
     'command.music.queueIntro': 'Queue (%s)',
-    'command.music.queueItem': '%s - %s',
     'command.music.error.notPlaying': 'No song is currently playing',
     'command.music.error.neverPlayed': 'No songs have been played in this session',
     'command.music.restartCurrent': 'Restarting current track',
@@ -280,7 +280,6 @@ export default {
     clickHere: 'click here',
     // clickHere2: 'Click here',
     // clickHere3: 'Click Here',
-    listItem: '%s: %s',
     copyText: 'Click to copy this item to your clipboard',
     openInBrowser: 'Click to open this link in a browser',
     runCommand: 'Click to run command (1.11+): %s',
