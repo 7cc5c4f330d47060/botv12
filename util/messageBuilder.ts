@@ -1,6 +1,6 @@
-import JsonFormat from './interface/JsonFormat.js'
+import type JsonFormat from './interface/JsonFormat.js'
 import { getMessage } from './lang.js'
-import TextFormat from './interface/TextFormat.js'
+import type TextFormat from './interface/TextFormat.js'
 import uuidToInt from './uuidtoint.js'
 import resolveColor from './resolveColor.js'
 

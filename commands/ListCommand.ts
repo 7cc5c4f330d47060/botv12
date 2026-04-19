@@ -1,4 +1,4 @@
-import CommandContext from '../util/CommandContext'
+import CommandContext from '../util/CommandContext.js'
 import Command from '../util/Command.js'
 
 export default class ListCommand extends Command {

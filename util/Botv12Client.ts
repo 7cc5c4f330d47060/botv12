@@ -1,15 +1,15 @@
-import { createClient, Client, ClientOptions } from 'minecraft-protocol'
+import { createClient, Client, type ClientOptions } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
-import ParsedNote from './interface/ParsedNote.js'
-import FilteredPlayer from './interface/FilteredPlayer.js'
+import type ParsedNote from './interface/ParsedNote.js'
+import type FilteredPlayer from './interface/FilteredPlayer.js'
 import offlineUUID from './offlineUUID.js'
 import SCTask from './SCTask.js'
 import console from 'node:console'
-import HostOptions from './interface/HostOptions.js'
-import { PCChunk } from 'prismarine-chunk'
-import JsonFormat from './interface/JsonFormat.js'
+import type HostOptions from './interface/HostOptions.js'
+import type { PCChunk } from 'prismarine-chunk'
+import type JsonFormat from './interface/JsonFormat.js'
 
 interface MusicPlayer extends EventEmitter {
   /*

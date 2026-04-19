@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import CommandContext from '../../util/CommandContext'
+import CommandContext from '../../util/CommandContext.js'
 import { resolve } from 'node:path'
 import Command from '../../util/Command.js'
 

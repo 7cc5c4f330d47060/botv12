@@ -16,11 +16,11 @@ for (const file of files) {
   const stat2 = await stat(resolve(workerData, file))
   const size = stat2.size
   const i = createReadStream(resolve(workerData, file))
-  //const z = createGzip()
-  const o = pack2.entry({name: `${file}`, size})
+  // const z = createGzip()
+  const o = pack2.entry({ name: `${file}`, size })
   await pipeline(i, o)
 }
 pack2.finalize()
-rm(workerData, {recursive: true})
+rm(workerData, { recursive: true })
 
 // execSync('pkill -9 MainThread')

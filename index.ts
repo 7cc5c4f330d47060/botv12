@@ -1,6 +1,6 @@
 import Botv12Client from './util/Botv12Client.js'
-import SettingsType from './util/interface/SettingsType.js'
-import HostOptions from './util/interface/HostOptions.js'
+import type SettingsType from './util/interface/SettingsType.js'
+import type HostOptions from './util/interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
 import { readdir, writeFile, mkdir, unlink, rename, copyFile } from 'node:fs/promises'
 import exists from './util/existsAsync.js'
@@ -59,7 +59,7 @@ import generateUser from './util/usergen.js'
 import version from './version.js'
 // import { getMessage } from './util/lang.js'
 import { createInterface } from 'node:readline'
-import { ClientOptions } from 'minecraft-protocol'
+import type { ClientOptions } from 'minecraft-protocol'
 // import { default as registry } from 'prismarine-registry'
 
 const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
@@ -105,7 +105,7 @@ const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
 
 if ('Deno' in globalThis) {
   console.warn('[warning] Deno\xae runtime may not work correctly.')
-  console.warn(`It is strongly recommended to use the Node.js\xae runtime to use ` +
+  console.warn('It is strongly recommended to use the Node.js\xae runtime to use ' +
     `${version.botName}. For more information check https://nodejs.org/.`)
 }
 

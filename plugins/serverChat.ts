@@ -5,7 +5,7 @@ import { readdir } from 'node:fs/promises'
 import Botv12Client from '../util/Botv12Client.js'
 import ChatParser from '../util/ChatParser.js'
 import { resolve } from 'node:path'
-import JsonFormat from '../util/interface/JsonFormat.js'
+import type JsonFormat from '../util/interface/JsonFormat.js'
 
 interface ChatTypeItem {
   translation_key: { value: string },

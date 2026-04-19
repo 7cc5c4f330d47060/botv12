@@ -1,7 +1,7 @@
 import Command from '../util/Command.js'
 import CommandContext from '../util/CommandContext.js'
 import registry from '../util/commands.js'
-import TextFormat from '../util/interface/TextFormat.js'
+import type TextFormat from '../util/interface/TextFormat.js'
 import { getMessage } from '../util/lang.js'
 
 interface Command2 {

@@ -1,4 +1,4 @@
-import { SessionOption } from 'minecraft-protocol'
+import { type SessionOption } from 'minecraft-protocol'
 
 export default interface HostOptions {
   host: string

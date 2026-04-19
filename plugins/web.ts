@@ -1,11 +1,11 @@
 import { WebSocketServer, WebSocket } from 'ws'
-import Botv12Client from '../util/Botv12Client'
+import Botv12Client from '../util/Botv12Client.js'
 import parse3 from '../util/chatparse.js'
 import registry from '../util/commands.js'
 import { Server } from 'node:http'
 import { getMessage } from '../util/lang.js'
 import CommandContext from '../util/CommandContext.js'
-import JsonFormat from '../util/interface/JsonFormat.js'
+import type JsonFormat from '../util/interface/JsonFormat.js'
 import createServer2 from '../util/webServer.js'
 import botByName from '../util/botByName.js'
 

@@ -1,5 +1,5 @@
-import CommandContext from './CommandContext'
-import NewArgumentFormat from './interface/NewArgumentFormat'
+import CommandContext from './CommandContext.js'
+import type NewArgumentFormat from './interface/NewArgumentFormat.js'
 
 export default class Command {
   name: string

@@ -1,4 +1,4 @@
-import { createServer, OutgoingHttpHeaders } from 'node:http'
+import { createServer, type OutgoingHttpHeaders } from 'node:http'
 import { resolve } from 'node:path'
 import { readFile, stat } from 'node:fs/promises'
 import exists from './existsAsync.js'

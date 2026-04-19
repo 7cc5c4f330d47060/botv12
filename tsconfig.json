@@ -22,7 +22,11 @@
     },
     "skipLibCheck": true,
     "strict": true,
-    "removeComments": true
+    "removeComments": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force"
   },
   "include": [
     "index.ts",

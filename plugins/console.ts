@@ -6,7 +6,7 @@ import { userInfo } from 'node:os'
 
 import Botv12Client from '../util/Botv12Client.js'
 import { getMessage } from '../util/lang.js'
-import JsonFormat from '../util/interface/JsonFormat.js'
+import type JsonFormat from '../util/interface/JsonFormat.js'
 import botByName from '../util/botByName.js'
 
 const consoleBotStub = {

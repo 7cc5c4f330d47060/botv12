@@ -1,4 +1,4 @@
-import HostOptions from './HostOptions.js'
+import type HostOptions from './HostOptions.js'
 
 export default interface SettingsType {
   format: number

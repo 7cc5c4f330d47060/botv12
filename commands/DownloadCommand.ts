@@ -18,16 +18,16 @@ export default class DownloadCommand extends Command {
     this.name = 'download'
     this.execute = async (c: CommandContext) => {
       if (sourceLink && !c.args.includes('--force-reupload')) {
- 	      c.reply({
-	        text: 'command.download.already',
-	        color: '$secondary',
-	        parseLang: true
-	      })
         c.reply({
-	        text: sourceLink,
-	        color: '$primary',
-	        linked: true
-	      })
+          text: 'command.download.already',
+          color: '$secondary',
+          parseLang: true
+        })
+        c.reply({
+          text: sourceLink,
+          color: '$primary',
+          linked: true
+        })
         return
       }
 
@@ -125,7 +125,7 @@ export default class DownloadCommand extends Command {
 
       const zip = await zfw.getData()
       const bytes = await zip.bytes()
-      //await fs.writeFile(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
+      // await fs.writeFile(resolve(dataDir, 'temp', 'botv12.zip'), Buffer.from(bytes))
 
       let ep = 'files.chipmunk.land'
       if (settings.downloadEndPoint && !c.args.includes('--force-fcl')) {

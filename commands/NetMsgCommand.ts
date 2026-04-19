@@ -1,9 +1,9 @@
 import * as rl from '../util/ratelimit.js'
 import build from '../util/messageBuilder.js'
-import CommandContext from '../util/CommandContext'
+import CommandContext from '../util/CommandContext.js'
 import Command from '../util/Command.js'
 import uwuText from '../util/botv8-uwu.js'
-import TextFormat from '../util/interface/TextFormat.js'
+import type TextFormat from '../util/interface/TextFormat.js'
 
 export default class NetMsgCommand extends Command {
   constructor () {

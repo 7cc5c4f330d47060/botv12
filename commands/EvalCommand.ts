@@ -1,5 +1,5 @@
 import { inspect } from 'node:util'
-import CommandContext from '../util/CommandContext'
+import CommandContext from '../util/CommandContext.js'
 import Command from '../util/Command.js'
 
 export default class EvalCommand extends Command {

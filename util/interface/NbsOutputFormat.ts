@@ -1,4 +1,4 @@
-import Note from './Note'
+import type Note from './Note'
 export default interface NbsOutputFormat {
   tracks: Note[][]
   header: {

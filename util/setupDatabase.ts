@@ -1,4 +1,4 @@
-import SettingsType from './interface/SettingsType.js'
+import type SettingsType from './interface/SettingsType.js'
 import { resolve } from 'node:path'
 declare global {
   var settings: SettingsType

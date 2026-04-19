@@ -35,7 +35,7 @@ const checkLog = async () => {
       workerData: resolve(dataDir, 'logs', jsonData)
     })
     a.on('exit', () => {
-      if(debugMode) console.log('[debug] Finished compressing logs')
+      if (debugMode) console.log('[debug] Finished compressing logs')
     })
   } else {
     const dateParts = [(year + '').padStart(4, '0'), (month + '').padStart(2, '0'), (day + '').padStart(2, '0')]

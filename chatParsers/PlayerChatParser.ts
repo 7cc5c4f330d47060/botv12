@@ -1,6 +1,6 @@
 import Botv12Client from '../util/Botv12Client.js'
 import ChatParser from '../util/ChatParser.js'
-import UnparsedMessage from '../util/interface/UnparsedMessage.js'
+import type UnparsedMessage from '../util/interface/UnparsedMessage.js'
 
 export default class PlayerChatParser extends ChatParser {
   constructor () {

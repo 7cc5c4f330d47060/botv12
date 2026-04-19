@@ -1,4 +1,4 @@
-import loader, { PCChunk } from 'prismarine-chunk'
+import loader, { type PCChunk } from 'prismarine-chunk'
 import Vec3 from 'vec3'
 import Botv12Client from '../util/Botv12Client.js'
 const rd = 8
@@ -64,7 +64,7 @@ export default function load (b: Botv12Client) {
       if (x > b.position.currentChunk.x + rd || +x < b.position.currentChunk.x - rd) {
         if (b.chunks[x]) delete b.chunks[x]
       }
-      chunkList.forEach((chunk: PCChunk, z: number) => {
+      chunkList.forEach((_unused: PCChunk, z: number) => {
         // Z-values
         if (z > b.position.currentChunk.z + rd || +z < b.position.currentChunk.z - rd) {
           if (b.chunks[x] && b.chunks[x][z]) delete b.chunks[x][z]
