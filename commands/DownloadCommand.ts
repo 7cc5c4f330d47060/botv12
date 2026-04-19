@@ -7,7 +7,11 @@ import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
 interface Metadata12 {
   format: number,
-  hashes: Record<string, string>
+  hashes: Record<string, {
+    sha256: string,
+    sha512: string,
+    md5: string
+  }>
   dirList: string[],
   fileList: string[]
 }
@@ -64,7 +68,7 @@ export default class DownloadCommand extends Command {
       // anything on .gitignore
 
       const metadata: Metadata12 = {
-        format: 1,
+        format: 2,
         hashes: {},
         dirList: [],
         fileList: []
@@ -103,7 +107,13 @@ export default class DownloadCommand extends Command {
           } else { // Files
             const data = await fs.readFile(resolve(item, file.toString()))
             const hashSha256 = createHash('sha256').update(data).digest('hex')
-            metadata.hashes[`${item}/${file.toString()}`] = hashSha256
+            const hashSha512 = createHash('sha512').update(data).digest('hex')
+            const hashMd5 = createHash('md5').update(data).digest('hex')
+            metadata.hashes[`${item}/${file.toString()}`] = {
+              sha256: hashSha256,
+              sha512: hashSha512,
+              md5: hashMd5
+            }
             metadata.fileList.push(`${item}/${file.toString()}`)
             await zipWriter.add(`${item}/${file.toString()}`, new Uint8ArrayReader(new Uint8Array(data)))
           }
@@ -113,7 +123,13 @@ export default class DownloadCommand extends Command {
       for (const item of files) {
         const data = await fs.readFile(item)
         const hashSha256 = createHash('sha256').update(data).digest('hex')
-        metadata.hashes[item] = hashSha256
+        const hashSha512 = createHash('sha512').update(data).digest('hex')
+        const hashMd5 = createHash('md5').update(data).digest('hex')
+        metadata.hashes[item] = {
+          sha256: hashSha256,
+          sha512: hashSha512,
+          md5: hashMd5
+        }
         metadata.fileList.push(item)
         await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(data)))
       }
