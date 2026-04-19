@@ -7,13 +7,13 @@ import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
 interface Metadata12 {
   format: number,
-  hashes: Record<string, {
+  fileInfo: Record<string, {
+    type: 'file',
+    size: number,
     sha256: string,
     sha512: string,
     md5: string
-  }>
-  dirList: string[],
-  fileList: string[]
+  } | { type: 'directory' }>
 }
 let sourceLink = ''
 export default class DownloadCommand extends Command {
@@ -68,10 +68,8 @@ export default class DownloadCommand extends Command {
       // anything on .gitignore
 
       const metadata: Metadata12 = {
-        format: 2,
-        hashes: {},
-        dirList: [],
-        fileList: []
+        format: 3,
+        fileInfo: {}
       }
 
       const dirs = [
@@ -98,23 +96,28 @@ export default class DownloadCommand extends Command {
       const zipWriter = new ZipWriter(zfw)
 
       for (const item of dirs) {
-        metadata.dirList.push(item)
+        metadata.fileInfo[item] = {
+          type: 'directory'
+        }
         const fileList = await fs.readdir(resolve(baseDir, item), { recursive: true })
         for (const file of fileList) {
           const fileStats = await fs.stat(resolve(baseDir, item, file.toString())) // Stupid Hack
           if (fileStats.isDirectory()) { // Directories
-            metadata.dirList.push(`${item}/${file.toString()}`)
+            metadata.fileInfo[`${item}/${file.toString()}`] = {
+              type: 'directory'
+            }
           } else { // Files
             const data = await fs.readFile(resolve(item, file.toString()))
             const hashSha256 = createHash('sha256').update(data).digest('hex')
             const hashSha512 = createHash('sha512').update(data).digest('hex')
             const hashMd5 = createHash('md5').update(data).digest('hex')
-            metadata.hashes[`${item}/${file.toString()}`] = {
+            metadata.fileInfo[`${item}/${file.toString()}`] = {
+              type: 'file',
+              size: data.length,
               sha256: hashSha256,
               sha512: hashSha512,
               md5: hashMd5
             }
-            metadata.fileList.push(`${item}/${file.toString()}`)
             await zipWriter.add(`${item}/${file.toString()}`, new Uint8ArrayReader(new Uint8Array(data)))
           }
         }
@@ -125,16 +128,16 @@ export default class DownloadCommand extends Command {
         const hashSha256 = createHash('sha256').update(data).digest('hex')
         const hashSha512 = createHash('sha512').update(data).digest('hex')
         const hashMd5 = createHash('md5').update(data).digest('hex')
-        metadata.hashes[item] = {
+        metadata.fileInfo[item] = {
+          type: 'file',
+          size: data.length,
           sha256: hashSha256,
           sha512: hashSha512,
           md5: hashMd5
         }
-        metadata.fileList.push(item)
         await zipWriter.add(item, new Uint8ArrayReader(new Uint8Array(data)))
       }
 
-      metadata.fileList.push('metadata.json')
       await zipWriter.add('metadata.json', new Uint8ArrayReader(new Uint8Array(Buffer.from(JSON.stringify(metadata, null, 4)))))
 
       await zipWriter.close()
