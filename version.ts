@@ -5,7 +5,6 @@ const version = {
     major: 12,
     minor: 0,
     patch: 0,
-    // prMajor: 0,
     prMinor: 7,
     prPatch: 0,
     prType: 'alpha',
