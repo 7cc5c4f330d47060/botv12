@@ -49,7 +49,7 @@ switch (action) {
   }
   case 'bump': { // Increase a version number and reset all after to 0
     const section = process.argv[3]
-    const useAlpha1 = Boolean(process.argv[4] ?? false)
+    const useAlpha1 = process.argv[4]
     switch (section) {
       case 'major':
         newMajor++
