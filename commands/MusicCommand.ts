@@ -23,7 +23,8 @@ export default class MusicCommand extends Command {
             if (c.bot.musicPlayer.songName) {
               c.reply({
                 text: 'command.music.restartPrevious',
-                parseLang: true
+                parseLang: true,
+                color: '$secondary'
               })
               c.bot.musicPlayer.queue.push(['ram://', c.bot.musicPlayer.songName])
             } else {
@@ -56,7 +57,8 @@ export default class MusicCommand extends Command {
           c.reply({
             text: 'command.music.addToQueue',
             parseLang: true,
-            with: [c.args.join(' ')]
+            color: '$secondary',
+            with: [{text: c.args.join(' '), color: '$primary'}]
           })
           break
         }
@@ -78,6 +80,7 @@ export default class MusicCommand extends Command {
                 command: `${c.prefix}${c.cmdName} list ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openDir',
+                  color: '$secondary',
                   parseLang: true,
                   with: [{ text: item, color: '$primary' }]
                 }
@@ -89,6 +92,7 @@ export default class MusicCommand extends Command {
                 command: `${c.prefix}${c.cmdName} play ${resolve(file, item).slice(songPath.length + 1)}`,
                 hover: {
                   text: 'command.music.openFile',
+                  color: '$secondary',
                   parseLang: true,
                   with: [{ text: item, color: '$primary' }]
                 }
@@ -150,6 +154,7 @@ export default class MusicCommand extends Command {
           if (c.bot.musicPlayer.playing) {
             c.reply({
               text: 'command.music.restartCurrent',
+              color: '$secondary',
               parseLang: true
             })
             c.bot.musicPlayer.restart = true
@@ -158,6 +163,7 @@ export default class MusicCommand extends Command {
             if (c.bot.musicPlayer.songName) {
               c.reply({
                 text: 'command.music.restartPrevious',
+                color: '$secondary',
                 parseLang: true
               })
               c.bot.musicPlayer.queue.push(['ram://', c.bot.musicPlayer.songName])
