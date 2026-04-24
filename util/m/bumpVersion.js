@@ -1,7 +1,7 @@
 import { default as _version } from '../../version.ts'
 const version = _version.botVersion
 import { readFileSync, writeFileSync } from 'node:fs'
-let packageJson = JSON.parse(readFileSync('./package.json').toString('utf-8'))
+const packageJson = JSON.parse(readFileSync('./package.json').toString('utf-8'))
 
 const versionRegex = /(?<=botVersion: {\n).+?(?=\n {2}},)/s
 const splitRegex = /(\d+|alpha|beta)/g

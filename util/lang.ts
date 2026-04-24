@@ -17,12 +17,14 @@ const loadplug = async () => {
       continue
     }
     try {
-      const languageFile = await import(resolve(baseDir, 'lang', plugin));
+      const languageFile = await import(resolve(baseDir, 'lang', plugin))
       const name = plugin.split('.')[0]
       const l = languageFile.default
       languages[name] = l
-      if (l.aliases) for (const item of l.aliases) {
-        aliases[item] = name
+      if (l.aliases) {
+        for (const item of l.aliases) {
+          aliases[item] = name
+        }
       }
     } catch (e) { console.log(e) }
   }
@@ -37,9 +39,11 @@ const getMessage = function (_l: string, msg: string, with2?: string[]) {
   if (languages[l]?.strings && languages[l].strings[message] !== undefined) {
     message = languages[l].strings[message].replace(/%%/g, '\ue123')
   } else {
-    if(languages[l]?.fallbackList) for (const fb of languages[l].fallbackList) {
-      if (languages[fb]?.strings && languages[fb].strings[message] !== undefined) {
-        message = languages[fb].strings[message].replace(/%%/g, '\ue123')
+    if (languages[l]?.fallbackList) {
+      for (const fb of languages[l].fallbackList) {
+        if (languages[fb]?.strings && languages[fb].strings[message] !== undefined) {
+          message = languages[fb].strings[message].replace(/%%/g, '\ue123')
+        }
       }
     }
   }

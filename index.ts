@@ -12,8 +12,6 @@ import './util/startup/init.js'
 
 if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 
-
-
 const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
   if (debugMode) console.debug('[debug] Checking license...')
 
