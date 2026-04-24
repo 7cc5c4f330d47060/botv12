@@ -1,8 +1,8 @@
-import * as rl from '../util/ratelimit.js'
-import build from '../util/messageBuilder.js'
-import CommandContext from '../util/CommandContext.js'
-import Command from '../util/Command.js'
-import uwuText from '../util/botv8-uwu.js'
+import * as rl from '../util/hf/ratelimit.js'
+import build from '../util/game/botcmd/messageBuilder.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
+import uwuText from '../util/hf/botv8-uwu.js'
 import type TextFormat from '../util/interface/TextFormat.js'
 
 export default class NetMsgCommand extends Command {

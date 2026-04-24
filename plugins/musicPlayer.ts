@@ -1,21 +1,21 @@
 import { resolve } from 'node:path'
 import { type MidiData, parseMidi } from 'midi-file'
 import { mkdir, readFile } from 'node:fs/promises'
-// import CommandQueue from '../util/CommandQueue.js';
+// import CommandQueue from '../util/game/botcmd/CommandQueue.js';
 import EventEmitter from 'node:events'
-import BossBar from '../util/BossBar.js'
+import BossBar from '../util/game/BossBar.js'
 import { instrumentMap, percussionMap } from '../util/musicPlayer/instrumentMap.js'
 import { formatTime, getMessage } from '../util/lang.js'
 import parseNBS from '../util/musicPlayer/parseNBS.js'
 import parseIMelody from '../util/musicPlayer/parseIMelody.js'
-import download from '../util/downloadFile.js'
-import Botv12Client from '../util/Botv12Client.js'
+import download from '../util/net/downloadFile.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 import version from '../version.js'
 import type ParsedNote from '../util/interface/ParsedNote.js'
 import type NbsOutputFormat from '../util/interface/NbsOutputFormat.js'
 import type Note from '../util/interface/Note.js'
-import resolveColor from '../util/resolveColor.js'
-import exists from '../util/existsAsync.js'
+import resolveColor from '../util/hf/resolveColor.js'
+import exists from '../util/hf/existsAsync.js'
 
 const songPath = resolve(dataDir, 'songs')
 if (!await exists(songPath)) mkdir(songPath)

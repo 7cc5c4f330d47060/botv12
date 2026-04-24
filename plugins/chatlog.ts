@@ -1,10 +1,10 @@
-import chatlog from '../util/chatlog.js'
+import chatlog from '../util/log/chatlog.js'
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
-import CommandContext from '../util/CommandContext.js'
-import Botv12Client from '../util/Botv12Client.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 import { resolve } from 'node:path'
 import { Worker } from 'node:worker_threads'
-import exists from '../util/existsAsync.js'
+import exists from '../util/hf/existsAsync.js'
 // import { Worker } from 'node:worker_threads'
 
 globalThis.logFileName = ''
@@ -31,7 +31,7 @@ const checkLog = async () => {
       dateParts = [(year + '').padStart(4, '0'), (month + '').padStart(2, '0'), (day + '').padStart(2, '0')]
     }
     logFileName = `${dateParts.join('-')}_${id}`
-    const a = new Worker(resolve(codeDir, 'util', 'chatlog_compress.js'), {
+    const a = new Worker(resolve(codeDir, 'util', 'log', 'chatlog_compress.js'), {
       workerData: resolve(dataDir, 'logs', jsonData)
     })
     a.on('exit', () => {

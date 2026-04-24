@@ -1,5 +1,5 @@
 import { unlink, writeFile } from 'node:fs/promises'
-import exists from '../../existsAsync.js'
+import exists from '../../hf/existsAsync.js'
 import { resolve } from 'node:path'
 
 export default async function migrate_alpha7_jsonsettings () {

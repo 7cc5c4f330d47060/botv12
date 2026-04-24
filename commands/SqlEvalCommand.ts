@@ -1,7 +1,7 @@
-import { getConnection } from '../util/database.js'
+import { getConnection } from '../util/database/database.js'
 import { inspect } from 'node:util'
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
 
 export default class SqlEvalCommand extends Command {
   constructor () {

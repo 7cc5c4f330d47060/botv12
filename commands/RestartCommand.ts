@@ -1,4 +1,4 @@
-import Command from '../util/Command.js'
+import Command from '../util/game/botcmd/Command.js'
 
 export default class RestartCommand extends Command {
   constructor () {

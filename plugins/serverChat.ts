@@ -1,9 +1,9 @@
-import parse3 from '../util/chatparse.js'
-import parse1204 from '../util/parseNBT.js'
+import parse3 from '../util/game/chat/jsonparse.js'
+import parse1204 from '../util/game/chat/parseNBT.js'
 import { getMessage } from '../util/lang.js'
 import { readdir } from 'node:fs/promises'
-import Botv12Client from '../util/Botv12Client.js'
-import ChatParser from '../util/ChatParser.js'
+import Botv12Client from '../util/game/Botv12Client.js'
+import ChatParser from '../util/game/chat/ChatParser.js'
 import { resolve } from 'node:path'
 import type JsonFormat from '../util/interface/JsonFormat.js'
 

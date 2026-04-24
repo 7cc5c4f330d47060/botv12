@@ -1,5 +1,5 @@
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
 import { createHash } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'

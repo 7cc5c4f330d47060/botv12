@@ -1,7 +1,7 @@
 import version from '../../version.js'
-import versionUtil from '../../util/version.js'
-import CommandContext from '../../util/CommandContext.js'
-import Command from '../../util/Command.js'
+import versionUtil from '../../util/hf/version.js'
+import CommandContext from '../../util/game/botcmd/CommandContext.js'
+import Command from '../../util/game/botcmd/Command.js'
 
 export default class AboutBotSubcommand extends Command {
   constructor () {

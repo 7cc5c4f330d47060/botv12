@@ -1,6 +1,6 @@
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
-import * as rl from '../util/ratelimit.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import * as rl from '../util/hf/ratelimit.js'
 
 export default class BedrockCommand extends Command {
   constructor () {

@@ -1,6 +1,6 @@
-import Botv12Client from '../util/Botv12Client.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 import type FilteredPlayer from '../util/interface/FilteredPlayer.js'
-import uuidToInt from '../util/uuidtoint.js'
+import uuidToInt from '../util/hf/uuidtoint.js'
 
 export default function load (b: Botv12Client) {
   b.interval.deopFiltered = setInterval(() => {

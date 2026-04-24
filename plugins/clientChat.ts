@@ -1,4 +1,4 @@
-import Botv12Client from '../util/Botv12Client.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 
 const matcherRegex = /.{1,255}/g
 export default function load (b: Botv12Client) {

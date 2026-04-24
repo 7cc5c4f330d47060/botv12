@@ -1,6 +1,6 @@
-import parse3 from '../util/chatparse.js'
-import parseNBT from '../util/parseNBT.js'
-import Botv12Client from '../util/Botv12Client.js'
+import parse3 from '../util/game/chat/jsonparse.js'
+import parseNBT from '../util/game/chat/parseNBT.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 
 export default function load (b: Botv12Client) {
   b.playerInfo.players = {}

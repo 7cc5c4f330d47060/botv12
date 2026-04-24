@@ -1,4 +1,5 @@
-import version from '../version.js'
+import version from '../../version.js'
+
 function handleHelp () {
   console.log(`${version.botName} version ${version.botVersion}`)
   console.log('\nOptions (can also be passed to launcher):')

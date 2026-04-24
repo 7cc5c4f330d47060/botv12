@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
-import CommandContext from '../../util/CommandContext.js'
+import CommandContext from '../../util/game/botcmd/CommandContext.js'
 import { resolve } from 'node:path'
-import Command from '../../util/Command.js'
+import Command from '../../util/game/botcmd/Command.js'
 
 const licenseFile = (await readFile(resolve(baseDir, './LICENSE'))).toString('utf8').replaceAll('\r', '').split('\n')
 

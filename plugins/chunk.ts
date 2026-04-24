@@ -1,6 +1,6 @@
 import loader, { type PCChunk } from 'prismarine-chunk'
 import Vec3 from 'vec3'
-import Botv12Client from '../util/Botv12Client.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 const rd = 8
 
 export default function load (b: Botv12Client) {

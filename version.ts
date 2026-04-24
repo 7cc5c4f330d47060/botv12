@@ -12,7 +12,7 @@ const version = {
   },
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version.
-  settingsFormat: 3,
+  settingsFormat: 4,
   // TODO: Overhaul copyright info
   newCopyright: [
     /*

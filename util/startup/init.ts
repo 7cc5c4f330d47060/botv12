@@ -1,9 +1,9 @@
-import Botv12Client from '../Botv12Client.js'
+import Botv12Client from '../game/Botv12Client.js'
 import type SettingsType from '../interface/SettingsType.js'
 import type HostOptions from '../interface/HostOptions.js'
 import { dirname, resolve } from 'node:path'
 import { mkdir, copyFile, readFile, writeFile } from 'node:fs/promises'
-import exists from '../existsAsync.js'
+import exists from '../hf/existsAsync.js'
 
 // Setup the global values
 declare global {
@@ -34,7 +34,7 @@ globalThis.dataDir = resolve(baseDir, 'data')
 globalThis.clOptions = { disableWsServer: false }
 
 // Parse the command-line arguments.
-import ha from '../argv.js'
+import ha from './argv.js'
 ha()
 
 if (!exists(dataDir)) mkdir(dataDir)

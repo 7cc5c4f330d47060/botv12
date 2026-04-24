@@ -1,7 +1,7 @@
 import { createServer, type OutgoingHttpHeaders } from 'node:http'
 import { resolve } from 'node:path'
 import { readFile, stat } from 'node:fs/promises'
-import exists from './existsAsync.js'
+import exists from '../hf/existsAsync.js'
 import { inspect } from 'node:util'
 
 const fileFormats: Record<string, string> = {
@@ -10,7 +10,7 @@ const fileFormats: Record<string, string> = {
   css: 'text/css; charset=utf-8',
   _other: 'application/octet-stream'
 }
-const four04Path = resolve(baseDir, 'util', 'ubot-panel', '404.html')
+const four04Path = resolve(baseDir, 'util', 'net', 'ubot-panel', '404.html')
 
 export default function createServer2 () {
   return createServer(async (req, res) => {
@@ -30,7 +30,7 @@ export default function createServer2 () {
         })
       } else if (partialUrl === 'resources/theme-default.css') {
         fileType = fileFormats.css
-        const fullUrl = resolve(baseDir, 'util', 'ubot-panel', 'resources', `theme-${settings.webTheme ?? 'dark'}.css`)
+        const fullUrl = resolve(baseDir, 'util', 'net', 'ubot-panel', 'resources', `theme-${settings.webTheme ?? 'dark'}.css`)
         if (await exists(fullUrl)) {
           output = await readFile(fullUrl)
           if (statusCode === 500) statusCode = 200
@@ -40,7 +40,7 @@ export default function createServer2 () {
           statusCode = 404
         }
       } else {
-        const fullUrl = resolve(baseDir, 'util', 'ubot-panel', partialUrl)
+        const fullUrl = resolve(baseDir, 'util', 'net', 'ubot-panel', partialUrl)
         if (await exists(fullUrl)) {
           const isDir = (await stat(fullUrl)).isDirectory()
           if (isDir) {

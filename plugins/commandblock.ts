@@ -1,10 +1,10 @@
-import uuidToInt from '../util/uuidtoint.js'
-import chatParser from '../util/chatparse.js'
+import uuidToInt from '../util/hf/uuidtoint.js'
+import chatParser from '../util/game/chat/jsonparse.js'
 import Vec3 from 'vec3'
 import loader from 'prismarine-item'
 import { default as loaderData } from 'minecraft-data'
 
-import Botv12Client from '../util/Botv12Client.js'
+import Botv12Client from '../util/game/Botv12Client.js'
 import type JsonFormat from '../util/interface/JsonFormat.js'
 
 export default function load (b: Botv12Client) {

@@ -1,6 +1,6 @@
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
-import uwuText from '../util/botv8-uwu.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import uwuText from '../util/hf/botv8-uwu.js'
 
 // import { getMessage } from '../util/lang.js'
 export default class SayCommand extends Command {

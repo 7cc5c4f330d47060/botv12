@@ -1,6 +1,6 @@
 import { inspect } from 'node:util'
-import CommandContext from '../util/CommandContext.js'
-import Command from '../util/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
 
 export default class EvalCommand extends Command {
   constructor () {

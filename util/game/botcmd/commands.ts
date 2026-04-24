@@ -12,7 +12,7 @@ for (const plugin of bpl) {
     continue
   }
   try {
-    import(`../commands/${plugin}`).then((pluginItem: { default: new () => Command }) => {
+    import(`../../../commands/${plugin}`).then((pluginItem: { default: new () => Command }) => {
       const CommandItem = pluginItem.default
       registry.register(new CommandItem())
     })

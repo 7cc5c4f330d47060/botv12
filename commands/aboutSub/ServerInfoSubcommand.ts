@@ -1,16 +1,16 @@
 import os from 'node:os'
 import { execSync } from 'node:child_process'
 import { getMessage, formatTime } from '../../util/lang.js'
-import memoryconvert from '../../util/memoryconvert.js'
+import memoryconvert from '../../util/hf/memoryconvert.js'
 import { readFile } from 'node:fs/promises'
-import CommandContext from '../../util/CommandContext.js'
-import Command from '../../util/Command.js'
+import CommandContext from '../../util/game/botcmd/CommandContext.js'
+import Command from '../../util/game/botcmd/Command.js'
 import type TextFormat from '../../util/interface/TextFormat.js'
 import version from '../../version.js'
-import botVersion from '../../util/version.js'
+import botVersion from '../../util/hf/version.js'
 import { exec } from 'node:child_process'
-import uwuText from '../../util/botv8-uwu.js'
-import exists from '../../util/existsAsync.js'
+import uwuText from '../../util/hf/botv8-uwu.js'
+import exists from '../../util/hf/existsAsync.js'
 
 const dependencies: { name: string, version: string }[] = []
 

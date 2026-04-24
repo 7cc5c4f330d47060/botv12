@@ -1,6 +1,6 @@
 import { getMessage } from '../util/lang.js'
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
 
 export default class CommandLoopCommand extends Command {
   constructor () {

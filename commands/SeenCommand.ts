@@ -1,6 +1,6 @@
-import { getConnection } from '../util/database.js'
-import Command from '../util/Command.js'
-import CommandContext from '../util/CommandContext.js'
+import { getConnection } from '../util/database/database.js'
+import Command from '../util/game/botcmd/Command.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
 
 export default class SeenCommand extends Command {
   constructor () {

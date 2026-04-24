@@ -4,9 +4,9 @@ import SettingsSubcommand from './aboutSub/SettingsSubcommand.js'
 import LicenseSubcommand from './aboutSub/LicenseSubcommand.js'
 import AboutBotSubcommand from './aboutSub/AboutBotSubcommand.js'
 
-import CommandRegistry from '../util/CommandRegistry.js'
-import CommandContext from '../util/CommandContext.js'
-import Command from '../util/Command.js'
+import CommandRegistry from '../util/game/botcmd/CommandRegistry.js'
+import CommandContext from '../util/game/botcmd/CommandContext.js'
+import Command from '../util/game/botcmd/Command.js'
 const registry = new CommandRegistry(new AboutBotSubcommand())
 
 registry.register(new ServerInfoSubcommand())

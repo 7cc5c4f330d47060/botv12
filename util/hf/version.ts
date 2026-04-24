@@ -1,4 +1,4 @@
-import version from '../version.js'
+import version from '../../version.js'
 import { execSync } from 'node:child_process'
 import exists from './existsAsync.js'
 
