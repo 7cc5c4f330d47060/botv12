@@ -1,5 +1,8 @@
 // Testing for UK / International English
 export default {
+  aliases: [
+    'en-AU'
+  ],
   fallbackList: [
     'en-US',
     'common' // US English provides strings without British/American specific spelling.

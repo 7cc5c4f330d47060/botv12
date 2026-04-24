@@ -2,10 +2,13 @@ import { readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
 interface LanguageData {
-  fallbackList: string[],
+  aliases?: string[]
+  fallbackList: string[]
   strings: Record<string, string>
 }
 const languages: Record<string, LanguageData> = {}
+
+const aliases: Record<string, string> = {}
 
 const loadplug = async () => {
   const bpl = await readdir(resolve(baseDir, 'lang'))
@@ -14,20 +17,27 @@ const loadplug = async () => {
       continue
     }
     try {
-      import(resolve(baseDir, 'lang', plugin)).then(languageFile => {
-        languages[plugin.split('.')[0]] = languageFile.default
-      })
+      const languageFile = await import(resolve(baseDir, 'lang', plugin));
+      const name = plugin.split('.')[0]
+      const l = languageFile.default
+      languages[name] = l
+      if (l.aliases) for (const item of l.aliases) {
+        aliases[item] = name
+      }
     } catch (e) { console.log(e) }
   }
 }
-loadplug()
+await loadplug()
 
-const getMessage = function (l: string, msg: string, with2?: string[]) {
+const getMessage = function (_l: string, msg: string, with2?: string[]) {
+  let l = _l
+  if (aliases[l]) l = aliases[l]
+
   let message = msg.replace(/%%/g, '\ue123')
   if (languages[l]?.strings && languages[l].strings[message] !== undefined) {
     message = languages[l].strings[message].replace(/%%/g, '\ue123')
-  } else { // if (languages[fallbackLocale] && languages['en-US'][message] !== undefined) {
-    for (const fb of languages[l].fallbackList) {
+  } else {
+    if(languages[l]?.fallbackList) for (const fb of languages[l].fallbackList) {
       if (languages[fb]?.strings && languages[fb].strings[message] !== undefined) {
         message = languages[fb].strings[message].replace(/%%/g, '\ue123')
       }
