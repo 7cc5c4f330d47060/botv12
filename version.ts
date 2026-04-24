@@ -6,13 +6,13 @@ const version = {
     minor: 0,
     patch: 0,
     prMinor: 7,
-    prPatch: 0,
+    prPatch: 1,
     prType: 'alpha',
     isMainLine: true
   },
   botAuthor: '7cc5c4f330d47060', // The creator of the bot
   isPreRelease: true, // If this version is a pre-release version.
-  settingsFormat: 3,
+  settingsFormat: 4,
   // TODO: Overhaul copyright info
   newCopyright: [
     /*
