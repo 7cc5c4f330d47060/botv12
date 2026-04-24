@@ -1,74 +1,21 @@
 import Botv12Client from './util/Botv12Client.js'
-import type SettingsType from './util/interface/SettingsType.js'
 import type HostOptions from './util/interface/HostOptions.js'
-import { dirname, resolve } from 'node:path'
-import { readdir, writeFile, mkdir, unlink, rename, copyFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+import { readdir, writeFile } from 'node:fs/promises'
 import exists from './util/existsAsync.js'
+import generateUser from './util/usergen.js'
+import version from './version.js'
+import { createInterface } from 'node:readline'
+import type { ClientOptions } from 'minecraft-protocol'
 
-declare global {
-  var settings: SettingsType
-  var codeDir: string
-  var baseDir: string
-  var dataDir: string
-  var dbEnabled: boolean
-  var debugMode: boolean
-  var clOptions: {
-    disableWsServer?: boolean
-    disableNetMsg?: boolean
-  }
-  var startTime: number
-  var logFileName: string
-  var bots: Botv12Client[]
-  var Deno: { version: Record<string, string> } // Allow serverinfo to work on deno, unused on node
-  var createBot: (host: HostOptions, oldId?: number) => void
-}
-
-globalThis.startTime = Date.now()
-// Global options
-globalThis.dbEnabled = false
-globalThis.debugMode = false
-globalThis.codeDir = dirname(process.argv[1])
-globalThis.baseDir = process.cwd()
-globalThis.dataDir = resolve(baseDir, 'data')
-globalThis.clOptions = { disableWsServer: false }
-
-import ha from './util/argv.js'
-ha()
-
-if (!exists(dataDir)) mkdir(dataDir)
-/* Migrations to data in alpha 6 */
-if (await exists(resolve(baseDir, 'settings.js'))) { rename(resolve(baseDir, 'settings.js'), resolve(dataDir, 'settings.js')) }
-
-if (await exists(resolve(baseDir, 'logs'))) { rename(resolve(baseDir, 'logs'), resolve(dataDir, 'logs')) }
-
-if (await exists(resolve(baseDir, 'songs'))) { rename(resolve(baseDir, 'songs'), resolve(dataDir, 'songs')) }
-
-if (await exists(resolve(baseDir, 'userkeys.json'))) { rename(resolve(baseDir, 'userkeys.json'), resolve(dataDir, 'userkeys.json')) }
-
-if (!exists(resolve(dataDir, 'settings.js'))) {
-  console.log('[info] Settings file is missing, using defaults.')
-  copyFile(resolve(baseDir, 'settings_example.js'), resolve(dataDir, 'settings.js'))
-}
-const settings = (await import(resolve(dataDir, 'settings.js'))).default
-globalThis.settings = settings
-globalThis.debugMode = settings.debugMode || globalThis.debugMode
+import './util/startup/init.js'
 
 if (debugMode) console.debug('[debug] Loading...\x1b[0m')
 
-import generateUser from './util/usergen.js'
-import version from './version.js'
-// import { getMessage } from './util/lang.js'
-import { createInterface } from 'node:readline'
-import type { ClientOptions } from 'minecraft-protocol'
-// import { default as registry } from 'prismarine-registry'
+
 
 const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
   if (debugMode) console.debug('[debug] Checking license...')
-  if (await exists(resolve(baseDir, '.license_accepted'))) {
-    if (debugMode) console.debug('[debug] Migrating license to new location...')
-    writeFile(resolve(dataDir, '.license_accepted'), '')
-    unlink(resolve(baseDir, '.license_accepted'))
-  }
 
   if (!await exists(resolve(dataDir, '.license_accepted'))) {
     if (debugMode) console.debug('[debug] License check failed.')
@@ -101,12 +48,6 @@ const _awaitLicense = async function (a: (x?: string)=>void, b: ()=>void) {
     if (debugMode) console.debug('[debug] License check passed, continuing...')
     a()
   }
-}
-
-if ('Deno' in globalThis) {
-  console.warn('[warning] Deno\xae runtime may not work correctly.')
-  console.warn('It is strongly recommended to use the Node.js\xae runtime to use ' +
-    `${version.botName}. For more information check https://nodejs.org/.`)
 }
 
 globalThis.bots = []
@@ -152,7 +93,7 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
   if (debugMode) console.debug(`[debug] Bot ${bot.id} loaded in ${Date.now() - startTimeBot}ms\x1b[0m`)
 }
 
-const init = function () {
+const startBot = function () {
   if (debugMode) console.debug(`[debug] Loaded in ${Date.now() - startTime}ms\x1b[0m`)
   if (settings.format !== version.settingsFormat) {
     console.warn(`[warning] The settings file is using a different major format version (${settings.format}) than this version of ${version.botName} expects (${version.settingsFormat}). Unexpected issues and/or crashes may occur.`)
@@ -174,7 +115,7 @@ const loadPlugins = async () => {
       import(`./plugins/${plugin}`).then((pluginItem) => {
         plugins.push(pluginItem.default) // For rejoining
         if (plugins.length === bpl.length) {
-          init()
+          startBot()
         }
       })
     } catch (e) { console.log(e) }

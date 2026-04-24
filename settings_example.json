@@ -1,0 +1,55 @@
+{
+  "format": 4,
+  "terminalMode": "blackTerminal_24bit",
+  "minecraftVersion": "1.21.11",
+  "defaultLang": "en-US",
+  "webTheme": "test2eb",
+  "dbEnabled": true,
+  "dbType": "mariadb",
+  "dbHost": "localhost",
+  "dbUser": "ubotdev",
+  "dbPassword": "1234",
+  "dbName": "ubotdev3",
+  "debugMode": true,
+  "colors": {
+    "success": "#88FF55",
+    "warning": "#FFAA33",
+    "error": "#FF5544",
+    "fatalError": "#BB0000",
+    "perms0": "#ff99dd",
+    "perms1": "#cc99ff",
+    "perms2": "#8899ff",
+    "perms3": "#00ccee",
+    "list1": "#aaffaa",
+    "list2": "#55ff55",
+    "list3": "#ccccff",
+    "list4": "#9999ff",
+    "primary": "white",
+    "secondary": "gray",
+    "secondaryDark": "dark_gray"
+  },
+  "serverInfoShowSensitive": true,
+  "kawaiiMode": false,
+  "prefixes": [
+    "ubotesm:",
+    "ubotdev:",
+    "es\"",
+    "d\""
+  ],
+  "servers": [
+    {
+      "host": "kaboom.pw",
+      "port": 25565,
+      "options": {
+        "name": "kaboom"
+      }
+    },
+    {
+      "host": "chipmunk.land",
+      "port": 17891,
+      "options": {
+        "name": "chipmunk"
+      }
+    }
+  ]
+}
