@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto'
 import Command from '../util/game/botcmd/Command.js'
 import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
+import exists from '../util/hf/existsAsync.js'
 interface Metadata12 {
   format: number,
   fileInfo: Record<string, {
@@ -89,6 +90,7 @@ export default class DownloadCommand extends Command {
         'package.json',
         'README.md',
         'settings_example.js',
+        'settings_example.json',
         'version.ts',
       ]
 
@@ -107,7 +109,7 @@ export default class DownloadCommand extends Command {
               type: 'directory'
             }
           } else { // Files
-            const data = await fs.readFile(resolve(item, file.toString()))
+            const data = await fs.readFile(resolve(baseDir, item, file.toString()))
             const hashSha256 = createHash('sha256').update(data).digest('hex')
             const hashSha512 = createHash('sha512').update(data).digest('hex')
             const hashMd5 = createHash('md5').update(data).digest('hex')
@@ -124,7 +126,8 @@ export default class DownloadCommand extends Command {
       }
 
       for (const item of files) {
-        const data = await fs.readFile(item)
+        if (!(await exists(resolve(baseDir, item)))) continue
+        const data = await fs.readFile(resolve(baseDir, item))
         const hashSha256 = createHash('sha256').update(data).digest('hex')
         const hashSha512 = createHash('sha512').update(data).digest('hex')
         const hashMd5 = createHash('md5').update(data).digest('hex')
@@ -165,6 +168,9 @@ export default class DownloadCommand extends Command {
         res.on('data', (content) => {
           if (content.startsWith(`https://${ep}`)) {
             sourceLink = content.slice(0, content.length - 1)
+            if (sourceLink.includes('files.chipmunk.land')) { // Use selif on FCL
+              sourceLink = sourceLink.replaceAll('files.chipmunk.land', 'files.chipmunk.land/selif')
+            }
             c.reply({
               text: 'command.download.success',
               color: '$secondary',
