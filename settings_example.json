@@ -43,13 +43,6 @@
       "options": {
         "name": "kaboom"
       }
-    },
-    {
-      "host": "chipmunk.land",
-      "port": 17891,
-      "options": {
-        "name": "chipmunk"
-      }
     }
   ]
 }
