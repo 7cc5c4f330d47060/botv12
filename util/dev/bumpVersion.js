@@ -55,6 +55,7 @@ let versionSet = false
 switch (action) {
   case 'tag': {
     tag = true
+    break
   }
   case 'ml': { // Toggle mainline section
     newMl = !newMl
