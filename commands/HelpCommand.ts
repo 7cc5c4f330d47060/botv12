@@ -2,7 +2,7 @@ import Command from '../util/game/botcmd/Command.js'
 import CommandContext from '../util/game/botcmd/CommandContext.js'
 import registry from '../util/game/botcmd/commands.js'
 import type TextFormat from '../util/interface/TextFormat.js'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/text/lang.js'
 
 interface Command2 {
   name: string

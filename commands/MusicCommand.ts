@@ -4,7 +4,7 @@ import { readdir, stat } from 'node:fs/promises'
 import CommandContext from '../util/game/botcmd/CommandContext.js'
 import version from '../version.js'
 import Command from '../util/game/botcmd/Command.js'
-import { formatTime } from '../util/lang.js'
+import { formatTime } from '../util/text/lang.js'
 
 const songPath = resolve(dataDir, 'songs')
 

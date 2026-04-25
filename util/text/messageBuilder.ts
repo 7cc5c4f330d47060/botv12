@@ -1,8 +1,8 @@
-import type JsonFormat from '../../interface/JsonFormat.js'
-import { getMessage } from '../../lang.js'
-import type TextFormat from '../../interface/TextFormat.js'
-import uuidToInt from '../../hf/uuidtoint.js'
-import resolveColor from '../../hf/resolveColor.js'
+import type JsonFormat from '../interface/JsonFormat.js'
+import { getMessage } from './lang.js'
+import type TextFormat from '../interface/TextFormat.js'
+import uuidToInt from '../hf/uuidtoint.js'
+import resolveColor from '../hf/resolveColor.js'
 
 export default function build (text: TextFormat | string, colors: Record<string, string>, lang: string, botuuid: string) {
   if (typeof text === 'string') return { text }

@@ -1,4 +1,4 @@
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/text/lang.js'
 import Command from '../util/game/botcmd/Command.js'
 import CommandContext from '../util/game/botcmd/CommandContext.js'
 

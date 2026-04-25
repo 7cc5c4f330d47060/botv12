@@ -1,5 +1,5 @@
 import * as rl from '../util/hf/ratelimit.js'
-import build from '../util/game/botcmd/messageBuilder.js'
+import build from '../util/text/messageBuilder.js'
 import CommandContext from '../util/game/botcmd/CommandContext.js'
 import Command from '../util/game/botcmd/Command.js'
 import uwuText from '../util/hf/botv8-uwu.js'

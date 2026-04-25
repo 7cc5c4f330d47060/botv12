@@ -1,6 +1,6 @@
 import Botv12Client from '../Botv12Client.js'
 import type JsonFormat from '../../interface/JsonFormat.js'
-import build from './messageBuilder.js'
+import build from '../../text/messageBuilder.js'
 import type TextFormat from '../../interface/TextFormat.js'
 import type NewArgumentFormat from '../../interface/NewArgumentFormat.js'
 import chatparse from '../chat/jsonparse.js'

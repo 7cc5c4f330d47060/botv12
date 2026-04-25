@@ -1,6 +1,6 @@
 import os from 'node:os'
 import { execSync } from 'node:child_process'
-import { getMessage, formatTime } from '../../util/lang.js'
+import { getMessage, formatTime } from '../../util/text/lang.js'
 import memoryconvert from '../../util/hf/memoryconvert.js'
 import { readFile } from 'node:fs/promises'
 import CommandContext from '../../util/game/botcmd/CommandContext.js'

@@ -5,7 +5,7 @@ import parse3 from '../util/game/chat/jsonparse.js'
 import { userInfo } from 'node:os'
 
 import Botv12Client from '../util/game/Botv12Client.js'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/text/lang.js'
 import type JsonFormat from '../util/interface/JsonFormat.js'
 import botByName from '../util/hf/botByName.js'
 

@@ -1,5 +1,5 @@
 // Read IMY file and convert it for use in plugins/musicPlayer.js.
-import type NbsOutputFormat from '../interface/NbsOutputFormat.js'
+import type NbsOutputFormat from '../../interface/NbsOutputFormat.js'
 
 const imyRegex = /(?:(?:\*[0-8])?(?:#?[a-gr][0-5]\.?|(vibe|back|led)o(ff|n)))/g
 const notesArray = [

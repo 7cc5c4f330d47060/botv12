@@ -1,7 +1,7 @@
 import registry from '../util/game/botcmd/commands.js'
 
 import CommandContext from '../util/game/botcmd/CommandContext.js'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/text/lang.js'
 import Botv12Client from '../util/game/Botv12Client.js'
 
 export default function load (b: Botv12Client) {

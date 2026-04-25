@@ -1,5 +1,5 @@
 import Botv12Client from '../util/game/Botv12Client.js'
-import { getMessage } from '../util/lang.js'
+import { getMessage } from '../util/text/lang.js'
 
 export default function load (b: Botv12Client) {
   b._client.on('login', () => {
