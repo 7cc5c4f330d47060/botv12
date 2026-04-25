@@ -36,9 +36,22 @@ const patchVersion = () => {
   packageJson.version = versionString
   writeFileSync('./package.json', JSON.stringify(packageJson, null, '  '))
 }
-const action = process.argv[2]
+let action = process.argv[2]
 
+if (action.startsWith('tag-then-')) {
+  try {
+    const version2 = `v${packageJson.version}`
+    execSync(`git tag ${version2}`)
+    console.log(`New tag created: ${version2}`)
+  } catch (e) {
+    console.error(`Tagging failed: ${e}`)
+  }
+  action = action.slice(9)
+}
 let tag = false
+let versionChanged = false
+let versionSet = false
+
 switch (action) {
   case 'tag': {
     tag = true
@@ -89,6 +102,7 @@ switch (action) {
         newPrPatch++
         break
     }
+    versionChanged = true
     break
   }
   case 'setAndTag': {
@@ -103,15 +117,28 @@ switch (action) {
     newPrMinor = split[4] ?? 1
     newPrPatch = split[5] ?? 0
     newMl = process.argv[4] ?? newMl
+    versionChanged = true
+    versionSet = true
+  }
+}
+
+patchVersion()
+
+if (versionChanged) {
+  try {
+    let cmStart = 'Bump version'
+    if (versionSet) cmStart = `Set version to ${packageJson.version}`
+    const commitMessage = `${cmStart}\n` +
+    `This commit was automatically created by bumpVersion.js, setting the version to ${packageJson.version}.`
+    execSync('git add package.json')
+    execSync('git add version.ts')
+    execSync(`git commit -m "${commitMessage}"`)
+  } catch (e) {
+    console.error(`Committing failed: ${e}`)
   }
 }
 if (tag) {
   try {
-    const commitMessage = `Bump version
-    This commit was automatically created by bumpVersion.js, setting the version to ${packageJson.version}.`
-    execSync('git add package.json')
-    execSync('git add version.ts')
-    execSync(`git commit -m "${commitMessage}"`)
     const version2 = `v${packageJson.version}`
     execSync(`git tag ${version2}`)
     console.log(`New tag created: ${version2}`)
@@ -120,6 +147,5 @@ if (tag) {
   }
 }
 
-patchVersion()
 // const section = process.argv[3] // 12.0.0-alpha.1.2 = 12, 0, 0, alpha, 1, 2
 // const mainline = process.argv[4]
