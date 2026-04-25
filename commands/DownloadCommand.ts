@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto'
 import Command from '../util/Command.js'
 import { BlobWriter, Uint8ArrayReader, ZipWriter } from '@zip.js/zip.js'
 import { request } from 'node:https'
-import exists from '../util/hf/existsAsync.js'
+import exists from '../util/existsAsync.js'
 interface Metadata12 {
   format: number,
   fileInfo: Record<string, {
