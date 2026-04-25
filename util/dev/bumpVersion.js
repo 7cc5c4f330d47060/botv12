@@ -60,10 +60,15 @@ switch (action) {
     newMl = !newMl
     break
   }
-  case 'spr': { // Switch prType
+  case 'prTypeAndTag': {
+    tag = true
+  } // falls through  
+  case 'prType': { // Switch prType
     newPrMinor = 1
     newPrPatch = 0
-    newPrType = process.argv[3]
+    if (!process.argv[3]) newPrType = ''
+    else newPrType = process.argv[3]
+    versionChanged = true
     break
   }
   case 'bumpAndTag': {
