@@ -87,6 +87,7 @@ export default {
     // Command Strings
     'command.about.author': '%s - a Minecraft bot made by %s for Kaboom and clones',
     'command.about.version': 'Version %s\n',
+    'command.about.version.withCodeName': 'Version %s, codename %s\n',
     'command.about.versionCmd.generic': '%s version: %s',
     'command.about.sourceCode': 'Source code: %s',
     'command.about.sourceCodeFork': 'Original source code: %s',
