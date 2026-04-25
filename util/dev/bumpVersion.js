@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process'
 import { default as _version } from '../../version.ts'
 const version = _version.botVersion
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -36,7 +37,12 @@ const patchVersion = () => {
   writeFileSync('./package.json', JSON.stringify(packageJson, null, '  '))
 }
 const action = process.argv[2]
+
+let tag = false
 switch (action) {
+  case 'tag': {
+    tag = true
+  }
   case 'ml': { // Toggle mainline section
     newMl = !newMl
     break
@@ -47,6 +53,9 @@ switch (action) {
     newPrType = process.argv[3]
     break
   }
+  case 'bumpAndTag': {
+    tag = true
+  } // falls through
   case 'bump': { // Increase a version number and reset all after to 0
     const section = process.argv[3]
     const useAlpha1 = process.argv[4]
@@ -82,6 +91,9 @@ switch (action) {
     }
     break
   }
+  case 'setAndTag': {
+    tag = true
+  } // falls through
   case 'set': { // Set version
     const split = process.argv[3].match(splitRegex)
     newMajor = split[0] ?? 1
@@ -93,6 +105,21 @@ switch (action) {
     newMl = process.argv[4] ?? newMl
   }
 }
+if (tag) {
+  try {
+    const commitMessage = `Bump version
+    This commit was automatically created by bumpVersion.js, setting the version to ${packageJson.version}.`
+    execSync('git add package.json')
+    execSync('git add version.ts')
+    execSync(`git commit -m "${commitMessage}"`)
+    const version2 = `v${packageJson.version}`
+    execSync(`git tag ${version2}`)
+    console.log(`New tag created: ${version2}`)
+  } catch (e) {
+    console.error(`Tagging failed: ${e}`)
+  }
+}
+
 patchVersion()
 // const section = process.argv[3] // 12.0.0-alpha.1.2 = 12, 0, 0, alpha, 1, 2
 // const mainline = process.argv[4]
