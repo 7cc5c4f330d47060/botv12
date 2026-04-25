@@ -92,13 +92,14 @@ globalThis.createBot = function createBot (host: HostOptions, oldId?: number) {
 }
 
 const startBot = function () {
-  if (debugMode) console.debug(`[debug] Loaded in ${Date.now() - startTime}ms\x1b[0m`)
-  if (settings.format !== version.settingsFormat) {
-    console.warn(`[warning] The settings file is using a different major format version (${settings.format}) than this version of ${version.botName} expects (${version.settingsFormat}). Unexpected issues and/or crashes may occur.`)
+  if (debugMode) {
+    console.debug(`[debug] Loaded in ${Date.now() - startTime}ms\x1b[0m`)
+    console.debug(`[debug] Connecting to ${settings.servers.length} servers...`)
   }
   for (const i in settings.servers) {
     createBot(settings.servers[i])
   }
+  if (debugMode) console.debug(`[debug] Startup complete in ${Date.now() - startTime}ms\x1b[0m`)
 }
 
 const plugins: ((b: Botv12Client) => void)[] = []
@@ -110,12 +111,11 @@ const loadPlugins = async () => {
     }
     try {
       if (debugMode) console.debug(`[debug] Loading plugin ${plugin}...\x1b[0m`)
-      import(`./plugins/${plugin}`).then((pluginItem) => {
-        plugins.push(pluginItem.default) // For rejoining
-        if (plugins.length === bpl.length) {
-          startBot()
-        }
-      })
+      const pluginItem = await import(`./plugins/${plugin}`)
+      plugins.push(pluginItem.default) // For rejoining
+      if (plugins.length === bpl.length) {
+        startBot()
+      }
     } catch (e) { console.log(e) }
   }
 }

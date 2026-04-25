@@ -73,7 +73,7 @@ rl.on('line', async (l: string) => {
 
   rl.prompt(false)
 })
-rl.prompt()
+// rl.prompt() (Only when startup is complete, currently appears after first chat message)
 
 function consoleWrite (text: string) {
   cursorTo(process.stdout, 0)
