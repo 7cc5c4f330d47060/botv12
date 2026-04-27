@@ -1,14 +1,37 @@
-const UNITS = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB']
-const THRESHOLD = 1024
+import { getMessage } from "../text/lang.js";
+
+const units1024 = [
+  'byte',
+  'kibibyte',
+  'mebibyte',
+  'gibibyte',
+  'tebibyte',
+  'pebibyte',
+  'exbibyte',
+  'zebibyte'
+]
+const units1000 = [
+  'byte',
+  'kilobyte',
+  'megabyte',
+  'gigabyte',
+  'terabyte',
+  'petabyte',
+  'exabyte',
+  'zettabyte'
+]
+const length = 8;
 
 export default function memoryconvert (bytes: number) {
-  for (let i = 0; i < UNITS.length; i++) {
-    const last = i === (UNITS.length - 1)
-    const max = THRESHOLD ** (i + 1)
+  const bsu = settings.useBinaryStorageUnits
+  const threshold = bsu ? 1024 : 1000 // Not caps, because caps sucks
+  for (let i = 0; i < length; i++) {
+    const last = i === 7
+    const max = threshold ** (i + 1)
     if (!last && bytes >= max) continue
 
-    const divisor = THRESHOLD ** i
-    const unit = UNITS[i]
+    const divisor = threshold ** i
+    const unit = getMessage('common', `unit.storage.${(bsu ? units1024 : units1000)[i]}`)
 
     const div = bytes / divisor
     return `${+div.toFixed(2)} ${unit}`

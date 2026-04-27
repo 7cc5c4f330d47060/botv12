@@ -29,4 +29,9 @@ export default interface SettingsType {
   webTheme?: string
   musicBarColor?: string
   downloadEndPoint?: string
+  useBinaryStorageUnits?: boolean
+
+  // Old names
+  prefix?: string[] // Unused from botvX
+  version_mc?: string // Unused from alpha 5
 }
