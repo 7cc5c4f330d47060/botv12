@@ -37,7 +37,7 @@ globalThis.clOptions = { disableWsServer: false }
 import ha from './argv.js'
 ha()
 
-if (!exists(dataDir)) await mkdir(dataDir)
+if (!(await exists(dataDir))) await mkdir(dataDir)
 
 // Migration scripts to run before settings loading
 import migrate_alpha6_data from './migration/alpha6-data.js'
