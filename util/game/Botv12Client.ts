@@ -1,4 +1,4 @@
-import { createClient, Client, type ClientOptions } from 'minecraft-protocol'
+import { createClient, type Client, type ClientOptions } from 'minecraft-protocol'
 import EventEmitter from 'node:events'
 import { default as registry } from 'prismarine-registry'
 import BossBar from './BossBar.js'
