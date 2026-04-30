@@ -1,20 +1,14 @@
 // Testing for UK / International English
 export default {
   aliases: [
-    'en-AU'
+    'en-AU' // Australian English
   ],
   fallbackList: [
     'en-US',
     'common' // US English provides strings without British/American specific spelling.
   ],
   strings: {
-    // These strings are currently unused, but may be used in the future, along with the other
-    // colors in settings.
-    'command.test.colorPrimary': 'Primary colour',
-    'command.test.colorSecondary': 'Secondary colour',
-    'command.test.colorTertiary': 'Tertiary colour',
-    'command.test.colorWarning': 'Warning colour',
-    'command.test.colorError': 'Error colour',
-    'command.test.colorFatalError': 'Fatal error colour',
+    // This string is currently unused, but will be used in the future
+    'command.test.colorsv2.header': 'Colours:',
   }
 }
