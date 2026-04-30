@@ -5,7 +5,7 @@ import BossBar from './BossBar.js'
 import type ParsedNote from '../interface/ParsedNote.js'
 import type FilteredPlayer from '../interface/FilteredPlayer.js'
 import offlineUUID from '../hf/offlineUUID.js'
-import SCTask from './SCTask.js'
+import SelfCareTask from './SelfCareTask.js'
 import console from 'node:console'
 import type HostOptions from '../interface/HostOptions.js'
 import type { PCChunk } from 'prismarine-chunk'
@@ -80,7 +80,7 @@ export default class Botv12Client extends EventEmitter {
   }
 
   selfCare: {
-    tasks: Record<string, SCTask>
+    tasks: Record<string, SelfCareTask>
     lastRun: number
     addTask: (name: string, failTask: () => void, startFailed?: boolean) => void
   }
@@ -183,7 +183,7 @@ export default class Botv12Client extends EventEmitter {
       tasks: {},
       lastRun: 0,
       addTask: (name: string, failTask: () => void, startFailed?: boolean) => {
-        this.selfCare.tasks[name] = new SCTask(failTask, startFailed)
+        this.selfCare.tasks[name] = new SelfCareTask(failTask, startFailed)
       }
     }
     this.serverChat = {

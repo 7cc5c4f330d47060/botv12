@@ -1,4 +1,4 @@
-export default class SCTask {
+export default class SelfCareTask {
   failTask: () => void
   failed: boolean
 
