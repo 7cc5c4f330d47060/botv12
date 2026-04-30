@@ -17,12 +17,14 @@ export default class AboutBotSubcommand extends Command {
           { text: version.botAuthor, color: '$primary' }
         ]
       })
+      
       c.reply({
-        text: 'command.about.version',
+        text: 'command.about.version.withCodeName',
         parseLang: true,
         color: '$secondary',
         with: [
-          { text: versionUtil, color: '$primary' }
+          { text: versionUtil, color: '$primary' },
+          { text: version.botCodename, color: '$primary' }
         ]
       })
       for (const item of version.newCopyright) {
