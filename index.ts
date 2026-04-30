@@ -111,7 +111,9 @@ const loadPlugins = async () => {
     }
     try {
       if (debugMode) console.debug(`[debug] Loading plugin ${plugin}...\x1b[0m`)
+      const startTimePlugin = Date.now()
       const pluginItem = await import(`./plugins/${plugin}`)
+      if (debugMode) console.debug(`[debug] Loaded ${plugin} in ${Date.now() - startTimePlugin}ms\x1b[0m`)
       plugins.push(pluginItem.default) // For rejoining
       if (plugins.length === bpl.length) {
         startBot()
