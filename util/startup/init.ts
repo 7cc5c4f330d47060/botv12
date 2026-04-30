@@ -40,12 +40,11 @@ ha()
 if (!(await exists(dataDir))) await mkdir(dataDir)
 
 // Migration scripts to run before settings loading
-import migrate_alpha6_data from './migration/alpha6-data.js'
-import migrate_alpha7_jsonsettings from './migration/alpha7-json-settings.js'
+import migrateAlpha6Data from './migration/alpha6-data.js'
+import migrateAlpha7JsonSettings from './migration/alpha7-json-settings.js'
 
-
-await migrate_alpha6_data()
-await migrate_alpha7_jsonsettings()
+await migrateAlpha6Data()
+await migrateAlpha7JsonSettings()
 
 if (!exists(resolve(dataDir, 'settings.json'))) {
   console.log('[info] Settings file is missing, using defaults.')
@@ -61,12 +60,12 @@ globalThis.debugMode = settings.debugMode || globalThis.debugMode
 // Migration scripts to run after settings loading
 import migrateBotvXSettings from './migration/botvX-settings.js'
 import migrateAlpha6SettingsV3 from './migration/alpha6-settings-3.js'
-import migrate_alpha7_settings4 from './migration/alpha7-settings-4.js'
 import migrateAlpha8SettingsV5 from './migration/alpha8-settings-5.js'
+import migrateAlpha7SettingsV4 from './migration/alpha7-settings-4.js'
 
 await migrateBotvXSettings()
 await migrateAlpha6SettingsV3()
-await migrate_alpha7_settings4()
+await migrateAlpha7SettingsV4()
 await migrateAlpha8SettingsV5()
 
 if (settings !== JSON.parse(settingsData)) writeFile(resolve(dataDir, 'settings.json'), JSON.stringify(settings, null, '  '))

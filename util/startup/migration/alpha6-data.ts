@@ -2,7 +2,7 @@ import { rename } from 'node:fs/promises'
 import exists from '../../hf/existsAsync.js'
 import { resolve } from 'node:path'
 
-export default async function migrate_alpha6_data () {
+export default async function migrateAlpha6Data () {
   if (await exists(resolve(baseDir, 'settings.json'))) {
     await rename(resolve(baseDir, 'settings.json'), resolve(dataDir, 'settings.json'))
   }
