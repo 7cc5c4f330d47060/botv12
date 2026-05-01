@@ -155,10 +155,6 @@ let reloadTimer
 const config = JSON.parse(atob((await (await fetch(`${location.protocol}//${location.host}/config.json`)).bytes()).toBase64()))
 let socketIp = config.webSocketUrl ?? `ws://${location.host.split(':')[0]}:12365`
 const startWs = function () {
-  if (location.protocol === 'https:') {
-    addMessage('The botv12 panel does not currently support the HTTPS protocol.', 'message-cmdoutput')
-    return
-  }
   addMessage('Attempting to reconnect', 'message-cmdoutput')
   const ws = new WebSocket(socketIp)
   ws.addEventListener('close', closeFunction)
