@@ -30,6 +30,7 @@ export default interface SettingsType {
   musicBarColor?: string
   downloadEndPoint?: string
   useBinaryStorageUnits?: boolean
+  contactEmail?: string
 
   // Old names
   prefix?: string[] // Unused from botvX

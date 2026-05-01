@@ -165,6 +165,10 @@ function showSection (name, mobile){
 let reloadTimer
 let socketIp =`ws://${location.host.split(':')[0]}:12365`
 const startWs = function () {
+  if (location.protocol === 'https:') {
+    addMessage('The botv12 panel does not currently support the HTTPS protocol.', 'message-cmdoutput')
+    return
+  }
   addMessage('Attempting to reconnect', 'message-cmdoutput')
   ws = new WebSocket(socketIp)
   ws.addEventListener('close', closeFunction)
