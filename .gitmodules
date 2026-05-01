@@ -1,3 +1,3 @@
 [submodule "util/protocol"]
 	path = util/protocol
-	url = ssh://git@codeberg.org/7cc5c4f330d47060/node-minecraft-protocol.git
+	url = https://codeberg.org/7cc5c4f330d47060/node-minecraft-protocol.git

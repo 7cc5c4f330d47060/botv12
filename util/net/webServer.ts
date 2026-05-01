@@ -9,6 +9,8 @@ const fileFormats: Record<string, string> = {
   html: 'text/html; charset=utf-8',
   htm: 'text/html; charset=utf-8',
   css: 'text/css; charset=utf-8',
+  json: 'application/json; charset=utf-8',
+  js: 'text/javascript; charset=utf-8',
   _other: 'application/octet-stream'
 }
 const four04Path = resolve(baseDir, 'util', 'net', 'ubot-panel', '404.html')
@@ -27,8 +29,10 @@ export default function createServer2 () {
         statusCode = 301
       } else if (partialUrl === 'config.json') {
         output = JSON.stringify({
-
+          webSocketUrl: settings.webSocketUrl ?? 'ws://localhost:12365'
         })
+        fileType = fileFormats.json
+        statusCode = 200
       } else if (partialUrl === 'privacypolicy.html') {
         const html = (await readFile(resolve(baseDir, 'util', 'net', 'ubot-panel', 'resources', 'pp', 'pp_base.html'))).toString('utf8')
         let text = (await readFile(resolve(baseDir,'util', 'net', 'ubot-panel', 'resources', 'pp', 'pp_text.html'))).toString('utf8')
@@ -55,8 +59,8 @@ export default function createServer2 () {
         text = text.replaceAll('<!-- botName -->', version.botName)
         text = text.replaceAll('<!-- PP General Email -->', settings.contactEmail ?? '(<code>contactEmail</code> not set)')
         output = html.replace('<!-- PP Content -->', text)
-        fileType = 'text/html; charset=utf-8'
-        if (statusCode === 500) statusCode = 200
+        fileType = fileFormats.html
+        statusCode = 200
       } else if (partialUrl === 'resources/theme-default.css') {
         fileType = fileFormats.css
         const fullUrl = resolve(baseDir, 'util', 'net', 'ubot-panel', 'resources', `theme-${settings.webTheme ?? 'dark'}.css`)

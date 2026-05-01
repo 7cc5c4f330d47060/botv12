@@ -58,17 +58,6 @@ const closeContextMenu = (data, e) => {
   document.getElementById('contextMenu2').style.display="none"
 }
 
-onload = () => {
-  startWs()
-  initWindow(false)
-  //createWindow('base', 'main_normal', 1000, 500, 'Test Window for N3CL WM', '')
-  document.body.onmousedown = (e) => {
-    if(!document.getElementById('contextMenu2').contains(e.target)) {
-      closeContextMenu()
-    }
-  }
-}
-
 function addPlayer (server, uuid, data) {
   if(!serverElements[server]) {
     const element2 = document.createElement('div')
@@ -163,14 +152,15 @@ function showSection (name, mobile){
   closeSidebar()
 }
 let reloadTimer
-let socketIp =`ws://${location.host.split(':')[0]}:12365`
+const config = JSON.parse(atob((await (await fetch(`${location.protocol}//${location.host}/config.json`)).bytes()).toBase64()))
+let socketIp = config.webSocketUrl ?? `ws://${location.host.split(':')[0]}:12365`
 const startWs = function () {
   if (location.protocol === 'https:') {
     addMessage('The botv12 panel does not currently support the HTTPS protocol.', 'message-cmdoutput')
     return
   }
   addMessage('Attempting to reconnect', 'message-cmdoutput')
-  ws = new WebSocket(socketIp)
+  const ws = new WebSocket(socketIp)
   ws.addEventListener('close', closeFunction)
   ws.addEventListener('open', () => {
     document.getElementById('playerContent').innerHTML=''
@@ -211,4 +201,12 @@ const startWs = function () {
       delete serverElements[json.data.server]
     }
   })
+}
+
+startWs()
+initWindow(false)
+document.body.onmousedown = (e) => {
+  if(!document.getElementById('contextMenu2').contains(e.target)) {
+    closeContextMenu()
+  }
 }

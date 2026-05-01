@@ -31,6 +31,7 @@ export default interface SettingsType {
   downloadEndPoint?: string
   useBinaryStorageUnits?: boolean
   contactEmail?: string
+  webSocketUrl?: string
 
   // Old names
   prefix?: string[] // Unused from botvX
