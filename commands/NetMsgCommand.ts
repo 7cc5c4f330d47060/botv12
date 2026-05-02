@@ -30,6 +30,7 @@ export default class NetMsgCommand extends Command {
 
       const json: TextFormat = {
         text: '[%s] %s › %s',
+        color: '$secondary',
         with: [
           { text: c.bot.host?.options.name ?? 'console', color: '$primary' },
           { text: c.username, color: '$primary' },
@@ -38,6 +39,7 @@ export default class NetMsgCommand extends Command {
       }
       bots.forEach(item => {
         if (item.host.options.netmsgIncomingDisabled && c.type !== 'console') return
+        if (item.host.options.netmsgChannel !== c.bot.host?.options.netmsgChannel && c.type !== 'console') return
         item.commandCore.tellraw('@a', build(json, c.colors, 'white', c.lang))
       })
     }

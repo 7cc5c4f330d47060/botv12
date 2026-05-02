@@ -18,6 +18,7 @@ export default interface HostOptions {
     password?: string
     authServer?: string
     sessionServer?: string,
-    session?: SessionOption
+    session?: SessionOption,
+    netmsgChannel?: string
   }
 }

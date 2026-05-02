@@ -8,19 +8,20 @@ import Botv12Client from '../util/game/Botv12Client.js'
 import { getMessage } from '../util/text/lang.js'
 import type JsonFormat from '../util/interface/JsonFormat.js'
 import botByName from '../util/hf/botByName.js'
+import version from '../version.js'
 
 const consoleBotStub = {
   host: {
-    host: 'bot console',
-    port: 25565,
+    host: version.botName,
+    port: -1,
     options: {
-      name: 'Steam Deck\u2122'
+      name: version.botName
     }
   },
   commandCore: { tellraw: (_unused: string, data: JsonFormat | string) => console.log(parse3(data, settings.terminalMode)) }
 }
 const uuid = '01234567-89ab-cdef-0123-456789abcdef'
-const user = userInfo().username // OS user the bot is running as
+const user = version.botAuthor
 const nick = user
 
 const rl = createInterface({

@@ -4,6 +4,7 @@ import build from '../../text/messageBuilder.js'
 import type TextFormat from '../../interface/TextFormat.js'
 import type NewArgumentFormat from '../../interface/NewArgumentFormat.js'
 import chatparse from '../chat/jsonparse.js'
+import type HostOptions from '../../interface/HostOptions.js'
 
 interface ClientStub {
   _client?: {
@@ -16,13 +17,7 @@ interface ClientStub {
     tellraw: (uuid: string, text: JsonFormat | string) => void
   }
   id?: number,
-  host?: {
-    host: string,
-    port: number,
-    options: {
-      name: string
-    }
-  }
+  host?: HostOptions
 }
 
 interface NewArgumentOutItem {
