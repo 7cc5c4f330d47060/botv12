@@ -55,6 +55,7 @@ let versionSet = false
 switch (action) {
   case 'tag': {
     tag = true
+    break
   }
   case 'ml': { // Toggle mainline section
     newMl = !newMl
@@ -62,7 +63,7 @@ switch (action) {
   }
   case 'prTypeAndTag': {
     tag = true
-  } // falls through  
+  } // falls through
   case 'prType': { // Switch prType
     newPrMinor = 1
     newPrPatch = 0

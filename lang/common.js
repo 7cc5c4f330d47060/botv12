@@ -17,7 +17,7 @@ export default {
     'unit.storage.exbibyte': 'EiB',
     'unit.storage.zettabyte': 'ZB',
     'unit.storage.zebibyte': 'ZiB',
-    
+
     // Command Strings
     'command.music.queueItem': '%s - %s',
     'command.about.versionCmd.generic': '%s: %s',

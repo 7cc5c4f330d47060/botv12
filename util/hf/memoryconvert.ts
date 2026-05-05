@@ -1,4 +1,4 @@
-import { getMessage } from "../text/lang.js";
+import { getMessage } from '../text/lang.js'
 
 const units1024 = [
   'byte',
@@ -20,7 +20,7 @@ const units1000 = [
   'exabyte',
   'zettabyte'
 ]
-const length = 8;
+const length = 8
 
 export default function memoryconvert (bytes: number) {
   const bsu = settings.useBinaryStorageUnits

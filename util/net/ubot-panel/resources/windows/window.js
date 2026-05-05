@@ -1,17 +1,17 @@
 // Based on name3.chipland version. Useless features removed.
 let commonLoaded = false
-const loadStyleSheet = function(name){
-  const ss = document.createElement("link")
-  ss.rel="stylesheet"
-  ss.href=`../resources/windows/${name}.css`
+const loadStyleSheet = function (name) {
+  const ss = document.createElement('link')
+  ss.rel = 'stylesheet'
+  ss.href = `../resources/windows/${name}.css`
   document.head.appendChild(ss)
 }
-const themes = {};
-window.loadTheme = function(name, extras){
-  themes[name] = [ name ];
-  if(extras) for(const item of extras) themes[name].push(item)
-  if(!commonLoaded){
-    loadStyleSheet(`common`);
+const themes = {}
+window.loadTheme = function (name, extras) {
+  themes[name] = [name]
+  if (extras) for (const item of extras) themes[name].push(item)
+  if (!commonLoaded) {
+    loadStyleSheet('common')
     commonLoaded = true
   }
   loadStyleSheet(`${name}/buttons`)
@@ -24,26 +24,26 @@ window.setTheme = (windows, theme) => {
   const classList = document.getElementById(`window_${windows}_bg`).classList
   const removeList = []
   classList.forEach(item => { if (item.startsWith('theme')) removeList.push(item) })
-  for(const item of removeList) classList.remove(item)
-  for(const themeItem of themes[theme]) classList.add(`theme_${themeItem}`)
+  for (const item of removeList) classList.remove(item)
+  for (const themeItem of themes[theme]) classList.add(`theme_${themeItem}`)
 }
 
 const initWindow = (allThemes) => {
   // Load theme~~s~~
-  loadTheme("main_normal")
+  loadTheme('main_normal')
 }
 
 // Modal Mode
-window.setModalMode = function(name, mode){
-  if(mode){
+window.setModalMode = function (name, mode) {
+  if (mode) {
     document.getElementById(`window_${name}_bg`).classList.add('modal')
   } else {
     document.getElementById(`window_${name}_bg`).classList.remove('modal')
   }
 }
 
-window.setFastMode = function(mode){
-  if(mode){
+window.setFastMode = function (mode) {
+  if (mode) {
     document.body.classList.add('fastMode')
   } else {
     document.body.classList.remove('fastMode')
@@ -51,36 +51,36 @@ window.setFastMode = function(mode){
 }
 
 // Window creation
-const createWindow=function (name, theme, sizeX, sizeY, title, htmlContent){
+const createWindow = function (name, theme, sizeX, sizeY, title, htmlContent) {
   // Element creation
-  const overcbBG = document.createElement("div")
-  const overcbCC = document.createElement("div")
-  const overcbC = document.createElement("div")
-  const overcb = document.createElement("div")
-  const overlay = document.createElement("div")
-  const windowTitleContainer = document.createElement("div")
-  const windowTitleContent = document.createElement("div")
-  const windowContentOuterContainer = document.createElement("div")
-  const windowContentInnerContainer = document.createElement("div")
-  const windowContent = document.createElement("div")
-  const buttons = document.createElement("div")
-  const buttonCloseContainer = document.createElement("div")
-  const buttonClose = document.createElement("div")
-  const buttonCloseContent = document.createElement("div")
+  const overcbBG = document.createElement('div')
+  const overcbCC = document.createElement('div')
+  const overcbC = document.createElement('div')
+  const overcb = document.createElement('div')
+  const overlay = document.createElement('div')
+  const windowTitleContainer = document.createElement('div')
+  const windowTitleContent = document.createElement('div')
+  const windowContentOuterContainer = document.createElement('div')
+  const windowContentInnerContainer = document.createElement('div')
+  const windowContent = document.createElement('div')
+  const buttons = document.createElement('div')
+  const buttonCloseContainer = document.createElement('div')
+  const buttonClose = document.createElement('div')
+  const buttonCloseContent = document.createElement('div')
 
   /* Element parameters */
-  overcbBG.classList.add("window_background")
+  overcbBG.classList.add('window_background')
   overcbBG.classList.add(`theme_${theme}`)
-  overcbCC.classList.add("overcb_cc")
-  overcbC.classList.add("overcb_c")
-  overcb.classList.add("overcb")
-  overlay.classList.add("overlay")
+  overcbCC.classList.add('overcb_cc')
+  overcbC.classList.add('overcb_c')
+  overcb.classList.add('overcb')
+  overlay.classList.add('overlay')
 
-  windowTitleContainer.classList.add("title")
-  windowTitleContent.classList.add("title_content")
-  windowContentOuterContainer.classList.add("content")
-  windowContentInnerContainer.classList.add("content_real")
-  windowContent.classList.add("content_real2")
+  windowTitleContainer.classList.add('title')
+  windowTitleContent.classList.add('title_content')
+  windowContentOuterContainer.classList.add('content')
+  windowContentInnerContainer.classList.add('content_real')
+  windowContent.classList.add('content_real2')
 
   overcbBG.id = `window_${name}_bg`
 
@@ -90,7 +90,7 @@ const createWindow=function (name, theme, sizeX, sizeY, title, htmlContent){
   overcbCC.style.width = `${sizeX}px`
   overcbCC.style.height = `${sizeY}px`
 
-  buttons.classList.add("buttons")
+  buttons.classList.add('buttons')
 
   windowTitleContent.innerHTML = title
 
@@ -108,14 +108,14 @@ const createWindow=function (name, theme, sizeX, sizeY, title, htmlContent){
   overcbC.appendChild(buttons)
   overcbC.appendChild(overcb)
 
-  buttons.classList.add("buttons")
-  buttonCloseContainer.classList.add("buttonClose_c","windowButton_c")
+  buttons.classList.add('buttons')
+  buttonCloseContainer.classList.add('buttonClose_c', 'windowButton_c')
 
-  buttonClose.classList.add("buttonClose","windowButton")
+  buttonClose.classList.add('buttonClose', 'windowButton')
   buttonClose.onclick = event => document.body.removeChild(document.getElementById(overcbBG.id))
-  buttonClose.title = "Close"
+  buttonClose.title = 'Close'
 
-  buttonCloseContent.classList.add("buttonClose_real","windowButton_real")
+  buttonCloseContent.classList.add('buttonClose_real', 'windowButton_real')
   buttonClose.appendChild(buttonCloseContent)
 
   buttonCloseContainer.appendChild(buttonClose)

@@ -58,7 +58,7 @@ export default class MusicCommand extends Command {
             text: 'command.music.addToQueue',
             parseLang: true,
             color: '$secondary',
-            with: [{text: c.args.join(' '), color: '$primary'}]
+            with: [{ text: c.args.join(' '), color: '$primary' }]
           })
           break
         }

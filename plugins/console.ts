@@ -2,8 +2,6 @@ import { createInterface, cursorTo, clearLine } from 'node:readline'
 import registry from '../util/game/botcmd/commands.js'
 import CommandContext from '../util/game/botcmd/CommandContext.js'
 import parse3 from '../util/game/chat/jsonparse.js'
-import { userInfo } from 'node:os'
-
 import Botv12Client from '../util/game/Botv12Client.js'
 import { getMessage } from '../util/text/lang.js'
 import type JsonFormat from '../util/interface/JsonFormat.js'

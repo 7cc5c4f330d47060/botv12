@@ -35,21 +35,21 @@ export default function createServer2 () {
         statusCode = 200
       } else if (partialUrl === 'privacypolicy.html') {
         const html = (await readFile(resolve(baseDir, 'util', 'net', 'ubot-panel', 'resources', 'pp', 'pp_base.html'))).toString('utf8')
-        let text = (await readFile(resolve(baseDir,'util', 'net', 'ubot-panel', 'resources', 'pp', 'pp_text.html'))).toString('utf8')
+        let text = (await readFile(resolve(baseDir, 'util', 'net', 'ubot-panel', 'resources', 'pp', 'pp_text.html'))).toString('utf8')
         let owShown = false
         if (!settings.disableChatLogging && !settings.disableLogging) {
-          if(!owShown) owShown = true
-          text = 'For compliance with the below content, <code>disableChatLogging</code> or '+
+          if (!owShown) owShown = true
+          text = 'For compliance with the below content, <code>disableChatLogging</code> or ' +
           '<code>disableLogging</code> must be enabled in settings.<br>\n' + text
         }
         if (!settings.disableCommandLogging && !settings.disableLogging) {
-          if(!owShown) owShown = true
-          text = 'For compliance with the below content, <code>disableCommandLogging</code> or '+
+          if (!owShown) owShown = true
+          text = 'For compliance with the below content, <code>disableCommandLogging</code> or ' +
           '<code>disableLogging</code> must be enabled in settings.<br>\n' + text
         }
         if (!settings.contactEmail) {
-          if(!owShown) owShown = true
-          text = 'For compliance with the below content, <code>contactEmail</code> must be set in '+
+          if (!owShown) owShown = true
+          text = 'For compliance with the below content, <code>contactEmail</code> must be set in ' +
           'settings.<br>\n' + text
         }
         if (owShown) {

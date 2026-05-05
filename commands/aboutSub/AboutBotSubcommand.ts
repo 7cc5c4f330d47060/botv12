@@ -17,7 +17,7 @@ export default class AboutBotSubcommand extends Command {
           { text: version.botAuthor, color: '$primary' }
         ]
       })
-      
+
       c.reply({
         text: 'command.about.version.withCodeName',
         parseLang: true,
