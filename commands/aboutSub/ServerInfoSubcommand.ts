@@ -148,7 +148,7 @@ export default class ServerInfoSubcommand extends Command {
       c.reply({
         text: 'command.about.serverInfo.systemInfoHeader',
         parseLang: true,
-        color: '$secondary' // Aqua is temporary until colors are re-added to settings
+        color: '$secondary'
       })
 
       // Operating system
