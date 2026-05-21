@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import type SettingsType from '../interface/SettingsType.js'
 import { resolve } from 'node:path'
 declare global {
@@ -10,10 +11,8 @@ globalThis.baseDir = process.cwd()
 globalThis.dataDir = resolve(baseDir, 'data')
 globalThis.dbEnabled = false
 
-import(resolve(dataDir, 'settings.js')).then(async settingsFile => {
-  globalThis.settings = settingsFile.default
-  run()
-})
+const settingsData = (await readFile(resolve(dataDir, 'settings.json'))).toString('utf-8')
+globalThis.settings = JSON.parse(settingsData)
 
 async function run () {
   const db = await import('./database.js')
@@ -34,3 +33,5 @@ async function run () {
   )`)
   if (db.pool) db.pool.end()
 }
+
+await run();

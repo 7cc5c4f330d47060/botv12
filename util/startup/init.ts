@@ -46,7 +46,7 @@ import migrateAlpha7JsonSettings from './migration/alpha7-json-settings.js'
 await migrateAlpha6Data()
 await migrateAlpha7JsonSettings()
 
-if (!exists(resolve(dataDir, 'settings.json'))) {
+if (!(await exists(resolve(dataDir, 'settings.json')))) {
   console.log('[info] Settings file is missing, using defaults.')
   copyFile(resolve(baseDir, 'settings_example.json'), resolve(dataDir, 'settings.json'))
 }

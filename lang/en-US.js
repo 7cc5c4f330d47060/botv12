@@ -285,7 +285,7 @@ export default {
     'debug.commandFinished': 'Command successfully executed in %sms',
     'downloader.tooLarge': 'File is too large (max file size: 64MiB)',
     'bf.true1': 'Enabled',
-    'bf.false1': 'Disabled',r
+    'bf.false1': 'Disabled',
 
     'updater.downloading': 'Downloading update...',
     'updater.installing': 'Installing update...'
