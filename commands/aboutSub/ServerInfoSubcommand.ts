@@ -95,7 +95,11 @@ const os2 = async function (o2: string, lang: string) {
           swvers2[key] = item.split(':\t')[1]
         }
         if (!swvers2.ProductName || !swvers2.ProductVersion || !swvers2.BuildVersion) return ''
-        return getMessage(lang, '%s %s (%s)', [swvers2.ProductName, swvers2.ProductVersion, swvers2.BuildVersion])
+        return getMessage(lang, '%s %s (%s)', [
+          swvers2.ProductName.replaceAll('\t', ''),
+          swvers2.ProductVersion.replaceAll('\t', ''),
+          swvers2.BuildVersion.replaceAll('\t', '')
+        ])
       } catch (e) {
         if (debugMode) console.error(e)
         return getMessage(lang, 'command.about.serverInfo.os.macos')
