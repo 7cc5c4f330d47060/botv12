@@ -9,9 +9,11 @@ if (botVersion.prType) {
   if (botVersion.prPatch) versionString += `.${botVersion.prPatch}`
 }
 if (await exists('.git')) {
-  const gitCommit = execSync(`git -C ${baseDir} rev-parse --short HEAD`).toString('utf8').split('\n')[0]
-  const gitBranch = execSync(`git -C ${baseDir} rev-parse --abbrev-ref HEAD`).toString('utf8').split('\n')[0]
-  versionString += ` (${gitCommit} - ${gitBranch})`
+  try {
+    const gitCommit = execSync(`git -C ${baseDir} rev-parse --short HEAD`).toString('utf8').split('\n')[0]
+    const gitBranch = execSync(`git -C ${baseDir} rev-parse --abbrev-ref HEAD`).toString('utf8').split('\n')[0]
+    versionString += ` (${gitCommit} - ${gitBranch})`
+  } catch {}
 }
 
 export default versionString
