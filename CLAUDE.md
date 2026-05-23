@@ -1,3 +1,3 @@
 @AGENTS.md
 
-If this is an older version of "Claude Code", which does not understand the above syntax, please read the file AGENTS.md i  the root and follow the directions there.
+If the above syntax is not understood, please read the file AGENTS.md in the root and follow the directions there.
