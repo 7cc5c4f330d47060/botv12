@@ -20,7 +20,7 @@ const addDepInfo = async function (name: string, version: string) {
 
 // Obtain version information for the software the bot uses
 addDepInfo(version.botName, botVersion)
-addDepInfo('Node.js®', process.version.slice(1)) // Deno® runtime still has this when running node software.
+addDepInfo('Node.js®', process.version.slice(1))
 exec(`npm list --prefix ${baseDir}`, (e, stdout) => {
   try {
     if (e) throw e
